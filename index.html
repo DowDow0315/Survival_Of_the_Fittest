@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <br><br>
+    <title>Survival Of the Fittest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+        <!--사이드바-->
+    <div class="sidebar" id="sidebar">
+        <button class="toggle-btn"onclick="toggleSidebar()" id="toggleBtn">◀</button>
+
+        <div class="sidebar-content">
+        <h2 class="sidebar-title">Survival of The Fittest</h2>
+
+    <div class="status-box">
+        <h3>캐릭터 상태</h3>
+        <div id="characterStatus">
+            <!--나중에 상태창 넣기-->
+        </div>
+    </div>
+
+    <div class="sidebar-buttons">
+        <button onclick="saveGame()">세이브</button>
+        <button onclick="openSaveSlotModal()">로드</button>
+    </div>
+    </div>
+   </div>
+
+    <!--메인화면-->
+    <div class="main-content">
+    <h1>Survival of The Fittest</h1>
+    <h2>적자생존</h2>
+    <br><br>
+
+<!--주의사항 박스-->
+    <div class="warning-box">
+    <h3 class="warning-title">주의사항</h3>
+    <ol>
+        <li>본 게임은 <strong>미성년자의 출입</strong>을 금합니다.</li>
+        <li>본 게임은 <strong>강압적</strong>인 요소와 <strong>하드코어</strong>한 내용이 들어가있습니다.<br>대상에 따라 불쾌감을 느낄 수 있는 요소가 있으니, <br> 착한 유저들은 지금이라도 뒤로가기를 눌러주시길 바랍니다.</li>
+        <li>본 게임은 개발중인 게임입니다.</li>
+    </ol>
+</div>
+
+    <br><br>
+    <strong><em>주의사항에 동의하시고, 게임을 시작하시겠습니까?</em></strong>
+    <!--버튼-->
+    <br><br>
+    <button class="choice yes"onclick="startCustom()">새 게임</button>
+    <button class="choice load"onclick="openSaveSlotModal()">불러오기</button>
+    <button class="choice no"onclick="goBack()">아니오</button>
+    </div>
+   
+   
+    <!--스타일-->
+    <style>
+        /*기본*/
+        body{
+            background-color:black;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            font-family: 'Arial';
+            text-align: center;
+        }
+        .main-content{
+            flex: 1;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1{
+            color:crimson;
+            font-family: 'Arial';
+        }
+        h2{
+            color:white;
+            font-family:'Arial';
+        }
+        .choice {
+            padding: 12px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 80px;
+        }
+        .yes {background-color: green;}
+        .load {background-color: blue}
+        .no {background-color: red;}
+
+        /*주의사항 박스*/
+        .warning-box {
+            border: 2px solid darkolivegreen; /*테두리*/
+            padding: 20px;
+            width: 60%;
+            margin: 20px auto;
+            color:darkgreen;
+            text-align: left;
+            background-color: white;
+            border-radius: 80px; /*모서리 둥글게*/
+            font-family: 'Nanum Gothic';
+        }
+        .warning-box .warning-title{
+            text-align: center;
+            margin-bottom: 15px;
+            color: rgb(248, 5, 5);
+            font-family: 'Nanum Gothic';
+        }
+
+        /*사이드바*/
+        .sidebar{
+            width: 260px;
+            min-height: 100vh;
+            background-color: black;
+            border-right: 2px solid white;
+            padding: 20px;
+            box-sizing: border-box;
+            color: white;
+            position: relative;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+
+        .sidebar-title{
+            color:darkred;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .status-box{
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: darkslategray;
+        }
+
+        .status-box h3{
+            margin-top: 0;
+            text-align: center;
+            color: white;
+        }
+
+        .sidebar-buttons{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-buttons button{
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .sidebar-buttons button:hover{
+            background-color: darkgreen;
+        }
+
+        .toggle-btn{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 10;            
+        }
+
+        .sidebar.closed{
+            width: 50px;
+            padding: 20px 10px;
+        }
+
+        .sidebar.closed .sidebar-content{
+            display: none;
+        }
+
+
+        .save-slot-modal{
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,0.76);
+            box-sizing: border-box;
+        }
+        .save-slot-window{
+            width: min(520px, 100%);
+            background: #151515;
+            color: #fff;
+            border: 1px solid #777;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.55);
+        }
+        .save-slot-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .save-slot-header h3{ margin: 0; }
+        .save-slot-close{
+            width: 34px; height: 34px; min-width: 34px;
+            margin: 0; padding: 0; border-radius: 999px;
+            background: #292929; color: #fff; border: 1px solid #666;
+            font-size: 20px; cursor: pointer;
+        }
+        .save-slot-list{ display: grid; gap: 10px; }
+        .save-slot-card{
+            display: grid; grid-template-columns: 86px 1fr; gap: 4px 12px;
+            width: 100%; margin: 0; padding: 14px; text-align: left;
+            border-radius: 14px; border: 1px solid #555; background: #1b1b1b;
+            color: #fff; cursor: pointer;
+        }
+        .save-slot-card:hover{ border-color: #aaa; background: #242424; }
+        .save-slot-number{ grid-row: span 3; align-self: center; font-weight: 800; color: #ffd27d; }
+        .save-slot-name{ font-weight: 700; }
+        .save-slot-meta{ color: #c8c8c8; font-size: 12px; }
+
+    </style>
+
+
+    <script>
+        function startCustom(){window.location.href="customize.html";}
+
+        const SAVE_SLOT_COUNT = 5;
+
+        function getSaveSlotKey(slot){
+            return `sotfSaveSlot${slot}`;
+        }
+
+        function getSaveSlotData(slot){
+            const raw = localStorage.getItem(getSaveSlotKey(slot));
+            if (!raw) return null;
+            try { return JSON.parse(raw); }
+            catch (error){ return { broken: true }; }
+        }
+
+        function formatSaveDate(iso){
+            if (!iso) return "저장 시간 없음";
+            const date = new Date(iso);
+            if (Number.isNaN(date.getTime())) return iso;
+            return date.toLocaleString("ko-KR", { year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+        }
+
+        function openSaveSlotModal(){
+            const list = document.getElementById("saveSlotList");
+            list.innerHTML = "";
+            for (let slot = 1; slot <= SAVE_SLOT_COUNT; slot++){
+                const data = getSaveSlotData(slot);
+                const btn = document.createElement("button");
+                btn.className = "save-slot-card";
+                btn.innerHTML = `
+                    <span class="save-slot-number">SLOT ${slot}</span>
+                    <span class="save-slot-name">${data?.playerData?.name || "빈 슬롯"}</span>
+                    <span class="save-slot-meta">${data?.broken ? "손상된 세이브" : (data ? formatSaveDate(data.savedAt) : "저장 데이터 없음")}</span>
+                    <span class="save-slot-meta">위치: ${data?.playerData?.location || data?.playerData?.locationId || "-"}</span>
+                `;
+                btn.onclick = () => loadGame(slot);
+                list.appendChild(btn);
+            }
+            document.getElementById("saveSlotModal").style.display = "flex";
+        }
+
+        function closeSaveSlotModal(){
+            document.getElementById("saveSlotModal").style.display = "none";
+        }
+
+        function loadGame(slot) {
+            const slotData = getSaveSlotData(slot);
+            if (!slotData || slotData.broken || !slotData.playerData) {
+                alert(`슬롯 ${slot}에 저장된 데이터가 없습니다.`);
+                return;
+            }
+
+            localStorage.setItem("playerData", JSON.stringify(slotData.playerData));
+            if (slotData.npcData) {
+                localStorage.setItem("npcData", JSON.stringify(slotData.npcData));
+            } else {
+                localStorage.removeItem("npcData");
+            }
+            window.location.href="game.html";
+        }
+
+        function goBack(){
+            alert("게임을 종료합니다.");
+            window.close();
+        }
+
+        function saveGame(){
+
+        }
+
+
+        function toggleSidebar(){
+            const sidebar=document.getElementById("sidebar");
+            const btn=document.getElementById("toggleBtn");
+
+            sidebar.classList.toggle("closed");
+
+            if(sidebar.classList.contains("closed")){
+                btn.innerText = "▶";
+            } else {
+                btn.innerText="◀";
+            }
+        }
+    </script>
+
+
+
+    <div id="saveSlotModal" class="save-slot-modal" style="display:none;">
+        <div class="save-slot-window">
+            <div class="save-slot-header">
+                <h3>불러올 슬롯 선택</h3>
+                <button class="save-slot-close" onclick="closeSaveSlotModal()">×</button>
+            </div>
+            <div id="saveSlotList" class="save-slot-list"></div>
+        </div>
+    </div>
+
+</body>
+</html>

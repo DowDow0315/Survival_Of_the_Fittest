@@ -1,0 +1,953 @@
+const LOCATION_SCENE_BUILDERS = {
+    shop: buildShopScene,
+    shelter: buildShelterScene,
+    tavern : buildTavernScene,
+    forest : buildForestScene,
+    deepForest : buildDeepForestScene,
+    banditForest : buildBanditForestScene,
+    graveyard : buildGraveyardScene,
+    goblinCave : buildGoblinCaveScene,
+    richTownEntrance : buildRichTownEntranceScene,
+    gloryHole: getGloryHoleScene
+};
+
+function getLocationScene(player){
+    if (player.dungeon?.active && typeof buildDungeonScene === "function"){
+        return buildDungeonScene(player);
+    }
+
+    if (player.flags?.pendingArousalRelease){
+        return buildArousalReleaseScene(player, false);
+    }
+
+    const loc = LOCATIONS[player.location];
+    const timeKey = getTimeKey(player);
+    const randomDesc = pickRandom(loc.desc[timeKey]);
+
+    if (player.location === "subway"){
+        return getSubwayScene(player, loc, randomDesc);
+    }
+
+    const builder = LOCATION_SCENE_BUILDERS[player.location];
+
+    if (builder){
+        return builder(player, loc, randomDesc);
+    }
+
+    return buildDefaultLocationScene(player, loc, randomDesc);
+}
+
+function buildDefaultLocationScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>어디로 갈까?`
+        },
+        {
+            type: "choice",
+            choices: Object.keys(loc.connections).map(dest => ({
+                text: `${LOCATIONS[dest].name}로 이동한다.`,
+                action: "move_" + dest
+            }))
+        }
+    ];
+}
+
+function buildShopScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "쇼핑", action: "open_soraShop" },
+                { text: "소라와 대화", action: "sora_talk" },
+                { text: "나가기", action: "move_townStreet" }
+            ]
+        }
+    ];
+}
+
+function buildShelterScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "자기", action: "sleep" },
+                { text : "잠깐 쉬기", action : "rest"},
+                { text: "몸을 정비한다", action: "cleanseBodyFluid" },
+                { text: "침착하게 정신을 다스린다", action: "calmDown" },
+                { text: "유리와 대화", action: "yuri_talk" },
+                { text: "나가기", action: "move_townStreet" }
+            ]
+        }
+    ];
+}
+
+function buildTavernScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>마틴이 카운터 너머에서 당신을 힐끗 본다.<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "퀘스트 게시판을 본다", action: "open_tavernQuests" },
+                { text: "진행 중인 의뢰를 확인한다", action: "open_activeQuest" },
+                { text: "주점 일을 돕는다.", action : "matin_work"},
+                { text: "마틴에게 물건을 산다", action : "open_matinShop"},
+                { text: "마틴과 대화한다", action: "matin_talk" },
+                { text: "침착하게 정신을 다스린다", action: "calmDown" },
+                { text: "나가기", action: "move_townStreet" }
+            ]
+        }
+    ];
+}
+
+function buildForestScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "서치", action: "search" },
+                { text: "자기", action: "sleep" },
+                { text : "잠깐 쉬기", action : "rest"},
+                { text: "깊은곳으로 들어가기", action: "move_deepForest" },
+                { text: "마을입구로 돌아가기", action: "escape_forest" }
+            ]
+        }
+    ];
+}
+
+function buildDeepForestScene(player, loc, randomDesc){
+    const caveVisible = player.flags?.goblin_cave_visible;
+    const canEnterStoryCave =
+      player.quest?.active?.id === "undercity_story_04" &&
+      player.flags?.story_goblin_cave_known &&
+      !player.flags?.undercity_story_04_done;
+
+    const choices = [
+        { text: "서치", action: "search" },
+        { text: "자기", action: "sleep" },
+        { text : "잠깐 쉬기", action : "rest"}
+    ];
+
+    if (caveVisible || canEnterStoryCave){
+        choices.push({
+            text: canEnterStoryCave
+            ? "전에 찾았던 고블린 동굴로 간다"
+            : "고블린 동굴로 간다",
+            action: "move_goblinCave"
+    });
+    
+    if (caveVisible){
+        player.flags.goblin_cave_visible = false;
+        savePlayer(player);
+    }
+    }
+
+    if (player.flags?.undercity_story_05_unlocked){
+        choices.push({
+            text: "도적들이 도망친 숲길을 따라간다",
+            action: "move_banditForest"
+        });
+    }
+
+    choices.push({
+        text: "숲에서 빠져나오기",
+        action: "escape_deepForest"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function buildBanditForestScene(player, loc, randomDesc){
+    const choices = [
+        { text: "주변을 수색한다", action: "search" },
+        { text: "자기", action: "sleep" },
+        { text : "잠깐 쉬기", action : "rest"}
+    ];
+
+    if (
+        player.quest?.active?.id === "undercity_story_06" &&
+        player.flags?.bandit_hideout_found
+    ){
+        choices.push({
+            text: "도적떼 소굴로 간다",
+            action : "move_banditHideout"
+        });
+    }
+
+    choices.push({
+        text: "깊은숲으로 돌아간다",
+        action: "move_deepForest"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+const GRAVEYARD_ROUTE = ["left", "left", "right", "right", "left", "right", "left"];
+
+function initGraveyardState(player){
+    player.graveyard = player.graveyard || {
+        step: 0,
+        cleared: false
+    };
+}
+
+function buildGraveyardScene(player, loc, randomDesc){
+    initGraveyardState(player);
+
+    if (player.graveyard.cleared){
+        return buildGraveyardTreasureScene(player);
+    }
+
+    return [
+        {
+            type: "text",
+            value:
+                `${randomDesc}<br><br>` +
+                `공동묘지 안쪽은 이상할 정도로 안개가 짙다.<br>` +
+                `길은 왼쪽과 오른쪽으로 갈라져 있다.`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "왼쪽으로 나아간다", action: "graveyard_left" },
+                { text: "오른쪽으로 나아간다", action: "graveyard_right" },
+                { text: "주변을 수색한다", action: "search" },
+                { text: "밖으로 나간다", action: "leave_graveyard" }
+            ]
+        }
+    ];
+}
+
+window.graveyard_left = function(player){
+    advanceGraveyard(player, "left");
+};
+
+window.graveyard_right = function(player){
+    advanceGraveyard(player, "right");
+};
+
+window.leave_graveyard = function(player){
+    initGraveyardState(player);
+
+    player.graveyard.step = 0;
+
+    localStorage.setItem("playerData", JSON.stringify(player));
+
+    moveTo(player, "darkStreet");
+};
+
+function advanceGraveyard(player, direction){
+    initGraveyardState(player);
+
+    changeStamina(player, -5);
+    passTime(player, 8);
+
+    const correct = GRAVEYARD_ROUTE[player.graveyard.step] === direction;
+
+    if (correct){
+        player.graveyard.step++;
+
+        if (Math.random() < 0.5){
+            localStorage.setItem("playerData", JSON.stringify(player));
+            startBattle("skeleton", player, {
+                onWin: () => startScene(getLocationScene(player), player),
+                onEscape: () => startScene(getLocationScene(player), player),
+                onLose: () => startScene(getLocationScene(player), player)
+            });
+            return;
+        }
+
+        if (player.graveyard.step >= GRAVEYARD_ROUTE.length){
+            player.graveyard.cleared = true;
+            localStorage.setItem("playerData", JSON.stringify(player));
+            startScene(buildGraveyardTreasureScene(player), player);
+            return;
+        }
+
+        localStorage.setItem("playerData", JSON.stringify(player));
+
+        showSingleTextScene(
+            "주변이 흐릿하긴 하지만 앞으로 나아가고 있는 거 같긴 하다.",
+            player
+        );
+        return;
+    }
+
+    player.graveyard.step = 0;
+    localStorage.setItem("playerData", JSON.stringify(player));
+
+    showSingleTextScene(
+        "뭔가 잘못 간 거 같다.",
+        player
+    );
+}
+
+function buildGraveyardTreasureScene(player){
+    return [
+        {
+            type: "text",
+            value:
+                "안개가 걷히자 공동묘지의 가장 깊은 곳이 드러났다." +
+                " 열리지 않는 석관 앞으로 보물상자 하나가 놓여있다."
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "보물상자를 연다", action: "graveyard_openChest" },
+                { text: "석관을 살펴본다", action: "graveyard_sarcophagus" },
+                { text: "공동묘지 입구로 돌아간다", action: "graveyard_returnEntrance" }
+            ]
+        }
+    ];
+}
+
+window.graveyard_openChest = function(player){
+    if (player.flags?.matinLocketTaken){
+        showSingleTextScene("상자는 이미 비어 있다.", player);
+        return;
+    }
+
+    player.flags = player.flags || {};
+    player.flags.matinLocketTaken = true;
+
+    addItem(player, ITEMS.misc.matinLocket);
+    renderInventoryModal(player);
+
+    showSingleTextScene(
+        "당신은 낡은 보물상자를 열었다. 안에는 하트 모양의 오래된 목걸이가 들어 있었다. 당신은 목걸이를 들었다. 하트 모양 로켓 안에는 사진 한장이 끼어져 있었다. 하지만 사진은 너무 빛이 바래서 얼굴은 고사하고 사진 속의 인물이 몇 명인지도 알아볼 수가 없었다. 당신은 다시 로켓을 닫았다. 로켓 뒷면에는 matin이라는 글씨가 삐뚤삐뚤하게 써있었다.",
+        player
+    );
+}
+
+window.graveyard_sarcophagus = function(player){
+    showSingleTextScene(
+        "석관은 단단히 닫혀 있다. 당신은 혹시나 싶어서 석관을 두드려보았지만 석관은 열리지 않았다.",
+        player
+    );
+};
+
+window.graveyard_returnEntrance = function(player){
+    initGraveyardState(player);
+    player.graveyard.step = 0;
+    player.graveyard.cleared = false;
+
+    localStorage.setItem("playerData", JSON.stringify(player));
+
+    startScene(getLocationScene(player), player);
+};
+
+function buildGoblinCaveScene(player, loc, randomDesc){
+    const choices = [
+        { text: "동굴 안으로 들어간다.", action: "enter_goblinCave" }
+    ];
+
+    if (player.flags?.goblinCaveShortcut){
+        choices.push({
+            text: "전에 끌려갔던 샛길로 들어간다.",
+            action: "enter_goblinCaveShortcut"
+        });
+    }
+
+    choices.push({
+        text: "깊은숲으로 돌아간다.",
+        action: "move_deepForest"
+    });
+
+    return [
+        {
+            type: "text",
+            value: "어두운 동굴 입구다. 어디선가 탁,탁,탁,탁 소리와 신음 소리가 들려온다."
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function getSubwayScene(player, loc, randomDesc){
+    const from = player.lastSubwayFrom;
+
+    const returnLocation =
+        from === "richTownEntrance"
+            ? "richTownEntrance"
+            : "townStreet";
+
+    const destination =
+        from === "richTownEntrance"
+            ? "townStreet"
+            : "richTownEntrance";
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: LOCATIONS[returnLocation].name + "로 돌아간다",
+                    action: "move_" + returnLocation
+                },
+                {
+                    text: "지하철에 탄다",
+                    action: "ride_subway_" + destination
+                }
+            ]
+        }
+    ];
+}
+
+function buildRichTownEntranceScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>높은 성문 앞, 경비병들이 출입자를 통제하고 있다.<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "경비병에게 간다", action: "approach_richGateGuard" },
+                { text: "지하철을 탄다", action: "move_subway" }
+            ]
+        }
+    ];
+}
+
+function hasItem(player, itemName){
+    return player.inventory.some(item => item.name === itemName);
+}
+
+window.approach_richGateGuard = function(player){
+    startScene([
+        {
+            type: "text",
+            value: `경비병이 당신을 위아래로 훑어본다.<br>"출입 허가증은?"`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "뇌물을 건넨다", action: "bribe_richTownGate" },
+                { text: "훈장을 보여준다", action: "show_medal" },
+                { text: "서신을 건넨다", action: "show_letter" },
+                { text: "돌아간다", action: "back_richGate" }
+            ]
+        }
+    ], player);
+};
+
+window.bribe_richTownGate = function(player){
+    const price = 50000;
+
+    if (!spendGold(player, price)){
+        showSingleTextScene(
+            `돈이 없는 당신을 보며 경비병은 그럴 줄 알았다는 듯이 코웃음을 쳤다. 그는 당신의 어깨를 밀쳤다. 당신과 대화를 하는 것도 낭비라고 생각하는 모양이다.`,
+            player
+        );
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value: `당신은 경비병에게 ${price}G를 건넸다.<br>경비병은 돈을 확인하더니 아무 말 없이 자리를 비켜주었다.`
+        }
+    ], player, {
+        onEnd: () => {
+            player.location = "richTownStreet";
+            passTime(player, 3);
+            localStorage.setItem("playerData", JSON.stringify(player));
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.back_richGate = function(player){
+    startScene(getLocationScene(player), player);
+};
+
+window.show_medal = function(player){
+    if (!hasItem(player, "상류도시 훈장")){
+        showSingleTextScene(
+            `경비병은 당신을 노려보았다. <br>"너 따위가 상류도시 훈장을 가지고 있을 리가 없지."<br>그는 당신의 어꺠를 뒤로 밀쳤다.`,
+            player
+        );
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value: `당신은 상류도시 훈장을 꺼내 보였다. 경비병은 당신에게 고개를 까닥이더니 자리를 비켜주었다.`
+        }
+    ], player, {
+        onEnd: () => {
+            player.location = "richTownStreet";
+            passTime(player, 3);
+            localStorage.setItem("playerData", JSON.stringify(player));
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.show_letter = function(player){
+    if (!hasItem(player, "데릭의 친필 서신")){
+        showSingleTextScene(
+            `경비병은 당신을 위아래로 훑어보았다. <br>"그 아름다운 외모로 지금까지 사람들을 잘도 속였나보군. 하지만 내 눈은 속일 수 없다."<br>그는 당신의 어깨를 밀쳐 당신을 뒤로 물러나게 했다.`,
+            player
+        );
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value: `당신은 데릭의 서신을 건넸다. 경비병은 데릭의 서신을 확인하더니 고개를 까닥였다. 관문을 통과하는 당신의 뒷모습 뒤로 경비병의 집요한 시선이 달라붙었다.`
+        }
+    ], player, {
+        onEnd: () => {
+            player.location = "richTownStreet";
+            passTime(player, 3);
+            localStorage.setItem("playerData", JSON.stringify(player));
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+
+function getGloryHoleScene(player){
+    return [
+        {
+            type: "text",
+            value: [
+                "문을 열자 눅눅한 공기와 함께 묘한 열기가 피부에 닿는다.",
+                "안쪽에는 조용히 앉아있는 사람들과, 당신을 바라보는 시선들이 있다."
+            ]
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "니콜라이의 집무실로 간다", action: "gh_office" },
+                { text: "1번 방에 들어간다", action: "gh_room1" },
+                { text: "2번 방에 들어간다", action: "gh_room2" },
+                { text: "손님으로 왔다", action: "gh_customer" },
+                { text: "나간다", action: "leave_gloryHole" }
+            ]
+        }
+    ];
+}
+
+function initGloryHoleState(player){
+    player.flags = player.flags || {};
+    player.flags.ghWorkedMinutes = player.flags.ghWorkedMinutes || 0;
+}
+
+function runGloryHoleEvent(player, event){
+    initGloryHoleState(player);
+
+    startScene([
+        {
+            type: "text",
+            value: event.text
+        }
+    ], player, {
+        onEnd: () => {
+            applyGloryHoleEffects(player, event);
+
+            if (checkArousalRelease(player, () => {
+                startScene(getGloryHoleScene(player), player);
+            })) return;
+
+            startScene(getGloryHoleScene(player), player);
+        }
+    });
+}
+
+function applyGloryHoleEffects(player, event){
+    if (event.gold){
+        addGold(player, getGloryHoleGoldReward(player, event.gold));
+    }
+
+    if (event.arousal) {
+        changeArousal(player, event.arousal);
+    }
+
+    if (event.stamina) changeStamina(player, event.stamina);
+
+    if (event.trauma) changeTrauma(player, event.trauma);
+
+    if (event.sensitivity){
+        Object.entries(event.sensitivity).forEach(([key, amount]) => {
+            changeSensitivity(player, key, amount);
+        });
+    }
+
+    if (event.fluid){
+        Object.entries(event.fluid).forEach(([key, amount]) => {
+            addBodyFluid(player, key, amount);
+        });
+    }
+
+    if (event.minutes){
+        player.flags.ghWorkedMinutes += event.minutes;
+        passTime(player, event.minutes);
+    }
+
+    localStorage.setItem("playerData", JSON.stringify(player));
+}
+
+function getGloryHoleGoldReward(player, baseGold){
+    const charm = getTotalStat(player, "charm");
+    const multiplier = 1 + (charm * 0.025);
+    return Math.floor(baseGold * multiplier);
+}
+
+function getGloryHoleDebt(player){
+    const minutes = player.flags?.ghWorkedMinutes || 0;
+
+    if (minutes <= 0) return 0;
+
+    return Math.ceil(minutes / 60) * 100;
+}
+
+window.gh_room1 = function(player){
+    if (!player.flags?.gloryHolePermission){
+        showSingleTextScene(
+            "당신은 아직 니콜라이에게 허락받지 못했다.",
+            player
+        );
+        return;
+    }
+
+    const event = GH_ROOM1_EVENTS[
+        Math.floor(Math.random() * GH_ROOM1_EVENTS.length)
+    ];
+
+    runGloryHoleEvent(player, event);
+};
+
+window.gh_room2 = function(player){
+    if (!player.flags?.gloryHolePermission){
+        showSingleTextScene(
+            "당신은 아직 니콜라이에게 허락받지 못했다.",
+            player
+        );
+        return;
+    }
+    const event = GH_ROOM2_EVENTS[
+        Math.floor(Math.random() * GH_ROOM2_EVENTS.length)
+    ];
+
+    runGloryHoleEvent(player, event);
+};
+
+window.gh_office = function(player){
+    player.flags = player.flags || {};
+
+    //첫 방문
+    if (!player.flags.gloryHolePermission){
+        player.flags.gloryHolePermission = true;
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_gloryHoleWelcome,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+
+        return;
+    }
+
+    //반복
+    startScene([
+        {
+            type: "text",
+            value: "니콜라이는 당신을 보자 눈을 접으며 웃었다.<br>\"어, 자기야 왔어? 무슨 일이야?\"<br>그의 앞에는 언제나 노트북이 있었다."
+        }
+    ], player, {
+        onEnd: () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.leave_gloryHole = function(player){
+    initGloryHoleState(player);
+
+    const debt = getGloryHoleDebt(player);
+
+    if (debt <= 0){
+        moveTo(player, "townStreet");
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value:
+                `당신이 나가려고 하자 언제 왔는지, 니콜라이는 문앞에 서있었다. 그는 분홍색 눈꼬리를 접으며 웃었다.<br>` +
+                `"자기, 그냥 가려고?"<br>` +
+                `그는 웃는 얼굴로 손을 내밀었다.<br>` +
+                `오늘의 사용료는 ${debt}G야.`
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: `돈을 낸다 (${debt}G)`,
+                    action: "pay_gloryHole_debt"
+                },
+                {
+                    text: "거절한다",
+                    action: "refuse_gloryHole_payment"
+                }
+            ]
+        }
+    ], player);
+};
+
+window.pay_gloryHole_debt = function(player){
+    const debt = getGloryHoleDebt(player);
+
+    if (!spendGold(player, debt)){
+        showSingleTextScene(
+            "돈이 부족하다.",
+            player
+        );
+        return;
+    }
+
+    player.flags.ghWorkedMinutes = 0;
+
+    const affection = NPC_DATA["nikolai"].emotion.affection || 0;
+
+    if (affection < 60){
+        changeEmotion("nikolai", "affection", 2);
+    }
+
+    showSingleTextScene(
+        "니콜라이는 만족스러운 표정으로 고개를 끄덕였다.<br>\"역시 자기야. 다음번에도 잘 부탁해?\"<br>그는 손을 팔랑거리며 당신에게서 멀어져갔다.",
+        player,
+        {
+            onEnd: () => moveTo(player, "townStreet")
+        }
+    );
+};
+
+window.refuse_gloryHole_payment = function(player){
+    changeEmotion("nikolai", "rage", 5);
+    startScene([
+        {
+            type: "text",
+            value:
+                `니콜라이의 미소가 옅어졌다. 그는 안타깝다는 듯 채찍을 들어보이며 고개를 기울였다.<br>` +
+                `"자기... 나쁜 아이가 되려고 그러는 거야?"`
+        }
+    ], player, {
+        onEnd: () => {
+            startBattle("nikolai", player, {
+                noEscape: true,
+
+                onWin: () => {
+                    player.flags.ghWorkedMinutes = 0;
+
+                    showSingleTextScene(
+                        "니콜라이는 당신을 노려보았지만 이내 당신을 못 잡을 거라는 걸 알고 그만두었다. 그래, 오늘만큼은.",
+                        player,
+                        {
+                            onEnd: () => moveTo(player, "townStreet")
+                        }
+                    );
+                },
+
+                onLose: () => {
+                    startNikolaiPunishmentRoom(player, {
+                        source: "nikolai",
+                        debt: getGloryHoleDebt(player)
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+const GH_ROOM1_EVENTS = [
+    {
+        text : [
+            "당신은 멍하니 앞에 사람이 오기까지 기다렸다. 발자국 소리가 들린다. 당신이 고개를 들자 구멍 사이로 툭 튀어나온 남성기가 보였다.",
+            "당신은 혀를 내밀어 남성기를 핥았다. 기둥 옆의 불알이 당신의 혀놀림에 따라 떨리는 게 느껴진다. 당신은 계속 핥다가 결국 그의 남성기를 입안에까지 집어넣었다",
+            "처음에는 불쾌한 맛이 났지만, 당신의 입은 점점 적응해갔다. 벽 너머로 남자의 신음 소리가 들린다. 몇 번의 펠라 끝에 남자는 당신의 입안에 정액을 싸질렀다. 짤랑, 하는 소리와 함께 다른 구멍 사이로 동전이 떨어지는 것이 보였다."
+        ],
+        minutes: 30,
+        gold: 150,
+        arousal: 5,
+        stamina: -10,
+        trauma : 2,
+        sensitivity : {
+            mSensitivity : 2
+        },
+        fluid : {
+            m : 5
+        }
+    },
+    {
+        text : [
+            "당신은 멍하니 앞에 사람이 오기까지 기다렸다. 발자국 소리가 당신 앞에서 멈췄다. 남자는 제 성기를 앞으로 내밀면서 손으로 할 생각하지 말고 제대로 빨라고 으름장놓듯이 말했다.",
+            "당신은 남자의 성기를 입에 물고 사탕을 빨듯이 혀를 돌렸다. 당신의 혀놀림에 남자는 만족스러운 신음 소리를 내며 벽에 퍽퍽 자신의 배를 쳐댔다. 벽으로 막혀있는데도 남성기가 자꾸만 당신의 입을 압박하는 느낌이 든다",
+            "남자의 사정과 함께 당신의 뺨이 볼록해졌다. 미처 담아내지 못한 정액이 입술 옆가로 흘러내렸다. 짤랑하는 소리와 함꼐 옆으로 돈이 떨어졌다."
+        ],
+        minutes: 50,
+        gold : 320,
+        arousal: 15,
+        stamina: -15,
+        trauma : 2,
+        sensitivity : {
+            mSensitivity : 4
+        },
+        fluid : {
+            m : 10
+        }
+    },
+    {
+        text: [
+            "당신은 멍하니 앞에 사람이 오기까지 기다렸다. 발자국 소리가 당신 앞에서 멈췄다. 남자는 제 성기를 앞으로 내밀면서 손으로 할 생각하지 말고 제대로 빨라고 으름장놓듯이 말했다.",
+            "당신은 남자의 성기를 입에 물고 사탕을 빨듯이 혀를 돌렸다. 그 순간 남자의 윽 소리와 함께 당신의 입에 뜨거운 것이 가득찼다. 당신은 놀라서 허공을 응시했다.",
+            "남자도 민망했는지 서둘러 성기를 빼내더니 급하게 달아나버렸다. 허둥지둥거리는 발걸음 소리가 복도에 울렸다."
+        ],
+        minutes : 5,
+        gold : 0,
+        trauma : 1,
+        fluid : {
+            m : 5
+        }
+    }
+]
+
+const GH_ROOM2_EVENTS = [
+    {
+        text: [
+            "낡은 침대 위에 앉아있던 당신은 문이 열리는 소리에 고개를 들었다. 남자는 시간이 없다는 듯이 외투를 벗어던지더니 그대로 당신을 억눌렀다. 배려 따위는 없었다. 당신은 억눌린 채로 그의 성욕을 받아내야만 했다.",
+            "거친 키스로 제대로 숨도 쉬지 못하는 당신의 위로 남자의 손이 당신의 가슴을 쥐어짜듯이 잡았다. 본능적으로 튀어나온 당신의 헉 소리에도 남자는 신경쓰지 않는 듯했다. 구멍으로 거칠게 파고드는 남성기에 당신의 허리가 휘었다.",
+            "남성기가 당신의 안을 쿵쿵 찧는 동안 당신의 허리는 침대에 닿지 않았다. 공중에 뜬 허리가 바들바들거리며 위아래로 움직인다. 당신의 시야도, 같이 위아래로 흔들린다. 남자는 당신을 같은 인격체로도 보고 있지 않았다.",
+            "모든 것이 끝났을 때 당신의 뺨위로는 눈물자국이 그려져 있었다. 당신은 아픈 허리를 부여잡고 침대에서 일어났다. 남자가 남기고 간 돈이 당신의 부서진 인격으로 보였다."
+        ],
+        minutes : 120,
+        gold : 600,
+        arousal : 25,
+        stamina : -40,
+        trauma : 5,
+        sensitivity : {
+            mSensitivity: 6,
+            cSensitivity: 8,
+            aSensitivity: 8,
+            bSensitivity: 6
+        },
+        fluid : {
+            m : 10,
+            c : 15,
+            a : 15
+        }
+    },
+    {
+        text : [
+            "낡은 침대 위에서 기다리고 있는 당신에게 남자가 걸어왔다. 그는 당신의 손을 부드럽게 잡더니 그대로 당신을 침대에 눕혔다. 남자의 눈에 사랑은 없었지만, 그래도 손길은 다정했다.",
+            "남자는 당신의 입술을 제 입술로 부드럽게 누르면서 당신의 숨소리를 이끌어갔다. 남자가 이끄는 대로 당신의 손은 남자의 목 위에 둘러져있었다. 깊은 입맞춤 후 남자의 입술은 당신의 가슴골 사이로 흘러내렸다. 쪽쪽거리는 소리가 가슴 사이에서 울린다.",
+            "가슴에 있던 남자의 입술이 다시 당신의 입술 위로 올라왔을 때 남자는 당신의 두 다리를 끌어올려 자신의 허리에 둘렀다. 남성기가 당신의 안으로 들어온다. 당신이 그 크기에 움찔거리자 남자는 괜찮다고 당신을 달래주며 당신의 목 위로 키스를 해주었다. 그 부드러움에 당신의 긴장이 조금씩 풀렸다.",
+            "당신의 구멍에 침범한 남자의 성기는, 천천히 당신의 가장 깊숙한 곳까지 들어왔다. 다리가 그의 허리 위쪽으로 올라갈 수록 남자의 존재감은 더 커졌다. 남자는 당신에게 소리를 내라고 말하며 허리를 움직였다.",
+            "한차례의 사정이 끝나고 당신이 눈을 떴을 떄 남자는 이미 없었다. 당신은 멍하니 남자가 두고 간 돈을 챙겼다."
+        ],
+        minutes : 150,
+        gold : 720,
+        arousal : 40,
+        stamina : -20,
+        trauma : 2,
+        sensitivity : {
+            mSensitivity: 10,
+            cSensitivity: 10,
+            aSensitivity: 10,
+            bSensitivity: 10
+        },
+        fluid : {
+            c : 5,
+            a : 15
+        }
+    },
+    {
+        text : [
+            "문이 쾅 열리고, 남자가 한 명 들어왔다. 그는 방에 들어오자마자 채찍으로 바닥을 내리치며 침대에 배를 대고 누우라고 명령했다. 침대에 바짝 엎드린 당신의 위로 채찍질이 수차례 떨어졌다. 당신이 조금만 움직이려고 해도 채찍은 당신의 등, 허벅지, 엉덩이 위로 내려쳐지며 가만히 있을 것을 종용했다.",
+            "끊기지 않을 것만 같았던 짝 소리가 멎었을 때, 그는 채찍의 뭉툭한 부분으로 당신의 엉덩이 위를 문질렀다. 채찍선 모양으로 부어있는 당신의 엉덩이는 작은 터치에도 바들바들 떨렸다. 그는 만족스러운 신음을 흘린 후 당신의 몸을 다시 돌려눕혔다. 그가 다시 채찍을 든다. 끝난 줄 알았는데 끝나지 않았다. 이제 당신의 눈은 채찍이 내려오는 순간조차 피할 수 없었다.",
+            "채찍은 당신의 가슴 위로 떨어졌다. 당신의 가슴은 시간이 지나면 지날수록 엉덩이와 똑같이 채찍선 모양으로 부어올랐다. 그는 거친 숨을 몰아내쉬면서도 희열이 가득한 미소를 지으며 당신의 붉은 가슴 위로 돈을 올려주었다."
+        ],
+        minutes : 80,
+        gold : 560,
+        arousal : 20,
+        stamina : -50,
+        trauma : 5,
+        sensitivity : {
+            aSensitivity: 10,
+            bSensitivity: 10
+        }
+    },
+    {
+        text : [
+            "낡은 침대 위에서 기디리고 있던 당신에게 남자가 한 명 다가왔다. 그는 급하게 당신을 억누른 채 전희도 없이 그대로 당신에게 삽입했다.",
+            "몇 분이 지나지도 않아 남자는 당신의 안에 사정했다.... 자기도 그렇게 빨리 싸버릴 줄은 몰랐는지 남자의 얼굴이 붉어졌다. 그는 그대로 도망쳐 나가버렸다."
+        ],
+        minutes: 10,
+        gold : 0,
+        trauma: 3,
+        fluid : {
+            a : 5,
+            c : 5
+        }
+    },
+    {
+        text : [
+            "낡은 침대 위에서 기디리고 있던 당신에게 남자가 한 명 다가왔다. 그는 급하게 당신을 억누른 채 전희도 없이 그대로 당신에게 삽입했다.",
+            "몇 분이 지나지도 않아 남자는 당신의 안에 사정했다.... 자기도 그렇게 빨리 싸버릴 줄은 몰랐는지 남자의 얼굴이 붉어졌다. 그는 그대로 도망쳐 나가버리려다가 이제야 생각난 듯 당신에게 돈을 던져주었다. 급히 나가는 남자의 뒤로 쾅 하는 소리가 난다."
+        ],
+        minutes: 10,
+        gold : 100,
+        trauma: 3,
+        fluid : {
+            a : 5,
+            c : 5
+        }
+    }
+]

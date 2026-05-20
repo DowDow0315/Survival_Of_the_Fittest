@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival Of the Fittest</title>
+</head>
+
+<body>
+    <div class="layout">
+    <!--사이드바-->
+    <div class="sidebar" id="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()" id="toggleBtn">◀</button>
+        
+        <div class="sidebar-content">
+            <h2 class="sidebar-title">Survival of the Fittest</h2>
+
+            <div class="status-box">
+                    <h3>캐릭터 상태</h3>
+
+                    <div id="characterStatus">
+                         <p id="nameText"></p>
+                         <hr>
+                         <p> 소지금 : <span id="goldText">0</span>G</p>
+                         <p> 시간 : <span id="timeText">0</span></p>
+                         <p> 위치 : <span id="locationText">마을입구</span></p>
+                    </div>
+
+                    <div class="status-bar">
+                         <span>체력</span>
+                         <div class="bar-bg">
+                         <div class="bar-fill hp-bar" id="hpBar"></div>
+                         </div>
+                     <p id="hpText"></p>
+                  </div>
+
+                  <div class="status-bar">
+                         <span>기력</span>
+                         <div class="bar-bg">
+                         <div class="bar-fill stamina-bar" id="staminaBar"></div>
+                         </div>
+                      <p id="staminaText"></p>
+                  </div>
+
+                  <div class="status-bar">
+                         <span>흥분도</span>
+                         <div class="bar-bg">
+                         <div class="bar-fill arousal-bar" id="arousalBar"></div>
+                         </div>
+                      <p id="arousalText"></p>
+                  </div>
+                  <div class="status-bar">
+                         <span>트라우마</span>
+                         <div class="bar-bg">
+                         <div class="bar-fill trauma-bar" id="traumaBar"></div>
+                         </div>
+                      <p id="traumaText"></p>
+                  </div>
+                  <div class="status-bar">
+                    <span>취기</span>
+                    <div class="bar-bg">
+                        <div class="bar-fill alcohol-bar" id="alcoholBar"></div>
+                    </div>
+                    <p id="alcoholText"></p>
+                </div>
+
+                  <div class="equipment-status">
+                    <h4>장비</h4>
+                    <p>무기: <span id="weaponText">없음</span></p>
+                    <p>상의: <span id="topText">없음</span></p>
+                    <p>하의: <span id="bottomText">없음</span></p>
+                    <p>속옷: <span id="underwearText">없음</span></p>
+                    <p>악세사리: <span id="accessaryText">없음</span></p>
+                  </div>
+
+                  <button onclick="openInventory()">인벤토리</button>
+                  
+                  <button class="detail-btn" onclick="openStatusWindow()">
+                         상세 상태 보기
+                      </button>
+
+                    <button onclick="openSaveSlotModal('save')">저장</button>
+                    <button onclick="openSaveSlotModal('load')">불러오기</button>
+                    <button onclick="downloadCurrentJsonBackup()">JSON 파일 다운로드</button>
+                    <button onclick="openSaveFilePicker()">파일 불러오기</button>
+                    <input id="saveFileInput" type="file" accept="application/json,.json" style="display:none" onchange="loadGameFromFile(event)">
+             </div>
+        </div>
+    </div>
+
+    <!--메인 영역-->
+    <div class="main-wrapper">
+        <!--스토리-->
+        <div class="main-content">
+            <div id="storyBox"></div>
+        </div>
+
+        <!--지도-->
+        <div id="mapArea"></div>
+    </div>
+    </div>
+
+    <!--인벤토리창모델-->
+    <div id="inventoryModal" style="display:none;">
+    <div class="inventory-window">
+        <h3>인벤토리</h3>
+        <div id="inventoryContent"></div>
+        <button onclick="closeInventory()">닫기</button>
+    </div>
+    </div>
+
+    <!--샵 모델-->
+    <div id="shopModal" style="display:none;">
+    <div class="shop-window">
+        <div id="shopContent"></div>
+        <button onclick="closeShop()">닫기</button>
+    </div>
+    </div>
+
+    <div id="flashOverlay"></div>
+
+
+    <!--세이브 슬롯창-->
+    <div id="saveSlotModal" class="save-slot-modal" style="display:none;">
+        <div class="save-slot-window">
+            <div class="save-slot-header">
+                <h3 id="saveSlotTitle">세이브 슬롯</h3>
+                <button class="save-slot-close" onclick="closeSaveSlotModal()">×</button>
+            </div>
+            <p id="saveSlotHint" class="save-slot-hint"></p>
+            <div id="saveSlotList" class="save-slot-list"></div>
+            <div class="save-extra-actions">
+                <button class="save-folder-load-btn" onclick="downloadCurrentJsonBackup()">현재 데이터 JSON 다운로드</button>
+                <button class="save-folder-load-btn" onclick="openSaveFilePicker()">JSON 파일 직접 불러오기</button>
+            </div>
+            <p class="save-folder-note">슬롯 저장은 브라우저 내부 저장소에 조용히 저장됩니다. JSON 파일은 백업이 필요할 때만 다운로드 버튼을 눌러 받아주세요.</p>
+        </div>
+    </div>
+
+    <!--상세 상태창-->
+    <div id="statusModal" class="status-modal" style="display:none;">
+    <div class="status-window">
+        <div class="status-window-header">
+            <h3>상세 상태</h3>
+            <button class="close-status-btn" onclick="closeStatusWindow()">닫기</button>
+        </div>
+        <div id="statusWindowContent" class="status-window-content"></div>
+    </div>
+    </div>
+
+    <script>
+    window.player = null;
+    </script>
+
+
+    <script src="function/item.js"></script>
+    <script src="function/itemUtils.js"></script>
+    <script src="function/shop.js"></script>
+    <script src="function/quest/quest.js"></script>
+    <script src="function/quest/quest_sora.js"></script>
+    <script src="function/quest/quest_matin.js"></script>
+    <script src="function/defeatEvent.js"></script>
+    <script src="function/training.js"></script>
+    <script src="function/location.js"></script>
+    <script src="function/locationScenes.js"></script>
+    <script src="function/tavernwork.js"></script>
+    <script src="function/nikolaiPunishmentRoom.js"></script>
+    <script src="function/dungeon.js"></script>
+    <script src="function/subwayEvent.js"></script>
+    <script src="function/battle.js"></script>
+    <script src="function/enemies.js"></script>
+    <script src="function/main.js"></script>
+    <script src="function/npc/eric.js"></script>
+    <script src="function/npc/luke.js"></script>
+    <script src="function/npc/sora.js"></script>
+    <script src="function/npc/yuri.js"></script>
+    <script src="function/npc/matin.js"></script>
+    <script src="function/npc/deric.js"></script>
+    <script src="function/npc/pale.js"></script>
+    <script src="function/npc/nikolai.js"></script>
+    <script src="function/npc/valen.js"></script>
+    <script src="function/event.js"></script>
+    <script src="function/saveload.js"></script>
+
+    <script>
+        function updateStatusUI(player){
+            //HP
+            document.getElementById("hpBar").style.width =
+            (player.status.hp / player.status.maxHp)*100+"%";
+            document.getElementById("hpText").innerText =
+            player.status.hp + " / " + player.status.maxHp;
+
+            //stamina
+            document.getElementById("staminaBar").style.width =
+            (player.status.stamina / player.status.maxStamina)*100+"%";
+            document.getElementById("staminaText").innerText =
+            player.status.stamina + " / " + player.status.maxStamina;
+
+            //arousal
+            document.getElementById("arousalBar").style.width =
+            (player.status.arousal / player.status.maxArousal)*100+"%";
+            document.getElementById("arousalText").innerText =
+            player.status.arousal + " / " + player.status.maxArousal;
+
+            //trauma
+            document.getElementById("traumaBar").style.width =
+            (player.status.trauma / player.status.maxTrauma)*100+"%";
+            document.getElementById("traumaText").innerText =
+            player.status.trauma + " / " + player.status.maxTrauma;
+
+            if (typeof normalizeBodyFluidState === "function"){
+                normalizeBodyFluidState(player);
+            }
+            if (typeof normalizeAlcoholState === "function"){
+                normalizeAlcoholState(player);
+            }
+
+            //alcohol
+            player.status.alcohol = Number(player.status.alcohol) || 0;
+            player.status.maxAlcohol = player.status.maxAlcohol || 100;
+            document.getElementById("alcoholBar").style.width =
+            (player.status.alcohol / player.status.maxAlcohol) * 100 + "%";
+            document.getElementById("alcoholText").innerText =
+            player.status.alcohol + " / " + player.status.maxAlcohol +
+            " (" + getAlcoholLabel(player) + ")";
+
+            //장비표시
+            document.getElementById("weaponText").innerText =
+            player.equipment.weapon?.name || "없음";
+            document.getElementById("topText").innerText =
+            player.equipment.top?.name || "없음";
+            document.getElementById("bottomText").innerText =
+            player.equipment.bottom?.name || "없음";
+            document.getElementById("underwearText").innerText =
+            player.equipment.underwear?.name || "없음";
+            document.getElementById("accessaryText").innerText =
+            player.equipment.accessary?.name || "없음";
+
+            //소지금표시
+            document.getElementById("goldText").innerText = player.gold;
+            //시간표시
+            const totalMinutes = player.time * 6;
+            const hour = Math.floor(totalMinutes / 60) % 24;
+            const minute = totalMinutes % 60;
+            const day = Math.floor(player.time / 240);
+            const minuteText = String(minute).padStart(2, "0");
+            
+            document.getElementById("timeText").innerText =
+            `Day ${day} | ${hour}시 ${minuteText}분 (${getTimePeriod(player)})`;
+
+            //장소표시
+            if (player.dungeon?.active && window.DUNGEONS){
+                const dungeon = window.DUNGEONS[player.dungeon.id];
+                const room = dungeon?.rooms[player.dungeon.room];
+                            
+                document.getElementById("locationText").innerText =
+                `${dungeon?.name || "던전"} - ${room?.name || player.dungeon.room}`;
+            } else {
+                document.getElementById("locationText").innerText =
+                LOCATIONS[player.location]?.name || player.location;
+            }
+        }
+
+        function equipItem(player, item){
+            const type = item.type;
+            item.removed = false;
+            item.lost = false;
+            const prevItem=player.equipment[type];
+            if (prevItem){
+                player.inventory.push(prevItem);
+            }
+            player.equipment[type] = item;
+            const index = player.inventory.indexOf(item);
+            if (index !== -1){
+                player.inventory.splice(index, 1);
+            }
+            updateDerivedStats(player);
+            updateStatusUI(player);
+            renderInventoryModal(player);
+            localStorage.setItem("playerData", JSON.stringify(player));
+        }
+
+        function getSensitivityRank(value){
+            const num = Number(value) || 0;
+            if (num >= 350) return "S";
+            if (num >= 300) return "A";
+            if (num >= 200) return "B";
+            if (num >= 100) return "C";
+            if (num >= 50) return "D";
+            return "E";
+        }
+
+        function getBattleTraitLabel(trait){
+            const labels = {
+                lucky: "행운",
+                slippery: "약삭빠른",
+                onemoretime: "지지않아",
+                chanceattack: "예리한"
+            };
+            return labels[trait] || trait || "없음";
+        }
+
+        function getSexBattleTraitLabel(trait){
+            const labels = {
+                insensitiveM: "입둔감",
+                insensitiveB: "가슴둔감",
+                insensitiveC: "C둔감",
+                insensitiveA: "엉덩이둔감"
+            };
+            return labels[trait] || trait;
+        }
+
+        function formatStatNumber(value){
+            const num = Number(value) || 0;
+            return Number.isInteger(num) ? String(num) : num.toFixed(1);
+        }
+
+        function escapeHtml(value){
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        function getNpcSummary(npc){
+            if (!npc || !npc.emotion) return "아직 잘 모르는 사이";
+
+            const emotion = npc.emotion || {};
+            const lines = npc.statusLines || [];
+
+            for (const line of lines){
+                // conditions가 정식 이름. condtions는 오타로 써둔 기존 데이터도 임시 호환.
+                const conditions = line.conditions || line.condtions || [];
+                if (!conditions.length) continue;
+
+                const matched = conditions.every(condition => {
+                    const value = Number(emotion[condition.emotion]) || 0;
+                    const min = condition.min ?? -Infinity;
+                    const max = condition.max ?? Infinity;
+                    return value >= min && value <= max;
+                });
+
+                if (matched){
+                    return line.text || "아직 특별한 감정 변화는 없다.";
+                }
+            }
+
+            return npc.defaultStatusLine || "아직 특별한 감정 변화는 없다.";
+        }
+
+        function getNpcStore(){
+            if (typeof NPC_DATA !== "undefined") return NPC_DATA;
+            window.NPC_DATA = window.NPC_DATA || {};
+            return window.NPC_DATA;
+        }
+
+        function renderStatusWindow(){
+            if (!player){
+                document.getElementById("statusWindowContent").innerHTML = '<p class="empty-text">플레이어 데이터를 찾을 수 없습니다.</p>';
+                return;
+            }
+
+            if (typeof updateDerivedStats === "function"){
+                updateDerivedStats(player);
+            }
+
+            const sexual = player.sexualTraits || {};
+            const stats = player.stats || {};
+            const derived = player.derivedStats || {};
+            const battleTraits = player.sexBattleTraits || [];
+            const hairText = [player.hair?.length, player.hair?.color ? `${player.hair.color} 머리` : ""].filter(Boolean).join(" ");
+
+            document.getElementById("statusWindowContent").innerHTML = `
+            <div class="status-tabs">
+                <button onclick="showStatusTab('info')">기본정보</button>
+                <button onclick="showStatusTab('quest')">퀘스트</button>
+                <button onclick="showStatusTab('npc')">NPC 관계</button>
+                </div>
+                
+            <div id="tab-info" class="status-tab"></div>
+            <div id="tab-quest" class="status-tab" style="display:none;"></div>
+            <div id="tab-npc" class="status-tab" style="display:none;"></div>
+            `;
+            
+            renderInfoTab(player);
+            renderQuestTab(player);
+            renderNpcTab();
+            showStatusTab("info");
+        }
+
+        function showStatusTab(tab){
+            document.getElementById("tab-info").style.display = "none";
+            document.getElementById("tab-quest").style.display = "none";
+            document.getElementById("tab-npc").style.display = "none";
+            document.getElementById("tab-" + tab).style.display = "flex";
+        }
+
+        function renderInfoTab(player){
+            const sexual = player.sexualTraits || {};
+            const stats = typeof calculateTotalStats === "function"
+            ? calculateTotalStats(player)
+            : (player.stats || {});
+            const derived = player.derivedStats || {};
+            
+            document.getElementById("tab-info").innerHTML = `
+            <div class="detail-card">
+                <h4>스탯</h4>
+                <p>레벨: ${player.level ?? 1}</p>
+                <p>경험치: ${player.exp ?? 0} / ${typeof getExpToNextLevel === "function" ? getExpToNextLevel(player.level ?? 1) : "?"}</p>
+                <p>스탯 포인트: ${player.statPoints ?? 0}</p>
+                <hr>
+                <p>근력: ${stats.str}</p>
+                <p>민첩: ${stats.dex}</p>
+                <p>지력: ${stats.int}</p>
+                <p>매력: ${stats.charm}</p>
+                <hr>
+                <p>공격력: ${derived.atk}</p>
+                <p>방어력: ${derived.def}</p>
+                <p>회피율: ${derived.eva}</p>
+                <p>마법력: ${derived.mag}</p>
+                ${derived.bodyFluidPenalty ? `<p>흔적 페널티: 회피 -${derived.bodyFluidPenalty}</p>` : ""}
+            </div>
+
+            ${renderTraitSection(player)}
+            ${renderBodySection(player, sexual)}
+            `;
+        }
+
+        function renderBodySection(player, sexual){
+            return `
+            <div class="detail-card">
+                <h4>신체 특성</h4>
+                
+                <div class="body-grid">
+                    ${renderBodyPart("M", sexual.mSize, sexual.mSensitivity)}
+                    ${renderBodyPart("B", sexual.bSize, sexual.bSensitivity)}
+                    ${renderBodyPart("C", sexual.cSize, sexual.cSensitivity, player.gender === "female" ? sexual.cTightness : undefined)}
+                    ${renderBodyPart("A", sexual.aSize, sexual.aSensitivity, sexual.aTightness)}
+                    </div>
+                ${renderBodyFluidSection(player)}
+                </div>
+            `;
+        }
+
+        function renderTraitSection(player){
+            const battleTrait =
+            getBattleTraitLabel(player.battleTrait);
+            
+            const sexTraits =
+            (player.sexBattleTraits || [])
+            .map(getSexBattleTraitLabel)
+            .join(", ") || "없음";
+            
+            return `
+            <div class="detail-card">
+                <h4>특별한 특성</h4>
+                <p>전투 특성: ${battleTrait}</p>
+                <p>성적 특성: ${sexTraits}</p>
+                </div>
+                `;
+            }
+
+        function renderBodyFluidSection(player){
+            if (typeof normalizeBodyFluidState === "function") normalizeBodyFluidState(player);
+            const fluid = player.status?.bodyFluid || { a: 0, m: 0, c: 0 };
+            const total = (fluid.a || 0) + (fluid.m || 0) + (fluid.c || 0);
+            const level = typeof getBodyFluidDebuffLevel === "function" ? getBodyFluidDebuffLevel(player) : 0;
+
+            const statusTexts =
+            typeof getBodyFluidStatusText === "function"
+            ? getBodyFluidStatusText(player)
+            : [];
+            
+            return `
+            
+            <div class="body-card">
+                <h5>남은 흔적</h5>
+                <p>A: ${fluid.a || 0}</p>
+                <p>M: ${fluid.m || 0}</p>
+                <p>C: ${fluid.c || 0}</p>
+                <p>총량: ${total}</p>
+                <p>위험 단계: ${level}</p>
+                
+                ${
+                statusTexts.length > 0
+                ? `
+                <hr>
+                <div class="body-fluid-status">
+                    ${statusTexts.map(text => `<p>${text}</p>`).join("")}
+                    </div>
+                    `
+                    : ""
+                    }
+            </div>
+            `;
+        }
+
+        function renderBodyPart(label, size, sens, tight){
+            return `
+            <div class="body-card">
+                <h5>${label}</h5>
+                <p>크기: ${size || "-"}</p>
+                ${tight !== undefined ? `<p>조임도: ${tight}</p>` : ""}
+                <p>민감도: ${sens} (${getSensitivityRank(sens)})</p>
+            </div>
+            `;
+        }
+
+        function renderQuestTab(player){
+            initQuestData(player);
+            
+            const tab = document.getElementById("tab-quest");
+            
+            tab.innerHTML = `
+            <div class="detail-card">
+                <h4>퀘스트</h4>
+                ${renderMainQuestStatus(player)}
+                </div>
+                
+            <div class="detail-card">
+                <h4>NPC 퀘스트</h4>
+                ${renderNpcQuestStatus(player)}
+                </div>
+                `;
+        }
+
+        function renderMainQuestStatus(player){
+            const active = player.quest.active;
+            if (!active){
+                return `<p class="empty-text">진행 중인 퀘스트가 없습니다.</p>`;
+            }            
+            const quest = findQuest(active.id);
+
+            if (!quest){
+                return `<p class="empty-text">알 수 없는 퀘스트입니다.</p>`;
+            }
+            return `
+            <p><b>${quest.title}</b></p>
+            ${renderQuestProgressText(player, active, quest)}
+            `;
+        }
+
+        function renderNpcQuestStatus(player){
+            const subActive = player.quest.subActive || [];
+
+            if (subActive.length === 0){
+                return `<p class="empty-text">진행 중인 NPC 퀘스트가 없습니다.</p>`;
+            }
+            
+            return subActive.map(active => {
+                const quest = findQuest(active.id);
+                if (!quest) return "";
+                
+                return `
+                <div class="body-card">
+                    <h5>${quest.title}</h5>
+                    <p>의뢰인: ${quest.giver || "-"}</p>
+                    ${renderQuestProgressText(player, active, quest)}
+                    </div>
+                    `;
+                }).join("");
+            }
+
+            function renderQuestProgressText(player, active, quest){
+                if (quest.type === "collect"){
+                    const count = countItem(player, quest.requiredItem);
+                    const required = quest.requiredCount || 1;
+                    
+                    if (count >= required){
+                        return `
+                        <p>진행도: ${count} / ${required}</p>
+                        <p class="quest-ready">물건을 가지고 있다! 가져다주자!</p>
+                        `;
+                    }
+                    return `<p>진행도: ${count} / ${required}</p>`;
+                }
+                
+                const max =
+                quest.requiredKill ||
+                quest.requiredCount ||
+                1;
+                
+                return `<p>진행도: ${active.progress || 0} / ${max}</p>`;
+            }
+
+        function renderNpcTab(){
+            const npcEntries = Object.entries(getNpcStore() || {});
+            const tab = document.getElementById("tab-npc");
+
+            if (!npcEntries.length){
+                tab.innerHTML = '<p class="empty-text">아직 확인할 수 있는 NPC 데이터가 없습니다.</p>';
+                return;
+            }
+
+            tab.innerHTML = npcEntries.map(([key, npc]) => renderNpcCard(npc, key)).join("");
+        }
+
+        function renderNpcCard(npc, key){
+            const e = npc.emotion || {};
+            return `
+            
+            <div class="npc-card">
+                <h4>${escapeHtml(npc.name || key || "이름 없음")}</h4>
+                ${renderHeartBar(e.affection)}
+                ${renderBar("lust", e.lust)}
+                ${renderBar("fear", e.fear)}
+                <p class="npc-line">${escapeHtml(getNpcSummary(npc))}</p>
+            </div>
+            `;
+        }
+
+        function renderHeartBar(value){
+            const num = Number(value) || 0;
+            const percent = Math.max(0, Math.min(num, 100));
+            return `
+            <div class="emotion-row">
+                <span class="emotion-label">affection</span>
+
+                <div class="heart-meter">
+                    <div class="heart-empty">♥</div>
+                    <div class="heart-full-wrap" style="height:${percent}%">
+                        <div class="heart-full">♥</div>
+                    </div>
+                </div>
+                
+                <span class="emotion-value">${formatStatNumber(num)}</span>
+            </div>
+            `;
+        }
+
+        function renderBar(type, value){
+            const num = Number(value) || 0;
+            const percent = Math.max(0, Math.min(num, 100));
+            
+            const labelMap = {
+                lust: "lust",
+                fear: "fear"
+            };
+            
+            return `
+            
+            <div class="emotion-row">
+            <span class="emotion-label">${labelMap[type] || type}</span>
+            <div class="emotion-bar ${type}">
+                <div class="emotion-fill" style="width:${percent}%"></div>
+            </div>
+            <span class="emotion-value">${formatStatNumber(num)}</span>
+            </div>
+            `;
+        }
+
+        function openStatusWindow(){
+            renderStatusWindow();
+            document.getElementById("statusModal").style.display = "flex";
+        }
+
+        function closeStatusWindow(){
+            document.getElementById("statusModal").style.display = "none";
+        }
+
+        function toggleSidebar(){
+            const sidebar = document.getElementById("sidebar");
+            const btn = document.getElementById("toggleBtn");
+
+            sidebar.classList.toggle("closed");
+
+            if (sidebar.classList.contains("closed")){
+                btn.innerText = "▶";
+            } else {
+                btn.innerText = "◀";
+            }
+        }
+
+        const SAVE_SLOT_COUNT = 5;
+        let currentSaveSlotMode = "load";
+
+        function getSaveSlotKey(slot){
+            return `sotfSaveSlot${slot}`;
+        }
+
+        function getSaveSlotData(slot){
+            const raw = localStorage.getItem(getSaveSlotKey(slot));
+            if (!raw) return null;
+            try {
+                return JSON.parse(raw);
+            } catch (error){
+                console.error(`슬롯 ${slot} 파싱 실패`, error);
+                return { broken: true };
+            }
+        }
+
+        function makeSavePayload(slot){
+            const npcProgress = getNpcProgressSaveData();
+            return {
+                version: 2,
+                slot,
+                savedAt: new Date().toISOString(),
+                playerData: JSON.parse(saveToLocalStorage("playerData", player)),
+                npcData: JSON.parse(saveToLocalStorage("npcData", npcProgress))
+            };
+        }
+
+        function formatSaveDate(iso){
+            if (!iso) return "저장 시간 없음";
+            const date = new Date(iso);
+            if (Number.isNaN(date.getTime())) return iso;
+            return date.toLocaleString("ko-KR", {
+                year: "numeric", month: "2-digit", day: "2-digit",
+                hour: "2-digit", minute: "2-digit"
+            });
+        }
+
+        function openSaveSlotModal(mode = "load"){
+            currentSaveSlotMode = mode;
+            const modal = document.getElementById("saveSlotModal");
+            const title = document.getElementById("saveSlotTitle");
+            const hint = document.getElementById("saveSlotHint");
+            const list = document.getElementById("saveSlotList");
+
+            title.textContent = mode === "save" ? "저장 슬롯 선택" : "불러올 슬롯 선택";
+            hint.textContent = mode === "save"
+                ? "저장할 슬롯을 선택하세요. 기존 데이터가 있으면 덮어씁니다."
+                : "불러올 세이브 슬롯을 선택하세요.";
+
+            list.innerHTML = "";
+            for (let slot = 1; slot <= SAVE_SLOT_COUNT; slot++){
+                const data = getSaveSlotData(slot);
+                const playerName = data?.playerData?.name || "빈 슬롯";
+                const savedAt = data?.broken ? "손상된 세이브" : (data ? formatSaveDate(data.savedAt) : "저장 데이터 없음");
+                const location = data?.playerData?.location || data?.playerData?.locationId || "-";
+
+                const btn = document.createElement("button");
+                btn.className = `save-slot-card ${data ? "has-save" : "empty-save"}`;
+                btn.innerHTML = `
+                    <span class="save-slot-number">SLOT ${slot}</span>
+                    <span class="save-slot-name">${playerName}</span>
+                    <span class="save-slot-meta">${savedAt}</span>
+                    <span class="save-slot-meta">위치: ${location}</span>
+                `;
+                btn.onclick = () => mode === "save" ? saveGame(slot) : loadGame(slot);
+                list.appendChild(btn);
+            }
+
+            modal.style.display = "flex";
+        }
+
+        function closeSaveSlotModal(){
+            document.getElementById("saveSlotModal").style.display = "none";
+        }
+
+        function saveGame(slot){
+            if (!slot){
+                openSaveSlotModal("save");
+                return;
+            }
+            if (!player){
+                alert("저장할 플레이어 데이터가 없습니다.");
+                return;
+            }
+
+            try {
+                const payload = makeSavePayload(slot);
+                saveToLocalStorage(getSaveSlotKey(slot), payload);
+                closeSaveSlotModal();
+                alert(`슬롯 ${slot}에 저장했습니다.`);
+            } catch (error){
+                console.error(error);
+                alert("저장에 실패했습니다. 브라우저 콘솔을 확인해주세요.");
+            }
+        }
+
+        function downloadCurrentJsonBackup(){
+            if (!player){
+                alert("다운로드할 플레이어 데이터가 없습니다.");
+                return;
+            }
+
+            try {
+                const payload = makeSavePayload(null);
+                downloadSaveFile(payload);
+            } catch (error){
+                console.error(error);
+                alert("JSON 파일 다운로드에 실패했습니다. 브라우저 콘솔을 확인해주세요.");
+            }
+        }
+
+        function loadGame(slot){
+            if (!slot){
+                openSaveSlotModal("load");
+                return;
+            }
+
+            const slotData = getSaveSlotData(slot);
+            if (!slotData || slotData.broken || !slotData.playerData){
+                alert(`슬롯 ${slot}에 저장된 데이터가 없습니다.`);
+                return;
+            }
+
+            try {
+                const save = slotData;
+                player = normalizePlayer(save.playerData || save.player || save);
+                saveToLocalStorage("playerData", player);
+
+                if (save.npcData){
+                    saveToLocalStorage("npcData", save.npcData);
+                    applyNpcProgressSaveData(save.npcData);
+                } else {
+                    localStorage.removeItem("npcData");
+                    applyNpcProgressSaveData(null);
+                }
+
+                refreshAfterLoad();
+                closeSaveSlotModal();
+                alert(`슬롯 ${slot} 데이터를 불러왔습니다.`);
+            } catch (error){
+                console.error(error);
+                alert("불러오기에 실패했습니다. 저장 데이터가 손상되었을 수 있습니다.");
+            }
+        }
+
+        function refreshAfterLoad(){
+            player.inBattle = false;
+            
+            if (typeof battleState !== "undefined") {
+                battleState = null;
+            }
+            
+            const battleUI = document.getElementById("battleUI");
+            if (battleUI) {
+                battleUI.innerHTML = "";
+                battleUI.style.display = "none";
+            }
+            
+            const storyArea = document.getElementById("storyArea");
+            if (storyArea) storyArea.style.display = "block";
+            
+            const storyText = document.getElementById("storyText");
+            const choiceArea = document.getElementById("choiceArea");
+            const storyBtn = document.getElementById("storyBtn");
+            
+            if (storyText) storyText.innerHTML = "";
+            if (choiceArea) choiceArea.innerHTML = "";
+            if (choiceArea) choiceArea.style.display = "block";
+            if (storyBtn) storyBtn.style.display = "block";
+            
+            updateDerivedStats(player);
+            updateStatusUI(player);
+            renderInventoryModal(player);
+            
+            if (document.getElementById("statusModal").style.display !== "none"){
+                renderStatusWindow();
+            }
+
+            if (player.tavernWork?.active){
+                player.currentScene = null;
+                localStorage.setItem("playerData", JSON.stringify(player));
+                renderMap(player);
+                startTavernWork(player);
+                return;
+            }
+            
+            if (player.inEvent && player.subwayEvent){
+                showSubwayTurn(player);
+                return;
+            }
+
+            if (player.dungeon?.active){
+                player.currentScene = null;
+                localStorage.setItem("playerData", JSON.stringify(player));
+                
+                renderMap(player);
+                startScene(buildDungeonScene(player), player, { noSaveScene: true });
+                return;
+            }
+            
+            if (player.currentScene?.active){
+                startScene(player.currentScene.scene, player, {
+                    resumeIndex: getSafeResumeIndex(player.currentScene.scene, player.currentScene.index)
+                });
+                return;
+            }
+            startScene(getLocationScene(player), player);
+        }
+
+        function openSaveFilePicker(){
+            document.getElementById("saveFileInput").click();
+        }
+
+        function loadGameFromFile(event){
+            const file = event.target.files?.[0];
+            event.target.value = "";
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const save = JSON.parse(reader.result);
+                    const loadedPlayer = save.playerData || save.player || save;
+                    const loadedNpc = save.npcData || null;
+
+                    player = normalizePlayer(loadedPlayer);
+                    saveToLocalStorage("playerData", player);
+
+                    if (loadedNpc){
+                        saveToLocalStorage("npcData", loadedNpc);
+                        applyNpcProgressSaveData(loadedNpc);
+                    }
+
+                    refreshAfterLoad();
+                    alert("세이브 파일을 불러왔습니다.");
+                } catch (error){
+                    console.error(error);
+                    alert("세이브 파일을 불러오지 못했습니다.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function getNpcProgressSaveData(){
+            const saveData = {};
+            const npcStore = getNpcStore();
+
+            for (const [key, npc] of Object.entries(npcStore || {})){
+                saveData[key] = {
+                    emotion: { ...(npc.emotion || {}) },
+                    flags: { ...(npc.flags || {}) },
+                    events: { ...(npc.events || {}) }
+                };
+            }
+            return saveData;
+        }
+
+        function applyNpcProgressSaveData(savedNpcData){
+            if (!savedNpcData) return;
+            const npcStore = getNpcStore();
+
+            for (const [key, savedNpc] of Object.entries(savedNpcData)){
+                if (!npcStore[key]) continue;
+
+                npcStore[key].emotion = {
+                    ...(npcStore[key].emotion || {}),
+                    ...(savedNpc.emotion || {})
+                };
+
+                npcStore[key].flags = {
+                    ...(npcStore[key].flags || {}),
+                    ...(savedNpc.flags || {})
+                };
+
+                npcStore[key].events = {
+                    ...(npcStore[key].events || {}),
+                    ...(savedNpc.events || {})
+                };
+            }
+        }
+
+        function shakeScreen(duration = 400){
+            document.body.classList.add("shake");
+            setTimeout(() => {
+                document.body.classList.remove("shake");
+            }, duration);
+        }
+
+
+        window.addEventListener("click", (event) => {
+            const modal = document.getElementById("statusModal");
+            if (event.target === modal){
+                closeStatusWindow();
+            }
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape"){
+                closeStatusWindow();
+            }
+        });
+    </script>
+
+    <style>
+    body{
+        margin: 0;
+        min-height: 100vh;
+        background-color: black;
+        color: white;
+        font-family: "Arial";
+        height: 100%;
+        overflow-x: hidden;
+        }
+
+        .sidebar{
+            width: 260px;
+            background-color: #111;
+            border-right: 2px solid #444;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        .sidebar-content{
+            margin-top: 40px;
+        }
+
+        .sidebar.closed{
+            width: 50px;
+            padding: 20px 10px;
+        }
+
+        .sidebar.closed .sidebar-content{
+            display: none;
+        }
+        
+        .toggle-btn{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .sidebar-title{
+            margin: 0;
+            text-align: center;
+            color: crimson;
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .status-box{
+         background-color: #1f1f1f;
+         border: 1px solid white;
+         border-radius: 15px;
+         padding: 15px;
+         margin-top: 20px;
+        }
+
+        .status-box h3{
+            margin-top: 0;
+            text-align: center;
+            color: greenyellow;
+            letter-spacing : 2px;
+        }
+        .status-box p{
+            margin: 4px 0;
+        }
+
+        .status-bar{
+            margin: 16px 0;
+        }
+        .status-bar span{
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .bar-bg{
+            width: 100%;
+            height: 18px;
+            background-color: #333;
+            border: 1px solid #666;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill{
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .hp-bar{
+            background-color: red;
+        }
+        
+        .stamina-bar{
+            background-color: seagreen;
+        }
+        
+        .arousal-bar{
+            background-color: hotpink;
+        }
+
+        .trauma-bar{
+            background-color: blue
+        }
+        
+        #hpText,
+        #staminaText,
+        #arousalText,
+        #traumaText{
+            text-align: right;
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 4px;
+        }
+
+        .detail-btn:hover{
+            background-color: #666;
+        }
+
+        .equipment-status{
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 1px solid white
+        }
+        .equipment-status h4{
+            margin: 5px 0 10px;
+            color : white;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .equipment-status p{
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background-color: darkolivegreen;
+            margin: 4px 0;
+        }
+
+        #inventoryModal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .inventory-window{
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            width: 320px;
+        }
+
+        .inventory-tabs{
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .inventory-tabs button{
+            flex: 1;
+            margin-top: 0;
+        }
+        
+        .active-tab{
+            background: darkgreen !important;
+        }
+        
+        .inventory-list{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .inventory-item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: #333;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .inventory-item-info{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .inventory-item-info p{
+            margin: 0;
+            font-size: 13px;
+            color: #ccc;
+        }
+        
+        .inventory-item-actions{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .inventory-item button{
+            margin-right: 5px;
+        }
+
+        #inventoryContent {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .inventory-list {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .equipped-tag{
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: darkgreen;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .equipped-btn{
+            background: #555 !important;
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        .detail-btn,
+        button{
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: crimson;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #storyBox {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 300px;
+            color: white;
+            background: black;
+            border: none;
+            padding: 20px;
+        }
+
+        .story-btn{
+            position: static;
+            margin-top: 20px;
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        #storyArea{
+            flex:1;
+            overflow-y: auto;
+            padding-bottom: 100px;
+        }
+
+        #mapArea{
+            width: 400px;
+            min-height: 100vh;
+            background: #071407;
+            border-left: 2px solid #315331;
+            color: white;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        
+        .map-box{
+            overflow-x: auto;
+            border: 1px solid #496b49;
+            border-radius: 16px;
+            padding: 14px;
+            background: #0d1f0d;
+        }
+        
+        .map-box h3{
+            margin-top: 0;
+            color: #b7e0b7;
+        }
+        
+        .map-current{
+            border: 1px solid #6d966d;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 14px;
+            background: #142b14;
+            text-align: center;
+        }
+
+        .fixed-map{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .map-row{
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .map-row.center{
+            justify-content: center;
+        }
+        
+        .street-branch{
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .branch-list{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .map-node{
+            width: auto;
+            min-width: 76px;
+            margin-top: 0;
+            padding: 8px 10px;
+            border: 1px solid #5f805f;
+            border-radius: 10px;
+            background: #1b331b;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .map-node:hover{
+            background: #2e4d2e;
+        }
+        
+        .current-map-node{
+            border-color: #d8ffd8;
+            background: #3a6b3a;
+            box-shadow: 0 0 8px rgba(180,255,180,0.5);
+        }
+        
+        .map-v-line{
+            width: 2px;
+            height: 18px;
+            background: #8bbf8b;
+        }
+        
+        .battle-layout{
+            display: grid;
+            grid-template-columns: 1fr 1.4fr 1fr;
+            gap: 16px;
+            align-items: stretch;
+            margin-bottom: 16px;
+        }
+        
+        .battle-panel,
+        .battle-center{
+            background: #1a1a1a;
+            border: 1px solid #666;
+            border-radius: 12px;
+            padding: 14px;
+            min-height: 520px;
+        }
+        
+        .battle-panel h3,
+        .battle-center h3{
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        #battleLogInner{
+            height: 340px;
+            overflow-y: auto;
+            background: #111;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        #battleLogInner p{
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        
+        .battle-actions{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .log-damage { color: #ff4d4d; }
+        .log-lust {
+            color: #ff66cc;
+            font-weight: bold;
+        }
+        .log-evade { color: #66ccff; }
+        .log-warning{
+            color: yellow;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255,255,0,0.6);
+        }
+
+        .log-special{
+            color: #caa6ff;
+            font-style: italic;
+        }
+
+        .log-eric{
+            color: #d8c36a;
+        }
+
+        .log-luke{
+            color: #d82b2b;
+            font-style: italic;
+        }
+
+        .log-deric{
+            color: #e4c033;
+        }
+
+        .log-sora{
+            color: #88a6e9;
+        }
+
+        .log-changbaek{
+            color: #6d6beb;
+            font-style: italic;
+        }
+
+        .log-yuri{
+            color: #49f06d;
+        }
+
+        .log-nikolai{
+            color: #b86a7d;
+        }
+
+        .log-valen{
+            color: #7e7c86;
+        }
+
+        #shopModal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .shop-window{
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            width: 420px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .shop-item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: darkgreen;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+        
+        .shop-item-info{
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .shop-item-info p{
+            margin: 0;
+            font-size: 13px;
+            color: white;
+        }
+
+        .shop-tabs{
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .shop-item button,
+        .shop-tabs button{
+            width: auto;
+            min-width: 90px;
+            margin-top: 0;
+            padding: 8px 14px;
+            flex: 0 0 auto;
+        }
+        
+        .shop-list{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+
+
+        .status-modal{
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .status-window{
+            width: min(920px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #111;
+            border: 2px solid #777;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            padding: 20px;
+        }
+
+        .status-window-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .close-status-btn{
+            background: #333;
+            color: white;
+            border: 1px solid #666;
+            border-radius: 8px;
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+
+        .status-window-content{
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .detail-section{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .detail-card{
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .detail-grid{
+            display: grid;
+            gap: 14px;
+        }
+
+        .detail-grid.two-col{
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .detail-card h5,
+        .detail-card h4,
+        .detail-section h4{
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .detail-card p,
+        .npc-summary{
+            margin: 6px 0;
+        }
+
+        .npc-list{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .emotion-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 6px 12px;
+        }
+
+        .empty-text{
+            color: #ccc;
+        }
+
+        .status-tabs{
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        
+        .status-tabs button{
+            flex: 1;
+            margin-top: 0;
+        }
+        
+        .status-tab{
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .body-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        
+        .body-card{
+            background: #181818;
+            border: 1px solid #555;
+            border-radius: 12px;
+            padding: 12px;
+        }
+        
+        .body-card h5{
+            margin: 0 0 8px;
+            color: hotpink;
+            font-size: 18px;
+        }
+        
+        .npc-card{
+            background: darkgreen;
+            border: 1px solid white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .npc-line{
+            margin-top: 12px;
+            color: #ddd;
+            font-size: 13px;
+        }
+        
+        .emotion-row{
+            display: grid;
+            grid-template-columns: 80px 1fr 45px;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+        
+        .emotion-label{
+            font-size: 13px;
+            color: #ccc;
+        }
+        
+        .emotion-value{
+            text-align: right;
+            font-size: 13px;
+            color: #eee;
+        }
+        
+        .emotion-bar{
+            height: 12px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        
+        .emotion-fill{
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .emotion-bar.lust .emotion-fill{
+            background: hotpink;
+        }
+        
+        .emotion-bar.fear .emotion-fill{
+            background: mediumpurple;
+        }
+
+        .heart-meter{
+            position: relative;
+            width: 34px;
+            height: 34px;
+            justify-self: start;
+        }
+        
+        .heart-empty,
+        .heart-full{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 34px;
+            height: 34px;
+            font-size: 34px;
+            line-height: 34px;
+            text-align: center;
+        }
+        
+        .heart-empty{
+            color: #333;
+        }
+        
+        .heart-full-wrap{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 34px;
+            overflow: hidden;
+        }
+        
+        .heart-full{
+            color: crimson;
+        }
+
+
+
+        .save-slot-modal{
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.76);
+            box-sizing: border-box;
+        }
+
+        .save-slot-window{
+            width: min(560px, 100%);
+            background: linear-gradient(180deg, #1c1c1c, #101010);
+            border: 1px solid #777;
+            border-radius: 18px;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.55);
+            padding: 18px;
+            box-sizing: border-box;
+            color: #f3f3f3;
+        }
+
+        .save-slot-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .save-slot-header h3{
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .save-slot-close{
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            margin: 0;
+            padding: 0;
+            border-radius: 999px;
+            border: 1px solid #666;
+            background: #292929;
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .save-slot-hint,
+        .save-folder-note{
+            color: #cfcfcf;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 8px 0 14px;
+        }
+
+        .save-slot-list{
+            display: grid;
+            gap: 10px;
+        }
+
+        .save-slot-card{
+            width: 100%;
+            display: grid;
+            grid-template-columns: 86px 1fr;
+            gap: 4px 12px;
+            text-align: left;
+            margin: 0;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid #555;
+            background: #181818;
+            color: #f6f6f6;
+            cursor: pointer;
+        }
+
+        .save-slot-card:hover{
+            border-color: #aaa;
+            background: #222;
+            transform: translateY(-1px);
+        }
+
+        .save-slot-number{
+            grid-row: span 3;
+            align-self: center;
+            font-weight: 800;
+            color: #ffd27d;
+        }
+
+        .save-slot-name{
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .save-slot-meta{
+            color: #c8c8c8;
+            font-size: 12px;
+        }
+
+        .empty-save .save-slot-name{
+            color: #a8a8a8;
+        }
+
+        .save-extra-actions{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .save-folder-load-btn{
+            width: 100%;
+            margin-top: 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+        }
+
+        .status-window{
+            box-sizing: border-box;
+            overflow: hidden;
+            background: linear-gradient(180deg, #181818, #0f0f0f);
+            border: 1px solid #777;
+            border-radius: 18px;
+            padding: 0;
+        }
+
+        .status-window-header{
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+            padding: 16px 18px;
+            background: rgba(24,24,24,0.96);
+            border-bottom: 1px solid #444;
+        }
+
+        .status-window-header h3{
+            margin: 0;
+            white-space: nowrap;
+            font-size: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .close-status-btn{
+            width: auto;
+            min-width: 54px;
+            margin: 0;
+            padding: 7px 12px;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: #2b2b2b;
+            border: 1px solid #666;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .close-status-btn:hover{
+            background: #3a3a3a;
+            border-color: #999;
+        }
+
+        .status-window-content{
+            max-height: calc(90vh - 58px);
+            overflow-y: auto;
+            padding: 18px;
+            box-sizing: border-box;
+        }
+
+        .detail-card,
+        .body-card{
+            background: #181818;
+            border: 1px solid #3f3f3f;
+            border-radius: 14px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+
+        @media (max-width: 520px){
+            .status-modal, .save-slot-modal{
+                padding: 12px;
+            }
+
+            .status-window-header{
+                padding: 14px;
+            }
+
+            .status-window-header h3{
+                font-size: 18px;
+            }
+
+            .save-slot-card{
+                grid-template-columns: 1fr;
+            }
+
+            .save-extra-actions{
+                grid-template-columns: 1fr;
+            }
+
+            .save-slot-number{
+                grid-row: auto;
+            }
+        }
+
+        #flashOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .flash-active {
+            animation: flashEffect 0.6s ease-in-out;
+        }
+        
+        @keyframes flashEffect {
+            0%   { opacity: 0; }
+            20%  { opacity: 1; }
+            50%  { opacity: 0.5; }
+            100% { opacity: 0; }
+        }
+
+        .body-fluid-status p{
+            color: #ff9bd6;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .dungeon-map{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+        
+        .dungeon-row{
+            display: flex;
+            gap: 3px;
+        }
+        
+        .dungeon-cell{
+            width: 20px;
+            height: 20px;
+            border: 2px solid #5f805f;
+            background: #102410;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .dungeon-cell.empty{
+            border-color: transparent;
+            background: transparent;
+        }
+        
+        .dungeon-cell.visited{
+            background: #1b331b;
+        }
+
+        .dungeon-cell.current{
+            background: #8bbf8b;
+            color: black;
+            font-weight: bold;
+        }
+
+        .shake{
+            animation: shake 0.4s;
+        }
+        
+        @keyframes shake{
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-4px, 2px); }
+            40% { transform: translate(4px, -2px); }
+            60% { transform: translate(-3px, 1px); }
+            80% { transform: translate(3px, -1px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .status-danger{
+            color:red;
+            font-weight:bold;
+        }
+
+    </style>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survivla Of the Fittest</title>
+</head>
+<body>
+
+    <form>
+        <fieldset class="profilebox">
+            <legend>기본 정보</legend>
+            <div class="basicinfo">
+                <p>
+                나의 이름은 <input type="text" id="name">이며,
+                </p>
+
+                <p>
+                <select name="hairlength" id="hairlength">
+                    <option value="짧음">짧은</option>
+                    <option value="어깨선">어깨선까지 오는</option>
+                    <option value="쇄골부근">쇄골부근까지 오는</option>
+                    <option value="김">긴</option>
+                </select>
+
+                <input type="text" id="haircolor">머리(머리색)에
+
+                <input type="text" id="eyecolor">색 눈동자를 가진
+
+                <input type="number" id="age" value="0" min="17">살
+
+                <select name="gender" id="gender">
+                    <option value="male">남성</option>
+                    <option value="female">여성</option>
+                </select>입니다.
+                </p>
+
+                <p>
+                키는
+                <select name="height" id="height">
+                    <option value="초미니">아주 작은</option>
+                    <option value="작음">작은</option>
+                    <option value="평균">평균적인</option>
+                    <option value="큼">큰</option>
+                    <option value="키다리">아주 큰</option>
+                </select> 편이며,
+
+                체형은
+                <select name="weight" id="weight">
+                    <option value="슬림">슬림한</option>
+                    <option value="슬렌더">슬렌더한</option>
+                    <option value="보통">보통인</option>
+                    <option value="근육질">근육질인</option>
+                    <option value="통통">통통힌</option>
+                    <option value="뚱뚱">뚱뚱한</option>
+                </select> 편입니다.
+                </p>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>특성</legend>
+            <div class="stat-container">
+            <fieldset class="traitbox">
+                <legend>기본특성</legend>
+
+                <div class="stat-row">
+                <label>근력</label>
+                <input type="number" id="str" value="0" min="0" max="15">
+                </div>
+
+                <div class="stat-row">
+                <label>민첩</label>
+                <input type="number" id="dex" value="0" min="0" max="15">
+                </div>
+
+                <div class="stat-row">
+                <label>지력</label>
+                <input type="number" id="int" value="0" min="0" max="15">
+                </div>
+
+                <div class="stat-row">
+                <label>매력</label>
+                <input type="number" id="charm" value="0" min="0" max="15">
+                </div>
+            <p>
+                남은포인트: <span id="remain">15</span>
+            </p> </fieldset>
+
+             <fieldset class="traitbox">
+                <legend>세부특성</legend>
+                <p>공격력: <span id="atk">0</span></p>
+                <p>방어력: <span id="def">0</span></p>
+                <p>회피율: <span id="eva">0</span></p>
+                <p>마법력: <span id="mag">0</span></p>
+             </fieldset>
+
+             <fieldset class="traitbox">
+                <legend>특수성</legend>
+                <em>초기 전투 특성입니다. 하나만 골라주세요.</em><br>
+                <label>
+                    <input type="radio" name="battletrait" value="lucky">
+                    행운 = 공격회피가능성상승
+                </label>
+
+                <label>
+                    <input type="radio" name="battletrait" value="slippery">
+                    약삭빠른 = 치명적공격가능성상승
+                </label>
+
+                <label>
+                    <input type="radio" name="battletrait" value="onemoretime">
+                    지지않아 = hp가0일시딱한번만피회복
+                </label>
+
+                <label>
+                    <input type="radio"name="battletrait" value="chanceattack">
+                    예리한 = 공격후한번더공격할가능성상승
+                </label>
+
+                <br>
+                <em>초기 성적 특성입니다. 아무거나 골라주세요.</em><br>
+                <label>
+                    <input type="checkbox" name="sexbattletrait" value="insensitiveM">
+                    입둔감 = 입 개발도 오르는 속도가 느림
+                </label>
+
+                <label>
+                    <input type="checkbox" name="sexbattletrait" value="insensitiveB">
+                    가슴둔감 = 가슴 개발도 오르는 속도가 느림
+                </label>
+
+                <label>
+                    <input type="checkbox" name="sexbattletrait" value="insensitiveC">
+                    C둔감 = C 개발도 오르는 속도가 느림
+                </label>
+
+                <label>
+                    <input type="checkbox" name="sexbattletrait" value="insensitiveA">
+                    엉덩이둔감 = 엉덩이 개발도 오르는 속도가 느림
+                </label>
+
+                
+             </fieldset>
+
+             <fieldset class="traitbox">
+                <legend>신체특성</legend>
+                <em>민감도는 0~400에서 써주세요</em>
+
+                <div class="sextrait">
+                    <label>M크기</label>
+                    <select name="msize" id="msize">
+                        <option value="작음">작음</option>
+                        <option value="평균">평균</option>
+                        <option value="큼">큼</option>
+                    </select>
+                </div>
+
+                <div class="sextrait">
+                    <label>M민감도</label>
+                    <input type="number" id="msnt" value="0" min="0" max="400">
+                    <span id="msntRank"></span>
+                </div>
+
+                <div class="sextrait">
+                    <label>B크기</label>
+                    <select name="bsize" id="bsize">
+                        <option value="남자가슴">남자가슴</option>
+                        <option value="절벽">절벽</option>
+                        <option value="작음">작음</option>
+                        <option value="평균">평균</option>
+                        <option value="큼">큼</option>
+                        <option value="거대하고아름다움">거대하고아름다움</option>
+                    </select>
+                </div>
+
+                <div class="sextrait">
+                    <label>B민감도</label>
+                    <input type="number" id="bsnt" value="0" min="0" max="400">
+                    <span id="bsntRank"></span>
+                </div>
+
+                <div class="sextrait">
+                    <label>C민감도</label>
+                    <input type="number" id="csnt" value="0" min="0" max="400">
+                    <span id="csntRank"></span>
+                </div>
+
+                <div class="sextrait">
+                    <label>C조임도</label>
+                    <select name="csqz" id="csqz">
+                        <option value="뻑뻑함">뻑뻑함</option>
+                        <option value="명기">명기</option>
+                        <option value="보통">보통</option>
+                        <option value="널널함">널널함</option>
+                        <option value="허벌창">허벌장</option>
+                    </select>
+                </div>
+
+                <div class="sextrait">
+                    <label>C크기</label>
+                    <select name="csize" id="csize">
+                        <option value="병뚜껑">병뚜껑</option>
+                        <option value="소추">소추</option>
+                        <option value="보통">보통</option>
+                        <option value="큼">큼</option>
+                        <option value="거대하고아름다움">거대하고아름다움</option>
+                    </select>
+                </div>
+
+                <div class="sextrait">
+                    <label>A크기</label>
+                    <select name="asize" id="asize">
+                        <option value="뼈말">뼈말</option>
+                        <option value="스키니">스키니</option>
+                        <option value="보통">보통</option>
+                        <option value="동글동글">동글동글</option>
+                        <option value="풍성함">풍성함</option>
+                    </select>
+                </div>
+
+                <div class="sextrait">
+                    <label>A민감도</label>
+                    <input type="number" id="asnt" value="0" min="0" max="400">
+                    <span id="asntRank"></span>
+                </div>
+
+                <div class="sextrait">
+                    <label>A조임도</label>
+                    <select name="asqz" id="asqz">
+                        <option value="뻑뻑함">뻑뻑함</option>
+                        <option value="명기">명기</option>
+                        <option value="보통">보통</option>
+                        <option value="널널함">널널함</option>
+                        <option value="허벌창">허벌창</option>
+                    </select>
+                </div>
+
+
+                </div>
+             </fieldset>
+            
+
+
+
+            </div>
+        </fieldset>
+
+        <!--게임 시작 버튼-->
+        <br><br>
+        <strong>적자생존 세계에 어서오세요</strong>
+        <br><br>
+        <button type="button"onclick="startGame()">예</button>
+        <button type="button"onclick="history.back()">아니오</button>
+    </form>
+
+    <script>
+        /*버튼 작동*/
+         function startGame(){
+            const ageVal=+document.getElementById("age").value;
+            const strVal=+document.getElementById("str").value;
+            const dexVal=+document.getElementById("dex").value;
+            const intVal=+document.getElementById("int").value;
+            const charmVal=+document.getElementById("charm").value;
+
+            const totalPoints=strVal+dexVal+intVal+charmVal;
+
+            if (ageVal<17){
+                alert("나이는 17세 이상이어야 합니다.");
+                return;
+            }
+
+            if(totalPoints>15){
+                alert("스탯 포인트를 15 이하로 조정해주세요.")
+                return;
+            }
+
+            const player = createPlayer();
+            localStorage.setItem("playerData", JSON.stringify(player));
+            localStorage.removeItem("npcData");
+
+            window.location.href="game.html";
+        }
+
+         /*세부특성 자동계산*/
+         const str=document.getElementById("str")
+         const dex=document.getElementById("dex")
+         const int=document.getElementById("int")
+         const charm=document.getElementById("charm")
+         const atk=document.getElementById("atk")
+         const def=document.getElementById("def") 
+         const eva=document.getElementById("eva")
+         const mag=document.getElementById("mag")
+
+         const remain=document.getElementById("remain")
+
+         const totalPoints =
+         +str.value + +dex.value + +int.value + +charm.value; 
+
+        [str, dex, int, charm].forEach(input=>{
+            input.addEventListener("input",updatestats);
+        });
+
+        function updatestats(){
+            let s=+str.value || 0;
+            let d=+dex.value || 0;
+            let i=+int.value || 0;
+            let c=+charm.value || 0;
+
+            let total=s+d+i+c;
+            let left=15-total;
+
+            remain.innerText=left;
+
+         // 게임 내 파생스탯 공식과 동일하게 유지
+         atk.innerText=s*1.2+d*0.5;
+         def.innerText=s*0.7+c*0.3;
+         eva.innerText=d*1+i*0.4+c*0.2;
+         mag.innerText=i*1.3+c*0.5;
+        }
+
+
+
+    /*민감도 관련 수식 항목*/
+    
+    function connectRank(inputId, rankId){
+        const input=document.getElementById(inputId)
+        const rank=document.getElementById(rankId)
+
+     function updateRank(){
+     const value=Number(input.value);
+     if (value>=350){
+        rank.textContent="S";
+     } else if (value>=300){
+        rank.textContent="A";
+     } else if (value>=200){
+        rank.textContent="B";
+     } else if (value>=100){
+        rank.textContent="C";
+     } else if (value>=50){
+        rank.textContent="D";
+    } else{
+        rank.textContent="E"
+     }
+    }
+    
+     input.addEventListener("input",updateRank);
+     updateRank();
+}
+     connectRank("msnt","msntRank")
+     connectRank("bsnt","bsntRank")
+     connectRank("csnt","csntRank")
+     connectRank("asnt","asntRank")
+
+     /*성별에 따른 제한 설정*/
+     const genderSelect=document.getElementById("gender");
+     const csqz=document.getElementById("csqz");
+     const csize=document.getElementById("csize");
+
+     function updateGenderOptions(){
+        const gender=genderSelect.value;
+
+        if(gender==="female"){
+            csqz.disabled=false;
+            csize.disabled=true;
+        } else if(gender==="male"){
+            csqz.disabled=true;
+            csize.disabled=false;
+        } else {
+            csqz.disabled=false;
+            csize.disabled=false;
+        }
+    }
+
+        genderSelect.addEventListener("change",updateGenderOptions);
+        updateGenderOptions();
+
+
+    /*캐릭터 생성 함수*/
+    function createPlayer() {
+    return {
+        name: document.getElementById("name").value,
+        age: +document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        hair: {
+            length: document.getElementById("hairlength").value,
+            color: document.getElementById("haircolor").value
+        },
+        eyes: document.getElementById("eyecolor").value,
+        height: document.getElementById("height").value,
+        weight: document.getElementById("weight").value,
+        stats: {
+            str: +document.getElementById("str").value,
+            dex: +document.getElementById("dex").value,
+            int: +document.getElementById("int").value,
+            charm: +document.getElementById("charm").value
+        },
+        derivedStats: {
+            atk: +document.getElementById("atk").innerText,
+            def: +document.getElementById("def").innerText,
+            eva: +document.getElementById("eva").innerText,
+            mag: +document.getElementById("mag").innerText
+        },
+        status: {
+            hp: 100,
+            maxHp: 100,
+            stamina: 100,
+            maxStamina: 100,
+            arousal: 0,
+            maxArousal: 100,
+            trauma: 0,
+            maxTrauma: 100,
+            bodyFluid: { a: 0, m: 0, c: 0 },
+            maxBodyFluid: 300,
+            stunned: 0
+        },
+        equipment: {
+            weapon: null,
+            top: { name: "반팔", type: "top", stats: {} },
+            bottom: { name: "바지", type: "bottom", stats: {} },
+            underwear: { name: "팬티", type: "underwear", stats: {} }
+        },
+
+        inventory: [],
+        gold: 1000,
+        level: 1,
+        exp: 0,
+        statPoints: 0,
+        time: 0,
+        debtLevel: 1,
+        location: "townEntrance",
+        battleTrait: document.querySelector('input[name="battletrait"]:checked')?.value || null,
+        sexBattleTraits: Array.from(document.querySelectorAll('input[name="sexbattletrait"]:checked')).map(el => el.value),
+        sexualTraits: {
+            mSize: document.getElementById("msize").value,
+            mSensitivity: +document.getElementById("msnt").value,
+            bSize: document.getElementById("bsize").value,
+            bSensitivity: +document.getElementById("bsnt").value,
+            cSize: document.getElementById("csize").value,
+            cSensitivity: +document.getElementById("csnt").value,
+            cTightness: document.getElementById("csqz").value,
+            aSize: document.getElementById("asize").value,
+            aSensitivity: +document.getElementById("asnt").value,
+            aTightness: document.getElementById("asqz").value
+        }
+    };
+}
+    
+
+
+    </script>
+
+    <style>
+        /*기본*/
+        body{
+            background-color: black;
+            color: white;
+        }
+
+        fieldset{
+            background-color: gray;
+            border: 3px yellow;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        fieldset legend{
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        input, select{
+            color:black;
+            border: 1px yellow;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        /*버튼 이미지*/
+
+        /*나란히 배치*/
+        .stat-container{
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .traitbox{
+            background-color: darkgreen;
+            border: 2px solid black;
+            border-radius: 10px;
+
+            display: flex;
+            flex: 1 1 300px;
+            min-width: 200px;
+            flex-direction: column;
+            box-sizing: border-box;
+
+            padding: 15px;
+        }
+
+        .stat-row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .stat-row label{
+            flex: 1;
+        }
+
+        .stat-row input{
+            width: 70px;
+            text-align: center;
+        }
+
+        .profilebox{
+            background-color: darkgreen;
+            border: 3px solid white;
+            border-radius: 14px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+        }
+
+        .profilebox legend{
+            padding: 0 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .basicinfo{
+            text-align: center;
+            line-height: 2.8;
+            font-size: 18px;
+        }
+
+        .basicinfo input,
+        .basicinfo select{
+            margin-right: 0 6px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            width: auto;
+            min-width: 70px;
+        }
+    </style>
+</body>
+</html>

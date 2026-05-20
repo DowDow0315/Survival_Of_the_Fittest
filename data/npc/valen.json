@@ -1,0 +1,29 @@
+{
+    "name" : "발렌",
+    "hp" : 400,
+    "attack" : 80,
+    "defense" : 70,
+    "eva" : 35,
+    "lustResist" : 3,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "defaultStatusLine" : "발렌은 당신을 길거리에 널린 돌멩이라고 생각한다.",
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "발렌은 당신이 자신의 옆에 있기를 바란다."
+        }
+    ],
+
+    "scenes" : {}
+}

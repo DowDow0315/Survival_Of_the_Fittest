@@ -1,0 +1,1054 @@
+let trainingState = null;
+
+const TRAINING_DATA = {
+    rapistM: {
+        name: "남자",
+        hp: 100,
+        maxHp: 100,
+        recoverAmount: 20,
+
+        actions: [
+            { id: "m", weight: 25, arousal: 5, sensitivity: "mSensitivity" },
+            { id: "b", weight: 25, arousal: 5, sensitivity: "bSensitivity" },
+            { id: "c", weight: 25, arousal: 5, sensitivity: "cSensitivity" },
+            { id: "a", weight: 25, arousal: 5, sensitivity: "aSensitivity" },
+            { id: "rest", weight: 10 }
+        ],
+
+        lines: {
+            normal: {
+                m: {
+                    default : {
+                        resist : "남자는 당신이 저항하자 당신의 턱을 잡고 더 거칠게 입술을 짓눌렀다.",
+                        endure : "남자는 당신이 버티는 것을 비웃으며 느리게 키스를 이어갔다.",
+                        submit : "남자는 당신의 순응에 만족한 듯 더 깊게 혀를 밀어넣었다."
+                    },
+                    highSensitivity : {
+                        resist : "\"닿기만 해도 움찔거리면서 튕기기는.\"<br>남자는 당신의 입술을 물어뜯듯이 공략하며 웃었다.",
+                        endure : "키스를 하다가 당신이 움찔거리는 걸 눈치챈 남자는 웃으면서 당신의 입술을 더 끈질기게 괴롭혀왔다. 그의 혀는 당신의 혀를 놓아주지 않는다.",
+                        submit : "남자는 당신의 입이 약하다는 걸 알고 있다. 그는 순순히 입술을 내밀고 있는 당신의 입 안으로 집요하게 혀를 들이밀었다."
+                    }
+                },
+                b: {
+                    default : {
+                        male: {
+                            resist : "남자는 저항하는 당신을 억누르고 당신의 평평한 가슴을 문질렀다.",
+                            endure : "남자는 당신이 버티는 것을 비웃으며 당신의 튀어나온 꼭지를 꾹꾹 간질였다.",
+                            submit : "남자는 순응하는 당신에게 착하다, 예쁘다라는 말을 해주며 당신의 가슴을 부드럽게 문질렀다." 
+                        },
+                        female : {
+                            resist : "남자는 당신이 반항하자 더 거세게 가슴을 압박해왔다. 당신의 양쪽 가슴이 남자의 양손에 잡혀서 추잡하게 흔들린다.",
+                            endure : "남자는 당신의 가슴을 잡더니 상하좌우로 이리저리 흔들었다. 가슴살끼리 부딪히는 소리에 남자는 미소를 지었다.",
+                            submit : "남자는 순응하는 당신에게 착하다, 예쁘다라는 말을 해주며 당신의 가슴을 부드럽게 문질렀다."
+                        }
+                    },
+                    highSensitivity : {
+                        resist : "남자는 당신이 저항하자 좋아하면서 왜 그러냐고 물었다. 그는 당신의 가슴을 집요하게 괴롭히며 낄낄 웃었다.",
+                        endure : "남자는 당신의 떨리는 가슴에 잇자국을 새기며 웃었다. 민감한 가슴을 향한 공격이 더 집요해진다.",
+                        submit : "남자는 당신이 순응하자 웃으며 역시 가슴이 제일 기분 좋았던 거냐고 물었다. 그는 당신의 가슴을 더 움켜잡았다."
+                    }
+                },
+                c: {
+                    default : {
+                        male : {
+                            resist : "남자는 당신이 저항하자 당신의 성기를 아프게 쥐며 엄지로만 꾹꾹 눌렀다. 가만히 있어, 라고 그는 으르렁거렸다.",
+                            endure : "남자는 당신의 남성기를 들어올리더니 그대로 불알 주변을 지분거리면서 당신의 기둥을 꽉 눌렀다.",
+                            submit : "당신이 순응하자 남자는 기분 좋게 해주겠다며 당신의 남성기를 양손으로 잡고 쓰다듬으며 위아래로 흔들었다."
+                        },
+                        female : {
+                            resist : "다가오는 남성기에 당신이 저항하자 남자는 당신의 양손목을 한 손으로 잡은 채 다리를 억지로 벌려 제 성기를 당신의 보지에 박고 추삽질을 시작했다. 봐주는 건 없었다.",
+                            endure : "남자는 당신의 다리를 제 어깨 위로 올리더니 그대로 추삽질을 해댔다. 남자의 성기가 당신의 질 안에 가득 차있다.",
+                            submit : "남자의 성기가 당신의 질 안으로 파고든다. 그는 순응하는 당신에게 당신도 이걸 원한 건 아니었냐고 속삭이며 더 몸을 바짝 밀착해왔다. 남자의 추삽질이 더 길게 이어진다."
+                        }
+                    },
+                    highSensitivity: {
+                        male : "남자는 당신의 성기가 흥분으로 부풀어오르자 웃으며 당신의 불알을 더 잡아당겼다. 민감한 당신의 남성기에서 쿠퍼액이 찔끔찔끔 떨어진다.",
+                        female : {
+                            resist : "\"이렇게 좋아하면서 뭘 계속 튕겨?\" <br>남자는 당신의 반항에 어이없다는 듯이 웃으며 자신의 성기를 빨아들이는 당신의 보지에 박아댔다. 민감한 당신의 보지는 남자의 성기가 들어오자마자 움찔움찔 탐욕스럽게 꿈틀거렸다.",
+                            endure : "민감하게 자신의 성기를 빨아들이는 당신의 보지에 남자는 멈출 생각이 없다. 그는 더 집요하게 추삽질을 이어갔다.",
+                            submit : "남자는 당신의 저항없는 다리를 벌린 채 교배프레스 자세로 추삽질을 이어갔다. 그는 당신의 머리를 제 가슴에 닿게 안은 채 자궁구의 끝까지 남성기를 밀어붙였다. 민감한 당신의 보지는 남자의 성기를 음탕하게 쭈압쭈압 빨아들이고 있다."
+                        }
+                    }
+                },
+                a: {
+                    default : {
+                        resist : "당신이 저항하자 남자는 당신의 몸을 억누른 채 뒷구멍에 성기를 박아대기 시작했다. 당신의 배가 볼록할 때까지 그는 박아대며 당신의 저항을 허용하지 않았다.",
+                        endure : "남자는 당신의 엉덩이를 한 대 때리더니 그대로 자신의 성기를 들이밀었다. 당신은 엉덩이에 그의 성기가 꽂힌 채 이리저리 흔들렸다.",
+                        submit : "남자는 당신의 저항없는 다리를 벌리고 엉덩이에 추삽질을 해댔다. 박힐 때마다 당신의 엉덩이가 움찔움찔 위로 솟구쳤다. 남자는 당신의 배밑으로 손을 넣어 당신을 제쪽으로 끌어당기며 미소를 지었다. <br>\"착하지.\""
+                    },
+
+                    highSensitivity : {
+                        resist : "남자는 저항하는 당신을 억누르며 뒷구멍도 걸레면서 걸레가 아닌 척하지 말라고 말했다. 그는 찰싹찰싹 당신의 엉덩이를 때리면서 웃었다. <br>\"봐, 이미 맞는 걸로도 네 구멍은 느끼고 있잖아?\" <br>당신의 엉덩이는 너무 민감하다.",
+                        endure : "남자는 추삽질을 이어가면서 당신의 민감한 엉덩이를 움켜잡았다.<br>\"뒷구멍도 암캐구멍이네?\"<br>남자는 당신의 엉덩이를 주물럭거리며 집요하게 추삽질을 이어갔다.",
+                        submit : "당신의 민감한 엉덩이에 추삽질을 하던 남자는 당신의 저항없는 고개를 들어올렸다. 그는 당신의 시선을 마주하며 당신은 타고난 암캐라고 말했다. 당신은 반박할 수 없었다, 당신의 뒷구멍이 그의 성기를 음탕하게 빨아올리는 것을 스스로도 느끼고 있기 때문에."
+                    }
+                },
+                rest: "남자는 잠시 당신을 놓고 숨을 골랐다."
+            },
+            angry: {
+                m: "남자는 당신의 머리채를 잡더니 난폭하게 당신에게 키스했다. 당신의 호흡소리가 거칠어졌지만 남자는 신경쓰지 않았다. 남자의 혀가 마지막까지 당신의 혀를 꽉 쥐고 놓아주지 않는다.",
+                b: "남자는 당신의 가슴을 쥐어짜듯이 꼬집었다. 당신의 유두가 고통으로 평소보다 더 톡 튀어나왔다.",
+                c: {
+                    male: {
+                        resist : "남자는 일어나더니 당신의 두 다리를 벌리고 남성기를 짓밟기 시작했다. 당신이 저항하려고 들자 남자는 당신의 남성기를 더 압박했다. <br>\"언제까지 저항하나 보자.\"",
+                        endure : "남자는 일어나더니 당신의 두 다리를 잡은 채 당신의 남성기를 짓밟기 시작했다. 당신이 고통스러워서 온몸을 뒤틀어도 남자는 비웃을 뿐 당신의 다리를 놓아주지는 않았다.",
+                        submit : "남자는 일어나더니 당신의 두 다리를 잡은 채 당신의 남성기를 짓밟기 시작했다. 당신이 고통스러워서 온몸을 뒤틀어도 남자는 비웃을 뿐 당신의 다리를 놓아주지는 않았다."
+                    },
+                    female : {
+                        resist : "남자는 일어나더니 당신의 두 다리를 잡아 벌리고 당신의 보지를 짓밟기 시작했다. 당신이 남성의 발을 피하며 저항해도 남자의 발은 당신은 중심부부터 시작해서 발끝으로 아프게 당신의 보지를 눌렀다. 그의 얼굴에는 용서가 없었다.",
+                        endure : "남자는 일어나더니 당신의 두 다리를 잡은 채 당신의 여성기를 짓밟기 시작했다. 고통스러운 압박에 당신의 여성기가 애액을 찐득하게 뱉어내자 남자는 당신을 비웃었다.",
+                        submit : "남자는 일어나더니 당신의 두 다리를 잡은 채 당신의 여성기를 짓밟기 시작했다. 고통스러운 압박에 당신의 여성기가 애액을 찐득하게 뱉어내자 남자는 당신을 비웃었다."
+                    }
+                },
+                a: "남자는 당신의 애널을 거칠게 박아대기 시작했다. 내장까지 쳐버리는 듯한 고통이 당신의 온몸을 장악한다. 엉덩이에 박을 때마다 당신의 배 위로 남자의 성기가 두드러진다.",
+                rest: "남자는 당신의 멱살을 잡은 채 숨을 골랐다."
+            },
+            orgasm: "당신이 절정하자 남자는 웃음을 터뜨렸다."
+        }
+    },
+
+    rapistF: {
+        name: "여자",
+        hp: 100,
+        maxHp: 100,
+        recoverAmount: 20,
+
+        actions: [
+            { id: "m", weight: 25, arousal: 5, sensitivity: "mSensitivity" },
+            { id: "b", weight: 25, arousal: 5, sensitivity: "bSensitivity" },
+            { id: "c", weight: 25, arousal: 5, sensitivity: "cSensitivity" },
+            { id: "a", weight: 25, arousal: 5, sensitivity: "aSensitivity" },
+            { id: "rest", weight: 10 }
+        ],
+
+        lines: {
+            normal: {
+                m: {
+                    resist : "여자는 당신에게 도발적인 키스를 해왔다. 당신이 반항하자 여자는 당신의 몸을 더 압박해왔다. 당신은 턱을 여자의 가슴에 눌린 채로 강제로 키스를 받아내야만 했다.",
+                    endure : "여자는 당신에게 도발적인 키스를 해왔다. 당신이 참으려고 하자 여자는 웃으며 당신의 입술을 더 진하게 빨아들였다.",
+                    submit : "여자는 당신에게 도발적인 키스를 해왔다. 당신이 순응하자, 여자는 더 깊숙이 당신의 입을 침범해왔다. 여잔의 부드러운 혀가 당신의 입천장과 치실까지 훑고 돌아다닌다. 당신의 입안은 여자의 침으로 범벅이다."
+                },
+                b: {
+                    resist : "여자는 당신이 저항하자 자신의 가슴으로 당신의 가슴을 짓누른 뒤 비비기 시작했다. 여자의 가슴 무게에 숨을 쉬기가 힘들어진다!",
+                    endure : "여자는 당신의 가슴을 자신의 가슴으로 안더니 흔들기 시작했다. 여자의 가슴 안에서 당신의 가슴이 흔들린다.",
+                    submit : "여자는 당신이 순응하자 고개를 내려 당신의 가슴을 빨기 시작했다. 마치 언젠가는 당신의 가슴에서 모유가 나올 거라는 듯, 아주 깊숙이."
+                },
+                c: {
+                    male: "여자는 당신의 남성기를 잡더니 그대로 위아래로 흔들기 시작했다. 당신의 성기 위로 혈맥이 불끈불끈 튀어나온다.",
+                    female: {
+                        resist : "여자는 저항하는 당신의 허리를 잡고 막대기 하나로 당신의 여성기와 자신의 여성기를 연결시켰다. 여자가 그 막대를 품고 허리를 흔들자, 당신은 저항하려고 해도 여자와 같이 허리를 흔들 수밖에 없었다.",
+                        endure : "여자는 당신의 성기에 제 성기를 맞대더니 비비기 시작한다. 흥분하기 시작한 두 여성기 사이로 누구것인지 모를 애액이 섞여서 찰방거린다.",
+                        submit : "여자는 당신의 성기에 제 성기를 맞대더니 비비기 시작한다. 흥분하기 시작한 두 여성기 사이로 누구것인지 모를 애액이 섞여서 찰방거린다."
+                    }
+                },
+                a: "여자는 당신의 엉덩이를 부드럽게 쓰다듬더니 곧 반죽하듯 당신의 엉덩이를 돌리기 시작했다.",
+                rest: "여자는 잠시 당신을 놓고 숨을 골랐다."
+            },
+            angry: {
+                m: "여자는 당신의 입안으로 손가락을 집어넣더니 거칠게 휘저었다. 치아가 여자의 손가락과 부딪혀 계속 딱딱거리는 소리가 난다. 당신의 열린 입술 틈으로 침이 흘러나왔다.",
+                b: "여자는 당신의 가슴을 거칠게 주물렀다. 손가락 사이로 밀려나는 살집이 마찰에 점점 붉어진다.",
+                c: {
+                    male : {
+                        resist : "여자는 당신의 성기를 폭력적으로 주무르다가 입에 넣고 빨았다. 당신은 여자의 머리를 밀어내려고 했지만, 그때마다 여자는 당신의 성기를 잘근 씹어서 당신은 저항할 수가 없었다.",
+                        endure: "여자의 폭력적인 손길에 당신은 참으려고 했지만, 당신이 참으려고 할 수록 성기를 쥐고 있는 여자의 손은 더 격렬하고 폭력적으로 변했다. 네가 참을 수 있겠어? 여자는 당신을 비웃고 있다.",
+                        submit : "이제 와서 순응해봤자 늦었다는 듯이 여자는 당신의 순응에도 봐주지 않고 당신의 남성기를 아프게 주물렀다. 결국 당신의 눈꼬리에서 눈물이 한방울 톡 떨어질 때까지, 여자는 괴롭힘을 멈추지 않았다."
+                    },
+                    female : {
+                        resist : "여자는 당신의 보지를 찰싹찰싹 때리기 시작했다. 당신이 다리를 오므리려고 하면 다시 벌리게 해서 찰싹찰싹 때렸다. 당신의 두 허벅지가 바들바들 떨린다.",
+                        endure : "여자의 폭력적인 손길에 당신은 참아내려고 했지만, 이미 여자의 손바닥과 부딪힐 때마다 당신의 보지는 애액이 묻어나오고 있었다. 여자는 애액이 묻은 자신의 손바닥을 핥아올리며 사납게 웃었다.",
+                        submit : "이제 와서 순응해봤자 늦었다는 듯이 여자는 당신의 순응에도 봐주지 않고 당신의 보지 안으로 손을 집어넣어 휘저었다. 당신이 조금만 몸을 움찔거려도 여자는 당신의 클리 위를 매섭게 때려댔다."
+                    }
+                },
+                a: "여자는 당신을 뒤집고 엉덩이를 때리기 시작했다. 엉덩이 골을 가격하는 손날에 당신의 눈에 눈물이 고였다.",
+                rest: "여자는 당신을 깔고앉은 채 숨을 돌렸다."
+            },
+            orgasm: "당신이 절정하자 여자는 웃음을 터뜨렸다."
+        }
+    },
+    goblin: {
+        name: "고블린",
+        hp: 200,
+        maxHp: 200,
+        recoverAmount: 20,
+
+        actions: [
+            { id: "m", weight: 30, arousal: 5, sensitivity: "mSensitivity" },
+            { id: "b", weight: 10, arousal: 5, sensitivity: "bSensitivity" },
+            { id: "c", weight: 30, arousal: 5, sensitivity: "cSensitivity" },
+            { id: "a", weight: 30, arousal: 5, sensitivity: "aSensitivity" },
+            { id: "rest", weight: 10 }
+        ],
+
+        lines: {
+            normal: {
+                m: "고블린은 당신의 입에 붙어서 성기를 들이밀었다. 탁, 탁, 탁, 탁, 당신은 숨도 제대로 쉬지 못한 채 빠른 속도의 펠라를 당했다.",
+                b: {
+                    resist : "당신이 저항하려고 해도 고블린은 당신의 가슴에 붙은 채 떨어지지 않았다. 그는 당신의 가슴을 깨물고 물며 당신의 젖상태를 확인했다.",
+                    endure : "고블린은 당신의 가슴을 젖을 빨듯이 물어뜯어왔다. 그는 당신에게 아기처럼 달라붙어있다. 쭙쭙거리는 민망한 소리와 함께 당신의 젖도 출렁인다.",
+                    submit : "고블린은 당신이 순응하자 킬킬 웃으며 당신의 가슴을 작은 손으로 주물럭거렸다. 그는 유두 돌기를 작은 손톱으로 압박하며 당신의 반응을 관찰했다."
+                },
+                c: {
+                    male: "고블린은 당신에게 남자 성기는 필요없다고 생각한다. 하지만 그들은 당신의 작은 구멍에는 관심이 있었다. 고블린의 날카로운 손톱이 자꾸만 당신의 요도 구멍을 찔러댄다.",
+                    female: {
+                        resist : "당신이 저항하려고 해봤자 두 다리 사이에 자리를 잡고 붙어있는 고블린을 뗴어낼 수는 없었다. 오히려 당신의 저항에 흥분한 듯, 고블린은 당신의 보지에 자신의 작은 성기를 빠르게 박아댔다. 그 속도에 당신은 내벽이 뚫릴 것만 같은 고통을 느꼈다.",
+                        endure : "고블린은 당신의 보지에 작은 성기를 넣고 탁, 탁, 탁, 탁 박아댔다. 당신의 몸이 그들의 빠른 움직임에 따라 꼭두각시 인형처럼 삐걱삐걱 움직인다.",
+                        submit : "고블린은 당신이 순응하자 킬킬 웃으며 당신의 보지에 추삽질을 이어갔다. 그의 성기는 작지만 구석구석 여러 방향으로 당신의 안을 찔러오고 있다."
+                    }
+                },
+                a: "고블린은 당신의 엉덩이에 찰싹 달라붙더니 그대로 추삽질을 이어갔다. 그들의 손이 꽉 잡고 있는 엉덩이 살집이 점점 붉게 변해갔다.",
+                rest: "고블린은 웃음기를 거두지 않은 채 당신을 보며 잠시 쉬었다."
+            },
+            angry: {
+                m: {
+                    resist : "고블린은 당신의 저항에 당신의 입술을 후려쳤다. 당신의 입안에 피맛이 맴돈다. 고블린은 봐주지 않고 당신의 터진 입술 사이로 제 성기를 밀어넣고 추삽질을 시작했다.",
+                    endure : "분노한 고블린이 당신의 입에 거칠게 박아댔다. 잇몸과 입천장이 긁히면서 끼릭거리는 마찰음을 자아낸다.",
+                    submit : "당신이 순응하자 고블린은 더 기세가 살아서 당신의 입술에 빠르게 추삽질을 이어나갔다. 딱, 딱, 딱, 그는 당신이 본능적으로 이를 세우면 그대로 당신의 머리통을 후려쳤다, 마치 펫을 교육하듯이."
+                },
+                b: "고블린은 당신의 가슴을 피가 날 정도로 물어뜯었다.",
+                c: {
+                    male : "고블린은 얇은 막대기를 하나 들고 오더니 그것으로 당신의 요도구멍을 쑤시기 시작했다. 생소한 감각에 당신의 눈에 눈물이 고였지만 고블린은 그 눈물에 더 흥분했다.",
+                    female : {
+                        resist : "고블린은 당신의 저항에 화를 내며 당신의 보지를 작은 손으로 양옆으로 벌렸다. 그리고 저항하는 당신의 다리에 걸터앉은 채 그 안을 막대로 쑤시기 시작했다. 반항하는 암컷에게 자비 따위는 없었다.",
+                        endure : "고블린은 보지에 자신의 작은 주먹을 집어넣었다. 당신의 허리가 휘자 고블린은 당신이 허리를 못 굽히게 고정시킨 후 계속 피스팅을 이어갔다. 질 내벽이 최대로 늘어났다가 다시 오므러든다.",
+                        submit : "당신이 순응한 걸 느꼈지만 고블린은 멈추지 않았다. 그는 보지에 자신의 작은 주먹을 집어넣었다. 당신의 허리가 휘자 고블린은 당신이 허리를 못 굽히게 고정시킨 후 계속 피스팅을 이어갔다. 질 내벽이 최대로 늘어났다가 다시 오므러든다."
+                    }
+                },
+                a: {
+                    resist : "당신이 저항하려고 하자 고블린은 주먹으로 당신의 엉덩이를 팡팡 세게 내리치며 당신의 엉덩이 구멍을 벌렸다. 당신의 엉덩이는 이미 당신의 살색을 찾아볼 수 없을 정도로 붉어져있었다.",
+                    endure : "고블린은 당신의 엉덩이에 자신의 작은 주먹을 밀어넣었다. 당신의 몸이 파닥거렸지만 고블린은 당신의 허리에 앉은 채 계속 엉덩이에 피스팅을 가했다. 처벅처벅하는 소리와 함께 고블린의 주먹에 피가 같이 묻어나온다.",
+                    submit : "당신이 저항을 멈췄음에도 고블린의 가학행위는 멈추지 않았다. 그는 당신의 엉덩이에 주먹을 처박고 돌리기 시작했다. 당신이 고통에 몸부림치자 그는 가만히 있으라는 듯 다른 손으로 당신의 엉덩이를 내리쳤다. 짝 하는 소리와 함께 당신의 허리가 고통으로 꺾인다."
+                },
+                rest: "고블린은 화난 기색을 감추지 못하고 씩씩거리며 당신을 노려보았다.."
+            },
+            orgasm: "당신이 절정하자 고블린은 의미를 알 수 없는 울음 소리를 내며 당신의 몸에서 나오는 액체를 핥아먹었다."
+        }
+    },
+
+
+    //npc
+    eric : {
+        name: "에릭",
+        hp : 400,
+        maxHp : 400,
+        recoverAmount : 30,
+
+        actions : [
+            { id: "m", weight: 25, arousal: 10, sensitivity: "mSensitivity" },
+            { id: "b", weight: 20, arousal: 10, sensitivity: "bSensitivity" },
+            { id: "c", weight: 25, arousal: 10, sensitivity: "cSensitivity" },
+            { id: "a", weight: 25, arousal: 10, sensitivity: "aSensitivity" },
+            { id: "rest", weight: 5 }
+        ],
+
+        lines : {
+            normal : {
+                m : {
+                    default : {
+                        resist : "에릭은 당신이 저항하자 당신의 볼개그를 잡고 이리저리 좌우로 흔들었다. 마치 개를 훈육시키는 것처럼. 그리고 그는 지그시 볼개그를 눌렀다. 볼이 당신의 입안에 가득 찬다.",
+                        endure : "에릭은 볼개그를 물고 있는 당신의 입술을 모욕적으로 툭툭 쳤다. 그는 볼개그의 둥그런 부분을 당신의 입꼬리가 찢어질 때까지 당신의 입안으로 집어넣었다. 당신의 벌어진 입에서 침이 새어나온다.",
+                        submit : "당신이 순응하자 에릭은 인상을 찌푸렸다. <br>\"어차피 이렇게 될 거면서 왜 그런 거지?\"<br>그는 당신의 볼개그를 툭 건드렸다. 툭 건드리기만 해도 당신의 입에 비해 너무 큰 볼은 당신의 입안을 아프게 했다. <br>\"이 꼴로 대답을 듣긴 어렵겠지만.\""
+                    },
+                    highSensitivity : {
+                        resist : "에릭은 당신이 저항하자 당신의 턱을 잡더니 그대로 볼을 퍽퍽 때렸다. 아파서 당신이 꺽꺽거리자 그는 비웃었다. <br>\"꺽꺽거리면서도 느끼고 있군.\"<br>당신의 민감한 입이 화끈거린다.",
+                        endure : "에릭은 당신의 입술을 쓰다듬듯이 손가락으로 쓸다가 볼개그 안쪽으로 손가락을 집어넣었다. 축축한 침, 그는 당신의 입에 손가락을 억지로 집어넣으며 당신의 민감한 반응을 관찰했다.",
+                        submit : "당신이 순응하자 에릭의 초록색 눈동자가 가라앉았다. 그는 당신의 민감한 입이 볼개그 옆으로 억지로 밀고 들어온 자신의 손가락을 빨아들이자 인상을 찌푸렸지만, 손가락으로 당신의 입안을 자극하는 건 멈추지 않았다."
+                    }
+                },
+                b : {
+                    default : {
+                        resist : "에릭은 저항하는 당신을 억누르고 가슴에 전기극을 꽂았다. 당신이 뭐라 할 틈도 없이 그는 버튼을 눌렀고 당신은 유두에 집중된 전기 공격에 몸을 바르르 떨었다. 비명을 지르고 싶어도 볼개그 때문에 어떤 소리도 낼 수 없다.",
+                        endure : "에릭은 당신의 가슴 위로 핀셋을 꽂고 좌우로 잡아당겼다. 당신이 아파서 몸을 꼴 떄까지 그는 가슴고문을 멈추지 않았다. 붉은 걸 넘어서 시뻘개진 당신의 유두가 꼿꼿하게 서있다.",
+                        submit : "에릭은 저항없는 당신의 가슴 위로 니플플러그를 달았다. 그는 무표정으로 당신이 니플플러그에 몸을 움찔움찔거리는 걸 지켜보고 있다."
+                    },
+                    highSensitivity : {
+                        resist : "에릭은 당신의 저항을 억누르고 가슴에 전기극을 꽂았다. 미약한 전기로도 파르르 떨리는 당신의 몸에 그의 눈이 가늘어졌다. 점점 전기의 세기를 올려가면서 그는 당신의 음탐함을 초록색 눈에 기록하고 있다.",
+                        endure : "에릭은 당신의 가슴 위로 니플플러그를 달고 당신의 음란한 몸을 무표정으로 응시하고 있다. 니플플러그가 당신의 민감한 가슴을 깨물자 당신은 당신도 모르게 허리를 튕겼다.",
+                        submit : "에릭은 당신의 가슴 위로 니플플러그를 달고 당신의 음란한 몸을 무표정으로 응시하고 있다. 니플플러그가 당신의 민감한 가슴을 깨물자 당신은 당신도 모르게 허리를 튕겼다."
+                    }
+                },
+                c : {
+                    male : {
+                        default : {
+                            resist : "에릭은 당신이 저항을 시도하자 그대로 당신의 남성기를 짓밟았다. 당신이 제대로 된 저항도 못하고 본능적인 신음을 흘리자 그제야 발의 무게를 조절하며 당신을 내려다보았다. <br>\"가만히 있어.\"<br>그의 딱딱한 목소리는 어떠한 저항도 용납하지 않고 있었다.",
+                            endure : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하며 당신을 기절 직전까지 몰았다. 그렇게 고통스러운데도, 당신의 남성기는 점점 서기 시작했다. 에릭은 당신의 남성기가 딱딱해지자 비릿한 조소를 지으며 당신의 성기 끝을 군화로 짓밟았다.",
+                            submit : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하며 당신을 기절 직전까지 몰았다. 당신이 전혀 저항을 하지 않자 그의 녹안에 의문이 스쳤지만 그뿐, 그는 당신을 고콩과 쾌락 사이에 머무르게 했다."
+                        },
+                        highSensitivity : {
+                            resist : "에릭은 당신이 저항을 시도하자 그대로 당신의 남성기를 짓밟았다. 고통마저 쾌락으로 느낄 전조가 보이는 당신의 민감한 남성기에 무게를 더 얹으며 에릭은 당신을 깔보듯 내려다보았다. <br>\"이런 몸으로 내게 저항을 하겠다고? 주제 파악을 해라.\"",
+                            endure : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하다가 당신이 민감한 남성기에 느껴지는 자극을 어떻게든 참아내고 있다는 걸 눈치챘다. 그는 은근하게 발의 각도를 조절하며 자신의 발 밑에서 바르작거리고 있는 당신의 모습을 녹안에 담았다. 그의 녹안이 더 짙어졌다.",
+                            submit : "에릭은 당신의 성기를 그대로 짓밟았다. 예민한 남성기에 떨어지는 자극을 저항없이 받아들이는 당신을 내려다보던 에릭은 신경질적으로 당신에게서 시선을 돌렸다. 갑자기 늘어난 발의 무게에 당신은 흥분했다."
+                        }
+                    },
+                    female : {
+                        default : {
+                            resist : "에릭은 당신의 저항을 아무렇지도 않게 저항한 후 당신의 보지를 짓밟았다. 그의 군화에 당신의 보지가 짓이겨진다. 아파하는 당신을 에릭은 무표정으로 내려다보며 당신이 움직이지 못하도록 더 힘을 주었다. <br>\"가만히 있어.\"<br>그의 딱딱한 목소리는 어떠한 저항도 용납하지 않고 있었다. 발의 무게가 당신의 쾌락과 고통 사이에 머무른다.",
+                            endure : "에릭은 당신의 성기를 그대로 짓밟았다. 짓밟힌 클리에 당신은 본능적으로 고통을 흡수하기 위해 허리를 숙였지만 에릭은 그것마저 허용하지 않았다. 당신은 여성기를 짓눌린 채 계속 허리를 꼿꼿하게 세워야만 했다.",
+                            submit : "에릭은 당신의 성기를 그대로 짓밟았다. 당신이 저항을 안 하자 그의 녹안에 의문이 스쳤지만 그뿐, 그는 계속해서 당신의 보지를 짓밟으며 당신을 고통과 쾌락 사이에 머무르게 했다."
+                        },
+                        highSensitivity : {
+                            resist : "에릭은 당신이 저항을 시도하자 그대로 당신의 보지를 짓밟았다. 고통마저 쾌락으로 느낄 전조를 보이는 당신의 민감한 보지에, 에릭은 인상을 찌푸리며 당신의 보지 안을 구둣발로 침범했다. 구두의 딱딱한 부분이 당신의 보지를 누른다. <br>\"이딴 몸을 가지고 내게 개길 생각을 했나?\"",
+                            endure : "에릭은 당신의 보지를 그대로 짓밟았다. 그는 당신의 민감한 클리의 구둣발의 딱딱한 부분으로 압박하면서 쾌락으로 점점 붉어지는 당신의 얼굴을 쳐다보았다. <br>\"평소에도 벌을 즐기나 보지?\"",
+                            submit : "에릭은 당신의 보지를 그대로 짓밟았다. 예민한 보지에 피어오르는 자극을 저항없이 받아들이는 당신을 내려다보던 에릭은 신경질적으로 자신의 머리카락을 쓸어넘겼다. 그의 녹안은 애액을 뻐끔거리는 당신의 보지를 주시하고 있었다. 갑자기 늘어난 발의 무게에 당신은 흥분했다."
+                        }
+                    }
+                },
+                a : {
+                    default : {
+                        resist : "에릭은 당신이 저항하자 당신의 복부를 가격한 후 당신을 엎드리게 만들었다. 명치를 맞아 앓던 당신의 신음 소리의 색이 바뀌었다. 차가운 막대기가 당신의 엉덩이를 쑤셔대고 있었다. 에릭은 막대기에 발을 올려 무게를 주며 당신에게 개기지 말라고 경고했다.",
+                        endure : "에릭은 당신을 엎드리게 하더니 그대로 당신의 엉덩이를 발로 찼다. 둔부의 고통에 당신의 허리가 움찔거렸지만 에릭은 발로 당신의 허리를 차서 다시 당신을 엎드린 자세로 고정한 후, 싸늘한 목소리로 움직이지 말라고 명했다. 반항을 하고 싶어도 그의 발길질 앞에서 당신의 몸은 반항을 하기도 전에 무너질 뿐이다. 그는 당신의 애널 구멍에 차가운 금속 막대를 넣고 조금씩 당신의 안을 침범해갔다.",
+                        submit : "에릭은 엎드리라는 명령에 순응적으로 따르는 당신을 지켜보았다. 그는 차가운 막대를 당신의 엉덩이에 꽂고, 막대의 끝부분을 발로 건드렸다. 그의 발장난에 당신은 움찔거리면서 몸을 떨었다."
+                    },
+                    highSensitivity : {
+                        resist : "에릭은 당신의 저항하자 당신의 복부를 가격한 후 당신을 엎드리게 만들었다. 명치의 고통을 느낄 새도 없이 당신은 엉덩이로 밀고 들어오는 막대에 고통스러워했지만, 고통만이 있는 건 아니었다. 에릭은 당신을 내려다보았다. <br>\"네놈은 뒷구멍마저 음란하군.\"",
+                        endure : "에릭은 당신을 엎드리게 하더니 그대로 당신의 엉덩이를 발로 찼다. 당신은 순간 민감한 엉덩이를 발로 채이며 고통만이 있는 건 아닌 신음 소리를 흘렸다. 에릭은 어이가 없다는 듯이 당신을 보았지만 발길질을 멈추지는 않았다. 곁눈질로 본 그의 녹안은 평소보다 더 짙었다.",
+                        submit : "에릭은 엎드리라는 명령에 순종적으로 따르는 당신을 지켜보았다. 그는 차가운 막대를 엉덩이에 꽂고 돌렸지만, 당신의 몸이 고통뿐만 아니라 쾌락에도 떨리고 있다는 걸 인지했다. <br>\"이런 걸 원해서 개긴 건가.\"<br>그의 말에 당신의 얼굴이 붉어진다. <br>\"구제불능이군.\""
+                    }
+                },
+                rest : "에릭은 당신에게서 잠시 시선을 돌렸다. 그의 눈동자는 너무 깊어서 그가 지금 어떤 생각을 하고 있는지 알 수가 없다."
+            },
+            angry : {
+                m : {
+                    default : {
+                        resist : "에릭은 볼개그를 물고 있는 당신의 입을 가격했다. 이와 볼개그가 부딪혀 큰 소리가 났지만, 에릭은 신경쓰지 않았다. <br>\"아직도 정신을 못 차렸군.\"<br>그는 당신의 양뺨을 한 손에 가둔 채, 당신의 입안으로 자신의 손가락을 쑤셔박았다. 당신이 아무리 발버둥을 쳐도, 당신의 이만 아파올 뿐이다.",
+                        endure : "에릭은 볼개그를 물고 있는 당신의 입을 그대로 바닥으로 눌렀다. 바닥에 긁히며 쇳소리가 났지만, 에릭은 당신이 고통에 본능적으로 몸을 뒤틀어도 가학을 멈추지 않았다. 그는 당신이 다시는 개기지 못하도록 교훈을 줄 생각이다.",
+                        submit : "\"이제 와서?\"<br>에릭은 당신의 순응에 차갑게 반응했다. 그는 당신의 머리를 그대로 바닥으로 불렀고, 바닥에 눌린 볼개그는 당신의 입을 폭력적으로 침범해왔다. 압박과 고통에 침을 질질 흘리는 당신에게 에릭은 후회할 거면 하지도 말라고 말했다."
+                    },
+                    highSensitivity : {
+                        resist : "에릭은 볼개그를 물고 있는 당신의 입을 가격했다. 이와 볼개그가 부딪혀 큰 소리가 났지만 에릭은 개의치 않았다. 아파하면서도 당신의 혀가 볼개그를 빨듯이 감싸안는 걸 발견한 에릭의 눈동자가 어두워졌다. 그의 녹색 시선은 당신의 음란한 입술에 박혀있다.",
+                        endure : "에릭은 볼개그를 물고 있는 당신의 입을 그대로 바닥에 눌렀다. 당신이 움찔움찔 몸을 떨자 에릭은 당신의 성기를 손으로 쥐었다.<br>\"흥분했군.\"<br>그는 딱딱하게 말했다. <br>\"바닥에 입을 박으면서도.\"<br>당신의 얼굴이 붉어졌다.",
+                        submit : "에릭은 볼개그를 물고 있는 당신의 입을 그대로 바닥에 눌렀다. 당신이 움찔움찔 몸을 떨자 에릭은 당신의 성기를 손으로 쥐었다.<br>\"흥분했군.\"<br>그는 딱딱하게 말했다. <br>\"바닥에 입을 박으면서도.\"<br>당신의 얼굴이 붉어졌다."
+                    }
+                },
+                b : {
+                    default : {
+                        resist : "당신이 저항하자 에릭의 주먹이 당신의 가슴을 강타했다. 그는 당신의 가슴이 물고 있는 핀셋에 추를 달고 서있게 만들었다. 당신은 너무 아파서 본능적으로 몸을 꼬았지만 그럴 때마다 오는 건 규칙적이기에 더욱 더 잔인하게 느껴지는 폭력뿐이었다. 당신의 가슴이 밑으로 늘어진다.",
+                        endure : "에릭은 당신의 가슴을 핀셋으로 자극했다. 핀셋에 가해지는 힘이 커질수록, 당신의 가슴에는 붉은 점이 남았다. 하지만 제일 비참한 건 그 고통 속에서도 당신히 흥분하고 있다는 것과, 당신의 고통과 흥분을 바라보고 있는 에릭의 눈동자에서는 어떠한 감정도 느껴지지 않는다는 거였다. 그 시선이 거짓이든 아니든.",
+                        submit : "에릭은 당신의 가슴을 핀셋으로 자극했다. 핀셋에 가해지는 힘이 커질수록, 당신의 가슴에는 붉은 점이 남았다. 하지만 제일 비참한 건 그 고통 속에서도 당신히 흥분하고 있다는 것과, 당신의 고통과 흥분을 바라보고 있는 에릭의 눈동자에서는 어떠한 감정도 느껴지지 않는다는 거였다. 그 시선이 거짓이든 아니든."
+                    },
+                    highSensitivity : {
+                        resist : "당신의 가슴이 예민하다는 걸 아는 에릭은 당신이 저항하자마자 그대로 당신을 억누른 후 당신의 가슴 위로 전극기를 달았다. 최대 출력, 당신은 방광이 자극당할 때까지 몸을 떨어야만 했다. 그는 당신이 내뿜고 싶은 게 오줌만이 아니라는 걸 알고 있다. 다시 한번 저항해보라는 듯 그의 눈이 차갑게 빛났다.",
+                        endure : "에릭은 당신의 가슴이 민감하다는 걸 알고 있다. 그는 당신의 가슴에 전극기를 연결하고 어디 한번 가보라고 말했다. 쾌락을 넘어선 고통이 당신의 가슴을 미치게 만든다. 하지만 에릭의 예상대로, 당신은 보통 사람들보다 더 흥분하고 있었다. 에릭은 당신의 붉어진 가슴을 손가락으로 누르며 당신을 똑바로 쳐다보았다.",
+                        submit : "에릭은 당신이 순순히 자신의 가슴에 전극기를 연결하는 것을 보며 눈썹을 올렸다. 최대 출력, 당신은 비명도 지르지 못하고 몸을 바르르 떨었다. 방광마저 자극되는 전기에 당신은 정신을 잃을 거 같았지만, 에릭은 교묘하게 전기의 세기를 조정해 당신이 정신을 잃지는 못하게 만들었다. 고통 속에서도 가슴이 화끈거리면서 간질거린다."
+                    }
+                },
+                c : {
+                    male : {
+                        default : {
+                            resist : "당신이 저항하자 에릭은 당신의 성기를 엄지로 세게 눌렀다. 아프다! 눈물이 핑그르르 도는 당신에게 에릭은 위로는 울어도 되지만 앞으로 네가 아래로 울 일은 없을 거라고 말했다. 그는 당신을 남자 취급도 안 하고 있다.",
+                            endure : "에릭은 당신의 성기를 손끝으로 잡더니 당신의 끝에 클립을 물렸다. 당신은 당신 멋대로 해방하지도 못하고, 민감한 부위를 아프게 자극당하면서 고문 속에 머물러야만 했다. <br>\"네놈에게는 싸지를 자유가 없다, {title}.\"",
+                            submit : "에릭은 당신의 성기를 손끝으로 잡더니 당신의 끝에 클립을 물렸다. 당신은 당신 멋대로 해방하지도 못하고, 민감한 부위를 아프게 자극당하면서 고문 속에 머물러야만 했다. <br>\"네놈에게는 싸지를 자유가 없다, {title}.\""
+                        },
+                        highSensitivity : {
+                            resist : "당신이 저항하자 에릭은 당신의 발을 발로 찼다. 에릭은 벌어진 당신의 다리 사이로 당신의 민감한 남성기 끝에 클립을 물렸다. <br>\"남자긴 한 모양이군? 부풀어오른 걸 보니.\"<br>에릭은 조소하며 당신의 민감한 부위를 아프게 자극했다. 당신은 그가 누르는 부위와 성기의 끝에서 오는 고통에 몸을 바르르 떨었다.",
+                            endure : "에릭은 당신의 성기를 손끝으로 잡더니 당신의 끝에 클립을 물렸다. 민감한 당신의 남성기가 에릭이 주는 자극에 부풀어오른다. 에릭은 당신의 성기가 부풀어오른 만큼 압박을 가하며 허락없이 싸지 말라고 명령했다. 당신은 끝없는 엣징 고문 속에서 다리를 바들바들 떨었다.",
+                            submit : "에릭은 당신의 성기를 손끝으로 잡더니 당신의 끝에 클립을 물렸다. 그는 저항하지 않는 당신을 비웃었다. <br>\"이제 와서 말을 잘 듣기로 했나? 아니면.... 원했던 건가.\"<br>당신의 얼굴이 붉어지는 것과 별개로 당신의 남성기도 퉁퉁 부어올랐다. 하지만 당신은 에릭의 허락없이는 쌀 수 없다."
+                        }
+                    },
+                    female : {
+                        default : {
+                            resist : "당신이 반항했을 때 에릭은 망설임없이 당신의 보지로 자신의 성기를 쑤셔박았다. 전희? 전희는커녕 쾌락 따위도 없는 허릿짓이었다. 당신의 반항의 대가로 끝없는 고통속에서 그의 성기를 받아내야만 했다. 당신의 눈에서 눈물이 흘러도 에릭은 멈추지 않았다.",
+                            endure : "에릭은 윤활제 하나 없이 당신의 여성기에 자신의 성기를 박았다. 쾌감보다는 고통에 치중된 허릿짓이었다. 당신의 보지가 고통에 몸부림치며 선혈을 흘렸지만 에릭은 멈추지 않았다. 그는 말을 안 듣는 {title}에게는 매가 약이라고 생각하는 거 같다.",
+                            submit: "에릭은 이제 와서 순종적으로 구는 당신을 비웃었다.<br>\"지금까지 위기를 그렇게 넘겨왔나 보지?\"<br>그는 당신을 싸구려창녀 취급하며 거칠게 당신의 보지를 박아댔다. 고통만을 주기 위한 삽입이 당신의 모든 것을 갈갈이 찢는다."
+                        },
+                        highSensitivity : {
+                            resist : "당신이 반항하자 에릭은 망설임없이 당신의 보지에 제 주먹을 집어넣었다. 집어넣어진 주먹에도 끈적끈적하게 애액을 뿜는 당신의 민감한 보지에 에릭은 그럴 줄 알았다는 듯 코웃음쳤다. 그는 당신이 이딴 몸으로 어떻게 자신에게 개길 생각을 한 건지 이해하지 못하고 있다. 당신은 그의 주먹에 인형처럼 흔들리며 애액을 줄줄 흘렸다.",
+                            endure : "에릭은 당신의 클리를 손가락으로 톡 건드렸다. 그는 손가락 하나만으로도 움찔거리는 당신의 보지를 보던 에릭은 당신에게 벌에도 쾌락을 느끼는 구제불능이라고 말했다. 그는 그대로 당신을 억누른 후 오로지 고통만을 위한 박차를 가했다. 그의 남성기가 당신의 보지를 엉망진창으로 쑤셔댄다.",
+                            submit : "에릭은 당신이 저항하지 않아도 봐줄 생각이 없다. 그는 저항하지 않는 당신의 두 다리를 벌린 후 오로지 고통을 주기 위한 추삽질을 시작했다. 하지만 당신의 보지는 그 고통만을 위한 행위로도 쾌락을 느끼고 음란하게 그의 성기를 빨아댔다. <br>\"싸구려창녀보다도 더한 구멍이군.\"<br>에릭은 당신을 매도하며 폭력적인 추삽질을 이어갔다."
+                        }
+                    }
+                },
+                a : {
+                    default : {
+                        resist : "에릭은 당신의 저항에 인내심을 느낀다. 그는 당신의 엉덩이를 발로 걷어차더니 그대로 당신의 엉덩이에 자신의 주먹을 쑤셔박았다. 그의 매끈한 장갑면이 당신의 내벽을 무자비하게 넓혀간다. 당신의 사지가 기괴하게 뒤틀리든 말든, 에릭은 당신을 봐줄 생각이 없다. 피스팅은 계속 이어졌다.",
+                        endure : "\"너희같은 걸레들은 뒷구멍으로도 느낀다지.\"<br>차가운 목소리와 함꼐 남자의 성기가 당신의 뒷구멍으로 들어왔다. 무언가를 받아들이면 안 되는 구멍으로 남자의 성기를 받아들이자 당신의 허리가 자제할 틈도 없이 휘어졌다. 에릭은 당신의 허리를 잡은 채 내숭 떨지 말라고 말했다. 그의 움직임에 따라 당신의 몸도 흔들린다. <br>\"또 느끼나? 내가 주는 게 상인지 벌인지도 모르겠군.\"",
+                        submit : "에릭은 더 이상 저항하지 않는 당신을 비웃었다. 당신의 구멍에 남자의 성기가 들어왔다. 그는 쾌락이 아니라 고통만을 주기 위한 추삽질을 시작했고 당신은 망가진 인형처럼 그의 밑에서 삐그덕삐그덕 흔들렸다. 당신이 애원한다고 해도 에릭은 봐줄 생각이 없다."
+                    },
+                    highSensitivity : {
+                        resist : "에릭은 당신의 저항에 인내심을 느낀다. 그는 당신의 엉덩이를 발로 걷어차더니 그대로 당신의 엉덩이에 주먹을 처박았다. 그는 피스팅에도 점점 달아오르는 당신의 몸을 비웃었다. <br>\"원한다면 뒷구멍암캐라고 명찰을 써서 시내 한바퀴를 돌게 해주지. 넌 네 뒷구멍을 써주길 원하는 거 같으니까.\"<br>모욕적인 발언과 피스팅이 계속 이어진다.",
+                        endure : "고통만을 위한 삽입이었지만 에릭은 당신의 뒷구멍에 성기를 처박다가 당신이 고통뿐만 아니라 쾌락까지 느낀다는 걸 인지했다. 그의 움직임이 멈췄다. <br>\"음란한 뒷구멍이군.\"<br>그의 성기가 묵직하게 당신의 구멍을 눌러온다. 그의 움직임이 더욱 더 폭력적으로 변했다. 당신의 민감한 엉덩이는 그의 추삽질을 받아들이며 더욱 더 음란하게 반응했다.",
+                        submit : "\"그런다고 해서 네가 했던 일이 없어질 거 같나?\"<br>당신은 순종적인 자세를 취했지만 그의 분노는 아직 꺼지지 않았다. 그는 당신의 엉덩이를 무자비하게 피스톤했고, 당신은 그의 거친 움직임에 배를 계속 바닥에 박았다. 아파하는 당신의 턱을 들어올린 에릭은 손가락으로 볼개그 틈으로 새어나온 침을 문지르며 네겐 벌이 아니라 포상인 거 같다고 비웃었다. 당신의 민감한 엉덩이가 그의 성기를 더 달라는 듯이 조여온다."
+                    }
+                }
+            },
+            orgasm : [
+                "에릭은 당신의 절정을 차갑게 내려다보았다. 그러더니 그는 이내 차갑게 웃었다. 어떤 말도 없는 것이 더 모욕적으로 느껴진다..."
+            ]
+        }
+    }
+};
+
+function startTraining(player, options = {}){
+    const trainerId = options.trainerId || "rapistM";
+    const data = TRAINING_DATA[trainerId];
+
+    if (!data){
+        console.warn("training 데이터 없음:", trainerId);
+        startScene(getLocationScene(player), player);
+        return;
+    }
+
+    player.status.hp = player.status.maxHp;
+    player.status.stamina = player.status.maxStamina;
+    player.status.arousal = 0;
+    player.status.stun = 0;
+
+    trainingState = {
+        player,
+        trainerId,
+        trainerName: data.name,
+        trainerHp: data.hp,
+        trainerMaxHp: data.maxHp,
+        trainerArousal: 0,
+        trainerMaxArousal: 100,
+        turn: 1,
+        maxTurns: options.maxTurns || 20,
+        mode: options.mode || "single",
+        onEnd: options.onEnd || null,
+        stun: 0,
+        anger: 0,
+        currentEnemyAction: null,
+        log: options.introLog ? [options.introLog] : [],
+        context : options.context || null
+    };
+
+    chooseTrainingEnemyAction();
+    saveTrainingState();
+    showTrainingUI();
+    renderTrainingUI();
+}
+
+function saveTrainingState(){
+    if (!trainingState) return;
+
+    const player = trainingState.player;
+
+    player.activeTraining = {
+        active: true,
+        trainerId: trainingState.trainerId,
+        trainerHp: trainingState.trainerHp,
+        trainerArousal: trainingState.trainerArousal,
+        turn: trainingState.turn,
+        maxTurns: trainingState.maxTurns,
+        mode: trainingState.mode,
+        stun: trainingState.stun,
+        anger: trainingState.anger,
+        currentEnemyAction: trainingState.currentEnemyAction,
+        log: trainingState.log,
+        context: trainingState.context || null
+    };
+
+    localStorage.setItem("playerData", JSON.stringify(player));
+}
+
+function showTrainingUI(){
+    document.getElementById("storyArea").style.display = "none";
+    document.getElementById("choiceArea").style.display = "none";
+    document.getElementById("storyBtn").style.display = "none";
+
+    const battleUI = document.getElementById("battleUI");
+    battleUI.style.display = "block";
+}
+
+function renderTrainingUI(){
+    if (!trainingState) return;
+
+    const player = trainingState.player;
+    const battleUI = document.getElementById("battleUI");
+    const logHTML = trainingState.log.map(t => `<p>${t}</p>`).join("");
+
+    const fearLocked = isTrainingFearLocked();
+
+    battleUI.innerHTML = `
+        <div class="battle-layout">
+            <div class="battle-panel player-panel">
+                <h3>플레이어</h3>
+                <p>HP : ${player.status.hp}/${player.status.maxHp}</p>
+                <p>스태미나 : ${player.status.stamina}/${player.status.maxStamina}</p>
+                <p>흥분도 : ${player.status.arousal}/${player.status.maxArousal}</p>
+                <p>스턴 : ${trainingState.stun}</p>
+            </div>
+
+            <div class="battle-center">
+                <h3>Training</h3>
+                <p>${trainingState.turn} / ${trainingState.maxTurns} 턴</p>
+                <p>분노 : ${trainingState.anger}/100</p>
+                <div id="trainingLogInner">${logHTML}</div>
+            </div>
+
+            <div class="battle-panel enemy-panel">
+                <h3>${trainingState.trainerName}</h3>
+                <p>HP : ${trainingState.trainerHp}/${trainingState.trainerMaxHp}</p>
+                <p>상대 흥분도 : ${trainingState.trainerArousal}/${trainingState.trainerMaxArousal}</p>
+                <p>행동 : ${trainingState.currentEnemyAction?.id || "?"}</p>
+            </div>
+        </div>
+
+        <div class="battle-actions">
+            <button onclick="trainingAction('resist')">저항한다</button>
+            <button onclick="trainingAction('endure')">버틴다</button>
+            <button onclick="trainingAction('submit')">순응한다</button>
+        </div>
+    `;
+
+    updateStatusUI(player);
+}
+
+function trainingLog(text){
+    if (!trainingState) return;
+
+    trainingState.log.push(text);
+
+    if (trainingState.log.length > 5){
+        trainingState.log.shift();
+    }
+    saveTrainingState();
+}
+
+function trainingAction(action){
+    if (!trainingState) return;
+
+    const player = trainingState.player;
+
+    if (trainingState.stun > 0){
+        trainingLog("당신은 몸을 움직일 수 없다...");
+        trainingState.stun--;
+        finishTrainingTurn();
+        return;
+    }
+
+    if (!canTrainingAction(action)){
+        if (action === "resist"){
+            trainingLog("당신에게는 더 이상 저항할 힘이 없다...");
+        }
+        
+        else if (action === "endure"){
+            trainingLog("당신은 더 이상 버틸 힘이 없다...");
+        }
+        
+        else {
+            trainingLog("몸이 한계라 그 행동을 할 수 없다...");
+        }
+        
+        renderTrainingUI();
+        return;
+    }
+
+    if (action === "resist" && isTrainingFearLocked()){
+        trainingLog("두려움 때문에 저항할 수 없다...");
+        renderTrainingUI();
+        return;
+    }
+
+    const enemyAction = trainingState.currentEnemyAction;
+
+    if (!enemyAction){
+        chooseTrainingEnemyAction();
+        renderTrainingUI();
+        return;
+    }
+
+    if (enemyAction.id === "rest"){
+        processTrainingRest(action);
+    } else {
+        processTrainingContact(action, enemyAction);
+    }
+
+    checkTrainingArousal(player);
+
+    if (trainingState.stun > 0){
+        finishTrainingTurn();
+        return;
+    }
+
+    if (trainingState.trainerHp <= 0){
+        trainingLog("상대가 더 이상 이어갈 수 없어 물러났다.");
+        endTraining();
+        return;
+    }
+
+    finishTrainingTurn();
+}
+
+function processTrainingRest(playerAction){
+    const data = TRAINING_DATA[trainingState.trainerId];
+
+    trainingState.trainerHp += data.recoverAmount;
+    if (trainingState.trainerHp > trainingState.trainerMaxHp){
+        trainingState.trainerHp = trainingState.trainerMaxHp;
+    }
+
+    trainingLog(getTrainingLine("rest", playerAction));
+
+    if (playerAction === "resist"){
+        trainingLog("당신은 그 틈을 놓치지 않고 저항했다.");
+        trainingState.trainerHp -= 10;
+        trainingState.anger += 10;
+        changeHP(trainingState.player, -15);
+        changeStamina(trainingState.player, -15);
+    }
+
+    else if (playerAction === "endure"){
+        trainingLog("당신은 그가 쉬는 동안 숨을 고르며 버텼다.");
+        changeStamina(trainingState.player, 10);
+    }
+
+    else if (playerAction === "submit"){
+        trainingLog("당신은 그가 쉬는 동안 잠시 힘을 빼고 몸을 추슬렀다.");
+        changeHP(trainingState.player, 20);
+        changeStamina(trainingState.player, 20);
+    }
+
+    clampTrainingValues();
+}
+
+function increaseTrainingEnemyArousal(target){
+    if (!trainingState) return;
+
+    const gain = (typeof getCharmArousalGain === "function")
+        ? getCharmArousalGain(trainingState.player, 10)
+        : 10;
+
+    trainingState.trainerArousal += gain;
+
+    if (trainingState.trainerArousal >= trainingState.trainerMaxArousal){
+        trainingState.trainerArousal = 0;
+        applyTrainingReleaseToPlayer(target);
+    }
+}
+
+function applyTrainingReleaseToPlayer(target){
+    if (!trainingState) return;
+
+    const player = trainingState.player;
+
+    if (["a", "m", "c"].includes(target) && typeof addBodyFluid === "function"){
+        addBodyFluid(player, target, 1);
+
+        const line = getTrainingReleaseLine(target);
+
+        if (line){
+            trainingLog(line);
+        } else {
+            trainingLog("상대가 한계에 이르렀다. " + getBodyFluidLabel(target) + " 부위에 흔적이 남았다.");
+        }
+
+    } else {
+        trainingLog("상대가 한계에 이르렀지만, 몸에 남는 흔적은 없었다.");
+    }
+}
+
+function getTrainingActionCost(action){
+    const angry = trainingState?.anger >= 80;
+
+    if (action === "resist"){
+        return angry
+            ? { hp: 30, stamina: 35 }
+            : { hp: 15, stamina: 15 };
+    }
+
+    if (action === "endure"){
+        return angry
+            ? { hp: 15, stamina: 30 }
+            : { hp: 0, stamina: 10 };
+    }
+
+    return { hp: 0, stamina: 0 };
+}
+
+function canTrainingAction(action){
+    if (!trainingState) return false;
+
+    const player = trainingState.player;
+    const cost = getTrainingActionCost(action);
+
+    return (
+        player.status.hp >= cost.hp &&
+        player.status.stamina >= cost.stamina
+    );
+}
+
+function getTrainingReleaseLine(target){
+    const data = TRAINING_DATA[trainingState.trainerId];
+
+    if (!data?.releaseLines) return null;
+
+    let pool = data.releaseLines[target] || data.releaseLines.default;
+    if (!pool) return null;
+
+    // 문자열
+    if (typeof pool === "string"){
+        return pool;
+    }
+
+    // 성별 분기
+    if (typeof pool === "object" && !Array.isArray(pool)){
+        const gender = trainingState.player.gender;
+        const genderPool = pool[gender] || pool.default;
+
+        if (!genderPool) return null;
+
+        return genderPool[Math.floor(Math.random() * genderPool.length)];
+    }
+
+    // 배열
+    if (Array.isArray(pool)){
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    return null;
+}
+
+function processTrainingContact(playerAction, enemyAction){
+    const player = trainingState.player;
+
+    trainingLog(getTrainingLine(enemyAction.id, playerAction));
+
+    let baseArousal = enemyAction.arousal || 5;
+    let sensitivityValue = 0;
+    if (enemyAction.sensitivity){
+    sensitivityValue = player.sexualTraits?.[enemyAction.sensitivity] || 0;
+    }
+    let arousal = Math.floor(baseArousal * (1 + sensitivityValue / 200));
+    let sensitivityGain = 1;
+    let hpChange = 0;
+    let staminaChange = 0;
+    let trainerDamage = 0;
+    let angerGain = 0;
+    let fearGain = 0;
+
+    if (trainingState.anger >= 80){
+        arousal = Math.floor(arousal * 1.2);
+        hpChange -= 15;
+        staminaChange -= 20;
+        fearGain += 5;
+    }
+
+    if (playerAction === "resist"){
+        trainingLog(getFearLine("resist") || "당신은 필사적으로 몸을 비틀며 저항했다.");
+
+        trainerDamage = 10 + Math.floor(getTotalStat(player, "str") / 3);
+        angerGain = 10;
+        hpChange -= 15;
+        staminaChange -= 15;
+        arousal = Math.floor(arousal * 0.8);
+        sensitivityGain = 1;
+    }
+
+    else if (playerAction === "endure"){
+        trainingLog(getFearLine("endure") || "당신은 최소한 그가 원하는 건 주지 않기 위해 버텼다.");
+
+        staminaChange -= 10;
+        arousal = Math.floor(arousal * 0.7);
+        sensitivityGain = 2;
+    }
+
+    else if (playerAction === "submit"){
+        trainingLog(getFearLine("submit") || "당신은 그가 원하는 대로 당신의 몸을 사용하게 냅두었다.");
+
+        hpChange += 10;
+        staminaChange += 15;
+        arousal = Math.floor(arousal * 1.25);
+        sensitivityGain = 3;
+        angerGain = -5
+    }
+
+    trainingState.trainerHp -= trainerDamage;
+    trainingState.anger += angerGain;
+
+    changeHP(player, hpChange);
+    changeStamina(player, staminaChange);
+    changeArousal(player, arousal);
+    increaseTrainingEnemyArousal(enemyAction.id);
+
+    if (enemyAction.sensitivity){
+        changeSensitivity(player, enemyAction.sensitivity, sensitivityGain);
+    }
+
+    applyTrainingFear(fearGain);
+    applyTrainingDominance(playerAction);
+
+    const traumaGain = trainingState.anger >= 80 ? 2 : 1;
+    player.status.trauma = Math.min(
+    player.status.maxTrauma,
+    player.status.trauma + traumaGain
+    );
+
+    clampTrainingValues();
+}
+
+function getFearLine(action){
+    if (!isTrainingFearLocked()) return null;
+
+    if (action === "resist"){
+        return "당신은 저항하려 했지만, 몸이 굳어 움직이지 않았다.";
+    }
+
+    if (action === "endure"){
+        return "당신은 눈을 질끈 감았다. 당신이 할 수 있는 일은 눈물을 흘리며 버티는 것뿐이었다.";
+    }
+
+    if (action === "submit"){
+        return "당신은 공포에 질려 잘못했다고 사과했다.";
+    }
+
+    return null;
+}
+
+function finishTrainingTurn(){
+    if (!trainingState) return;
+
+    trainingState.turn++;
+
+    if (trainingState.turn > trainingState.maxTurns){
+        endTraining();
+        return;
+    }
+
+    chooseTrainingEnemyAction();
+    saveTrainingState();
+    renderTrainingUI();
+}
+
+function chooseTrainingEnemyAction(){
+    if (!trainingState) return;
+
+    const data = TRAINING_DATA[trainingState.trainerId];
+    let actions = data.actions.map(action => {
+    let weight = action.weight;
+    if (action.sensitivity){
+        const sensitivity = trainingState.player.sexualTraits?.[action.sensitivity] || 0;
+        weight += Math.floor(sensitivity / 10); 
+    }
+
+    return { ...action, weight };
+});
+
+    if (trainingState.anger >= 80){
+        actions = actions.map(action => {
+            if (action.id === "rest"){
+                return { ...action, weight: Math.max(1, action.weight - 7) };
+            }
+
+            return { ...action, weight: action.weight + 8 };
+        });
+    }
+
+    trainingState.currentEnemyAction = pickTrainingWeighted(actions);
+}
+
+function pickTrainingWeighted(list){
+    let total = list.reduce((sum, item) => sum + item.weight, 0);
+    let roll = Math.random() * total;
+
+    for (const item of list){
+        roll -= item.weight;
+        if (roll <= 0){
+            return item;
+        }
+    }
+
+    return list[0];
+}
+
+function pickTrainingVariant(value, gender, playerAction){
+    if (!value) return null;
+    if (typeof value === "string") return value;
+
+    if (Array.isArray(value)){
+        return value[Math.floor(Math.random() * value.length)];
+    }
+
+    if (typeof value === "object"){
+        return pickTrainingVariant(
+            value[playerAction] ||
+            value[gender] ||
+            value.default,
+            gender,
+            playerAction
+        );
+    }
+
+    return String(value);
+}
+
+function getTrainingLine(actionId, playerAction){
+    const data = TRAINING_DATA[trainingState.trainerId];
+    const mood = trainingState.anger >= 80 ? "angry" : "normal";
+    const gender = trainingState.player.gender;
+
+    const line = data.lines?.[mood]?.[actionId];
+
+    if (!line) return "그는 계속 당신을 압박한다.";
+
+    const action = trainingState.currentEnemyAction;
+    const sensitivityKey = action?.sensitivity;
+    const sensitivityValue = trainingState.player.sexualTraits?.[sensitivityKey] || 0;
+
+    if (
+        typeof line === "object" &&
+        line.highSensitivity &&
+        sensitivityValue >= 300
+    ){
+        return pickTrainingVariant(line.highSensitivity, gender, playerAction);
+    }
+
+    return pickTrainingVariant(line, gender, playerAction);
+}
+
+function checkTrainingArousal(player){
+    if (!trainingState) return;
+
+    if (player.status.arousal >= player.status.maxArousal){
+        player.status.arousal = 0;
+        trainingState.stun = 3;
+
+        flashScreenMulti(3);
+
+        const data = TRAINING_DATA[trainingState.trainerId];
+        trainingLog(getTrainingOrgasmLine());
+        updateStatusUI(player);
+        renderTrainingUI();
+        saveTrainingState();
+    }
+}
+
+function getTrainingOrgasmLine(){
+    const data = TRAINING_DATA[trainingState.trainerId];
+    const line = data.lines?.orgasm;
+
+    if (!line) return "당신은 절정의 여파로 몸을 가누지 못한다...";
+
+    if (Array.isArray(line)){
+        return line[Math.floor(Math.random() * line.length)];
+    }
+
+    return line;
+}
+
+function applyTrainingFear(amount){
+    if (!trainingState || amount === 0) return;
+
+    const id = trainingState.trainerId;
+
+    if (typeof NPC_DATA === "undefined" || !NPC_DATA[id]) return;
+
+    changeEmotion(id, "fear", amount);
+}
+
+function isTrainingFearLocked(){
+    if (!trainingState) return false;
+
+    const id = trainingState.trainerId;
+
+    if (typeof NPC_DATA === "undefined" || !NPC_DATA[id]) return;
+
+    const fear = NPC_DATA[id].emotion?.fear || 0;
+
+    return fear >= 80;
+}
+
+function applyTrainingDominance(action){
+    if (!trainingState) return;
+
+    const id = trainingState.trainerId;
+
+    if (typeof NPC_DATA === "undefined" || !NPC_DATA[id]) return;
+
+    if (action === "resist"){
+        changeEmotion(id, "dominance", -5);
+    }
+
+    else if (action === "endure"){
+        changeEmotion(id, "dominance", 1);
+    }
+
+    else if (action === "submit"){
+        changeEmotion(id, "dominance", 5);
+    }
+}
+
+function clampTrainingValues(){
+    if (!trainingState) return;
+
+    trainingState.anger = clamp(trainingState.anger, 0, 100);
+    trainingState.trainerHp = clamp(
+        trainingState.trainerHp,
+        0,
+        trainingState.trainerMaxHp
+    );
+
+    updateDerivedStats(trainingState.player);
+    updateStatusUI(trainingState.player);
+    localStorage.setItem("playerData", JSON.stringify(trainingState.player));
+    saveTrainingState();
+}
+
+function endTraining(){
+    if (!trainingState) return;
+
+    const player = trainingState.player;
+    const onEnd = trainingState.onEnd;
+    
+    player.activeTraining = null;
+    localStorage.setItem("playerData", JSON.stringify(player));
+    
+    trainingState = null;
+
+    document.getElementById("battleUI").style.display = "none";
+    document.getElementById("storyArea").style.display = "block";
+    document.getElementById("choiceArea").style.display = "block";
+    document.getElementById("storyBtn").style.display = "block";
+
+    updateStatusUI(player);
+
+    if (typeof onEnd === "function"){
+        onEnd();
+        return;
+    }
+
+    startScene(getLocationScene(player), player);
+}
+
+function resumeTraining(player){
+    const saved = player.activeTraining;
+
+    if (!saved?.active){
+        startScene(getLocationScene(player), player);
+        return;
+    }
+
+    const data = TRAINING_DATA[saved.trainerId];
+
+    if (!data){
+        player.activeTraining = null;
+        localStorage.setItem("playerData", JSON.stringify(player));
+        startScene(getLocationScene(player), player);
+        return;
+    }
+
+    trainingState = {
+        player,
+        trainerId: saved.trainerId,
+        trainerName: data.name,
+        trainerHp: saved.trainerHp ?? data.hp,
+        trainerMaxHp: data.maxHp,
+        trainerArousal: saved.trainerArousal ?? 0,
+        trainerMaxArousal: 100,
+        turn: saved.turn ?? 1,
+        maxTurns: saved.maxTurns ?? 20,
+        mode: saved.mode || "single",
+        onEnd: null,
+        stun: saved.stun ?? 0,
+        anger: saved.anger ?? 0,
+        currentEnemyAction: saved.currentEnemyAction || null,
+        log: saved.log || [],
+        context: saved.context || null
+    };
+
+    if (!trainingState.currentEnemyAction){
+        chooseTrainingEnemyAction();
+    }
+
+    showTrainingUI();
+    renderTrainingUI();
+}

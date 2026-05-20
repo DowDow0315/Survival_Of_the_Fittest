@@ -1,0 +1,30 @@
+{
+    "name" : "창백",
+    "hp" : 550,
+    "attack" : 85,
+    "defense" : 46,
+    "eva" : 55,
+    "personality" : "dominant",
+    "lustResist" : 2,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "defaultStatusLine" : "<span class='status-danger'>그것은 당신을 만나고 싶어한다.</span>",
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "<span class='status-danger'>그것은 당신이 다시는 자신을 떠나지 않았으면 하고, 당신의 기억에 자신이 영원히 남기를 바란다.</span>"
+        }
+    ],
+
+    "scenes" : {}
+}

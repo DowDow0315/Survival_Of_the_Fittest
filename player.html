@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+    <script>
+        function createPlayer() {
+            return {
+                name: document.getElementById("name").value,
+                age: +document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                hair: {
+                    length: document.getElementById("hairlength").value,
+                    color: document.getElementById("haircolor").value
+                },
+                eyes: document.getElementById("eyecolor").value,
+                height: document.getElementById("height").value,
+                weight: document.getElementById("weight").value,
+
+                equipment: {
+                    weapon: null,
+                    top: {
+                        name: "반팔",
+                        type: "top",
+                        stats: {},
+                        removed : false,
+                        lost: false
+                    },
+                    bottom: {
+                        name: "바지",
+                        type: "bottom",
+                        stats: {},
+                        removed : false,
+                        lost: false
+                    },
+                    underwear: {
+                        name: "팬티",
+                        type: "underwear",
+                        stats: {},
+                        removed : false,
+                        lost: false
+                    }
+                },
+
+                inventory: [],
+
+                gold: 1000,
+                time: 0,
+                debtLevel:1,
+                location: "townEntrance",
+
+                status: {
+                    hp : 100,
+                    maxHp : 100, //체력
+                    stamina : 100,
+                    maxStamina : 100, //기력
+                    arousal : 0,
+                    maxArousal : 100, //흥분도
+                    trauma : 0, //트라우마
+                    maxTrauma : 100,
+                    alcohol: 0, //알코올
+                    maxAlcohol : 100,
+                    bodyFluid: { a: 0, m: 0, c: 0 }, //액
+                    maxBodyFluid: 300,
+                    stunned: 0
+                },
+
+                weaponMastery: {},
+
+                buffs : [],
+
+                stats: {
+                    str: +document.getElementById("str").value,
+                    dex: +document.getElementById("dex").value,
+                    int: +document.getElementById("int").value,
+                    charm: +document.getElementById("charm").value
+                },
+
+                derivedStats: {
+                    atk: +document.getElementById("atk").innerText,
+                    def: +document.getElementById("def").innerText,
+                    eva: +document.getElementById("eva").innerText,
+                    mag: +document.getElementById("mag").innerText
+                },
+
+                battleTrait: document.querySelector('input[name="battletrait"]:checked')?.value || null,
+                sexBattleTraits: Array.from(document.querySelectorAll('input[name="sexbattletrait"]:checked')).map(el => el.value),
+
+                sexualTraits: {
+                    mSize: document.getElementById("msize").value,
+                    mSensitivity: +document.getElementById("msnt").value,
+                    bSize: document.getElementById("bsize").value,
+                    bSensitivity: +document.getElementById("bsnt").value,
+                    cSize: document.getElementById("csize").value,
+                    cSensitivity: +document.getElementById("csnt").value,
+                    cTightness: document.getElementById("csqz").value,
+                    aSize: document.getElementById("asize").value,
+                    aSensitivity: +document.getElementById("asnt").value,
+                    aTightness: document.getElementById("asqz").value
+                }
+            };
+        }
+    </script>
+</body>
+</html>

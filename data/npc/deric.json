@@ -1,0 +1,26 @@
+{
+    "name" : "데릭",
+    "hp" : 300,
+    "attack" : 55,
+    "defense" : 45,
+    "eva" : 40,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 30,
+        "fear" : 0
+    },
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "데릭은 당신과 결혼하고 싶어한다."
+        }
+    ],
+
+    "scenes" : {}
+}

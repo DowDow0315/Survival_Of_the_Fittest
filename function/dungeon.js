@@ -204,7 +204,7 @@ const DUNGEONS = {
 
             r4c1: { name: "창고 통로", exits: { down: "r5c1", up: "r3c1" } },
             r4c4: { name: "중앙 통로", exits: { up: "r3c4", down: "r5c4" } },
-            r4c7: { name: "포로방", exits: { down: "r5c7" }, noEncounter: true },
+            r4c7: { name: "포로방", exits: { down: "r5c7" }, noEncounter: true, roomEvent: "bandit_prison_room", seenFlag: "bandit_prison_room_seen", repeatEvent: "bandit_prison_room_repeat" },
 
             r3c1: { name: "창고 통로", exits: { down: "r4c1", right: "r3c2" } },
             r3c2: { name: "통로 길목", exits: { left: "r3c1", right: "r3c3" } },
@@ -222,7 +222,7 @@ const DUNGEONS = {
 
             r0c0: { name: "연구자료방", exits: { down: "r1c0" }, event:"bandit_research_note" },
             r0c2: { name: "시체처리소", exits: { down: "r1c2" }, event: "bandit_corpse_room" },
-            r0c4: { name: "보스방", exits: { down: "r1c4" }, boss: "banditBoss" }
+            r0c4: { name: "보스방", exits: { down: "r1c4" }, boss: "banditBoss", bossIntro:"banditBoss_intro" }
     },
 
     encounters: [
@@ -514,6 +514,22 @@ function moveDungeon(player, direction){
     }
 
     const nextRoom = dungeon.rooms[nextRoomKey];
+
+    if (
+        dungeon.id === "banditHideout" &&
+        (nextRoomKey === "r9c7" || nextRoomKey === "r9c8") &&
+        (
+            player.flags?.bandit_luke_event_done ||
+            player.flags?.bandit_luke_path_closed ||
+            player.flags?.bandit_luke_ignored
+        )
+    ){
+        showSingleTextScene(
+            "화려한 방은 허무한 잿더미로 가라앉아있다.... 당신은 들어갈 수 없다.",
+            player
+        );
+        return;
+    }
     
     if (nextRoom?.requireFlag && !player.flags?.[nextRoom.requireFlag]){
         showSingleTextScene(
@@ -567,6 +583,11 @@ function moveDungeon(player, direction){
             return;
         }
         
+        if (newRoom.bossIntro && !player.flags?.[`seen_${newRoom.bossIntro}`]){
+            runDungeonBossIntro(player, newRoom.bossIntro);
+            return;
+        }
+        
         startBattle(newRoom.boss, player, {
             onWin: () => {
                 player.flags = player.flags || {};
@@ -615,8 +636,12 @@ function handleDungeonBossWin(player, dungeon, room){
             handleGoblinKingWin(player);
         } else {
             handleDefaultBossWin(player);
-        }
-        
+        }        
+        return;
+    }
+
+    if (dungeon.id === "banditHideout" && room.boss === "banditBoss"){
+        handleBanditBossWin(player);
         return;
     }
 
@@ -959,6 +984,15 @@ function runDungeonRoomEvent(player, eventId){
     }
 
     else if (eventId === "bandit_luke_event"){
+         if (
+            player.flags?.bandit_luke_event_done ||
+            player.flags?.bandit_luke_ignored
+        ){
+            showSingleTextScene("화려한 방은 허무한 잿더미로 가라앉아있다.... 당신은 들어갈 수 없다.", player, {
+                onEnd: () => startScene(buildDungeonScene(player), player)
+            });
+            return;
+        }
         startScene([
             {
                 type : "text",
@@ -983,6 +1017,28 @@ function runDungeonRoomEvent(player, eventId){
                 ]
             }
         ], player);
+    }
+
+    else if (eventId === "bandit_prison_room"){
+        startScene([
+            {
+                type: "text",
+                value: "포로방에는 사람들이 꽤 있었다. 그들은 모두 수척한 상태로 자신의 끔찍한 운명만을 기다리고 있었다. 감옥 창살에 기대어 앉아있던 사람 중 한 명이 당신을 발견하고 다가왔다." +
+                       "<br><br>\"도적떼를 소탕하러 오신 건가요?\"<br><br>" +
+                       "그는 당신의 무기에 묻은 피와 조금이나마 남은 희망으로 당신이 도적떼를 소탕하러 온 사람이라고 믿고 있는 듯 싶었다. 그는 주섬주섬 당신에게 옷을 주었다. 도적들이 입고 있었던 옷이라고 한다." +
+                       "<br><br>\"제발 그들을 죽여주세요...\"<br><br>" +
+                       "아이는 당신을 슬픈 눈동자로 응시하며 말했다. 뒤에서 아이의 엄마로 보이는 자가 아이의 이름을 불렀다. 레리는 당신에게 마지막으로 고개를 숙여보인 후 벽에 기대어있는 제 어머니에게로 달려갔다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    addItem(player, ITEMS.bottom.banditArmorBottom);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd: () => startScene(buildDungeonScene(player), player)
+        });
     }
 }
 
@@ -1438,6 +1494,12 @@ const DUNGEON_EVENTS = {
                 value : "시체방이라고 써있는 곳이다. 하지만 시체방에서는 퀘퀘한 냄새가 아니라 달콤한 냄새만 풍기고 있었다." +
                         "...게다가 시체는 없었다. 다 녹아버린 걸까? 그저 하얀꽃잎들만이 바닥에 수북하게 쌓여있을 뿐이다."
             }
+        ],
+        bandit_prison_room_repeat: [
+            {
+                type: "text",
+                value: "포로들은 불안한 눈으로 자신의 불확실한 미래를 기다리고 있다."
+            }
         ]
     }
 }
@@ -1554,8 +1616,8 @@ function handleGoblinPrisonRoom(player){
 
 function isGoblinStoryActive(player){
     return (
-        player.quest?.active?.id === "undercity_story_03" ||
-        player.quest?.active?.id === "undercity_story_04"
+        !player.flags?.undercity_story_03_done ||
+        !player.flags?.undercity_story_04_done
     );
 }
 
@@ -1602,6 +1664,9 @@ window.banditHideout_ignore_luke = function(player){
 };
 
 window.banditHideout_follow_luke = function(player){
+    player.flags = player.flags || {};
+    player.flags.bandit_luke_followed = true;
+    savePlayer(player);
     startScene([
         {
             type : "text",
@@ -1778,7 +1843,8 @@ window.startBanditLukeTrophyRoom = function(player){
                             type: "text",
                             value:
                                 "\"신경 끄라고 했을 텐데.\"<br><br>" +
-                                "루크는 바닥에 떨어져 있던 단검 하나를 주워 당신에게 던졌다. 그리고 뒤를 돌았다. 더 이상 당신과 말을 하지 않을 생각인 거 같다."
+                                "루크는 바닥에 떨어져 있던 단검 하나를 주워 당신에게 던졌다. 그리고 뒤를 돌았다. 더 이상 당신과 말을 하지 않을 생각인 거 같다." +
+                                "<br>당신은 화려한 방에서 나갔다. 몇 걸음 옮기지 않았을 때 뒤에서 큰 소리가 들려왔다. 뒤를 돌아보니 화려한 방은 활활 타오르고 있었다...."
                         },
                         {
                             type: "effect",
@@ -1796,7 +1862,8 @@ window.startBanditLukeTrophyRoom = function(player){
                         {
                             type: "text",
                             value:
-                                "그 말이 들리자마자 루크는 당신을 벽으로 세게 밀어붙였다. 그의 사나운 자안이 당신을 노려본다.<br><br>\"한번만 더 그딴 눈으로 쳐다보면....\"<br><br>뒷말은 말하지 않아도 알 수 없었다. 어쩐지 당신의 그 말에 더 화가 나버린 거 같다.... 그는 고개를 돌리더니 당신에게 대검 하나를 던졌다. 가져가라는 듯이. 더 이상 루크에게 말을 걸 수 없을 거 같다."
+                                "그 말이 들리자마자 루크는 당신을 벽으로 세게 밀어붙였다. 그의 사나운 자안이 당신을 노려본다.<br><br>\"한번만 더 그딴 눈으로 쳐다보면....\"<br><br>뒷말은 말하지 않아도 알 수 없었다. 어쩐지 당신의 그 말에 더 화가 나버린 거 같다.... 그는 고개를 돌리더니 당신에게 대검 하나를 던졌다. 가져가라는 듯이. 더 이상 루크에게 말을 걸 수 없을 거 같다." +
+                                "<br>당신은 화려한 방에서 나갔다. 몇 걸음 옮기지 않았을 때 뒤에서 큰 소리가 들려왔다. 뒤를 돌아보니 화려한 방은 활활 타오르고 있었다...."
                         },
                         {
                             type: "effect",
@@ -1814,3 +1881,120 @@ window.startBanditLukeTrophyRoom = function(player){
         onEnd: () => startScene(buildDungeonScene(player), player)
     });
 };
+
+function runDungeonBossIntro(player, introId){
+    if (introId === "banditBoss_intro"){
+        player.flags = player.flags || {};
+        player.flags.seen_banditBoss_intro = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value:
+                    "당신은 거대한 문을 열고 들어갔다. 당신은 화려한 금은보화라도 있을 줄 알았다. 하지만 도적대장의 방에는 보석조각들만 몇 개 있을 뿐, 당신이 생각했던 방의 모습이 아니었다. 도적대장은 문을 열고 들어온 당신을 응시했다. 그가 짚고 있던 책상 위에는 금은보화가 아니라 장부와 찢어진 보고서밖에 없었다." +
+                    "<br><br>\"바로 옆에서 굶어 죽어가는 사람을 보면서 네 살이라도 떼어내주고 싶다는 생각을 한 적이 있나?\"<br><br>" +
+                    "그는 투척단검을 손위에서 돌리며 비릿한 미소를 지었다." +
+                    "<br><br>\"우리가 괴물이라고? 틀린 말은 아니지. 원래 굶긴 쪽보다 굶주린 쪽에서 괴물이 먼저 태어나는 법이니까.\""
+            },
+            {
+                type: "choice",
+                choices: [
+                    {
+                        text : "당신은 말없이 무기를 들었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : "당신이 말없이 무기를 들자 도적대장도 더 이상 말을 하지 않았다. 그의 투척단검이 당신을 향해 날아온다...!"
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startBanditBossBattle(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그에게 악행은 어떤 일로도 변명할 수 없다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : "당신의 말에 도적대장은 재밌다는 듯이 웃었다. 하지만 입가와 다르게 그의 눈동자는 다른 것을 바라보고 있는 것처럼 느껴진다. 그는 당신에게 당신은 바보거나 강한 사람인 거라고 말했다. <br><br>\"...그리고 세상 모든 사람들이 너처럼 바보거나 강한 건 아니야.\"<br><br>그는 투척단검을 돌렸다. 전투가 시작된다...!"
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startBanditBossBattle(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 비릿하게 웃으며 너만 괴물인 건 아니라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : "당신의 말에 도적대장은 멈췄다가 크하하 웃음을 터뜨렸다. <br><br>\"그렇군. 알량한 도덕심이 아니라 내 목에 걸린 돈 떄문에 온 거였군!\"<br><br>그는 적으로 만나지 않았더라면 당신을 제 부하로 삼고 싶어했을 거라고 말했다. 칭찬같지 않은 칭찬이 끝나기도 전에 그가 던진 투척단검이 당신의 목을 향해 날아온다...!"
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startBanditBossBattle(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player);
+    }
+}
+
+window.startBanditBossBattle = function(player){
+    startBattle("banditBoss", player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_banditHideout_banditBoss = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        }
+    });
+};
+
+function handleBanditBossWin(player){
+    player.flags = player.flags || {};
+
+    player.flags.undercity_story_06_done = true;
+    player.flags.banditHideout_cleared = true;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "도적대장은 쓰러졌다. 당신은 쓰러진 도적대장의 옆으로 책상 위의 장부와 찢어진 보고서를 살펴보았다. 죽인 사람들은 분명 많을 텐데, 역시 죽인 사람들의 기록은 없고 훔친 물건들의 기록만 남아있었다. 당신은 천천히 기록들을 읽었다. 훔친 물건들의 량은 똑같았지만 들어오는 돈의 양은 어느 순간부터 현저하게 줄었다." +
+                " 당신은 장부를 더 읽어내려갔다. 숫자 옆에 써있는 낙서들.... 그들은 물건만 뺴앗는 게 아니라 인간을 사로잡아서 인신매매를 할 계획까지 세우고 있었던 것처럼 보였다. 당신이 이들은 막지 않았더라면 하류도시 사람들은 더 큰 고통을 받았을 것이다. 이번 하류도시의 습격도 인신매매를 위한 초석이었을 수도 있겠다..." +
+                "<br>이 도적떼들만 그런 생각을 가지고 있었던 거라고 확신할 수는 없지 않나.<br>" +
+                "인신매매단이 갑자기 마을을 습격해온다면? 그들의 무기로 하류도시를 습격해온다면.... 당신은 도적대장의 시체를 내려다보았다. 그의 허벅지에 위화감이 느껴져서, 당신은 그의 허벅지를 살폈다. 무슨 살덩어리를 떼어낸 것처럼 그의 안쪽 허벅지는 움푹 파여있었다." +
+                "<br>당신은 고개를 들었다. 어쨌든 오늘도 당신은 살아남았다."
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "던전 밖으로 돌아간다", action: "leave_dungeon_after_boss" },
+                { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
+            ]
+        }
+    ], player);
+}

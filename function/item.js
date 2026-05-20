@@ -870,14 +870,14 @@ function updateDerivedStats(player){
         total.str * 1.2 + total.dex * 0.5;
 
     player.derivedStats.def =
-        total.str * 0.7 + total.charm * 0.3;
+        total.str * 0.7 + total.charm * 0.7;
 
     const fluidPenalty = (typeof getBodyFluidTotal === "function")
         ? Math.floor(getBodyFluidTotal(player) / 30)
         : 0;
 
     player.derivedStats.eva =
-        Math.max(0, total.dex * 1 + total.int * 0.4 + total.charm * 0.2 - fluidPenalty);
+        Math.max(0, total.dex * 1.2 + total.int * 0.4 + total.charm * 0.5 - fluidPenalty);
 
     player.derivedStats.bodyFluidPenalty = fluidPenalty;
 

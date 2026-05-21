@@ -3,8 +3,8 @@ let trainingState = null;
 const TRAINING_DATA = {
     rapistM: {
         name: "남자",
-        hp: 100,
-        maxHp: 100,
+        hp: 80,
+        maxHp: 80,
         recoverAmount: 20,
 
         actions: [
@@ -12,7 +12,7 @@ const TRAINING_DATA = {
             { id: "b", weight: 25, arousal: 5, sensitivity: "bSensitivity" },
             { id: "c", weight: 25, arousal: 5, sensitivity: "cSensitivity" },
             { id: "a", weight: 25, arousal: 5, sensitivity: "aSensitivity" },
-            { id: "rest", weight: 10 }
+            { id: "rest", weight: 5 }
         ],
 
         lines: {
@@ -109,8 +109,8 @@ const TRAINING_DATA = {
 
     rapistF: {
         name: "여자",
-        hp: 100,
-        maxHp: 100,
+        hp: 80,
+        maxHp: 80,
         recoverAmount: 20,
 
         actions: [
@@ -118,7 +118,7 @@ const TRAINING_DATA = {
             { id: "b", weight: 25, arousal: 5, sensitivity: "bSensitivity" },
             { id: "c", weight: 25, arousal: 5, sensitivity: "cSensitivity" },
             { id: "a", weight: 25, arousal: 5, sensitivity: "aSensitivity" },
-            { id: "rest", weight: 10 }
+            { id: "rest", weight: 5 }
         ],
 
         lines: {
@@ -167,16 +167,16 @@ const TRAINING_DATA = {
     },
     goblin: {
         name: "고블린",
-        hp: 200,
-        maxHp: 200,
-        recoverAmount: 20,
+        hp: 110,
+        maxHp: 110,
+        recoverAmount: 30,
 
         actions: [
             { id: "m", weight: 30, arousal: 5, sensitivity: "mSensitivity" },
             { id: "b", weight: 10, arousal: 5, sensitivity: "bSensitivity" },
             { id: "c", weight: 30, arousal: 5, sensitivity: "cSensitivity" },
             { id: "a", weight: 30, arousal: 5, sensitivity: "aSensitivity" },
-            { id: "rest", weight: 10 }
+            { id: "rest", weight: 5 }
         ],
 
         lines: {
@@ -224,6 +224,140 @@ const TRAINING_DATA = {
         }
     },
 
+    bandits : {
+        name : "도적들",
+        hp : 130,
+        maxHp : 130,
+        recoverAmount : 25,
+
+        actions : [
+            { id: "m", weight: 25, arousal: 10, sensitivity: "mSensitivity" },
+            { id: "b", weight: 20, arousal: 10, sensitivity: "bSensitivity" },
+            { id: "c", weight: 25, arousal: 10, sensitivity: "cSensitivity" },
+            { id: "a", weight: 25, arousal: 10, sensitivity: "aSensitivity" },
+            { id: "rest", weight: 5 }
+        ],
+
+        lines : {
+            normal : {
+                m : {
+                    default : {
+                        resist : "도적들 중 한 명이 당신에게 다가와 춥춥거리며 입을 맞췄다. 당신은 그의 입술을 피하려고 했지만 그럴 수록 그는 당신의 입에 더 진득하게 달라붙을 뿐이다. 입술을 떼자 타액이 길게 밑으로 늘어졌다.",
+                        endure : "도적들 중 한 명이 당신에게 다가와 입을 맞췄다. 당신은 최대한 그의 키스에 반응하지 않으려고 했지만, 키스하면서 뭘 먹였는지 당신의 몸은 뜨거워지기 시작했다. 도적들 중 몇 명이 당신의 붉어진 홍조를 손가락질하며 킬킬 웃었다.",
+                        submit : "도적들 중 한 명이 당신에게 다가와 입을 맞췄다. 당신이 순종적으로 그의 키스를 받아들이자 옆에 있던 놈이 당신의 손에 제 성기를 들렸다. 키스당하는 동안 당신의 손은 쉬지 못하고 있다."
+                    }
+                },
+                b : {
+                    default : {
+                        resist : "도적들 중 한 명이 당신의 한쪽 가슴을 손으로 쥐었다. 당신이 그의 손길을 떼내려고 반항하자 옆에서 다른 도적놈이 당신의 가슴을 움켜잡았다. 둘은 당신의 가슴을 엇박자로 흔들며 갖고 놀고 있다.",
+                        endure : "도적들 중 한 명이 당신의 위로 올라타더니 그대로 당신의 가슴골 사이로 제 성기를 비볐다. 그는 당신의 가슴이 아플 정도로 당신의 가슴을 제 성기 쪽으로 압박하며 욕정을 취했다.",
+                        submit : "도적들 중 한 명이 당신의 위로 올라타더니 그대로 당신의 가슴골 사이로 제 성기를 비볐다. 당신이 순응하자 그의 성기는 당신의 가슴골 사이를 더 빠르게 오르내렸다."
+                    },
+                    highSensitivity : {
+                        resist : "도적들 중 한 명이 당신의 한쪽 가슴을 주물렀다. 당신은 저항하려고 했지만, 본능적으로 움찔거리는 허리에 도적은 오히려 이죽거렸다. <br>\"튕기기는.\"<br>다른 도적놈들의 손도 당신의 가슴에 달라붙었다. 당신의 저항은 무력화되었다.",
+                        endure : "도적들 중 한 명이 당신의 가슴을 주무르더니 픽 웃었다. <br>\"이새끼 느끼는데?\"<br>그들은 당신이 가슴에 제 성기들을 문대며 이것도 한번 느껴보라고 당신을 매도하고 있다. 빌어먹게도 당신의 민감한 가슴은 그들의 디그레이션도 흥분으로 받아들이고 있다....",
+                        submit : "도적들 중 한 명이 당신의 가슴을 주무르더니 씩 웃었다. 그는 당신이 저항하지 않는 이유가 당신도 느끼고 있어서라고 생각하고 있다. 기분 좋지? 하면서 그는 당신의 유두를 손가락으로 튕겼고 다른 도적들의 손도 당신의 가슴으로 뻗어왔다. 당신의 가슴이 그들의 손에서 망가져간다..."
+                    }
+                },
+                c : {
+                    male : {
+                        default : {
+                            resist : "당신이 저항하자 도적의 발 하나가 당신의 남성기를 짓눌렀다. \"가만히 있어!\"라고 그는 윽박질렀다. 다른 놈들은 호시탐탐 당신의 몸을 맛볼 기회를 노리고 있다.",
+                            endure : "당신이 가만히 있자 도적은 비릿한 미소를 지으며 당신의 성기를 잡았다. 그러자 다른 놈들이 하나씩 당신의 볼을 잡으며 놀려댔다.",
+                            submit : "당신이 가만히 있자 도적은 비릿한 미소를 지으며 당신의 성기를 잡았다. 그러자 다른 놈들이 하나씩 당신의 볼을 잡으며 놀려댔다."
+                        },
+                        highSensitivity : {
+                            resist : "당신이 저항하자 도적의 발 하나가 당신의 남성기를 짓눌렀다. 당신의 허리가 본능적으로 튀어오르자 그는 당신을 경멸하는 눈으로 바라보며 더 짓눌렀다. <br>\"씨발, 이딴 걸로도 느끼나?\"",
+                            endure : "당신은 가만히 참으려고 했지만 도적의 손들이 당신의 남성기를 사방에서 자극하자 참을 수가 없었다. 그들은 당신의 남성기를 민감한 섹스토이마냥 놀려대고 있다.",
+                            submit : "당신은 그들에게 순응하여, 성기를 사방에서 괴롭히는 그들의 손에 그들이 원하는 반응을 내놓았다. 도적들은 당신의 반응에 자신의 성기를 쥐고 자위하며 낄낄 웃었다. <br>\"미친새끼.\""
+                        }
+                    },
+                    female : {
+                        default : {
+                            resist : "당신이 저항하자 도적 중 하나가 당신의 보지에 펀치를 날렸다. 남성기만큼은 아니겠지만 여성기도 취약하다...! 당신이 몸을 굽히며 괴로워하자 다른 놈들의 손이 당신을 다시 잡았다. 손가락들이 당신의 보지를 헤집기 시작한다...!",
+                            endure : "당신은 그들의 추삽질을 참으려고 노력했다. 차례대로 꽂히는 그들의 자지가 흔들릴 때마다 당신의 허리도 아픔을 최소화하기 위해 같이 흔들린다. 당신의 보지를 온기로 채워줄 좆들은 아직 많다....",
+                            submit : "당신은 그들의 추삽질을 순종적으로 받아들였다. 그들은 당신의 몸위로 입술을 쪽쪽거리며 차례대로 당신을 강간했다. 몇몇은 거칠게 했고, 몇몇은 그래도 부드럽게 당신의 구멍을 쑤셔댔다."
+                        },
+                        highSensitivity : {
+                            resist : "당신이 저항하자 도적 중 하나가 당신의 보지에 손가락을 쑤셔박았다. <br>\"존나 느끼는 암캐년이.\"<br>그는 당신의 저항을 애교로 보고 있다. 손가락을 쑤시며 민감한 부분을 자극해서, 당신의 보지는 결국 애액을 쏟아냈다. 마치 소변처럼 줄줄 흐르는 애액에 당신의 주변으로 모여있던 도적들의 눈이 더 음란해진다.",
+                            endure : "당신이 참으려고 하자 그들은 손가락으로 당신의 보지를 쑤시며 시합하는 것마냥 당신의 스팟들을 눌렀다. 팔다리는 그들에게 억압당한 채 당신의 몸은 팔딱팔딱 뛰어댔다.",
+                            submit : "당신의 순종에 그들은 웃으며 차례대로 당신의 보지에 성기들을 박아댔다. 박히면서도 느끼는 당신의 민감한 보지는 그들의 성기를 갈구하듯 끔찍하게 수축하고 움찔거린다..."
+                        }
+                    }
+                },
+                a : {
+                    default : {
+                        resist : "당신이 저항하자 도적들은 당신의 엉덩이를 번갈아 떄려댔다. 당신이 저항을 멈출 때까지 그들은 체벌을 멈출 생각이 없다.",
+                        endure : "당신이 참아내려고 하자 도적들 몇몇은 당신의 뒷구멍에도 관심을 보였다. 몇몇이 당신의 앞에서 추잡한 짓을 하고 있는 동안 몇몇은 당신의 엉덩이에 제 성기를 맞대어 문질렀다. 마치 스마타하듯이 성기를 당신의 엉덩이골에 비비며 그들은 여기도 느끼는 거 같다고 시시덕거렸다.",
+                        submit : "당신이 저항을 멈추자 몇몇 도적들은 당신의 뒷구멍에도 관심을 보였다. 그들은 당신의 저항없는 똥구멍을 양옆으로 벌리며 당신의 애널 안을 구경했다. 몇몇이 당신의 애널에 손가락을 집어넣었고 당신의 엉덩이는 쑤셔달라는 듯이 움찔거렸다..."
+                    },
+                    highSensitivity : {
+                        resist : "당신이 저항하자 도적들은 당신의 엉덩이에 손가락을 쑤셔댔다. 민감한 부위의 공격에 당신이 움찔거리자 그들은 당신의 반응을 구경하며 엉덩이를 찰싹찰싹 때려댔다. <br>\"말 안 듣는 음란한 궁딩이는 맞아야지.\"",
+                        endure : "당신은 참으려고 했지만, 당신의 엉덩이에 꽂힌 손가락에 하염없이 무너졌다. 흥분으로 붉어진 눈시울과 마찬가지로 예쁜 선홍색으로 뻐끔거리는 당신의 구멍을 번갈아보며 그들은 입맛을 다셨다. 당신의 엉덩이를 손가락으로 쑤셔대며 그들은 당신의 인내를 무너뜨렸다.",
+                        submit : "\"너무 좋아서 반항도 못하겠지?\"<br>그들은 민감한 당신의 구멍에 그대로 추삽질을 해대기 시작했다. 당신은 그들에게 억눌려 차렷자세로 수치스럽게 애널강간을 당했다. 그럼에도, 당신의 민감한 애널은 그들의 성기를 잡아먹을 듯이 조여왔다. 그들은 당신의 예민한 애널에 맛이 들고 있다."
+                    }
+                },
+                rest :"그들은 잠시 당신에게서 떨어졌다. 거친 숨을 몰아내쉬며 그들은 당신의 몸을 보고 자위하고 있다."
+            },
+            angry : {
+                m : {
+                    default : {
+                        resist : "그들은 당신이 저항하자 입에 성기를 두 세개씩 처박았다. 턱이든 볼이든 뭔가가 부서질 거 같다...! 당신은 숨소리도 하나 못 내고 그들의 입강간을 받아냈다.",
+                        endure : "저항을 멈춘 당신을 그들은 비웃었다. <br>\"지금 와서 얌전해지면 우리가 봐줄 거 같아?\"<br>그들은 당신을 구타하며 당신에게 이마라치오를 강제했다.",
+                        submit : "저항을 멈춘 당신을 그들은 비웃었다. <br>\"지금 와서 얌전해지면 우리가 봐줄 거 같아?\"<br>그들은 당신을 구타하며 당신에게 이마라치오를 강제했다."
+                    }
+                },
+                b : {
+                    default : {
+                        resist : "그들은 당신이 저항하자 당신의 가슴을 쇠사슬로 조이며 압박했다. 사슬에 압박되어 튀어나온 가슴살을 손가락으로 누르거나 꼬집으며 그들은 당신을 괴롭혔다.",
+                        endure : "당신은 인내하려고 했지만 그들은 이미 당신을 훈육할 생각밖에 없었다. 그들은 당신의 가슴을 쇠사슬로 조이며 압박하고, 압박으로 튀어나온 가슴살을 혀로 핥거나 손가락으로 문질러대고 꼬집으며 당신을 희롱했다. <br>\"이것도 한번 참을 수 있나 보자.\"",
+                        submit : "당신은 그들에게 순종했지만 그들은 이미 당신을 훈육할 생각밖에 없었다. 그들은 당신의 가슴을 쇠사슬로 조이며 압박하고, 압박으로 튀어나온 가슴살을 혀로 핥거나 손가락으로 문질러대고 꼬집으며 당신을 희롱했다. <br>\"답답해서 괴로워? 그러라고 하는 거야.\"<br>그들은 당신을 비웃고 있다."
+                    }
+                },
+                c : {
+                    male : {
+                        default : {
+                            resist : "그들은 당신이 저항하자 당신의 남성기를 쇠사슬로 채찍질하기 시작했다! 너무 아프다. 당신은 몸을 뒤틀었지만 그들은 봐주지 않았다.",
+                            endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 남성기 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다.",
+                            submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 남성기 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다."
+                        },
+                        highSensitivity : {
+                            resist : "그들은 당신이 저항하자 당신의 남성기를 쇠사슬로 채찍질하기 시작했다! 너무 아프다. 당신은 몸을 뒤틀었지만 그들은 봐주지 않았다. 고통스러운데도 점점 서기 시작하는 당신의 남성기를 한 도적이 손가락으로 튕기며 창놈이라고 매도했다.",
+                            endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 남성기 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다. 그리고 어쩌면 당신에게도. 당신의 민감한 남성기가 고통을 쾌락으로 치환하는 것을 보며 그들은 당신을 비웃으며 더욱 더 채찍질을 가했다.",
+                            submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 남성기 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다. 그리고 어쩌면 당신에게도. 당신의 민감한 남성기가 고통을 쾌락으로 치환하는 것을 보며 그들은 당신을 비웃으며 더욱 더 채찍질을 가했다."
+                        }
+                    },
+                    female : {
+                        default : {
+                            resist : "그들은 당신이 저항하자 당신의 보지를 쇠사슬로 채찍질하기 시작했다. 너무 아프다! 하지만 그들은 당신을 봐주지 않고 있다. 오히려 몸을 뒤틀면 여러 손이 당신의 다리를 벌리고 몸을 억눌러 매를 제대로 맞게끔 했다.",
+                            endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 보지 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다.",
+                            submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 남성기 위에 내려앉는 분노의 채찍질에 당신은 비명을 질렀지만 당신의 비명조차 그들에게는 유희였다."
+                        },
+                        highSensitivity : {
+                            resist : "그들은 당신이 저항하자 당신의 보지를 벌리더니 그대로 쇠사슬로 채찍질했다. 맞으면 맞을수록 세로선에서 애액이 뻐끔거린다. 당신의 민감한 보지를 그들은 비웃으며 채찍질을 더 가했다.",
+                            endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그들은 그대로 보지에 자신의 성기들을 처박았다. 원홀투스틱으로 당신의 몸은 비명을 지르며 삐그덕삐그덕 움직였다. 하지만 그럼에도 불구하고 당신의 보지는 흥분하여 애액을 흘리기 시작했다.... 그들이 추삽질을 할 때마다 애액이 스프레이처럼 튀었다.",
+                            submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그들은 그대로 보지에 자신의 성기들을 처박았다. 원홀투스틱으로 당신의 몸은 비명을 지르며 삐그덕삐그덕 움직였다. 하지만 그럼에도 불구하고 당신의 보지는 흥분하여 애액을 흘리기 시작했다.... 그들이 추삽질을 할 때마다 애액이 스프레이처럼 튀었다."
+                        }
+                    }
+                },
+                a : {
+                    default : {
+                        resist : "그들은 당신이 저항하자 당신의 엉덩이에 주먹을 처넣었다. 당신의 몸이 경기를 일으키는 것마냥 떨려온다. 당신은 그들의 주먹에서 피하고자 몸을 뒤틀었지만 그들의 손은 이미 당신의 온몸을 붙잡고 있다...",
+                        endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그들은 당신의 엉덩이에 자신들의 성기를 한번에 처박았다. 찢어질 듯한 고통에 당신은 비명을 질렀지만 그들에게 당신의 비명은 그저 유희 중 하나일 뿐이다.",
+                        submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그들은 당신의 엉덩이에 자신들의 성기를 한번에 처박았다. 찢어질 듯한 고통에 당신은 비명을 질렀지만 그들에게 당신의 비명은 그저 유희 중 하나일 뿐이다."
+                    },
+                    highSensitivity : {
+                        resist : "그들은 당신이 저항하자 엉덩이에 손을 집어넣었다. 그리고 그 좁은 구멍에서 손가락을 바르작거리며 당신의 내벽을 긁어냈다! 당신은 토할 거 같아졌다. 하지만 그러는 와중에도 당신의 엉덩이는 침범한 팔을 쭈압쭈압 빨아들이며 음탕하게 굴고 있다...",
+                        endure : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그 좁은 구멍에 한 개도 아니고 두 개나 들어온 성기들에 당신은 울음을 토해냈지만, 그 울음에는 고통만이 있는 건 아니었다.<br>\"폭력을 일부러 유도하는 거 아니야?\"<br>당신의 민감한 엉덩이 구멍에 성기를 방아찧듯 처박으며 그들은 낄낄 웃어댔다.",
+                        submit : "그들은 당신이 지금 저항을 하든 말든 신경쓰지 않는다. 그 좁은 구멍에 한 개도 아니고 두 개나 들어온 성기들에 당신은 울음을 토해냈지만, 그 울음에는 고통만이 있는 건 아니었다.<br>\"폭력을 일부러 유도하는 거 아니야?\"<br>당신의 민감한 엉덩이 구멍에 성기를 방아찧듯 처박으며 그들은 낄낄 웃어댔다."
+                    }
+                },
+                rest : "그들은 쉬고 있다... 표정을 보니 다음 번에는 어떻게 당신을 괴롭힐지 고민하고 있는 거 같다."
+            },
+            orgasm : "그들은 당신이 절정하는 것을 딸감으로 삼고 낄낄거리며 자위했다. 당신의 몸 위로 그들의 정액이 흩뿌려진다."
+        }
+    },
+
 
     //npc
     eric : {
@@ -237,7 +371,7 @@ const TRAINING_DATA = {
             { id: "b", weight: 20, arousal: 10, sensitivity: "bSensitivity" },
             { id: "c", weight: 25, arousal: 10, sensitivity: "cSensitivity" },
             { id: "a", weight: 25, arousal: 10, sensitivity: "aSensitivity" },
-            { id: "rest", weight: 5 }
+            { id: "rest", weight: 1 }
         ],
 
         lines : {
@@ -408,7 +542,8 @@ function startTraining(player, options = {}){
         anger: 0,
         currentEnemyAction: null,
         log: options.introLog ? [options.introLog] : [],
-        context : options.context || null
+        context : options.context || null,
+        usedHalfHpRest: false,
     };
 
     chooseTrainingEnemyAction();
@@ -434,7 +569,8 @@ function saveTrainingState(){
         anger: trainingState.anger,
         currentEnemyAction: trainingState.currentEnemyAction,
         log: trainingState.log,
-        context: trainingState.context || null
+        context: trainingState.context || null,
+        usedHalfHpRest: trainingState.usedHalfHpRest,
     };
 
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -813,6 +949,24 @@ function chooseTrainingEnemyAction(){
     if (!trainingState) return;
 
     const data = TRAINING_DATA[trainingState.trainerId];
+    const restAction = data.actions.find(action => action.id === "rest");
+    
+    const restThreshold =
+    trainingState.anger >= 80
+        ? trainingState.trainerMaxHp * 0.25
+        : trainingState.trainerMaxHp * 0.5;
+        
+        if (
+            restAction &&
+            trainingState.trainerHp <= restThreshold &&
+            !trainingState.usedHalfHpRest
+        ){
+            trainingState.currentEnemyAction = restAction;
+            trainingState.usedHalfHpRest = true;
+            saveTrainingState();
+            return;
+        }
+
     let actions = data.actions.map(action => {
     let weight = action.weight;
     if (action.sensitivity){
@@ -1042,7 +1196,8 @@ function resumeTraining(player){
         anger: saved.anger ?? 0,
         currentEnemyAction: saved.currentEnemyAction || null,
         log: saved.log || [],
-        context: saved.context || null
+        context: saved.context || null,
+        usedHalfHpRest: saved.usedHalfHpRest ?? false
     };
 
     if (!trainingState.currentEnemyAction){

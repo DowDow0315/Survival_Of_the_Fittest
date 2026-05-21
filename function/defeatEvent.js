@@ -34,11 +34,11 @@ const DEFEAT_EVENTS = {
                     passTime(player, 20)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "aSensitivity", 15);
+                   changeSensitivity(player, "aSensitivity", 8);
                    addBodyFluid(player, "a", 10);
                    } else {
-                   changeSensitivity(player, "cSensitivity", 15);
-                   changeSensitivity(player, "mSensitivity", 10);
+                   changeSensitivity(player, "cSensitivity", 8);
+                   changeSensitivity(player, "mSensitivity", 8);
                    addBodyFluid(player, "c", 20);
                    }
                    }
@@ -100,10 +100,10 @@ const DEFEAT_EVENTS = {
                     passTime(player, 20)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "cSensitivity", 10);
+                   changeSensitivity(player, "cSensitivity", 8);
                    } else {
-                   changeSensitivity(player, "cSensitivity", 15);
-                   changeSensitivity(player, "mSensitivity", 10);
+                   changeSensitivity(player, "cSensitivity", 8);
+                   changeSensitivity(player, "mSensitivity", 8);
                    }
                    }
                 }
@@ -209,16 +209,16 @@ const DEFEAT_EVENTS = {
                     passTime(player, 80)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "aSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 30);
-                   changeSensitivity(player, "bSensitivity", 30);
+                   changeSensitivity(player, "aSensitivity", 25);
+                   changeSensitivity(player, "mSensitivity", 25);
+                   changeSensitivity(player, "bSensitivity", 25);
                    addBodyFluid(player, "a", 40);
                    addBodyFluid(player, "m", 30);
                    } else {
-                   changeSensitivity(player, "cSensitivity", 30);
-                   changeSensitivity(player, "aSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 30);
-                   changeSensitivity(player, "bSensitivity", 30);
+                   changeSensitivity(player, "cSensitivity", 25);
+                   changeSensitivity(player, "aSensitivity", 25);
+                   changeSensitivity(player, "mSensitivity", 25);
+                   changeSensitivity(player, "bSensitivity", 25);
                    addBodyFluid(player, "a", 30);
                    addBodyFluid(player, "m", 30);
                    addBodyFluid(player, "c", 40);
@@ -266,13 +266,13 @@ const DEFEAT_EVENTS = {
                     passTime(player, 20)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "aSensitivity", 15);
+                   changeSensitivity(player, "aSensitivity", 10);
                    changeSensitivity(player, "mSensitivity", 10);
                    addBodyFluid(player, "a", 30);
                    addBodyFluid(player, "m", 30);
                    } else {
-                   changeSensitivity(player, "aSensitivity", 15);
-                   changeSensitivity(player, "cSensitivity", 15);
+                   changeSensitivity(player, "aSensitivity", 10);
+                   changeSensitivity(player, "cSensitivity", 12);
                    changeSensitivity(player, "mSensitivity", 10);
                    addBodyFluid(player, "a", 30);
                    addBodyFluid(player, "m", 30);
@@ -317,14 +317,14 @@ const DEFEAT_EVENTS = {
                     passTime(player, 40)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "aSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 20);
+                   changeSensitivity(player, "aSensitivity", 18);
+                   changeSensitivity(player, "mSensitivity", 18);
                    addBodyFluid(player, "a", 50);
                    addBodyFluid(player, "m", 50);
                    } else {
-                   changeSensitivity(player, "aSensitivity", 30);
-                   changeSensitivity(player, "cSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 30);
+                   changeSensitivity(player, "aSensitivity", 20);
+                   changeSensitivity(player, "cSensitivity", 20);
+                   changeSensitivity(player, "mSensitivity", 20);
                    addBodyFluid(player, "a", 50);
                    addBodyFluid(player, "m", 50);
                    addBodyFluid(player, "c", 50);
@@ -342,7 +342,7 @@ const DEFEAT_EVENTS = {
                     run: (player) => {
                         startTraining(player, {
                             trainerId: "goblin",
-                            maxTurns : 12,
+                            maxTurns : 14,
                             introLog : "고블린은 쓰러진 당신의 위로 올라탔다. 그는 당신을 쉽게 보내줄 생각이 없어보인다.",
                             onEnd: () => {
                                 showSingleTextScene("당신을 능욕한 고블린은 이내 당신을 묶을 것을 찾는지 잠시 당신을 시야밖에 두었다. 지금이 기회다. 당신은 어떻게든 그 사이에 도망갔다.",
@@ -447,16 +447,16 @@ const DEFEAT_EVENTS = {
                     passTime(player, 10)
 
                    if (player.gender === "male"){
-                   changeSensitivity(player, "bSensitivity", 30);
-                   changeSensitivity(player, "aSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 30);
+                   changeSensitivity(player, "bSensitivity", 25);
+                   changeSensitivity(player, "aSensitivity", 25);
+                   changeSensitivity(player, "mSensitivity", 25);
                    addBodyFluid(player, "m", 50);
                    addBodyFluid(player, "a", 50);
                    } else {
-                   changeSensitivity(player, "bSensitivity", 30);
-                   changeSensitivity(player, "cSensitivity", 30);
-                   changeSensitivity(player, "mSensitivity", 30);
-                   changeSensitivity(player, "aSensitivity", 30);
+                   changeSensitivity(player, "bSensitivity", 25);
+                   changeSensitivity(player, "cSensitivity", 25);
+                   changeSensitivity(player, "mSensitivity", 25);
+                   changeSensitivity(player, "aSensitivity", 25);
                    addBodyFluid(player, "c", 50);
                    addBodyFluid(player, "m", 50);
                    addBodyFluid(player, "a", 50);
@@ -465,15 +465,151 @@ const DEFEAT_EVENTS = {
                 }
             ]
         }
+    ],
+    bandit1 : [
+        {
+            id : "bandit1_defeat",
+            weight : 80,
+            scene : [
+                {
+                    type : "text",
+                    value : {
+                        male : [
+                            "하급도적은 당신의 몸에 손을 뻗었다. 욕정을 푸는 손길보다는 돈을 찾는 손길에 더 가까웠다. 그는 당신의 몸을 구석구석 뒤져 돈을 챙겼다. 그는 당신에게서 빼앗은 돈을 손가락으로 튕기며 널부러져 있는 당신을 내려다보았다. 그는 당신의 머리채를 잡아 돌려 엎드리게 하더니 그대로 당신의 위로 엎드렸다. 바닥의 먼지와 축축한 습기가 뒤엉켜 엉망이 된 당신의 몸으로 그의 뜨거운 성기가 들어온다. 당신의 애널은 이물질이 들어오자마자 반감으로 꽈악 조여왔다. 하급도적이 웃었다. <br>\"보지보다 더 기분이 좋은 거 같은데? 아. 뒷보지니까 어차피 똑같은 보지인가.\"<br>그는 당신의 저항을 무게로 억누르며 계속 추삽질을 해댔다. 그는 당신의 팔을 뒤로 꺾더니 그대로 꺾인 두 팔을 제 쪽으로 들어올렸다. 허리가 휜 채로 본능적으로 고개를 젖히며 끅끅거리는 소리를 내는 당신의 귓가로 뜨거운 숨결을 토해내며 하급도적은 욕망 배출을 이어갔다. 천박하게 수축하는 당신의 애널에 하급 도적은 정신없이 자신의 욕정을 쏟아냈다. 그는 모험가보다는 이런 일이 네 적성에 맞는 거 아니냐, 니콜라이의 글로리홀에서 일하는 게 낫지 않곘냐 등 당신을 매도했다. 휘어진 상체는 그의 손에 가슴부터 잡혀서 굽힐 수가 없다. 찰진 소리가 위와 아래에서 서로 경쟁하듯이 솟구친다. 찹, 찹, 찹, 찹, 당신의 몸은 성한 곳이 없다.",
+                            "모든 욕정을 쏟아낸 후, 하급도적은 뻗어버린 당신을 어떻게 해야 할지 고민하는 것처럼 보였다. 다행히도, 그는 아직 선을 넘는 걸 망설이고 있는 거 같다... 그 기회를 틈타서 당신은 그가 뒤를 돌고 있을 때 어떻게든 도망갔다. 그리고 구석진 자리에서 그대로 까무룩 기절해버렸다."
+                        ],
+                        female : [
+                            "하급도적은 당신의 몸에 손을 뻗었다. 욕정을 푸는 손길보다는 돈을 찾는 손길에 더 가까웠다. 그는 당신의 몸을 구석구석 뒤져 돈을 챙겼다. 그는 당신에게서 빼앗은 돈을 손가락으로 튕기며 널부러져 있는 당신을 내려다보았다. 그는 당신의 머리채를 잡아 돌려 자신을 보는 자세로 눕게 하더니 그대로 당신의 위로 올라탔다. 바닥의 먼지와 축축한 습기가 뒤엉켜 엉망이 된 당신의 몸으로 그의 뜨거운 성기가 들어온다. 당신의 보지가 그의 것을 삼키자 하급도적이 웃었다. <br>\"꾸물거리는 거 봐라, 음탕한 년. 그냥 처음부터 자지를 먹고 싶다고 말하지 그랬어?\"<br>그는 당신의 저항을 무게로 억누르며 계속 추삽질을 해댔다. 폭력적인 마찰에 당신의 몸이 기형적으로 펄떡이고, 보지 구멍은 주륵주륵 애액을 쏟아내기 시작했다. 그리고 하급 도적은 그 애액을 윤활유 삼아 더 깊게 당신의 안으로 파고들었다. 가장 깊숙한 곳을 찌르자 당신의 허리가 더 날뛰었다. 천박하게 수축하는 당신의 보지에 하급 도적은 정신을 차리지 못했다. <br>\"미친년이, 좆 끊어먹으려고 작정을 했나.\"<br>욕은 하고 있지만 그의 입술은 탐욕으로 번들거리고 있다. 그는 당신의 가슴을 마구 비벼대며 계속 욕정을 쏟아냈다. 찰진 소리가 위와 아래에서 서로 경쟁하듯이 솟구친다. 찹, 찹, 찹, 찹, 당신의 몸은 성한 곳이 없다.",
+                            "모든 욕정을 쏟아낸 후, 하급도적은 뻗어버린 당신을 어떻게 해야 할지 고민하는 것처럼 보였다. 다행히도, 그는 아직 선을 넘는 걸 망설이고 있는 거 같다... 그 기회를 틈타서 당신은 그가 뒤를 돌고 있을 때 어떻게든 도망갔다. 그리고 구석진 자리에서 그대로 까무룩 기절해버렸다."
+                        ]
+                    }
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                    changeHP(player, -40);
+                    changeStamina(player, -30);
+                    changeArousal(player, 30);
+                    player.status.trauma = Math.min(
+                        player.status.maxTrauma,
+                        player.status.trauma + 4
+                    );
+                    passTime(player, 20)
+
+                   if (player.gender === "male"){
+                   changeSensitivity(player, "aSensitivity", 9);
+                   changeSensitivity(player, "bSensitivity", 9);
+                   addBodyFluid(player, "a", 20);
+                   } else {
+                   changeSensitivity(player, "cSensitivity", 9);
+                   changeSensitivity(player, "bSensitivity", 9);
+                   addBodyFluid(player, "c", 20);
+                   }
+                   }
+                }
+            ]
+        },
+        {
+            id : "bandits_training",
+            weight : 15,
+            scene : [
+                {
+                    type : "effect",
+                    run: (player) => {
+                        startTraining(player, {
+                            trainerId: "bandits",
+                            maxTurns : 18,
+                            introLog : "쓰러진 당신 뒤로 발자국 소리들이 들려왔다. 싸우는 소리에 도적들이 몰려버린 모양이다....",
+                            onEnd: () => {
+                                showSingleTextScene("도적떼들이 당신의 처우를 머리를 맞대고 의논하고 있을 때, 당신은 그 기회를 놓치지 않고 도망갔다...!",
+                                    player
+                                );
+                            }
+                        });
+
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    bandit2 : [
+        {
+            id : "bandit2_defeat",
+            weight : 70,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "상급도적은 당신의 몸에 손을 뻗었다. 욕정을 푸는 손길보다는 돈을 찾는 손길에 더 가까웠다. 그는 당신의 몸을 구석구석 뒤져 돈을 챙겼다. 그는 당신에게서 빼앗은 돈을 손가락으로 튕기며 널부러져 있는 당신을 내려다보았다. <br>\"마약은 많이 안 먹어봤지?\"<br>그는 마약을 이 사이로 물더니 그대로 자신의 입술을 당신의 입술에 짓누르듯 맞부딪혔다. 거부할 틈도 없이 흘러드는 몽롱한 기운에 당신의 숨이 턱 막혔다. 거지들이 쓰는 마약과는 달랐다. 목구멍 뒤로 넘어가자마자 마약이 당신의 몸을 달콤하게 장악해왔다. 흐릿해진 시야 사이로 상급 도적이 낄낄 웃고 있는 것이 보인다.<br>\"고마운 줄 알아. 널 위한 아주 강렬한 맛이라고.\"",
+                        "그의 말대로 약효과는 강렬했다. 미약한 정신 사이로 살과 뼈를 부딪히는 둔탁한 소리가 울려퍼졌다. 당신의 허리를 쾌락을 좇아 그의 움직임에 따라 허리를 흔들고 있었다. 엎드린 채로 마치 개새끼마냥 입을 벌리며, 당신은 멍하니 당신의 입에서부터 뚝뚝 떨어지는 침을 느꼈다. 헥, 헥... 무슨 소리인지 했더니 당신의 벌어진 입에서 나오는 소리였다. 상급도적은 당신이 정신을 차리자 엉덩이뺨을 짝짝 때리며 더 흔들라고 명령했다. 다시 당신의 의식이 멀어진다... 구멍을 파고드는 그의 열기가 너무 기분이 좋았다. 헥헥거리는 소리가 앙앙거리는 소리로 바뀐 것을 당신은 뒤늦게서야 인지했다. 하지만 기분이 너무 좋아서 멈출 수가 없었다. 당신의 두 다리 사이로 정액이 흘러내린다. 그가 당신을 음란한 년이라 매도하는 소리가 들린다. 당신의 이성이 점점 흐려진다...",
+                        "다시 눈을 떴을 때 상급도적은 무력화된 당신을 확인하고 잠시 자리를 비운 모양이었다. 지금이 기회다. 당신은 움직여야만 한다... 간신히 기어가서 몸을 숨긴 후 당신의 시야는 그대로 암전됐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                    changeHP(player, -40);
+                    changeStamina(player, -30);
+                    changeArousal(player, 50);
+                    player.status.trauma = Math.min(
+                        player.status.maxTrauma,
+                        player.status.trauma + 6
+                    );
+                    passTime(player, 20)
+
+                   if (player.gender === "male"){
+                   changeSensitivity(player, "aSensitivity", 11);
+                   addBodyFluid(player, "a", 20);
+                   } else {
+                   changeSensitivity(player, "cSensitivity", 11);
+                   addBodyFluid(player, "c", 20);
+                   }
+                   }
+                }
+            ]
+        },
+        {
+            id : "bandits_training",
+            weight : 20,
+            scene : [
+                {
+                    type : "effect",
+                    run: (player) => {
+                        startTraining(player, {
+                            trainerId: "bandits",
+                            maxTurns : 18,
+                            introLog : "쓰러진 당신 뒤로 발자국 소리들이 들려왔다. 싸우는 소리에 도적들이 몰려버린 모양이다....",
+                            onEnd: () => {
+                                showSingleTextScene("도적떼들이 당신의 처우를 머리를 맞대고 의논하고 있을 때, 당신은 그 기회를 놓치지 않고 도망갔다...!",
+                                    player
+                                );
+                            }
+                        });
+
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    banditBoss : [
     ]
 };
 
 
-function pickDefeatEvent(enemyId){
-    const list = DEFEAT_EVENTS[enemyId];
+function pickDefeatEvent(enemyId, player){
+    let list = DEFEAT_EVENTS[enemyId];
 
     if (!list || list.length === 0){
         return null;
+    }
+
+    if (
+        player?.dungeon?.active &&
+        player.dungeon.id === "banditHideout"
+    ){
+        list = list.filter(event => event.id !== "bandits_capture");
     }
 
     let total = list.reduce((sum, event) => sum + event.weight, 0);
@@ -492,7 +628,7 @@ function pickDefeatEvent(enemyId){
 
 function runDefeatEvent(player, enemy, options = {}){
     const enemyId = enemy.id;
-    const event = pickDefeatEvent(enemyId);
+    const event = pickDefeatEvent(enemyId, player);
 
     if (!event){
         if (options.onAfterDefeat){

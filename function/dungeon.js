@@ -1885,6 +1885,21 @@ window.startBanditLukeTrophyRoom = function(player){
 function runDungeonBossIntro(player, introId){
     if (introId === "banditBoss_intro"){
         player.flags = player.flags || {};
+
+        if (player.flags.banditBoss_firstLose){
+
+            startScene([
+                {
+                    type:"text",
+                    value: "당신은 다시 한번 더 큰 문을 열었다. 도적두목이 당신을 돌아보더니 어이없어하며 한숨을 쉬었다. <br>\"애새끼들이 빠져가지고...\"<br>그는 한번 더 당신을 쓰러뜨릴 생각이다."
+                }
+            ], player, {
+                onEnd: () => startBanditBossBattle(player)
+            });
+
+            return;
+        }
+
         player.flags.seen_banditBoss_intro = true;
         savePlayer(player);
 
@@ -1967,6 +1982,9 @@ window.startBanditBossBattle = function(player){
                 getCurrentDungeon(player),
                 getCurrentDungeonRoom(player)
             );
+        },
+        onSkipDefeat : () => {
+            startBanditBossLose(player);
         }
     });
 };
@@ -1995,6 +2013,45 @@ function handleBanditBossWin(player){
                 { text: "던전 밖으로 돌아간다", action: "leave_dungeon_after_boss" },
                 { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
             ]
+        }
+    ], player);
+}
+
+function startBanditBossLose(player){
+    player.flags = player.flags || {};
+
+    if (!player.flags.banditBoss_firstLose){
+
+        player.flags.banditBoss_firstLose = true;
+
+        startScene([
+            {
+                type:"text",
+                value:
+                    "당신은 도적두목을 이기지 못하고 쓰러졌다. 그는 누군가에게 당신을 처리하라고 했고 당신은 누군가에게 끌려가고 있다. <br>\"어차피 이새끼로 실험한다고 해도 돈은 못 받는 거 아니야?\"<br>\"에라같은 애가 나오면 그들이 우리를 다시 봐줄 수도 있지.\"<br>" +
+                    "<br>당신은 그들이 당신의 팔에 영양제 주사를 넣는 걸 본다. 그들이 당신을 연구실 침대에 묶기 위해 뒤를 돌았을 때 당신은 그 틈을 놓치지 않았다. 그들이 다시 돌아왔을 때는 빈 침대뿐이었다."
+            },
+            {
+                type:"effect",
+                run:(player)=>{
+                    player.dungeon.room = "r1c0";
+                    changeHP(player, 30);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    player.dungeon.room = "r1c0";
+    changeHP(player, 30);
+
+    startScene([
+        {
+            type:"text",
+            value:
+                "당신은 또 두적두목에게 져서 쓰러졌다. 그가 이번에는 확실히 당신을 처리하라고 당부하는 소리가 들린다. 당신은 그들이 당신에게 영양제 주사를 투여해줄 거라는 걸 알고 있다. 당신은 기다렸다가 그들이 영양제 주사를 놓고 돌아선 순간, 또 다시 온 기회를 놓치지 않았다. 숨어있는 당신의 뒤로 그들이 난 이제 뒤졌다고 경악하는 소리가 들린다."
         }
     ], player);
 }

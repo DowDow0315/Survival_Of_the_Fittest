@@ -240,12 +240,6 @@ function checkArousalState(player){
         if(battleState.enemy.lines.orgasm){
             log(getLine(battleState.enemy,"orgasm"));
         }
-
-        if (battleState.arousalCount === 1){
-            log("당신은 몸을 움직일 수 없다....", "lust");
-        } else {
-            log("이미 몇 번이고 무너진 몸이 더 쉽게 반응한다...", "lust")
-        }
     }
 }
 
@@ -309,6 +303,7 @@ function useBattleItem(index){
     if (!battleState) return;
 
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const item = player.inventory[index];
 
@@ -347,15 +342,9 @@ function playerAttack(isBonusAttack = false){
      if (!battleState) return;
 
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const enemy = battleState.enemy;
-
-    if (player.status.stunned>0){
-        log("당신은 몸을 움직일 수 없다...", "lust");
-        player.status.stunned--;
-        enemyTurn();
-        return;
-    }
 
     if (battleState.grapple){
         log("붙잡혀서 공격할 수 없다!");
@@ -474,6 +463,7 @@ function useEnergy(cost){
 function pickupWeapon(){
     if (!battleState) return;
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
 
     if (!battleState.droppedWeapon){
@@ -525,19 +515,12 @@ function useSkill(index){
     if (!battleState) return;
 
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const enemy = battleState.enemy;
     const skill = battleState.currentSkills[index];
     const isMagicWeapon = player.equipment.weapon?.name === "지팡이";
     const powerStat = isMagicWeapon ? getFinalMag(player) : getFinalAtk(player);
-
-    if (player.status.stunned > 0){
-        log("당신은 몸을 움직일 수 없다...", "lust");
-        player.status.stunned--;
-        closeSkillMenu();
-        enemyTurn();
-        return;
-    }
 
     if (!useEnergy(skill.cost)){
         log("에너지가 부족하다.");
@@ -762,14 +745,10 @@ function updateBuffs(target){
 function playerTease(){
     if (!battleState) return;
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const enemy = battleState.enemy;
-    if (player.status.stunned > 0){
-        log("당신은 몸을 움직일 수 없다...", "lust");
-        player.status.stunned--;
-        enemyTurn();
-        return;
-    }
+
     if (!useEnergy(1)){
         log("에너지가 부족하다.");
         return;
@@ -1092,18 +1071,10 @@ function enemyTurn(){
 
 function grappleAction(action){
     if (!battleState) return;
+    if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const enemy = battleState.enemy;
-
-    if (player.status.stunned > 0){
-        log("당신은 몸을 움직일 수 없다...", "lust");
-        player.status.stunned--;
-
-        if (battleState){
-            enemyTurn();
-        }
-        return;
-    }
 
     if (action === "struggle"){
         const dmg = calculateDamage(
@@ -1300,14 +1271,11 @@ function removeClothes(player){
 
 function counterAttack(){
     const player = battleState.player;
+    if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
 
     if (battleState.grapple){
         log("붙잡혀서 반격할 수 없다!");
-        return;
-    }
-
-    if (player.status.stunned > 0){
-        log("당신은 아무것도 할 수 없다....", "lust");
         return;
     }
 
@@ -1379,7 +1347,7 @@ function chooseEnemySkill(enemy){
 
         if (skill.type === "lust"){
             const sensitivity = getSensitivity(player, skill.target);
-            weight += sensitivity * 0.5;
+            weight += Math.sqrt(sensitivity) * 0.02;
 
             if (personality === "lustful"){
                 weight *= 1.5;
@@ -1626,6 +1594,7 @@ function runAway(){
     if (!battleState) return;
 
     if (!startPlayerTurn()) return;
+    if (handlePlayerStunnedTurn()) return;
 
     // 도망 불가 상태 (이벤트용)
     if (battleState.noEscape){
@@ -1687,6 +1656,21 @@ function runAway(){
 
         enemyTurn();
     }
+}
+
+function handlePlayerStunnedTurn(){
+    if (!battleState) return false;
+
+    const player = battleState.player;
+
+    if (player.status.stunned > 0){
+        log("당신은 몸을 움직일 수 없다....", "lust");
+        player.status.stunned--;
+        enemyTurn();
+        return true;
+    }
+
+    return false;
 }
 
 //턴 시작함수

@@ -1,11 +1,12 @@
 function processEricText(text, player){
-    const currentDebtLevel = player.debtLevel || 1;
+    const currentDebtLevel =
+        player.temp?.ericPaidDebtLevel || player.debtLevel || 1;
 
     return text
-    .replaceAll("{ericTitle}", getEricTitle(player))
-    .replaceAll("{cost1}", getWeeklyCost({...player, debtLevel: currentDebtLevel}))
-    .replaceAll("{cost2}", getWeeklyCost({...player, debtLevel: currentDebtLevel + 1}))
-    .replaceAll("{playerName}", player.name || "당신");
+        .replaceAll("{ericTitle}", getEricTitle(player))
+        .replaceAll("{cost1}", getWeeklyCost({...player, debtLevel: currentDebtLevel}))
+        .replaceAll("{cost2}", getWeeklyCost({...player, debtLevel: currentDebtLevel + 1}))
+        .replaceAll("{playerName}", player.name || "당신");
 }
 
 function getEricTitle(player){
@@ -85,15 +86,19 @@ registerActions("eric", {
     },
 
     weeklyPayment_yes: (player) => {
-        const cost = getWeeklyCost(player);
-        changeGold(player,-cost);
-
-        player.debtLevel++;
-
-        localStorage.setItem("playerData", JSON.stringify(player));
-
+        const paidDebtLevel = player.debtLevel || 1;
+        const cost = getWeeklyCost({ ...player, debtLevel: paidDebtLevel });
+        
+        player.temp = player.temp || {};
+        player.temp.ericPaidDebtLevel = paidDebtLevel;
+        changeGold(player, -cost);
+        
         startScene(NPC_DATA["eric"].scenes.eric_weeklyPayment_yes, player, {
             onEnd: () => {
+                player.debtLevel = paidDebtLevel + 1;
+                delete player.temp.ericPaidDebtLevel;
+                
+                savePlayer(player);
                 player.inEvent = false;
                 startScene(getLocationScene(player), player);
             }

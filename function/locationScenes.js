@@ -198,6 +198,15 @@ function buildBanditForestScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "bandit_cleanup"
+    ){
+        choices.push({
+            text: "도적떼 진지를 습격한다",
+            action : "start_banditCampRaid"
+        });
+    }
+
     choices.push({
         text: "깊은숲으로 돌아간다",
         action: "move_deepForest"
@@ -214,6 +223,10 @@ function buildBanditForestScene(player, loc, randomDesc){
         }
     ];
 }
+
+window.start_banditCampRaid = function(player){
+    startBanditCampRaid(player);
+};
 
 const GRAVEYARD_ROUTE = ["left", "left", "right", "right", "left", "right", "left"];
 

@@ -48,7 +48,7 @@ const QUESTS = {
         targetBoss : "goblinKing",
         requiredKill : 1,
 
-        rewardGold : 500,
+        rewardGold : 400,
 
         require : {
             completedQuest : "undercity_story_04",
@@ -58,6 +58,31 @@ const QUESTS = {
         acceptText : "마틴은 당신에게 의뢰서를 주었다.",
         cancelText : "마틴은 무표정으로 당신에게서 의뢰서를 다시 받았다.",
         completeText : "마틴은 의뢰서를 확인하더니 동전을 내밀었다. 그는 당신이 구출한 사람들은 모두 인도됐다고 말했다. 어디로 인도된지는 말해주지 않았다."
+    },
+
+    bandit_cleanup : {
+        id : "bandit_cleanup",
+        title : "도적떼 소탕",
+        type : "boss",
+        repeatable : true,
+        giver : "matin",
+
+        desc : "도적떼는 하나만 있는 것이 아니다. 여전히 그들의 습격은 반복되고 있다. 누군가는 도적이라 부르고, 누군가는 굶주린 사람들이라 부르는 그들을 토벌하자.",
+        activeDesc : "끊어진 가도 근처의 도적떼 진지를 소탕하자.",
+        readyDesc : "또 하나의 도적떼를 소탕했다. 주점으로 돌아가 마틴에게 보고하자.",
+        targetBoss : "banditBoss",
+        requiredKill : 1,
+
+        rewardGold : 1000,
+
+        require : {
+            completedQuest : "undercity_story_06",
+            count : 1
+        },
+        
+        acceptText : "당신이 도적떼를 소탕하는 의뢰를 받아들이자 마틴의 눈동자가 순간 평소와 달라보였다. 착각이었을까? 마틴은 당신에게 의뢰서를 주었다.",
+        cancelText : "마틴은 무표정으로 당신에게서 의뢰서를 다시 받았다.",
+        completeText : "마틴은 의뢰서를 확인하더니 고개를 끄덕였다. 그는 당신이 구출한 사람들은 모두 인도됐다고 말했다. 어디로 인도된건지 묻자 마틴은 자기도 그건 모른다고 말했다."
     },
 
     //스토리퀘스트
@@ -221,7 +246,7 @@ const QUESTS = {
 
     undercity_story_06 : {
         id : "undercity_story_06",
-        title : "도적떼 소굴 소탕",
+        title : "습격은 습격으로",
         type : "boss",
         repeatable : false,
         giver : "matin",

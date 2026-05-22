@@ -468,8 +468,8 @@ const DEFEAT_EVENTS = {
     ],
     bandit1 : [
         {
-            id : "bandit1_defeat",
-            weight : 80,
+            id : "bandits_defeat",
+            weight : 70,
             scene : [
                 {
                     type : "text",
@@ -490,11 +490,12 @@ const DEFEAT_EVENTS = {
                     changeHP(player, -40);
                     changeStamina(player, -30);
                     changeArousal(player, 30);
+                    changeGold(player, -500);
                     player.status.trauma = Math.min(
                         player.status.maxTrauma,
                         player.status.trauma + 4
                     );
-                    passTime(player, 20)
+                    passTime(player, 20);
 
                    if (player.gender === "male"){
                    changeSensitivity(player, "aSensitivity", 9);
@@ -531,12 +532,31 @@ const DEFEAT_EVENTS = {
                     }
                 }
             ]
+        },
+        {
+            id : "bandits_capture",
+            weight : 40,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "하급도적은 쓰러진 당신을 비웃더니 그대로 당신을 초소로 끌고 갔다. 머리채를 잡힌 채 바닥에 피부가 긁히며 당신은 질질 끌려갔다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startBanditsCapture(player);
+                        return true;
+                    }
+                }
+            ]
         }
     ],
     bandit2 : [
         {
-            id : "bandit2_defeat",
-            weight : 70,
+            id : "bandits_defeat",
+            weight : 60,
             scene : [
                 {
                     type : "text",
@@ -552,11 +572,12 @@ const DEFEAT_EVENTS = {
                     changeHP(player, -40);
                     changeStamina(player, -30);
                     changeArousal(player, 50);
+                    changeGold(player, -800);
                     player.status.trauma = Math.min(
                         player.status.maxTrauma,
                         player.status.trauma + 6
                     );
-                    passTime(player, 20)
+                    passTime(player, 20);
 
                    if (player.gender === "male"){
                    changeSensitivity(player, "aSensitivity", 11);
@@ -591,9 +612,59 @@ const DEFEAT_EVENTS = {
                     }
                 }
             ]
+        },
+        {
+            id : "bandits_capture",
+            weight : 40,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "상급도적은 쓰러진 당신을 비웃더니 그대로 당신을 초소로 끌고 갔다. 머리채를 잡힌 채 바닥에 피부가 긁히며 당신은 질질 끌려갔다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startBanditsCapture(player);
+                        return true;
+                    }
+                }
+            ]
         }
     ],
     banditBoss : [
+        {
+            id : "bandits_capture",
+            weight : 100,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "도적대장은 당신의 배에 주먹을 박아넣었다. 숨이 빠지는 소리와 함께 당신의 허리가 굽어졌다. 도적대장은 충격으로 입을 벌린 채 침을 질질 흘리고 있는 당신을 제 부하들에게 보여주며 입꼬리를 올렸다."+
+                        "<br><br>\"이게 바로 우리에게 개긴 암캐의 말로다!\"<br><br>"+
+                        "그리고 그는 당신을 한손으로 들어올리더니 그들의 앞에서 당신의 다리를 벌려버렸다. 개구리 자세로 그의 허리에 바짝 붙은 채, 당신은 여전히 충격에서 벗어나지 못해 입을 다물지 못하고 있다. 도적대장은 입구멍부터가 야한데 아랫구멍이 안 야할 리 없다는 말을 하며 그대로 당신에게 박아댔다. 당신은 모두의 앞에서 치부가 드러난 채로 강간당했다.... 흔들리는 당신의 시야로 당신의 벌어진 틈을 보며 자위를 하는 도적놈들이 보인다..."+
+                        " 불행하게도 당신의 수모는 공개강간쇼로 끝나지 않았다.... 무자비하게 강간당한 당신은 그대로 도적떼들에게 끌려가버렸다..."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeGold(player, -1000);
+                        changeTrauma(player, 8);
+                        if (player.gender === "male"){
+                            changeSensitivity(player, "aSensitivity", 11);
+                            addBodyFluid(player, "a", 20);
+                        } else {
+                            changeSensitivity(player, "cSensitivity", 11);
+                            addBodyFluid(player, "c", 20);
+                        }                        
+                        startBanditsCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
     ]
 };
 

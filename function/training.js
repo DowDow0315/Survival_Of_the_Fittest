@@ -648,6 +648,13 @@ function trainingAction(action){
 
     if (trainingState.stun > 0){
         trainingLog("당신은 몸을 움직일 수 없다...");
+        
+        const enemyAction = trainingState.currentEnemyAction;
+        
+        if (enemyAction){
+            processTrainingContact("submit", enemyAction);
+        }
+        
         trainingState.stun--;
         finishTrainingTurn();
         return;

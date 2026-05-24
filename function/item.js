@@ -402,7 +402,7 @@ const ITEMS ={
             name : "투척단검",
             type : "weapon",
             price : 2500,
-            stat : {
+            stats : {
                 str:3,
                 dex:8
             }

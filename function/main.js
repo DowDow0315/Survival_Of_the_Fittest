@@ -1832,70 +1832,44 @@ function isEquipped(player, item){
 
 function useItem(player, item){
 
-    // 장비 아이템
-    if (item.type === "weapon" || item.type === "top" || item.type === "bottom" || item.type === "underwear"){
-        equipItem(player, item);
-        return;
-    }
-
-    // 회복 아이템
     if (item.type === "heal"){
         changeHP(player, item.value);
 
-        // 소비 아이템 → 삭제
-        const index = player.inventory.indexOf(item);
-        if (index !== -1){
-            player.inventory.splice(index, 1);
-        }
-
-        renderInventoryModal(player);
-        localStorage.setItem("playerData", JSON.stringify(player));
+        consumeItem(player, item); // ← 추가
         return;
     }
 
     if (item.type === "stamina"){
-    changeStamina(player, item.value);
+        changeStamina(player, item.value);
 
-    const index = player.inventory.indexOf(item);
-    if (index !== -1){
-        player.inventory.splice(index, 1);
-    }
-
-    renderInventoryModal(player);
-    localStorage.setItem("playerData", JSON.stringify(player));
-    return;
+        consumeItem(player, item); // ← 추가
+        return;
     }
 
     if (item.type === "arousal"){
-    changeArousal(player, -item.value);
+        changeArousal(player, -item.value);
 
-    const index = player.inventory.indexOf(item);
-    if (index !== -1){
-        player.inventory.splice(index, 1);
-    }
-
-    renderInventoryModal(player);
-    localStorage.setItem("playerData", JSON.stringify(player));
-    return;
+        consumeItem(player, item);
+        return;
     }
 
     if (item.type === "alcohol"){
-    changeAlcohol(player, item.alcohol || 0);
+        changeAlcohol(player, item.alcohol || 0);
 
-    if (item.trauma){
-        changeTrauma(player, item.trauma);
-    }
+        if (item.trauma){
+            changeTrauma(player, item.trauma);
+        }
 
-    const index = player.inventory.indexOf(item);
-    if (index !== -1){
-        player.inventory.splice(index, 1);
+        consumeItem(player, item);
+        return;
     }
+}
+
+function consumeItem(player, item){
+    removeItemByKey(player, item.key);
 
     renderInventoryModal(player);
-    localStorage.setItem("playerData", JSON.stringify(player));
-    return;
-    }
-
+    savePlayer(player);
 }
 
 function handleAction(action, player){

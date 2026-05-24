@@ -381,15 +381,15 @@
                 ]
             }
         ],
-    "eric_weeklyPayment" : [
-        {
+        "eric_weeklyPayment" : [
+           {
             "type" : "text",
             "value" : [
                 "뒤에서 인기척이 들렸다. 뒤를 돌아보니 에릭이 경찰복 목 부분을 깔끔하게 정돈하며 당신에게 걸어오고 있었다. 그는 많은 말을 하지 않았다. 그저 당연하다는 듯, 당신에게 손을 내밀었을 뿐이다.<br>",
                 "\"이번엔 {cost1}원이야, 애송이.\""
             ]
-        },
-        {
+            },
+            {
             "type" : "choice",
             "choices" : [
                 {
@@ -401,9 +401,9 @@
                     "action" : "eric_weeklyPayment_no"
                 }
             ]
-        }
-    ],
-    "eric_weeklyPayment_yes" : [
+           }
+        ],
+        "eric_weeklyPayment_yes" : [
         {
             "type" : "text",
             "value" : [
@@ -412,8 +412,8 @@
                 "그는 당신을 뒤로 하고 떠났다."
             ]
         }
-    ],
-    "eric_weeklyPayment_no_low" : [
+        ],
+        "eric_weeklyPayment_no_low" : [
         {
             "type" : "text",
             "value" : [
@@ -422,8 +422,8 @@
                 "에릭의 눈이 사납게 빛난다. 에릭과의 전투가 시작된다.<br>"
             ]
         }
-    ],
-    "eric_weeklyPayment_no_med" :[
+        ],
+        "eric_weeklyPayment_no_med" :[
         {
             "type" : "text",
             "value" : [
@@ -432,17 +432,15 @@
                 "<br>에릭의 눈이 사납게 빛났다. 에릭과의 전투가 시작된다."
             ]
         }
-    ],
-    "eric_weeklyPayment_no_high" : [
+        ],
+        "eric_weeklyPayment_no_high" : [
             {
             "type" : "text",
             "value" : "당신의 거부에 에릭은 무표정으로 소매에 있던 총을 뽑으려고 했다. 그러나 당신과 눈이 마주친 순간 그는 총을 다시 소매에 집어넣었다. 그는 말이 없다. 하지만 그의 눈동자는 평소보다도 더 식어있었다. <br>에릭과의 전투가 시작된다."
         }
-    ]
-    },
-
-    "eric_undercity_04_skip_event" : [
-        {
+        ],
+        "eric_undercity_04_skip_event" : [
+            {
             "type" : "text",
             "value" : [
                 "누군가 뒤에서 당신의 어깨를 두드렸다. 당신은 뒤를 돌아보았다. 에릭이다.",
@@ -452,15 +450,15 @@
                 "당신은 생각보다 두둑한 돈에 놀라서 그를 올려다보았다.  에릭의 녹안은 흔들림없이 당신을 내려다보고 있었다.",
                 "<br>\"넌 상류도시에 가고 싶은 건가.\""
             ]
-        },
-        {
+            },
+            {
             "type" : "effect",
             "effects" : [
                 { "target": "player", "key": "money", "amount": 1500 },
                 { "target": "npc", "npc": "eric", "key": "affection", "amount": 5 }
             ]
-        },
-        {
+            },
+            {
             "type" : "choice",
             "choices" : [
                 {
@@ -476,27 +474,27 @@
                     "action" : "eric_undercity_04_skip_event_submissive"
                 }
             ]
-        }
-    ],
-    "eric_undercity_04_skip_event_defiant" : [
-        {
+            }
+        ],
+        "eric_undercity_04_skip_event_defiant" : [
+            {
             "type" : "text",
             "value" : [
                 "당신의 비꼬는 말에도 에릭은 표정 변화가 없었다. 마치 관찰하는 듯한 녹색의 시선이 당신의 얼굴과 몸가짐 위에 머무른다.",
                 "<br>\"...눈에 띄기 전에 똑똑해지는 게 좋을 거다, {ericTitle}. 그런 태도로 상류도시에 도착한다면 너는 그 도시에 먹혀버릴 테니까.\"<br>",
                 "순간 그의 손이 당신의 시야를 덮어왔다. 당신에게 닿지는 않았지만 당신의 눈 바로 앞에서 그의 손은 위협적으로 당신의 가리고 있었다. 그의 큰손에 먹힐 것만 같다. 당신은 당신도 모르게 뒤로 몇 걸음 물러났다. 에릭은 그런 당신을 응시하다가 그대로 발걸음을 돌려 가버렸다."
             ]
-        },
-        {
+            },
+            {
             "type" : "effect",
             "effects" : [
                 { "target": "npc", "npc": "eric", "key": "affection", "amount": -3 },
                 { "target": "npc", "npc": "eric", "key": "dominance", "amount": -2 }
             ]
-        }
-    ],
-    "eric_undercity_04_skip_event_neutral" : [
-        {
+            }
+        ],
+        "eric_undercity_04_skip_event_neutral" : [
+           {
             "type" : "text",
             "value" : [
                 "\"상류도시는 발렌이 다스리고 있는 문화 도시다. 그리고 하류도시로 사방이 둘러 쌓여있으니 하류도시가 망하기 전까지 망할 일은 없을 거다.\"",
@@ -504,16 +502,16 @@
                 "<br>\"상류도시를 먹여살리고 있는 존재다. 그가 없으면 상류도시는 망가질 거다.\"<br>",
                 "에릭은 평소보다도 더 단호한 어조로 대답했다. 그는 계속 이렇게만 하면 당신에게도 상류도시에 갈 기회가 생길 거라고 말했다. 당신은 고개를 끄덕였다. 에릭은 당신을 뒤로 하고 발걸음을 옮겼다."
             ]
-        },
-        {
+            },
+            {
             "type" : "effect",
             "effects" : [
                 { "target": "npc", "npc": "eric", "key": "affection", "amount": 1 }
             ]
-        }
-    ],
-    "eric_undercity_04_skip_event_submissive" : [
-        {
+            }
+        ],
+        "eric_undercity_04_skip_event_submissive" : [
+            {
             "type" : "text",
             "value" : [
                 "상류도시에 데려다줄 수 있냐는 말에 에릭이 잠시 말을 멈췄다. 그는 무표정으로 당신을 몇 초간 응시하다가 당신의 턱을 한손으로 잡았다.",
@@ -522,17 +520,17 @@
                 "<br>\"글쎄. 꼭 가야만 하나?\"<br>",
                 "그는 엄지로 당신의 입술을 지분거린 후 다시 당신의 턱을 놓아주었다. 얼마나 세게 잡은 건지 당신은 턱이 아팠다. 에릭은 그런 당신을 뒤로 하고 발걸음을 옮겼다."
             ]
-        },
-        {
+            },
+            {
             "type" : "effect",
             "effects" : [
                 { "target": "npc", "npc": "eric", "key": "affection", "amount": 3 },
                 { "target": "npc", "npc": "eric", "key": "lust", "amount": 5 }
             ]
-        }
-    ],
-    "eric_prison_punishment_after" : [
-        {
+            }
+        ],
+        "eric_prison_punishment_after" : [
+            {
             "type": "text",
             "value": [
                 "얼마나 시간이 지났는지 알 수 없었다. 조사실 문이 열렸을 때, 당신은 바닥에 엎어진 채 가쁜 숨만 몰아쉬고 있었다.<br><br>",
@@ -540,6 +538,7 @@
                 "\"이번엔 여기까지다, {ericTitle}. 다음에도 돈을 아낄 생각이면, 몸으로 갚는 법부터 제대로 배워두는 게 좋을 거다.\"<br><br>",
                 "당신은 비틀거리며 조사실 밖으로 밀려났다."
             ]
-        }
-    ]
+            }
+        ]
+    }
 }

@@ -405,7 +405,7 @@ const TRAINING_DATA = {
                         default : {
                             resist : "에릭은 당신이 저항을 시도하자 그대로 당신의 남성기를 짓밟았다. 당신이 제대로 된 저항도 못하고 본능적인 신음을 흘리자 그제야 발의 무게를 조절하며 당신을 내려다보았다. <br>\"가만히 있어.\"<br>그의 딱딱한 목소리는 어떠한 저항도 용납하지 않고 있었다.",
                             endure : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하며 당신을 기절 직전까지 몰았다. 그렇게 고통스러운데도, 당신의 남성기는 점점 서기 시작했다. 에릭은 당신의 남성기가 딱딱해지자 비릿한 조소를 지으며 당신의 성기 끝을 군화로 짓밟았다.",
-                            submit : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하며 당신을 기절 직전까지 몰았다. 당신이 전혀 저항을 하지 않자 그의 녹안에 의문이 스쳤지만 그뿐, 그는 당신을 고콩과 쾌락 사이에 머무르게 했다."
+                            submit : "에릭은 당신의 성기를 그대로 짓밟았다. 그는 짓누르는 무게를 조절하며 당신을 기절 직전까지 몰았다. 당신이 전혀 저항을 하지 않자 그의 녹안에 의문이 스쳤지만 그뿐, 그는 당신을 고통과 쾌락 사이에 머무르게 했다."
                         },
                         highSensitivity : {
                             resist : "에릭은 당신이 저항을 시도하자 그대로 당신의 남성기를 짓밟았다. 고통마저 쾌락으로 느낄 전조가 보이는 당신의 민감한 남성기에 무게를 더 얹으며 에릭은 당신을 깔보듯 내려다보았다. <br>\"이런 몸으로 내게 저항을 하겠다고? 주제 파악을 해라.\"",
@@ -523,6 +523,7 @@ function startTraining(player, options = {}){
 
     player.status.hp = player.status.maxHp;
     player.status.stamina = player.status.maxStamina;
+    player.status.maxArousal = player.status.maxArousal || 100;
     player.status.arousal = 0;
     player.status.stun = 0;
 
@@ -1052,6 +1053,8 @@ function getTrainingLine(actionId, playerAction){
 
 function checkTrainingArousal(player){
     if (!trainingState) return;
+
+    const maxArousal = player.status.maxArousal || 100;
 
     if (player.status.arousal >= player.status.maxArousal){
         player.status.arousal = 0;

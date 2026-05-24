@@ -890,9 +890,10 @@ function processTrainingContact(playerAction, enemyAction){
     trainingState.trainerHp -= trainerDamage;
     trainingState.anger += angerGain;
 
+    player.status.arousal += arousal;
+    
     changeHP(player, hpChange);
     changeStamina(player, staminaChange);
-    player.status.arousal += arousal;
     checkTrainingArousal(player);
     
     updateStatusUI(player);

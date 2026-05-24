@@ -121,12 +121,12 @@ function getWeeklyCost(player){
     const level = player.debtLevel || 1;
 
     if (level <= 1) return 500;
-    if (level === 2) return 1000;
-    if (level === 3) return 2000;
-    if (level === 4) return 3000;
-    if (level === 5) return 4000;
+    if (level === 2) return 1500;
+    if (level === 3) return 3000;
+    if (level === 4) return 5000;
+    if (level === 5) return 7000;
 
-    return 5000;
+    return 7000;
 }
 
 function weeklyPayment(player){

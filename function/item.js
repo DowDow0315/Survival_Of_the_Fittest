@@ -673,122 +673,122 @@ const ITEMS ={
         tornClothes: {
             name: "찢어진 천조각",
             type: "junk",
-            price: 50
+            price: 20
         },
         rustyRing: {
             name: "녹슨반지",
             type: "junk",
-            price: 100
+            price: 30
         },
         slimeJelly: {
             name: "슬라임젤리",
             type: "junk",
-            price: 100
+            price: 50
         },
         slimeCore: {
             name: "슬라임코어",
             type: "junk",
-            price: 200
+            price: 80
         },
         slimeLiquid: {
             name: "슬라임에서 나온 정체모를 액체. 만지고 싶지는 않다.",
             type: "junk",
-            price: 50
+            price: 40
         },
         goblinStick: {
             name: "고블린의 나무몽둥이.",
             type: "junk",
-            price: 250
+            price: 120
         },
         goldRing: {
             name: "금반지",
             type: "junk",
-            price: 500
+            price: 250
         },
         goblinMeat: {
             name: "고블린고기",
             type: "junk",
-            price: 200
+            price: 100
         },
         flower: {
             name: "하얀꽃",
             type: "junk",
-            price: 400
+            price: 200
         },
         flowerNectar: {
             name: "넥타르",
             type: "junk",
-            price: 700
+            price: 300
         },
         flowerLeaf: {
             name: "꽃잎",
             type: "junk",
-            price: 300
+            price: 150
         },
         wildFruit: {
             name: "야생열매",
             type: "junk",
-            price: 100
+            price: 50
         },
         rareFruit: {
             name: "희귀한 숲열매",
             type: "junk",
-            price: 300
+            price: 150
         },
         bloodycloth : {
             name : "핏자국 남은 천조각",
             type : "junk",
-            price : 80
+            price : 40
         },
         pieceofwhiteflower : {
             name : "하얀꽃잎조각들",
             type : "junk",
-            price : 200
+            price : 100
         },
         skull : {
             name : "뼛조각",
             type: "junk",
-            price : 50
+            price : 25
         },
         drug : {
             name : "마약, 거지들도 구할 수 있을 정도의 싸구려 마약이다.",
             type : "junk",
-            price : 200
+            price : 100
         },
         druggy : {
             name : "일반 마약",
             type : "junk",
-            price : 400
+            price : 200
         },
         silverChain : {
             name : "쇠사슬",
             type : "junk",
-            price : 150
+            price : 75
         },
         jewerlyPieces : {
             name : "보석가루",
             type : "junk",
-            price : 500
+            price : 250
         },
         smallJewelry : {
             name : "작은보석",
             type : "junk",
-            price : 800
+            price : 400
         },
         jewelry : {
             name : "보석",
             type : "junk",
-            price : 1000
+            price : 500
         },
         ruby : {
             name : "루비",
             type : "junk",
-            price : 3000
+            price : 1500
         },
         diamond : {
             name : "다이아몬드",
             type : "junk",
-            price : 5000
+            price : 2500
         },
 
         //퀘스트물품

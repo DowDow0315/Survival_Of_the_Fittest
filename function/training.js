@@ -741,8 +741,8 @@ function increaseTrainingEnemyArousal(target){
     if (!trainingState) return;
 
     const gain = (typeof getCharmArousalGain === "function")
-        ? getCharmArousalGain(trainingState.player, 10)
-        : 10;
+        ? getCharmArousalGain(trainingState.player, 5)
+        : 5;
 
     trainingState.trainerArousal += gain;
 
@@ -894,6 +894,7 @@ function processTrainingContact(playerAction, enemyAction){
     changeHP(player, hpChange);
     changeStamina(player, staminaChange);
     changeArousal(player, arousal);
+    checkTrainingArousal(player);
     increaseTrainingEnemyArousal(enemyAction.id);
 
     if (enemyAction.sensitivity){

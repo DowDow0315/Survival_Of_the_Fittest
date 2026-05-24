@@ -230,10 +230,14 @@ function startEricPrisonPunishment(player, payment){
                 maxTurns: 20,
                 context: "eric_prison_punishment",
                 onEnd: () => {
-                    player.inEvent = false;
                     player.location = "inquisitRoom";
                     passTime(player, 40);
-                    startScene(getLocationScene(player), player);
+                    startScene(NPC_DATA["eric"].scenes.eric_prison_punishment_after, player, {
+                        onEnd: () => {
+                            player.inEvent = false;
+                            startScene(getLocationScene(player), player);
+                        }
+                    });
                 }
             });
         }

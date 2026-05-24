@@ -718,19 +718,19 @@ function processTrainingRest(playerAction){
         trainingLog("당신은 그 틈을 놓치지 않고 저항했다.");
         trainingState.trainerHp -= 10;
         trainingState.anger += 10;
-        changeHP(trainingState.player, -15);
-        changeStamina(trainingState.player, -15);
+        changeTrainingHP(trainingState.player, -15);
+        changeTrainingStamina(trainingState.player, -15);
     }
 
     else if (playerAction === "endure"){
         trainingLog("당신은 그가 쉬는 동안 숨을 고르며 버텼다.");
-        changeStamina(trainingState.player, 10);
+        changeTrainingStamina(trainingState.player, 10);
     }
 
     else if (playerAction === "submit"){
         trainingLog("당신은 그가 쉬는 동안 잠시 힘을 빼고 몸을 추슬렀다.");
-        changeHP(trainingState.player, 20);
-        changeStamina(trainingState.player, 20);
+        changeTrainingHP(trainingState.player, 20);
+        changeTrainingStamina(trainingState.player, 20);
     }
 
     clampTrainingValues();
@@ -889,12 +889,10 @@ function processTrainingContact(playerAction, enemyAction){
 
     trainingState.trainerHp -= trainerDamage;
     trainingState.anger += angerGain;
-
-    player.status.arousal += arousal;
     
-    changeHP(player, hpChange);
-    changeStamina(player, staminaChange);
-    checkTrainingArousal(player);
+    changeTrainingHP(player, hpChange);
+    changeTrainingStamina(player, staminaChange);
+    changeTrainingArousal(player, arousal);
     
     updateStatusUI(player);
     savePlayer(player);
@@ -1213,4 +1211,31 @@ function resumeTraining(player){
 
     showTrainingUI();
     renderTrainingUI();
+}
+
+//조교용 특별공식
+function changeTrainingHP(player, amount){
+    player.status.hp += amount;
+    player.status.hp = clamp(player.status.hp, 0, player.status.maxHp);
+}
+
+function changeTrainingStamina(player, amount){
+    player.status.stamina += amount;
+    player.status.stamina = clamp(player.status.stamina, 0, player.status.maxStamina);
+}
+
+function changeTrainingArousal(player, amount){
+    player.status.arousal += amount;
+
+    if (player.status.arousal >= (player.status.maxArousal || 100)){
+        player.status.arousal = 0;
+        trainingState.stun = 3;
+
+        flashScreenMulti(3);
+        trainingLog(getTrainingOrgasmLine());
+    }
+
+    if (player.status.arousal < 0){
+        player.status.arousal = 0;
+    }
 }

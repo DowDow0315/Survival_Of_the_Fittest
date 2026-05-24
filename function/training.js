@@ -690,8 +690,6 @@ function trainingAction(action){
         processTrainingContact(action, enemyAction);
     }
 
-    checkTrainingArousal(player);
-
     if (trainingState.stun > 0){
         finishTrainingTurn();
         return;
@@ -894,8 +892,12 @@ function processTrainingContact(playerAction, enemyAction){
 
     changeHP(player, hpChange);
     changeStamina(player, staminaChange);
-    changeArousal(player, arousal);
+    player.status.arousal += arousal;
     checkTrainingArousal(player);
+    
+    updateStatusUI(player);
+    savePlayer(player);
+    
     increaseTrainingEnemyArousal(enemyAction.id);
 
     if (enemyAction.sensitivity){
@@ -1056,7 +1058,7 @@ function checkTrainingArousal(player){
 
     const maxArousal = player.status.maxArousal || 100;
 
-    if (player.status.arousal >= player.status.maxArousal){
+    if (player.status.arousal >= maxArousal){
         player.status.arousal = 0;
         trainingState.stun = 3;
 

@@ -1,9 +1,9 @@
 {
     "name": "고블린킹",
-    "hp": 200,
-    "attack": 27,
+    "hp": 230,
+    "attack": 25,
     "defense": 30,
-    "eva": 35,
+    "eva": 30,
     "lustResist" : 1.1,
     "drops": [
         {
@@ -102,14 +102,14 @@
         {
             "name": "잡기",
             "type": "grapple",
-            "chance": 0.5
+            "chance": 0.4
         },
         {
             "name": "마구떄리기",
             "power": 0.9,
             "hits" : 3,
             "type": "multiHit",
-            "chance": 0.3,
+            "chance": 0.15,
             "lines": [
                 "고블린킹은 당신을 마구 때리기 시작했다. 검이 당신에게 총 3번 내질러진다!"
             ]

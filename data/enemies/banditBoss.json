@@ -97,7 +97,7 @@
         {
             "name" : "무장해제",
             "type" : "disarm",
-            "chance" : 0.4,
+            "chance" : 0.3,
             "lines" : [
                 "\"무기보다는 남들의 성기를 쥐는 게 나은 손 아닌가?\"<br>도적대장은 당신을 비웃으며 당신의 무기를 떨어뜨리려 들었다.",
                 "도적대장은 당신의 무력화를 노리고 있다!"
@@ -118,10 +118,10 @@
             "name" : "투척단검준비",
             "type" : "selfBuff",
             "chance" : 0.5,
-            "duration" : 2,
+            "duration" : 1,
             "effect" : {
                 "id" : "banditBoss_battle_stance",
-                "atkMult" : 3
+                "atkMult" : 2
             },
             "lines" : [
                 "도적대장은 깊게 숨을 쉬더니 당신을 살기 어린 눈으로 바라보았다. 앞으로 2번, 맞으면 안 될 거 같다."
@@ -151,7 +151,7 @@
         {
             "name": "잡기",
             "type": "grapple",
-            "chance": 0.3
+            "chance": 0.5
         }
     ],
     "grappleSkills": [

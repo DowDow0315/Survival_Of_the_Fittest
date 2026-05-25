@@ -2,7 +2,7 @@
     "name" : "창백",
     "hp" : 550,
     "attack" : 85,
-    "defense" : 46,
+    "defense" : 30,
     "eva" : 55,
     "personality" : "dominant",
     "lustResist" : 2,

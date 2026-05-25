@@ -1,7 +1,7 @@
 {
     "name" : "소라",
     "hp" : 420,
-    "attack" : 75,
+    "attack" : 60,
     "defense" : 50,
     "eva" : 70,
     "lustResist" : 1.1,

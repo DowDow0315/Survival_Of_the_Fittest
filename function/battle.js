@@ -1330,7 +1330,7 @@ function chooseEnemySkill(enemy){
     });
 
     // 2. lust 연속 제한
-    if (battleState.lustStreak >= 5){
+    if (battleState.lustStreak >= 10){
         available = available.filter(s => s.type !== "lust");
     }
 

@@ -1,8 +1,8 @@
 {
     "name" : "루크",
     "hp" : 300,
-    "attack" : 45,
-    "defense" : 40,
+    "attack" : 38,
+    "defense" : 30,
     "eva": 35,
     "lustResist" : 1.5,
 

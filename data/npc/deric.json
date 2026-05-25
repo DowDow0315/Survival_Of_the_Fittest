@@ -1,7 +1,7 @@
 {
     "name" : "데릭",
     "hp" : 300,
-    "attack" : 55,
+    "attack" : 30,
     "defense" : 45,
     "eva" : 40,
 

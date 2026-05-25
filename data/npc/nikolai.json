@@ -142,7 +142,7 @@
         },
         {
             "name" : "가슴채찍",
-            "power" : 1,
+            "power" : 3,
             "type" : "lust",
             "target" : "b",
             "chance" : 0.1,
@@ -153,7 +153,7 @@
         },
         {
             "name" : "엉덩이채찍",
-            "power" : 2,
+            "power" : 3,
             "type" : "lust",
             "target" : "a",
             "chance" : 0.1,
@@ -180,7 +180,7 @@
         },
         {
             "name" : "애정의 키스",
-            "power" : 1,
+            "power" : 4,
             "type" : "lust",
             "chance" : 0.1,
             "lines" : [
@@ -203,7 +203,7 @@
      "toplessGrappleSkills": [
         {
             "name": "잡기B공격",
-            "power": 3,
+            "power": 5,
             "type": "lust",
             "target": "b",
             "chance": 0.5,
@@ -217,7 +217,7 @@
     "bottomlessGrappleSkills" : [
         {
             "name" : "잡기C공격",
-            "power" : 3,
+            "power" : 5,
             "type" : "lust",
             "target" : "c",
             "chance" : 0.8,
@@ -233,7 +233,7 @@
         },
         {
             "name": "잡기A공격",
-            "power": 3,
+            "power": 5,
             "type": "lust",
             "target": "a",
             "chance": 0.8,

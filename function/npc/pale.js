@@ -387,7 +387,7 @@ function finishPaleChaseFail(player){
                 "<div style='text-align:center; color:blue'><br><br>슬픔? 절망? 상실? 배신감? 아픔?<br><br></div>" +
                 "온갖 부정적인 감정들이 당신을 감싼다. 마치 물속에 갇힌 것같았다. 팔을 휘저어보아도 발을 휘저어보아도 뭐 하나 뚜렷하게 나아가는 것이 없다. 당신은 그저 부정적인 감정들의 소용돌이에 갇혀 허우적거려야만 했다." +
                 " 점점 멀어져가는 의식 사이로 당신은 금안을 보았다. 그림자마냥 길쭉한 그것은 당신을 내려다보고 있었다." +
-                "<div style= 'text-align:center; color:blue; font-size:2rem'> 창백한,<br>창백한,<br>창백한,</div>" +
+                "<div style= 'text-align:center; color:blue; font-size:2rem'> <br>창백한,<br>창백한,<br>창백한,</div>" +
                 "<div style= 'text-align:center; color:blue; font-size:2rem'> <br>창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한, 창백한,</div>" +
                 "<div style= 'text-align:center; color:blue; font-size:2rem'><br><br><br>그것</div>"
         },
@@ -430,7 +430,7 @@ function finishPaleChaseSuccess(player){
             value:
                 "마을입구에 도착한 당신은 숨을 골랐다. 하늘의 색이 바꼈을 거라고 생각했는데 전혀 안 바뀌었다. 몇 시간을 뛰었다고 생각했는데 몇 시간은커녕 1시간도 흐르지 않은 모양이다. 숨을 고르던 당신은 아무 생각 없이 뒤를 돌았다." +
                 " 그림자처럼 긴 인영. 창백한 그것이 당신의 그림자와 이어진 그림자의 끝에서 당신을 바라보고 있었다. 그것은 손같이 생긴 무언가를 들었다. 손가락? 손가락일까. 그것의 손가락은" +
-                "<div style= 'text-align:center; color:darkgreen; font-size:4rem'><br><br>당신<br><br></div>" +
+                "<div style= 'text-align:center; color:darkgreen; font-size:4rem'><br><br>당신<br><br><br></div>" +
                 "을 가리키고 있었다. 당신의 목뒤로 식은땀이 흐른다. 눈을 한번 더 깜박였을 때 그것은 없어져있었다."
         },
         {

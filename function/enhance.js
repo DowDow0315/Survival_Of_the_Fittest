@@ -145,3 +145,7 @@ function openEnhanceMenu(player, place = "default"){
         }
     ], player);
 }
+
+window.open_matinEnhance = function(player){
+    openEnhanceMenu(player, "matin");
+};

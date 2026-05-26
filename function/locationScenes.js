@@ -240,15 +240,48 @@ window.start_banditCampRaid = function(player){
 };
 
 function buildGuardPost1Scene(player, loc, randomDesc){
+
+    const choices = [];
+
+    if (player.flags?.outerAreaUnlocked){
+        choices.push({
+            text:"경계병 제2초소로 향한다",
+            action:"travel_guardPost1_to_guardPost2"
+        });
+    } else {
+        choices.push({
+            text:"더 안쪽으로 향한다",
+            action: () => startScene([
+                {
+                    type:"text",
+                    value:
+                    "당신이 더 안쪽으로 들어가려고 하자 경비병 한 명이 당신의 앞을 막아섰다. 그는 단호하게 상류도시의 허가가 없으면 앞으로는 더 나아갈 수 없다고 말했다."+
+                    "<br><br>\"...그리고 들어가지 않는 게 좋아.\"<br><br>" +
+                    "그는 당신을 다시 돌려보냈다. 아직은 갈 수 없을 거 같다."
+                }
+            ], player)
+        });
+    }
+
+    choices.push(
+        {
+            text:"끊어진 가도로 돌아간다",
+            action:"travel_guardPost1_to_banditForest"
+        },
+        {
+            text:"잠깐 쉬기",
+            action:"rest"
+        }
+    );
+
     return [
-        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"text",
+            value:`${randomDesc}<br><br>무엇을 할까?`
+        },
         {
             type:"choice",
-            choices:[
-                { text:"경계병 제2초소로 향한다", action:"travel_guardPost1_to_guardPost2" },
-                { text:"끊어진 가도로 돌아간다", action:"travel_guardPost1_to_banditForest" },
-                { text:"잠깐 쉬기", action:"rest" }
-            ]
+            choices
         }
     ];
 }

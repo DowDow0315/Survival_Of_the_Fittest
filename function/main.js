@@ -1835,7 +1835,19 @@ function renderInventoryModal(player){
     let filtered = [];
 
     if (inventoryTab === "equipment"){
-        filtered = player.inventory.filter(isEquipmentItem);
+        const inventoryEquip =
+        player.inventory.filter(isEquipmentItem);
+        
+        const equipped =
+        Object.values(player.equipment || {})
+        .filter(item =>
+            item && isEquipmentItem(item)
+        );
+        
+        filtered = [
+            ...equipped,
+            ...inventoryEquip
+        ];
     } else if (inventoryTab === "items"){
         filtered = player.inventory.filter(item =>
             isConsumableItem(item) ||
@@ -1898,9 +1910,21 @@ function renderInventoryModal(player){
     info.appendChild(desc);
         } else if (item.stats){
             const statText = Object.entries(item.stats)
-                .map(([key, value]) => `${key} +${value}`)
-                .join(", ");
+                .map(([key, value]) => {
+                    const auto =
+                    getAutoEnhanceBonus(item, key);
+                    
+                    const custom =
+                    item.enhanceCustom?.[key] || 0;
 
+                    const total =
+                    value + auto + custom;
+                    
+                    return `${key} +${total}`;
+                })
+                
+                .join(", ");
+                
             const desc = document.createElement("p");
             desc.innerText = statText || "능력치 변화 없음";
             info.appendChild(desc);

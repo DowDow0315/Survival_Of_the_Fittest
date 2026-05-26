@@ -149,7 +149,31 @@ registerActions("matin",{
                 }
             ], player, { onEnd });
         }
-    }
+    },
+    
+    //주점 장비 강화 로그
+    open_matinEnhance: (player)=>{
+        player.flags ??= {};
+        if (!player.flags.matinEnhanceOpened){
+            player.flags.matinEnhanceOpened = true;
+            
+            startScene([
+                {
+                    type:"text",
+                    value: "당신은 마틴이 누군가의 무기를 강화해주는 것을 보았다. 유리잔을 닦을 때와는 다른 손길이었지만, 여전히 그의 손길은 섬세했다. 그는 당신의 시선을 눈치채고 돌아보았다." +
+                           "<br><br>\"...그거 강화할 거야?\"<br><br>"+
+                           "마틴은 무기나 장비를 강화하는 걸 좋아하지는 않는 기색이었다. 하지만 그는 턱짓을 하더니 임시방편이라도 필요하면 말하라고 말했다. <br><br>" +
+                           "\"눈대중으로 배운 거라서 기대하지는 마.\"<br><br>"
+                }
+            ], player,{
+                onEnd: ()=> openEnhanceMenu(player, "matin")
+            });
+            
+            savePlayer(player);
+            return;
+        }
+        openEnhanceMenu(player, "matin");
+    },
 })
 
 function hasMatinLocket(player){

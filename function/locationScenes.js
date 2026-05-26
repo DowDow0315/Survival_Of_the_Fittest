@@ -4,6 +4,11 @@ const LOCATION_SCENE_BUILDERS = {
     tavern : buildTavernScene,
     forest : buildForestScene,
     deepForest : buildDeepForestScene,
+    guardPost1: buildGuardPost1Scene,
+    guardPost2: buildGuardPost2Scene,
+    guardPost3: buildGuardPost3Scene,
+    wastedRuin: buildWastedRuinScene,
+    whiteFlowerTomb: buildWhiteFlowerTombScene,
     banditForest : buildBanditForestScene,
     graveyard : buildGraveyardScene,
     goblinCave : buildGoblinCaveScene,
@@ -103,6 +108,7 @@ function buildTavernScene(player, loc, randomDesc){
                 { text: "진행 중인 의뢰를 확인한다", action: "open_activeQuest" },
                 { text: "주점 일을 돕는다.", action : "matin_work"},
                 { text: "마틴에게 물건을 산다", action : "open_matinShop"},
+                { text: "장비를 강화한다", action : "open_matinEnhance"},
                 { text: "마틴과 대화한다", action: "matin_talk" },
                 { text: "침착하게 정신을 다스린다", action: "calmDown" },
                 { text: "나가기", action: "move_townStreet" }
@@ -206,6 +212,11 @@ function buildBanditForestScene(player, loc, randomDesc){
             action : "start_banditCampRaid"
         });
     }
+    
+    choices.push({
+        text: "경계병 제1초소로 향한다",
+        action: "travel_banditForest_to_guardPost1"
+    });
 
     choices.push({
         text: "깊은숲으로 돌아간다",
@@ -227,6 +238,77 @@ function buildBanditForestScene(player, loc, randomDesc){
 window.start_banditCampRaid = function(player){
     startBanditCampRaid(player);
 };
+
+function buildGuardPost1Scene(player, loc, randomDesc){
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices:[
+                { text:"경계병 제2초소로 향한다", action:"travel_guardPost1_to_guardPost2" },
+                { text:"끊어진 가도로 돌아간다", action:"travel_guardPost1_to_banditForest" },
+                { text:"잠깐 쉬기", action:"rest" }
+            ]
+        }
+    ];
+}
+
+function buildGuardPost2Scene(player, loc, randomDesc){
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices:[
+                { text:"경계병 제3초소로 향한다", action:"travel_guardPost2_to_guardPost3" },
+                { text:"경계병 제1초소로 돌아간다", action:"travel_guardPost2_to_guardPost1" },
+                { text:"잠깐 쉬기", action:"rest" }
+            ]
+        }
+    ];
+}
+
+function buildGuardPost3Scene(player, loc, randomDesc){
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices:[
+                { text:"폐야로 향한다", action:"travel_guardPost3_to_wastedRuin" },
+                { text:"하얀꽃무덤으로 향한다", action:"travel_guardPost3_to_whiteFlowerTomb" },
+                { text:"경계병 제2초소로 돌아간다", action:"travel_guardPost3_to_guardPost2" },
+                { text:"잠깐 쉬기", action:"rest" }
+            ]
+        }
+    ];
+}
+
+function buildWastedRuinScene(player, loc, randomDesc){
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices:[
+                { text:"주변을 수색한다", action:"search" },
+                { text:"잠깐 쉬기", action:"rest" },
+                { text:"경계병 제3초소로 돌아간다", action:"travel_wastedRuin_to_guardPost3" }
+            ]
+        }
+    ];
+}
+
+function buildWhiteFlowerTombScene(player, loc, randomDesc){
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices:[
+                { text:"주변을 수색한다", action:"search" },
+                { text:"잠깐 쉬기", action:"rest" },
+                { text:"경계병 제3초소로 돌아간다", action:"travel_whiteFlowerTomb_to_guardPost3" }
+            ]
+        }
+    ];
+}
 
 const GRAVEYARD_ROUTE = ["left", "left", "right", "right", "left", "right", "left"];
 

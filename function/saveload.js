@@ -72,8 +72,17 @@ function updateSidebar(player,sidebarId){
 
 }
 
+function ensureEquipmentItemState(item){
+    if (!item || !isEquipmentItem(item)) return;
+
+    item.uid ??= crypto.randomUUID();
+    item.enhance ??= 0;
+}
+
 function normalizePlayer(player){
     if (!player) return null;
+
+    player.inventory = player.inventory || [];
 
     player.equipment = player.equipment || {
         weapon: null,
@@ -86,6 +95,14 @@ function normalizePlayer(player){
     if (player.equipment.weapon && player.equipment.weapon.name === "맨주먹"){
         player.equipment.weapon = null;
     }
+
+    player.inventory.forEach(item => {
+        ensureEquipmentItemState(item);
+    });
+
+    Object.values(player.equipment).forEach(item => {
+        ensureEquipmentItemState(item);
+    });
 
     player.stats = player.stats || { str:0, dex:0, int:0, charm:0 };
 

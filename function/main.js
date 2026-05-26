@@ -1407,8 +1407,13 @@ function renderMap(player){
     }
 
     if (isRichTownLocation(player.location)){
-    renderRichTownMap(player);
-    return;
+        renderRichTownMap(player);
+        return;
+    }
+
+    if (isOuterForestLocation(player.location)){
+        renderOuterForestMap(player);
+        return;
     }
 
     const currentKey = player.location;
@@ -1479,6 +1484,18 @@ function isRichTownLocation(locationKey){
     ].includes(locationKey);
 }
 
+function isOuterForestLocation(locationKey){
+    return [
+        "deepForest",
+        "banditForest",
+        "guardPost1",
+        "guardPost2",
+        "guardPost3",
+        "wastedRuin",
+        "whiteFlowerTomb"
+    ].includes(locationKey);
+}
+
 function renderRichTownMap(player){
     const mapArea = document.getElementById("mapArea");
     if (!mapArea || !player) return;
@@ -1516,6 +1533,69 @@ function renderRichTownMap(player){
 
                 <div class="map-row center">
                     ${node("richTownStreet")}
+                </div>
+
+            </div>
+        </div>
+    `;
+}
+
+function renderOuterForestMap(player){
+    const mapArea = document.getElementById("mapArea");
+    if (!mapArea || !player) return;
+
+    const currentKey = player.location;
+
+    function node(key){
+        const loc = LOCATIONS[key];
+        if (!loc) return "";
+
+        const currentClass = currentKey === key ? " current-map-node" : "";
+
+        return `
+            <div class="map-node${currentClass}">
+                ${loc.name}
+            </div>
+        `;
+    }
+
+    mapArea.innerHTML = `
+        <div class="map-box">
+            <h3>외곽 지도</h3>
+
+            <div class="fixed-map">
+
+                <div class="map-row center">
+                    ${node("deepForest")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row center">
+                ${node("banditForest")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row center">
+                    ${node("guardPost1")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row center">
+                    ${node("guardPost2")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row street-branch">
+                    ${node("guardPost3")}
+
+                    <div class="branch-list">
+                        ${node("wastedRuin")}
+                        ${node("whiteFlowerTomb")}
+                    </div>
                 </div>
 
             </div>
@@ -1575,6 +1655,10 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
     );
 }
 
+function travelOuterArea(player, targetLocation, requiredSteps){
+    tryEscapeArea(player, targetLocation, requiredSteps);
+}
+
 window.escape_forest = function(player){
     tryEscapeArea(player, "townEntrance", 5);
 }
@@ -1582,6 +1666,46 @@ window.escape_forest = function(player){
 window.escape_deepForest = function(player){
     tryEscapeArea(player, "forest", 5);
 }
+
+window.travel_banditForest_to_guardPost1 = function(player){
+    travelOuterArea(player, "guardPost1", 5);
+};
+
+window.travel_guardPost1_to_guardPost2 = function(player){
+    travelOuterArea(player, "guardPost2", 5);
+};
+
+window.travel_guardPost2_to_guardPost3 = function(player){
+    travelOuterArea(player, "guardPost3", 5);
+};
+
+window.travel_guardPost3_to_wastedRuin = function(player){
+    travelOuterArea(player, "wastedRuin", 3);
+};
+
+window.travel_guardPost3_to_whiteFlowerTomb = function(player){
+    travelOuterArea(player, "whiteFlowerTomb", 3);
+};
+
+window.travel_guardPost1_to_banditForest = function(player){
+    travelOuterArea(player, "banditForest", 5);
+};
+
+window.travel_guardPost2_to_guardPost1 = function(player){
+    travelOuterArea(player, "guardPost1", 5);
+};
+
+window.travel_guardPost3_to_guardPost2 = function(player){
+    travelOuterArea(player, "guardPost2", 5);
+};
+
+window.travel_wastedRuin_to_guardPost3 = function(player){
+    travelOuterArea(player, "guardPost3", 3);
+};
+
+window.travel_whiteFlowerTomb_to_guardPost3 = function(player){
+    travelOuterArea(player, "guardPost3", 3);
+};
 
 //전투이벤트
 function startBattle(enemyId, player, options = {}){
@@ -1755,7 +1879,9 @@ function renderInventoryModal(player){
         info.className = "inventory-item-info";
 
         const name = document.createElement("strong");
-        name.innerText = `${item.name} (${item.count || 1}개)`;
+        name.innerText = isEquipmentItem(item)
+        ? getDisplayItemName(item)
+        : `${item.name} (${item.count || 1}개)`;
         info.appendChild(name);
 
         if (["heal", "stamina", "arousal"].includes(item.type)){
@@ -1827,7 +1953,17 @@ function renderInventoryModal(player){
 function isEquipped(player, item){
     const equipped = player.equipment[item.type];
     if (!equipped) return false;
-    return equipped.name === item.name;
+    return equipped.uid === item.uid;
+}
+
+function getDisplayItemName(item){
+    const enhance = Number(item.enhance) || 0;
+
+    if (enhance > 0){
+        return `${item.name} +${enhance}`;
+    }
+
+    return item.name;
 }
 
 function useItem(player, item){
@@ -1866,7 +2002,7 @@ function useItem(player, item){
 }
 
 function consumeItem(player, item){
-    removeItemByKey(player, item.key);
+    removeItem(player, item.key);
 
     renderInventoryModal(player);
     savePlayer(player);

@@ -823,6 +823,11 @@ function addItem(player, item){
 
     cloned.key = getItemKey(item);
 
+    if (isEquipmentItem(cloned)){
+        cloned.uid ??= crypto.randomUUID();
+        cloned.enhance ??= 0;
+    }
+
     player.inventory.push(cloned);
 
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -843,9 +848,13 @@ function calculateTotalStats(player){
 
     Object.values(player?.equipment || {}).forEach(item=>{
         if (!item || !item.stats) return;
-
+        
         for (let key in item.stats){
-            total[key] = (total[key] || 0) + item.stats[key];
+            const baseValue = item.stats[key] || 0;
+            const autoBonus = getAutoEnhanceBonus(item, key);
+            const customBonus = item.enhanceCustom?.[key] || 0;
+            
+            total[key] = (total[key] || 0) + baseValue + autoBonus + customBonus;
         }
     });
 
@@ -912,17 +921,19 @@ function findItemByKey(key){
     return null;
 }
 
-function removeItemByKey(player, itemKey){
-    const index = player.inventory.findIndex(
-        item => item.key === itemKey
-    );
+function removeItem(player, item){
+    const index = player.inventory.findIndex(invItem => {
+        if (isEquipmentItem(item)){
+            return invItem.uid === item.uid;
+        }
+
+        return invItem.key === item.key;
+    });
 
     if (index === -1) return false;
 
     player.inventory.splice(index, 1);
-
-    localStorage.setItem("playerData", JSON.stringify(player));
-
+    savePlayer(player);
     return true;
 }
 
@@ -934,7 +945,6 @@ function getItemKey(targetItem){
             }
         }
     }
-
     return null;
 }
 

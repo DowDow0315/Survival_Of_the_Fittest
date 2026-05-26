@@ -160,7 +160,9 @@ function renderShopModal(shopId, player){
         const grouped = {};
 
         sellableItems.forEach(item => {
-            const key = item.name;
+            const key = isEquipmentItem(item)
+            ? item.uid
+            : item.key || item.name;
 
             if (!grouped[key]){
                 grouped[key] = {
@@ -188,7 +190,9 @@ function renderShopModal(shopId, player){
                 info.className = "shop-item-info";
 
                 const name = document.createElement("strong");
-                name.innerText = `${item.name} x${count}`;
+                name.innerText = isEquipmentItem(item)
+                ? getDisplayItemName(item)
+                : `${item.name} x${count}`;
                 info.appendChild(name);
 
                 const price = document.createElement("p");
@@ -218,15 +222,17 @@ function renderShopModal(shopId, player){
                     renderShopModal(shopId, player);
                 };
 
-                const sellAllBtn = document.createElement("button");
-                sellAllBtn.innerText = "전부 판매";
-                sellAllBtn.onclick = () => {
-                    sellAllItems(player, item.name);
-                    renderShopModal(shopId, player);
-                };
-
                 div.appendChild(sellOneBtn);
-                div.appendChild(sellAllBtn);
+                if (!isEquipmentItem(item)){
+                    const sellAllBtn = document.createElement("button");
+                    sellAllBtn.innerText = "전부 판매";
+                    sellAllBtn.onclick = () => {
+                        sellAllItems(player, item.key || item.name);
+                        renderShopModal(shopId, player);
+                    };
+                    
+                    div.appendChild(sellAllBtn);
+                }
 
                 listWrap.appendChild(div);
             });
@@ -241,12 +247,17 @@ function sellItem(player, item){
 
     addGold(player, price);
 
-    const index = player.inventory.indexOf(item);
+    const index = player.inventory.findIndex(inv =>
+        isEquipmentItem(item)
+            ? inv.uid === item.uid
+            : (inv.key || inv.name) === (item.key || item.name)
+    );
+
     if (index !== -1){
         player.inventory.splice(index, 1);
     }
 
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
     renderInventoryModal(player);
 
     alert(item.name + " 판매! +" + price + "원");
@@ -256,10 +267,9 @@ function canSellItem(item){
     return ["weapon", "top", "bottom", "underwear", "heal", "consumable", "junk", "key"].includes(item.type);
 }
 
-function sellAllItems(player, itemName){
-
+function sellAllItems(player, itemKey){
     const items = player.inventory.filter(
-        item => item.name === itemName
+        item => !isEquipmentItem(item) && (item.key || item.name) === itemKey
     );
 
     if (items.length === 0) return;
@@ -271,12 +281,12 @@ function sellAllItems(player, itemName){
     });
 
     player.inventory = player.inventory.filter(
-        item => item.name !== itemName
+        item => isEquipmentItem(item) || (item.key || item.name) !== itemKey
     );
 
     addGold(player, total);
     localStorage.setItem("playerData", JSON.stringify(player));
     renderInventoryModal(player);
 
-    alert(`${itemName} ${items.length}개 판매! +${total}G`);
+    alert(`${items[0].name} ${items.length}개 판매! +${total}G`);
 }

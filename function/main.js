@@ -2009,6 +2009,10 @@ function consumeItem(player, item){
 }
 
 function handleAction(action, player){
+    if (typeof action === "function"){
+        action(player);
+        return;
+    }
     if (action.startsWith("move_")){
         const location = action.replace("move_","");
         moveTo(player, location);

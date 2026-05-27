@@ -988,15 +988,15 @@ function getCurrentDay(player){
 }
 
 const NPC_DAILY_LUST_GROWTH = {
-    sora: [2, 5],
-    yuri: [0, 2],
-    luke: [1, 3],
-    eric: [0, 2],
-    matin: [0, 2],
+    sora: [1, 4],
+    yuri: [0, 1],
+    luke: [1, 2],
+    eric: [0, 1],
+    matin: [0, 1],
     deric: [0, 3],
-    pale: [0, 10],
-    nikolai: [2, 4],
-    valen: [0, 2]
+    pale: [0, 4],
+    nikolai: [1, 3],
+    valen: [0, 1]
 };
 
 function randomInt(min, max){

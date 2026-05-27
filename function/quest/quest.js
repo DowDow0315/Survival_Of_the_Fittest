@@ -269,6 +269,7 @@ const QUESTS = {
             player.flags.undercity_story_06_done = true;
             player.flags.banditHideout_cleared = true;
             player.flags.bandit_hideout_found = false;
+            player.flags.eric_victim_collect_event01_unlocked = true;
         },
 
         acceptText : "당신이 의뢰를 맡겠다고 하자 고개를 끄덕였다. <br>\"준비됐으면 가.\"",

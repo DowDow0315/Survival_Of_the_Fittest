@@ -45,3 +45,12 @@ registerActions("nikolai", {
 
     //스토리이벤트
 })
+
+window.giveDericLetter = function(player){
+    if (!hasItem(player, "데릭의 친필 서신")){
+        addItem(player, ITEMS.misc.dericLetter);
+    }
+
+    player.flags.derekLetterReceived = true;
+    savePlayer(player);
+};

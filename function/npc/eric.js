@@ -116,6 +116,32 @@ function startEricFirstMeeting(player){
     );
 }
 
+//타이벤트들
+window.pay_eric_victim_collect_event01 = function(player){
+    const price = 1000;
+
+    if (player.gold < price){
+        showSingleTextScene(
+            "돈이 부족하다. 에릭은 당신을 보더니 무표정으로 희생자의 손을 밟았다. 희생자는 비명을 질렀고, 에릭은 희생자의 손가락을 그대로 부러뜨린 후 그의 품을 뒤져 그들의 전재산을 가져갔다.",
+            player
+        );
+        changeEmotion("eric", "rage", 2);
+        changeTrauma(player, 2);
+        return true;
+    }
+
+    changeGold(player, -price);
+    changeEmotion("eric", "dominance", -5);
+    changeTrauma(player, -5);
+
+    showSingleTextScene(
+        `당신은 ${price}G를 꺼내 에릭에게 건넸다. 에릭은 돈을 받아 세어보더니 희생자를 놓아주었다. 희생자는 당신에게 고맙다고 하며 엎드렸다. 당신은 다음주에 그가 에릭에게 돈을 또 못 낼 수도 있다고 생각하긴 하지만, 우선 그가 일주일이라도 시간을 얻은 것에 집중하기로 했다. 에릭은 그대로 돌아서 가버렸다.`,
+        player
+    );
+
+    return true;
+};
+
 //돈 수거 이벤트
 function getWeeklyCost(player){
     const level = player.debtLevel || 1;

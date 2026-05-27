@@ -885,7 +885,7 @@ window.pay_gloryHole_debt = function(player){
     const affection = NPC_DATA["nikolai"].emotion.affection || 0;
 
     if (affection < 60){
-        changeEmotion("nikolai", "affection", 2);
+        changeEmotion("nikolai", "affection", 3);
     }
 
     showSingleTextScene(
@@ -899,6 +899,7 @@ window.pay_gloryHole_debt = function(player){
 
 window.refuse_gloryHole_payment = function(player){
     changeEmotion("nikolai", "rage", 5);
+    changeEmotion("nikolai", "affection", -5);
     startScene([
         {
             type: "text",

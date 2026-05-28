@@ -351,11 +351,16 @@ function playerAttack(isBonusAttack = false){
         return;
     }
 
-    if(!isBonusAttack && !useEnergy(1)){
+    if (!useEnergy(1)){
         log("에너지가 부족하다");
         return;
     }
-
+    
+    if (battleState.chanceAttackReady){
+        battleState.chanceAttackReady = false;
+        isBonusAttack = true;
+    }
+    
     //적 회피 체크
     if (tryEvade(enemy)){
         log(getLine(enemy, "evade"));
@@ -410,8 +415,11 @@ function playerAttack(isBonusAttack = false){
         enemy.hp > 0 &&
         Math.random() < 0.2
     ){
-        log("야호! 당신은 재빠르게 한번 더 공격했다!", "damage");
-        playerAttack(true);
+        log("야호! 당신은 재빠르게 한번 더 공격할 기회를 잡았다!", "damage");
+        battleState.chanceAttackReady = true;
+
+        updateBattleUI();
+        return;
     }
 
     gainWeaponExp(player);

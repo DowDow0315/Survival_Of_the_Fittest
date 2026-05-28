@@ -1631,6 +1631,7 @@ function resolveGoblinStoryQuest(player){
         player.flags.undercity_story_03_done = true;
         player.flags.undercity_story_04_unlocked = true;
         player.flags.story_goblin_cave_known = true;
+        player.flags.story_goblin_cave_visible = false;
         player.flags.undercity_story_04_ready = true; // 04까지 해결했지만 보고 전
 
         player.quest.active.progress = 1;
@@ -1639,6 +1640,7 @@ function resolveGoblinStoryQuest(player){
 
     if (activeId === "undercity_story_04"){
         player.flags.undercity_story_04_ready = true;
+        player.flags.story_goblin_cave_visible = false;
         player.quest.active.progress = 1;
         return;
     }

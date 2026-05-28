@@ -1,5 +1,3 @@
-//맨날 빼먹어서. 적 추가시 main.js에서 loadEnemy에 등록해야 한다!!!
-
 let ENEMIES = {};
 
 function createEnemy(data){
@@ -48,7 +46,8 @@ async function loadEnemies(){
     const list = [
         "rapistM", "rapistF", "slime", "goblin", "flower",
         "begger", "beggers", "goblinKing", "skeleton",
-        "bandit1", "bandit2", "banditBoss"
+        "bandit1", "bandit2", "banditBoss",
+        "rabelLeader"
     ];
 
     for (const name of list){

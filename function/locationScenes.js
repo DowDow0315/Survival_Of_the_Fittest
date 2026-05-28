@@ -138,10 +138,11 @@ function buildForestScene(player, loc, randomDesc){
 
 function buildDeepForestScene(player, loc, randomDesc){
     const caveVisible = player.flags?.goblin_cave_visible;
+
     const canEnterStoryCave =
-      player.quest?.active?.id === "undercity_story_04" &&
-      player.flags?.story_goblin_cave_known &&
-      !player.flags?.undercity_story_04_done;
+        player.flags?.story_goblin_cave_visible &&
+        ["undercity_story_03", "undercity_story_04"].includes(player.quest?.active?.id) &&
+        !player.flags?.undercity_story_04_done;
 
     const choices = [
         { text: "서치", action: "search" },
@@ -152,15 +153,10 @@ function buildDeepForestScene(player, loc, randomDesc){
     if (caveVisible || canEnterStoryCave){
         choices.push({
             text: canEnterStoryCave
-            ? "전에 찾았던 고블린 동굴로 간다"
-            : "고블린 동굴로 간다",
+                ? "전에 찾았던 고블린 동굴로 간다"
+                : "고블린 동굴로 간다",
             action: "move_goblinCave"
-    });
-    
-    if (caveVisible){
-        player.flags.goblin_cave_visible = false;
-        savePlayer(player);
-    }
+        });
     }
 
     if (player.flags?.undercity_story_05_unlocked){
@@ -885,7 +881,7 @@ window.pay_gloryHole_debt = function(player){
     const affection = NPC_DATA["nikolai"].emotion.affection || 0;
 
     if (affection < 60){
-        changeEmotion("nikolai", "affection", 2);
+        changeEmotion("nikolai", "affection", 3);
     }
 
     showSingleTextScene(
@@ -899,6 +895,7 @@ window.pay_gloryHole_debt = function(player){
 
 window.refuse_gloryHole_payment = function(player){
     changeEmotion("nikolai", "rage", 5);
+    changeEmotion("nikolai", "affection", -5);
     startScene([
         {
             type: "text",

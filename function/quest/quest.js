@@ -204,6 +204,7 @@ const QUESTS = {
             player.flags = player.flags || {};
             player.flags.undercity_story_04_done = true;
             player.flags.undercity_story_04_done_day = getCurrentDay(player);
+            player.flags.story_goblin_cave_visible = false;
         },
 
         acceptText : "당신이 의뢰를 받는다고 하자 마틴은 뭐라 말하려다가 그만두고 다시 그릇 닦는 일에 전념했다.",
@@ -269,11 +270,41 @@ const QUESTS = {
             player.flags.undercity_story_06_done = true;
             player.flags.banditHideout_cleared = true;
             player.flags.bandit_hideout_found = false;
+            player.flags.eric_victim_collect_event01_unlocked = true;
         },
 
         acceptText : "당신이 의뢰를 맡겠다고 하자 고개를 끄덕였다. <br>\"준비됐으면 가.\"",
         cancelText : "마틴은 당신이 의뢰를 취소해도 뭐라 하지 않았다. 그저 당신의 손에서 의뢰서를 가져갈 뿐이었다.",
         completeText : "마틴은 당신의 보고를 듣고 한동안 말이 없었다. 그는 도적떼가 끝났다고 말하지 않았다. 다만 이번 소동은 끝났다고만 말했다."
+    },
+
+    undercity_story_07 : {
+        id: "undercity_story_07",
+        title: "반란군 수장 처형",
+        type: "boss",
+        repeatable: false,
+        giver: "eric",
+        source : "barracks",
+        
+        desc: "에릭은 반란군 수장을 제거하라는 명령을 내렸다.",
+        activeDesc: "반란군 진지로 들어가 수장을 쓰러뜨려야 한다.",
+        readyDesc: "반란군 수장을 쓰러뜨렸다.",
+        
+        targetBoss: "rebelLeader",
+        requiredKill: 1,
+        rewardGold: 1500,
+        
+        require: {
+            flag: "act1_rebel_leader_unlocked"
+        },
+
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.undercity_story_07_done = true;
+        },
+        
+        acceptText: "에릭은 봉인된 명령서를 당신에게 내밀었다.<br><br>\"반란군의 수장을 처형해.\"",
+        completeText: "반란군 수장은 쓰러졌다."
     }
 };
 
@@ -292,10 +323,11 @@ window.open_tavernQuests = function(player){
     const choices = [];
 
     Object.values(QUESTS).forEach(quest => {
-    const alreadyCompleted = player.quest.completed.includes(quest.id);
-
-    if (!quest.repeatable && alreadyCompleted) return;
-    if (!canShowQuest(player, quest)) return;
+        if (quest.source === "barracks") return;
+        const alreadyCompleted = player.quest.completed.includes(quest.id);
+        
+        if (!quest.repeatable && alreadyCompleted) return;
+        if (!canShowQuest(player, quest)) return;
 
     choices.push({
         text: quest.title,
@@ -641,6 +673,7 @@ function completeQuest(player){
 
         player.flags.undercity_story_04_done = true;
         player.flags.undercity_story_04_ready = false;
+        player.flags.story_goblin_cave_visible = false;
         player.flags.undercity_story_04_skip_by_03 = true;
     }
 
@@ -648,6 +681,7 @@ function completeQuest(player){
     if (isGoblin04Report){
         player.flags.undercity_story_04_done = true;
         player.flags.undercity_story_04_ready = false;
+        player.flags.story_goblin_cave_visible = false;
     }
 
     player.quest.active = null;

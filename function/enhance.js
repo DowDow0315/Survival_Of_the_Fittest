@@ -95,6 +95,10 @@ function enhanceItem(player, item, place = "default", customStat = null){
     }
 
     item.enhance = nextLevel;
+    if (place === "matin"){
+        player.flags ??= {};
+        player.flags.matinEnhancedOnce = true;
+    }
 
     if (nextLevel >= 5){
         const gain = getEnhanceGain(nextLevel);

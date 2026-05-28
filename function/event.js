@@ -60,6 +60,31 @@ function triggerEricWeeklyPayment(player){
 const EVENTS = [
     //npc 이벤트
     //에릭
+    {
+        id : "eric_victim_collect_event01",
+        once : true,
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "townStreet" &&
+            player.flags?.eric_victim_collect_event01_unlocked &&
+            !player.flags?.eric_victim_collect_event01_seen,
+            
+        action : (player) => {
+            player.flags.eric_victim_collect_event01_seen = true;
+            savePlayer(player);
+            
+            startScene(
+                NPC_DATA["eric"].scenes.eric_victim_collect_event01,
+                player,
+                {
+                    onEnd : () => {
+                        startScene(getLocationScene(player), player);
+                    }
+                }
+            );
+        }
+    },
 
     //루크
     {
@@ -218,6 +243,29 @@ const EVENTS = [
             startMatinGraveyardEvent01(player);
         }
     },
+    {
+        id : "matin_enhance_after_event_01",
+        once : true,
+
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "tavern" &&
+            player.flags?.matinEnhancedOnce &&
+            !player.flags?.matin_enhance_after_event_01_seen,
+
+        action : (player) => {
+            player.flags.matin_enhance_after_event_01_seen = true;
+            savePlayer(player);
+
+            startScene(
+                NPC_DATA["matin"].scenes.matin_enhance_after_event_01,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
 
 
     //니콜라이
@@ -236,6 +284,123 @@ const EVENTS = [
                 player,
                 {
                     onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
+    {
+        id : "nikolai_customer_list_event",
+        once : true,
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "gloryHole" &&
+            player.flags?.metNikolai &&
+            (player.flags?.gloryHoleTotalEarn || 0) >= 5000 &&
+            NPC_DATA["nikolai"].emotion.affection >= 15 &&
+            !player.flags?.nikolai_customer_list_event_seen,
+            
+        action : (player) => {
+            player.flags.nikolai_customer_list_event_seen = true;
+            savePlayer(player);
+            
+            startScene(
+                NPC_DATA["nikolai"].scenes.nikolai_customer_list_event,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
+    {
+        id : "nikolai_dayoff_event",
+        once : true,
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "gloryHole" &&
+            player.flags?.nikolai_customer_list_event_seen &&
+            NPC_DATA["nikolai"].emotion.affection >= 30 &&
+            !player.flags?.nikolai_dayoff_event_seen,
+            
+        action : (player) => {
+            player.flags.nikolai_dayoff_event_seen = true;
+            savePlayer(player);
+            
+            startScene(
+                NPC_DATA["nikolai"].scenes.nikolai_dayoff_event,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
+    {
+        id : "nikolai_cupcake_random_event",
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "gloryHole" &&
+            player.flags?.nikolai_dayoff_event_seen &&
+            NPC_DATA["nikolai"].emotion.affection >= 40 &&
+            Math.random() < 0.05,
+            
+        action : (player) => {
+            startScene(
+                NPC_DATA["nikolai"].scenes.nikolai_cupcake_random_event,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
+    {
+        id : "nikolai_derek_intro_event",
+        once : true,
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "gloryHole" &&
+            player.flags?.nikolai_dayoff_event_seen &&
+            (player.flags?.gloryHoleTotalEarn || 0) >= 20000 &&
+            NPC_DATA["nikolai"].emotion.affection >= 60 &&
+            !player.flags?.nikolai_derek_intro_seen,
+            
+        action : (player) => {
+            player.flags.nikolai_derek_intro_seen = true;
+            savePlayer(player);
+            
+            startScene(
+                NPC_DATA["nikolai"].scenes.nikolai_derek_intro_event,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+        }
+    },
+    {
+        id : "nikolai_sold_derek_letter",
+        
+        condition : (player) =>
+            player.justMoved &&
+            player.location === "gloryHole" &&
+            player.flags?.derekLetterReceived &&
+            !hasItem(player, "데릭의 친필 서신") &&
+            !player.flags?.nikolai_sold_derek_letter_seen,
+            
+        action : (player) => {
+            player.flags.nikolai_sold_derek_letter_seen = true;
+            savePlayer(player);
+            
+            startScene(
+                NPC_DATA["nikolai"].scenes.nikolai_sold_derek_letter,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
                 }
             );
         }

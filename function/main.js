@@ -987,16 +987,46 @@ function getCurrentDay(player){
     return Math.floor((Number(player?.time) || 0) / 240);
 }
 
-const NPC_DAILY_LUST_GROWTH = {
-    sora: [2, 5],
-    yuri: [0, 2],
-    luke: [1, 3],
-    eric: [0, 2],
-    matin: [0, 2],
-    deric: [0, 3],
-    pale: [0, 10],
-    nikolai: [2, 4],
-    valen: [0, 2]
+const NPC_LUST_GROWTH_CONDITIONS = {
+    sora: [
+        { key: "affection", min: 30, amount: 1 },
+        { key: "dominance", min: 40, amount: 1 }
+    ],
+
+    yuri: [
+        { key: "affection", min: 90, amount: 1 }
+    ],
+
+    luke: [
+        { key: "affection", min: 50, amount: 1 },
+        { key: "dominance", min: 30, amount: 1 }
+    ],
+
+    eric: [
+        { key: "affection", min: 80, amount: 1 }
+    ],
+
+    matin: [
+        { key: "affection", min: 50, amount: 1 }
+    ],
+
+    deric: [
+        { key: "dominance", min: 50, amount: 1 },
+        { key: "affection", min: 80, amount: 1 }
+    ],
+
+    pale: [
+        { key: "affection", min: 20, amount: 1 }
+    ],
+
+    nikolai: [
+        { key: "dominance", min: 20, amount: 1 },
+        { key: "affection", min: 60, amount: 1 }
+    ],
+
+    valen: [
+        { key: "affection", min: 90, amount: 1 }
+    ]
 };
 
 function randomInt(min, max){
@@ -1015,8 +1045,19 @@ function updateNpcDaily(player){
     Object.entries(NPC_DATA).forEach(([npcId, npc]) => {
         if (!npc.emotion) return;
 
-        const range = NPC_DAILY_LUST_GROWTH[npcId] || [0, 1];
-        const amount = randomInt(range[0], range[1]);
+        const conditions = NPC_LUST_GROWTH_CONDITIONS[npcId] || [];
+
+        let amount = 0;
+
+        conditions.forEach(condition => {
+            const value = npc.emotion[condition.key] || 0;
+
+            if (value >= condition.min){
+                amount += condition.amount;
+            }
+        });
+
+        if (amount <= 0) return;
 
         npc.emotion.lust = npc.emotion.lust ?? 0;
         npc.emotion.lust = clamp(npc.emotion.lust + amount, 0, 100);
@@ -1026,7 +1067,7 @@ function updateNpcDaily(player){
         saveNpcProgressToLocalStorage();
     }
 
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
 }
 
 function registerActions(npcName, actions){
@@ -1313,8 +1354,9 @@ function getUndercity03SearchHint(player){
         return "당신은 피가 하나도 묻어있지 않은, 깨끗한 발자국을 보았다. 루크일까? 루크의 발이라고 하기에는 작다... 발자국의 상태를 보니 적어도 끌려간 건 아닌 거 같다. 스스로 어디로 걸어간 걸까? 당신은 쫓아가보았지만 발자국은 중간에 끊겨있었다.";
     }
 
-    player.flags.goblin_cave_found = true;
-    player.flags.goblin_cave_visible = true;
+    player.flags.goblin_cave_found = true;              // 03 퀘스트 완료 판정용
+    player.flags.story_goblin_cave_visible = true;      // 스토리 동굴 임시 입장용
+
     addQuestProgress(player);
     savePlayer(player);
 

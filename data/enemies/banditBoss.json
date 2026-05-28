@@ -106,7 +106,7 @@
         {
             "name" : "단검4 날리기",
             "type" : "multiHit",
-            "power" : 0.3,
+            "power" : 0.4,
             "hits" : 4,
             "chance" : 1,
             "lines" : [

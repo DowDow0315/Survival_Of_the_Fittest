@@ -102,7 +102,7 @@
         {
             "name" : "투척단도8 날리기",
             "type" : "multiHit",
-            "power" : 0.2,
+            "power" : 0.35,
             "hits" : 8,
             "chance" : 1,
             "lines" : [

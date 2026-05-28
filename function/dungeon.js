@@ -633,11 +633,9 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "goblinCave" && room.boss === "goblinKing"){
         if (isGoblinStoryActive(player)){
-            handleGoblinKingWin(player);
-        } else {
-            handleDefaultBossWin(player);
-        }        
-        return;
+            handleGoblinKingWin(player);      
+            return;
+        }
     }
 
     if (dungeon.id === "banditHideout" && room.boss === "banditBoss"){

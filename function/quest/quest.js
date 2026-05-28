@@ -559,6 +559,11 @@ function acceptQuest(player, questId){
         return;
     }
 
+    if (quest.id === "goblin_cave_cleanup"){
+        player.flags = player.flags || {};
+        delete player.flags.defeated_goblinCave_goblinKing;
+    }
+
     player.quest.active = {
         id: quest.id,
         progress: 0

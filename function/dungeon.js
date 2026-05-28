@@ -1613,10 +1613,8 @@ function handleGoblinPrisonRoom(player){
 }
 
 function isGoblinStoryActive(player){
-    return (
-        !player.flags?.undercity_story_03_done ||
-        !player.flags?.undercity_story_04_done
-    );
+    return ["undercity_story_03", "undercity_story_04"]
+        .includes(player.quest?.active?.id);
 }
 
 function resolveGoblinStoryQuest(player){

@@ -987,16 +987,46 @@ function getCurrentDay(player){
     return Math.floor((Number(player?.time) || 0) / 240);
 }
 
-const NPC_DAILY_LUST_GROWTH = {
-    sora: [1, 4],
-    yuri: [0, 1],
-    luke: [1, 2],
-    eric: [0, 1],
-    matin: [0, 1],
-    deric: [0, 3],
-    pale: [0, 4],
-    nikolai: [1, 3],
-    valen: [0, 1]
+const NPC_LUST_GROWTH_CONDITIONS = {
+    sora: [
+        { key: "affection", min: 30, amount: 1 },
+        { key: "dominance", min: 40, amount: 1 }
+    ],
+
+    yuri: [
+        { key: "affection", min: 90, amount: 1 }
+    ],
+
+    luke: [
+        { key: "affection", min: 50, amount: 1 },
+        { key: "dominance", min: 30, amount: 1 }
+    ],
+
+    eric: [
+        { key: "affection", min: 80, amount: 1 }
+    ],
+
+    matin: [
+        { key: "affection", min: 50, amount: 1 }
+    ],
+
+    deric: [
+        { key: "dominance", min: 50, amount: 1 },
+        { key: "affection", min: 80, amount: 1 }
+    ],
+
+    pale: [
+        { key: "affection", min: 20, amount: 1 }
+    ],
+
+    nikolai: [
+        { key: "dominance", min: 20, amount: 1 },
+        { key: "affection", min: 60, amount: 1 }
+    ],
+
+    valen: [
+        { key: "affection", min: 90, amount: 1 }
+    ]
 };
 
 function randomInt(min, max){
@@ -1015,8 +1045,19 @@ function updateNpcDaily(player){
     Object.entries(NPC_DATA).forEach(([npcId, npc]) => {
         if (!npc.emotion) return;
 
-        const range = NPC_DAILY_LUST_GROWTH[npcId] || [0, 1];
-        const amount = randomInt(range[0], range[1]);
+        const conditions = NPC_LUST_GROWTH_CONDITIONS[npcId] || [];
+
+        let amount = 0;
+
+        conditions.forEach(condition => {
+            const value = npc.emotion[condition.key] || 0;
+
+            if (value >= condition.min){
+                amount += condition.amount;
+            }
+        });
+
+        if (amount <= 0) return;
 
         npc.emotion.lust = npc.emotion.lust ?? 0;
         npc.emotion.lust = clamp(npc.emotion.lust + amount, 0, 100);
@@ -1026,7 +1067,7 @@ function updateNpcDaily(player){
         saveNpcProgressToLocalStorage();
     }
 
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
 }
 
 function registerActions(npcName, actions){

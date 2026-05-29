@@ -583,37 +583,50 @@ function useSkill(index){
             break;
 
         case "bleed": {
-            let dmg = calculateDamage(
-                powerStat * skill.power,
-                enemy.defense
-            );
-            enemy.hp -= dmg;
+            if (skill.power){
+                let dmg = calculateDamage(
+                    powerStat * skill.power,
+                    enemy.defense
+                );
+                
+                enemy.hp -= dmg;
+                log(`${formatStatNumber(dmg)} 데미지!`, "damage");
+            }
+            
             applyBuff(enemy, {
                 id : "bleed",
                 dot: skill.dot,
                 duration: skill.duration
             });
-            log(`${skill.name}! ${formatStatNumber(dmg)} 데미지 + 출혈!`, "damage");
+            
+            log("출혈 상태가 되었다!", "damage");
             break;
         }
+
         case "poison": {
-            let dmg = calculateDamage(
-                powerStat * skill.power,
-                enemy.defense
-            );
-            enemy.hp -= dmg;
+            if (skill.power){
+                let dmg = calculateDamage(
+                    powerStat * skill.power,
+                    enemy.defense
+                );
+                
+                enemy.hp -= dmg;
+                log(`${formatStatNumber(dmg)} 데미지!`, "damage");
+            }
+            
             applyBuff(enemy, {
                 id : "poison",
                 dot: skill.dot,
                 duration: skill.duration
             });
-            log(`${skill.name}! ${formatStatNumber(dmg)} 데미지 + 독!`, "damage");
+            
+            log("독 상태가 되었다!", "damage");
             break;
         }
-        }
-        if (enemy.hp <= 0){
-            endBattle("win");
-            return;
+    }
+    if (enemy.hp <= 0){
+        endBattle("win");
+        return;
     }
     updateBattleUI();
     enemyTurn();
@@ -1005,7 +1018,10 @@ function enemyTurn(){
 
     //지속데미지공격
     if (skill.type === "poison"){
-    player.status.hp -= damage;
+    if (skill.power){
+        player.status.hp -= damage;
+        log(`${formatStatNumber(damage)} 데미지를 입었다!`, "damage");
+    }
 
     applyBuff(player, {
         id : "poison",
@@ -1013,13 +1029,16 @@ function enemyTurn(){
         duration: skill.duration
     });
 
-    log("당신의 기분이 역해졌다!", "damage");
+    log("당신은 기분이 역해졌다!", "damage");
     endEnemyTurn();
     return;
     }
 
     if (skill.type === "bleed"){
-    player.status.hp -= damage;
+    if (skill.power){
+        player.status.hp -= damage;
+        log(`${formatStatNumber(damage)} 데미지를 입었다!`, "damage");
+    }
 
     applyBuff(player, {
         id : "bleed",

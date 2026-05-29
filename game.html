@@ -594,14 +594,27 @@
         function renderNpcTab(){
             const npcEntries = Object.entries(getNpcStore() || {});
             const tab = document.getElementById("tab-npc");
-
+            
             if (!npcEntries.length){
                 tab.innerHTML = '<p class="empty-text">아직 확인할 수 있는 NPC 데이터가 없습니다.</p>';
                 return;
             }
-
-            tab.innerHTML = npcEntries.map(([key, npc]) => renderNpcCard(npc, key)).join("");
-        }
+            
+            const major = npcEntries.filter(([key, npc]) => npc.type !== "minor");
+            const minor = npcEntries.filter(([key, npc]) => npc.type === "minor");
+            
+            tab.innerHTML = `
+            <h4 class="npc-section-title">주요 인물</h4>
+            <div class="npc-grid">
+                ${major.map(([key, npc]) => renderNpcCard(npc, key)).join("")}
+                </div>
+                
+                <h4 class="npc-section-title">기타 인물</h4>
+                <div class="minor-npc-list">
+                    ${minor.map(([key, npc]) => renderMinorNpcLine(npc, key)).join("")}
+                    </div>
+                    `;
+                }
 
         function renderNpcCard(npc, key){
             const e = npc.emotion || {};
@@ -613,6 +626,15 @@
                 ${renderBar("lust", e.lust)}
                 ${renderBar("fear", e.fear)}
                 <p class="npc-line">${getNpcSummary(npc)}</p>
+            </div>
+            `;
+        }
+
+        function renderMinorNpcLine(npc, key){
+            return `
+            <div class="minor-npc-line">
+                <b>${escapeHtml(npc.name || key || "이름 없음")}</b>
+                <p>${escapeHtml(getNpcSummary(npc))}</p>
             </div>
             `;
         }
@@ -1631,6 +1653,10 @@
             color: #ccc;
         }
 
+        #tab-npc{
+            display:block;
+        }
+
         .status-tabs{
             display: flex;
             gap: 8px;
@@ -1679,6 +1705,48 @@
             margin-top: 12px;
             color: #ddd;
             font-size: 13px;
+        }
+
+        .npc-grid{
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+        
+        .npc-section-title{
+            margin: 10px 0 4px;
+            color: greenyellow;
+        }
+        
+        .minor-npc-list{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .minor-npc-line{
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        
+        .minor-npc-line p{
+            margin: 6px 0 0;
+            color: #ccc;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 900px){
+            .npc-grid{
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        @media (max-width: 560px){
+            .npc-grid{
+                grid-template-columns: 1fr;
+            }
         }
         
         .emotion-row{

@@ -1,0 +1,33 @@
+{
+    "name" : "줄리앙",
+    "hp" : 100,
+    "attack" : 20,
+    "defense" : 20,
+    "eva" : 5,
+    "type" : "minor",
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 80}
+            ],
+            "text" : "줄리앙은 당신의 몸에 자신의 보석을 달아주고 싶어한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50}
+            ],
+            "text" : "줄리앙은 당신이 대장간에 놀러오는 것을 조금은 기다리고 있다."
+        }
+    ],
+
+    "scenes" : {}
+}

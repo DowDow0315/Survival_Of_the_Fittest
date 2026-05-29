@@ -396,5 +396,8 @@ window.bandit_capture_escape = function(player){
 
 window.bandit_capture_continue = function(player){
     savePlayer(player);
-    startBanditCaptureTraining(player);
+
+    showSingleTextScene("당신은 지금은 움직이지 않기로 했다. 곧 도적들이 돌아왔다.", player, {
+        onEnd: () => startBanditCaptureTraining(player)
+    });
 };

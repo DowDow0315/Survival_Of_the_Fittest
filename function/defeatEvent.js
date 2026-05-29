@@ -813,11 +813,18 @@ window.goblin_capture_cut_rope = function(player){
         localStorage.setItem("playerData", JSON.stringify(player));
         showSingleTextScene(
             `당신은 간신히 밧줄 일부를 약하게 만들었다. 탈출 가능성이 조금 올랐다. (${capture.ropeDamage}/5)`,
-            player
+            player,
+            {
+                onEnd: () => startGoblinCaptureTraining(player, capture.escapeAttempts || 0)
+            }
         );
     } else {
         localStorage.setItem("playerData", JSON.stringify(player));
-        showSingleTextScene("당신은 밧줄을 끊어보려 했지만 손만 아파올 뿐이었다.", player);
+        showSingleTextScene("당신은 밧줄을 끊어보려 했지만 손만 아파올 뿐이었다.", player,
+            {
+                onEnd: () => startGoblinCaptureTraining(player, capture.escapeAttempts || 0)
+            }
+        );
     }
 };
 
@@ -856,5 +863,13 @@ window.goblin_capture_escape = function(player){
 };
 
 window.goblin_capture_continue = function(player){
-    startGoblinCaptureTraining(player);
+    const capture = getGoblinCaptureState(player);
+
+    showSingleTextScene(
+        "당신은 지금은 저항하지 않기로 했다. 곧 고블린들이 돌아와 당신을 다시 끌고 갔다.",
+        player,
+        {
+            onEnd: () => startGoblinCaptureTraining(player, capture.escapeAttempts || 0)
+        }
+    );
 };

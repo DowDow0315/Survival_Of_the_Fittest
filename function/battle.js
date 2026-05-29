@@ -89,19 +89,28 @@ function updateBattleUI(){
         enemy.name;
 
     document.getElementById("enemyHp").innerText =
-        "HP : " + enemy.hp + "/" + enemy.maxHp;
+        "HP : " +
+        formatStatNumber(enemy.hp) +
+        "/" +
+        formatStatNumber(enemy.maxHp);
 
     const enemyArousalEl = document.getElementById("enemyArousal");
     if (enemyArousalEl){
         enemyArousalEl.innerText =
-            "상대 흥분도 : " + (battleState.enemyArousal || 0) + "/" + (battleState.enemyMaxArousal || 100);
+            "상대 흥분도 : " + formatStatNumber(battleState.enemyArousal || 0) + "/" + formatStatNumber(battleState.enemyMaxArousal || 100);
     }
 
     document.getElementById("playerHp").innerText =
-        "HP : " + player.status.hp + "/" + player.status.maxHp;
+        "HP : " +
+        formatStatNumber(player.status.hp) +
+        "/" +
+        formatStatNumber(player.status.maxHp);
 
     document.getElementById("playerArousal").innerText =
-        "흥분도 : " + player.status.arousal + "/" + player.status.maxArousal;
+        "흥분도 : " +
+        formatStatNumber(player.status.arousal) +
+        "/" +
+        formatStatNumber(player.status.maxArousal);
 
     document.getElementById("energy").innerText =
         "에너지 : " + battleState.energy + "/" + battleState.maxEnergy;
@@ -405,7 +414,7 @@ function playerAttack(isBonusAttack = false){
     if (!player.equipment.weapon) {
     log("당신은 맨주먹으로 상대를 후려쳤다!", "damage");
     } else {
-    log(`${damage} 데미지!`, "damage");
+    log(`${formatStatNumber(damage)} 데미지!`, "damage");
     }
 
     //예리한(chance Attack)
@@ -545,7 +554,7 @@ function useSkill(index){
                 getEnemyFinalDef(enemy)
             );
             enemy.hp -= damage;
-            log(`${skill.name}! ${damage} 데미지!`, "damage");
+            log(`${skill.name}! ${formatStatNumber(damage)} 데미지!`, "damage");
             break;
 
         case "multiHit": {
@@ -560,11 +569,11 @@ function useSkill(index){
                 );
                 
                 total += d;
-                log(`${i + 1}타! ${d} 데미지!`, "damage");
+                log(`${i + 1}타! ${formatStatNumber(d)} 데미지!`, "damage");
             }
             
             enemy.hp -= total;
-            log(`총 ${total} 데미지!`, "damage");
+            log(`총 ${formatStatNumber(total)} 데미지!`, "damage");
             break;
         }
         
@@ -584,7 +593,7 @@ function useSkill(index){
                 dot: skill.dot,
                 duration: skill.duration
             });
-            log(`${skill.name}! ${dmg} 데미지 + 출혈!`, "damage");
+            log(`${skill.name}! ${formatStatNumber(dmg)} 데미지 + 출혈!`, "damage");
             break;
         }
         case "poison": {
@@ -598,7 +607,7 @@ function useSkill(index){
                 dot: skill.dot,
                 duration: skill.duration
             });
-            log(`${skill.name}! ${dmg} 데미지 + 독!`, "damage");
+            log(`${skill.name}! ${formatStatNumber(dmg)} 데미지 + 독!`, "damage");
             break;
         }
         }
@@ -926,11 +935,11 @@ function enemyTurn(){
             );
             
             total += d;
-            log(`${i + 1}타! ${d} 데미지를 입었다!`, "damage");
+            log(`${i + 1}타! ${formatStatNumber(d)} 데미지를 입었다!`, "damage");
         }
         
         player.status.hp -= total;
-        log(`총 ${total} 데미지를 입었다!`, "damage");
+        log(`총 ${formatStatNumber(total)} 데미지를 입었다!`, "damage");
         endEnemyTurn();
         return;
     }
@@ -938,7 +947,7 @@ function enemyTurn(){
     //일반 물리 공격
     if (skill.type === "damage" || !skill.type){
         player.status.hp -= damage;
-        log(`${damage} 데미지를 입었다!`, "damage");
+        log(`${formatStatNumber(damage)} 데미지를 입었다!`, "damage");
     }
 
     //잡기공격
@@ -1098,7 +1107,7 @@ function grappleAction(action){
         );
         
         enemy.hp -= dmg;
-        log(`당신은 붙잡힌 채로 발버둥쳐 ${dmg} 데미지를 줬다!`, "damage");
+        log(`당신은 붙잡힌 채로 발버둥쳐 ${formatStatNumber(dmg)} 데미지를 줬다!`, "damage");
         
         if (enemy.hp <= 0){
             endBattle("win");
@@ -1902,4 +1911,9 @@ function runCustomTurnEvent(){
     if (typeof event === "function"){
         event(battleState.player, battleState.enemy, battleState);
     }
+}
+
+function formatStatNumber(value){
+    const num = Number(value) || 0;
+    return Number.isInteger(num) ? String(num) : num.toFixed(1);
 }

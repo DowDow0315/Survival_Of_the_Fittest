@@ -548,20 +548,26 @@ function useSkill(index){
             log(`${skill.name}! ${damage} 데미지!`, "damage");
             break;
 
-        case "multiHit":
+        case "multiHit": {
             let total = 0;
-            for (let i=0;i<skill.hits;i++){
-                let d = calculateDamage(
-                    powerStat * skill.power,
-                    getEnemyFinalDef(enemy)
+            const hits = skill.hits || 2;
+            
+            for (let i = 0; i < hits; i++){
+                const defenseRate = 0.5 + Math.random() * 0.2;
+                const d = calculateDamage(
+                    powerStat * (skill.power || 1),
+                    Math.floor(getEnemyFinalDef(enemy) * defenseRate)
                 );
+                
                 total += d;
                 log(`${i + 1}타! ${d} 데미지!`, "damage");
             }
+            
             enemy.hp -= total;
             log(`총 ${total} 데미지!`, "damage");
             break;
-
+        }
+        
         case "buff":
             applyBuff(player, skill.effect);
             log(`${skill.name}! 버프 성공!`);
@@ -904,28 +910,29 @@ function enemyTurn(){
     }
 
     if (skill.type === "multiHit"){
-    let total = 0;
-
-    if (skill.lines){
-        log(getRandom(skill.lines));
-    }
-
-    log(`${skill.name}!`, "damage");
-
-    for (let i = 0; i < (skill.hits || 2); i++){
-        const d = calculateDamage(
-            getEnemyFinalAtk(enemy) * (skill.power || 1),
-            getFinalDef(player)
-        );
-        total += d;
-        log(`${i + 1}타! ${d} 데미지를 입었다!`, "damage");
-    }
-    player.status.hp -= total;
-
-    log(`총 ${total} 데미지를 입었다!`, "damage");
-
-    endEnemyTurn();
-    return;
+        let total = 0;
+        const hits = skill.hits || 2;
+        
+        if (skill.lines){
+            log(getRandom(skill.lines));
+        }
+        
+        log(`${skill.name}!`, "damage");
+        for (let i = 0; i < hits; i++){
+            const defenseRate = 0.5 + Math.random() * 0.2;
+            const d = calculateDamage(
+                getEnemyFinalAtk(enemy) * (skill.power || 1),
+                Math.floor(getFinalDef(player) * defenseRate)
+            );
+            
+            total += d;
+            log(`${i + 1}타! ${d} 데미지를 입었다!`, "damage");
+        }
+        
+        player.status.hp -= total;
+        log(`총 ${total} 데미지를 입었다!`, "damage");
+        endEnemyTurn();
+        return;
     }
 
     //일반 물리 공격

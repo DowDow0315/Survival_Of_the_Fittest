@@ -95,3 +95,30 @@ window.startYuriGoblinShelterEvent = function(player){
         }
     );
 };
+
+window.startYuriRecommendLetterEvent = function(player){
+    startScene(
+        NPC_DATA["yuri"].scenes.yuri_recommend_letter_event,
+        player,
+        {
+            onEnd : () => {
+                player.flags = player.flags || {};
+                player.flags.yuri_recommend_letter_event_seen = true;
+
+                savePlayer(player);
+                startScene(getLocationScene(player), player);
+            }
+        }
+    );
+};
+
+window.yuriReceiveDericLetter = function(player){
+    player.flags = player.flags || {};
+
+    if (!player.flags.dericLetterFromYuri){
+        addItem(player, ITEMS.misc.dericLetter);
+    }
+
+    player.flags.dericLetterFromYuri = true;
+    savePlayer(player);
+};

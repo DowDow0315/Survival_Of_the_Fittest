@@ -1522,7 +1522,16 @@ function renderMap(player){
 function isRichTownLocation(locationKey){
     return [
         "richTownEntrance",
-        "richTownStreet"
+        "richTownStreet",
+        "royalHospital",
+        "royalForge",
+        "gloryStreet",
+        "nobleSquare",
+        "arena",
+        "theater",
+        "twinsMansion",
+        "heavenRoad",
+        "heavenPalace"
     ].includes(locationKey);
 }
 
@@ -1573,15 +1582,44 @@ function renderRichTownMap(player){
 
                 <div class="map-v-line"></div>
 
-                <div class="map-row center">
+                <div class="map-row street-branch">
                     ${node("richTownStreet")}
+
+                    <div class="branch-list">
+                        ${node("royalHospital")}
+                        ${node("royalForge")}
+                    </div>
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row street-branch">
+                    ${node("gloryStreet")}
+
+                    <div class="branch-list">
+                        ${node("nobleSquare")}
+                        ${node("arena")}
+                        ${node("theater")}
+                        ${node("twinsMansion")}
+                    </div>
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row center">
+                    ${node("heavenRoad")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row center">
+                    ${node("heavenPalace")}
                 </div>
 
             </div>
         </div>
     `;
 }
-
 function renderOuterForestMap(player){
     const mapArea = document.getElementById("mapArea");
     if (!mapArea || !player) return;

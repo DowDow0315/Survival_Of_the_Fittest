@@ -1,3 +1,5 @@
+window.EVENTS = window.EVENTS || [];
+
 const ENEMY_POOLS = {
     townEntrance: [
         { id: "rapistM", weight: 60 },
@@ -480,7 +482,6 @@ const EVENTS = [
         once : true,
         
         condition : (player) =>
-            player.justMoved &&
             player.location === "townEntrance" &&
             player.flags?.undercity_story_04_done &&
             !player.flags?.undercity_story_05_bandit_attack_seen &&
@@ -491,6 +492,125 @@ const EVENTS = [
             savePlayer(player);
                 
             startBanditAttackEvent(player);
+        }
+    },
+    {
+        id : "undercity_story_07_eric_townStreet_event",
+        
+        condition : (player) =>
+             player.location === "townStreet" &&
+             player.flags?.undercity_story_06_done &&
+            !player.flags?.undercity_story_07_eric_townStreet_event_seen &&
+            !player.quest?.active &&
+            getCurrentDay(player) >= (player.flags.undercity_story_06_done_day + 2),
+            
+        action : (player) => {
+            player.flags.undercity_story_07_eric_townStreet_event_seen = true;
+            savePlayer(player);
+            startScene([
+                {
+                    type : "text",
+                    value : [
+                        "도적떼 소탕이 끝난 후에도 길거리에 다니는 사람들의 반응은 좋지 않았다. 한 번의 마을 습격이 두 번의 마을 습격으로 이어질 수 있다고 생각하는 모양이다. 마을 사람들이 불안해할 수록 경비병들은 더 엄격해졌다. 그들은 더욱 마을 사람들 심문에 신경쓰고 달달 볶았다." +
+                        "<br><br>\"잘 지켜주지도 못하면서...\"<br><br>"+
+                        "몸수색을 받던 한 사람이 중얼거렸다. 그 말소리를 들은 경비병의 표정이 일그러졌다. \"방금 뭐라고 했어?\"라고 말하며 경비병은 불만을 터뜨린 사람을 겁박하기 시작했다. 다시 한 번 말해봐, 평소였다면 그 말에 마을 사람은 고개를 숙이고 저항을 멈췄을 것이다. 하지만 오늘은 달랐다. 그는 고개를 빳빳하게 들더니 너네가 우리에게 이럴 권리가 있냐고 물었다. 주변에 있던 마을 사람들도 그 말에 호응했다." +
+                        "<br><br>\"우리가 너네들의 명령에 따르고 보호비를 내는 이유가 뭔데!?\"<br><br>" +
+                        "경비병은 무력으로 제압하려고 했지만 여러 명의 마을 사람들이 동조하기 시작하자 움찔했다. 그는 창끝을 마을 사람들에게 겨누며 한번 더 윽박질렀다. 마을 사람들은 당연히 겁에 질렸지만, 한 명이 일어서자 다시 다들 아우성을 치기 시작했다." +
+                        "<br><br><br><span style='color:red'><strong>퍼억</strong></span><br><br><br>" +
+                        "하지만 그 순간 가장 목소리가 컸던 마을 사람이 명치를 부여잡더니 침을 흘리며 쓰러졌다. 한순간의 공격이었다. 에릭의 서늘한 표정에 아우성치던 마을 사람들이 움찔했다. 에릭은 쓰러진 남자의 어깨를 차더니 그대로 그의 명치를 밟았다. 그는 그에게 '반란군'이라고 말했다. 반란군, 언제 사형이 되어도 할 말이 없는 대역죄인이다. 에릭의 입에서 나온 '반란군' 단어에 마을 사람들은 사색이 되더니 천천히 흩어져갔다. 에릭의 발에 밟힌 남자는 자기는 반란군이 아니라며 울부짖었지만 에릭은 그 울부짖음마저 발로 짓밟아버렸다. 모든 사람들의 앞에서 에릭은 남자의 최후를 정해버렸다." +
+                        "<br>남자를 짓밟고 있던 에릭은 당신에게로 시선을 돌렸다." +
+                        "<br><br>\"경계병 제1초소를 반란군이 습격할 거라는 정보가 들어왔다.\"<br><br>" +
+                        "그는 명령서를 당신에게 보여주었다." +
+                        "<br><br>\"즉결 처형이다. 이 일을 해내면, 너는 상류도시에 갈 수 있게 되겠지. 할 건가?\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "명령을 받는다.",
+                            action : "accept_quest_undercity_story_07"
+                        },
+                        {
+                            text : "거절한다. <span style='color:red'>이 선택은 되돌릴 수 없다</span>",
+                            scene : [
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        player.flags.undercity_story_07_refused = true;
+                                        player.flags.yuri_recommend_route_unlocked = true;
+                                        player.flags.undercity_story_07_refused_day = getCurrentDay(player);
+                                        changeEmotion("eric", "affection", -5);
+                                        savePlayer(player);
+                                    }
+                                },
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신이 거절하자 에릭은 당신을 잠시 바라보았다. 하지만 그는 더 이상 당신을 설득하지 않았다. 그저 당신의 선택을 받아들였을 뿐이다." +
+                                        "<br><br>\"그래. 그럼 다른 사람을 찾지.\"<br><br>" +
+                                        "그는 당신에게서 시선을 거두었다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ], player, {
+                onEnd : () => startScene(getLocationScene(player), player)
+            });
+        }
+    },
+    {
+        id : "undercity_story_07_guardPost1_event",
+        
+        condition : (player) =>
+            player.location === "guardPost1" &&
+            player.quest?.active?.id === "undercity_story_07" &&
+            !player.flags?.undercity_story_07_guardPost1_event_seen,
+            
+            action : (player) => {
+                player.flags.undercity_story_07_guardPost1_event_seen = true;
+                savePlayer(player);
+                
+                startScene([
+                    {
+                        type : "text",
+                        value : [
+                            "경계병 1초소에 도착했을 때, 경비병들과 반란군들은 이미 전투를 벌이고 있었다. 그리고 가장 가운데에서, 당신은 반란군 수장을 보았다. 멀리서 봐도 누가 반란군 수장인지는 알 수 있었다. 한손검을 들고 있는 그는 무리 중에서 가장 빛나고 있는 사람이었다. 그의 말 한 마디에 사람들은 다시 힘을 내어 싸웠고, 그는 망토를 두르고 있는 초소단장과 맞서고 있었다." +
+                            "<br><br>\"더러운 도시의 사냥개들을 용서하지 말자!\"<br><br>" +
+                            "반란군 수장은 그 말을 외치더니 그대로 초소단장의 목을 베었다. 날렵한 곡선을 그으며 초소단장의 머리를 목에서 분리한 그의 한손검에서 피가 흘뿌려졌다. 적의 수장의 목을 땄다는 소식에 반란군들의 사기가 올랐다. 여기서 사기가 더 오르면 위험하다. 당신은 반란군 수장을 막아섰다." +
+                            " 반란군 수장은 경비병 옷을 입고 있지 않은 당신을 보고 인상을 찌푸렸다. 하지만 그것도 잠시, 그는 당신을 적으로 간주하고 당신의 목에 한손검을 겨누었다. 전투가 시작된다...!"
+                        ]
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            startBattle("rebelLeader", player, {
+                                noEscape : true,
+                                onWin : () => startUndercityStory07AfterBattleEvent(player),
+                                onLose : () => startUndercityStory07AfterLosingBattleEvent(player)
+                            });
+                            return true;
+                        }
+                    }
+                ], player);
+            }
+    },
+    {
+        id : "yuri_recommend_letter_event",
+        once : true,
+        
+        condition : (player) =>
+            player.location === "shelter" &&
+            player.flags?.yuri_recommend_route_unlocked &&
+            NPC_DATA["yuri"].emotion.affection >= 30 &&
+            !player.quest?.active &&
+            !player.flags?.yuri_recommend_letter_event_seen &&
+            getCurrentDay(player) >= (player.flags.undercity_story_07_refused_day + 2),
+            
+        action : (player) => {
+            startYuriRecommendLetterEvent(player);
         }
     },
 
@@ -898,6 +1018,8 @@ const EVENTS = [
     }
 ];
 
+window.EVENTS = EVENTS;
+
 function checkAllEvents(player){
     if (!player || player.inBattle) return false;
 
@@ -1043,6 +1165,159 @@ window.startBanditAttackDefeatEvent = function(player){
 
                 updateStatusUI(player);
                 savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startUndercityStory07AfterBattleEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "반란군 수장은 당신의 앞에 쓰러졌다. 그는 기회만 온다면 일어날 거라는 듯이 한쪽 무릎만 꿇은 채 당신을 노려보았다." +
+                "<br><br>\"도시의 사냥개 따위에게 목숨을 구걸할 생각은 없다.\"<br><br>" +
+                "그는 고개를 빳빳하게 들고 있었다. 당신이 무기를 그의 목에 겨누자 그는 조용히 '에르윈'이라는 이름을 입에 담았다. 그의 의지는 아직 꺾이지 않았다." +
+                "<br>이제 남은 것은 처형뿐이다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "그를 처형하지 않는다.",
+                    action : "undercity_story_07_eric_execution"
+                },
+                {
+                    text : "그를 처형한다.",
+                    action : "undercity_story_07_player_execution"
+                }
+            ]
+        }
+    ], player);
+};
+
+window.startUndercityStory07AfterLosingBattleEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "반란군 수장은 쓰러진 당신을 내려다보며 한손검을 다시 바로들었다." +
+                "<br><br>\"무지는 죄다.\"<br><br>" +
+                "그는 경비병의 옷을 입지 않은 당신이 도시의 사냥개가 아닐 수도 있다고 생각하는 거 같다. 하지만 당신을 바라보는 그의 시선은 차가웠다." +
+                "<br><br>\"네가 지금 도시의 사냥개가 아니더라도, 언젠가 너같은 놈이 도시의 사냥개가 된다고 생각하니 끔찍하군.\"<br><br>" +
+                "...이제 남은 것은 당신의 처형뿐이다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 반란군 수장을 올려다보았다.",
+                    action : "undercity_story_07_rebel_execution"
+                }
+            ]
+        }
+    ], player);
+};
+
+window.undercity_story_07_eric_execution = function(player){
+    startUndercityStory07EricExecutionEvent(player);
+};
+window.undercity_story_07_player_execution = function(player){
+    startUndercityStory07PlayerExecutionEvent(player);
+};
+window.undercity_story_07_rebel_execution = function(player){
+    startUndercityStory07RebelExecutionEvent(player);
+};
+
+function finishUndercityStory07(player){
+    player.flags = player.flags || {};
+    player.quest.completed = player.quest.completed || [];
+    player.flags.undercity_story_07_done = true;
+
+    if (!player.quest.completed.includes("undercity_story_07")){
+        player.quest.completed.push("undercity_story_07");
+    }
+
+    player.quest.active = null;
+    changeGold(player, 1500);
+    savePlayer(player);
+};
+
+window.startUndercityStory07EricExecutionEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 그의 목을 벨 수 없었다. 당신이 동작을 멈추자 반란군 수장은 놀란 듯 당신을 올려다보았다." +
+                "<br><br>\"...의구심을 품은 건가. 만약 네가 허락한다면 내가....\"<br><br>" +
+                "그의 말이 끝나기도 전에 그의 머리가 바닥으로 떨어졌다. 눈을 감지 못한 얼굴이 데굴데굴, 딱 3번 정도 굴렀다. 에릭은 자신의 발치에서 멈춘 그의 머리를 손에 들었다." +
+                "<br><br>\"잘했다, {ericTitle}.\"<br><br>" +
+                "그는 당신에게 훈장을 내밀었다. 그의 손에 묻은 피로 훈장이 붉어졌다.... <br>당신은 에릭에게서 훈장을 받았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeEmotion("eric", "affection", 3);
+                finishUndercityStory07(player);
+                addItem(player, ITEMS.misc.honorMedal);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startUndercityStory07PlayerExecutionEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 그의 목을 벴다. 데구르르, 바닥에 떨어진 그의 머리, 그는 죽을 때까지 눈을 감지 않았다. 반란군 수장이 죽자 반란군들의 기세가 꺾였다. 비명소리? 아니, 비명소리는 안 들리는 거 같다. 그저 생명의 소리가 소리없이 사라질 뿐이다. 경비병들은 함성을 지르며 이겼다고 말했다." +
+                " 그리고 에릭은 함성 소리 사이에 있는 당신을 향해 걸어왔다. 승리의 축가 속에서, 에릭은 당신에게 훈장을 내밀었다. 피 몇 방울 묻어있는, 붉은 훈장을." +
+                "<br><br>\"이 훈장으로 상류도시에 갈 수 있다.\"<br><br>" +
+                "그는 무표정으로 당신이 훈장을 받는 모습을 지켜보다가 마지막 한 마디를 덧붙였다." +
+                "<br><br>\"잘했다, {ericTitle}.\""
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeEmotion("eric", "affection", 5);
+                finishUndercityStory07(player);
+                addItem(player, ITEMS.misc.honorMedal);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startUndercityStory07RebelExecutionEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "반란군 수장이 당신의 목을 치려는 순간, 눈을 깜박였을 때 당신의 앞에는 에릭이 있었다. 그는 무표정으로 반란군 수장을 패기 시작했다. 그저 주먹만으로. 옆구리에 걸려있는 총마저 빼지 않는 그의 모습에 주변 사람들은 압도당했다. 정신을 못 차리는 반란군 수장의 목을 들어올리더니 에릭은 가지고 있던 단도로 그의 목을 그어버렸다. 반란군 수장의 얼굴이 퍽, 하고 길가에 널려있던 돌에 부딪혔다. 에릭은 차가운 시선으로 그 머리를 응시하다가 그 머리를 손에 들었다." +
+                " 반란군 기세가 꺾이고, 경비병 기세가 올라갔다. <br>\"죽여라!\" <br>광란. 상대방을 죽이기 위한 광기가 하늘을 찢는다. 그 광기 속에서 에릭은, 얼굴에 어떤 감정도 담지 않았다. 그는 그저 당신에게 다가와서 당신을 일으켰을 뿐이다." +
+                "<br><br>\"수고했다, {ericTitle}.\"<br><br>" +
+                "그는 당신에게 뭔가를 먹였다. 움직이지 않던 당신의 발이 조금씩 움직였다. 그는 간신히 서게 된 당신을 내려놓더니 당신의 가슴에 훈장을 꽂아넣었다." +
+                "<br><br>\"그걸로 상류도시에 갈 수 있을 거다.\"<br><br>" +
+                "그는 당신의 실패에 대해서 묻지 않았다. 그는 그대로 광기 속으로 사라져버렸다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeEmotion("eric", "affection", 1);
+                changeEmotion("eric", "dominance", 5);
+                changeEmotion("eric", "fear", 3);
+                finishUndercityStory07(player);
+                addItem(player, ITEMS.misc.honorMedal);
             }
         }
     ], player, {

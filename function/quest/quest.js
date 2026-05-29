@@ -268,6 +268,7 @@ const QUESTS = {
         onComplete : (player) => {
             player.flags = player.flags || {};
             player.flags.undercity_story_06_done = true;
+            player.flags.undercity_story_06_done_day = getCurrentDay(player);
             player.flags.banditHideout_cleared = true;
             player.flags.bandit_hideout_found = false;
             player.flags.eric_victim_collect_event01_unlocked = true;
@@ -284,7 +285,7 @@ const QUESTS = {
         type: "boss",
         repeatable: false,
         giver: "eric",
-        source : "barracks",
+        source : "event",
         
         desc: "에릭은 반란군 수장을 제거하라는 명령을 내렸다.",
         activeDesc: "반란군 진지로 들어가 수장을 쓰러뜨려야 한다.",
@@ -295,7 +296,7 @@ const QUESTS = {
         rewardGold: 1500,
         
         require: {
-            flag: "act1_rebel_leader_unlocked"
+            flag: "undercity_story_06_done"
         },
 
         onComplete: (player) => {
@@ -303,7 +304,7 @@ const QUESTS = {
             player.flags.undercity_story_07_done = true;
         },
         
-        acceptText: "에릭은 봉인된 명령서를 당신에게 내밀었다.<br><br>\"반란군의 수장을 처형해.\"",
+        acceptText: "에릭은 당신의 수락에 고개를 끄덕였다. <br>경계병 제1초소, 그곳은 깊은 숲에서 더 걸어가야 나오는 곳이다. 반란군은 대체 무슨 생각으로 거길 지나치려 하는 걸까. <br><br>그곳까지가, 그나마 안전한 경계선일 텐데.",
         completeText: "반란군 수장은 쓰러졌다."
     }
 };
@@ -323,7 +324,7 @@ window.open_tavernQuests = function(player){
     const choices = [];
 
     Object.values(QUESTS).forEach(quest => {
-        if (quest.source === "barracks") return;
+        if (quest.source === "event") return;
         const alreadyCompleted = player.quest.completed.includes(quest.id);
         
         if (!quest.repeatable && alreadyCompleted) return;

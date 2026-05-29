@@ -12,7 +12,7 @@
         },
         {
             "item" : "sword",
-            "chance" : 0.3
+            "chance" : 1
         }
     ],
     "teaseLines" : {

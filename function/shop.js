@@ -55,6 +55,15 @@ const SHOPS = {
             ITEMS.consumable.whiskey,
             ITEMS.consumable.soju
         ]
+    },
+    juliangShop : {
+        name : "불꽃과 보석 물품",
+        items : [
+            ITEMS.misc.ruby,
+            ITEMS.misc.sapphire,
+            ITEMS.misc.aquamarine,
+            ITEMS.misc.diamond
+        ]
     }
 };
 
@@ -290,3 +299,7 @@ function sellAllItems(player, itemKey){
 
     alert(`${items[0].name} ${items.length}개 판매! +${total}G`);
 }
+
+window.open_juliangShop = function(player){
+    openShop("juliangShop", player);
+};

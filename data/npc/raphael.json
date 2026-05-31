@@ -1,0 +1,39 @@
+{
+    "name" : "라파엘",
+    "hp" : 250,
+    "attack" : 27,
+    "defense" : 30,
+    "eva" : 25,
+    "type" : "minor",
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 80}
+            ],
+            "text" : "라파엘은 당신이 자신의 품에 있기를 바란다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50}
+            ],
+            "text" : "라파엘은 당신을 주시하고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 20}
+            ],
+            "text" : "라파엘은 당신을 길 잃은 어린양이라 생각하며 인도하고 싶어한다."
+        }
+    ],
+
+    "scenes" : {}
+}

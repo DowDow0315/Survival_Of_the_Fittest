@@ -52,8 +52,46 @@ function getEnhanceCost(item){
     const level = Number(item.enhance) || 0;
     return Math.round(1000 * Math.pow(1.67, level) / 100) * 100;
 }
-
 //게산 : 1,000 /1,700 / 2,800 / 4,700 / 7,800 / 13,000 / 21,700 / 36,200 / 60,500 / 100,900
+
+const RICHTOWN_ENHANCE_MATERIALS = {
+    6: [{ key: "ironOre", name: "철광석", count: 8 }],
+    7: [{ key: "silverOre", name: "은광석", count: 6 }],
+    8: [{ key: "goldOre", name: "금광석", count: 4 }],
+    9: [{ key: "whiteFlowerLeafStone", name: "백화석", count: 2 }],
+    10: [{ key: "whiteHeart", name: "백심장", count: 1 }]
+};
+
+function getRichTownEnhanceMaterials(nextLevel){
+    return RICHTOWN_ENHANCE_MATERIALS[nextLevel] || [];
+}
+
+function countInventoryItem(player, key){
+    return (player.inventory || []).filter(item => item.key === key).length;
+}
+
+function hasMaterials(player, materials){
+    return materials.every(mat => countInventoryItem(player, mat.key) >= mat.count);
+}
+
+function consumeMaterials(player, materials){
+    for (const mat of materials){
+        let need = mat.count;
+
+        for (let i = player.inventory.length - 1; i >= 0 && need > 0; i--){
+            if (player.inventory[i].key !== mat.key) continue;
+
+            player.inventory.splice(i, 1);
+            need--;
+        }
+    }
+}
+
+function getMaterialText(materials){
+    return materials
+        .map(mat => `${mat.name} x${mat.count}`)
+        .join(", ");
+}
 
 function enhanceItem(player, item, place = "default", customStat = null){
     if (!isEquipmentItem(item)) return false;
@@ -89,9 +127,23 @@ function enhanceItem(player, item, place = "default", customStat = null){
 
     const cost = getEnhanceCost(item);
 
+    const materials =
+    place === "richTown"
+        ? getRichTownEnhanceMaterials(nextLevel)
+        : [];
+        
+        if (materials.length > 0 && !hasMaterials(player, materials)){
+            addLog(`소재가 부족하다. 필요 소재: ${getMaterialText(materials)}`);
+            return false;
+        }
+
     if (!spendGold(player, cost)){
         addLog("돈이 부족하다.");
         return false;
+    }
+
+    if (materials.length > 0){
+        consumeMaterials(player, materials);
     }
 
     item.enhance = nextLevel;
@@ -127,8 +179,53 @@ function getEnhanceItemList(player){
     return [...equippedItems, ...inventoryItems];
 }
 
+const ENHANCE_STAT_LABELS = {
+    str: "힘",
+    dex: "민첩",
+    int: "지능",
+    charm: "매력"
+};
+
+function openEnhanceStatSelect(player, item, place){
+    const nextLevel = (Number(item.enhance) || 0) + 1;
+
+    startScene([
+        {
+            type: "text",
+            value:
+                `${getDisplayItemName(item)}을 +${nextLevel}로 강화한다.<br><br>` +
+                `어느 능력치를 강화할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                ...Object.entries(ENHANCE_STAT_LABELS).map(([stat, label]) => ({
+                    text: label,
+                    action: () => enhanceItem(player, item, place, stat)
+                })),
+                {
+                    text: "돌아간다",
+                    action: () => openEnhanceMenu(player, place)
+                }
+            ]
+        }
+    ], player);
+}
+
+function selectEnhanceAction(player, item, place){
+    const nextLevel = (Number(item.enhance) || 0) + 1;
+
+    if (nextLevel >= 5){
+        openEnhanceStatSelect(player, item, place);
+        return;
+    }
+
+    enhanceItem(player, item, place);
+}
+
 function openEnhanceMenu(player, place = "default"){
     const equipList = getEnhanceItemList(player);
+
     startScene([
         {
             type: "text",
@@ -138,8 +235,8 @@ function openEnhanceMenu(player, place = "default"){
             type: "choice",
             choices: [
                 ...equipList.map(item => ({
-                    text: `${getDisplayItemName(item)} (+${item.enhance || 0}) - ${getEnhanceCost(item)}G`,
-                    action: () => enhanceItem(player, item, place)
+                    text: getEnhanceChoiceText(item, place),
+                    action: () => selectEnhanceAction(player, item, place)
                 })),
                 {
                     text: "돌아간다",
@@ -150,6 +247,189 @@ function openEnhanceMenu(player, place = "default"){
     ], player);
 }
 
+function getEnhanceChoiceText(item, place = "default"){
+    const currentLevel = Number(item.enhance) || 0;
+    const nextLevel = currentLevel + 1;
+    const cost = getEnhanceCost(item);
+
+    const materials =
+        place === "richTown"
+            ? getRichTownEnhanceMaterials(nextLevel)
+            : [];
+
+    const materialText = materials.length > 0
+        ? ` + ${getMaterialText(materials)}`
+        : "";
+
+    return `${getDisplayItemName(item)} (+${currentLevel} → +${nextLevel}) - ${cost}G${materialText}`;
+}
+
+const GEM_SOCKET_CONFIG = {
+    ruby: {
+        name: "루비",
+        stat: "str",
+        amount: 5
+    },
+    sapphire: {
+        name: "사파이어",
+        stat: "int",
+        amount: 5
+    },
+    aquamarine: {
+        name: "아쿠아마린",
+        stat: "dex",
+        amount: 5
+    },
+    diamond: {
+        name: "다이아몬드",
+        stat: "charm",
+        amount: 5
+    }
+};
+
+function getSocketItemList(player){
+    return getEnhanceItemList(player).filter(canSocketGem);
+}
+
+function getGemList(player){
+    return (player.inventory || []).filter(item =>
+        item.key && GEM_SOCKET_CONFIG[item.key]
+    );
+}
+
+function socketGem(player, item, gem){
+    if (!canSocketGem(item)){
+        addLog("보석을 장착하려면 장비가 +10이어야 한다.");
+        return false;
+    }
+
+    if (item.socketGem){
+        addLog("이미 보석이 장착되어 있다.");
+        return false;
+    }
+
+    const gemConfig = GEM_SOCKET_CONFIG[gem.key];
+
+    if (!gemConfig){
+        addLog("장착할 수 없는 보석이다.");
+        return false;
+    }
+
+    item.socketGem = {
+        key: gem.key,
+        name: gemConfig.name,
+        stat: gemConfig.stat,
+        amount: gemConfig.amount
+    };
+
+    addEnhanceCustomBonus(item, gemConfig.stat, gemConfig.amount);
+
+    removeItem(player, gem);
+
+    savePlayer(player);
+    updateDerivedStats(player);
+    updateStatusUI(player);
+
+    addLog(`${getDisplayItemName(item)}에 ${gemConfig.name} 장착 완료! ${gemConfig.stat} +${gemConfig.amount}`);
+
+    openSocketMenu(player);
+    return true;
+}
+
+function openSocketMenu(player){
+    const socketItems = getSocketItemList(player);
+
+    startScene([
+        {
+            type: "text",
+            value: "어느 장비에 보석을 장착할까?"
+        },
+        {
+            type: "choice",
+            choices: [
+                ...socketItems.map(item => ({
+                    text: item.socketGem
+                        ? `${getDisplayItemName(item)} - ${item.socketGem.name} 장착됨`
+                        : `${getDisplayItemName(item)} - 보석 장착 가능`,
+                    action: () => {
+                        if (item.socketGem){
+                            addLog("이미 보석이 장착되어 있다.");
+                            openSocketMenu(player);
+                            return;
+                        }
+
+                        openGemSelectMenu(player, item);
+                    }
+                })),
+                {
+                    text: "돌아간다",
+                    action: () => startScene(getLocationScene(player), player)
+                }
+            ]
+        }
+    ], player);
+}
+
+function openGemSelectMenu(player, item){
+    const gems = getGemList(player);
+    if (gems.length === 0){
+        startScene([
+            {
+                type: "text",
+                value: "장착할 수 있는 보석이 없다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    {
+                        text: "돌아간다",
+                        action: () => openSocketMenu(player)
+                    }
+                ]
+            }
+        ], player);
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value:
+                `${getDisplayItemName(item)}에 어떤 보석을 장착할까?<br><br>` +
+                `한 번 장착한 보석은 되돌릴 수 없다.`
+        },
+        {
+            type: "choice",
+            choices: [
+                ...gems.map(gem => {
+                    const gemConfig = GEM_SOCKET_CONFIG[gem.key];
+
+                    return {
+                        text: `${gemConfig.name} - ${ENHANCE_STAT_LABELS[gemConfig.stat]} +${gemConfig.amount}`,
+                        action: () => socketGem(player, item, gem)
+                    };
+                }),
+                {
+                    text: "돌아간다",
+                    action: () => openSocketMenu(player)
+                }
+            ]
+        }
+    ], player);
+}
+
+window.open_juliangSocket = function(player){
+    openSocketMenu(player);
+};
+
+function canSocketGem(item){
+    return Number(item.enhance) >= 10;
+}
+
 window.open_matinEnhance = function(player){
     openEnhanceMenu(player, "matin");
+};
+
+window.open_juliangEnhance = function(player){
+    openEnhanceMenu(player, "richTown");
 };

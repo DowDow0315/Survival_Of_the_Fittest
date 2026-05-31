@@ -780,15 +780,52 @@ const ITEMS ={
             type : "junk",
             price : 500
         },
+
+        //강화재료
+        ironOre: {
+            name : "철광석",
+            type : "junk",
+            price : 500
+        },
+        silverOre: {
+            name : "은광석",
+            type : "junk",
+            price : 650
+        },
+        goldOre: {
+            name : "금광석",
+            type : "junk",
+            price : 800
+        },
+        whiteFlowerLeafStone: {
+            name : "백화석",
+            type : "junk",
+            price : 1000
+        },
+        whiteHeart: {
+            name : "백심장",
+            type : "junk",
+            price : 10000
+        },
         ruby : {
             name : "루비",
             type : "junk",
-            price : 1500
+            price : 5000
+        },
+        sapphire : {
+            name : "사파이어",
+            type : "junk",
+            price : 5000
+        },
+        aquamarine : {
+            name : "아쿠아마린",
+            type : "junk",
+            price : 5000
         },
         diamond : {
             name : "다이아몬드",
             type : "junk",
-            price : 2500
+            price : 5000
         },
 
         //퀘스트물품
@@ -813,7 +850,7 @@ const ITEMS ={
         dericLetter : {
             name : "데릭의 친필 서신",
             type : "key",
-            price : 4000
+            price : 5000
         }
     }
 };

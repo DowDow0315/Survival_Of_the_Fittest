@@ -273,3 +273,10 @@ window.finishUndercity03BarrackEvent = function(player){
 
     startScene(getLocationScene(player), player);
 };
+
+window.setLukeStopSmokingFlag = function(player){
+    player.flags = player.flags || {};
+    player.flags.luke_told_stop_smoking = true;
+    savePlayer(player);
+    return true;
+};

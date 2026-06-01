@@ -195,7 +195,7 @@
             document.getElementById("hpBar").style.width =
             (player.status.hp / player.status.maxHp)*100+"%";
             document.getElementById("hpText").innerText =
-            player.status.hp + " / " + player.status.maxHp;
+            Math.round(player.status.hp) + " / " + Math.round(player.status.maxHp);
 
             //stamina
             document.getElementById("staminaBar").style.width =
@@ -207,7 +207,7 @@
             document.getElementById("arousalBar").style.width =
             (player.status.arousal / player.status.maxArousal)*100+"%";
             document.getElementById("arousalText").innerText =
-            player.status.arousal + " / " + player.status.maxArousal;
+             Math.round(player.status.arousal) + " / " + Math.round(player.status.maxArousal);
 
             //trauma
             document.getElementById("traumaBar").style.width =

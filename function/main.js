@@ -1397,7 +1397,7 @@ function getUndercity05SearchHint(player){
 
     if (!isStory05) return "";
 
-    if (Math.random() >= 0.15) return "";
+    if (Math.random() >= 0.3) return "";
 
     if (!player.flags.undercity_05_cart_found){
         player.flags.undercity_05_cart_found = true;

@@ -267,23 +267,22 @@ function getEnhanceChoiceText(item, place = "default"){
 const GEM_SOCKET_CONFIG = {
     ruby: {
         name: "루비",
-        stat: "str",
-        amount: 5
+        trait: "chanceattack"
     },
+
     sapphire: {
         name: "사파이어",
-        stat: "int",
-        amount: 5
+        trait: "lucky"
     },
+
     aquamarine: {
         name: "아쿠아마린",
-        stat: "dex",
-        amount: 5
+        trait: "slippery"
     },
+
     diamond: {
         name: "다이아몬드",
-        stat: "charm",
-        amount: 5
+        trait: "onemoretime"
     }
 };
 
@@ -318,11 +317,8 @@ function socketGem(player, item, gem){
     item.socketGem = {
         key: gem.key,
         name: gemConfig.name,
-        stat: gemConfig.stat,
-        amount: gemConfig.amount
+        trait: gemConfig.trait
     };
-
-    addEnhanceCustomBonus(item, gemConfig.stat, gemConfig.amount);
 
     removeItem(player, gem);
 
@@ -330,7 +326,7 @@ function socketGem(player, item, gem){
     updateDerivedStats(player);
     updateStatusUI(player);
 
-    addLog(`${getDisplayItemName(item)}에 ${gemConfig.name} 장착 완료! ${gemConfig.stat} +${gemConfig.amount}`);
+    addLog(`${getDisplayItemName(item)}에 ${gemConfig.name} 장착 완료! (${getBattleTraitLabel(gemConfig.trait)})`);
 
     openSocketMenu(player);
     return true;
@@ -405,7 +401,7 @@ function openGemSelectMenu(player, item){
                     const gemConfig = GEM_SOCKET_CONFIG[gem.key];
 
                     return {
-                        text: `${gemConfig.name} - ${ENHANCE_STAT_LABELS[gemConfig.stat]} +${gemConfig.amount}`,
+                        text: `${gemConfig.name} - ${getBattleTraitLabel(gemConfig.trait)}`,
                         action: () => socketGem(player, item, gem)
                     };
                 }),
@@ -423,7 +419,7 @@ window.open_juliangSocket = function(player){
 };
 
 function canSocketGem(item){
-    return Number(item.enhance) >= 10;
+    return item?.type === "weapon" && Number(item.enhance) >= 10;
 }
 
 window.open_matinEnhance = function(player){

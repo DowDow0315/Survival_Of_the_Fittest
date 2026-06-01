@@ -1,15 +1,12 @@
+//발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
     once : true,
 
     condition : (player) =>
-        player.location === "richTownStreet" &&
-        !player.flags?.uppercity_first_entry_event_seen,
+        player.location === "richTownStreet",
 
     action : (player) => {
-        player.flags.uppercity_first_entry_event_seen = true;
-        savePlayer(player);
-
         startScene([
             {
                 type : "text",
@@ -27,5 +24,82 @@ window.EVENTS.push({
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)
         });
+    }
+});
+
+//줄리앙
+window.EVENTS.push({
+    id: "juliang_firstMeeting",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["juliang"].scenes.juliang_firstMeeting,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+//라파엘
+window.EVENTS.push({
+    id: "raphael_firstMeeting",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalHospital",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["raphael"].scenes.raphael_firstMeeting,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "raphael_trauma_warning",
+    once: false,
+
+    condition: (player) =>
+        player.location === "royalHospital" &&
+        player.status.trauma >= 60 &&
+        player.status.trauma < 80 &&
+        !player.flags?.raphaelTraumaWarned,
+
+    action: (player) => {
+        player.flags = player.flags || {};
+        player.flags.raphaelTraumaWarned = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["raphael"].scenes.raphael_traumaWarning,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "raphael_forced_hospitalization",
+    once: false,
+
+    condition: (player) =>
+        player.location === "royalHospital" &&
+        player.status.trauma >= 80 &&
+        !player.flags?.raphaelHospitalized,
+
+    action: (player) => {
+        startRaphaelForcedHospitalization(player);
     }
 });

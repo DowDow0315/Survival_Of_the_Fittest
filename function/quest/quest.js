@@ -690,6 +690,11 @@ function completeQuest(player){
         player.flags.story_goblin_cave_visible = false;
     }
 
+    if (quest.id === "goblin_cave_cleanup"){
+        player.flags = player.flags || {};
+        player.flags.goblin_cave_visible = false;
+    }
+
     player.quest.active = null;
 
     savePlayer(player);

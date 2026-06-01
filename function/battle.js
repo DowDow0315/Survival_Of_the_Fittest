@@ -146,18 +146,27 @@ function increaseEnemyArousalFromContact(target){
     if (!battleState) return;
 
     const player = battleState.player;
-    const gain = (typeof getCharmArousalGain === "function")
+
+    const baseGain = (typeof getCharmArousalGain === "function")
         ? getCharmArousalGain(player, 10)
         : 5;
+
+    const mod =
+        battleState.grapple && ["c", "a"].includes(target)
+            ? getTightnessEnemyArousalMod(player, target)
+            : 1;
+
+    const gain = Math.floor(baseGain * mod);
 
     battleState.enemyArousal = (battleState.enemyArousal || 0) + gain;
 
     if (battleState.enemyArousal >= (battleState.enemyMaxArousal || 100)){
         battleState.enemyArousal = 0;
+
         if (battleState.grapple){
             applyEnemyReleaseToPlayer(target);
         } else {
-            applyEnemySoloRelease()
+            applyEnemySoloRelease();
         }
     }
 }
@@ -404,7 +413,7 @@ function playerAttack(isBonusAttack = false){
     );
     
     // 치명타 (slippery)
-    if (player.battleTrait === "slippery" && Math.random() < 0.3){
+    if (hasBattleTrait(player, "slippery") && Math.random() < 0.3){
         damage *= 2;
         log("치명타!", "damage");
     }
@@ -420,12 +429,16 @@ function playerAttack(isBonusAttack = false){
     //예리한(chance Attack)
     if (
         !isBonusAttack &&
-        player.battleTrait === "chanceattack" &&
+        hasBattleTrait(player, "chanceattack") &&
         enemy.hp > 0 &&
         Math.random() < 0.2
     ){
         log("야호! 당신은 재빠르게 한번 더 공격할 기회를 잡았다!", "damage");
         battleState.chanceAttackReady = true;
+        battleState.energy = Math.min(
+            battleState.maxEnergy,
+            battleState.energy + 1
+        );
 
         updateBattleUI();
         return;
@@ -776,6 +789,16 @@ function updateBuffs(target){
     target.buffs = target.buffs.filter(buff => buff.remaining > 0);
 
     return dead;
+}
+
+function hasBattleTrait(player, trait){
+    if (player.battleTrait === trait) return true;
+
+    const weapon = player.equipment?.weapon;
+
+    if (weapon?.socketGem?.trait === trait) return true;
+
+    return false;
 }
 
 function playerTease(){
@@ -1345,8 +1368,7 @@ function tryEvade(target){
     let chance = eva / 200;
     
     //럭키(Lucky)
-    let bonus = 0;
-    if (target.battleTrait === "lucky" && Math.random()<0.3){
+    if (target === battleState.player && hasBattleTrait(target, "lucky") && Math.random() < 0.3){
         chance *=1.5;
         log("당신의 몸에 행운이 넘쳐흐른다! 럭키!")
     }
@@ -1473,6 +1495,20 @@ function handleGrappleAttack(enemy, player){
         pool = pool.filter(a => a.type !== "strip");
     }
 
+    if (battleState.grapple){
+        pool = pool.map(a => {
+            let bonus = 1;
+
+            if (a.type === "lust"){
+                bonus = 1.8;
+            }
+
+            return {
+                ...a,
+                chance: (a.chance || 1) * bonus
+            };
+        });
+    }
     const attack = pickByChance(pool);
 
     if (attack.type === "strip"){
@@ -1507,6 +1543,19 @@ function processGrappleAttack(attack, player){
         );
 
         player.status.arousal += dmg;
+        if (["c", "a"].includes(attack.target)){
+            const pain = getTightnessPainDamage(player, attack.target);
+
+            if (pain > 0){
+                player.status.hp -= pain;
+                log(`고통으로 ${pain}의 피해를 입었다!`, "damage");
+            }
+
+            if (player.status.hp <= 0){
+                endBattle("lose");
+                return;
+            }
+        }
         increaseSensitivity(player, attack.target, 1);
         increaseEnemyArousalFromContact(attack.target);
         checkArousalState(player);
@@ -1762,7 +1811,7 @@ function endBattle(result){
     }
 
     //onemoretime 지지않아
-    if (result === "lose" && player.battleTrait === "onemoretime" && !battleState.reviveUsed){
+    if (result === "lose" && hasBattleTrait(player, "onemoretime") && !battleState.reviveUsed){
 
         if (Math.random() < 0.2){
             battleState.reviveUsed = true;
@@ -1935,4 +1984,37 @@ function runCustomTurnEvent(){
 function formatStatNumber(value){
     const num = Number(value) || 0;
     return Number.isInteger(num) ? String(num) : num.toFixed(1);
+}
+
+//조임도 관련
+function getTightnessValue(player, part){
+    if (part === "c") return player.sexualTraits?.cTightness || "보통";
+    if (part === "a") return player.sexualTraits?.aTightness || "보통";
+    return "보통";
+}
+
+function getTightnessPainDamage(player, part){
+    const tightness = getTightnessValue(player, part);
+
+    switch (tightness){
+        case "뻑뻑함": return 12;
+        case "명기": return 8;
+        case "보통": return 5;
+        case "널널함": return 3;
+        case "허벌창": return 0;
+        default: return 5;
+    }
+}
+
+function getTightnessEnemyArousalMod(player, part){
+    const tightness = getTightnessValue(player, part);
+
+    switch (tightness){
+        case "뻑뻑함": return 1.5;
+        case "명기": return 1.3;
+        case "보통": return 1.0;
+        case "널널함": return 0.7;
+        case "허벌창": return 0.4;
+        default: return 1.0;
+    }
 }

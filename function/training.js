@@ -743,14 +743,14 @@ function processTrainingRest(playerAction){
     clampTrainingValues();
 }
 
-function increaseTrainingEnemyArousal(target){
+function increaseTrainingEnemyArousal(target, modifier = 1){
     if (!trainingState) return;
 
     const gain = (typeof getCharmArousalGain === "function")
         ? getCharmArousalGain(trainingState.player, 5)
         : 5;
 
-    trainingState.trainerArousal += gain;
+    trainingState.trainerArousal += Math.floor(gain * modifier);
 
     if (trainingState.trainerArousal >= trainingState.trainerMaxArousal){
         trainingState.trainerArousal = 0;
@@ -894,6 +894,15 @@ function processTrainingContact(playerAction, enemyAction){
         angerGain = -5
     }
 
+    let enemyArousalMod = 1;
+    
+    if (["c", "a"].includes(enemyAction.id)){
+        const extraPain = getTightnessPainDamage(player, enemyAction.id);
+        const tightnessMod = getTightnessEnemyArousalMod(player, enemyAction.id);
+        hpChange -= extraPain;
+        enemyArousalMod = tightnessMod;
+    }
+
     trainingState.trainerHp -= trainerDamage;
     trainingState.anger += angerGain;
     
@@ -904,7 +913,7 @@ function processTrainingContact(playerAction, enemyAction){
     updateStatusUI(player);
     savePlayer(player);
     
-    increaseTrainingEnemyArousal(enemyAction.id);
+    increaseTrainingEnemyArousal(enemyAction.id, enemyArousalMod);
 
     if (enemyAction.sensitivity){
         changeSensitivity(player, enemyAction.sensitivity, sensitivityGain);
@@ -1244,5 +1253,39 @@ function changeTrainingArousal(player, amount){
 
     if (player.status.arousal < 0){
         player.status.arousal = 0;
+    }
+}
+
+//조임도 관련
+
+function getTightnessValue(player, part){
+    if (part === "c") return player.sexualTraits?.cTightness || "보통";
+    if (part === "a") return player.sexualTraits?.aTightness || "보통";
+    return "보통";
+}
+
+function getTightnessPainDamage(player, part){
+    const tightness = getTightnessValue(player, part);
+
+    switch (tightness){
+        case "뻑뻑함": return 12;
+        case "명기": return 8;
+        case "보통": return 5;
+        case "널널함": return 3;
+        case "허벌창": return 0;
+        default: return 5;
+    }
+}
+
+function getTightnessEnemyArousalMod(player, part){
+    const tightness = getTightnessValue(player, part);
+
+    switch (tightness){
+        case "뻑뻑함": return 1.5;
+        case "명기": return 1.3;
+        case "보통": return 1.0;
+        case "널널함": return 0.7;
+        case "허벌창": return 0.4;
+        default: return 1.0;
     }
 }

@@ -14,6 +14,7 @@ const LOCATION_SCENE_BUILDERS = {
     goblinCave : buildGoblinCaveScene,
     richTownEntrance : buildRichTownEntranceScene,
     royalForge : buildRoyalForgeScene,
+    royalHospital : buildRoyalHospitalScene,
     gloryHole: getGloryHoleScene
 };
 
@@ -138,7 +139,11 @@ function buildForestScene(player, loc, randomDesc){
 }
 
 function buildDeepForestScene(player, loc, randomDesc){
-    const caveVisible = player.flags?.goblin_cave_visible;
+    const isGoblinCleanup =
+        player.quest?.active?.id === "goblin_cave_cleanup";
+
+    const caveVisible = player.flags?.goblin_cave_visible &&
+                        isGoblinCleanup;
 
     const canEnterStoryCave =
         player.flags?.story_goblin_cave_visible &&
@@ -686,7 +691,7 @@ function buildRoyalForgeScene(player, loc, randomDesc){
             type: "choice",
             choices: [
                 { text: "강화한다", action: "open_juliangEnhance" },
-                { text: "보석을 장착한다", action: "open_juliangSocket" },
+                { text: "보석으로 강화한다", action: "open_juliangSocket" },
                 { text: "상점을 연다", action: "open_juliangShop" },
                 { text: "줄리앙과 대화한다", action: "juliang_talk" },
                 { text: "돌아간다", action: "move_richTownStreet" }
@@ -695,6 +700,35 @@ function buildRoyalForgeScene(player, loc, randomDesc){
     ];
 }
 
+function buildRoyalHospitalScene(player, loc, randomDesc){
+    if (player.status?.trauma >= 100){
+        return buildForcedHospitalizationScene(player);
+    }
+
+    const traumaWarning =
+        player.status?.trauma >= 80
+            ? `<br><br>의사는 진료기록을 보더니 잠시 침묵했다.<br><br>"...당신은 치료보다 안정이 먼저 필요합니다."`
+            : "";
+
+    return [
+        {
+            type: "text",
+            value:
+                `${randomDesc}` +
+                traumaWarning +
+                `<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "트라우마 치료를 받는다", action: "hospital_traumaCare" },
+                { text: "민감도 수술을 받는다", action: "hospital_sensitivityMenu" },
+                { text: "신체 개조 상담을 받는다", action: "hospital_bodyModifyMenu" },
+                { text: "나간다", action: "move_richTownStreet" }
+            ]
+        }
+    ];
+}
 
 function getGloryHoleScene(player){
     return [

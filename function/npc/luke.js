@@ -112,10 +112,93 @@ registerActions("luke", {
     },
 
     patrol_event: (player) => {
-        const patrolEvents = NPC_DATA["luke"].scenes.luke_patrol_events;
+        const patrolEvents = [
+            ...NPC_DATA["luke"].scenes.luke_patrol_events
+        ];
+        
+        const canUseUnsmoke =
+        player.flags?.luke_told_stop_smoking &&
+        NPC_DATA["luke"].emotion.affection > 50;
+        
+        if (canUseUnsmoke) {
+            patrolEvents.push(
+                ...NPC_DATA["luke"].scenes.luke_patrol_unsmoke_events
+            );
+        } else {
+            patrolEvents.push(
+                ...NPC_DATA["luke"].scenes.luke_patrol_smoke_events
+            );
+        }
+        
         const scene = patrolEvents[Math.floor(Math.random() * patrolEvents.length)];
+        startScene(scene, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });
+    },
+
+    missing_player_event_answer_sayYes: (player) => {
+        const isMale = player.gender === "male";
+        
+        const scene = isMale
+        ? NPC_DATA["luke"].scenes.luke_missing_player_event_sayYes_male
+        : NPC_DATA["luke"].scenes.luke_missing_player_event_sayYes_female;
         
         startScene(scene, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });
+    },
+
+    patience_limit_accept: (player) => {
+        const scene = player.gender === "male"
+        ? NPC_DATA["luke"].scenes.luke_patience_limit_accept_male
+        : NPC_DATA["luke"].scenes.luke_patience_limit_accept_female;
+        startScene(scene, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });
+    },
+    
+    patience_limit_refuse: (player) => {
+        const luke = NPC_DATA["luke"].emotion;
+        const forceScene = player.gender === "male"
+        ? NPC_DATA["luke"].scenes.luke_patience_limit_force_male
+        : NPC_DATA["luke"].scenes.luke_patience_limit_force_female;
+        
+        const forceCondition =
+        luke.fear > 60 ||
+        luke.dominance > luke.affection;
+        
+        if (forceCondition) {
+            startScene(forceScene, player, {
+                onEnd: () => startScene(getLocationScene(player), player)
+            });
+            return;
+        }
+        
+        if (luke.affection > 70) {
+            startScene(
+                NPC_DATA["luke"].scenes.luke_patience_limit_respect,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+        
+        const playerStr = getPlayerStat(player, "str");
+        
+        if (playerStr >= 15) {
+            startScene(
+                NPC_DATA["luke"].scenes.luke_patience_limit_escape,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+        
+        startScene(forceScene, player, {
             onEnd: () => startScene(getLocationScene(player), player)
         });
     }

@@ -1022,6 +1022,7 @@ window.EVENTS = EVENTS;
 
 function checkAllEvents(player){
     if (!player || player.inBattle) return false;
+    updateLukeUndercityAbsence(player);
 
     // 에릭 수금 이벤트는 1주(1680 time) 경과 후 최우선순위 이벤트. 주당 1회만 발생
     if (shouldTriggerEricWeeklyPayment(player)){

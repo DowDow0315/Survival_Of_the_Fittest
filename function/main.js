@@ -161,8 +161,7 @@ function resumeCurrentScene(player){
         const scene = window.DUNGEON_EVENTS?.[cs.dungeonId]?.[cs.eventId];
 
         if (!scene){
-            player.currentScene = null;
-            savePlayer(player);
+            console.warn("던전 이벤트 복원 실패. 이벤트 데이터가 아직 없거나 ID가 틀림:", cs);
             return false;
         }
 

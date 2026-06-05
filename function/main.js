@@ -166,7 +166,7 @@ function resumeCurrentScene(player){
         }
 
         startScene(scene, player, {
-            resumeIndex: cs.index,
+            resumeIndex: getSafeResumeIndex(scene, cs.index),
             sceneState: {
                 type: "dungeonEvent",
                 dungeonId: cs.dungeonId,

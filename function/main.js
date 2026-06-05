@@ -158,7 +158,7 @@ function resumeCurrentScene(player){
     if (!cs?.active) return false;
 
     if (cs.type === "dungeonEvent"){
-        const scene = DUNGEON_EVENTS?.[cs.dungeonId]?.[cs.eventId];
+        const scene = window.DUNGEON_EVENTS?.[cs.dungeonId]?.[cs.eventId];
 
         if (!scene){
             player.currentScene = null;

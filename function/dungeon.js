@@ -236,6 +236,8 @@ const DUNGEONS = {
 }
 }
 
+window.DUNGEON_EVENTS = DUNGEON_EVENTS;
+
 //던전 보물상자
 function checkDungeonChest(player){
     const room = getCurrentDungeonRoom(player);

@@ -1319,7 +1319,7 @@ function removeClothes(player){
     log(`${item.name}이 벗겨졌다!`);
 
     // 뺏김
-    if (Math.random() < 0.2){
+    if (Math.random() < 0.25){
         const itemName = item.name;
         item.lost = true;
 

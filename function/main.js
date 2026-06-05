@@ -1705,15 +1705,53 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
     changeArousal(player, -5);
     passTime(player, 10);
 
-    let dangerChance = fromLocation === "deepForest" ? 0.35 : 0.25;
-    dangerChance = clamp(dangerChance + getBodyFluidDebuffLevel(player) * 0.05, 0, 0.75);
+    const eventScene =
+        typeof window.rollEscapeAreaEvent === "function"
+            ? window.rollEscapeAreaEvent(player, fromLocation, targetLocation)
+            : null;
 
-    if (Math.random() < dangerChance){
-        const enemyId = getEncounterEnemyForLocation(fromLocation) || "slime";
-        startBattle(enemyId, player, { noEscape: false });
+    if (eventScene){
+        startScene(eventScene, player, {
+            onEnd: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key)
+        });
         return;
     }
 
+    const DANGER_CHANCE_BY_LOCATION = {
+        forest: 0.20,
+        deepForest: 0.30,
+        banditForest: 0.35,
+
+        guardPost1: 0.35,
+        guardPost2: 0.40,
+        guardPost3: 0.50,
+
+        wastedRuin: 0.70,
+        whiteFlowerTomb: 0.70
+    };
+    
+    let dangerChance = DANGER_CHANCE_BY_LOCATION[fromLocation] ?? 0.25;
+    
+    dangerChance = clamp(
+        dangerChance + getBodyFluidDebuffLevel(player) * 0.05,
+        0,
+        0.85
+    );
+
+    if (Math.random() < dangerChance){
+        const enemyId = getEncounterEnemyForLocation(fromLocation) || "slime";
+        startBattle(enemyId, player, {
+            noEscape: false,
+            onWin: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key),
+            onEscape: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key)
+        });
+        return;
+    }
+
+    finishEscapeAreaStep(player, targetLocation, requiredSteps, key);
+}
+
+function finishEscapeAreaStep(player, targetLocation, requiredSteps, key){
     if (player.escapeProgress[key] >= requiredSteps){
         player.escapeProgress[key] = 0;
         player.location = targetLocation;
@@ -1730,7 +1768,8 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
     }
 
     showSingleTextScene(
-        "당신은 길을 더듬으며 빠져나가려 했다. 아직 더 걸어야 할 것 같다. (" + player.escapeProgress[key] + "/" + requiredSteps + ")",
+        "당신은 길을 더듬으며 빠져나가려 했다. 아직 더 걸어야 할 것 같다. (" +
+        player.escapeProgress[key] + "/" + requiredSteps + ")",
         player
     );
 }

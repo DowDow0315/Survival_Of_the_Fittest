@@ -4,7 +4,7 @@ function processDericText(text, player){
 }
 
 function getDericTitle(player){
-    if (NPC_DATA["deric"].emotion.affection > 80) return "아들";
+    if (NPC_DATA["deric"].emotion.affection > 80) return "천사";
     else if(NPC_DATA["deric"].emotion.affection > 50) return "파트너";
     return "꼬마";
 }

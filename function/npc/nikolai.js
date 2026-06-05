@@ -51,6 +51,6 @@ window.giveDericLetter = function(player){
         addItem(player, ITEMS.misc.dericLetter);
     }
 
-    player.flags.derekLetterReceived = true;
+    player.flags.dericLetterReceived = true;
     savePlayer(player);
 };

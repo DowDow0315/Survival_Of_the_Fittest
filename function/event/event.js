@@ -360,7 +360,7 @@ const EVENTS = [
         }
     },
     {
-        id : "nikolai_derek_intro_event",
+        id : "nikolai_deric_intro_event",
         once : true,
         
         condition : (player) =>
@@ -369,14 +369,14 @@ const EVENTS = [
             player.flags?.nikolai_dayoff_event_seen &&
             (player.flags?.gloryHoleTotalEarn || 0) >= 20000 &&
             NPC_DATA["nikolai"].emotion.affection >= 60 &&
-            !player.flags?.nikolai_derek_intro_seen,
+            !player.flags?.nikolai_deric_intro_seen,
             
         action : (player) => {
-            player.flags.nikolai_derek_intro_seen = true;
+            player.flags.nikolai_deric_intro_seen = true;
             savePlayer(player);
             
             startScene(
-                NPC_DATA["nikolai"].scenes.nikolai_derek_intro_event,
+                NPC_DATA["nikolai"].scenes.nikolai_deric_intro_event,
                 player,
                 {
                     onEnd : () => startScene(getLocationScene(player), player)
@@ -385,21 +385,21 @@ const EVENTS = [
         }
     },
     {
-        id : "nikolai_sold_derek_letter",
+        id : "nikolai_sold_deric_letter",
         
         condition : (player) =>
             player.justMoved &&
             player.location === "gloryHole" &&
-            player.flags?.derekLetterReceived &&
+            player.flags?.dericLetterReceived &&
             !hasItem(player, "데릭의 친필 서신") &&
-            !player.flags?.nikolai_sold_derek_letter_seen,
+            !player.flags?.nikolai_sold_deric_letter_seen,
             
         action : (player) => {
-            player.flags.nikolai_sold_derek_letter_seen = true;
+            player.flags.nikolai_sold_deric_letter_seen = true;
             savePlayer(player);
             
             startScene(
-                NPC_DATA["nikolai"].scenes.nikolai_sold_derek_letter,
+                NPC_DATA["nikolai"].scenes.nikolai_sold_deric_letter,
                 player,
                 {
                     onEnd : () => startScene(getLocationScene(player), player)
@@ -580,7 +580,9 @@ const EVENTS = [
                             "경계병 1초소에 도착했을 때, 경비병들과 반란군들은 이미 전투를 벌이고 있었다. 그리고 가장 가운데에서, 당신은 반란군 수장을 보았다. 멀리서 봐도 누가 반란군 수장인지는 알 수 있었다. 한손검을 들고 있는 그는 무리 중에서 가장 빛나고 있는 사람이었다. 그의 말 한 마디에 사람들은 다시 힘을 내어 싸웠고, 그는 망토를 두르고 있는 초소단장과 맞서고 있었다." +
                             "<br><br>\"더러운 도시의 사냥개들을 용서하지 말자!\"<br><br>" +
                             "반란군 수장은 그 말을 외치더니 그대로 초소단장의 목을 베었다. 날렵한 곡선을 그으며 초소단장의 머리를 목에서 분리한 그의 한손검에서 피가 흘뿌려졌다. 적의 수장의 목을 땄다는 소식에 반란군들의 사기가 올랐다. 여기서 사기가 더 오르면 위험하다. 당신은 반란군 수장을 막아섰다." +
-                            " 반란군 수장은 경비병 옷을 입고 있지 않은 당신을 보고 인상을 찌푸렸다. 하지만 그것도 잠시, 그는 당신을 적으로 간주하고 당신의 목에 한손검을 겨누었다. 전투가 시작된다...!"
+                            " 반란군 수장은 경비병 옷을 입고 있지 않은 당신을 보고 인상을 찌푸렸다. 하지만 그것도 잠시, 그는 당신을 적으로 간주하고 당신의 목에 한손검을 겨누었다." +
+                            "<br><br>\"우리는 아직 죽지 않았다!\"<br><br>" +
+                            "전투가 시작된다...!"
                         ]
                     },
                     {
@@ -683,8 +685,8 @@ const EVENTS = [
                                         player,
                                         getSensitivityArousalGain(player, "c", 5)
                                     );
-                                    changeSensitivity(player, "cSensitivity", 10);
-                                    changeSensitivity(player, "aSensitivity", 10);
+                                    changeSensitivity(player, "cSensitivity", 3);
+                                    changeSensitivity(player, "aSensitivity", 3);
                                     }
                                 }
                             ]
@@ -714,7 +716,8 @@ const EVENTS = [
                                 {
                                     type: "effect",
                                     run: (player) => {
-                                    changeArousal(player, +10);
+                                    changeArousal(player, 10);
+                                    changeSensitivity(player, "bSensitivity", 3);
                                     }
                                 }
                             ]
@@ -992,7 +995,7 @@ const EVENTS = [
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, -10);
-                                        changeEmotion("yuri", "affection", 5);
+                                        changeEmotion("yuri", "affection", 2);
                                         passTime(player, 10);
                                     }
                                 }

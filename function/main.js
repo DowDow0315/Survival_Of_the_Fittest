@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (player.currentScene?.active){
+        if (resumeCurrentScene(player)) return;
         startScene(player.currentScene.scene, player, {
             resumeIndex: getSafeResumeIndex(player.currentScene.scene, player.currentScene.index)
         });
@@ -126,11 +127,19 @@ function saveCurrentSceneState(scene, index, player, options = {}){
     if (!player || options.noSaveScene) return;
 
     try {
-        player.currentScene = {
-            active: true,
-            scene: JSON.parse(JSON.stringify(scene)),
-            index: index
-        };
+        if (options.sceneState){
+            player.currentScene = {
+                active: true,
+                ...options.sceneState,
+                index
+            };
+        } else {
+            player.currentScene = {
+                active: true,
+                scene: JSON.parse(JSON.stringify(scene)),
+                index
+            };
+        }
 
         localStorage.setItem("playerData", JSON.stringify(player));
     } catch (e){
@@ -144,6 +153,40 @@ function clearCurrentSceneState(player){
     localStorage.setItem("playerData", JSON.stringify(player));
 }
 
+function resumeCurrentScene(player){
+    const cs = player.currentScene;
+    if (!cs?.active) return false;
+
+    if (cs.type === "dungeonEvent"){
+        const scene = DUNGEON_EVENTS?.[cs.dungeonId]?.[cs.eventId];
+
+        if (!scene){
+            player.currentScene = null;
+            savePlayer(player);
+            return false;
+        }
+
+        startScene(scene, player, {
+            resumeIndex: getSafeResumeIndex(scene, cs.index),
+            sceneState: {
+                type: "dungeonEvent",
+                dungeonId: cs.dungeonId,
+                eventId: cs.eventId
+            },
+            onEnd: () => {
+                if (checkArousalRelease(player, () => {
+                    startScene(buildDungeonScene(player), player);
+                })) return;
+
+                startScene(buildDungeonScene(player), player);
+            }
+        });
+
+        return true;
+    }
+
+    return false;
+}
 
 function getSafeResumeIndex(scene, index){
     index = Number.isInteger(index) ? index : 0;

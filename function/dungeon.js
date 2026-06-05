@@ -920,6 +920,11 @@ function runDungeonEvent(player, eventId){
     }
 
     runScene(events[finalEventId], player, {
+        sceneState: {
+            type: "dungeonEvent",
+            dungeonId: dungeon.id,
+            eventId: finalEventId
+        },
         onEnd: () => {
             if (checkArousalRelease(player, () => {
                 startScene(buildDungeonScene(player), player);

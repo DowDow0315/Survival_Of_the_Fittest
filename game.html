@@ -896,10 +896,16 @@
                 return;
             }
 
-            if (player.dungeon?.active){
-                player.currentScene = null;
-                localStorage.setItem("playerData", JSON.stringify(player));
+            if (player.currentScene?.active){
+                if (resumeCurrentScene(player)) return;
                 
+                startScene(player.currentScene.scene, player, {
+                    resumeIndex: getSafeResumeIndex(player.currentScene.scene, player.currentScene.index)
+                });
+                return;
+            }
+                        
+            if (player.dungeon?.active){
                 renderMap(player);
                 startScene(buildDungeonScene(player), player, { noSaveScene: true });
                 return;

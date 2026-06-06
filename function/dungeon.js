@@ -207,7 +207,7 @@ const DUNGEONS = {
             r4c7: { name: "포로방", exits: { down: "r5c7" }, noEncounter: true, roomEvent: "bandit_prison_room", seenFlag: "bandit_prison_room_seen", repeatEvent: "bandit_prison_room_repeat" },
 
             r3c1: { name: "창고 통로", exits: { down: "r4c1", right: "r3c2" } },
-            r3c2: { name: "통로 길목", exits: { left: "r3c1", right: "r3c3" } },
+            r3c2: { name: "통로 길목", exits: { left: "r3c1", right: "r3c3", up : "r2c2" } },
             r3c3: { name: "통로", exits: { left: "r3c2", right: "r3c4" } },
             r3c4: { name: "중앙 통로", exits: { left: "r3c3", up: "r2c4", down: "r4c4" } },
 

@@ -179,7 +179,7 @@ const DUNGEONS = {
             r9c2: { name: "비밀통로", exits: { left: "r9c1", right: "r9c3" }, noEncounter: true, event : "bandit_secret_note" },
             r9c3: { name: "비밀통로", exits: { left: "r9c2", right: "r9c4" }, noEncounter: true },
             r9c4: { name: "중앙 통로", exits: { left: "r9c3", up: "r8c4" } },
-            r9c6: { name: "화려한 복도", exits: { right: "r9c7" }, roomEvent: "bandit_luke_event", noEncounter: true },
+            r9c6: { name: "화려한 복도", exits: { up : "r8c6", right: "r9c7" }, roomEvent: "bandit_luke_event", noEncounter: true },
             r9c7: { name: "화려한 방", exits: { left: "r9c6", right: "r9c8" }, noEncounter: true },
             r9c8: { name: "트로피방", exits: { left: "r9c7" }, noEncounter: true },
 
@@ -1003,7 +1003,7 @@ function runDungeonRoomEvent(player, eventId){
                         "그는 피묻은 너클을 끼고 있다가 당신을 돌아보았다. 그는 당신을 위아래로 훑어보더니 코웃음을 쳤다.<br><br>" +
                         "\"하. 피냄새가 나는 곳은 잘도 찾아오는군.\"<br><br>" +
                         "루크는 너클을 털어냈다. 핏방울들이 화려한 복도 바닥을 더럽힌다. 그는 으르렁거리는 목소리로 당신에게 신경끄라고 말한 뒤 화려한 문을 열고 들어가버렸다. 루크가 닫은 건지, 아니면 원래 닫히는 문인 건지, 그가 들어가고 나서 화려한 문이 쿵 닫혔다." +
-                        "<br><br>\"루, 루크...!?\"<br><br>\"하. 내 이름 부를 혀가 아직도 남아있었나?\"<br><br>" +
+                        "<br><br>\"루, 루크...!?\"<br><br>\"내 이름 부를 혀가 아직도 남아있었나?\"<br><br>" +
                         "챙, 하고 쇠가 부딪히는 소리가 들렸다. 싸우고 있는 소리다."
             },
             {

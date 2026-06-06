@@ -594,9 +594,9 @@ const ITEMS ={
     },
     consumable : {
         smallPotion : {
-            name: "요구르트(20)",
+            name: "요구르트(25)",
             type: "heal",
-            value: 30,
+            value: 25,
             price: 700
         },
         mediumPotion : {

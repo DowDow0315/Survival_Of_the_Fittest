@@ -1763,6 +1763,13 @@ window.startBanditLukeFightWin = function(player){
                                 passTime(player, 5);
                                 savePlayer(player);        
                             }
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                startBanditLukeTrophyRoom(player);
+                                return true;
+                            }
                         }
                     ]
                 },
@@ -1786,14 +1793,19 @@ window.startBanditLukeFightWin = function(player){
                                 passTime(player, 5);
                                 savePlayer(player);        
                             }
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                startBanditLukeTrophyRoom(player);
+                                return true;
+                            }
                         }
                     ]
                 }
             ]
         }
-    ], player, {
-        onEnd: () => startBanditLukeTrophyRoom(player)
-    });
+    ], player);
 };
 
 window.startBanditLukeFightLose = function(player){

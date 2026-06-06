@@ -1781,6 +1781,8 @@ function startPlayerTurn(){
         enemyTurn();
         return false;
     }
+
+    runCustomTurnEvent();
     return true;
 }
 function startEnemyTurn(){
@@ -1913,8 +1915,6 @@ function endEnemyTurn(){
         endBattle("win");
         return;
     }
-
-    runCustomTurnEvent();
 
     battleState.energy = Math.min(
         battleState.maxEnergy,

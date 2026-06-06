@@ -1781,8 +1781,6 @@ function startPlayerTurn(){
         enemyTurn();
         return false;
     }
-
-    runCustomTurnEvent();
     return true;
 }
 function startEnemyTurn(){

@@ -2025,7 +2025,7 @@ function handleBanditBossWin(player){
         {
             type: "choice",
             choices: [
-                { text: "던전 밖으로 돌아간다", action: "leave_dungeon_after_boss" },
+                { text: "던전 밖으로 나가 길거리로 돌아간다", action: "leave_dungeon_after_boss" },
                 { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
             ]
         }

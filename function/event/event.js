@@ -808,7 +808,7 @@ const EVENTS = [
         } 
     },
     {
-        id: "shelter_money_event1",
+        id: "shelter_money_event_01",
         condition: (player) =>
             player.justMoved &&
             player.location === "shelter" &&
@@ -1241,6 +1241,7 @@ function finishUndercityStory07(player){
     player.flags = player.flags || {};
     player.quest.completed = player.quest.completed || [];
     player.flags.undercity_story_07_done = true;
+    player.flags.undercity_story_07_done_day = getCurrentDay(player);
 
     if (!player.quest.completed.includes("undercity_story_07")){
         player.quest.completed.push("undercity_story_07");

@@ -15,7 +15,7 @@
         "fear" : 0
     },
 
-    "defaultStatusLine" : "<span class='status-danger'>그것은 당신을 만나고 싶어한다.</span>",
+    "defaultStatusLine" : "<span class='log-pale'>그것은 당신을 만나고 싶어한다.</span>",
 
     "statusLines" : [
         {

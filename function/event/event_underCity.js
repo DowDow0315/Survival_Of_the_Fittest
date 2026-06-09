@@ -33,7 +33,7 @@ window.EVENTS.push({
         NPC_DATA["luke"].emotion.affection > 80 &&
         !["townEntrance", "townStreet", "darkStreet", "barracks"].includes(player.location) &&
         getLukeUndercityAbsenceDays(player) >= 14 &&
-        Math.random() < 0.15,
+        Math.random() < 0.3,
 
     action : (player) => {
         player.flags = player.flags || {};
@@ -136,7 +136,7 @@ window.EVENTS.push({
         player.location === "shop" &&
         player.flags?.undercity_story_06_done &&
         getCurrentDay(player) >= player.flags.undercity_story_06_done_day + 1 &&
-        Math.random() < 0.03,
+        Math.random() < 0.1,
 
     action : (player) => {
         savePlayer(player);
@@ -161,7 +161,7 @@ window.EVENTS.push({
         getCurrentDay(player) >= player.flags.undercity_story_06_done_day + 1 &&
         NPC_DATA["sora"].emotion.affection >= 50 &&
         NPC_DATA["luke"].emotion.affection >= 50 &&
-        Math.random() < 0.003,
+        Math.random() < 0.05,
 
     action : (player) => {
         savePlayer(player);
@@ -188,7 +188,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.affection < 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.hp < 50 &&
-        Math.random() < 0.07,
+        Math.random() < 0.2,
 
     action : (player) => {
         savePlayer(player);
@@ -212,7 +212,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.affection >= 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.hp < 50 &&
-        Math.random() < 0.07,
+        Math.random() < 0.3,
 
     action : (player) => {
         startScene(NPC_DATA["yuri"].scenes.yuri_shelter_heal_event_high_affection, player, {
@@ -231,7 +231,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.trauma > 60 &&
         player.status.hp >= 50 &&
-        Math.random() < 0.07,
+        Math.random() < 0.2,
 
     action : (player) => {
         savePlayer(player);
@@ -578,7 +578,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "townStreet" &&
-        Math.random() < 0.05,
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene([
@@ -638,7 +638,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        Math.random() < 0.04,
+        Math.random() < 0.08,
 
     action : (player) => {
         startScene([
@@ -673,7 +673,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        Math.random() < 0.04,
+        Math.random() < 0.08,
 
     action : (player) => {
         startScene([
@@ -704,7 +704,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "shelter" &&
         player.flags?.metNikolai &&
-        Math.random() < 0.003,
+        Math.random() < 0.05,
 
     action : (player) => {
         startScene([
@@ -797,7 +797,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "townStreet" &&
-        Math.random() < 0.07,
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene([
@@ -878,7 +878,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "darkStreet" &&
-        Math.random() < 0.05,
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene([
@@ -952,7 +952,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        Math.random() < 0.04,
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene([
@@ -1005,7 +1005,7 @@ window.EVENTS.push({
         ["townStreet", "darkStreet"].includes(player.location) &&
         player.flags?.undercity_story_06_done &&
         getCurrentDay(player) >= (player.flags.undercity_story_06_done_day + 1) &&
-        Math.random() < 0.005,
+        Math.random() < 0.01,
 
     action : (player) => {
         savePlayer(player);
@@ -1086,7 +1086,7 @@ window.EVENTS.push({
         ["townStreet", "darkStreet"].includes(player.location) &&
         player.flags?.undercity_story_06_done &&
         getCurrentDay(player) >= player.flags.undercity_story_06_done_day + 1 &&
-        Math.random() < 0.03,
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene([

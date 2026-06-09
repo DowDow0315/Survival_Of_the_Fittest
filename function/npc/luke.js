@@ -361,5 +361,4 @@ window.setLukeStopSmokingFlag = function(player){
     player.flags = player.flags || {};
     player.flags.luke_told_stop_smoking = true;
     savePlayer(player);
-    return true;
 };

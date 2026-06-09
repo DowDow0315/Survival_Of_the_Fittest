@@ -280,8 +280,6 @@ window.runLukeNormalCheckDexFail = function(player){
         ];
 
     effects.forEach(effect => applyEffect(effect, player));
-
-    return true;
 };
 
 window.runLukeNormalCheckSubmissive = function(player, options){

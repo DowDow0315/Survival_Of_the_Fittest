@@ -233,10 +233,10 @@ window.sora_patience_limit_outside_after_fail = function(player){
     changeEmotion("sora", "lust", -100);
     changeEmotion("sora", "dominance", 5);
     changeTrauma(player, 8);
-    changeSensitivity(player, "msensitivity", 8);
-    changeSensitivity(player, "asensitivity", 8);
-    changeSensitivity(player, "csensitivity", 8);
-    changeSensitivity(player, "bsensitivity", 8);
+    changeSensitivity(player, "mSensitivity", 8);
+    changeSensitivity(player, "aSensitivity", 8);
+    changeSensitivity(player, "cSensitivity", 8);
+    changeSensitivity(player, "bSensitivity", 8);
     addBodyFluid(player, "m", 50);
     addBodyFluid(player, "a", 50);
     addBodyFluid(player, "c", 50);

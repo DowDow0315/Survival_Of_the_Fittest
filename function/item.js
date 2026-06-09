@@ -278,7 +278,52 @@ const WEAPON_SKILLS = {
             cost : 4,
             type : "multiHit",
             power : 0.5,
-            hits : 9
+            hits : 9,
+            unlock : 300
+        }
+    ],
+    "경계병창" : [
+        {
+            name : "창모으기",
+            cost : 1,
+            type : "buff",
+            effect : {
+                id : "player_prepare_soldierSpear",
+                atkMult : 1.2
+            },
+            duration : 4,
+            unlock : 20
+        },
+        {
+            name : "연속찌르기",
+            cost : 3,
+            type : "multiHit",
+            power : 0.5,
+            hits : 7,
+            unlock : 100
+        },
+        {
+            name : "도발",
+            cost : 4,
+            type : "enemyDebuff",
+            effect : {
+                id : "soldierSpear_comeOn",
+                atkMult : 1.1,
+                defMult : 0.7
+            },
+            duration : 4,
+            unlock : 150
+        },
+        {
+            name : "지키기위한마음",
+            cost : 1,
+            type : "buff",
+            effect : {
+                id : "player_prepare_soildierSpear_toProtect",
+                defMult : 1.5
+            },
+            duration : 4,
+            unlock : 300
         }
     ]
 };
@@ -315,6 +360,10 @@ const MASTER_SKILLS = {
     "투척단검" : {
         requiredMastery : 400,
         skillName : "단검난사"
+    },
+    "경계병창" : {
+        requiredMastery : 400,
+        skillName : "지키기위한마음"
     }
 };
 
@@ -406,6 +455,16 @@ const ITEMS ={
                 str:3,
                 dex:8
             }
+        },
+
+        soldierSpear : {
+            name : "경계병창",
+            type : "weapon",
+            price : 2600,
+            stats : {
+                str: 9,
+                dex: 2
+            }
         }
     },
 
@@ -473,6 +532,16 @@ const ITEMS ={
             stats : {
                 str: 3,
                 dex : 4
+            },
+        },
+
+        soldierTop : {
+            name : "경계병 갑옷 상의",
+            type : "top",
+            price : 2000,
+            stats : {
+                str: 10,
+                dex : -1
             },
         }
     },
@@ -562,6 +631,15 @@ const ITEMS ={
             stats : {
                 str: 1,
                 dex : 6
+            },
+        },
+
+        soldierBottom : {
+            name : "경계병 갑옷 하의",
+            type : "top",
+            price : 2000,
+            stats : {
+                str: 7
             },
         }
     },

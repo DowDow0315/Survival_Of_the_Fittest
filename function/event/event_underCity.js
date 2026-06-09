@@ -101,6 +101,34 @@ window.EVENTS.push({
 
 //소라
 window.EVENTS.push({
+    id : "sora_patience_limit_outside_event",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location !== "shop" &&
+        NPC_DATA["sora"].emotion.lust >= 100 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startSoraPatienceLimitOutsideEvent(player);
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_patience_limit_shop_event",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.lust >= 100 &&
+        Math.random() < 0.3,
+
+    action : (player) => {
+        startSoraPatienceLimitShopEvent(player);
+    }
+});
+
+window.EVENTS.push({
     id : "sora_missing_people_event01",
 
     condition : (player) =>

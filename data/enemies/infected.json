@@ -1,0 +1,94 @@
+{
+    "name": "꽃감염자",
+    "hp": 210,
+    "attack": 38,
+    "defense": 38,
+    "eva": 22,
+    "lustResist" : 1,
+    "drops": [
+        {
+            "item": "pieceofwhiteflower",
+            "chance": 1
+        },
+        {
+            "item": "flower",
+            "chance": 0.7
+        },
+        {
+            "item" : "flowerNectar",
+            "chance": 0.2
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            ""
+        ],
+        "hit": [
+            ""
+        ],
+        "evade": [
+            ""
+        ],
+        "defeat": [
+            ""
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills" : [
+        {
+            "name" : "무장해제",
+            "type" : "disarm",
+            "chance" : 0.3,
+            "lines" : [
+                ""
+            ]
+        }
+    ]
+}

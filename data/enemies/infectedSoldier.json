@@ -1,0 +1,102 @@
+{
+    "name": "꽃감염경계병",
+    "hp": 230,
+    "attack": 42,
+    "defense": 40,
+    "eva": 20,
+    "lustResist" : 1.4,
+    "drops": [
+        {
+            "item": "pieceofwhiteflower",
+            "chance": 1
+        },
+        {
+            "item": "flower",
+            "chance": 0.5
+        },
+        {
+            "item" : "soldierSpear",
+            "chance": 0.03
+        },
+        {
+            "item" : "soldierTop",
+            "chance": 0.01
+        },
+        {
+            "item" : "soldierBottom",
+            "chance": 0.01
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            ""
+        ],
+        "hit": [
+            ""
+        ],
+        "evade": [
+            ""
+        ],
+        "defeat": [
+            ""
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills" : [
+        {
+            "name" : "무장해제",
+            "type" : "disarm",
+            "chance" : 0.3,
+            "lines" : [
+                ""
+            ]
+        }
+    ]
+}

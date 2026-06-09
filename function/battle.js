@@ -636,7 +636,18 @@ function useSkill(index){
             log("독 상태가 되었다!", "damage");
             break;
         }
+
+        case "enemyDebuff": {
+            applyBuff(enemy, {
+                ...skill.effect,
+                duration: skill.duration
+            }, "debuff");
+            
+            log(`${skill.name}! 상대는 역한 기분이 들었다!`, "damage");
+            break;
+        }
     }
+    
     if (enemy.hp <= 0){
         endBattle("win");
         return;

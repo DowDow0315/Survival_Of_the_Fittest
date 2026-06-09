@@ -2,7 +2,7 @@
     "name": "꽃인간",
     "hp": 180,
     "attack": 40,
-    "defense": 28,
+    "defense": 40,
     "eva": 45,
     "personality" : "lustful",
     "lustResist" : 1,

@@ -130,6 +130,7 @@
         {
             "name" : "당신의 피가 흩뿌려진다...",
             "type" : "bleed",
+            "id" : "banditBossBleed",
             "dot" : 3,
             "duration" : 10,
             "chance" : 0.2,

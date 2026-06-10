@@ -541,7 +541,7 @@ const ITEMS ={
             price : 2000,
             stats : {
                 str: 10,
-                dex : -1
+                dex : -3
             },
         }
     },
@@ -639,7 +639,8 @@ const ITEMS ={
             type : "top",
             price : 2000,
             stats : {
-                str: 7
+                str: 10,
+                dex : -4
             },
         }
     },
@@ -991,7 +992,7 @@ function updateDerivedStats(player){
     const total = calculateTotalStats(player);
 
     player.derivedStats.atk =
-        total.str * 1.2 + total.dex * 0.5;
+        total.str * 1.1 + total.dex * 0.5;
 
     player.derivedStats.def =
         total.str * 0.7 + total.charm * 0.7;
@@ -1001,12 +1002,12 @@ function updateDerivedStats(player){
         : 0;
 
     player.derivedStats.eva =
-        Math.max(0, total.dex * 1.2 + total.int * 0.4 + total.charm * 0.5 - fluidPenalty);
+        Math.max(0, total.dex * 1.1 + total.int * 0.4 + total.charm * 0.5 - fluidPenalty);
 
     player.derivedStats.bodyFluidPenalty = fluidPenalty;
 
     player.derivedStats.mag =
-        total.int * 1.3 + total.charm * 0.5;
+        total.int * 1.2 + total.charm * 0.5;
 }
 
 function getAlcoholStatModifier(player, stat){

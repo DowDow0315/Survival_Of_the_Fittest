@@ -183,6 +183,7 @@
         {
             "name" : "쇠사슬의 가시2",
             "type" : "bleed",
+            "id" : "bandit2Bleed",
             "dot" : 5,
             "duration" : 4,
             "chance" : 0.5,

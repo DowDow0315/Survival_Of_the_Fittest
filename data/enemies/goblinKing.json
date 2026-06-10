@@ -117,8 +117,10 @@
         {
             "name": "피나게때리기",
             "type": "bleed",
+            "id" : "goblinKingBleed",
             "dot": 5,
             "duration": 4,
+            "chance" : 0.2,
             "lines": [
                 "고블린킹은 당신을 검날로 찔렀다."
             ]

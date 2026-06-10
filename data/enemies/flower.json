@@ -146,6 +146,8 @@
         {
             "name": "독꽃",
             "type": "poison",
+            "id" : "flowerPoison",
+            "chance" : 0.7,
             "dot": 5,
             "duration": 5,
             "lines": [

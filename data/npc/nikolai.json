@@ -1,9 +1,9 @@
 {
     "name" : "니콜라이",
-    "hp" : 250,
+    "hp" : 280,
     "attack" : 30,
     "defense" : 20,
-    "eva" : 25,
+    "eva" : 35,
     "personality" : "dominant",
     "lustResist" : 1,
 

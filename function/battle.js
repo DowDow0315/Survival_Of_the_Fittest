@@ -607,7 +607,7 @@ function useSkill(index){
             }
             
             applyBuff(enemy, {
-                id : "bleed",
+                id : skill.id || skill.type,
                 dot: skill.dot,
                 duration: skill.duration
             });
@@ -628,7 +628,7 @@ function useSkill(index){
             }
             
             applyBuff(enemy, {
-                id : "poison",
+                id : skill.id || skill.type,
                 dot: skill.dot,
                 duration: skill.duration
             });
@@ -991,6 +991,26 @@ function enemyTurn(){
         return;
     }
 
+    //HP흡수공격
+    if (skill.type === "drainHp"){
+        player.status.hp -= damage;
+        
+        const healRate = skill.healRate ?? 0.5;
+        const heal = Math.floor(damage * healRate);
+        
+        enemy.hp = Math.min(enemy.maxHp, enemy.hp + heal);
+        
+        if (skill.lines){
+            log(getRandom(skill.lines));
+        }
+        
+        log(`${formatStatNumber(damage)} 데미지를 입었다!`, "damage");
+        log(`상대가 HP를 ${formatStatNumber(heal)} 회복했다!`, "heal");
+        
+        endEnemyTurn();
+        return;
+    }
+
     //일반 물리 공격
     if (skill.type === "damage" || !skill.type){
         player.status.hp -= damage;
@@ -1058,7 +1078,7 @@ function enemyTurn(){
     }
 
     applyBuff(player, {
-        id : "poison",
+        id : skill.id || skill.type,
         dot: skill.dot,
         duration: skill.duration
     });
@@ -1075,7 +1095,7 @@ function enemyTurn(){
     }
 
     applyBuff(player, {
-        id : "bleed",
+        id : skill.id || skill.type,
         dot: skill.dot,
         duration: skill.duration
     });

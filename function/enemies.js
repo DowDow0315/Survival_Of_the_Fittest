@@ -48,7 +48,7 @@ async function loadEnemies(){
         "begger", "beggers", "goblinKing", "skeleton",
         "bandit1", "bandit2", "banditBoss",
         "rabelLeader",
-        "infectedSmall", "infected", "infectedSoldier"
+        "infectedSmall", "infected", "infectedSoldier", "infectedSmalls"
     ];
 
     for (const name of list){

@@ -341,12 +341,12 @@ window.bandit_capture_cut_rope = function(player){
         capture.ropeDamage = Math.min(5, capture.ropeDamage + 1);
         savePlayer(player);
         showSingleTextScene(`밧줄이 조금 약해졌다. (${capture.ropeDamage}/5)`, player, {
-            onEnd: () => showBanditCaptureEscapeChoice(player)
+            onEnd: () => startBanditCaptureTraining(player)
         });
     } else {
         savePlayer(player);
         showSingleTextScene("밧줄은 꿈쩍도 하지 않았다.", player, {
-            onEnd: () => showBanditCaptureEscapeChoice(player)
+            onEnd: () => startBanditCaptureTraining(player)
         });
     }
 };

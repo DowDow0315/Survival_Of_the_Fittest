@@ -190,6 +190,23 @@ function buildDeepForestScene(player, loc, randomDesc){
 }
 
 function buildBanditForestScene(player, loc, randomDesc){
+
+    if (player.banditCamp?.active){
+        return [
+            {
+                type: "text",
+                value: "당신은 아직 도적떼 진지 안에 있다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "계속 전진한다", action: "banditCamp_next" },
+                    { text: "철수한다", action: "banditCamp_leave" }
+                ]
+            }
+        ];
+    }
+    
     const choices = [
         { text: "주변을 수색한다", action: "search" },
         { text: "자기", action: "sleep" },

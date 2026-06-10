@@ -62,7 +62,7 @@ function advanceBanditCamp(player){
 }
 
 function startBanditCampRandomEvent(player){
-    const event = pickWeighted([
+    const eventId = pickWeighted([
         { id: "banditCamp_battle_low", weight: 60 },
         { id: "banditCamp_battle_high", weight: 50 },
         { id: "banditCamp_supply_trap", weight: 20 },
@@ -71,7 +71,7 @@ function startBanditCampRandomEvent(player){
         { id : "banditCamp_bandit_rest", weight : 10}
     ]);
 
-    if (event.id === "banditCamp_battle_low"){
+    if (eventId === "banditCamp_battle_low"){
         showSingleTextScene("초소를 지키던 하급도적이 당신을 발견했다.", player, {
             onEnd: () => startBattle("bandit1", player, {
                 onWin: () => advanceBanditCamp(player),
@@ -81,7 +81,7 @@ function startBanditCampRandomEvent(player){
         return;
     }
 
-    if (event.id === "banditCamp_battle_high"){
+    if (eventId === "banditCamp_battle_high"){
         showSingleTextScene("무장을 갖춘 상급도적이 길을 막았다.", player, {
             onEnd: () => startBattle("bandit2", player, {
                 onWin: () => advanceBanditCamp(player),
@@ -91,7 +91,7 @@ function startBanditCampRandomEvent(player){
         return;
     }
 
-    if (event.id === "banditCamp_supply_trap"){
+    if (eventId === "banditCamp_supply_trap"){
         startScene([
             {
                 type: "text",
@@ -111,7 +111,7 @@ function startBanditCampRandomEvent(player){
         return;
     }
 
-    if (event.id === "banditCamp_dead_guard"){
+    if (eventId === "banditCamp_dead_guard"){
         startScene([
             {
                 type: "text",
@@ -133,7 +133,7 @@ function startBanditCampRandomEvent(player){
         return;
     }
 
-    if (event.id === "banditCamp_bandit_being_killed"){
+    if (eventId === "banditCamp_bandit_being_killed"){
         startScene([
             {
                 type: "text",
@@ -158,7 +158,7 @@ function startBanditCampRandomEvent(player){
         return;
     }
 
-    if (event.id === "banditCamp_bandit_rest"){
+    if (eventId === "banditCamp_bandit_rest"){
         startScene([
             {
                 type: "text",
@@ -225,7 +225,7 @@ function startBanditCampPrisonerEvent(player){
                 "<br><br>\"그걸 그녀석한테 다 주면 어떡해요! 우리는 어떻게 살라고!\"<br>\"우리는 전부 죽을 거라고!\"<br>\"저녀석을 어떻게 믿고....\""+
                 "<br>\"죽는다고? 우린 어차피 이미 다 죽은 목숨이야. 우리가 지금 살아있다고 생각해?\"<br><br>" +
                 "한 사람의 말에 움찔하는 것도 잠시, 몇몇은 다시 원망을 토해냈다. <br><br>\"그건 네 생각이고...!\"<br>\"내놔, 내 빵 내놓으라고...!\""+
-                "...당신은 앞으로 나아가야 한다."
+                "<br>...당신은 앞으로 나아가야 한다."
         },
         {
             type : "effect",

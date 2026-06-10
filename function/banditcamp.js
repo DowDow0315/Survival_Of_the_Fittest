@@ -284,7 +284,11 @@ function endBanditCampWin(player){
         "도적떼를 소탕했다. 당신은 고개를 들었다. 어쩌면 이 일이 하류도시에 많은 영향은 끼치지 않을 수도 있다. 하지만 적어도, 당신은 당신이 이 세상에 작은 영향은 끼쳤다는 걸 알고 있다.",
         player,
         {
-            onEnd : () => moveTo(player, "banditForest")
+            onEnd : () => {
+                player.location = "banditForest";
+                savePlayer(player);
+                startScene(getLocationScene(player), player);
+            }
         }
     );
 }

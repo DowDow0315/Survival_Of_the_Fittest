@@ -545,6 +545,31 @@ const ITEMS ={
             },
         }
     },
+
+    bra : {
+        basicBra : {
+            name : "기본브라",
+            type : "bra",
+            price : 3000,
+            stats : {}
+        },
+        dotBra : {
+            name : "도트브라",
+            type : "bra",
+            price : 5000,
+            stats : {
+                charm : 1
+            }
+        },
+        ribonBra : {
+            name : "리본브라",
+            type : "bra",
+            price : 5000,
+            stats : {
+                charm : 1
+            }
+        }
+    },
  
     bottom : {
         pants: {
@@ -671,6 +696,21 @@ const ITEMS ={
             }
         }
     },
+
+    accessary : {
+        footPiercing : {
+            name : "발피어싱",
+            type : "accessary",
+            price : 0,
+            tags : ["locked"],
+            stats : {
+                charm : 5,
+                str : -10,
+                dex : -10
+            }
+        }
+    },
+
     consumable : {
         smallPotion : {
             name: "요구르트(25)",
@@ -746,6 +786,38 @@ const ITEMS ={
             price : 1200,
             alcohol : 30,
             trauma : -10
+        },
+        sensitivityADownPotion: {
+            key: "sensitivityADownPotion",
+            name: "A둔감제",
+            type: "sensitivityDown",
+            price: 1500,
+            target: "aSensitivity",
+            value: 10
+        },
+        sensitivityCDownPotion: {
+            key: "sensitivityADownPotion",
+            name: "C둔감제",
+            type: "sensitivityDown",
+            price: 1500,
+            target: "cSensitivity",
+            value: 10
+        },
+        sensitivityMDownPotion: {
+            key: "sensitivityADownPotion",
+            name: "M둔감제",
+            type: "sensitivityDown",
+            price: 1500,
+            target: "mSensitivity",
+            value: 10
+        },
+        sensitivityBDownPotion: {
+            key: "sensitivityADownPotion",
+            name: "B둔감제",
+            type: "sensitivityDown",
+            price: 1500,
+            target: "bSensitivity",
+            value: 10
         }
     },
     misc : {
@@ -889,22 +961,22 @@ const ITEMS ={
         ruby : {
             name : "루비",
             type : "junk",
-            price : 5000
+            price : 8000
         },
         sapphire : {
             name : "사파이어",
             type : "junk",
-            price : 5000
+            price : 8000
         },
         aquamarine : {
             name : "아쿠아마린",
             type : "junk",
-            price : 5000
+            price : 8000
         },
         diamond : {
             name : "다이아몬드",
             type : "junk",
-            price : 5000
+            price : 8000
         },
 
         //퀘스트물품

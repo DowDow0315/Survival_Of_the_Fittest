@@ -21,6 +21,10 @@ const SHOPS = {
             ITEMS.top.overshirt,
             ITEMS.top.hoodie,
 
+            ITEMS.bra.basicBra,
+            ITEMS.bra.dotBra,
+            ITEMS.bra.ribonBra,
+
             ITEMS.bottom.pants,
             ITEMS.bottom.bluejeams,
             ITEMS.bottom.blackjeams,
@@ -64,11 +68,42 @@ const SHOPS = {
             ITEMS.misc.aquamarine,
             ITEMS.misc.diamond
         ]
+    },
+    merchantVillageShop : {
+        name : "행상인 마을 물품",
+        items : []
     }
 };
 
-function openShop(shopId, player){
+const MERCHANT_VILLAGE_POOL = [
+    ITEMS.consumable.sensitivityADownPotion,
+    ITEMS.consumable.sensitivityBDownPotion,
+    ITEMS.consumable.sensitivityCDownPotion,
+    ITEMS.consumable.sensitivityMDownPotion,
+    ITEMS.consumable.highPotion,
+    ITEMS.consumable.fullPotion,
+    ITEMS.misc.ironOre,
+    ITEMS.misc.silverOre,
+    ITEMS.misc.goldOre
+]
+
+function pickRandomItems(pool, count){
+    return [...pool]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, count);
+}
+
+let afterShopClose = null;
+
+function openShop(shopId, player, options = {}){
     shopTab = "buy";
+    afterShopClose = options.onClose || null;
+
+    if (shopId === "merchantVillageShop"){
+        player.tempMerchantVillageItems = pickRandomItems(MERCHANT_VILLAGE_POOL, 3);
+        player.tempMerchantVillageBoughtKeys = [];
+    }
+
     const modal = document.getElementById("shopModal");
     modal.style.display = "flex";
     renderShopModal(shopId, player);
@@ -76,6 +111,15 @@ function openShop(shopId, player){
 
 function closeShop(){
     document.getElementById("shopModal").style.display = "none";
+
+    const next = afterShopClose;
+    afterShopClose = null;
+
+    if (next){
+        next();
+        return;
+    }
+
     startScene(getLocationScene(player), player);
 }
 
@@ -121,7 +165,13 @@ function renderShopModal(shopId, player){
     listWrap.className = "shop-list";
 
     if (shopTab === "buy"){
-        shop.items.forEach(item => {
+
+        const buyItems =
+        shopId === "merchantVillageShop"
+            ? (player.tempMerchantVillageItems || [])
+            : shop.items;
+
+        buyItems.forEach(item => {
             const div = document.createElement("div");
             div.className = "shop-item";
 
@@ -153,8 +203,37 @@ function renderShopModal(shopId, player){
             div.appendChild(info);
 
             const buyBtn = document.createElement("button");
-            buyBtn.innerText = "구매";
+            const key = item.key || item.name;
+            
+            const bought = shopId === "merchantVillageShop" &&
+            (player.tempMerchantVillageBoughtKeys || []).includes(key);
+            
+            buyBtn.innerText = bought ? "품절" : "구매";
+            buyBtn.disabled = bought;
+
             buyBtn.onclick = () => {
+                if (shopId === "merchantVillageShop"){
+                    const key = item.key || item.name;
+
+                    player.tempMerchantVillageBoughtKeys =
+                    player.tempMerchantVillageBoughtKeys || [];
+                    
+                    if (player.tempMerchantVillageBoughtKeys.includes(key)){
+                        addLog("이미 품절된 물건이다.");
+                        return;
+                    }
+                    
+                    const beforeGold = player.gold;
+                    buyItem(player, item);
+                    
+                    if (player.gold < beforeGold){
+                        player.tempMerchantVillageBoughtKeys.push(key);
+                    }
+                    
+                    renderShopModal(shopId, player);
+                    return;
+                }
+                
                 buyItem(player, item);
                 renderShopModal(shopId, player);
             };
@@ -269,11 +348,11 @@ function sellItem(player, item){
     savePlayer(player);
     renderInventoryModal(player);
 
-    alert(item.name + " 판매! +" + price + "원");
+    addLog(`${item.name} 판매! +${price}G`);
 }
 
 function canSellItem(item){
-    return ["weapon", "top", "bottom", "underwear", "heal", "consumable", "junk", "key"].includes(item.type);
+    return ["weapon", "top", "bottom", "underwear", "heal", "consumable", "sensitivityDown", "junk", "key"].includes(item.type);
 }
 
 function sellAllItems(player, itemKey){
@@ -297,7 +376,9 @@ function sellAllItems(player, itemKey){
     localStorage.setItem("playerData", JSON.stringify(player));
     renderInventoryModal(player);
 
-    alert(`${items[0].name} ${items.length}개 판매! +${total}G`);
+    addLog(
+        `${items[0].name} ${items.length}개 판매!<br>+${total}G`
+    );
 }
 
 window.open_juliangShop = function(player){

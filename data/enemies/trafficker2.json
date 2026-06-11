@@ -1,0 +1,84 @@
+{
+    "name": "인신매매상B",
+    "hp": 270,
+    "attack": 45,
+    "defense": 45,
+    "eva": 35,
+    "lustResist" : 1.4,
+    "drops": [
+        {
+            "item": "silverChain",
+            "chance": 1
+        },
+        {
+            "item": "jewerlyPieces",
+            "chance": 0.7
+        },
+        {
+            "item" : "smallJewerly",
+            "chance": 0.2
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            ""
+        ],
+        "hit": [
+            ""
+        ],
+        "evade": [
+            ""
+        ],
+        "defeat": [
+            ""
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    }
+}

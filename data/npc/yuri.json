@@ -1,7 +1,7 @@
 {
     "name" : "유리",
     "hp" : 260,
-    "attack" : 30,
+    "attack" : 35,
     "defense" : 25,
     "eva" : 70,
     "lustResist" : 2,

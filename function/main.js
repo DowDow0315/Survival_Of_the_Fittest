@@ -835,7 +835,7 @@ window.stat_charm = function(player){ allocateStat(player, "charm"); };
 
 function spendGold(player,amount){
     if (player.gold<amount){
-        alert("돈이부족해");
+        addLog("돈이부족해");
         return false;
     }
     player.gold -= amount;
@@ -992,15 +992,15 @@ function buyItem(player, item){
 
     renderInventoryModal(player);
 
-    alert(item.name + " 샀다!");
+    addLog(`${item.name} 구매!`);
 }
 
 function isEquipmentItem(item){
-    return ["weapon", "top", "bottom", "underwear"].includes(item.type);
+    return ["weapon", "top", "bra", "bottom", "underwear", "accessary"].includes(item.type);
 }
 
 function isConsumableItem(item){
-    return ["heal", "stamina", "arousal", "alcohol"].includes(item.type);
+    return ["heal", "stamina", "arousal", "alcohol", "sensitivityDown"].includes(item.type);
 }
 
 //시간대함수
@@ -1122,7 +1122,7 @@ function registerActions(npcName, actions){
 
 function doAction(player, staminaCost, timeCost){
     if (player.status.stamina<staminaCost){
-        alert("지쳤어");
+        addLog("지쳤어");
         return;
     }
     player.status.stamina -= staminaCost;
@@ -1301,7 +1301,7 @@ function pickWeightedSearchItem(pool){
 
 window.search = function(player){
     if (player.status.stamina <= 0){
-        alert("너무 지쳐서 주변을 수색할 수 없다.");
+        addLog("너무 지쳐서 주변을 수색할 수 없다.");
         return;
     }
 
@@ -1731,8 +1731,9 @@ function moveToFromMap(locationKey){
 }
 
 function tryEscapeArea(player, targetLocation, requiredSteps){
+
     if (player.status.stamina <= 0){
-        alert("너무 지쳐서 움직일 수 없다.");
+        addLog("너무 지쳐서 움직일 수 없다.");
         return;
     }
 
@@ -1753,6 +1754,10 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
             : null;
 
     if (eventScene){
+        player.escapeShopTargetLocation = targetLocation;
+        player.escapeShopRequiredSteps = requiredSteps;
+        player.escapeShopKey = key;
+
         startScene(eventScene, player, {
             onEnd: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key)
         });
@@ -1914,7 +1919,7 @@ function moveTo(player,locationKey){
     const connections = LOCATIONS[current].connections;
 
     if (!connections[locationKey]){
-        alert("여기서는 갈 수 없는 곳이다.");
+        addLog("여기서는 갈 수 없는 곳이다.");
         return;
     }
 
@@ -2102,12 +2107,24 @@ function renderInventoryModal(player){
                 equippedTag.className = "equipped-tag";
                 equippedTag.innerText = "장착 중";
                 actionWrap.appendChild(equippedTag);
-                
-                const equipBtn = document.createElement("button");
-                equipBtn.innerText = "착용 중";
-                equipBtn.disabled = true;
-                equipBtn.className = "equipped-btn";
-                actionWrap.appendChild(equipBtn);
+
+                const unequipBtn = document.createElement("button");
+                unequipBtn.innerText = "해제";
+                unequipBtn.onclick = () => {
+                    unequipItem(player, item);
+                };               
+                actionWrap.appendChild(unequipBtn);
+            
+            } else if (item.type === "accessary"){
+                ["accessary1", "accessary2", "accessary3"].forEach((slot, i) => {
+                    const equipBtn = document.createElement("button");
+                    equipBtn.innerText = `${i + 1}번`;
+                    equipBtn.onclick = () => {
+                        equipAccessary(player, item, slot);
+                        renderInventoryModal(player);
+                    };
+                    actionWrap.appendChild(equipBtn);
+                });
             } else {
                 const equipBtn = document.createElement("button");
                 equipBtn.innerText = "착용";
@@ -2118,6 +2135,7 @@ function renderInventoryModal(player){
                 actionWrap.appendChild(equipBtn);
             }
         }
+
         if (isConsumableItem(item)){
             const useBtn = document.createElement("button");
             useBtn.innerText = "사용";
@@ -2136,9 +2154,8 @@ function renderInventoryModal(player){
 }
 
 function isEquipped(player, item){
-    const equipped = player.equipment[item.type];
-    if (!equipped) return false;
-    return equipped.uid === item.uid;
+    return Object.values(player.equipment || {})
+        .some(equipped => equipped?.uid === item.uid);
 }
 
 function getDisplayItemName(item){
@@ -2184,6 +2201,13 @@ function useItem(player, item){
         consumeItem(player, item);
         return;
     }
+
+    if (item.type === "sensitivityDown"){
+        changeSensitivity(player, item.target, -(item.value || 0));
+        
+        consumeItem(player, item);
+        return;
+    }
 }
 
 function consumeItem(player, item){
@@ -2211,6 +2235,18 @@ function handleAction(action, player){
 
     if (action === "open_matinShop"){
         openShop("matinShop", player);
+        return;
+    }
+
+    if (action === "open_merchantVillageShop"){
+        openShop("merchantVillageShop", player, {
+            onClose: () => finishEscapeAreaStep(
+                player,
+                player.escapeShopTargetLocation,
+                player.escapeShopRequiredSteps,
+                player.escapeShopKey
+            )
+        });
         return;
     }
 

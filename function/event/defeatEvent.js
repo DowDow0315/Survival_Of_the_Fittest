@@ -652,6 +652,7 @@ const DEFEAT_EVENTS = {
                     run : (player) => {
                         changeGold(player, -1000);
                         changeTrauma(player, 8);
+                        passTime(player, 15);
                         if (player.gender === "male"){
                             changeSensitivity(player, "aSensitivity", 11);
                             addBodyFluid(player, "a", 20);
@@ -660,6 +661,122 @@ const DEFEAT_EVENTS = {
                             addBodyFluid(player, "c", 20);
                         }                        
                         startBanditsCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    infectedSmall: [
+        {
+            id: "infectedSmall_defeat",
+            weight: 100,
+            scene: [
+                {
+                    type : "text",
+                    value : [
+                        "쓰러진 당신의 가슴에 붙은 작은꽃은 계속 쪽쪽 빨았다. 아무 것도 안 나오는데도 작은꽃은 계속 빨고 있다.",
+                        "<br><br>\"배고파... 도와줘...\"<br><br>",
+                        "이제야 그것의 목소리가 제대로 들리기 시작한다. 어린 아이의 목소리다. 빠는 속도가 점점 느려진다. 작은꽃은 결국 울음을 터뜨렸다. 그것은 죽기 싫다고 울다가 다시 당신의 가슴으로 달려들었다. 아이의 훌쩍이는 소리를 마지막으로 당신의 의식도 점점 흐려진다..."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                    changeHP(player, -30);
+                    changeStamina(player, -50);
+                    player.status.trauma = Math.min(
+                        player.status.maxTrauma,
+                        player.status.trauma + 5
+                    );
+                    changeSensitivity(player, "bSensitivity", 5);
+                    passTime(player, 20)
+                   }
+                }
+            ]
+        }
+    ],
+    infected: [
+        {
+            id: "infected_defeat",
+            weight: 100,
+            scene: [
+                {
+                    type : "text",
+                    value : [
+                        "꽃감염자의 봉오리는 쓰러진 당신 앞에서 점점 커졌다. 그러더니 그것은 꽃술로 당신을 제 봉우리 안으로 끌어당겼다. 당신을 마지막 힘을 짜내서 끌려가지 않으려고 발버둥을 쳤지만 도망갈 수 없었다.",
+                        "<br>어디로 가는 걸까? 당신의 몸이 위아래로 덜컹이는 걸 보니 움직이고 있는 거 같긴 하다. 하얀 꽃봉오리 안에서 꽃술이 아닌 촉수들이 당신을 향해 뻗어온다. 마치 강아지풀처럼 간지러우면서도 당신의 구멍으로 밀고 들어오는 힘은 억셌다. 까슬까슬하고 부드러운 것이 당신의 구멍 안에 닿는다. 간지러우면서도 아픈 감각에 당신은 도망가려고 했지만 발은 이미 칭칭 매여있어서 엉덩이를 들 수도 없었다. 그리고 달콤한 액체가 당신의 몸에 위에서부터 뿌려진다. 온몸이 뜨겁다.",
+                        " 뜨거워진 당신이 숨결이 당신의 피부를 더 민감하게 만든다. 이성이 녹아내린다. 부드러운 털로 가득한 촉수가 당신의 뜨거워진 피부를 핥아내리듯이 쓰다듬는다. 촉수에 구속된 채로 바들바들 떨리는 다리 위로 땀인지 애액인지 모를 습기덩어리가 주르륵 흘러내린다. 그리고 당신은 절정했다. 새하얀 눈앞이 다시 한번 새하얘진다. 번쩍, 번쩍, 번쩍, 몇 초 지나지도 않았는데 당신의 몸은 몇 번이나 절정에 이르렀다. 벌어진 입에서 의미 하나 없는 멍청한 소리가 흘러나오기 시작했다. 벌어진 입 사이로 나온 혀가 아래로 축 늘어졌다가 절정을 하자 강아지꼬리마냥 퍼뜩 튀어올랐다.",
+                        "<br><br>시간이 얼마나 흘렀는지도 잘 모르겠다. 당신의 세상엔 쾌락밖에 없었다. 지나친 쾌락에 망가져버린 몸이 바들바들 떨렸다. 어느새 당신의 온몸은 부어올라있었고 그중에 배는 제일 빵빵했다. 꽃술이 당신의 입에 다시 들어왔다. 더 안 들어간다고 애원을 해도 꽃감염자는 당신의 말을 들을 생각이 없다. 꿀꺽꿀꺽꿀꺽, 강제로 먹여진 달콤한 애액에 당신의 속이 뒤집힐 것만 같았다. 간지럽고 뜨겁다. 전부 긁어내고 싶다. 자극하는 방법은 하나였다. 당신의 구멍 안에 들어온 것들을 품고 당신이 스스로 움직이기. 당신은 지금까지 그랬던 것처럼 또 허리를 스스로 흔들었다. 당신의 입에서 비음으로 얼룩진 소리들이 흘러나온다...",
+                        "<br><br>다시 정신을 차렸을 때 당신은 바닥에 혼자 누워있었다. 당신의 온몸에는 하얀꽃잎들로 가득했다.<br>당신의 시야가 그대로 어두워졌다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {    
+                        changeHP(player, -40);
+                        changeStamina(player, -30);
+                        player.status.trauma = Math.min(                        
+                            player.status.maxTrauma,
+                            player.status.trauma + 15
+                        );
+                        changeSensitivity(player, "mSensitivity", 20);
+                        changeSensitivity(player, "bSensitivity", 20);
+                        changeSensitivity(player, "cSensitivity", 20);
+                        changeSensitivity(player, "aSensitivity", 20);
+                        addBodyFluid(player, "m", 80);
+                        addBodyFluid(player, "b", 80);
+                        addBodyFluid(player, "c", 80);
+                        addBodyFluid(player, "a", 80);
+                        passTime(player, 240);
+                    }
+                }
+            ]
+        }
+    ],
+    infectedSoldier : [
+        {
+            id : "infectedSoldier_defeat",
+            weight : 100,
+            scene : [
+                {
+                    type : "text",
+                    value : 
+                    {
+                        male : [
+                            "꽃감염경계병은 쓰러진 당신에게 다가가더니 당신의 몸을 수색하기 시작했다. 웅얼거리던 소리가 선명하게 들리기 시작한다.",
+                            "<br><br>\"확인... 숨기는 것 없음...\"<br><br>",
+                            "그는 당신의 입을 무자비하게 쑤시기 시작했다. 여러 개의 손가락들이 흐물거리며 당신의 혀 아래, 잇몸 구석구석, 그리고 목울대까지, 당신이 쓰러진 채 숨이 막혀 컥컥거려도 그것의 손은 멈추지 않았다.",
+                            "입안을 다 확인한 그것은 곧 당신의 아랫구멍도 점검하기 시작했다. 열 개를 넘는 손가락들이 당신의 좁은 애널에 한번에 들어왔다. 찢어질 거 같다...! 하지만 그것은 검사를 멈추지 않았다. 그것은 오랫동안 당신의 구멍을 점검했다.",
+                            "<br><br>\"이...상...없음...\"<br><br>",
+                            "그것이 멀어진다. 당신은 뒷구멍에서 액체를 질질 흘리며 그나마 그가 당신에게 신경을 꺼서 다행이라고 생각했다. 기어가려던 당신의 몸에서 힘이 풀렸다."
+                        ],
+                        female : [
+                            "꽃감염경계병은 쓰러진 당신에게 다가가더니 당신의 몸을 수색하기 시작했다. 웅얼거리던 소리가 선명하게 들리기 시작한다.",
+                            "<br><br>\"확인... 숨기는 것 없음...\"<br><br>",
+                            "그는 당신의 입을 무자비하게 쑤시기 시작했다. 여러 개의 손가락들이 흐물거리며 당신의 혀 아래, 잇몸 구석구석, 그리고 목울대까지, 당신이 쓰러진 채 숨이 막혀 컥컥거려도 그것의 손은 멈추지 않았다.",
+                            "입안을 다 확인한 그것은 곧 당신의 아랫구멍들도 점검하기 시작했다. 한 번에 양구멍으로 들어오는 손가락들에 당신은 감전이라도 된 듯 몸을 바르르 떨었다. 내벽 주름 하나하나를 검사하는 것마냥, 그것은 오랫동안 당신의 구멍들을 점검했다.",
+                            "<br><br>\"이...상...없음...\"<br><br>",
+                            "그것이 멀어진다. 당신은 양구멍에서 액체를 질질 흘리며 그나마 그가 당신에게 신경을 꺼서 다행이라고 생각했다. 기어가려던 당신의 몸에서 힘이 풀렸다."
+                        ]
+                    }
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        player.status.trauma = Math.min(                        
+                            player.status.maxTrauma,
+                            player.status.trauma + 8
+                        );
+                        passTime(player, 10);
+                        if (player.gender === "male"){
+                            changeSensitivity(player, "aSensitivity", 8);
+                            changeSensitivity(player, "mSensitivity", 8);
+                        } else {
+                            changeSensitivity(player, "aSensitivity", 8);
+                            changeSensitivity(player, "mSensitivity", 8);
+                            changeSensitivity(player, "cSensitivity", 8);
+                        }                        
                         return true;
                     }
                 }

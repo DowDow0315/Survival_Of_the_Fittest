@@ -335,7 +335,7 @@ function useBattleItem(index){
     log(`${item.name} 사용! HP +${item.value}`);
     }
 
-    else if (["weapon","top","bottom","underwear"].includes(item.type)){
+    else if (["weapon","top", "bra", "bottom", "underwear"].includes(item.type)){
         equipItem(player, item);
         log(`${item.name} 장착!`);
     }
@@ -1316,6 +1316,14 @@ function getRemovableClothes(player){
     if (eq.top && !eq.top.removed){
         removable.push("top");
     }
+
+    if (
+        (!eq.top || eq.top.removed || eq.top.lost) &&
+        eq.bra &&
+        !eq.bra.removed
+    ){
+        removable.push("bra");
+    }
     
     if (eq.bottom && !eq.bottom.removed){
         removable.push("bottom");
@@ -1687,7 +1695,12 @@ function processGrappleText(attack, player){
 //벗겨진 이후 전용공격
 function isTopless(player){
     const top = player.equipment.top;
-    return !top || top.lost || top.removed;
+    const bra = player.equipment.bra;
+
+    return (
+        (!top || top.lost || top.removed) &&
+        (!bra || bra.lost || bra.removed)
+    );
 }
 
 function isBottomless(player){
@@ -1705,6 +1718,7 @@ function isNaked(player){
 
     return (
         (!eq.top || eq.top.lost || eq.top.removed) &&
+        (!eq.bra || eq.bra.lost || eq.bra.removed) &&
         (!eq.bottom || eq.bottom.lost || eq.bottom.removed) &&
         (!eq.underwear || eq.underwear.lost || eq.underwear.removed)
     );
@@ -1954,7 +1968,7 @@ function endEnemyTurn(){
 }
 
 function restoreRemovedClothes(player){
-    ["top", "bottom", "underwear"].forEach(part => {
+    ["top", "bra", "bottom", "underwear"].forEach(part => {
         const item = player.equipment[part];
 
         if (!item) return;

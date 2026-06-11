@@ -280,7 +280,13 @@ const LOCATIONS ={
             banditForest: 30,
             guardPost2 : 30
         },
-        sleepDanger: 0
+        sleepDanger: 0,
+        sleepEnemyPool: [
+            {id: "bandit1", weight : 10},
+            {id: "bandit2", weight : 15},
+            {id: "infectedSmall", weight : 25},
+            {id: "infected", weight : 50}
+        ]
     },
     guardPost2 : {
         name : "경계병 제2초소",

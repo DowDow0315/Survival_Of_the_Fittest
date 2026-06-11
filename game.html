@@ -68,9 +68,12 @@
                     <h4>장비</h4>
                     <p>무기: <span id="weaponText">없음</span></p>
                     <p>상의: <span id="topText">없음</span></p>
+                    <p>브라: <span id="braText">없음</span></p>
                     <p>하의: <span id="bottomText">없음</span></p>
                     <p>속옷: <span id="underwearText">없음</span></p>
-                    <p>악세사리: <span id="accessaryText">없음</span></p>
+                    <p>악세사리1: <span id="accessary1Text">없음</span></p>
+                    <p>악세사리2: <span id="accessary2Text">없음</span></p>
+                    <p>악세사리3: <span id="accessary3Text">없음</span></p>
                   </div>
 
                   <button onclick="openInventory()">인벤토리</button>
@@ -160,7 +163,7 @@
     <script src="function/quest/quest.js"></script>
     <script src="function/quest/quest_sora.js"></script>
     <script src="function/quest/quest_matin.js"></script>
-    <script src="function/defeatEvent.js"></script>
+    <script src="function/event/defeatEvent.js"></script>
     <script src="function/training.js"></script>
     <script src="function/location.js"></script>
     <script src="function/locationScenes.js"></script>
@@ -237,12 +240,18 @@
             player.equipment.weapon?.name || "없음";
             document.getElementById("topText").innerText =
             player.equipment.top?.name || "없음";
+            document.getElementById("braText").innerText =
+            player.equipment.bra?.name || "없음";
             document.getElementById("bottomText").innerText =
             player.equipment.bottom?.name || "없음";
             document.getElementById("underwearText").innerText =
             player.equipment.underwear?.name || "없음";
-            document.getElementById("accessaryText").innerText =
-            player.equipment.accessary?.name || "없음";
+            document.getElementById("accessary1Text").innerText =
+            player.equipment.accessary1?.name || "없음";
+            document.getElementById("accessary2Text").innerText =
+            player.equipment.accessary2?.name || "없음";
+            document.getElementById("accessary3Text").innerText =
+            player.equipment.accessary3?.name || "없음";
 
             //소지금표시
             document.getElementById("goldText").innerText = player.gold;
@@ -273,6 +282,12 @@
             const type = item.type;
             item.removed = false;
             item.lost = false;
+
+            if (type === "accessary"){
+                addLog("악세사리는 아래 슬롯 버튼으로 장착하세요.");
+                return;
+            }
+
             const prevItem=player.equipment[type];
             if (prevItem){
                 player.inventory.push(prevItem);
@@ -286,6 +301,57 @@
             updateStatusUI(player);
             renderInventoryModal(player);
             localStorage.setItem("playerData", JSON.stringify(player));
+        }
+
+        function equipAccessary(player, item, slot){
+            const prevItem = player.equipment[slot];
+            
+            if (prevItem){
+                player.inventory.push(prevItem);
+            }
+            
+            player.equipment[slot] = item;
+            
+            const index = player.inventory.indexOf(item);
+            if (index !== -1){
+                player.inventory.splice(index, 1);
+            }
+            
+            updateDerivedStats(player);
+            updateStatusUI(player);
+            renderInventoryModal(player);
+            savePlayer(player);
+        }
+
+        function getEquippedSlot(player, item){
+            for (const [slot, equipped] of Object.entries(player.equipment)){
+                if (equipped === item){
+                    return slot;
+                }
+            }
+            return null;
+        }
+
+        function isLockedEquipment(item){
+            return item?.tags?.includes("locked");
+        }
+
+        function unequipItem(player, item){
+            if (isLockedEquipment(item)){
+                addLog("혼자서는 해제할 수 없다.");
+                return;
+            }
+
+            const slot = getEquippedSlot(player, item);
+            if (!slot) return;
+            
+            player.inventory.push(item);
+            player.equipment[slot] = null;
+            
+            updateDerivedStats(player);
+            updateStatusUI(player);
+            renderInventoryModal(player);
+            savePlayer(player);
         }
 
         function getSensitivityRank(value){

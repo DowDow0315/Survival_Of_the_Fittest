@@ -29,6 +29,18 @@ const ENEMY_POOLS = {
     banditForest : [
         { id: "bandit1", weight: 70 },
         { id: "bandit2", weight: 30 }
+    ],
+    guardPost1 : [
+        { id: "bandit1", weight : 5 },
+        { id: "bandit2", weight : 10 },
+        { id : "infectedSmall", weight : 35},
+        { id : "infected", weight : 50 }
+    ],
+    guardPost2 : [
+        { id : "infectedSmall", weight : 20 },
+        { id : "bandit2", weight : 5 },
+        { id : "infected", weight : 40 },
+        { id : "infectedSoldier", weight : 35 }
     ]
 };
 

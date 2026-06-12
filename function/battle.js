@@ -1105,6 +1105,22 @@ function enemyTurn(){
     return;
     }
 
+    //스턴공격
+    if (skill.type === "stun"){
+        player.status.hp -= damage;
+        player.status.stunned = skill.duration || 1;
+        
+        if (skill.lines){
+            log(getRandom(skill.lines));
+        }
+        
+        log(`${formatStatNumber(damage)} 데미지를 입었다!`, "damage");
+        log("움직일 수 없다!", "damage");
+        
+        endEnemyTurn();
+        return;
+    }
+
     //성공격
     if (skill.type === "lust"){
         const base = 3 * (skill.power || 1);

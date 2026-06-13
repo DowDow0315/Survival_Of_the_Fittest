@@ -47,7 +47,7 @@ async function loadEnemies(){
         "rapistM", "rapistF", "slime", "goblin", "flower",
         "begger", "beggers", "goblinKing", "skeleton",
         "bandit1", "bandit2", "banditBoss",
-        "rabelLeader",
+        "rebelLeader",
         "infectedSmall", "infected", "infectedSoldier", "infectedSmalls",
         "trafficker1", "trafficker2", "trafficker3", "trafficker4"
     ];

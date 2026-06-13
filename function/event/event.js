@@ -533,7 +533,8 @@ const EVENTS = [
                         "<br>남자를 짓밟고 있던 에릭은 당신에게로 시선을 돌렸다." +
                         "<br><br>\"경계병 제1초소를 반란군이 습격할 거라는 정보가 들어왔다.\"<br><br>" +
                         "그는 명령서를 당신에게 보여주었다." +
-                        "<br><br>\"즉결 처형이다. 이 일을 해내면, 너는 상류도시에 갈 수 있게 되겠지. 할 건가?\""
+                        "<br><br>\"즉결 처형이다. 이 일을 해내면, 너는 상류도시에 갈 수 있게 되겠지. 할 건가?\"",
+                        "<br><br><br><span style='color:red'>이 선택은 되돌릴 수 없다</span>"
                     ]
                 },
                 {
@@ -544,7 +545,7 @@ const EVENTS = [
                             action : "accept_quest_undercity_story_07"
                         },
                         {
-                            text : "거절한다. <span style='color:red'>이 선택은 되돌릴 수 없다</span>",
+                            text : "거절한다.",
                             scene : [
                                 {
                                     type : "effect",

@@ -600,14 +600,7 @@ const EVENTS = [
                     },
                     {
                         type : "effect",
-                        run : (player) => {
-                            startBattle("rebelLeader", player, {
-                                noEscape : true,
-                                onWin : () => startUndercityStory07AfterBattleEvent(player),
-                                onLose : () => startUndercityStory07AfterLosingBattleEvent(player)
-                            });
-                            return true;
-                        }
+                        run : "startUndercityStory07RebelLeaderBattle"
                     }
                 ], player);
             }
@@ -1187,6 +1180,19 @@ window.startBanditAttackDefeatEvent = function(player){
     ], player, {
         onEnd : () => startScene(getLocationScene(player), player)
     });
+};
+
+window.startUndercityStory07RebelLeaderBattle = function(player){
+    player.flags.undercity_story_07_guardPost1_event_seen = true;
+    savePlayer(player);
+
+    startBattle("rebelLeader", player, {
+        noEscape : true,
+        onWin : () => startUndercityStory07AfterBattleEvent(player),
+        onLose : () => startUndercityStory07AfterLosingBattleEvent(player)
+    });
+
+    return true;
 };
 
 window.startUndercityStory07AfterBattleEvent = function(player){

@@ -31,16 +31,17 @@ const ENEMY_POOLS = {
         { id: "bandit2", weight: 30 }
     ],
     guardPost1 : [
-        { id: "bandit1", weight : 5 },
-        { id: "bandit2", weight : 10 },
-        { id : "infectedSmall", weight : 35},
-        { id : "infected", weight : 50 }
+        { id: "bandit1", weight : 45 },
+        { id: "bandit2", weight : 50 },
+        { id : "infectedSmall", weight : 5}
     ],
     guardPost2 : [
         { id : "infectedSmall", weight : 20 },
         { id : "bandit2", weight : 5 },
+        { id : "infectedSoldier", weight : 25},
         { id : "infected", weight : 40 },
-        { id : "infectedSoldier", weight : 35 }
+        { id : "trafficker1", weight : 5},
+        { id : "trafficker2", weight : 5}
     ]
 };
 

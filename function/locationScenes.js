@@ -270,15 +270,7 @@ function buildGuardPost1Scene(player, loc, randomDesc){
     } else {
         choices.push({
             text:"더 안쪽으로 향한다",
-            action: () => startScene([
-                {
-                    type:"text",
-                    value:
-                    "당신이 더 안쪽으로 들어가려고 하자 경비병 한 명이 당신의 앞을 막아섰다. 그는 단호하게 상류도시의 허가가 없으면 앞으로는 더 나아갈 수 없다고 말했다."+
-                    "<br><br>\"...그리고 들어가지 않는 게 좋아.\"<br><br>" +
-                    "그는 당신을 다시 돌려보냈다. 아직은 갈 수 없을 거 같다."
-                }
-            ], player)
+            action: "blocked_guardPost1_inner"
         });
     }
 
@@ -304,6 +296,20 @@ function buildGuardPost1Scene(player, loc, randomDesc){
         }
     ];
 }
+
+window.blocked_guardPost1_inner = function(player){
+    startScene([
+        {
+            type:"text",
+            value:
+                "당신이 더 안쪽으로 들어가려고 하자 경비병 한 명이 당신의 앞을 막아섰다. 그는 단호하게 상류도시의 허가가 없으면 앞으로는 더 나아갈 수 없다고 말했다."+
+                "<br><br>\"...그리고 들어가지 않는 게 좋아.\"<br><br>" +
+                "그는 당신을 다시 돌려보냈다. 아직은 갈 수 없을 거 같다."
+        }
+    ], player, {
+        onEnd: () => startScene(getLocationScene(player), player)
+    });
+};
 
 function buildGuardPost2Scene(player, loc, randomDesc){
     return [

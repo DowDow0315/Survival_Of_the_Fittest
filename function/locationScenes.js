@@ -635,10 +635,7 @@ window.bribe_richTownGate = function(player){
         }
     ], player, {
         onEnd: () => {
-            player.location = "richTownStreet";
-            passTime(player, 3);
-            localStorage.setItem("playerData", JSON.stringify(player));
-            startScene(getLocationScene(player), player);
+            enterLocation(player, "richTownStreet", 3);
         }
     });
 };
@@ -663,10 +660,7 @@ window.show_medal = function(player){
         }
     ], player, {
         onEnd: () => {
-            player.location = "richTownStreet";
-            passTime(player, 3);
-            localStorage.setItem("playerData", JSON.stringify(player));
-            startScene(getLocationScene(player), player);
+            enterLocation(player, "richTownStreet", 3);
         }
     });
 };
@@ -687,13 +681,26 @@ window.show_letter = function(player){
         }
     ], player, {
         onEnd: () => {
-            player.location = "richTownStreet";
-            passTime(player, 3);
-            localStorage.setItem("playerData", JSON.stringify(player));
-            startScene(getLocationScene(player), player);
+            enterLocation(player, "richTownStreet", 3);
         }
     });
 };
+
+function enterLocation(player, location, time = 0){
+    player.location = location;
+
+    if (time > 0) {
+        passTime(player, time);
+    }
+
+    savePlayer(player);
+
+    if (checkAllEvents(player)) {
+        return;
+    }
+
+    startScene(getLocationScene(player), player);
+}
 
 function buildRoyalForgeScene(player, loc, randomDesc){
     return [

@@ -7,6 +7,9 @@ window.EVENTS.push({
         player.location === "richTownStreet",
 
     action : (player) => {
+        player.flags.uppercity_first_entry_event_seen_day = getCurrentDay(player);
+        savePlayer(player);
+        
         startScene([
             {
                 type : "text",
@@ -34,7 +37,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "gloryStreet" &&
-        (player.charm || 0) >= 25 &&
+        getTotalStat(player, "charm") >= 25 &&
         !player.flags.dericFirstMet &&
         !player.flags.dericLetterReceived,
 

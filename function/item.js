@@ -5,14 +5,16 @@ const WEAPON_SKILLS = {
             cost: 2,
             type: "damage",
             power: 2.5,
-            unlock: 20
+            unlock: 20,
+            desc : "데미지 2.5배"
         },
         {
             name: "모아베기",
             cost: 3,
             type: "damage",
             power: 3.5,
-            unlock: 100
+            unlock: 100,
+            desc : "데미지 3.5배"
         },
         {
             name: "광폭화",
@@ -23,14 +25,16 @@ const WEAPON_SKILLS = {
                 atkMult: 1.5
             },
             duration : 3,
-            unlock: 150 
+            unlock: 150,
+            desc : "3턴간 공격력 1.5배"
         },
         {
             name: "일격필살",
             cost: 6,
             type: "damage",
             power: 7,
-            unlock: 300
+            unlock: 300,
+            desc : "데미지 7배"
         }
     ],
     "대거" :[
@@ -40,7 +44,8 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.7,
             hits: 4,
-            unlock: 20
+            unlock: 20,
+            desc : "데미지 0.7배로 4번 연속 공격."
         },
         {
             name: "독바르기",
@@ -48,7 +53,8 @@ const WEAPON_SKILLS = {
             type: "poison",
             dot: 5,
             duration: 3,
-            unlock: 100
+            unlock: 100,
+            desc : "3턴간 상대방에게 독 데미지(5)"
         },
         {
             name: "방어자세",
@@ -59,14 +65,16 @@ const WEAPON_SKILLS = {
                 defMult: 1.5
             },
             duration : 4,
-            unlock: 150
+            unlock: 150,
+            desc : "4턴간 방어력 1.5배"
         },
         {
             name: "급소찌르기",
             cost: 3,
             type: "damage",
             power: 3.5,
-            unlock: 200
+            unlock: 200,
+            desc : "데미지 3.5배"
         }
     ],
     "댄싱대거" :[
@@ -76,7 +84,8 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.6,
             hits: 6,
-            unlock: 20
+            unlock: 20,
+            desc : "데미지 0.6배로 6번 연속 공격"
         },
         {
             name: "독무",
@@ -84,7 +93,8 @@ const WEAPON_SKILLS = {
             type: "poison",
             dot : 5,
             duration: 3,
-            unlock: 100
+            unlock: 100,
+            desc : "3턴간 상대방에게 독 데미지(5)"
         },
         {
             name: "피의환무",
@@ -92,7 +102,8 @@ const WEAPON_SKILLS = {
             type: "bleed",
             dot: 5,
             duration: 3,
-            unlock: 150
+            unlock: 150,
+            desc : "3턴간 상대방에게 출혈 데미지(5)"
         },
         {
             name: "독사의이빨",
@@ -100,7 +111,8 @@ const WEAPON_SKILLS = {
             type: "poison",
             dot: 10,
             duration: 5,
-            unlock: 200
+            unlock: 200,
+            desc : "5턴간 상대방에게 독 데미지(10)"
         }
     ],
     "한손검" : [
@@ -113,14 +125,16 @@ const WEAPON_SKILLS = {
                 defMult: 2
             },
             duration : 3,
-            unlock: 20
+            unlock: 20,
+            desc : "3턴간 방어력 2배"
         },
         {
             name: "돌진공격",
             cost: 2,
             type: "damage",
             power: 2.5,
-            unlock: 100
+            unlock: 100,
+            desc : "데미지 2.5배"
         },
         {
             name: "집중",
@@ -131,7 +145,8 @@ const WEAPON_SKILLS = {
                 atkMult: 2
             },
             duration : 3,
-            unlock: 150
+            unlock: 150,
+            desc : "3턴간 공격력 2배"
         },
         {
             name: "배수진",
@@ -139,7 +154,8 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.8,
             hits: 7,
-            unlock: 200
+            unlock: 200,
+            desc : "데미지 0.8배로 7번 연속 공격"
         }
     ],
     "지팡이": [
@@ -148,14 +164,16 @@ const WEAPON_SKILLS = {
             cost: 2,
             type: "damage",
             power: 2.5,
-            unlock: 20
+            unlock: 20,
+            desc : "데미지 2.5배"
         },
         {
             name: "메가파이어",
             cost: 3,
             type: "damage",
             power: 3.5,
-            unlock: 100
+            unlock: 100,
+            desc : "데미지 3.5배"
         },
         {
             name: "독가스",
@@ -163,7 +181,8 @@ const WEAPON_SKILLS = {
             type: "poison",
             dot: 10,
             duration: 5,
-            unlock: 150
+            unlock: 150,
+            desc : "5턴간 상대방에게 독데미지(10)"
         },
         {
             name: "별똥별",
@@ -171,7 +190,8 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.8,
             hits: 10,
-            unlock: 200
+            unlock: 200,
+            desc : "데미지 0.8배로 10번 연속 공격"
         }
     ],
     "클럽" :[
@@ -184,14 +204,16 @@ const WEAPON_SKILLS = {
                 defMult: 1.5
             },
             duration : 3,
-            unlock: 20
+            unlock: 20,
+            desc : "3턴간 방어력 1.5배"
         },
         {
             name: "박~는~다~",
             cost: 1,
             type: "damage",
             power: 1.5,
-            unlock: 100
+            unlock: 100,
+            desc : "데미지 1.5배"
         },
         {
             name: "마~구~때~린~다~",
@@ -199,14 +221,16 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.4,
             hits: 7,
-            unlock: 150
+            unlock: 150,
+            desc : "데미지 0.4배로 7번 연속 공격"
         },
         {
             name: "얕~보~지~마~",
             cost: 2,
             type: "damage",
             power: 3,
-            unlock: 300
+            unlock: 300,
+            desc : "데미지 3배"
         }
     ],
     "고블린검" :[
@@ -215,7 +239,8 @@ const WEAPON_SKILLS = {
             cost: 2,
             type: "damage",
             power: 2.5,
-            unlock: 20
+            unlock: 20,
+            desc : "데미지 2.5배"
         },
         {
             name: "마구때리기",
@@ -223,7 +248,8 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.9,
             hits : 4,
-            unlock: 100
+            unlock: 100,
+            desc : "데미지 0.9배로 4번 연속 공격"
         },
         {
             name: "방어굳히기",
@@ -234,7 +260,8 @@ const WEAPON_SKILLS = {
                 defMult: 1.5
             },
             duration : 4,
-            unlock: 150 
+            unlock: 150,
+            desc : "4턴간 방어력 1.5배"
         },
         {
             name: "피나게때리기",
@@ -242,7 +269,8 @@ const WEAPON_SKILLS = {
             type: "bleed",
             dot: 5,
             duration: 8,
-            unlock: 300
+            unlock: 300,
+            desc : "8턴간 상대방에게 출혈데미지(5)"
         }
     ],
     "투척단검" : [
@@ -252,7 +280,8 @@ const WEAPON_SKILLS = {
             type : "multiHit",
             power : 0.3,
             hits : 4,
-            unlock : 20
+            unlock : 20,
+            desc : "데미지 0.3배로 4번 연속 공격"
         },
         {
             name : "단검준비",
@@ -263,7 +292,8 @@ const WEAPON_SKILLS = {
                 atkMult : 3
             },
             duration : 2,
-            unlock : 100
+            unlock : 100,
+            desc : "2턴간 공격력 3배"
         },
         {
             name : "흩뿌려지는 피",
@@ -271,7 +301,8 @@ const WEAPON_SKILLS = {
             type : "bleed",
             dot : 3,
             duration : 10,
-            unlock : 150
+            unlock : 150,
+            desc : "10턴간 상대방에게 출혈데미지(3)"
         },
         {
             name : "단검난사",
@@ -279,7 +310,8 @@ const WEAPON_SKILLS = {
             type : "multiHit",
             power : 0.5,
             hits : 9,
-            unlock : 300
+            unlock : 300,
+            desc : "데미지 0.5배로 9번 연속 공격"
         }
     ],
     "경계병창" : [
@@ -292,7 +324,8 @@ const WEAPON_SKILLS = {
                 atkMult : 1.2
             },
             duration : 4,
-            unlock : 20
+            unlock : 20,
+            desc : "4턴간 공격력 1.2배"
         },
         {
             name : "연속찌르기",
@@ -300,7 +333,8 @@ const WEAPON_SKILLS = {
             type : "multiHit",
             power : 0.5,
             hits : 7,
-            unlock : 100
+            unlock : 100,
+            desc : "데미지 0.5배로 7번 연속 공격"
         },
         {
             name : "도발",
@@ -312,7 +346,8 @@ const WEAPON_SKILLS = {
                 defMult : 0.7
             },
             duration : 4,
-            unlock : 150
+            unlock : 150,
+            desc : "4턴간 상대방 공격력 1.1배, 상대방 방어력 0.7배"
         },
         {
             name : "지키기위한마음",
@@ -320,10 +355,11 @@ const WEAPON_SKILLS = {
             type : "buff",
             effect : {
                 id : "player_prepare_soildierSpear_toProtect",
-                defMult : 1.5
+                defMult : 1.3
             },
             duration : 4,
-            unlock : 300
+            unlock : 300,
+            desc : "4턴간 방어력 1.3배"
         }
     ]
 };

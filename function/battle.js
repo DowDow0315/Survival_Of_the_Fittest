@@ -525,7 +525,16 @@ function openSkillMenu(){
     let html = `<div id="skillMenu">`;
 
     skills.forEach((skill, i)=>{
-        html += `<button onclick="useSkill(${i})">${skill.name} (cost:${skill.cost})</button>`;
+        html += `
+        <div class="skill-card">
+        <button onclick="useSkill(${i})">
+        ${skill.name} (에너지 ${skill.cost})
+        </button>
+        <div class="skill-desc">
+        ${skill.desc  || "설명 없음"}
+        </div>
+        </div>
+        `;
     });
 
     html += `<button onclick="this.parentNode.remove()">닫기</button>`;

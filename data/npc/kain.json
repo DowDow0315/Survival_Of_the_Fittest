@@ -1,0 +1,29 @@
+{
+    "name" : "카인",
+    "hp" : 250,
+    "attack" : 35,
+    "defense" : 30,
+    "eva" : 35,
+    "lustResist" : 1.2,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "defaultStatusLine" : "카인은 당신을 잘 모른다.",
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "카인은 당신에게만큼은 1순위가 되길 원한다."
+        }
+    ],
+
+    "scenes" : {}
+}

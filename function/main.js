@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAllNPCData();
     await loadEnemies();
 
-    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "juliang", "raphael"].forEach(name => {
+    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael"].forEach(name => {
         registerNPCAsEnemy(name);
     })
 
@@ -372,6 +372,8 @@ function processText(text, player){
     text = processPaleText(text, player);
     text = processNikolaiText(text, player);
     text = processValenText(text, player);
+    text = processKainText(text, player);
+    text = processAkasiaText(text, player);
     return text;
 }
 
@@ -1068,6 +1070,15 @@ const NPC_LUST_GROWTH_CONDITIONS = {
 
     valen: [
         { key: "affection", min: 90, amount: 1 }
+    ],
+
+    kain: [
+        { key: "affection", min: 50, amount: 1 }
+    ],
+
+    akasia : [
+        { key : "affection", min: 70, amount: 1 },
+        { key : "dominance", min: 70, amount: 1}
     ]
 };
 
@@ -2279,7 +2290,7 @@ function saveNpcProgressToLocalStorage(){
 }
 
 async function loadAllNPCData() {
-    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "juliang", "raphael"];
+    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael"];
     const savedNpcData = JSON.parse(localStorage.getItem("npcData") || "null");
 
     for (const name of npcList) {
@@ -2655,4 +2666,47 @@ function clearSpecialStateAfterCollapse(player){
     }
 
     localStorage.setItem("playerData", JSON.stringify(player));
+}
+
+//게임오버
+function gameOver(player, reason = "당신은 죽었다.") {
+    player.flags = player.flags || {};
+    player.flags.game_over = true;
+    player.flags.game_over_reason = reason;
+
+    player.quest = null;
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "<br><br><div style='text-align:center; font-size:1.3em;'>",
+                "<span class='log-damage'><strong>GAME OVER</strong></span>",
+                "</div>",
+                "<br><br>",
+                `<div style='text-align:center;'>${reason}</div>`
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "최근 저장 데이터 불러오기",
+                    scene : [
+                        {
+                            type : "effect",
+                            run : () => {
+                                const loaded = loadPlayer();
+                                if (!loaded) return;
+
+                                const loadedPlayer = normalizePlayer(loaded);
+                                if (!loadedPlayer) return;
+                                startScene(getLocationScene(loadedPlayer), loadedPlayer);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
 }

@@ -22,7 +22,7 @@
             "conditions" : [
                 {"emotion": "affection", "min": 90}
             ],
-            "text" : "<span class='status-danger'>그것은 당신이 다시는 자신을 떠나지 않았으면 하고, 당신의 기억에 자신이 영원히 남기를 바란다.</span>"
+            "text" : "<span class='log-pale'>그것은 당신이 다시는 자신을 떠나지 않았으면 하고, 당신의 기억에 자신이 영원히 남기를 바란다.</span>"
         }
     ],
 

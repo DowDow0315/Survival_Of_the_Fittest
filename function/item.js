@@ -361,6 +361,49 @@ const WEAPON_SKILLS = {
             unlock : 300,
             desc : "4턴간 방어력 1.3배"
         }
+    ],
+    "은장도" : [
+        {
+            name : "은빛파고들기",
+            cost : 2,
+            type : "damage",
+            power : 2.7,
+            unlock : 20,
+            desc : "데미지 2.7배"
+        },
+        {
+            name : "은빛시선",
+            cost : 3,
+            type : "enemyDebuff",
+            effect : {
+                id : "silverDagger_eyetoeye",
+                defMult : 0.7
+            },
+            duration : 3,
+            unlock : 100,
+            desc : "3턴간 상대방 방어력 0.7배"
+        },
+        {
+            name : "은빛나선",
+            cost : 4,
+            type: "multiHit",
+            power: 0.8,
+            hits : 6,
+            unlock: 100,
+            desc : "데미지 0.8배로 6번 연속 공격"
+        },
+        {
+            name : "달빛에반사되는",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "silverDagger_becomingMoonLight",
+                evaMult : 2
+            },
+            duration : 3,
+            unlock : 200,
+            desc : "3턴간 회피율/명중률 2배"
+        }
     ]
 };
 
@@ -400,6 +443,10 @@ const MASTER_SKILLS = {
     "경계병창" : {
         requiredMastery : 400,
         skillName : "지키기위한마음"
+    },
+    "은장도" : {
+        requiredMastery : 400,
+        skillName : "달빛에반사되는"
     }
 };
 
@@ -501,6 +548,17 @@ const ITEMS ={
                 str: 9,
                 dex: 2
             }
+        },
+
+        silverDagger : {
+            name : "은장도",
+            type: "weapon",
+            price: 2800,
+            tags : ["magicStick"],
+            stats: {
+                int: 10,
+                charm: 2
+            } 
         }
     },
 

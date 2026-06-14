@@ -306,6 +306,27 @@ const QUESTS = {
         
         acceptText: "에릭은 당신의 수락에 고개를 끄덕였다. <br>경계병 제1초소, 그곳은 깊은 숲에서 더 걸어가야 나오는 곳이다. 반란군은 대체 무슨 생각으로 거길 지나치려 하는 걸까. <br><br>그곳까지가, 그나마 안전한 경계선일 텐데.",
         completeText: "반란군 수장은 쓰러졌다."
+    },
+
+    //act2
+    upperCity_quest01 : {
+        id : "upperCity_quest01",
+        title : "상류도시를 위하여",
+        type : "investigate",
+        repeatable : false,
+        giver : "valen",
+        source : "event",
+        
+        desc : "발렌은 연구시설 중심부에 있는 장치를 작동시켜달라고 부탁했다.",        
+        activeDesc : "연구시설 중심부에 도달해야 한다.",
+        readyDesc : "장치를 작동시켰다. 주점으로 돌아가 보고하자.",
+        
+        targetFlag : "upperCity_quest01_complete",
+        requiredKill : 1,    
+        rewardGold : 0,
+
+        acceptText : "",
+        completeText : "장치는 정상적으로 작동했다.<br>...설마 연구시설이 재도 안 남고 사라질 줄은 몰랐지만."
     }
 };
 

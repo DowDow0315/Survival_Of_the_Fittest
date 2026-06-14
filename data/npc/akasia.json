@@ -1,0 +1,27 @@
+{
+    "name" : "아카시아",
+    "hp" : 400,
+    "attack" : 44,
+    "defense" : 30,
+    "eva" : 30,
+    "lustResist" : 3,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "아카시아는 당신을 적으로 돌리고 싶지 않아한다."
+        }
+    ],
+
+    "scenes" : {}
+}

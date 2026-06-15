@@ -1341,6 +1341,7 @@ window.startUndercityStory07RebelExecutionEvent = function(player){
                 changeEmotion("eric", "affection", 1);
                 changeEmotion("eric", "dominance", 5);
                 changeEmotion("eric", "fear", 3);
+                changeHP(player, 1)
                 finishUndercityStory07(player);
                 addItem(player, ITEMS.misc.honorMedal);
             }

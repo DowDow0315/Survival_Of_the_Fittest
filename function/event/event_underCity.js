@@ -176,6 +176,30 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sora_flowerDate_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.affection >= 20 &&
+        !player.flags?.sora_flowerDate_01_done &&
+        Math.random() < 0.15,
+
+    action : (player) => {
+        player.flags.sora_flowerDate_01_done = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_flowerDate_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //유리
 window.EVENTS.push({

@@ -849,6 +849,14 @@
         }
 
         function saveGame(slot){
+            if (player?.mineRun){
+                alert(
+                    "광산 안에서는 저장할 수 없습니다.\n" +
+                    "광산을 나간 뒤 저장해주세요."
+                );
+                return;
+            }
+            
             if (!slot){
                 openSaveSlotModal("save");
                 return;

@@ -625,6 +625,7 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         addItem(player, ITEMS.consumable.smallPotion);
+                                        changeTrauma(player, 1);
                                     }
                                 }
                             ],
@@ -639,6 +640,7 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeStamina(player, -5);
+                                        changeTrauma(player, 1);
                                     }
                                 }
                             ]
@@ -1324,11 +1326,710 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 5,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 가던 중, 당신은 누군가의 신음 소리를 들었다. 당신은 본능적으로 당신의 몸을 숨긴 후 고개만 들었다. 사람들이 밧줄에 묶인 채 줄줄이 끌려가고 있었다. 그들의 맨발은 이미 흙투성이에 상처투성이였다. 가장 앞에 있던 인신매매상이 채찍을 휘둘렀다.",
+                        " 그는 노예들이 멈추기만 해도 채찍을 휘두르며 발걸음을 늦추지 않을 것을 종용했다. 노예들을 이끌고 있는 사람은 단 한 명이다.",
+                        "<br>급습하면, 다른 인신매매상들이 몰려오기 전에 그를 처리하고 모두를 풀어줄 수 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 인신매매상을 뒤에서 급습했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 인신매매상을 급습했다! 그는 노예들을 쥐고 있던 밧줄을 놓쳤고 노예들은 사막 속 오아시스의 기회를 놓치지 않았다. 도망친 노예들을 보던 인신매매상은 당신을 돌아보았다. 그의 눈은 분노로 일렁였지만 곧 당신을 보고 마음을 바꿨다.",
+                                        " 당신이 그들보다 더 값어치가 높다고 생각하는 모양이었다. 전투가 시작된다!"
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
+                                        startBattle("trafficker1", player, { noEscape: false });
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그대로 그들을 지나쳤다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "뒤에서 신음소리와 맞는 소리들이 들려왔지만 당신은 그저 그들을 지나쳤다. 그들은 약자들이다. 약자들을 돕지 않는 걸로 당신에게 뭐라 할 사람은 없지 않곘는가, 라고 누군가는 말해줄 것이다.",
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 4,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 멀리서 꽃감염경계병을 보았다. 당신은 당신의 무기를 쥐고 공격할 준비를 했지만 당신에게 다가오는 꽃감염경계병에게서는 공격 의지가 느껴지지 않았다. 꽃에 잠식되지 않은 반쪽 얼굴이 당신을 바라본다.",
+                        "<br><br>\"제 아이는 살아있나요?\"<br><br>",
+                        "그는 당신에게 아이의 사진을 보여주며 물었다. 당신은 아이의 사진을 보았다. 마을에서 본 적이 없는 아이의 얼굴이다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 거짓말로 그에게 아이는 잘 살고 있다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 꽃이 부드럽게 흔들렸다. 그는 당신의 말을 믿고 있다. 당신은 꽃감염경계병이 하는 아이의 자랑을 들어주었다. 그가 묘사하는 그의 아이는 영리하고, 강하고, 상냥한 아이였다.",
+                                        "<br>그는 자랑스럽게 가족을 위해 이 일에 자원하게 된 거라고 말했다. 그는 자신의 월급은 가족들에게 가고 있을 거라고 말했다. 돈을 많이 벌게 되어 에릭의 돈 수급을 걱정하지 않을 때가 되면 다시 집으로 돌아갈 거라고도 그는 말했다.",
+                                        "<br><br>\"발렌 님이 없었다면 이 일도 하지 못했겠죠. 가족을 위해 일할 수 있게 해줘서 기뻐요. 저는 할 수 있는 일이 거의 없었거든요.\"<br><br>",
+                                        "꽃감염경계병은 다시 일을 하러 가야겠다고 말하며 당신에게서 멀어졌다. 당신은 그의 뒷모습을 지켜보는 것밖에 할 수 없었다.",
+                                        "<br>그가 멀어지면서 남긴 하얀꽃의 달콤한 향이 당신의 코끝을 맴돈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, 10);
+                                        passTime(player, 2);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그 아이를 본 적이 없다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "아이를 본 적 없다는 당신의 말에 꽃감염경계병은 고개를 푹 숙였다. 그는 하루빨리 마을로 돌아가야겠다고 중얼거렸다. 당신을 지나쳐간 그는 경계병 제1초소로 향하고 있었다.",
+                                        "<br>...경계병들에게 그는 해치워야 할 꽃감염경계병들 중 하나일 뿐일 것이다. 당신은 어렵지 않게 그의 최후를 짐작할 수 있었다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그 아이를 마을에서 본 적이 있긴 하지만 돈이 없어서 힘들어하고 있다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"제 아이가 힘들어한다고요?\"<br><br>",
+                                        "한쪽밖에 안 보이는 얼굴이 찌푸려졌다. 그는 자신의 주머니를 뒤지더니 당신에게 하얀꽃잎들을 내밀었다. 그걸 돈이라 착각하고 있는 모양이었다. 당신은 그에게서 하얀꽃잎들을 받았다.",
+                                        "<br><br>\"제 아이에게 가져다주세요. 제가, 제가 더 노력해서...\"<br><br>",
+                                        "비틀거리며 꽃감염경계병은 당신에게서 멀어져갔다. 그의 정신은 이미 망가지고 있다. 당신은 어렵지 않게 그의 최후를 짐작할 수 있었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.misc.pieceofwhiteflower);
+                                        addItem(player, ITEMS.misc.pieceofwhiteflower);
+                                        passTime(player, 2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 가던 당신은 광부로 보이는 시체가 쓰러져있는 것을 보았다. 남자의 시체에 남은 것은 철광석 몇 개가 다였다. 심지어 몇 개는 부서져있어서, 당신이 온전하게 건진 건 철광석 하나뿐이었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        addItem(player, ITEMS.misc.ironOre);
+                    }
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "광부 몇 명이 수레를 끌고 지나간다. 상류도시로 가는 수레인지 몇몇 광부들의 가슴에 '상류도시-광부출입허가증'이라는 뱃지가 달려있다.",
+                        "<br><br>\"상류도시에는 가기가 싫다... 씨발, 걔네가 우리를 보는 눈을 봐. 무슨 벌레 보는 것마냥....\"<br><br>",
+                        "\"그래도 눈에 들면 바로 영광의 길을 밟을 수가 있잖아.\"<br><br>",
+                        "그들의 수레에는 철광석, 은광석, 금광석, 그리고 가끔씩 백화석이 섞여있었다."
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 5,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "어디선가 싸우는 소리가 들리다가 둔탁한 소리와 함께 멈췄다. 당신은 당신도 모르게 고개를 돌렸다가 경계병이 경계병의 시체를 내려다보며 얼굴이 하얗게 질려있는 것을 보고 말았다. 얼굴이 하얗게 질린 경계병의 시선이 당신과 마주쳤다.",
+                        "<br><br>\"이, 이럴 생각은 없었어, 젠장...!\"<br><br>",
+                        "그는 당신을 향해 창을 들이밀며 지금 그냥 지나가면 없던 일로 해주겠다고 말했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그에게 적어도 그를 묻어줘야 하는 거 아니냐고 물었다.",
+                            stat : "charm",
+                            difficulty : 10,
+
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 경계병은 움찔하더니 고개를 푹 숙인 채 땅을 파기 시작했다. 땅을 파면서 그는 정말로 죽일 생각은 없었다고 말했다. 두 사람은 한 명은 상류도시 출신이고 한 명은 하류도시 출신이었지만 출신과 별개로 친한 사이였다고 말했다.",
+                                        "<br><br>\"물론 이자식이 더 필사적이었지. 가족들을 지키겠다고 나온 거니 말이야.... 나는 영광을 위해 싸우는 거고.\"<br><br>",
+                                        "그는 상류도시에서 가문을 빛내기 위해서는 가문의 사람들 중 한 명 정도는 경계병 근무를 해야 한다고 중얼거렸다. 그는 자신은 이제 몇 년 안 남았다고 말했다. 그리고 근무 기간이 끝나면 절대로 이곳에 돌아오지 않을 거라고도 그는 중얼거렸다.",
+                                        "<br><br>\"...발렌 님의 말대로 하얀꽃은 이 세상에 존재하면 안 되는 꽃이야.\"<br><br>",
+                                        "그는 시체를 땅에 묻었다. 당신은 그에게 왜 그와 싸우게 된 거냐고 물었다.",
+                                        "<br><br>\"...의견 차이지. 하류도시는 너도 알 듯이 쓰레기들이 많잖아.<br>너와 이 바보 녀석같은 사람들은 제외하고.\"<br><br>",
+                                        "그는 쓰레기들을 전선에 세우는 게 뭐가 나쁘냐고 말하며 흙을 덮었다.",
+                                        "<br><br>\"어차피 누군가 죽어야 한다면, 하류도시의 사람들이 죽는 게 낫잖아.\"<br><br>",
+                                        "시체를 다 묻은 그가 떠나간다. 그는 당신에게 고맙다고 말하며 비타민을 하나 주었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.consumable.mediumPotion);
+                                        passTime(player, 5);
+                                    }
+                                }
+                            ],
+
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 격분했다.",
+                                        "<br><br>\"젠장, 좋은 놈인 줄 알았는데 이렇게 멍청한 새끼인 줄은 몰랐지! 이런 바보라는 걸 알았더라면 이새끼랑 친구가 되지도 않았더라고!\"<br><br>",
+                                        "그는 강하게 당신을 밀쳤다. 금방이라도 울 거 같은 얼굴로 그는 달려가버렸다. 당신의 옆에는 싸늘한 시체 한 구만 남아있다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -15);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그의 앞에서 물러나지 않으며 자백하러 가라고 말했다.",
+                            stat : "str",
+                            difficulty : 15,
+
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 화를 냈지만 물러서지 않는 당신에 결국 먼저 몸을 움츠렸다.",
+                                        "<br><br>\"나는 잘못이 없어... 나는 잘못이 없다고.... 어차피 한 명이 죽는다면 가치없는 쪽이 죽는 게 더 낫잖아...\"<br><br>",
+                                        "그는 시체를 내려다보았다. 잘못이 없다고 중얼거리던 그의 입술이 멈췄다.",
+                                        "<br><br>\"나는...틀리지 않았어...틀리지 않았다고... 그래, 네 말대로 자백은 하러 가주지...<br>나는 틀리지 않았어.\"",
+                                        "<br><br>어떤 결과가 나올지는 모르겠지만 적어도 그는 비틀거리며 자백을 하러 가고 있다. 당신은, 뭔가를 바꾸긴 했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -3);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신을 밀었다. 약한 새끼가 나대지 말라고 하며 그는 소리를 쳤다. 그의 목소리에는 더 이상 울음기가 보이지 않았다.",
+                                        "<br><br>\"뒤떨어지는 자들은 뒤떨어지는 게 당연한 거야! 네가 나를 막지 못하는 것처럼.\"<br><br>",
+                                        "그는 당당하게 당신을 내려다보았다. 하지만 그의 동공은 사정없이 흔들리고 있었다. 그는 애써 괜찮은 척 앞으로 나아갔다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -5);
+                                        changeTrauma(player, 1);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그에게 눈을 감아줄 수는 있다고 말했다. 대가를 준다면.",
+                            stat : "int",
+                            difficulty : 12,
+
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 잠시 말을 잃었다. 뭐, 뭐.... 하고 바보같은 소리나 해대던 그는 실소하더니 주머니에서 돈을 꺼냈다. 그는 당신에게 1000골드를 내밀었다.",
+                                        "<br><br>\"그래. 하류도시의 기생충들은 전부 이렇지. 역시 내가 옳았어.\"<br><br>",
+                                        "그는 마치 쓰레기를 버리듯 당신에게 1000골드를 던져주더니 그대로 당신을 지나쳐서 걸어가버렸다. 그의 발걸음에는 더 이상 망설임이 없다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeGold(player, 1000);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 기가 차다는 듯이 당신을 바라보았다. 그러더니 그는 당신의 어깨를 밀었다.",
+                                        "<br><br>\"어디 한번 꼬질러봐, 쓰레기야. 사람들이 누구의 말을 믿을지 한번 보자고.\"<br><br>",
+                                        "그의 눈동자는 더 이상 흔들리지 않는다. 그는 당신을 사람 이하로 보며 그대로 당신을 지나쳐 걸어갔다. 그의 발걸음에는 더 이상 망설임이 없다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -10);
+                                        changeTrauma(player, 1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
     guardPost2_to_guardPost1 : [
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 중, 당신은 낮은 언덕 너머로 천막들이 옹기종기 모여있는 것을 보았다. 당신이 천막에 다가오자, 천막에 있던 사람들이 일제히 고개를 들었다. 무기를 차고 있는 행상인들부터 광부들, 그들은 당신을 위아래로 살피더니 사람 좋은 미소를 지어보이며 자기들은 행상인이라고 말했다.",
+                        "<br><br>\"모험가인 거 같은데 우리의 물건이 필요하지 않겠어요?\"<br><br>",
+                        "행상인들은 자신의 물건들을 늘어놓으며 당신에게 사고 싶은 걸 사라고 했다. <br><br>\"아쉽게도 물건은 하나씩밖에 없어서. 한번 구경해보쇼. 날마다 파는 게 아니니까 잘 생각해보시구.\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "행상인들의 물건을 본다",
+                            action : "open_merchantVillageShop"
+                        },
+                        {
+                            text : "그냥 지나친다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : "당신은 고개를 저은 후 다시 길을 나섰다."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 5,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 가던 중, 당신은 누군가의 신음 소리를 들었다. 당신은 본능적으로 당신의 몸을 숨긴 후 고개만 들었다. 사람들이 밧줄에 묶인 채 줄줄이 끌려가고 있었다. 그들의 맨발은 이미 흙투성이에 상처투성이였다. 가장 앞에 있던 인신매매상이 채찍을 휘둘렀다.",
+                        " 그는 노예들이 멈추기만 해도 채찍을 휘두르며 발걸음을 늦추지 않을 것을 종용했다. 노예들을 이끌고 있는 사람은 단 한 명이다.",
+                        "<br>급습하면, 다른 인신매매상들이 몰려오기 전에 그를 처리하고 모두를 풀어줄 수 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 인신매매상을 뒤에서 급습했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 인신매매상을 급습했다! 그는 노예들을 쥐고 있던 밧줄을 놓쳤고 노예들은 사막 속 오아시스의 기회를 놓치지 않았다. 도망친 노예들을 보던 인신매매상은 당신을 돌아보았다. 그의 눈은 분노로 일렁였지만 곧 당신을 보고 마음을 바꿨다.",
+                                        " 당신이 그들보다 더 값어치가 높다고 생각하는 모양이었다. 전투가 시작된다!"
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
+                                        startBattle("trafficker1", player, { noEscape: false });
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그대로 그들을 지나쳤다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "뒤에서 신음소리와 맞는 소리들이 들려왔지만 당신은 그저 그들을 지나쳤다. 그들은 약자들이다. 약자들을 돕지 않는 걸로 당신에게 뭐라 할 사람은 없지 않곘는가, 라고 누군가는 말해줄 것이다.",
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 4,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 멀리서 꽃감염경계병을 보았다. 당신은 당신의 무기를 쥐고 공격할 준비를 했지만 당신에게 다가오는 꽃감염경계병에게서는 공격 의지가 느껴지지 않았다. 꽃에 잠식되지 않은 반쪽 얼굴이 당신을 바라본다.",
+                        "<br><br>\"제 아이는 살아있나요?\"<br><br>",
+                        "그는 당신에게 아이의 사진을 보여주며 물었다. 당신은 아이의 사진을 보았다. 마을에서 본 적이 없는 아이의 얼굴이다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 거짓말로 그에게 아이는 잘 살고 있다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 꽃이 부드럽게 흔들렸다. 그는 당신의 말을 믿고 있다. 당신은 꽃감염경계병이 하는 아이의 자랑을 들어주었다. 그가 묘사하는 그의 아이는 영리하고, 강하고, 상냥한 아이였다.",
+                                        "<br>그는 자랑스럽게 가족을 위해 이 일에 자원하게 된 거라고 말했다. 그는 자신의 월급은 가족들에게 가고 있을 거라고 말했다. 돈을 많이 벌게 되어 에릭의 돈 수급을 걱정하지 않을 때가 되면 다시 집으로 돌아갈 거라고도 그는 말했다.",
+                                        "<br><br>\"발렌 님이 없었다면 이 일도 하지 못했겠죠. 가족을 위해 일할 수 있게 해줘서 기뻐요. 저는 할 수 있는 일이 거의 없었거든요.\"<br><br>",
+                                        "꽃감염경계병은 다시 일을 하러 가야겠다고 말하며 당신에게서 멀어졌다. 당신은 그의 뒷모습을 지켜보는 것밖에 할 수 없었다.",
+                                        "<br>그가 멀어지면서 남긴 하얀꽃의 달콤한 향이 당신의 코끝을 맴돈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, 10);
+                                        passTime(player, 2);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그 아이를 본 적이 없다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "아이를 본 적 없다는 당신의 말에 꽃감염경계병은 고개를 푹 숙였다. 그는 하루빨리 마을로 돌아가야겠다고 중얼거렸다. 당신을 지나쳐간 그는 경계병 제1초소로 향하고 있었다.",
+                                        "<br>...경계병들에게 그는 해치워야 할 꽃감염경계병들 중 하나일 뿐일 것이다. 당신은 어렵지 않게 그의 최후를 짐작할 수 있었다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그 아이를 마을에서 본 적이 있긴 하지만 돈이 없어서 힘들어하고 있다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"제 아이가 힘들어한다고요?\"<br><br>",
+                                        "한쪽밖에 안 보이는 얼굴이 찌푸려졌다. 그는 자신의 주머니를 뒤지더니 당신에게 하얀꽃잎들을 내밀었다. 그걸 돈이라 착각하고 있는 모양이었다. 당신은 그에게서 하얀꽃잎들을 받았다.",
+                                        "<br><br>\"제 아이에게 가져다주세요. 제가, 제가 더 노력해서...\"<br><br>",
+                                        "비틀거리며 꽃감염경계병은 당신에게서 멀어져갔다. 그의 정신은 이미 망가지고 있다. 당신은 어렵지 않게 그의 최후를 짐작할 수 있었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.misc.pieceofwhiteflower);
+                                        addItem(player, ITEMS.misc.pieceofwhiteflower);
+                                        passTime(player, 2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 가던 당신은 광부로 보이는 시체가 쓰러져있는 것을 보았다. 남자의 시체에 남은 것은 철광석 몇 개가 다였다. 심지어 몇 개는 부서져있어서, 당신이 온전하게 건진 건 철광석 하나뿐이었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        addItem(player, ITEMS.misc.ironOre);
+                    }
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "광부 몇 명이 수레를 끌고 지나간다. 상류도시로 가는 수레인지 몇몇 광부들의 가슴에 '상류도시-광부출입허가증'이라는 뱃지가 달려있다.",
+                        "<br><br>\"상류도시에는 가기가 싫다... 씨발, 걔네가 우리를 보는 눈을 봐. 무슨 벌레 보는 것마냥....\"<br><br>",
+                        "\"그래도 눈에 들면 바로 영광의 길을 밟을 수가 있잖아.\"<br><br>",
+                        "그들의 수레에는 철광석, 은광석, 금광석, 그리고 가끔씩 백화석이 섞여있었다."
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 5,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "어디선가 싸우는 소리가 들리다가 둔탁한 소리와 함께 멈췄다. 당신은 당신도 모르게 고개를 돌렸다가 경계병이 경계병의 시체를 내려다보며 얼굴이 하얗게 질려있는 것을 보고 말았다. 얼굴이 하얗게 질린 경계병의 시선이 당신과 마주쳤다.",
+                        "<br><br>\"이, 이럴 생각은 없었어, 젠장...!\"<br><br>",
+                        "그는 당신을 향해 창을 들이밀며 지금 그냥 지나가면 없던 일로 해주겠다고 말했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그에게 적어도 그를 묻어줘야 하는 거 아니냐고 물었다.",
+                            stat : "charm",
+                            difficulty : 10,
 
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 경계병은 움찔하더니 고개를 푹 숙인 채 땅을 파기 시작했다. 땅을 파면서 그는 정말로 죽일 생각은 없었다고 말했다. 두 사람은 한 명은 상류도시 출신이고 한 명은 하류도시 출신이었지만 출신과 별개로 친한 사이였다고 말했다.",
+                                        "<br><br>\"물론 이자식이 더 필사적이었지. 가족들을 지키겠다고 나온 거니 말이야.... 나는 영광을 위해 싸우는 거고.\"<br><br>",
+                                        "그는 상류도시에서 가문을 빛내기 위해서는 가문의 사람들 중 한 명 정도는 경계병 근무를 해야 한다고 중얼거렸다. 그는 자신은 이제 몇 년 안 남았다고 말했다. 그리고 근무 기간이 끝나면 절대로 이곳에 돌아오지 않을 거라고도 그는 중얼거렸다.",
+                                        "<br><br>\"...발렌 님의 말대로 하얀꽃은 이 세상에 존재하면 안 되는 꽃이야.\"<br><br>",
+                                        "그는 시체를 땅에 묻었다. 당신은 그에게 왜 그와 싸우게 된 거냐고 물었다.",
+                                        "<br><br>\"...의견 차이지. 하류도시는 너도 알 듯이 쓰레기들이 많잖아.<br>너와 이 바보 녀석같은 사람들은 제외하고.\"<br><br>",
+                                        "그는 쓰레기들을 전선에 세우는 게 뭐가 나쁘냐고 말하며 흙을 덮었다.",
+                                        "<br><br>\"어차피 누군가 죽어야 한다면, 하류도시의 사람들이 죽는 게 낫잖아.\"<br><br>",
+                                        "시체를 다 묻은 그가 떠나간다. 그는 당신에게 고맙다고 말하며 비타민을 하나 주었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.consumable.mediumPotion);
+                                        passTime(player, 5);
+                                    }
+                                }
+                            ],
+
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 격분했다.",
+                                        "<br><br>\"젠장, 좋은 놈인 줄 알았는데 이렇게 멍청한 새끼인 줄은 몰랐지! 이런 바보라는 걸 알았더라면 이새끼랑 친구가 되지도 않았더라고!\"<br><br>",
+                                        "그는 강하게 당신을 밀쳤다. 금방이라도 울 거 같은 얼굴로 그는 달려가버렸다. 당신의 옆에는 싸늘한 시체 한 구만 남아있다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -15);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그의 앞에서 물러나지 않으며 자백하러 가라고 말했다.",
+                            stat : "str",
+                            difficulty : 15,
+
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 화를 냈지만 물러서지 않는 당신에 결국 먼저 몸을 움츠렸다.",
+                                        "<br><br>\"나는 잘못이 없어... 나는 잘못이 없다고.... 어차피 한 명이 죽는다면 가치없는 쪽이 죽는 게 더 낫잖아...\"<br><br>",
+                                        "그는 시체를 내려다보았다. 잘못이 없다고 중얼거리던 그의 입술이 멈췄다.",
+                                        "<br><br>\"나는...틀리지 않았어...틀리지 않았다고... 그래, 네 말대로 자백은 하러 가주지...<br>나는 틀리지 않았어.\"",
+                                        "<br><br>어떤 결과가 나올지는 모르겠지만 적어도 그는 비틀거리며 자백을 하러 가고 있다. 당신은, 뭔가를 바꾸긴 했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -3);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신을 밀었다. 약한 새끼가 나대지 말라고 하며 그는 소리를 쳤다. 그의 목소리에는 더 이상 울음기가 보이지 않았다.",
+                                        "<br><br>\"뒤떨어지는 자들은 뒤떨어지는 게 당연한 거야! 네가 나를 막지 못하는 것처럼.\"<br><br>",
+                                        "그는 당당하게 당신을 내려다보았다. 하지만 그의 동공은 사정없이 흔들리고 있었다. 그는 애써 괜찮은 척 앞으로 나아갔다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -5);
+                                        changeTrauma(player, 1);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그에게 눈을 감아줄 수는 있다고 말했다. 대가를 준다면.",
+                            stat : "int",
+                            difficulty : 12,
+
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 잠시 말을 잃었다. 뭐, 뭐.... 하고 바보같은 소리나 해대던 그는 실소하더니 주머니에서 돈을 꺼냈다. 그는 당신에게 1000골드를 내밀었다.",
+                                        "<br><br>\"그래. 하류도시의 기생충들은 전부 이렇지. 역시 내가 옳았어.\"<br><br>",
+                                        "그는 마치 쓰레기를 버리듯 당신에게 1000골드를 던져주더니 그대로 당신을 지나쳐서 걸어가버렸다. 그의 발걸음에는 더 이상 망설임이 없다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeGold(player, 1000);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 기가 차다는 듯이 당신을 바라보았다. 그러더니 그는 당신의 어깨를 밀었다.",
+                                        "<br><br>\"어디 한번 꼬질러봐, 쓰레기야. 사람들이 누구의 말을 믿을지 한번 보자고.\"<br><br>",
+                                        "그의 눈동자는 더 이상 흔들리지 않는다. 그는 당신을 사람 이하로 보며 그대로 당신을 지나쳐 걸어갔다. 그의 발걸음에는 더 이상 망설임이 없다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -10);
+                                        changeTrauma(player, 1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     guardPost2_to_guardPost3 : [
@@ -1421,3 +2122,267 @@ window.rollEscapeAreaEvent = function(player, fromLocation, targetLocation){
 
     return events[0].scene;
 };
+
+
+//광산
+const MINE_ENEMY_POOL = [
+    { id: "infected", weight: 35 },
+    { id: "bandit1", weight: 20 },
+    { id: "bandit2", weight: 25 },
+    { id: "rapistM", weight: 10 },
+    { id: "rapistF", weight: 10 }
+];
+
+function pickWeighted(pool){
+    const total = pool.reduce((sum, e) => sum + e.weight, 0);
+    let roll = Math.random() * total;
+
+    for (const e of pool){
+        roll -= e.weight;
+        if (roll <= 0) return e.id;
+    }
+
+    return pool[0].id;
+}
+
+function getPickaxe(player){
+    return player.inventory.find(item => item.name === "곡괭이");
+}
+
+window.enter_mine = function(player){
+    player.mineRun = {
+        active: true,
+        step: 0,
+        maxStep: 10,
+        minedSteps: {},
+        returnEscape: {
+            targetLocation: player.pendingEscapeTargetLocation,
+            requiredSteps: player.pendingEscapeRequiredSteps,
+            key: player.pendingEscapeKey
+        }
+    };
+
+    startMineScene(player);
+};
+
+function getMineCollapseChance(step){
+    const table = [0, 0, 0.05, 0.08, 0.12, 0.16, 0.20, 0.25, 0.30, 0.40];
+    return table[step] || 0.4;
+}
+
+function startMineScene(player){
+    const mine = player.mineRun;
+
+    startScene([
+        {
+            type: "text",
+            value:
+                `당신은 광산 안에 들어왔다.<br>` +
+                `현재 깊이: ${mine.step + 1} / ${mine.maxStep}`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "앞으로 나아간다", action: "mine_next" },
+                { text: "광석을 캔다", action: "mine_dig" },
+                { text: "광산에서 나간다", action: "mine_leave" }
+            ]
+        }
+    ], player, { noSaveScene: true });
+}
+
+window.mine_next = function(player){
+    const mine = player.mineRun;
+    if (!mine) return;
+
+    changeStamina(player, -3);
+    passTime(player, 5);
+
+    if (Math.random() < 0.35){
+        const enemyId = pickWeighted(MINE_ENEMY_POOL);
+
+        startScene([
+            { type: "text", value: "광산 안쪽에서 인기척이 들렸다. 어둠 속에서 무언가가 당신을 향해 다가온다." },
+            {
+                type: "effect",
+                run: (player) => {
+                    startBattle(enemyId, player, {
+                        noEscape: false,
+                        onWin: () => startMineScene(player),
+                        onEscape: () => startMineScene(player),
+                        onLose: () => startMineScene(player)
+                    });
+                    return true;
+                }
+            }
+        ], player, { noSaveScene: true });
+        return;
+    }
+
+    mine.step++;
+
+    if (mine.step >= mine.maxStep){
+        mine.step = mine.maxStep - 1;
+        mineCollapse(player);
+        return;
+    }
+
+    if (Math.random() < getMineCollapseChance(mine.step)){
+        mineCollapse(player);
+        return;
+    }
+
+    startScene([
+        { type: "text", value: "당신은 광산 안쪽으로 조금 더 나아갔다." }
+    ], player, {
+        noSaveScene: true,
+        onEnd: () => startMineScene(player)
+    });
+};
+
+function getMineOreResult(step){
+    const roll = Math.random();
+
+    if (step <= 3){
+        if (roll < 0.10) return null;
+        if (roll < 0.70) return ITEMS.misc.ironOre;
+        if (roll < 0.85) return ITEMS.misc.silverOre;
+        if (roll < 0.95) return ITEMS.misc.goldOre;
+        return ITEMS.misc.whiteFlowerLeafStone;
+    }
+
+    if (step <= 7){
+        if (roll < 0.10) return null;
+        if (roll < 0.45) return ITEMS.misc.ironOre;
+        if (roll < 0.75) return ITEMS.misc.silverOre;
+        if (roll < 0.90) return ITEMS.misc.goldOre;
+        return ITEMS.misc.whiteFlowerLeafStone;
+    }
+
+    if (roll < 0.05) return null;
+    if (roll < 0.25) return ITEMS.misc.ironOre;
+    if (roll < 0.50) return ITEMS.misc.silverOre;
+    if (roll < 0.80) return ITEMS.misc.goldOre;
+    return ITEMS.misc.whiteFlowerLeafStone;
+}
+
+function getOreText(item){
+    if (!item) return "당신은 벽면을 파냈지만, 쓸 만한 광석은 나오지 않았다.";
+
+    if (item === ITEMS.misc.ironOre) return "당신은 벽면에서 철광석을 캐냈다.";
+    if (item === ITEMS.misc.silverOre) return "당신은 벽면에서 은광석을 캐냈다.";
+    if (item === ITEMS.misc.goldOre) return "당신은 벽면에서 금광석을 캐냈다.";
+    if (item === ITEMS.misc.whiteFlowerLeafStone) {
+        return "당신은 광맥 사이에 박힌 창백한 광석을 캐냈다. 광석 안쪽에서 하얀 꽃잎이 흔들리는 것 같았다.";
+    }
+
+    return "당신은 광석을 캐냈다.";
+}
+
+window.mine_dig = function(player){
+    const mine = player.mineRun;
+    if (!mine) return;
+
+    mine.minedSteps = mine.minedSteps || {};
+
+    if (mine.minedSteps[mine.step]){
+        showSingleTextScene("이 근처에서는 더 이상 파낼 만한 광석이 보이지 않는다.", player);
+        return;
+    }
+
+    const pickaxe = getPickaxe(player);
+
+    if (!pickaxe){
+        showSingleTextScene("광석을 캐려면 곡괭이가 필요하다.", player);
+        return;
+    }
+
+    if (pickaxe.durability == null){
+        pickaxe.durability = pickaxe.maxDurability || 20;
+    }
+
+    mine.minedSteps[mine.step] = true;
+    pickaxe.durability--;
+
+    const item = getMineOreResult(mine.step);
+    let text = getOreText(item);
+
+    if (item) addItem(player, item);
+
+    changeStamina(player, -5);
+    passTime(player, 10);
+
+    if (pickaxe.durability <= 0){
+        const index = player.inventory.indexOf(pickaxe);
+        if (index >= 0) player.inventory.splice(index, 1);
+        text += "<br><br>곡괭이가 완전히 닳아 부서졌다.";
+    } else {
+        text += `<br><br>곡괭이 내구도: ${pickaxe.durability}/20`;
+    }
+
+    savePlayer(player);
+
+    startScene([
+        { type: "text", value: text }
+    ], player, {
+        noSaveScene: true,
+        onEnd: () => startMineScene(player)
+    });
+};
+
+function mineCollapse(player){
+    changeHP(player, -10);
+    changeStamina(player, -15);
+    passTime(player, 10);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신이 앞으로 더 나아가려고 한 순간, 큰 소리와 함께 당신의 앞이 무너졌다!" +
+                "<br><br>...더 이상 앞으로 갈 수는 없을 거 같다."
+        }
+    ], player, {
+        noSaveScene: true,
+        onEnd: () => finishMineRun(player)
+    });
+}
+
+window.mine_leave = function(player){
+    finishMineRun(player);
+};
+
+function finishMineRun(player){
+    const returnEscape = player.mineRun?.returnEscape || null;
+
+    delete player.mineRun;
+    player.flags.mineUnlocked = false;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value: "당신은 광산 밖으로 나왔다. 당신은 다시 가던 길을 이어갔다."
+        }
+    ], player, {
+        noSaveScene: true,
+        onEnd: () => {
+            if (
+                returnEscape?.targetLocation &&
+                returnEscape?.requiredSteps &&
+                returnEscape?.key
+            ){
+                finishEscapeAreaStep(
+                    player,
+                    returnEscape.targetLocation,
+                    returnEscape.requiredSteps,
+                    returnEscape.key
+                );
+                return;
+            }
+
+            startScene(getLocationScene(player), player);
+        }
+    });
+}

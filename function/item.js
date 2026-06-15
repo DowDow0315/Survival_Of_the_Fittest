@@ -662,6 +662,14 @@ const ITEMS ={
             stats : {
                 charm : 1
             }
+        },
+        raceBra : {
+            name : "레이스브라",
+            type : "bra",
+            price : 5000,
+            stats : {
+                charm : 1
+            }
         }
     },
  
@@ -801,6 +809,16 @@ const ITEMS ={
                 charm : 5,
                 str : -10,
                 dex : -10
+            }
+        },
+
+        //npc 관련 악세사리
+        flowerCrown : {
+            name : "꽃왕관",
+            type : "accessary",
+            price : 100,
+            stats : {
+                charm : 3
             }
         }
     },
@@ -1071,6 +1089,13 @@ const ITEMS ={
             name : "다이아몬드",
             type : "junk",
             price : 8000
+        },
+        pickaxe : {
+            name : "곡괭이",
+            type : "misc",
+            price : 1000,
+            desc : "광석을 캘 때 사용한다. 10번 사용하면 부서진다.",
+            maxDurability : 10
         },
 
         //퀘스트물품

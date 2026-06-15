@@ -24,6 +24,7 @@ const SHOPS = {
             ITEMS.bra.basicBra,
             ITEMS.bra.dotBra,
             ITEMS.bra.ribonBra,
+            ITEMS.bra.raceBra,
 
             ITEMS.bottom.pants,
             ITEMS.bottom.bluejeams,
@@ -54,6 +55,8 @@ const SHOPS = {
         items : [
             ITEMS.top.tavernUpper,
             ITEMS.bottom.tavernBottom,
+
+            ITEMS.misc.pickaxe,
             
             ITEMS.consumable.beer,
             ITEMS.consumable.whiskey,
@@ -66,7 +69,8 @@ const SHOPS = {
             ITEMS.misc.ruby,
             ITEMS.misc.sapphire,
             ITEMS.misc.aquamarine,
-            ITEMS.misc.diamond
+            ITEMS.misc.diamond,
+            ITEMS.misc.pickaxe
         ]
     },
     merchantVillageShop : {
@@ -82,6 +86,7 @@ const MERCHANT_VILLAGE_POOL = [
     ITEMS.consumable.sensitivityMDownPotion,
     ITEMS.consumable.highPotion,
     ITEMS.consumable.fullPotion,
+    ITEMS.misc.pickaxe,
     ITEMS.misc.ironOre,
     ITEMS.misc.silverOre,
     ITEMS.misc.goldOre

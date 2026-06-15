@@ -262,7 +262,7 @@ function buildGuardPost1Scene(player, loc, randomDesc){
 
     const choices = [];
 
-    if (player.flags?.outerAreaUnlocked){
+    if (player.flags?.uppercity_hero_event_seen){
         choices.push({
             text:"경계병 제2초소로 향한다",
             action:"travel_guardPost1_to_guardPost2"
@@ -312,15 +312,19 @@ window.blocked_guardPost1_inner = function(player){
 };
 
 function buildGuardPost2Scene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"경계병 제3초소로 향한다", action:"travel_guardPost2_to_guardPost3" },
+        { text:"경계병 제1초소로 돌아간다", action:"travel_guardPost2_to_guardPost1" },
+        { text:"잠깐 쉬기", action:"rest" }
+    );
+
     return [
         { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
         {
             type:"choice",
-            choices:[
-                { text:"경계병 제3초소로 향한다", action:"travel_guardPost2_to_guardPost3" },
-                { text:"경계병 제1초소로 돌아간다", action:"travel_guardPost2_to_guardPost1" },
-                { text:"잠깐 쉬기", action:"rest" }
-            ]
+            choices
         }
     ];
 }

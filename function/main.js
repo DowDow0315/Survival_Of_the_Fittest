@@ -982,6 +982,10 @@ function applyEffect(effect, player){
         passTime(player, effect.amount);
     }
 
+    else if (effect.target === "item"){
+        addItem(player, effect.key, effect.amount || 1);
+    }
+
     updateDerivedStats(player);
     updateStatusUI(player);
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -1765,9 +1769,9 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
             : null;
 
     if (eventScene){
-        player.escapeShopTargetLocation = targetLocation;
-        player.escapeShopRequiredSteps = requiredSteps;
-        player.escapeShopKey = key;
+        player.pendingEscapeTargetLocationTargetLocation = targetLocation;
+        player.pendingEscapeRequiredSteps = requiredSteps;
+        player.pendingEscapeKey = key;
 
         startScene(eventScene, player, {
             onEnd: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key)
@@ -2253,9 +2257,9 @@ function handleAction(action, player){
         openShop("merchantVillageShop", player, {
             onClose: () => finishEscapeAreaStep(
                 player,
-                player.escapeShopTargetLocation,
-                player.escapeShopRequiredSteps,
-                player.escapeShopKey
+                player.pendingEscapeTargetLocation,
+                player.pendingEscapeRequiredSteps,
+                player.pendingEscapeKey
             )
         });
         return;

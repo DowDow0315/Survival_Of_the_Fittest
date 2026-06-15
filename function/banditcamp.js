@@ -322,6 +322,11 @@ function getBanditCaptureState(player){
 }
 
 function startBanditCaptureTraining(player){
+
+    delete player.mineRun;
+    player.flags.mineUnlocked = false;
+    savePlayer(player);
+    
     const capture = getBanditCaptureState(player);
 
     startTraining(player, {

@@ -45,6 +45,7 @@ window.EVENTS.push({
         startScene(SCENES.deric.deric_first_meeting_high_charm_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
+                player.flags.dericFirstMetDay = getCurrentDay(player);
                 savePlayer(player);
                 startScene(getLocationScene(player), player);
             }
@@ -66,6 +67,7 @@ window.EVENTS.push({
         startScene(SCENES.deric.deric_first_meeting_nikolai_letter_kept_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
+                player.flags.dericFirstMetDay = getCurrentDay(player);
                 savePlayer(player);
                 startScene(getLocationScene(player), player);
             }
@@ -87,6 +89,7 @@ window.EVENTS.push({
         startScene(SCENES.deric.deric_first_meeting_nikolai_letter_sold_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
+                player.flags.dericFirstMetDay = getCurrentDay(player);
                 savePlayer(player);
                 startScene(getLocationScene(player), player);
             }
@@ -94,6 +97,26 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_date_01",
+    once : true,
+
+    condition : (player) =>
+        player.flags?.dericFirstMet &&
+        getCurrentDay(player) > player.flags.dericFirstMetDay &&
+        (player.location === "richTownStreet" ||
+         player.location === "gloryStreet" ||
+         player.location === "nobleSquare") &&
+        ( getTimePeriod(player) === "afternoon" ),
+
+    action : (player) => {
+        startScene(SCENES.deric.deric_date_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
 
 //줄리앙
 window.EVENTS.push({

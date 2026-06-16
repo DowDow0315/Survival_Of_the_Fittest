@@ -84,7 +84,7 @@ window.EVENTS.push({
          player.location === "townStreet" ||
          player.location === "darkStreet") &&
         NPC_DATA["luke"].emotion.lust >= 100 &&
-        Math.random() < 0.3,
+        Math.random() < 0.2,
 
     action : (player) => {
         savePlayer(player);
@@ -178,6 +178,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "sora_flowerDate_01",
+    once : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -200,6 +201,51 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sora_flowerDate_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.affection >= 30 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_flowerDate_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_flowerDate_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.affection >= 50 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_flowerDate_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //유리
 window.EVENTS.push({
@@ -212,7 +258,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.affection < 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.hp < 50 &&
-        Math.random() < 0.2,
+        Math.random() < 0.15,
 
     action : (player) => {
         savePlayer(player);
@@ -236,7 +282,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.affection >= 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.hp < 50 &&
-        Math.random() < 0.3,
+        Math.random() < 0.2,
 
     action : (player) => {
         startScene(NPC_DATA["yuri"].scenes.yuri_shelter_heal_event_high_affection, player, {
@@ -255,7 +301,7 @@ window.EVENTS.push({
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.trauma > 60 &&
         player.status.hp >= 50 &&
-        Math.random() < 0.2,
+        Math.random() < 0.15,
 
     action : (player) => {
         savePlayer(player);
@@ -272,6 +318,26 @@ window.EVENTS.push({
 
 //니콜라이
 
+//창백
+window.EVENTS.push({
+    id : "pale_afterFlowerDateDream_01",
+    once : true,
+
+    condition : (player) =>
+        player.flags?.sora_flowerDate_01_done &&
+        player.location === "shelter" &&
+        player.justMoved,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["pale"].scenes.pale_afterFlowerDateDream_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //스토리이벤트
 window.EVENTS.push({

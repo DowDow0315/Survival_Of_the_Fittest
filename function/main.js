@@ -954,6 +954,19 @@ function changeNPCEmotion(npcId, key, amount){
 function applyEffect(effect, player){
     if (!effect) return;
 
+    let amount = effect.amount;
+
+    if (
+        amount &&
+        typeof amount === "object" &&
+        !Array.isArray(amount)
+    ){
+        amount =
+            amount[player.gender] ??
+            amount.default ??
+            0;
+    }
+
     if (effect.target === "player"){
         if (effect.key === "hp") changeHP(player, effect.amount);
         else if (effect.key === "stamina") changeStamina(player, effect.amount);
@@ -984,6 +997,10 @@ function applyEffect(effect, player){
 
     else if (effect.target === "item"){
         addItem(player, effect.key, effect.amount || 1);
+    }
+
+    else if (effect.target === "gold"){
+        changeGold(player, effect.amount);
     }
 
     updateDerivedStats(player);
@@ -2398,6 +2415,25 @@ function flashScreenMulti(times = 3, interval = 120){
     flash();
 }
 
+function passToNextMorning9(player){
+    const currentDay = getCurrentDay(player);
+    const nextDay9 = (currentDay + 1) * 240 + 90; // 다음날 09:00
+
+    player.time = nextDay9;
+
+    updateNpcDaily(player);
+    updateStatusUI(player);
+    savePlayer(player);
+}
+
+function isPlayerProperlyDressed(player){
+    const eq = player.equipment || {};
+
+    return !!(
+        eq.top &&
+        eq.bottom
+    );
+}
 
 //플레이어 구출 이벤트
 function collapsePlayer(player, reason){

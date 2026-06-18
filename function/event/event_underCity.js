@@ -254,6 +254,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
         NPC_DATA["yuri"].emotion.affection > 60 &&
         NPC_DATA["yuri"].emotion.affection < 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
@@ -279,6 +280,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
         NPC_DATA["yuri"].emotion.affection >= 90 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.hp < 50 &&
@@ -297,6 +299,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
         NPC_DATA["yuri"].emotion.affection > 60 &&
         NPC_DATA["yuri"].emotion.rage < 80 &&
         player.status.trauma > 60 &&

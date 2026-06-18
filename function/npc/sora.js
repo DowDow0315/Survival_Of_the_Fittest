@@ -52,7 +52,9 @@ registerActions("sora",{
         passTime(player, 5);
         const affection = NPC_DATA["sora"].emotion.affection;
         const onEnd = () => {
-            changeEmotion("sora", "affection", 1);
+            if (NPC_DATA["sora"].emotion.affection < 60){
+                changeEmotion("sora", "affection", 1);
+            }
             changeEmotion("sora", "lust", 3);
             startScene(getLocationScene(player), player);
         };

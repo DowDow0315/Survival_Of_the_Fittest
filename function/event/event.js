@@ -1,3 +1,5 @@
+//effect run 공식 들어갈 때는 마지막에 return 빼먹지 말고 쓸 것.
+
 window.EVENTS = window.EVENTS || [];
 
 const ENEMY_POOLS = {

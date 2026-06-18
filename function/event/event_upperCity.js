@@ -31,6 +31,22 @@ window.EVENTS.push({
 });
 
 //데릭
+function deric_repeat_date_bad_clothes(player){
+    player.flags = player.flags || {};
+    player.flags.dericRepeatDateCheckedDay = getCurrentDay(player);
+
+    changeEmotion("deric", "affection", -3);
+    changeEmotion("deric", "rage", 2);
+
+    savePlayer(player);
+
+    startScene(SCENES.deric.deric_repeat_date_bad_clothes, player, {
+        onEnd : () => {
+            startScene(getLocationScene(player), player);
+        }
+    });
+}
+
 window.EVENTS.push({
     id : "deric_first_meeting_high_charm_event",
     once : true,
@@ -38,6 +54,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "gloryStreet" &&
         getTotalStat(player, "charm") >= 25 &&
+        isPlayerProperlyDressed(player) &&
         !player.flags.dericFirstMet &&
         !player.flags.dericLetterReceived,
 
@@ -60,6 +77,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "gloryStreet" &&
         player.flags?.dericLetterReceived &&
+        isPlayerProperlyDressed(player) &&
         hasItem(player, "데릭의 친필 서신") &&
         !player.flags?.dericFirstMet,
 
@@ -82,6 +100,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "gloryStreet" &&
         player.flags?.dericLetterReceived &&
+        isPlayerProperlyDressed(player) &&
         !hasItem(player, "데릭의 친필 서신") &&
         !player.flags?.dericFirstMet,
 
@@ -103,6 +122,8 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.flags?.dericFirstMet &&
+        player.flags?.uppercity_hero_event_seen &&
+        isPlayerProperlyDressed(player) &&
         getCurrentDay(player) > player.flags.dericFirstMetDay &&
         (player.location === "richTownStreet" ||
          player.location === "gloryStreet" ||
@@ -115,6 +136,73 @@ window.EVENTS.push({
                 startScene(getLocationScene(player), player);
             }
         });
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_date_02",
+    once : true,
+
+    condition : (player) =>
+        player.flags?.dericDate01Accepted &&
+        isPlayerProperlyDressed(player) &&
+        getCurrentDay(player) >= player.flags.dericDate01AcceptedDay + 3 &&
+        player.location === "gloryStreet" &&
+        ( getTimePeriod(player) === "afternoon" ),
+
+    action : (player) => {
+        startScene(SCENES.deric.deric_date_02, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_repeat_date",
+    once : false,
+
+    condition : (player) =>
+        player.flags?.dericDate02Accepted &&
+        player.flags?.dericRepeatDateCheckedDay !== getCurrentDay(player) &&
+        getCurrentDay(player) % 7 === 0 &&
+        player.location === "theater" &&
+        getTimePeriod(player) === "afternoon",
+
+    action : (player) => {
+        if (!isPlayerProperlyDressed(player)){
+            deric_repeat_date_bad_clothes(player);
+            return;
+        }
+
+        deric_repeat_date(player);
+    }
+});
+
+//카인
+window.EVENTS.push({
+    id: "kain_firstMeeting",
+    once: true,
+
+    condition: (player) =>
+        player.flags.dericDate02Accepted &&
+        getCurrentDay(player) >= player.flags.dericDate02AcceptedDay + 2 &&
+        player.location === "gloryStreet",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_firstMeeting,
+            player,
+            {
+                onEnd: () => {
+                    player.location = "theater";
+                    player.flags.kainTalkUnlock = true;
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
     }
 });
 

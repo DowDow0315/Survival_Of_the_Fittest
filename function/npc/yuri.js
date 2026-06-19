@@ -37,8 +37,8 @@ registerActions("yuri",{
             );
             return;
         }
-
-    if (time === "dawn"){
+        
+        if (time === "dawn"){
             showSingleTextScene(
                 "유리는 지친 얼굴로 잠들어 있다. 얕은 잠인 거 같긴 하지만, 지금은 깨우지 않는 게 좋을 거 같다.",
             player
@@ -46,6 +46,23 @@ registerActions("yuri",{
             return;
         }
 
+        startScene([
+            {
+                type: "text",
+                value: "유리는 당신을 바라보며 조용히 웃었다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "사소한 잡담을 한다", action: "yuri_smallTalk" },
+                    { text: "다른 얘기를 한다", action: "yuri_otherTalk" },
+                    { text: "돌아간다", action: "back_location" }
+                ]
+            }
+        ], player);
+    },
+
+    smallTalk : (player) => {
         passTime(player, 5);
         const affection = NPC_DATA["yuri"].emotion.affection;
         const onEnd = () => {
@@ -97,6 +114,30 @@ registerActions("yuri",{
                 }
             ], player, { onEnd });
         }
+    },
+
+    otherTalk : (player) => {
+        const choices = [];
+
+        if (player.flags?.KainYuriRecognize && !player.flags?.Yuri_aboutKain_01_seen ){
+            choices.push({
+                text : "카인에 대해 묻는다",
+                scene : NPC_DATA.yuri.scenes.yuri_aboutKain_01
+            });
+        }
+
+        choices.push({ text: "돌아간다", action: "yuri_talk" });
+
+        startScene([
+            {
+                type : "text",
+                value : "무엇에 대해 물어볼까."
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ], player);
     }
 })
 

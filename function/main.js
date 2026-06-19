@@ -1049,7 +1049,15 @@ function passTime(player, amount){
 }
 
 function getCurrentDay(player){
-    return Math.floor((Number(player?.time) || 0) / 240);
+    return Math.floor((Number(player?.time) || 0) / 240) + 1;
+}
+
+function getWeekdayIndex(player){
+    return (getCurrentDay(player) -1) % 7;
+}
+
+function getWeekdayName(player){
+    return ["월", "화", "수", "목", "금", "토", "일"][getWeekdayIndex(player)];
 }
 
 const NPC_LUST_GROWTH_CONDITIONS = {
@@ -2434,6 +2442,10 @@ function isPlayerProperlyDressed(player){
         eq.bottom
     );
 }
+
+window.back_location = function(player){
+    startScene(getLocationScene(player), player);
+};
 
 //플레이어 구출 이벤트
 function collapsePlayer(player, reason){

@@ -15,6 +15,7 @@ const LOCATION_SCENE_BUILDERS = {
     richTownEntrance : buildRichTownEntranceScene,
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
+    theater : buildTheaterScene,
     gloryHole: getGloryHoleScene
 };
 
@@ -762,6 +763,117 @@ function buildRoyalHospitalScene(player, loc, randomDesc){
             ]
         }
     ];
+}
+
+function buildTheaterScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push({
+        text: "공연을 본다 (-1000G)",
+        action: "watch_theaterPerformance"
+    });
+
+    if (player.flags?.kainTalkUnlock){
+        choices.push({
+            text: "카인과 대화한다",
+            action: "kain_talk"
+        });
+    }
+
+    choices.push({
+        text: "나간다",
+        action: "move_gloryStreet"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+window.watch_theaterPerformance = function(player){
+    const price = 1000;
+
+    if (!spendGold(player, price)){
+        showSingleTextScene(
+            "접수원이 당신을 내려다보았다. 그는 인상을 찌푸리며 마치 벌레를 쫓듯 당신에게 가라는 손짓을 했다. <br>\"돈도 없으면서 뭔.\"",
+            player
+        );
+        return;
+    }
+
+    passTime(player, 30);
+    changeStamina(player, 50);
+    changeTrauma(player, -5);
+    savePlayer(player);
+
+    if (
+        player.flags?.kainTalkUnlock &&
+        Math.random() < 0.15
+    ){
+        startScene(
+            getKainBackstageScene(player),
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    showSingleTextScene(
+        "당신은 공연장에 앉아 한동안 무대를 바라보았다. 화려한 조명과 노랫소리 사이에 있자, 복잡했던 머릿속이 조금은 가라앉는 것 같았다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+function getKainBackstageScene(player){
+    const affection = NPC_DATA["kain"].emotion.affection;
+    const rage = NPC_DATA["kain"].emotion.rage;
+    const dominance = NPC_DATA["kain"].emotion.dominance;
+
+    if (rage > 60 && affection > 90){
+        return pickRandom(
+            NPC_DATA["kain"].scenes.kain_theaterRandom_RageAffection
+        );
+    }
+
+    if (rage > 60 && dominance > 50 && affection > 50){
+        return pickRandom(
+            NPC_DATA["kain"].scenes.kain_theaterRandom_RageDominanceAffection
+        );
+    }
+
+    if (rage > 60){
+        return pickRandom(
+            NPC_DATA["kain"].scenes.kain_theaterRandom_Rage
+        );
+    }
+
+    if (affection >= 80){
+        return pickRandom(
+            NPC_DATA["kain"].scenes.kain_theaterRandom_AffectionHigh
+        );
+    }
+
+    if (affection >= 50){
+        return pickRandom(
+            NPC_DATA["kain"].scenes.kain_theaterRandom_AffectionMid
+        );
+    }
+
+    return pickRandom(
+        NPC_DATA["kain"].scenes.kain_theaterRandom_AffectionLow
+    );
 }
 
 function getGloryHoleScene(player){

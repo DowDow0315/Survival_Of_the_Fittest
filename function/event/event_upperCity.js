@@ -166,7 +166,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.flags?.dericDate02Accepted &&
         player.flags?.dericRepeatDateCheckedDay !== getCurrentDay(player) &&
-        getCurrentDay(player) % 7 === 0 &&
+        getCurrentDay(player) === 5 &&
         player.location === "theater" &&
         getTimePeriod(player) === "afternoon",
 

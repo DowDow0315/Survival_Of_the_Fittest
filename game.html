@@ -261,11 +261,12 @@
             const totalMinutes = player.time * 6;
             const hour = Math.floor(totalMinutes / 60) % 24;
             const minute = totalMinutes % 60;
-            const day = Math.floor(player.time / 240);
+            const day = getCurrentDay(player);
+            const weekday = getWeekdayName(player);
             const minuteText = String(minute).padStart(2, "0");
             
             document.getElementById("timeText").innerText =
-            `Day ${day} | ${hour}시 ${minuteText}분 (${getTimePeriod(player)})`;
+            `${day}일차 (${weekday}) | ${hour}시 ${minuteText}분`;
 
             //장소표시
             if (player.dungeon?.active && window.DUNGEONS){

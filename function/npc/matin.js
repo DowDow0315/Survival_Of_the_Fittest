@@ -82,6 +82,24 @@ registerActions("matin",{
             startMatinGraveyardReturnEvent(player);
             return;
         }
+
+        startScene([
+            {
+                type: "text",
+                value: "마틴은 당신이 자신에게 다가오는 걸 보고서도 아무 말도 하지 않았다. 그는 그저 하다만 일을 할 뿐이다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "사소한 잡담을 한다", action: "matin_smallTalk" },
+                    { text: "다른 얘기를 한다", action: "matin_otherTalk" },
+                    { text: "돌아간다", action: "back_location" }
+                ]
+            }
+        ], player);
+    },
+
+    smallTalk : (player) => {
         passTime(player, 5);
         const affection = NPC_DATA["matin"].emotion.affection || 0;
         const rage = NPC_DATA["matin"].emotion.rage || 0;
@@ -149,6 +167,25 @@ registerActions("matin",{
                 }
             ], player, { onEnd });
         }
+    },
+
+    otherTalk : (player) => {
+        const choices = [];
+
+
+
+        choices.push({ text: "돌아간다", action: "matin_talk" });
+
+        startScene([
+            {
+                type : "text",
+                value : "무엇에 대해 물어볼까."
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ], player);
     },
     
     //주점 장비 강화 로그

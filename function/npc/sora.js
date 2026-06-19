@@ -22,16 +22,8 @@ registerActions("sora",{
     },
 
     //개인이벤트
-    submit_drugQuest: (player) => {
-        trySubmitSoraDrugQuest(player);
-    },
-
-    //스토리이벤트
-
-    //상점대화로그
-    talk: (player) => {
-        if (isSoraDrugQuestAccepted(player)){
-            startScene([
+    drugQuestTalk : (player) => {
+        startScene([
                 {
                     type: "text",
                     value:
@@ -46,9 +38,33 @@ registerActions("sora",{
                     ]
                 }
             ], player);
-            return;
-        }
+    },
 
+    submit_drugQuest: (player) => {
+        trySubmitSoraDrugQuest(player);
+    },
+
+    //스토리이벤트
+
+    //상점대화로그
+    talk: (player) => {
+        startScene([
+            {
+                type: "text",
+                value: "소라는 당신이 다가오자 눈을 반짝 빛냈다. <br><br>\"무슨 일이야?\""
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "사소한 잡담을 한다", action: "sora_smallTalk" },
+                    { text: "다른 얘기를 한다", action: "sora_otherTalk" },
+                    { text: "돌아간다", action: "back_location" }
+                ]
+            }
+        ], player);
+    },
+
+    smallTalk : (player) => {
         passTime(player, 5);
         const affection = NPC_DATA["sora"].emotion.affection;
         const onEnd = () => {
@@ -94,6 +110,31 @@ registerActions("sora",{
                 }
             ], player, { onEnd });
         }
+    },
+
+    otherTalk : (player) => {
+        const choices = [];
+
+        if (isSoraDrugQuestAccepted(player)){
+            choices.push({
+                text : "부탁받은 물건에 대해 이야기한다",
+                action : "sora_drugQuestTalk"
+            });
+        }
+
+
+        choices.push({ text: "돌아간다", action: "sora_talk" });
+
+        startScene([
+            {
+                type : "text",
+                value : "무엇에 대해 물어볼까."
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ], player);
     }
 })
 

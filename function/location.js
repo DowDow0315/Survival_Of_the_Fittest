@@ -311,9 +311,37 @@ const LOCATIONS ={
         },
         connections : {
             guardPost1: 30,
-            guardPost3 : 40
+            guardPost3 : 40,
+            whiteFlowerLab : 20
         },
         sleepDanger: 0
+    },
+    whiteFlowerLab : {
+        name: "외곽 하얀꽃 연구시설",
+        desc: {
+            dawn : [
+                "외곽 하얀꽃 연구시설이다. <br>안에서부터 달콤한 냄새가 풍긴다."
+            ],
+            morning: [
+                "외곽 하얀꽃 연구시설이다. <br>예전에는 어땠을지 모르겠지만 지금은 확실히 폐허다."
+            ],
+            afternoon : [
+                "외곽 하얀꽃 연구시설이다. <br>인간이 아닌 것의 소리들만 들려온다."
+            ],
+            night : [
+                "외곽 하얀꽃 연구시설이다. <br>어디선가 울음 소리가 들린 거 같기도 하다."
+            ]
+        },
+        sleepDanger: 0.6,
+        sleepEnemyPool : [
+            { id : "infectedSmall", weight : 35},
+            { id : "infected", weight : 45},
+            { id : "infectedSoldier", weight : 20}
+        ],
+        collectorChance: 0.0,
+        connections : {
+            guardPost2 : 20
+        }
     },
     guardPost3 : {
         name : "경계병 제3초소",

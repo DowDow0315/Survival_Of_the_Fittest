@@ -33,17 +33,28 @@ registerActions("sora",{
                 {
                     type: "choice",
                     choices: [
-                        { text: "마약을 건넨다", action: "sora_submit_drugQuest" },
+                        { text: "마약을 건넨다", action: "trySubmitSoraDrugQuest" },
                         { text: "당신은 곧 가져다주겠다고 말하며 고개를 저었다. 소라는 당신의 대답에 미소를 지었다.", action: "return_shop" }
                     ]
                 }
             ], player);
     },
 
-    submit_drugQuest: (player) => {
-        trySubmitSoraDrugQuest(player);
+    drugQuest02Talk : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : "\"부탁한 거 다 가져온 거야?\"<br><br>상점 구석에 있는 꽃에 물을 주면서 소라는 당신에게 물었다." 
+            },
+            {
+                type : "choice",
+                choices : [
+                    { text : "하얀꽃잎조각들을 건넨다", action : "trySubmitSoraDrugQuest02"},
+                    { text : "당신은 곧 가져다주겠다고 말하며 고개를 저었다. 소라는 당신의 대답에 미소를 지었다.", action : "return_shop" }
+                ]
+            }
+        ], player);
     },
-
     //스토리이벤트
 
     //상점대화로그
@@ -119,6 +130,13 @@ registerActions("sora",{
             choices.push({
                 text : "부탁받은 물건에 대해 이야기한다",
                 action : "sora_drugQuestTalk"
+            });
+        }
+
+        if (player.flags?.sora_drug_02_started && !player.flags?.sora_drug_02_done){
+            choices.push({
+                text : "하얀꽃잎조각들에 대해 이야기한다",
+                action : "sora_drugQuest02Talk"
             });
         }
 

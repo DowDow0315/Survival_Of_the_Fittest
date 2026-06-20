@@ -2687,8 +2687,28 @@ function handleDungeonCollapse(player){
         return;
     }
 
+    if (dungeonId === "banditHideout"){
+        pickWeightedRescue([
+            { fn: collapse_yuri, weight: 30 },
+            { fn: collapse_eric, weight: 40},
+            { fn: collapse_luke, weight: getNpcAffection("luke") >= 40 ? 30 : 0 }
+        ])(player);
+        return;
+    }
+
+    if (dungeonId === "whiteFlowerLab"){
+        pickWeightedRescue([
+            { fn: collapse_yuri, weight: 30 },
+            { fn: collapse_sora, weight: 50 },
+            { fn: collapse_eric, weight: 40},
+            { fn: collapse_luke, weight: getNpcAffection("luke") >= 40 ? 30 : 0 }
+        ])(player);
+        return;
+    }
+
     collapse_noRescue(player);
 }
+
 function collapse_goblinCapture(player){
     startScene([
         {

@@ -1,7 +1,7 @@
 const SORA_QUESTS = {
     sora_drug_01: {
         id: "sora_drug_01",
-        title: "마약 5개 가져오기",
+        title: "소라를 위한 마약 5개",
         type: "collect",
         category : "sub",
         giver: "sora",
@@ -9,7 +9,7 @@ const SORA_QUESTS = {
         requiredItem: "drug",
         requiredCount: 5,
 
-        rewardGold: 1500,
+        rewardGold: 700,
 
         require: {
             flag: "sora_drugQuest_unlocked"
@@ -19,6 +19,29 @@ const SORA_QUESTS = {
             player.flags = player.flags || {};
             player.flags.sora_drug_01_done = true;
             player.flags.sora_next_event_unlocked = true;
+        }
+    },
+
+    sora_drug_02 : {
+        id : "sora_drug_02",
+        title : "소라를 위한 하얀꽃잎조각들 8개",
+        type : "collect",
+        category : "sub",
+        giver : "sora",
+
+        requiredItem : "pieceofwhiteflower",
+        requiredCount : 8,
+
+        rewardGold : 1000,
+
+        require : {
+            flag : "upperCity_quest01_started"
+        },
+
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.sora_drug_02_done = true;
+            player.flags.sora_drug_02_completed_day = getCurrentDay(player);
         }
     }
 };
@@ -259,7 +282,7 @@ function trySubmitSoraDrugQuest(player){
                                             run : (player) => {
                                                 changeEmotion("sora", "affection", 15);
                                                 changeEmotion("sora", "dominance", 10);
-                                                changeEmotion("sora", "lust", -5);
+                                                changeEmotion("sora", "lust", -15);
                                                 changeSensitivity(player, "mSensitivity", 15);
                                                 changeSensitivity(player, "cSensitivity", 5);
                                                 changeArousal(
@@ -317,4 +340,152 @@ function canShowSoraQuest(player, quest){
     }
 
     return true;
+}
+
+//소라 개인퀘스트 2 - 소라 하얀꽃잎조각들
+window.accept_sora_drug_02 = function(player){
+    player.flags = player.flags || {};
+
+    player.flags.sora_drug_02_started = true;
+    player.flags.sora_drug_02_started_day = getCurrentDay(player);
+
+    acceptQuest(player, "sora_drug_02");
+
+    savePlayer(player);
+    return true;
+};
+
+function trySubmitSoraDrugQuest02(player){
+    const quest = SORA_QUESTS.sora_drug_02;
+
+    const hasDrug = countItem(player, quest.requiredItem);
+
+    if (hasDrug < quest.requiredCount){
+        startScene([
+            {
+                type: "text",
+                value:
+                    "소라는 고개를 갸웃거렸다. <br><br>\"하얀꽃잎조각들 8개가 아닌데?\"<br><br>그는 웃음을 터뜨리더니 그냥 자신의 얼굴을 보러 온 거냐고 물었다. <br><br>\"내 얼굴 보러 온 거면 그런 변명 없이 그냥 와도 돼, {soraTitle}.\""
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "돌아간다", action: "return_shop" }
+                ]
+            }
+        ], player);
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "소라는 당신을 올려다보았다. 하얀색 머리카락 아래로 그의 금안이 가늘게 찢어진다. <br><br>\"다 모았어?\""
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "하얀꽃잎조각들 8개를 건넨다",
+                    scene: [
+                        {
+                            type: "effect",
+                            run: (player) => {
+                                removeItem(player, quest.requiredItem, quest.requiredCount);
+                                changeGold(player, quest.rewardGold || 0);
+
+                                initQuestData(player);
+                                player.quest.subActive = player.quest.subActive.filter(
+                                    q => q.id !== quest.id
+                                );
+                                
+                                if (!player.quest.completed.includes(quest.id)){
+                                    player.quest.completed.push(quest.id);
+                                }
+
+                                if (typeof quest.onComplete === "function"){
+                                    quest.onComplete(player);
+                                }
+
+                                savePlayer(player);
+                            }
+                        },
+                        {
+                            type: "text",
+                            value:
+                                "당신은 하얀꽃잎조각들 8개를 내밀었다. 소라의 손바닥 위에 앉은 하얀꽃잎조각들은 마치 살아있는 것처럼 하늘하늘 흔들렸다. 소라는 하얀꽃잎조각들을 내려다보다가 그대로 주먹으로 쥐었다. 주륵, 미량이었이지만 하얀 애액이 흘러내렸다." +
+                                " 당신이 하얀 애액을 바라보자 소라는 웃으며 자신에게는 하얀 애액이 필요했던 거라고 말했다. 그는 당신의 코밑으로 손가락을 뻗었다. 하얀 애액이 묻은 그의 손가락에서 달콤한 냄새가 난다." +
+                                "<br><br>\"달콤하지? 내겐 이 애액이 필요했거든.\"<br><br>" +
+                                "그는 하얀꽃잎조각들을 작은 병 안에 넣더니 당신을 올려다보았다." +
+                                "<br><br>\"보상 줄까?\"<br><br>" +
+                                "그의 목소리는 달콤했다."
+                        },
+                        {
+                            type : "choice",
+                            choices : [
+                                {
+                                    text : "당신은 고개를 끄덕였다.",
+                                    scene : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신이 고개를 끄덕이자 소라는 당신의 목을 끌어안았다. 그러더니 그대로 당신을 밑으로 쓰러뜨렸다. 순간, 당신의 주변으로 하얀꽃잎들이 풀썩 날아올랐다가 다시 스러졌다. 마치 당신이 꽃침대에 떨어진 것마냥... 눈을 다시 깜박였을 때 당신의 주변에 꽃침대는 없었다." +
+                                                "<br>소라의 입술이 당신의 가슴 위로 내려앉았다. 그는 당신의 가슴을 혀로 핥아올렸다. 가슴에 닿는 그의 혀는 얼음마냥 차가웠다. 당신의 발이 고통과 쾌락으로 바들바들 발작하듯이 떨렸다. 하지만 소라는 무릎으로 당신의 경련하는 발을 누르고 가슴 애무를 이어갔다. 핥짝, 핥짝, 점점 그의 혀가 차갑게 느껴지지 않는다. 마치 아까의 차가움은 당신의 환상이었던 것처럼, 그렇게 사라졌다." +
+                                                "<br>차가움이 가시자 당신의 가슴이 뜨겁게 달아올랐다. 소라는 입을 벌리더니 당신의 가슴을 쪽쪽 빨았다. 모유를 빠는 것처럼 보이기도 했다. 당신의 가슴에서 모유가 나올 리가 없는데도 당신은 정말로 당신의 가슴에서 뭔가를 뺏기는 기분이 들었다. 하지만 그 기분은 상실감보다는 몽롱한 쾌락으로 이어졌다. 당신의 시야가 뿌얘졌다." +
+                                                "<br><br>\"사랑해.\"<br><br>" +
+                                                "소라가 당신의 가슴에 대고 속삭였다. 뜨거운 애액이 울컥, 당신의 가슴을 적셨다. 당신은 멍한 눈으로 소라만을 바라보았다. 그는 시야가 돌아오지 않은 당신을 일으켜세우더니 당신의 머리를 부드럽게 쓰다듬었다." +
+                                                "<br><br>\"언젠가는 사랑한다고도 말해줘야 해, 응? 그럼 더 기분 좋게 해줄 테니까...\""
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                changeEmotion("sora", "affection", 15);
+                                                changeEmotion("sora", "dominance", 10);
+                                                changeEmotion("sora", "lust", -15);
+                                                changeSensitivity(player, "bSensitivity", 15);
+                                                changeArousal(
+                                                    player,
+                                                    getSensitivityArousalGain(player, "b", 20)
+                                                );
+                                                passTime(player, 5);
+
+                                                savePlayer(player);
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    text : "당신은 괜찮다고 말하며 고개를 저었다.",
+                                    scene : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "\"정말? 소라는 정말 기분 좋게 해줄 수 있는데.\"<br><br>" +
+                                                "소라는 아쉽다는 걸 숨기지는 않았지만 당신에게 더 강요하지도 않았다. 그는 하얀꽃잎조각들을 넣은 작은 병을 병 선반에 올려놓으며 콧노래를 불렀다. 그의 병 선반에는 이미 하얀꽃잎조각들이 담긴 병들로 가득했다. 그는 병 선반을 다시 안 보이게끔 밀었다.",
+                                                "<br><br>\"다음에도 도와줄 거지?\"<br><br>" +
+                                                "그는 장난기 어린 미소와 함께 말했다. 다음 번에는 보상도 꼭 받고 말이야...."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                changeEmotion("sora", "affection", 10);
+                                                savePlayer(player);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: "아직 주지 않는다",
+                    action: "return_shop"
+                }
+            ]
+        }
+    ], player);
 }

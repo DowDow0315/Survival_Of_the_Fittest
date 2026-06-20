@@ -321,9 +321,9 @@ const QUESTS = {
         activeDesc : "연구시설 중심부에 도달해야 한다.",
         readyDesc : "장치를 작동시켰다. 주점으로 돌아가 보고하자.",
         
-        targetFlag : "upperCity_quest01_complete",
+        targetFlag : "upperCity_quest01_done",
         requiredKill : 1,    
-        rewardGold : 0,
+        rewardGold : 2000,
 
         acceptText : "",
         completeText : "장치는 정상적으로 작동했다.<br>...설마 연구시설이 재도 안 남고 사라질 줄은 몰랐지만."

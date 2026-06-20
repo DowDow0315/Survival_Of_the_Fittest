@@ -212,7 +212,7 @@ window.EVENTS.push({
 
     action : (player) => {
         startScene(
-            NPC_DATA["sora"].scenes.sora_flowerDate_03,
+            NPC_DATA["sora"].scenes.sora_flowerDate_02,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -238,6 +238,31 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["sora"].scenes.sora_flowerDate_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+//소라 개인퀘스트
+window.EVENTS.push({
+    id : "sora_drug_02_unlock_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance" &&
+        player.flags?.upperCity_quest01_started &&
+        !player.flags?.sora_drug_02_start_seen,
+
+    action : (player) => {
+        player.flags.sora_drug_02_start_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_drug_02_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

@@ -21,7 +21,7 @@ window.EVENTS.push({
                     "곧이어 거리 곳곳에서 박수가 터졌다. 사람들은 그를 향해 웃고, 고개를 숙이고, 이름을 불렀다. 몇 명은 그를 더 가까이에서 보기 위해 사람들을 밀치기도 했다. 그의 이름은 이미 군중 사이를 떠돌고 있었다. <br><br>발렌.<br><br>당신도 그 이름을 들어본 적이 있다.",
                     "<br><br>영웅. <br><br>이 도시의 영웅. <br><br>그리고 이 도시의 주인.",
                     "<br><br>그가 무슨 말을 하고 있는지는 들리지 않았다. 하지만 발렌의 입이 멈추자 사람들은 환호성을 질렀고, 당신의 옆에 있던 사람들도 동조하여 환호했다. 당신은 그 환호성 속에서 발렌을 바라보았다. 너무 멀어서 그의 표정은 보이지 않았다. 하지만 그의 금빛 머리카락 아래 하늘색 눈동자만은 이상할 정도로 선명하게 보였다. <br>그의 위로는 슬로건이 걸려 있었다.",
-                    "<br><br><br><div style='text-align:center; font-size:1.1em;'><span style='color:#04a82d'><strong>모든 사람들은 사랑받을 권리가 있다.</strong></span></div>"
+                    "<br><br><br><div style='text-align:center; font-size:1.1em;'><span style='color: #1de2f0'><strong>모든 사람들은 사랑받을 권리가 있다.</strong></span></div>"
                 ]
             }
         ], player, {

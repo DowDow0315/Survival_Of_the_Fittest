@@ -315,6 +315,16 @@ window.blocked_guardPost1_inner = function(player){
 function buildGuardPost2Scene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.flags?.upperCity_quest01_started &&
+        !player.flags?.upperCity_quest01_done
+    ){
+        choices.push({
+            text : "외곽 연구시설로 향한다",
+            action : "move_whiteFlowerLab"
+        });
+    }
+
     choices.push(
         { text:"경계병 제3초소로 향한다", action:"travel_guardPost2_to_guardPost3" },
         { text:"경계병 제1초소로 돌아간다", action:"travel_guardPost2_to_guardPost1" },

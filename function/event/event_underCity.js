@@ -254,7 +254,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "townEntrance" &&
-        player.flags?.upperCity_quest01_started &&
+        player.flags?.uppercity_story_01_started &&
         !player.flags?.sora_drug_02_start_seen,
 
     action : (player) => {

@@ -951,6 +951,22 @@ function changeNPCEmotion(npcId, key, amount){
     changeEmotion(npcId, key, amount);
 }
 
+function changeNPCEmotionWithCap(npcId, key, amount, max){
+    const npc = NPC_DATA[npcId];
+    if (!npc) return;
+
+    npc.emotion = npc.emotion || {};
+    const current = npc.emotion[key] ?? 0;
+
+    if (current >= max) return;
+
+    changeNPCEmotion(
+        npcId,
+        key,
+        Math.min(amount, max - current)
+    );
+}
+
 function applyEffect(effect, player){
     if (!effect) return;
 
@@ -1058,6 +1074,24 @@ function getWeekdayIndex(player){
 
 function getWeekdayName(player){
     return ["월", "화", "수", "목", "금", "토", "일"][getWeekdayIndex(player)];
+}
+
+function getCalendarDate(player){
+    let day = getCurrentDay(player);
+    const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    let month = 1;
+
+    for (const days of monthDays){
+        if (day <= days){
+            return { month, day };
+        }
+
+        day -= days;
+        month++;
+    }
+
+    return { month: 12, day: 31 };
 }
 
 const NPC_LUST_GROWTH_CONDITIONS = {
@@ -2706,6 +2740,16 @@ function handleDungeonCollapse(player){
         return;
     }
 
+    if (dungeonId === "whiteFlowerLabRepeated"){
+        pickWeightedRescue([
+            { fn: collapse_yuri, weight: 30 },
+            { fn: collapse_sora, weight: 50 },
+            { fn: collapse_eric, weight: 40},
+            { fn: collapse_luke, weight: getNpcAffection("luke") >= 40 ? 30 : 0 }
+        ])(player);
+        return;
+    }
+
     collapse_noRescue(player);
 }
 
@@ -2781,4 +2825,232 @@ function gameOver(player, reason = "당신은 죽었다.") {
             ]
         }
     ], player);
+}
+
+
+//미니게임용 함수
+const ARROW_KEYS = {
+    ArrowUp: "↑",
+    ArrowDown: "↓",
+    ArrowLeft: "←",
+    ArrowRight: "→"
+};
+
+function getArrowClass(arrow){
+    if (arrow === "↑") return "arrow-up";
+    if (arrow === "↓") return "arrow-down";
+    if (arrow === "←") return "arrow-left";
+    if (arrow === "→") return "arrow-right";
+    return "";
+}
+
+function getRandomArrowSequence(length = 1){
+    const arrows = Object.values(ARROW_KEYS);
+    const result = [];
+
+    for (let i = 0; i < length; i++){
+        result.push(arrows[Math.floor(Math.random() * arrows.length)]);
+    }
+
+    return result;
+}
+
+function startArrowMinigame(player, options = {}){
+    const config = {
+        mode: options.mode || "sequence", // "single" or "sequence"
+        target: options.target ?? 5,
+        sequenceLength: options.sequenceLength ?? 3,
+        timeLimit: options.timeLimit ?? 5000,
+
+        title: options.title || "화살표를 입력하세요!",
+        successText: options.successText || "성공!",
+        failText: options.failText || "실패!",
+
+        hideAfter: options.hideAfter ?? null,
+
+        onStepSuccess: options.onStepSuccess || null,
+        onStepFail: options.onStepFail || null,
+        onClear: options.onClear || null,
+        onGameOver: options.onGameOver || null
+    };
+
+    function cleanup(){
+        ended = true;
+        window.removeEventListener("keydown", handleKeyDown);
+        if (timer) clearTimeout(timer);
+    }
+
+    let progress = 0;
+    let currentSequence = [];
+    let inputSequence = [];
+    let timer = null;
+    let ended = false;
+    let roundLocked = false;
+
+    function renderRound(){
+        roundLocked = false;
+        if (ended) return;
+
+        currentSequence = getRandomArrowSequence(config.sequenceLength);
+        inputSequence = [];
+
+        const sceneBox = document.getElementById("storyText");
+        const choiceArea = document.getElementById("choiceArea");
+        const storyBtn = document.getElementById("storyBtn");
+        
+        if (!sceneBox){
+            console.error("storyText element not found");
+            return;
+        }
+        
+        if (choiceArea) choiceArea.innerHTML = "";
+        if (storyBtn) storyBtn.style.display = "none";
+
+        sceneBox.innerHTML = `
+            <div class="arrow-minigame">
+                <h3>${config.title}</h3>
+
+                <div class="arrow-progress">
+                ${getProgressBar(progress, config.target)}
+                </div>
+
+                <div class="arrow-sequence">
+                    ${currentSequence.map(a => `<span class="arrow-key ${getArrowClass(a)}">${a}</span>`).join(" ")}
+                </div>
+
+                <div class="arrow-input">
+                    입력: <span id="arrowInputPreview"></span>
+                </div>
+
+                <div class="arrow-timer">
+                    ${config.timeLimit / 1000}초 안에 입력하세요.
+                </div>
+            </div>
+        `;
+
+        if (config.hideAfter !== null){
+            setTimeout(() => {
+                const sequence =
+                document.querySelector(".arrow-sequence");
+                
+                if (sequence){
+                    sequence.style.visibility = "hidden";
+                }
+            }, config.hideAfter);
+        }
+
+        window.removeEventListener("keydown", handleKeyDown);
+        window.addEventListener("keydown", handleKeyDown);
+
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            failRound();
+        }, config.timeLimit);
+    }
+
+    function handleKeyDown(e){
+        if (ended) return;
+        if (!ARROW_KEYS[e.key]) return;
+
+        e.preventDefault();
+
+        const arrow = ARROW_KEYS[e.key];
+        inputSequence.push(arrow);
+
+        const preview = document.getElementById("arrowInputPreview");
+        if (preview){
+            preview.textContent = inputSequence.join(" ");
+        }
+
+        const index = inputSequence.length - 1;
+
+        if (inputSequence[index] !== currentSequence[index]){
+            failRound();
+            return;
+        }
+
+        if (inputSequence.length >= currentSequence.length){
+            successRound();
+        }
+    }
+
+    function successRound(){
+        if (roundLocked) return;
+        roundLocked = true;
+        if (timer) clearTimeout(timer);
+
+        progress++;
+
+        if (config.onStepSuccess){
+            config.onStepSuccess(player, {
+                progress,
+                target: config.target
+            });
+        }
+
+        if (progress >= config.target){
+            cleanup();
+
+            if (config.onClear){
+                config.onClear(player);
+            }
+
+            return;
+        }
+
+        showSingleTextScene(
+            `${config.successText}<br><br>진행도: ${progress} / ${config.target}`,
+            player,
+            {
+                onEnd: () => renderRound()
+            }
+        );
+    }
+
+    function failRound(){
+        if (roundLocked) return;
+        roundLocked = true;
+        if (timer) clearTimeout(timer);
+        
+        let failMessage = config.failText;
+        
+        if (config.onStepFail){
+            const result = config.onStepFail(player, {
+                progress,
+                target: config.target
+            });
+            
+            if (result?.text){
+                failMessage = result.text;
+            }
+            
+            if (result?.progress !== undefined){
+                progress = Math.max(0, result.progress);
+            }
+        }
+
+        showSingleTextScene(
+            `${failMessage}<br><br>진행도: ${progress} / ${config.target}`,
+            player,
+            {
+                onEnd: () => {
+                    if (config.onGameOver && progress <= -999){
+                        cleanup();
+                        config.onGameOver(player);
+                        return;
+                    }
+                    
+                    renderRound();
+                }
+            }
+        );
+    }
+    renderRound();
+}
+
+function getProgressBar(progress, target){
+    target = Math.max(1, target);
+    progress = Math.max(0, Math.min(progress, target));
+    return "●".repeat(progress)
+    + "○".repeat(target - progress);
 }

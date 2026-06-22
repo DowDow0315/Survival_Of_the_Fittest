@@ -85,6 +85,37 @@ const QUESTS = {
         completeText : "마틴은 의뢰서를 확인하더니 고개를 끄덕였다. 그는 당신이 구출한 사람들은 모두 인도됐다고 말했다. 어디로 인도된건지 묻자 마틴은 자기도 그건 모른다고 말했다."
     },
 
+    whiteFlowerLab_cleanup : {
+        id : "whiteFlowerLab_cleanup",
+        title : "하얀꽃 연구소 지부 폭파",
+        type : "investigate",
+        repeatable : true,
+        giver : "valen",
+        
+        desc : "발렌이 말한 연구시설 외에도 하얀꽃 연구소는 여러 곳에 남아있는 모양이다. 꽃감염자들이 경계병들이나 지나가는 사람들을 습격한다는 소식이 자주 들려온다. 연구소를 폭파시켜 그들의 발생지를 없애버리자.",        
+        activeDesc : "연구소 제어실에 도달해야 한다.",
+        readyDesc : "연구소는 폭발과 함께 완전히 무너졌다.",
+        
+        targetFlag : "whiteFlowerLab_cleanup_done",
+        requiredKill : 1,    
+        rewardGold : 2000,
+
+        require : {
+            completedQuest : "uppercity_story_01",
+            count : 1
+        },
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.whiteFlowerLab_cleanup_done = false;
+            changeNPCEmotionWithCap("valen", "affection", 1, 10);
+            changeNPCEmotionWithCap("acacia", "affection", 1, 20);
+        },
+
+        acceptText : "당신은 하얀꽃 연구소를 폭발시키는 의뢰를 받아들였다. 마틴은 당신에게 의뢰서를 주었다. 아무 말도 없었지만 그는 당신을 힐끔 보았다가 다시 고개를 돌렸다.",
+        completeText : "마틴은 당신의 보고에 고개를 끄덕였다. <br><br>\"믿고 있었습니다, 하류도시의 영웅.\"<br><br>마틴은 그릇을 닦으며 말했다.<br><br>\"네가 그 의뢰를 받는다는 소식을 들었을 때 발렌이 임무를 마치고 온 네게 전해달라고 한 말이야.\"" 
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -120,6 +151,7 @@ const QUESTS = {
         completeText : "마틴은 당신이 가져온 증거를 확인하더니 고개를 끄덕였다. <br><br>\"이제 조금은 잠잠해지겠지. 다시 생기긴 하겠지만.... 잘했어.\"<br><br>당신은 그의 표정을 보고 싶었지만, 그가 바로 고개를 돌려버려 그의 표정을 볼 수 없었다."
         
     },
+    
     undercity_story_02: {
         id : "undercity_story_02",
         title : "하수구 깊은 곳의 의문",
@@ -309,24 +341,30 @@ const QUESTS = {
     },
 
     //act2
-    upperCity_quest01 : {
-        id : "upperCity_quest01",
+    uppercity_story_01 : {
+        id : "uppercity_story_01",
         title : "상류도시를 위하여",
         type : "investigate",
         repeatable : false,
         giver : "valen",
         source : "event",
         
-        desc : "발렌은 연구시설 중심부에 있는 장치를 작동시켜달라고 부탁했다.",        
-        activeDesc : "연구시설 중심부에 도달해야 한다.",
-        readyDesc : "장치를 작동시켰다. 주점으로 돌아가 보고하자.",
+        desc : "발렌은 연구시설 중추실에 있는 장치를 작동시켜달라고 부탁했다.",        
+        activeDesc : "연구시설 중추실에 도달해야 한다.",
+        readyDesc : "장치는 정상적으로 작동했다.<br>...설마 연구시설이 무너질 줄은 몰랐지만.",
         
-        targetFlag : "upperCity_quest01_done",
+        targetFlag : "uppercity_quest01_done",
         requiredKill : 1,    
         rewardGold : 2000,
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.uppercity_story_01_done = true;
+            player.flags.uppercity_story_01_done_day = getCurrentDay(player);
+        },
 
         acceptText : "",
-        completeText : "장치는 정상적으로 작동했다.<br>...설마 연구시설이 재도 안 남고 사라질 줄은 몰랐지만."
+        completeText : "마틴은 당신의 보고에 고개를 끄덕였다. 그는 상류도시에 전령을 보내놓겠다고 말했다. 마틴의 전령이 발렌에게 닿으려면 조금 오래 걸릴 것이다.... 발렌이 당신을 정말로 신경쓰고 있다면 오래 걸리지 않을 수도 있고."
     }
 };
 
@@ -584,6 +622,11 @@ function acceptQuest(player, questId){
     if (quest.id === "goblin_cave_cleanup"){
         player.flags = player.flags || {};
         delete player.flags.defeated_goblinCave_goblinKing;
+    }
+
+    if (quest.id === "whiteFlowerLab_cleanup"){
+        player.flags = player.flags || {};
+        player.flags.whiteFlowerLab_cleanup_done = false;
     }
 
     player.quest.active = {

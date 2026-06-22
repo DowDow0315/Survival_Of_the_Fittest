@@ -670,6 +670,14 @@ const ITEMS ={
             stats : {
                 charm : 1
             }
+        },
+        whiteFlowerBra : {
+            name : "하얀꽃잎브라",
+            type : "bra",
+            price : 0,
+            stats : {
+                charm : 3
+            }
         }
     },
  
@@ -812,13 +820,25 @@ const ITEMS ={
             }
         },
 
+        whiteFlowerLabBracelet : {
+            name : "하얀꽃팔찌",
+            type : "accessary",
+            price : 5000,
+            stats : {
+                charm : 2,
+                dex : 1,
+                int : 1,
+                str : 1
+            }
+        },
+
         //npc 관련 악세사리
         flowerCrown : {
             name : "꽃왕관",
             type : "accessary",
             price : 100,
             stats : {
-                charm : 3
+                charm : 2
             }
         }
     },

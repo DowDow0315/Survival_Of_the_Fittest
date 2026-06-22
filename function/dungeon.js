@@ -251,8 +251,8 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            r0c0 : { name : "하얀꽃방", exits: {right : "r0c1", down : "r1c0"} },
-            r0c1 : { name : "비밀방", exits : { left : "r0c0" } },
+            r0c0 : { name : "하얀꽃방", exits: {right : "r0c1", down : "r1c0"}, event : "whiteFlowerLab_soldier" },
+            r0c1 : { name : "비밀방", exits : { left : "r0c0" }, event : "whiteFlowerLab_erwin" },
             r0c3 : { name : "백색 복도의 끝", exits : { down : "r1c3", right : "r0c4" } },
             r0c4 : { name : "중추로 가는 길A", exits : { left : "r0c3", right : "r0c5" } },
             r0c5 : { name : "중추로 가는 길B", exits : { left : "r0c4", right : "r0c6" } },
@@ -261,39 +261,39 @@ const DUNGEONS = {
             r0c8 : { name : "중추실", exits : { left : "r0c7" }, boss: "infectedSmalls", bossIntro:"infectedSmalls_intro" },
             
             r1c0 : { name : "하얀꽃잎들로 뒤덮인 복도", exits : { up : "r0c0", down : "r2c0" } },
-            r1c3 : { name : "백색 복도 통로", exits : { up : "r0c3", down : "r2c3" } },
+            r1c3 : { name : "백색 복도 통로6", exits : { up : "r0c3", down : "r2c3" } },
             r1c7 : { name : "중추실 옆 작은 방", exits : { up : "r0c7" }, safeZone: true, allowRest: true },
             
             r2c0 : { name : "코너길", exits : { up : "r1c0", right : "r2c1" } },
             r2c1 : { name : "출입금지실", exits : { left : "r2c0", down : "r3c1" } },
-            r2c3 : { name : "백색 복도 통로", exits : { up : "r1c3", down : "r3c3" } },
-            r2c5 : { name : "실험실A", exits : { right : "r2c6" } },
+            r2c3 : { name : "백색 복도 통로5", exits : { up : "r1c3", down : "r3c3" } },
+            r2c5 : { name : "실험실A", exits : { right : "r2c6" }, event : "whiteFlowerLab_experimentA" },
             r2c6 : { name : "실험실 복도 코너", exits : { left : "r2c5", down : "r3c6" } },
             
             r3c1 : { name : "출입금지실 앞", exits : { up : "r2c1", down : "r4c1" } },
-            r3c3 : { name : "백색 복도 통로", exits : { up : "r2c3", down : "r4c3" } },
+            r3c3 : { name : "백색 복도 통로4", exits : { up : "r2c3", down : "r4c3" } },
             r3c6 : { name : "피묻은 실험실 복도B", exits : { up : "r2c6", down : "r4c6" } },
-            r3c8 : { name : "폐기실", exits : { down : "r4c8" } },
+            r3c8 : { name : "폐기실", exits : { down : "r4c8" }, chest: "whiteFlowerLab_chest" },
             
             r4c1 : { name : "하얀꽃잎이 떨어져있는 복도", exits : { up : "r3c1", down : "r5c1", right : "r4c2" }, chest: "whiteFlowerLab_chest" },
             r4c2 : { name : "옆으로 새어나가는 통로", exits : { left : "r4c1", right : "r4c3" } },
-            r4c3 : { name : "백색 복도 통로", exits : { up : "r3c3", left : "r4c2", right : "r4c4", down : "r5c3" } },
+            r4c3 : { name : "백색 복도 통로3", exits : { up : "r3c3", left : "r4c2", right : "r4c4", down : "r5c3" } },
             r4c4 : { name : "실험실 입구", exits : { left : "r4c3", right : "r4c5" } },
             r4c5 : { name : "실험실 출입 복도", exits : { left : "r4c4", right : "r4c6" } },
             r4c6 : { name : "피묻은 실험실 복도A", exits : { up : "r3c6", left : "r4c5", down : "r5c6" } },
             r4c8 : { name : "폐기실 앞", exits : { up : "r3c8", down : "r5c8" } },
 
-            r5c0 : { name : "파손된 통로", exits : { right : "r5c1" } },
-            r5c1 : { name : "백색 뿌리 구역", exits : { up : "r4c1", left : "r5c0", down : "r6c1" } },
-            r5c3 : { name : "실험체 폐기장", exits : { up : "r4c3", down : "r6c3" } },
-            r5c6 : { name : "제어실", exits : { up : "r4c6", right : "r5c7", down : "r6c6" } },
-            r5c7 : { name : "통제실", exits : { left : "r5c6", right : "r5c8" } },
+            r5c0 : { name : "직원 숙소", exits : { right : "r5c1" }, event : "whiteFlowerLab_researcherDiary" },
+            r5c1 : { name : "거주지 앞", exits : { up : "r4c1", left : "r5c0", down : "r6c1" } },
+            r5c3 : { name : "백색 복도 통로2", exits : { up : "r4c3", down : "r6c3" } },
+            r5c6 : { name : "피묻은 통로", exits : { up : "r4c6", right : "r5c7", down : "r6c6" } },
+            r5c7 : { name : "피묻은 통로2", exits : { left : "r5c6", right : "r5c8" } },
             r5c8 : { name : "급식실로 가는 통로", exits : { left : "r5c7", up : "r4c8", down : "r6c8" } },
             
-            r6c1 : { name : "감방", exits : { up : "r5c1" } },
-            r6c3 : { name : "백색 복도 통로", exits : { up : "r5c3", down : "r7c3" }, chest: "whiteFlowerLab_chest" },
-            r6c6 : { name : "실험실B", exits : { up : "r5c6" } },
-            r6c8 : { name : "급식실", exits : { up : "r5c8" }, chest : "whiteFlowerLab_fixed_chest" },
+            r6c1 : { name : "감방", exits : { up : "r5c1" }, event : "whiteFlowerLab_prison" },
+            r6c3 : { name : "백색 복도 통로1", exits : { up : "r5c3", down : "r7c3" }, chest: "whiteFlowerLab_chest" },
+            r6c6 : { name : "실험실B", exits : { up : "r5c6" }, event : "whiteFlowerLab_experimentB" },
+            r6c8 : { name : "급식실", exits : { up : "r5c8" }, chest : "whiteFlowerLab_fixed_chest", event : "whiteFlowerLab_cafeteria" },
             
             r7c3 : { name : "실험실 출입문", exits : { up : "r6c3" } }
         },
@@ -306,8 +306,52 @@ const DUNGEONS = {
             {type : "event", id : "whiteFlowerLab_flowerAttack", weight: 10},
             {type : "event", id : "whiteFlowerLab_oneWhiteFlower", weight: 5},
             {type : "event", id : "whiteFlowerLab_familySoldier", weight: 5}
-
         ]
+    },
+
+    whiteFlowerLabRepeated : {
+        id : "whiteFlowerLabRepeated",
+        name : "하얀꽃 연구소 지부",
+        startRoom : "r4c4",
+
+        layout : [
+            ["r0c0", ""    , ""     ,"r0c3", "r0c4"],
+            ["r1c0", "r1c1", "r1c2", "r1c3", ""    ],
+            [""    , ""    , "r2c2", ""    , "r2c4"],
+            [""    , ""    , "r3c2", "r3c3", "r3c4"],
+            [""    , "r4c1", "r4c2", ""    , "r4c4"]
+        ],
+
+        rooms : {
+            "r0c0" : { name : "하얀꽃창고", exits: {down : "r1c0"}, chest: "whiteFlowerLabRepeated_chest" },
+            "r0c3" : { name : "제어실 직전 통로의 작은 틈", exits : {right: "r0c4", down: "r1c3"}, safeZone: true, allowRest: true },
+            "r0c4" : { name : "제어실", exits : {left : "r0c3"}, boss: "infectedSoldier"},
+
+            "r1c0" : {name : "창고앞", exits : {up: "r0c0", right : "r1c1"} },
+            "r1c1" : {name : "창고앞 복도", exits : {left: "r1c0", right: "r1c2"}},
+            "r1c2" : {name : "중앙갈림길", exits : {left : "r1c1", right : "r1c3"}},
+            "r1c3" : {name : "제어실로가는길", exits : {left : "r1c2", up:"r0c3"}},
+
+            "r2c2" : {name : "백색통로2", exits : {up: "r1c2", down : "r3c2"}},
+            "r2c4" : {name : "막힌 통로", exits : {down : "r3c4"}, chest: "whiteFlowerLabRepeated_chest"},
+
+            "r3c2" : {name : "백색통로1", exits : {up:"r2c2", down:"r4c2", right : "r3c3"}},
+            "r3c3" : {name : "통로쪽으로 뻗은 길", exits : {left : "r3c2", right : "r3c4"}},
+            "r3c4" : {name : "출입구 앞", exits : {left : "r3c3", up: "r2c4", down : "r4c4"}},
+
+            "r4c1" : {name : "거대한 하얀꽃이 있었던 걸로 보이는 방", exits : {right : "r4c2"}, chest: "whiteFlowerLabRepeated_chest"},
+            "r4c2" : {name : "하얀꽃들이 그려져있는 복도", exits : {left : "r4c1", up: "r3c2"}},
+            "r4c4" : {name : "출입구", exits : {up : "r3c4"}}
+        },
+
+        encounters : [
+            { type: "battle", enemy: "infectedSmall", weight: 15 },
+            { type: "battle", enemy: "infected", weight: 35 },
+            { type: "battle", enemy: "infectedSoldier", weight: 20 },
+            {type : "event", id : "whiteFlowerLab_Collapse", weight: 15},
+            {type : "event", id : "whiteFlowerLab_flowerAttack", weight: 10},
+            {type : "event", id : "whiteFlowerLab_oneWhiteFlower", weight: 5}
+        ] 
     }
 }
 
@@ -427,6 +471,14 @@ const whiteFlowerLab_CHEST_POOL = [
     { id: "gold_1000", weight: 10 }
 ];
 
+const whiteFlowerLabRepeated_CHEST_POOL = [
+    { id: "medium_potion", weight: 20 },
+    { id: "high_potion", weight: 10 },
+    { id: "nothing", weight: 15 },
+    { id: "gold_500", weight: 25 },
+    { id: "gold_1000", weight: 15 }
+];
+
 const DUNGEON_CHESTS = {
     sewer_chest: {
         name: "녹슨 상자",
@@ -477,6 +529,12 @@ const DUNGEON_CHESTS = {
             addItem(player, ITEMS.consumable.soju);
             showSingleTextScene("상자 안에는 소주가 들어있었다.", player);
         }
+    },
+
+    whiteFlowerLabRepeated_chest: {
+        name: "하얀꽃으로 뒤덮인 상자",
+        type: "random",
+        pool: whiteFlowerLabRepeated_CHEST_POOL
     }
 };
 
@@ -527,7 +585,7 @@ const CHEST_REWARDS = {
     },
 
     nothing: (player) => {
-        showSingleTextScene("아무 것도 없다. 누군가 털어간 모양이다...", player);
+        showSingleTextScene("상자는 비어있었다...", player);
     },
 
     jewerlyPieces: (player) => {
@@ -733,6 +791,32 @@ function moveDungeon(player, direction){
 }
 
 function handleDungeonBossWin(player, dungeon, room){
+    if (dungeon.id === "whiteFlowerLabRepeated" && room.boss === "infectedSoldier"){
+        player.flags = player.flags || {};
+        player.flags.whiteFlowerLab_cleanup_done = true;
+
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value:
+                    "꽃감염병이 쓰러졌다. 당신은 제어실의 장치를 작동시켰다.<br><br>" +
+                    "<div style='text-align:center;'><strong style='color:#ff4d4d; font-size:4rem'>콰앙</strong></div>" +
+                    "<br><br>연구소 지부가 폭발과 함께 무너져내렸다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
     addQuestProgress(player, room.boss);
 
     if (dungeon.id === "goblinCave" && room.boss === "goblinKing"){
@@ -985,6 +1069,8 @@ function leaveDungeon(player){
     } else if (dungeonId === "sewer"){
         player.location = "darkStreet";
     } else if (dungeonId === "whiteFlowerLab"){
+        player.location = "guardPost2";
+    } else if (dungeonId === "whiteFlowerLabRepeated"){
         player.location = "guardPost2";
     } else {
         player.location = "townStreet";
@@ -1757,6 +1843,244 @@ const DUNGEON_EVENTS = {
                     }
                 ]
             }
+        ],
+        whiteFlowerLab_researcherDiary : [
+            {
+                type : "text",
+                value : [
+                    "방을 열고 들어가자 백색 벽과 바닥으로 이루어진 방이 나왔다. 그리고 방에는 백색 침대들로 가득했다. 침대들은 서로 따닥따닥 붙어있어서 침대에서 내려오는 것도 힘들었을 거 같다." +
+                    "<br>주변을 둘러보던 당신은 베개 옆에 있는 일기장 하나를 발견했다. 낡고 바랜 일기장, 당신은 일기를 읽었다. 1일차부터 써있지는 않았다." +
+                    "<br><br><br>[380일차]<br>이제 신입 연구원들이 와도 감흥이 없다. 어차피 저들 중 몇몇은 일년도 되지 않아 미치거나 죽을 것이다. 그들에게 쓸데없는 정을 주고 싶지는 않았다." +
+                    "<br><br>[383일차]<br>한 신입 놈이 나에게 와서 가족은 안 보고 싶냐고 물었다. 나는 시큰둥하게 가족들은 어차피 잘 살고 있을 거라고 말했다. 내가 여기에 있는지 1년이 됐으니, 그들은 이제 상류도시에 가서 따듯한 음식을 제공받고 있겠지. 이 실험이 끝나기 전까지는 너도 나도 가족에게는 못 돌아갈 거라고 말하며 난 신입에게 일을 더 열심히 하라고 재촉했다. 보통 이러면 다들 나가떨어지던데, 이 신입은 입술을 삐죽이며 웃었다." +
+                    "<br><br>[390일차]<br>그 신입 새끼, 내 생각보다 더 어렸다. 그는 노모를 상류도시에 올려보내기 위해서 연구소에 지원했다고 했다. 그나마 자기 머리가 똑똑해서 다행이라고 그는 웃었다. 머리는 좋은데 대가리에는 꽃들이 가득찬 거 같다. 친하게 지내고 싶지 않다." +
+                    "<br><br>[397일차]<br>오늘은 그 신입 놈이랑 같이 소주를 마셨다. 아껴놨던 소주다. 이새끼랑 마시게 됐다는 게 웃기긴 한데.... 아무튼, 녀석은 내게 상류도시의 사람들도 이 연구소에 있는 게 신기하다고 말했다. 그들은 우리처럼 생존하기 위해서 여기에 지원한 게 아니야, 바보야. 이제 녀석만 보면 한숨이 나온다. 내 아들이 컸으면 이렇게 컸으려나." +
+                    "<br><br>[400일차]<br>...녀석이 요새 좀 이상한 거 같다. 아니, 20일밖에 안 됐는데 벌써 그딴 눈을 한다고? 정신 좀 차려라." +
+                    "<br><br>[420일차]<br>노모의 편지를 못 받는 게 이상하단다. 씨발... 내가 좀 알아봐줘야겠다." +
+                    "<br><br>[421일차]<br>팀장님한테 말해보았지만 개같이 까였다. 아니, 노모 생사 확인해주는 게 그렇게 어렵나? 아직 1년 안 지났으니 하류도시에 있을 텐데, 주소는 어차피 이 신입 새끼가 알고 있으니까 한번 찾아가보면 되는 거잖아?" +
+                    "<br><br>[425일차]<br>신입이 노모에게 편지를 받았댄다. 근데 이번엔 이상하다고 난리다. 이상하긴 뭐가 이상해. 이새끼도 드디어 미쳐가는 거 같다. 난 녀석의 입에 소주병을 꽂아주었다. 제발 씨발 정신 좀 차려라." +
+                    "<br><br>[431일차]<br>신입이 도망갔다가 잡혔다는 소식을 들었다. 1시간도 못 넘기고 바로 잡혔다고 한다. 팀장새끼는 나한테 이제 내 일에나 집중하라고 말했다. 이제까지 그래왔던 것처럼... 그래, 이제까지 그래왔지. 나는 그냥 내 일을 해야 해. 내 가족들은 상류도시에서 잘 먹고 잘 살고 있을 테니까." +
+                    "<br><br>[432일차]<br>오늘 가족들한테 받은 편지를 좀 다시 읽어봤다. 씨발... 이상한 게 맞는 거 같다. 드디어 나도 미쳐가나? 하, 근데 내 가족밖에 모르는 일들이 써있긴 한데... 씨발, 모르겠다. 소주나 마셔야겠다." +
+                    "<br><br>[433일차]<br>밥을 혼자 먹게 된 지 3일." +
+                    "<br><br>[435일차]<br>요새 머리가 자꾸 간지럽다... 뭐지...." +
+                    "<br><br><br>일기는 435일에서 끊겨있었다. 당신은 일기장을 닫았다."
+                ]
+            }
+        ],
+        whiteFlowerLab_prison : [
+            {
+                type : "text",
+                value : [
+                    "감옥이다. 당신은 고개를 숙이고 감옥에 들어가야만 했다. 건장한 성인 남성이라면 제대로 서지도 못할 높이다. 여기에 갇혀있었던 사람들은 그럼 전부 앉아있었을까? 아니면 누워있었을까? 주변을 둘러보았지만 당신은 아무 것도 찾을 수 없었다." +
+                    " 당신이 찾을 수 있는 건 그저 하얀꽃잎 몇 개뿐이다. 당신은 나오다가 관리 일지를 보았다." +
+                    "<br><br><br>실험체 A, 실험체 B에게 엄청난 모성애를 보이고 있음. 주의 요망. <br>실험체 B가 실험체 F의 옆에 붙었음. 동질감을 느끼는 것처럼 보임. <br>실험체B, 실험체F, 실험체BE가 서로 붙었음. 그리고 다른 어른 실험체들은 그들에게 모성애를 느끼는 거 같음. 자기 자식이 아닌데도." +
+                    "<br>실험체A, 실험체Z, 실험체CX 폐기 처분." +
+                    "<br><br>그 후에도 비슷한 내용들이 계속 써져 있었다. 당신은 관리 일지에서 시선을 돌렸다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "그 순간 당신은 꽃감염자 한 명이 당신에게로 다가오는 것을 보았다. 꽃에는 눈이 없는데, 당신은 그것이 당신을 노려보고 있다는 느낌을 받았다. 꽃감염자의 가슴에는 명찰이 하나 달려있었다. [실험체 BZ], 꽃감염자가 당신에게 달려든다...!"
+                ]
+            },
+            {
+                type : "effect",
+                run: (player) => {
+                    const enemyId = "infected";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("infected", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        whiteFlowerLab_soldier : [
+            {
+                type : "text",
+                value : [
+                    "꽃감염병 하나가 버튼 앞에 서있었다. 그것은 당신을 보더니 오지 말라는 듯 손바닥을 내밀어보였다. 그는 그르렁거리며 민간인은 이곳에 오면 안 된다고 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그에게 왜 지금까지 이곳을 지키고 있는 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 그것은 입술을 달싹이더니 간신히 말을 했다." +
+                                    "<br><br>\"그게...내... ㅇ...이...니ㄲ...ㅏ... 나는... 약속을... 약속....\"<br>" +
+                                    "그는 자신의 주머니에서 훈장을 하나 꺼냈다. 경계병의 훈장이 아니라 경비병의 훈장이었다. 루크 경비병단 소속이었던 모양이다. 당신은 그 훈장을 받아들었다. 훈장에는 루크의 글씨체로 삐뚤삐뚤 이름이 써져 있었다." +
+                                    "<br><br>\"너...아...ㄹ..아? ...너...ㄹ..크...친구...?\"<br><br>" +
+                                    "당신이 글씨체를 알아보이는 기색을 보이자 꽃감염병은 웅얼거렸다. 이성을 아예 잃기 직전인 거 같다.<br><br>" +
+                                    "\"ㄱ...져다...ㅈ...난... 끝까..ㅈ... ㄴ..ㄹ..ㅕ...\"<br><br>" +
+                                    "그것은 더 이상 참을 수 없었는지 창을 들더니 그대로 그것을 제 얼굴에 꽂았다. 그의 몸이 당신의 앞으로 풀썩 쓰러졌다. 꽃이 시들었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    player.flags.whiteFlowerLab_lukeSoildier = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "그는 당신이 발렌의 명령을 받아 여기에 왔다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "발렌의 명령을 받아서 왔다는 말에 꽃감염자의 표정이 멈췄다. '발렌', 그는 그 이름만은 명확하게 말했다. 그러더니 그것은 당신에게 훈장 하나를 내밀었다." +
+                                    "<br><br>\"ㅇ...거....하...ㄹ...ㄷ...시...ㄹ...크...\"<br><br>" +
+                                    "당신은 그것에게서 훈장을 받았다. 훈장에는 꽃감염자의 이름으로 추정되는 글자가 루크의 글씨체로 삐뚤삐뚤 써있었다. 그것은 당신이 받는 걸 보더니 더 이상 미련은 없다는 듯 창을 들어 자신의 머리에 꽂았다. 털썩. 시든 꽃이 당신의 앞으로 쓰러졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    player.flags.whiteFlowerLab_lukeSoildier = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                        
+                    },
+                    {
+                        text : "꽃감염병이다. 당신은 무기를 들어 그것에게 겨누었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 무기를 들자 꽃감염자는 이곳을 지켜야 한다는 생각으로 이성을 잃었는지 그르렁거리는 소리와 함께 당신에게 달려들었다. 싸움이 시작된다!"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run: (player) => {
+                                    const enemyId = "infectedSoldier";
+                                    const enemy = ENEMIES[enemyId]();
+                                    startBattle("infectedSoldier", player, {
+                                        onWin: () => startScene(buildDungeonScene(player), player),
+                                        onEscape: () => startScene(buildDungeonScene(player), player),
+                                        onLose: () => {runDefeatEvent(player, enemy);}
+                                    });
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        whiteFlowerLab_erwin : [
+            {
+                type : "text",
+                value : [
+                    "버튼을 누르고 열린 방에 들어서자 하얀꽃으로 이루어진 방이 당신을 맞이했다. 여기저기서 달콤한 냄새가 난다. 하얀꽃잎으로 이루어진 침대, 그리고 하얀꽃잎으로 이루어진 장식품들.... 대체 누가 만든 걸까?<br>" +
+                    "마치 공주님이라도 있었던 방같다. 당신은 조심스럽게 발을 앞으로 내딛었다. 당신이 침대에 손을 뻗자 침대를 이루고 있었던 하얀꽃잎들이 다 시들어버렸다." +
+                    " 당신이 어디를 가서 뭘 만지든 아름답게 장식되어 있었던 하얀꽃잎들은 전부 시들어버렸다. 하얗게 아름다웠던 방이 전부 무너져 내린다. 당신은 뒷걸음질치다가 침대 바닥 옆으로 조그맣게 쓰인 글자를 하나 발견했다." +
+                    "<br><br><br><span class='log-pale'>에르윈<br>이 이름은 잊지 않을 거야</span><br><br><br>" +
+                    "당신은 그 방에서 하얀꽃잎으로 이루어진 브라를 주웠다. 이상하게도 그 브라는 당신의 손길에도 시들지 않았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.bra.whiteFlowerBra);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteFlowerLab_experimentA : [
+            {
+                type : "text",
+                value : [
+                    "실험실에 들어서자마자 달콤한 냄새가 당신의 코를 찌르듯이 찔러왔다. 달콤한 냄새가 너무 짙어서 당신은 숨을 쉬는 것조차도 버거웠다. 작은꽃잎부터 큰꽃잎까지 실험실 바닥에 우수수 떨어져있었다. 몇몇 꽃들은 실험실 가운을 입고 있었다. 당신은 권총을 든 채 시들어있는 꽃감염자에게 다가갔다. 그것도 실험실 가운을 입고 있었다." +
+                    " 당신은 그것에게서 권총을 빼냈지만, 권총은 빼내자마자 으스러져서 못 쓰게 되었다. 아니, 당신이 빼내기 전에도 으스러져 있었던 거겠지. 당신은 바스라진 종이를 주웠다." +
+                    "<br><br><br>모두가 하얀꽃이 되어간다. 이것을 상류도시 사람들에게 들키면 안 된다. 노력은 해보겠지만 후임자가 온다면 내가 못 다한 일들을 끝내주길 바란다. 젠장. 소리가 들린다. 나까지 이성을 잃기 전에 빨리<br><br><br>" +
+                    "내용이 끊겨있다. 당신은 종이를 다시 내려두고 주변을 둘러보았다. 몇몇 꽃들은 작게 구멍이 뚫려 있었다."
+                ]
+            }
+        ],
+        whiteFlowerLab_experimentB : [
+            {
+                type : "text",
+                value : [
+                    "실험실에 들어서자 너무 진한 달콤한 냄새가 당신의 코를 역하게 찔러온다. 당신은 당신도 모르게 코를 막고 주변을 둘러보았다. 꽃잎들이 담겨져있는 병들로 가득한 방이었다. 그리고 작은꽃잎들과 큰꽃잎들이 바닥에 흩뿌려져 있는 공간. 당신은 실험실의 벽을 보았다." +
+                    "<br>손톱자국 같은 것이 벽에 그어져 있었다. 큰 유리관 안에도 손톱자국이 있었고 실험실 벽에도 손톱자국이 있었다. 당신은 걸어가다가 연구 일지를 보았다. 연구 일지에는 사람이 어떻게 꽃으로 변해가는가에 대해 써있었다." +
+                    "<br><br><br>상류도시에서 금지가 되었다고는 하지만 우리는 대의를 위하여 악역도 자처하겠다.<br><br><br>가훈이라도 되는 것마냥 그 문장이 가장 앞에 써있었다." +
+                    "<br><br><br>꽃감염체들은 서로에게 연결되는 것처럼 보인다. 누군가의 감정이 계속 꽃감염체에게 공유되고 있다. 그 공유체만 끊으면 그들은 말 잘 듣는 군대가 될 수 있을 거 같다." +
+                    "<br><br>그 가설은 틀렸다. 일부의 꽃감염체들이 어린 꽃감염체들에게 모성애를 가지게 되는 부분을 확인했다. 그들은 무슨 일이 있어도 어린 개체들을 지키려고 한다. 가장 온순해보였던 실험체Z가 어제 연구원을 공격했다. 있으면 안 되는 일이다. 실험체Z를 비롯한 나머지 감염체들의 폐기 처분을 요청한다." +
+                    "<br><br>가장 강한 감정은 <span class='log-pale'>창백</span>에게서 오는 것 같고, 나머지 감정들은 약하게 공유되는 것으로 보인다. 다른 것은 둘째치고, 무슨 일이 있어도 그것을 죽여야 한다. **에게 한번 더 요청해야 한다." +
+                    "<br><br>예전 실험 결과와는 다르게 이들은 사람의 행동을 따라하려고 하지는 않는다. 대신 이성을 잃는다. 아예 이성을 잃는 존재들도 있고, 자신이 해오던 일에 강한 집착을 보이는 존재들도 있다. 전자는 고려 대상도 될 수 없지만 후자는 더 깊게 파보아야 할 거 같다."
+                ]
+            }
+        ],
+        whiteFlowerLab_cafeteria : [
+            {
+                type : "text",
+                value : [
+                    "식당 문을 열고 들어서자 음식 썩은내 대신 달콤한 냄새가 났다. 식탁 위든, 아래든, 그릇 위든 식당은 하얀꽃들로 가득했다. 그리고 그 하얀꽃들 사이에 작은 꽃감염자 하나가 앉아있었다. 다른 꽃감염자보다는 훨씬 작은 꽃이 당신을 바라본다." +
+                    "<br>당신을 공격할 생각은 없는 거 같다. 아니, 공격할 생각이 없기는커녕 당신이 한 발자국 다가오면 그것은 한 발자국 뒤로 물러났다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그것을 벴다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "그것은 당신의 일격에 그대로 죽었다. 자신의 몸을 방어하는 법도 몰랐던 모양이다. 시들어서 툭 떨어진 하얀꽃 앞으로 뭔가가 형성됐다. 하얀꽃 팔찌였다." +
+                                    "<br>당신은 하얀꽃 팔찌를 주웠다. 하얀꽃 팔찌에 당신의 손이 닿은 순간, 죄악감이 당신의 등골을 타고 흘러내렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.accessary.whiteFlowerLabBracelet);
+                                    changeTrauma(player, 10);
+                                    changeStamina(player, -10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그것을 건드리지 않았다. 그저 손을 뻗었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 손을 뻗자 꽃도 당신에게 자신의 손을 뻗었다. 당신의 손이 그것의 손에 맞닿는 순간 당신의 세상이 하얘졌다. 하얘진 세상에서 당신은 피투성이가 된 당신을 보았다. 당신은 거의 죽어있었다. 그대로 내버려두었으면 아마 죽었을 것이다. 그 순간 누군가가, 길고 긴 그림자가 쭈욱 당신의 앞으로 늘어졌다." +
+                                    "<br>그것은 창백했다. 그것은 당신의 주변을 맴돌다가 이리저리 고개를 돌렸다. 당신은 그것의 머리를 보았다. 백발의 머리카락이 이리저리 흔들리다가 꽃잎으로 와르르 무너진다. 그것은 고개를 숙이더니 흩어진 꽃잎들을 전부 주워담았다. 그것은 몇 번을 더 고민하다가 당신에게 다가간다." +
+                                    "<br><br><br>그리고 당신의 세상은 다시 현실로 돌아왔다. 작은 꽃감염자가 당신은 물끄러미 바라보고 있는 것처럼 느껴진다. 그러더니 그것은 당신의 손을 한번 더 꽉 쥐었다." +
+                                    "<br>당신의 몸이 치유됐다. 작은 꽃감염자는 하늘하늘 어딘가로 멀어져갔다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeHP(player, 50);
+                                    changeStamina(player, 50);
+                                    changeTrauma(player, -5);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     }
 }
@@ -2298,26 +2622,6 @@ window.startBanditBossBattle = function(player){
     });
 };
 
-window.startInfectedSmallsBattle = function(player){
-    startBattle("infectedSmalls", player, {
-        noEscape: true,
-        onWin: () => {
-            player.flags = player.flags || {};
-            player.flags.defeated_whiteFlowerLab_infectedSmalls = true;
-            savePlayer(player);
-
-            handleDungeonBossWin(
-                player,
-                getCurrentDungeon(player),
-                getCurrentDungeonRoom(player)
-            );
-        },
-        onSkipDefeat : () => {
-            startInfectedSmallsLose(player);
-        }
-    });
-};
-
 function handleBanditBossWin(player){
     player.flags = player.flags || {};
 
@@ -2342,50 +2646,6 @@ function handleBanditBossWin(player){
                 { text: "던전 밖으로 나가 길거리로 돌아간다", action: "leave_dungeon_after_boss" },
                 { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
             ]
-        }
-    ], player);
-}
-
-function handleInfectedSmallsWin(player){
-    player.flags = player.flags || {};
-
-    player.flags.upperCity_quest01_done = true;
-    player.flags.upperCity_quest01_done_day = getCurrentDay(player);
-
-    addQuestProgress(player);
-    savePlayer(player);
-
-    startScene([
-        {
-            type: "text",
-            value:
-                "작은꽃들이 쓰러졌다. 우수수 떨어진 작은꽃들에서는 더 이상 아무 소리도 나지 않는다. 당신은 가장 가운데에 있는 버튼을 발견했다. 파란색 버튼, 발렌이 말헀던 그 버튼이다." +
-                "당신은 정적 속에서 그 버튼에 다가갔다. 버튼 아래에는 희미하게 글씨가 적혀있었다.<br>[비ㅅ ㅍ기 절차]<br>당신은 꾸욱, 버튼을 눌렀다." +
-                "<br><br>...<br><br>...?<br><br>아무 일도 일어나지 않는...<br><br><br><br><br>" +
-                "<div style='text-align:center;'><strong style='color: #ff4d4d; font-size:5rem'>콰앙</strong></div>" +
-                "<br><br><br><br><br>큰 폭발음에 당신의 귀가 멍해졌다. 어떤 소리도 잘 안 들린다. 당신은 멍하게 뒤를 돌아보았다." +
-                "<br>...연구소 건물이 무너져내리고 있다." +
-                "<br><br>당신의 앞에 문 하나가 보인다. 당신은 연구소 건물이 완전히 무너져내리기 전에 그 문을 박차고 나갔다."
-        },
-        {
-            type : "text",
-            value :
-                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>엄마</div><br><br>" +
-                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>아빠</div><br><br>" +
-                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>보고 싶어</div><br><br>"
-
-        },
-        {
-            type : "text",
-            value :
-                "당신은 눈을 깜박였다. 당신의 앞에 경계병들이 보인다. 경계를 서고 있다가 큰소리를 듣고 바로 달려온 모양이다. 그들은 당신에게 괜찮냐고 물었다." +
-                " 당신은 큰 충격에 움직일 수가 없었다. 그들은 당신을 부축하더니 그대로 경계병 제2초소로 데리고 나왔다."
-        },
-        {
-            type : "effect",
-            run : (player) => {
-                leaveDungeon(player);
-            }
         }
     ], player);
 }
@@ -2425,6 +2685,72 @@ function startBanditBossLose(player){
             type:"text",
             value:
                 "당신은 또 두적두목에게 져서 쓰러졌다. 그가 이번에는 확실히 당신을 처리하라고 당부하는 소리가 들린다. 당신은 그들이 당신에게 영양제 주사를 투여해줄 거라는 걸 알고 있다. 당신은 기다렸다가 그들이 영양제 주사를 놓고 돌아선 순간, 또 다시 온 기회를 놓치지 않았다. 숨어있는 당신의 뒤로 그들이 난 이제 뒤졌다고 경악하는 소리가 들린다."
+        }
+    ], player);
+}
+
+//uppercity_story_01
+
+window.startInfectedSmallsBattle = function(player){
+    startBattle("infectedSmalls", player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_whiteFlowerLab_infectedSmalls = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startInfectedSmallsLose(player);
+        }
+    });
+};
+
+function handleInfectedSmallsWin(player){
+    player.flags = player.flags || {};
+
+    player.flags.uppercity_quest01_done = true;
+    player.flags.uppercity_quest01_done_day = getCurrentDay(player);
+
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "작은꽃들이 쓰러졌다. 우수수 떨어진 작은꽃들에서는 더 이상 아무 소리도 나지 않는다. 당신은 가장 가운데에 있는 버튼을 발견했다. 파란색 버튼, 발렌이 말헀던 그 버튼이다." +
+                "당신은 정적 속에서 그 버튼에 다가갔다. 버튼 아래에는 희미하게 글씨가 적혀있었다.<br>[비ㅅ ㅍ기 절차]<br>당신은 꾸욱, 버튼을 눌렀다." +
+                "<br><br>...<br><br>...?<br><br>아무 일도 일어나지 않는...<br><br><br><br><br>" +
+                "<div style='text-align:center;'><strong style='color: #ff4d4d; font-size:5rem'>콰앙</strong></div>" +
+                "<br><br><br><br><br>큰 폭발음에 당신의 귀가 멍해졌다. 어떤 소리도 잘 안 들린다. 당신은 멍하게 뒤를 돌아보았다." +
+                "<br>...연구소 건물이 무너져내리고 있다." +
+                "<br><br>당신의 앞에 문 하나가 보인다. 당신은 연구소 건물이 완전히 무너져내리기 전에 그 문을 박차고 나갔다."
+        },
+        {
+            type : "text",
+            value :
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>엄마</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>아빠</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>보고 싶어</div><br><br>"
+
+        },
+        {
+            type : "text",
+            value :
+                "당신은 눈을 깜박였다. 당신의 앞에 경계병들이 보인다. 경계를 서고 있다가 큰소리를 듣고 바로 달려온 모양이다. 그들은 당신에게 괜찮냐고 물었다." +
+                " 당신은 큰 충격에 움직일 수가 없었다. 그들은 당신을 부축하더니 그대로 경계병 제2초소로 데리고 나왔다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+            }
         }
     ], player);
 }

@@ -22,7 +22,7 @@
                          <p id="nameText"></p>
                          <hr>
                          <p> 소지금 : <span id="goldText">0</span>G</p>
-                         <p> 시간 : <span id="timeText">0</span></p>
+                         <div id="timeText"></div>
                          <p> 위치 : <span id="locationText">마을입구</span></p>
                     </div>
 
@@ -263,10 +263,15 @@
             const minute = totalMinutes % 60;
             const day = getCurrentDay(player);
             const weekday = getWeekdayName(player);
+            const date = getCalendarDate(player);
+            const hourText = String(hour).padStart(2, "0");
             const minuteText = String(minute).padStart(2, "0");
             
-            document.getElementById("timeText").innerText =
-            `${day}일차 (${weekday}) | ${hour} : ${minuteText}`;
+            document.getElementById("timeText").innerHTML =
+            `<div style="text-align:center;">
+                [${date.month}/${date.day}]<br><br>
+                ${day}일차 ${weekday} | ${hourText}:${minuteText}
+            </div>`;
 
             //장소표시
             if (player.dungeon?.active && window.DUNGEONS){
@@ -2232,6 +2237,47 @@
         .skill-desc{
             margin-top:4px;
             color:#aaa;
+        }
+
+        .arrow-minigame {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .arrow-sequence {
+            font-size: 40px;
+            margin: 20px 0;
+            letter-spacing: 12px;
+        }
+        
+        .arrow-key {
+            display: inline-block;
+            padding: 8px 12px;
+        }
+        
+        .arrow-input {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        .arrow-up {
+            color: #ff6666;
+            text-shadow: 0 0 10px #ff6666;
+        }
+        
+        .arrow-down {
+            color: #66ccff;
+            text-shadow: 0 0 10px #66ccff;
+        }
+        
+        .arrow-left {
+            color: #99ff66;
+            text-shadow: 0 0 10px #99ff66;
+        }
+        
+        .arrow-right {
+            color: #ffcc66;
+            text-shadow: 0 0 10px #ffcc66;
         }
 
     </style>

@@ -208,7 +208,7 @@ window.undercity_hero_declare = function(player) {
         },
         {
             type : "effect",
-            run : "accept_quest_upperCity_quest01"
+            run : "accept_quest_uppercity_story_01"
         }
     ], player, {
         onEnd : () => startScene(getLocationScene(player), player)
@@ -216,12 +216,11 @@ window.undercity_hero_declare = function(player) {
     return true;
 };
 
-window.accept_quest_upperCity_quest01 = function(player) {
+window.accept_quest_uppercity_story_01 = function(player) {
     player.flags = player.flags || {};
-    player.flags.upperCity_quest01_started = true;
-    player.flags.upperCity_quest01_started_day = getCurrentDay(player);
+    player.flags.uppercity_story_01_started = true;
     savePlayer(player);
 
-    acceptQuest(player, "upperCity_quest01");
+    acceptQuest(player, "uppercity_story_01");
     return true;
 };

@@ -699,7 +699,7 @@ const DEFEAT_EVENTS = {
     infected: [
         {
             id: "infected_defeat",
-            weight: 100,
+            weight: 70,
             scene: [
                 {
                     type : "text",
@@ -732,12 +732,36 @@ const DEFEAT_EVENTS = {
                     }
                 }
             ]
+        },
+        {
+            id : "infected_bigFlower",
+            weight : 30,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "꽃감염자의 꽃이 당신의 아래를 삼켜온다. 당신은 꽃감염자에게 하부를 집어삼켜진 채 다리만 바동거렸다. 부드러운 털로 가득한 촉수가 당신을 앞뒤로 농락한다. 움찔거리는 당신을 어디론가로 데려가던 꽃이 우뚝 멈춘다.",
+                        "<br>당신은 아래를 내려다보았다. 꽃감염자도, 당신도, 엄청 큰 꽃 위에 있었다. 큰 꽃은 하얀꽃잎을 일렁였다. 그리고 그대로 당신과 꽃감염자를 한번에 삼켰다." +
+                        "꽃봉오리가 조그마한 틈을 보이며 닫힌다. 당신은 당신의 아래를 잡고 있었던 꽃감염자를 내려다보았다. 꽃감염자는 큰 꽃의 아래에서 녹아내리고 있었다. 당신은 어떻게든 꽃잎을 잡아 몸을 지탱했다. 당신은 작은 틈을 향해 올라가기 시작했다.",
+                        "<br><br><span class='log-warning'>게임 중간에 저장하지 마세요</span>"
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeSensitivity(player, "cSensitivity", 7);
+                        changeSensitivity(player, "aSensitivity", 7);
+                        startFlowerEscape(player);
+                        return true;
+                    }
+                }
+            ]
         }
     ],
     infectedSoldier : [
         {
             id : "infectedSoldier_defeat",
-            weight : 100,
+            weight : 50,
             scene : [
                 {
                     type : "text",
@@ -777,6 +801,28 @@ const DEFEAT_EVENTS = {
                             changeSensitivity(player, "mSensitivity", 8);
                             changeSensitivity(player, "cSensitivity", 8);
                         }                        
+                        return true;
+                    }
+                }
+            ]
+        },
+        {
+            id : "infectedSoldier_bigFlower",
+            weight : 50,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "꽃감염경계병은 쓰러진 당신에게 다가가더니 당신의 몸을 수색하기 시작했다. 당신의 주머니를 뒤지던 꽃감염경계병은 당신에게 아무 것도 없다는 걸 확인한 후 당신을 질질 끌고 갔다." +
+                        "<br><br>\"ㅇ....기, 수용...\"<br><br>" +
+                        "그리고 그는 당신을 큰 꽃에게 던졌다. 큰 꽃은 당신을 향해 아가리를 벌리듯 봉오리를 활짝 피우고 있다가 당신이 들어오자 봉오리를 작은 틈 하나 남겨놓고 닫았다. 당신은 어떻게든 꽃잎들을 잡고 더 밑으로 내려가지 않게 버텼다. 당신은 작은 틈을 향해 기어올라가기 시작했다." +
+                        "<br><br><span class='log-warning'>게임 중간에 저장하지 마세요</span>"
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startFlowerEscape(player);
                         return true;
                     }
                 }
@@ -990,3 +1036,118 @@ window.goblin_capture_continue = function(player){
         }
     );
 };
+
+//꽃감염
+function startFlowerEscape(player){
+
+    startArrowMinigame(player, {
+        title: "꽃봉오리에서 탈출하라!",
+        target: 5,
+        sequenceLength: 1,
+        timeLimit: 700,
+
+        successText: "당신은 꽃술을 피해 위로 더 올라갔다.",
+
+        failText: "",
+
+        onStepFail: (player, state) => {
+
+            const targets = [
+                { sens: "aSensitivity", key: "a" },
+                { sens: "mSensitivity", key: "m" },
+                { sens: "bSensitivity", key: "b" },
+                { sens: "cSensitivity", key: "c" }
+            ];
+
+            const attack =
+                targets[Math.floor(Math.random() * targets.length)];
+                
+                let attackText = "";
+                switch (attack.key){
+                    
+                    case "c":
+                        attackText =
+                        player.gender === "male"
+                        ? "올라온 꽃술이 당신의 남성기를 감싸안더니 위아래로 흔들기 시작했다. 떨리는 당신의 다리 사이로 꽃술은 당신의 남성기를 계속 위아래로 흔들면서 또아리를 틀듯이 조여왔다. 당신의 눈앞이 새하얘진다."
+                        : "올라온 꽃술이 당신의 클리를 간질인다. 오돌토돌한 부분이 당신의 클리를 간질이다가 그대로 보지 안으로 파고든다. 클리는 계속 간질이며, 당신의 보지를 쑤컹쑤컹 쑤셔왔다. 당신의 눈앞이 새하얘진다.";
+                    break;
+                        
+                    case "m":
+                        attackText =
+                        "꽃술이 당신의 목을 타고 올라오더니 그대로 당신의 입술에 울퉁불퉁한 부분을 비볐다. 부드러운 입술살이 돌기 사이로 문질러진다.";
+                    break;
+
+                    case "a":
+                        attackText =
+                        "꽃술이 당신의 한쪽 엉덩이를 동그랗게 감싸안았다. 엉덩이살이 고무볼마냥 탱탱해졌다. 감싸안고 남은 부분은 당신의 애널 입구를 간질이다가 그대로 파고들었다. 쑤컹거리는 소리와 함꼐 당신의 다리가 고통과 쾌락으로 바들바들 떨린다.";
+                    break;
+                    
+                    case "b":
+                        attackText =
+                        player.gender === "male"
+                        ? "꽃술이 당신의 가슴 위로 올라오더니 당신의 양가슴을 각각 동그랗게 움켜잡은 채 젖치기를 시작했다. 탁, 탁, 탁, 소리가 이어질 수록 당신의 가슴골이 땀으로 축축해졌다. 가슴골이 습해질수록 소리도 점점 커진다. 당신의 얼굴이 붉게 물들었다."
+                        : "꽃술이 당신의 평평한 가슴을 쓰다듬더니 그대로 유선에 조그마한 돌기를 집어넣으려 했다. 돌기가 당신의 유륜 위로 문질러진다. 들어가면 안 되는 곳에 뭔가가 들어간 기분에 당신은 아프면서도 간지러워서 몸을 꼬았다."
+                    break;
+                }
+
+                const sensGain = randomInt(1,3);
+
+                changeSensitivity(player, attack.sens, sensGain);
+        
+                const gain = getSensitivityArousalGain(player, attack.key, 10);
+                const before = player.status.arousal;     
+
+                changeArousal(player, gain);
+                
+                if (before + gain >= player.status.maxArousal){
+                    return {
+                        progress: state.progress - 1,
+                        text:
+                            attackText +
+                            `<br><br>민감도 +${sensGain}<br>흥분도 +${gain}` +
+                            `<br><br>당신의 눈앞이 새하얘졌다. 아찔해진 정신 속에서 당신은 꽃술이 당신의 다리를 잡고 당신을 다시 끌어내리는 것을 느꼈다.`
+                    };
+                }
+                
+                return {
+                    progress: state.progress,
+                    text:
+                         attackText +
+                         `<br><br>민감도 +${sensGain}<br>흥분도 +${gain}`
+                };
+        },
+
+        onClear: (player) => {
+            flowerEscapeSuccess(player);
+        }
+    });
+}
+
+function flowerEscapeSuccess(player){
+    player.flags = player.flags || {};
+    player.flags.flower_escape_success = true;
+
+    changeStamina(player, -20);
+    passTime(player, 10);
+
+    localStorage.setItem("playerData", JSON.stringify(player));
+
+    showSingleTextScene(
+        "당신은 마지막 힘을 짜내 꽃술을 걷어차고 위로 기어올랐다.<br><br>" +
+        "끈적한 꽃잎 사이를 헤치고 바깥 공기가 닿는 순간, 당신은 그대로 바닥에 굴러떨어졌다.<br><br>" +
+        "온몸은 달콤한 향과 점액으로 젖어 있었지만, 적어도 아직은 꽃봉오리 안에 갇혀 있지 않았다.",
+        player,
+        {
+            onEnd: () => {
+                if (player.flags?.pendingArousalRelease){
+                    checkArousalRelease(player, () => {
+                        startScene(getLocationScene(player), player);
+                    });
+                    return;
+                }
+
+                startScene(getLocationScene(player), player);
+            }
+        }
+    );
+}

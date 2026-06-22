@@ -316,12 +316,21 @@ function buildGuardPost2Scene(player, loc, randomDesc){
     const choices = [];
 
     if (
-        player.flags?.upperCity_quest01_started &&
-        !player.flags?.upperCity_quest01_done
+        player.flags?.uppercity_story_01_started &&
+        !player.flags?.uppercity_story_01_done
     ){
         choices.push({
             text : "외곽 연구시설로 향한다",
             action : "move_whiteFlowerLab"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "whiteFlowerLab_cleanup"
+    ){
+        choices.push({
+            text : "하얀꽃 연구소 지부로 향한다",
+            action : "move_whiteFlowerLabRepeated"
         });
     }
 

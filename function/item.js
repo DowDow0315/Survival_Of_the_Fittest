@@ -269,7 +269,7 @@ const WEAPON_SKILLS = {
             cost : 4,
             type : "damage",
             power : 4.8,
-            unlock : 20,
+            unlock : 300,
             desc : "데미지 4.8배"
         }
     ],

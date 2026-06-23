@@ -173,9 +173,9 @@ let weirdIndex = 0;
     startArrowMinigame(player, {
         title: "요리를 시작한다!",
         target: 4,
-        sequenceLength: 6,
+        sequenceLength: 8,
         timeLimit: 4000,
-        hideAfter: 1500,
+        hideAfter: 1200,
         
         successText: (player, state) => {
             if (recipeId){

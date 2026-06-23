@@ -54,7 +54,7 @@ function buildDefaultLocationScene(player, loc, randomDesc){
         {
             type: "choice",
             choices: Object.keys(loc.connections).map(dest => ({
-                text: `${LOCATIONS[dest].name}로 이동한다.`,
+                text: `${LOCATIONS[dest].name}(으)로 이동한다.`,
                 action: "move_" + dest
             }))
         }

@@ -52,11 +52,13 @@
 </div>
 
     <br><br>
-    <strong><em>주의사항에 동의하시고, 게임을 시작하시겠습니까?</em></strong>
+    <strong style="color:yellow;"><em>주의사항에 동의하시고, 게임을 시작하시겠습니까?</em></strong>
     <!--버튼-->
     <br><br>
     <button class="choice yes"onclick="startCustom()">새 게임</button>
     <button class="choice load"onclick="openSaveSlotModal()">불러오기</button>
+    <button class="choice load" onclick="openSaveFilePicker()">JSON 파일 불러오기</button>
+    <input id="saveFileInput" type="file" accept="application/json,.json" style="display:none" onchange="loadGameFromFile(event)">
     <button class="choice no"onclick="goBack()">아니오</button>
     </div>
    
@@ -329,6 +331,48 @@
                 btn.innerText="◀";
             }
         }
+
+        function openSaveFilePicker(){
+            document.getElementById("saveFileInput").click();
+        }
+        
+        function loadGameFromFile(event){
+            const file = event.target.files?.[0];
+            event.target.value = "";
+            if (!file) return;
+            
+            const reader = new FileReader();
+            
+            reader.onload = () => {
+                try {
+                    const save = JSON.parse(reader.result);
+                    const loadedPlayer = save.playerData || save.player || save;
+                    const loadedNpc = save.npcData || save.NPC_DATA || null;
+                    
+                    if (!loadedPlayer || !loadedPlayer.name || !loadedPlayer.status){
+                        alert("플레이어 세이브 데이터가 아닌 것 같습니다.");
+                        return;
+                    }
+                    
+                    localStorage.setItem("playerData", JSON.stringify(loadedPlayer));
+                    
+                    if (loadedNpc){
+                        localStorage.setItem("npcData", JSON.stringify(loadedNpc));
+                    } else {
+                        localStorage.removeItem("npcData");
+                    }
+                    
+                    alert("세이브 파일을 불러왔습니다.");
+                    window.location.href = "game.html";
+                } catch (error){
+                    console.error(error);
+                    alert("세이브 파일을 불러오지 못했습니다.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+
     </script>
 
 

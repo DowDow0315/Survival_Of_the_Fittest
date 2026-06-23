@@ -37,7 +37,7 @@ const QUESTS = {
 
     skeleton_hunt: {
         id: "skeleton_hunt",
-        title: "해골 4마리 퇴치",
+        title: "Hㅐ골 4Mㅏ리 퇴치",
         type: "hunt",
         repeatable : true,
         giver: "martin",

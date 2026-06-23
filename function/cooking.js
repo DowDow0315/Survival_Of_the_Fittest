@@ -262,6 +262,7 @@ function finishCooking(player, recipeId, grade){
     }
 
     addItem(player, resultItem);
+    passTime(player, 5);
 
     player.cooking.selected = [];
     savePlayer(player);

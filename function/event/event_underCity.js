@@ -308,7 +308,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "tavern" &&
-        NPC_DATA["matin"].emotion.affection > 20 &&
+        NPC_DATA["matin"].emotion.affection > 10 &&
         !player.flags?.tavern_cooking_unlocked,
 
     action : (player) => {

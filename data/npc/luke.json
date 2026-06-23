@@ -1881,6 +1881,14 @@
                     }
                 ]
             }
+        ],
+        "luke_whiteFlowerLab_soldier_event" : [
+            {
+                "type" : "text",
+                "value" : [
+                    ""
+                ]
+            }
         ]
     }
 }

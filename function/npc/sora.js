@@ -58,6 +58,10 @@ registerActions("sora",{
     //스토리이벤트
 
     //상점대화로그
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "sora");
+    },
+
     talk: (player) => {
         startScene([
             {
@@ -126,6 +130,11 @@ registerActions("sora",{
     otherTalk : (player) => {
         const choices = [];
 
+        choices.push({
+            text: "음식을 건넨다",
+            action: "sora_giveFood"
+        });
+
         if (isSoraDrugQuestAccepted(player)){
             choices.push({
                 text : "부탁받은 물건에 대해 이야기한다",
@@ -155,6 +164,8 @@ registerActions("sora",{
         ], player);
     }
 })
+
+registerGiftActions("sora");
 
 //샵 랜덤 이벤트
 function startSoraShopRandomEvent01(player){

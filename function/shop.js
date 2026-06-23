@@ -13,6 +13,7 @@ const SHOPS = {
             ITEMS.weapon.dancingdagger,
             ITEMS.weapon.sword,
             ITEMS.weapon.bigsword,
+            ITEMS.weapon.axeHM,
             ITEMS.weapon.magicstick,
 
             ITEMS.top.tshirt,
@@ -37,6 +38,7 @@ const SHOPS = {
             ITEMS.underwear.basic,
             ITEMS.underwear.racepants,
             ITEMS.underwear.ribonpants,
+            ITEMS.underwear.hundosiHM,
 
             ITEMS.consumable.smallPotion,
             ITEMS.consumable.mediumPotion,

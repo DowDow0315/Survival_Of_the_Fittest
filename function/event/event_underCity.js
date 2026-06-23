@@ -31,13 +31,15 @@ window.EVENTS.push({
     condition : (player) =>
         player.flags?.bandit_luke_event_done &&
         NPC_DATA["luke"].emotion.affection > 80 &&
-        !["townEntrance", "townStreet", "darkStreet", "barracks"].includes(player.location) &&
-        getLukeUndercityAbsenceDays(player) >= 14 &&
-        Math.random() < 0.3,
+        ["townEntrance", "townStreet", "darkStreet", "barracks"].includes(player.location) &&
+        player.flags?.luke_missing_player_ready &&
+        Math.random() < 0.8,
 
     action : (player) => {
         player.flags = player.flags || {};
-        player.flags.luke_left_undercity_day = getCurrentDay(player);
+        player.flags.luke_missing_player_event_seen = true;
+        player.flags.luke_missing_player_ready = false;
+        player.flags.luke_left_undercity_day = null;
         savePlayer(player);
 
         startScene(
@@ -57,23 +59,50 @@ function updateLukeUndercityAbsence(player){
     const isInUndercity = undercityLocations.includes(player.location);
     const today = getCurrentDay(player);
 
+    // 이미 루크가 찾으러 올 준비가 됐으면 더 이상 건드리지 않음
+    if (player.flags.luke_missing_player_ready) return;
+
     if (isInUndercity) {
         player.flags.luke_left_undercity_day = null;
+        savePlayer(player);
         return;
     }
 
     if (player.flags.luke_left_undercity_day == null) {
         player.flags.luke_left_undercity_day = today;
         savePlayer(player);
+        return;
+    }
+
+    if (today - player.flags.luke_left_undercity_day >= 20) {
+        player.flags.luke_missing_player_ready = true;
+        savePlayer(player);
     }
 }
 
-function getLukeUndercityAbsenceDays(player){
-    const leftDay = player.flags?.luke_left_undercity_day;
-    if (leftDay == null) return 0;
+window.EVENTS.push({
+    id : "luke_whiteFlowerLab_soldier_event",
+    once : true,
 
-    return getCurrentDay(player) - leftDay;
-}
+    condition : (player) =>
+        player.location === "barracks" &&
+        player.flags?.whiteFlowerLab_lukeSoldier &&
+        !player.flags?.luke_whiteFlowerLab_soldier_event_seen,
+
+    action : (player) => {
+        player.flags = player.flags || {};
+        player.flags.luke_whiteFlowerLab_soldier_event_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_whiteFlowerLab_soldier_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 window.EVENTS.push({
     id : "luke_patience_limit_event",
@@ -271,6 +300,34 @@ window.EVENTS.push({
     }
 });
 
+//마틴
+window.EVENTS.push({
+    id : "matin_cooking_unlock_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        NPC_DATA["matin"].emotion.affection > 20 &&
+        !player.flags?.tavern_cooking_unlocked,
+
+    action : (player) => {
+        player.flags = player.flags || {};
+        player.flags.tavern_cooking_unlocked = true;
+        if (!player.knownRecipes.includes("fruitStirFry")){
+            player.knownRecipes.push("fruitStirFry");
+        }
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cooking_unlock_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //유리
 window.EVENTS.push({

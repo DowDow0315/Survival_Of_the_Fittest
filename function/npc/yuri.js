@@ -27,6 +27,10 @@ registerActions("yuri",{
 
     
     //쉘터대화로그
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "matin");
+    },
+
     talk: (player) => {
         const time = getTimePeriod(player);
         
@@ -119,6 +123,11 @@ registerActions("yuri",{
     otherTalk : (player) => {
         const choices = [];
 
+        choices.push({
+            text: "음식을 건넨다",
+            action: "yuri_giveFood"
+        });
+
         if (player.flags?.KainYuriRecognize && !player.flags?.Yuri_aboutKain_01_seen ){
             choices.push({
                 text : "카인에 대해 묻는다",
@@ -140,6 +149,8 @@ registerActions("yuri",{
         ], player);
     }
 })
+
+registerGiftActions("yuri");
 
 window.startYuriGoblinShelterEvent = function(player){
     startScene(

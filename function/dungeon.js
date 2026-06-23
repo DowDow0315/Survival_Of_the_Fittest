@@ -1926,7 +1926,7 @@ const DUNGEON_EVENTS = {
                                 type : "effect",
                                 run : (player) => {
                                     changeTrauma(player, 2);
-                                    player.flags.whiteFlowerLab_lukeSoildier = true;
+                                    player.flags.whiteFlowerLab_lukeSoldier = true;
                                     savePlayer(player);
                                 }
                             }
@@ -1947,7 +1947,7 @@ const DUNGEON_EVENTS = {
                                 type : "effect",
                                 run : (player) => {
                                     changeTrauma(player, 2);
-                                    player.flags.whiteFlowerLab_lukeSoildier = true;
+                                    player.flags.whiteFlowerLab_lukeSoldier = true;
                                     savePlayer(player);
                                 }
                             }

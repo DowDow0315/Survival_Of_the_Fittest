@@ -35,6 +35,24 @@ const QUESTS = {
         completeText: "마틴은 의뢰서를 확인하더니 동전을 내밀었다."
     },
 
+    skeleton_hunt: {
+        id: "skeleton_hunt",
+        title: "해골 4마리 퇴치",
+        type: "hunt",
+        repeatable : true,
+        giver: "martin",
+
+        desc: "공동묘지에서 따닥따닥거리는 소리가 자꾸만 들려온다고 한다. 소음 공해를 막기 위해 4마리 정도 해치우자.",
+        targetEnemy: "skeleton",
+        requiredKill: 4,
+
+        rewardGold: 100,
+
+        acceptText: "마틴은 당신에게 의뢰서를 주었다. <br><br>\"모든 것들은 자신에게 없는 것을 탐내지. 그들에게는 온기가 없어.\"",
+        cancelText: "마틴은 무표정으로 당신에게서 의뢰서를 다시 받았다.",
+        completeText: "마틴은 의뢰서를 확인하더니 동전을 내밀었다."
+    },
+
     goblin_cave_cleanup : {
         id : "goblin_cave_cleanup",
         title : "고블린동굴 포로들 구출",
@@ -375,6 +393,7 @@ function initQuestData(player){
     player.quest.active = player.quest.active || null;        // 주점/스토리 퀘스트 1개
     player.quest.subActive = player.quest.subActive || [];    // 서브퀘스트 여러 개
     player.quest.completed = player.quest.completed || [];
+    player.quest.completedCounts = player.quest.completedCounts || {};
 }
 
 window.open_tavernQuests = function(player){
@@ -567,7 +586,12 @@ function handleQuestAction(action, player){
 
 function getQuestCompleteCount(player, questId){
     initQuestData(player);
-    return player.quest.completed.filter(id => id === questId).length;
+
+    if (player.quest.completedCounts?.[questId]){
+        return player.quest.completedCounts[questId];
+    }
+
+    return player.quest.completed.includes(questId) ? 1 : 0;
 }
 
 function canShowQuest(player, quest){
@@ -619,6 +643,14 @@ function acceptQuest(player, questId){
         return;
     }
 
+    if (
+        quest.id === "undercity_story_01" ||
+        quest.id === "undercity_story_02"
+    ){
+        player.flags = player.flags || {};
+        delete player.flags.defeated_sewer_beggers;
+    }
+
     if (quest.id === "goblin_cave_cleanup"){
         player.flags = player.flags || {};
         delete player.flags.defeated_goblinCave_goblinKing;
@@ -627,6 +659,7 @@ function acceptQuest(player, questId){
     if (quest.id === "whiteFlowerLab_cleanup"){
         player.flags = player.flags || {};
         player.flags.whiteFlowerLab_cleanup_done = false;
+        delete player.flags.defeated_whiteFlowerLabRepeated_infectedSoldier;
     }
 
     player.quest.active = {
@@ -726,6 +759,9 @@ function completeQuest(player){
         player.flags?.undercity_story_04_ready;
 
     changeGold(player, quest.rewardGold || 0);
+
+    player.quest.completedCounts = player.quest.completedCounts || {};
+    player.quest.completedCounts[quest.id] = (player.quest.completedCounts[quest.id] || 0) + 1;
 
     if (!player.quest.completed.includes(quest.id)){
         player.quest.completed.push(quest.id);

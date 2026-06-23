@@ -11,6 +11,10 @@ function getKainTitle(player){
 }
 
 registerActions("kain", {
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "kain");
+    },
+
     talk: (player) => {
         if (!isKainAvailable(player)){
             showSingleTextScene(
@@ -141,6 +145,11 @@ registerActions("kain", {
     otherTalk : (player) => {
         const choices = [];
 
+        choices.push({
+            text: "음식을 건넨다",
+            action: "kain_giveFood"
+        });
+
         if (!player.flags?.KainYuriRecognize){
             choices.push({
                 text : "유리에 대해 묻는다",
@@ -163,6 +172,8 @@ registerActions("kain", {
         ], player);
     }
 })
+
+registerGiftActions("kain");
 
 function isKainAvailable(player){
     const day = getWeekdayIndex(player);

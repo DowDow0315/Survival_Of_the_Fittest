@@ -419,6 +419,7 @@ function playerAttack(isBonusAttack = false){
     }
 
     enemy.hp -= damage;
+    battleState.usedNormalAttack = true;
 
     if (!player.equipment.weapon) {
     log("당신은 맨주먹으로 상대를 후려쳤다!", "damage");
@@ -912,6 +913,12 @@ function enemyTurn(){
     }
 
     let skill = chooseEnemySkill(enemy);
+    
+    const blockedByAttack = 
+    battleState.usedNormalAttack &&
+    skill.type === "lust";
+    battleState.usedNormalAttack = false;
+    
     let damage = 0;
     if (skill.type !== "lust"){
     let attackpower = getEnemyFinalAtk(enemy) * (skill.power || 1)
@@ -940,13 +947,15 @@ function enemyTurn(){
     battleState.counter = false;
 
     if (skill.type === "lust" || skill.type === "grapple"){
-        log("반격을 시도했지만 그가 당신에게 손을 뻗는 속도가 더 빨랐다.");
+        damage = 5;
+        player.status.hp -= damage;
+        log("반격을 시도했지만 그가 당신에게 손을 뻗는 속도가 더 빨랐다. 아프다!");
     } else {
         damage = Math.floor(damage * 0.5);
-        enemy.hp -= 10;
+        enemy.hp -= 5;
 
         log("당신은 자세를 낮추고 반격했다!", "damage");
-        log("피해를 절반으로 줄이고 적에게 10의 피해!", "damage");
+        log("피해를 절반으로 줄이고 적에게 5의 피해!", "damage");
     }
     }
     
@@ -1132,6 +1141,15 @@ function enemyTurn(){
 
     //성공격
     if (skill.type === "lust"){
+        if (blockedByAttack){
+            log(`${skill.name}! (${skill.target})`);
+            log("당신은 공격의 흐름을 유지하며 상대의 손길을 밀어냈다!", "evade");
+            
+            battleState.usedNormalAttack = false;
+            endEnemyTurn();
+            return;
+        }
+
         const base = 3 * (skill.power || 1);
         const finalArousal =
         getSensitivityArousalGain(

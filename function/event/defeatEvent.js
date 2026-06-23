@@ -1124,8 +1124,6 @@ function startFlowerEscape(player){
 }
 
 function flowerEscapeSuccess(player){
-    player.flags = player.flags || {};
-    player.flags.flower_escape_success = true;
 
     changeStamina(player, -20);
     passTime(player, 10);

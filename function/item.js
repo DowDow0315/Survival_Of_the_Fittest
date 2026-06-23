@@ -42,10 +42,10 @@ const WEAPON_SKILLS = {
             name: "현란한손짓",
             cost: 2,
             type: "multiHit",
-            power: 0.7,
+            power: 0.6,
             hits: 4,
             unlock: 20,
-            desc : "데미지 0.7배로 4번 연속 공격."
+            desc : "데미지 0.6배로 4번 연속 공격."
         },
         {
             name: "독바르기",
@@ -132,9 +132,9 @@ const WEAPON_SKILLS = {
             name: "돌진공격",
             cost: 2,
             type: "damage",
-            power: 2.5,
+            power: 2.3,
             unlock: 100,
-            desc : "데미지 2.5배"
+            desc : "데미지 2.3배"
         },
         {
             name: "집중",
@@ -163,17 +163,17 @@ const WEAPON_SKILLS = {
             name: "파이어",
             cost: 2,
             type: "damage",
-            power: 2.5,
+            power: 2.4,
             unlock: 20,
-            desc : "데미지 2.5배"
+            desc : "데미지 2.4배"
         },
         {
             name: "메가파이어",
             cost: 3,
             type: "damage",
-            power: 3.5,
+            power: 3.4,
             unlock: 100,
-            desc : "데미지 3.5배"
+            desc : "데미지 3.4배"
         },
         {
             name: "독가스",
@@ -233,14 +233,54 @@ const WEAPON_SKILLS = {
             desc : "데미지 3배"
         }
     ],
+    "도끼HM" : [
+        {
+            name : "도끼가 쾅 적이 덜 짜부",
+            cost : 2,
+            type : "damage",
+            power : 2.4,
+            unlock : 20,
+            desc : "데미지 2.4배"
+        },
+        {
+            name : "하이리스크 미디엄리턴",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "player_axeHM_buffdebuff",
+                atkMult : 1.3,
+                defMult : 0.7
+            },
+            duration : 3,
+            unlock : 100,
+            desc : "3턴간 공격력 1.3배, 방어력 0.7배"
+        },
+        {
+            name : "도끼는 대화 수단이다",
+            cost : 3,
+            type: "multiHit",
+            power: 0.8,
+            hits: 4,
+            unlock: 150,
+            desc : "데미지 0.8배로 4번 연속 공격"
+        },
+        {
+            name : "도끼가 쾅 적이 짜부",
+            cost : 4,
+            type : "damage",
+            power : 4.8,
+            unlock : 20,
+            desc : "데미지 4.8배"
+        }
+    ],
     "고블린검" :[
         {
             name: "습격",
             cost: 2,
             type: "damage",
-            power: 2.5,
+            power: 2.4,
             unlock: 20,
-            desc : "데미지 2.5배"
+            desc : "데미지 2.4배"
         },
         {
             name: "마구때리기",
@@ -367,9 +407,9 @@ const WEAPON_SKILLS = {
             name : "은빛파고들기",
             cost : 2,
             type : "damage",
-            power : 2.7,
+            power : 2.4,
             unlock : 20,
-            desc : "데미지 2.7배"
+            desc : "데미지 2.4배"
         },
         {
             name : "은빛시선",
@@ -387,10 +427,10 @@ const WEAPON_SKILLS = {
             name : "은빛나선",
             cost : 4,
             type: "multiHit",
-            power: 0.8,
+            power: 0.7,
             hits : 6,
             unlock: 100,
-            desc : "데미지 0.8배로 6번 연속 공격"
+            desc : "데미지 0.7배로 6번 연속 공격"
         },
         {
             name : "달빛에반사되는",
@@ -423,6 +463,10 @@ const MASTER_SKILLS = {
     "댄싱대거": {
         requiredMastery: 400,
         skillName: "피의환무"
+    },
+    "도끼HM" : {
+        requiredMastery : 400,
+        skillName : "하이리스크 미디엄리턴"
     },
     "지팡이": {
         requiredMastery: 400,
@@ -517,6 +561,16 @@ const ITEMS ={
             stats : {
                 str:4,
                 int:3
+            }
+        },
+
+        axeHM : {
+            name : "도끼HM",
+            type : "weapon",
+            price : 2000,
+            stats : {
+                str : 9,
+                int : -1
             }
         },
 
@@ -804,6 +858,16 @@ const ITEMS ={
             stats: {
                 charm:2
             }
+        },
+
+        hundosiHM : {
+            name : "훈도시HM",
+            type : "underwear",
+            price : 5000,
+            stats : {
+                str : 2,
+                int : -2
+            }
         }
     },
 
@@ -928,7 +992,7 @@ const ITEMS ={
             value: 10
         },
         sensitivityCDownPotion: {
-            key: "sensitivityADownPotion",
+            key: "sensitivityCDownPotion",
             name: "C둔감제",
             type: "sensitivityDown",
             price: 1500,
@@ -936,7 +1000,7 @@ const ITEMS ={
             value: 10
         },
         sensitivityMDownPotion: {
-            key: "sensitivityADownPotion",
+            key: "sensitivityMDownPotion",
             name: "M둔감제",
             type: "sensitivityDown",
             price: 1500,
@@ -944,12 +1008,153 @@ const ITEMS ={
             value: 10
         },
         sensitivityBDownPotion: {
-            key: "sensitivityADownPotion",
+            key: "sensitivityBDownPotion",
             name: "B둔감제",
             type: "sensitivityDown",
             price: 1500,
             target: "bSensitivity",
             value: 10
+        },
+
+
+        //음식들
+        greatFruitStirFry : {
+            name : "훌륭한 과일볶음",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "sweet", "great"],
+            price : 200,           
+        },
+        normalFruitStirFry : {
+            name : "과일볶음",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "sweet", "normal"],
+            price : 150,           
+        },
+        badFruitStirFry : {
+            name : "맛없는 과일볶음",
+            type : "heal",
+            value : 5,
+            tags : ["gift", "sweet", "bad"],
+            price : 50,           
+        },
+        trash : {
+            name : "쓰레기",
+            type : "heal",
+            value : -20,
+            tags : ["gift", "trash"],
+            price : 0,           
+        },
+
+        greatFruitberryberry : {
+            name : "훌륭한 고급과일볶음",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "sweet", "great"],
+            price : 300,           
+        },
+        normalFruitberryberry : {
+            name : "고급과일볶음",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "sweet", "normal"],
+            price : 200,           
+        },
+        badFruitberryberry : {
+            name : "맛없는 고급과일볶음",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "sweet", "bad"],
+            price : 100,           
+        },
+
+        greatFruitNectar : {
+            name : "훌륭한 꿀과일볶음",
+            type : "heal",
+            value : 50,
+            tags : ["gift", "sweet", "great"],
+            price : 600,           
+        },
+        normalFruitNectar : {
+            name : "꿀과일볶음",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "sweet", "normal"],
+            price : 500,           
+        },
+        badFruitNectar : {
+            name : "맛없는 꿀과일볶음",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "sweet", "bad"],
+            price : 400,           
+        },
+
+        greatSmoothJelly : {
+            name : "훌륭한 미끄덩젤리",
+            type : "heal",
+            value : 15,
+            tags : ["gift", "sweet", "great"],
+            price : 200,           
+        },
+        normalSmoothJelly : {
+            name : "미끄덩젤리",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "sweet", "normal"],
+            price : 150,           
+        },
+        badSmoothJelly : {
+            name : "맛없는 미끄덩젤리",
+            type : "heal",
+            value : 5,
+            tags : ["gift", "sweet", "bad"],
+            price : 50,           
+        },
+
+        greatFruitSlimeLiquid : {
+            name : "불미스러운 것이 들어간 훌륭한 과일 요리",
+            type : "arousal",
+            value : -25,
+            tags : ["gift", "lusty", "great"],
+            price : 150,           
+        },
+        normalFruitSlimeLiquid : {
+            name : "불미스러운 것이 들어간 과일 요리",
+            type : "arousal",
+            value : -15,
+            tags : ["gift", "lusty", "normal"],
+            price : 100,           
+        },
+        badFruitSlimeLiquid : {
+            name : "불미스러운 것이 들어간 맛없는 과일 요리",
+            type : "arousal",
+            value : -5,
+            tags : ["gift", "lusty", "bad"],
+            price : 50,           
+        },
+
+        greatWTFSlimeLiquid : {
+            name : "훌륭하게 만들어진 불미스러운 수프",
+            type : "arousal",
+            value : -40,
+            tags : ["gift", "lusty", "great"],
+            price : 10,           
+        },
+        normalWTFSlimeLiquid : {
+            name : "불미스러운 수프",
+            type : "arousal",
+            value : -20,
+            tags : ["gift", "lusty", "normal"],
+            price : 5,           
+        },
+        badWTFSlimeLiquid : {
+            name : "맛없게 만들어진 불미스러운 수프",
+            type : "arousal",
+            value : -10,
+            tags : ["gift", "lusty", "bad"],
+            price : 0,           
         }
     },
     misc : {
@@ -1285,3 +1490,105 @@ function getItemKeyByName(name){
     }
     return null;
 }
+
+const RECIPES = {
+    fruitStirFry: {
+        name: "과일볶음",
+        desc : "야생열매 3개로 볶아 만드는 간단한 요리",
+
+        ingredients: {
+            wildFruit: 3
+        },
+
+        results: {
+            great: "greatFruitStirFry",
+            normal: "normalFruitStirFry",
+            bad: "badFruitStirFry",
+            disaster : "trash"
+        }
+    },
+
+    fruitberryberry : {
+        name : "고급과일볶음",
+        desc : "야생열매 2개와 희귀한 숲열매 1개로 만드는 간단한 요리",
+
+        ingredients : {
+            wildFruit : 2,
+            rareFruit : 1
+        },
+
+        results : {
+            great: "greatFruitberryberry",
+            normal: "normalFruitberryberry",
+            bad: "badFruitberryberry",
+            disaster : "trash"
+        }
+    },
+
+    fruitNectar : {
+        name : "꿀과일볶음",
+        desc : "야생열매 1개, 희귀한 숲열매 1개를 볶은 과일요리 위로 하얀꽃 꿀을 올리는 간단하지만 꽤 맛있는 요리",
+
+        ingredients : {
+            wildFruit : 1,
+            rareFruit : 1,
+            flowerNectar : 1
+        },
+
+        results : {
+            great: "greatFruitNectar",
+            normal: "normalFruitNectar",
+            bad: "badFruitNectar",
+            disaster : "trash"
+        }
+    },
+
+    SmoothJelly : {
+        name : "미끄덩젤리",
+        desc : "미끄덩한 슬라임젤리 3개를 합쳐서 만든 요리, 재료만 모르면 맛있다!",
+
+        ingredients : {
+            slimeJelly : 3
+        },
+
+        results : {
+            great: "greatSmoothJelly",
+            normal: "normalSmoothJelly",
+            bad: "badSmoothJelly",
+            disaster : "trash"
+        }
+    },
+
+    fruitSlimeLiquid : {
+        name : "불미스러운 것이 들어간 과일요리",
+        desc : "슬라임에서 나온 정체모를 액체를 왜 과일요리 위에 뿌린 걸까. 의문이다.",
+
+        ingredients : {
+            wildFruit : 2,
+            slimeLiquid : 1
+        },
+
+        results : {
+            great: "greatFruitSlimeLiquid",
+            normal: "normalFruitSlimeLiquid",
+            bad: "badFruitSlimeLiquid",
+            disaster : "trash"
+        }
+    },
+
+    WTFSlimeLiquid : {
+        name : "불미스러운 수프",
+        desc : "슬라임에서 나온 정체모를 액체를... 끓여버렸다.",
+
+        ingredients : {
+            slimeLiquid : 3
+        },
+
+        results : {
+            great: "greatWTFSlimeLiquid",
+            normal: "normalWTFSlimeLiquid",
+            bad: "badWTFSlimeLiquid",
+            disaster : "trash"
+        }
+    }
+};

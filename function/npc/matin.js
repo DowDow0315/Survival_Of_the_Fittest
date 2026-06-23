@@ -73,6 +73,10 @@ registerActions("matin",{
     },
 
     //주점대화로그
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "matin");
+    },
+    
     talk: (player) => {
         if (
             player.flags?.matinLocketTaken &&
@@ -172,7 +176,10 @@ registerActions("matin",{
     otherTalk : (player) => {
         const choices = [];
 
-
+        choices.push({
+            text: "음식을 건넨다",
+            action: "matin_giveFood"
+        });
 
         choices.push({ text: "돌아간다", action: "matin_talk" });
 
@@ -213,6 +220,8 @@ registerActions("matin",{
     },
 })
 
+registerGiftActions("matin");
+
 function hasMatinLocket(player){
     return player.inventory.some(item =>
         item.name === ITEMS.misc.matinLocket.name
@@ -230,3 +239,4 @@ function startMatinGraveyardReturnEvent(player){
         });
     }
 }
+

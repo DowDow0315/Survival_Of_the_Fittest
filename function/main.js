@@ -2998,8 +2998,13 @@ function startArrowMinigame(player, options = {}){
             return;
         }
 
+        const successMessage =
+        typeof config.successText === "function"
+        ? config.successText(player, { progress, target: config.target })
+        : config.successText;
+        
         showSingleTextScene(
-            `${config.successText}<br><br>진행도: ${progress} / ${config.target}`,
+            `${successMessage}<br><br>진행도: ${progress} / ${config.target}`,
             player,
             {
                 onEnd: () => renderRound()
@@ -3013,9 +3018,10 @@ function startArrowMinigame(player, options = {}){
         if (timer) clearTimeout(timer);
         
         let failMessage = config.failText;
+        let result = null;
         
         if (config.onStepFail){
-            const result = config.onStepFail(player, {
+            result = config.onStepFail(player, {
                 progress,
                 target: config.target
             });
@@ -3023,7 +3029,7 @@ function startArrowMinigame(player, options = {}){
             if (result?.text){
                 failMessage = result.text;
             }
-            
+
             if (result?.progress !== undefined){
                 progress = Math.max(0, result.progress);
             }
@@ -3034,6 +3040,14 @@ function startArrowMinigame(player, options = {}){
             player,
             {
                 onEnd: () => {
+                    if (progress >= config.target){
+                        cleanup();
+                        if (config.onClear){
+                            config.onClear(player);
+                        }
+                        return;
+                    }
+                    
                     if (config.onGameOver && progress <= -999){
                         cleanup();
                         config.onGameOver(player);

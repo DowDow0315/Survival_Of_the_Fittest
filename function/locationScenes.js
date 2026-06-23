@@ -99,6 +99,24 @@ function buildShelterScene(player, loc, randomDesc){
 }
 
 function buildTavernScene(player, loc, randomDesc){
+    const choices = [
+        { text: "퀘스트 게시판을 본다", action: "open_tavernQuests" },
+        { text: "진행 중인 의뢰를 확인한다", action: "open_activeQuest" },
+        { text: "주점 일을 돕는다.", action : "matin_work"},
+        { text: "마틴에게 물건을 산다", action : "open_matinShop"},
+        { text: "장비를 강화한다", action : "open_matinEnhance"},
+    ];
+
+    if (player.flags?.tavern_cooking_unlocked){
+        choices.push({ text: "요리를 한다", action: "open_cookingMenu" });
+    }
+
+    choices.push(
+        { text: "마틴과 대화한다", action: "matin_talk" },
+        { text: "침착하게 정신을 다스린다", action: "calmDown" },
+        { text: "나가기", action: "move_townStreet" }
+    );
+
     return [
         {
             type: "text",
@@ -106,16 +124,7 @@ function buildTavernScene(player, loc, randomDesc){
         },
         {
             type: "choice",
-            choices: [
-                { text: "퀘스트 게시판을 본다", action: "open_tavernQuests" },
-                { text: "진행 중인 의뢰를 확인한다", action: "open_activeQuest" },
-                { text: "주점 일을 돕는다.", action : "matin_work"},
-                { text: "마틴에게 물건을 산다", action : "open_matinShop"},
-                { text: "장비를 강화한다", action : "open_matinEnhance"},
-                { text: "마틴과 대화한다", action: "matin_talk" },
-                { text: "침착하게 정신을 다스린다", action: "calmDown" },
-                { text: "나가기", action: "move_townStreet" }
-            ]
+            choices
         }
     ];
 }

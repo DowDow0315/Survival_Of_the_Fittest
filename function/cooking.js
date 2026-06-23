@@ -40,8 +40,13 @@ window.open_cookingIngredientSelect = function(player){
     });
 
     Object.values(grouped).forEach(({ item, count }) => {
+        const selectedCount =
+        player.cooking.selected.filter(key => key === item.key).length;
+        
+        const remainingCount = count - selectedCount;
+        
         choices.push({
-            text: `${item.name} (${count}개)`,
+            text: `${item.name} (${remainingCount}개)`,
             action: () => selectCookingIngredient(player, item.key)
         });
     });
@@ -71,6 +76,23 @@ function selectCookingIngredient(player, itemKey){
     player.cooking.selected = player.cooking.selected || [];
 
     if (player.cooking.selected.length >= 3) return;
+
+    const ownedCount =
+        player.inventory.filter(item => item.key === itemKey).length;
+
+    const selectedCount =
+        player.cooking.selected.filter(key => key === itemKey).length;
+
+    if (selectedCount >= ownedCount){
+        showSingleTextScene(
+            "그 재료는 더 이상 없다.",
+            player,
+            {
+                onEnd: () => open_cookingIngredientSelect(player)
+            }
+        );
+        return;
+    }
 
     player.cooking.selected.push(itemKey);
 
@@ -149,9 +171,15 @@ let weirdIndex = 0;
     }
 
     // 재료 실제 보유 확인
-    for (const key of selected){
-        const hasItem = player.inventory.some(item => item.key === key);
-        if (!hasItem){
+    const neededCounts = {};
+    selected.forEach(key => {
+        neededCounts[key] = (neededCounts[key] || 0) + 1;
+    });
+    
+    for (const [key, needed] of Object.entries(neededCounts)){
+        const owned = player.inventory.filter(item => item.key === key).length;
+        
+        if (owned < needed){
             showSingleTextScene("재료가 부족하다.", player, {
                 onEnd: () => open_cookingMenu(player)
             });

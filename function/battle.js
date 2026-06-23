@@ -916,7 +916,7 @@ function enemyTurn(){
     
     const blockedByAttack = 
     battleState.usedNormalAttack &&
-    skill.type === "lust";
+    ["lust", "grapple"].includes(skill.type);
     battleState.usedNormalAttack = false;
     
     let damage = 0;
@@ -1045,6 +1045,14 @@ function enemyTurn(){
     }
 
     if (skill.type === "grapple"){
+        if (blockedByAttack){
+            log(getLine(enemy,"grappleStart"));
+            log("당신은 공격의 기세로 상대를 밀어내 붙잡히지 않았다!", "evade");
+            
+            endEnemyTurn();
+            return;
+        }
+        
         battleState.grapple = true;
 
         log(getLine(enemy,"grappleStart"));
@@ -1144,8 +1152,6 @@ function enemyTurn(){
         if (blockedByAttack){
             log(`${skill.name}! (${skill.target})`);
             log("당신은 공격의 흐름을 유지하며 상대의 손길을 밀어냈다!", "evade");
-            
-            battleState.usedNormalAttack = false;
             endEnemyTurn();
             return;
         }

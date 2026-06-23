@@ -175,7 +175,7 @@ let weirdIndex = 0;
         target: 4,
         sequenceLength: 6,
         timeLimit: 4000,
-        hideAfter: 1200,
+        hideAfter: 1100,
         
         successText: (player, state) => {
             if (recipeId){

@@ -313,10 +313,14 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags = player.flags || {};
+        player.knownRecipes = player.knownRecipes || [];
+
         player.flags.tavern_cooking_unlocked = true;
+
         if (!player.knownRecipes.includes("fruitStirFry")){
             player.knownRecipes.push("fruitStirFry");
         }
+        
         savePlayer(player);
 
         startScene(

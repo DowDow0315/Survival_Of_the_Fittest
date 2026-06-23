@@ -64,6 +64,7 @@ const QUESTS = {
         activeDesc : "고블린킹을 토벌하고 사람들을 구해야 한다.",
         readyDesc : "고블린킹을 토벌하고 사람들을 구했다. 주점으로 돌아가 마틴에게 보고하자.",
         targetBoss : "goblinKing",
+        bossName: "고블린킹",
         requiredKill : 1,
 
         rewardGold : 400,
@@ -82,6 +83,7 @@ const QUESTS = {
         id : "bandit_cleanup",
         title : "도적떼 소탕",
         type : "boss",
+        bossName : "도적떼",
         repeatable : true,
         giver : "matin",
 
@@ -107,6 +109,7 @@ const QUESTS = {
         id : "whiteFlowerLab_cleanup",
         title : "하얀꽃 연구소 지부 폭파",
         type : "investigate",
+        targetName: "하얀꽃 연구소 지부 폭파",
         repeatable : true,
         giver : "valen",
         
@@ -139,6 +142,7 @@ const QUESTS = {
         id : "undercity_story_01",
         title : "하수구 깊은 곳",
         type : "boss",
+        bossName : "거지들의 우두머리",
         repeatable : false,
         giver : "matin",
 
@@ -174,6 +178,7 @@ const QUESTS = {
         id : "undercity_story_02",
         title : "하수구 깊은 곳의 의문",
         type : "boss",
+        bossName : "거지들의 우두머리",
         repeatable : false,
         giver : "matin",
 
@@ -199,6 +204,7 @@ const QUESTS = {
         id : "undercity_story_03",
         title : "실종자들의 흔적",
         type : "investigate",
+        targetName : "고블린 동굴 수색",
         repeatable : false,
         giver : "eric",
 
@@ -233,6 +239,7 @@ const QUESTS = {
         id : "undercity_story_04",
         title : "고블린동굴 실종자 구출 작전",
         type : "boss",
+        bossName : "고블린킹",
         repeatable : false,
         giver : "eric",
         
@@ -266,6 +273,7 @@ const QUESTS = {
         id : "undercity_story_05",
         title : "끊어진 가도의 도적떼",
         type : "investigate",
+        targetName : "도적떼 근거지 수색",
         repeatable : false,
         giver : "matin",
 
@@ -299,6 +307,7 @@ const QUESTS = {
         id : "undercity_story_06",
         title : "습격은 습격으로",
         type : "boss",
+        bossName : "도적떼 대장",
         repeatable : false,
         giver : "matin",
         
@@ -333,6 +342,7 @@ const QUESTS = {
         id: "undercity_story_07",
         title: "반란군 수장 처형",
         type: "boss",
+        bossName : "반란군 수장",
         repeatable: false,
         giver: "eric",
         source : "event",
@@ -363,6 +373,7 @@ const QUESTS = {
         id : "uppercity_story_01",
         title : "상류도시를 위하여",
         type : "investigate",
+        targetName : "연구시설 중추실 장치 작동",
         repeatable : false,
         giver : "valen",
         source : "event",
@@ -458,7 +469,7 @@ function openQuestDetail(player, questId){
             value:
                 `<b>${quest.title}</b><br><br>` +
                 `${quest.desc}<br><br>` +
-                `목표: ${quest.requiredKill}마리 처치<br>` +
+                `목표: ${getQuestGoalText(quest)}<br>` +
                 `보상: ${quest.rewardGold}G`
         },
         {
@@ -469,6 +480,22 @@ function openQuestDetail(player, questId){
             ]
         }
     ], player);
+}
+
+function getQuestGoalText(quest){
+    if (quest.type === "hunt"){
+        return `${quest.requiredKill}마리 처치`;
+    }
+
+    if (quest.type === "boss"){
+        return `${quest.bossName} 처치`;
+    }
+
+    if (quest.type === "investigate"){
+        return `${quest.targetName}`;
+    }
+
+    return `목표 달성`;
 }
 
 window.open_activeQuest = function(player){

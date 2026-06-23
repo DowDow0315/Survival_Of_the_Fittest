@@ -938,6 +938,9 @@ function changeEmotion(npcId, key, amount){
 
     npc.emotion = npc.emotion || {};
     npc.emotion[key] = npc.emotion[key] ?? 0;
+
+    const min = key === "lust" ? 0 : -100;
+    
     npc.emotion[key] = clamp(npc.emotion[key] + amount, -100, 100);
 
     if (typeof saveNpcProgressToLocalStorage === "function"){
@@ -1317,8 +1320,8 @@ function showSingleTextScene(text, player, options = {}){
 
 const SEARCH_CONFIG = {
     forest: {
-        monsterChance: 0.35,
-        itemChance: 0.35,
+        monsterChance: 0.4,
+        itemChance: 0.4,
         itemPool: [
             { item: () => ITEMS.misc.wildFruit, weight: 80 },
             { item: () => ITEMS.misc.rareFruit, weight: 20 }

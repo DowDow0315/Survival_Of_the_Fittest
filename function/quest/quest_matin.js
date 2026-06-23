@@ -135,8 +135,10 @@ function acceptMatinGraveyardQuest(player){
 function completeMatinGraveyardQuest(player){
     initQuestData(player);
 
-    const locket = player.inventory.find(item => item.key === "matinLocket");
-    if (locket) removeItem(player, locket);
+    player.inventory = player.inventory.filter(item =>
+        item.key !== "matinLocket" &&
+        item.name !== ITEMS.misc.matinLocket.name
+    );
 
     player.quest.subActive = player.quest.subActive.filter(
         q => q.id !== "matin_graveyard_01"

@@ -173,7 +173,7 @@ let weirdIndex = 0;
     startArrowMinigame(player, {
         title: "요리를 시작한다!",
         target: 4,
-        sequenceLength: 8,
+        sequenceLength: 6,
         timeLimit: 4000,
         hideAfter: 1200,
         

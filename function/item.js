@@ -1284,22 +1284,27 @@ const ITEMS ={
             type : "junk",
             price : 500
         },
+        goldenBar : {
+            name : "골드바",
+            type : "junk",
+            price : 1000 
+        },
 
         //강화재료
         ironOre: {
             name : "철광석",
             type : "junk",
-            price : 500
+            price : 400
         },
         silverOre: {
             name : "은광석",
             type : "junk",
-            price : 650
+            price : 500
         },
         goldOre: {
             name : "금광석",
             type : "junk",
-            price : 800
+            price : 650
         },
         whiteFlowerLeafStone: {
             name : "백화석",

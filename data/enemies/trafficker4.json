@@ -4,19 +4,19 @@
     "attack": 50,
     "defense": 50,
     "eva": 40,
-    "lustResist" : 1.5,
+    "lustResist" : 2,
     "drops": [
         {
-            "item": "silverChain",
+            "item": "jewerlyPieces",
             "chance": 1
         },
         {
-            "item": "jewerlyPieces",
-            "chance": 0.7
+            "item" : "smallJewerly",
+            "chance": 0.4
         },
         {
-            "item" : "smallJewerly",
-            "chance": 0.2
+            "item" : "goldenBar",
+            "chance": 0.05
         }
     ],
     "teaseLines" : {

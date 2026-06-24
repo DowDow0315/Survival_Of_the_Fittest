@@ -729,9 +729,19 @@ const ITEMS ={
                 charm : 1
             }
         },
+        strapLessBra : {
+            name : "끈없는브라",
+            type : "bra",
+            desc : "D로 시작하는 게임에서 어떤 예쁜 캐릭터가 입고 있었던 브라다. 역시 예쁘다.",
+            price : 5000,
+            stats : {
+                charm : 1
+            }
+        },
         whiteFlowerBra : {
             name : "하얀꽃잎브라",
             type : "bra",
+            desc : "금방이라도 흐트러질 거 같지만 흐트러지지 않는다. 하얀꽃의 생명력은 길다.",
             price : 0,
             stats : {
                 charm : 3

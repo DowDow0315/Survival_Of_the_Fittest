@@ -569,6 +569,19 @@ function useSkill(index){
 
     closeSkillMenu();
 
+    if (tryEvade(enemy)){
+        log(getLine(enemy, "evade"));
+        
+        if (enemy.hp <= 0){
+            endBattle("win");
+            return;
+        }
+        
+        updateBattleUI();
+        enemyTurn();
+        return;
+    }
+
     switch(skill.type){
 
         case "damage":

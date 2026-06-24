@@ -26,6 +26,7 @@ const SHOPS = {
             ITEMS.bra.dotBra,
             ITEMS.bra.ribonBra,
             ITEMS.bra.raceBra,
+            ITEMS.bra.strapLessBra,
 
             ITEMS.bottom.pants,
             ITEMS.bottom.bluejeams,

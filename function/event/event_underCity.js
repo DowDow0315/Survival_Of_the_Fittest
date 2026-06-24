@@ -87,15 +87,43 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "barracks" &&
         player.flags?.whiteFlowerLab_lukeSoldier &&
+        player.inventory.some(item => item.key === "lukeWFLSoldier") &&
         !player.flags?.luke_whiteFlowerLab_soldier_event_seen,
 
     action : (player) => {
         player.flags = player.flags || {};
         player.flags.luke_whiteFlowerLab_soldier_event_seen = true;
+        removeItemByKey(player, "lukeWFLSoldier");
         savePlayer(player);
 
         startScene(
             NPC_DATA["luke"].scenes.luke_whiteFlowerLab_soldier_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_talk_unlocked_event",
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance" &&
+        NPC_DATA["luke"].emotion.affection > 80 &&
+        NPC_DATA["luke"].emotion.rage < 50 &&
+        NPC_DATA["luke"].emotion.fear < 60 &&
+        !player.flags?.luke_talk_unlocked,
+
+    action : (player) => {
+        player.flags.luke_talk_unlocked = true;
+        addItem(player, ITEMS.accessary.lukeNecklace);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_talk_unlocked_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

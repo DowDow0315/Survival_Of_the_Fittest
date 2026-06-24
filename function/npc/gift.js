@@ -469,7 +469,7 @@ const NPC_GIFT_CONFIG = {
                     affection: 0,
                     rage: 3,
                     lust : 1,
-                    line: "\"우욱.\"<br><br>그는 바로 벽에 손을 짚으며 헛구역질을 했다. 비위가 약한 그에게 이런 음식은 최악이었다. 그는 당신을 노려보았다. <br><br>\"너 설마 나한테 먹으라 할 건...\"<br><br>그의 동공이 세차게 흔들린다."
+                    line: "\"우욱.\"<br><br>그는 바로 벽에 손을 짚으며 헛구역질을 했다. 비위가 약한 그에게 이런 음식은 최악이었다. 그는 당신을 노려보았다. <br><br>\"너 설마 나한테 먹으라고 할 건...\"<br><br>그의 동공이 세차게 흔들린다."
                 }
             },
             
@@ -479,6 +479,132 @@ const NPC_GIFT_CONFIG = {
                     rage: 10,
                     lust : 0,
                     line: "\"...뭐야?\"<br><br>카인은 당신의 음식을 그대로 던졌다. 당신의 옆으로 지나간 음식, 그리고 이어서 들리는 쩅그랑 소리. <br><br>\"너나 처먹어.\""
+                }
+            }
+        }
+    },
+    luke: {
+        reactions: {
+            lukeFavorite: {
+                great: {
+                    affection: 5,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 5,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            lukeHate: {
+                great: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"뭐야, 이건.\"<br><br>퉁명스럽게 대꾸하면서도 그는 당신의 음식을 먹었다. 입안에 단맛이 퍼지자 그의 자안은 놀란 듯 크게 떠졌다.<br><br>\"뭐야, 씨발. 너 음식도 잘해? 존나 맛있네.\""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: "그는 당신이 가져온 음식을 먹으며 고개를 끄덕였다. 입에 잘 맞는 모양이다."
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 0,
+                    line: "그는 당신의 음식을 먹더니 인상을 찌푸렸다. <br><br>\"요리 더럽게 못하네.\"<br><br>하지만 그는 당신의 요리를 남김없이 다 먹어주었다."
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 5,
+                    line: "큭, 루크는 당신의 요리를 보더니 비릿하게 웃었다. <br><br>\"미친새끼...\"<br><br>그는 욕을 하면서도 손가락으로 요리를 푹 찍어 당신의 앞에서 맛을 보았다. <br><br>\"...씨발, 뭔데 맛있냐.\"<br><br>그는 이딴 요리가 맛있어서 당황한 모양이다."
+                },
+
+                normal: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 5,
+                    line: "루크는 당신의 요리를 보더니 비릿하게 웃었다. <br><br>\"미친놈...\"<br><br>그는 욕을 하면서도 손가락으로 요리를 푹 찍어 당신의 앞에서 맛을 보았다. 그는 당신을 보며 입꼬리를 더 올렸다. <br><br>\"왜, 씨발, 하고 싶어? 변태새끼.\""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 10,
+                    line: "루크는 비릿한 냄새에 인상을 찌푸렸다가도 재밌다는 듯 웃었다. 그는 손가락으로 찍어 음식을 먹더니 예상대로 존나 맛없다고 말했다. 그는 당신에게 음식을 들이밀었다. <br><br>\"너도 처먹어.\"<br><br>그는 음식이 묻은 손가락을 당신의 입에 물렸다."
+                }
+            },
+            lustyHighAffection : {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 10,
+                    line: "루크는 당신과 당신의 요리를 번갈아보더니 피식 웃었다. <br><br>\"간이 크네?\"<br><br>그는 아무렇지도 않게 당신의 음식을 먹었다. <br><br>\"...존나 맛있네?\"<br><br>그는 자신의 혀가 고장났나 생각하고 있다."
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 10,
+                    line: "루크는 당신과 당신의 요리를 번갈아보더니 피식 웃었다. 그는 당신의 음식을 먹으면서 위협적으로 몸을 당신 쪽으로 기울였다. <br><br>\"나도 한번 뭘 먹여주긴 해야곘네, {lukeTitle}.\""
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 15,
+                    line: "루크는 당신과 당신의 요리를 번갈아보더니 웃음을 터뜨렸다. <br><br>\"냄새 씨발.\"<br><br>그는 당신의 음식을 먹으면서 이런 은혜는 꼭 갚아주겠다고 말했다. 집요하게 당신을 바라보는 그의 자안에 당신의 등골이 오싹해졌다."
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"...주운 거냐?\"<br><br>루크는 당신을 쳐다보았다. 그러더니 어깨를 으쓱였다.<br><br>\"길거리에다 뿌려. 그거라도 먹고 싶어하는 새끼들은 많으니까.\""
                 }
             }
         }
@@ -593,6 +719,13 @@ function giveFoodToNpc(player, npcId, item){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }
         
+        if (
+            npcId === "luke" &&
+            taste === "lusty" &&
+            affection >= 80
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
 
 
         if (!reaction){

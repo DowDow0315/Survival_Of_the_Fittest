@@ -1,5 +1,6 @@
 const LOCATION_SCENE_BUILDERS = {
     shop: buildShopScene,
+    barracks : buildBarracksScene,
     shelter: buildShelterScene,
     tavern : buildTavernScene,
     forest : buildForestScene,
@@ -76,6 +77,35 @@ function buildShopScene(player, loc, randomDesc){
             ]
         }
     ];
+}
+
+function buildBarracksScene(player, loc, randomDesc){
+    const choices = [];
+
+    if (player.flags?.luke_talk_unlocked && isLukeTalkTime(player)){
+        choices.push({ text: "루크와 대화", action: "luke_talk" });
+    }
+
+    choices.push(
+        { text: "조사실로 들어가기", action: "move_inquisitRoom" },
+        { text: "나가기", action: "move_townEntrance" }
+    );
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function isLukeTalkTime(player){
+    const hour = Math.floor(player.time / 10) % 24;
+    return hour >= 1 && hour < 3;
 }
 
 function buildShelterScene(player, loc, randomDesc){

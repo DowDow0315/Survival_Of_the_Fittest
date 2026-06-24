@@ -1126,7 +1126,8 @@ function startFlowerEscape(player){
 function flowerEscapeSuccess(player){
 
     changeStamina(player, -20);
-    passTime(player, 10);
+    changeHP(player, 1);
+    passTime(player, 30);
 
     localStorage.setItem("playerData", JSON.stringify(player));
 

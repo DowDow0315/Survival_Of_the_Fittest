@@ -1927,6 +1927,7 @@ const DUNGEON_EVENTS = {
                                 run : (player) => {
                                     changeTrauma(player, 2);
                                     player.flags.whiteFlowerLab_lukeSoldier = true;
+                                    addItem(player, ITEMS.misc.lukeWFLSoldier);
                                     savePlayer(player);
                                 }
                             }
@@ -1948,11 +1949,11 @@ const DUNGEON_EVENTS = {
                                 run : (player) => {
                                     changeTrauma(player, 2);
                                     player.flags.whiteFlowerLab_lukeSoldier = true;
+                                    addItem(player, ITEMS.misc.lukeWFLSoldier);
                                     savePlayer(player);
                                 }
                             }
-                        ]
-                        
+                        ]              
                     },
                     {
                         text : "꽃감염병이다. 당신은 무기를 들어 그것에게 겨누었다.",
@@ -2314,7 +2315,7 @@ window.startBanditLukeFightWin = function(player){
         {
             type: "text",
             value:
-                "당신은 상급도적을 쓰러뜨렸다. 당신은 숨을 고르며 루크를 돌아보았다. 그웰은 루크에게 제발 살려달라고 빌고 있었다. 하지만 루크는 그대로 그웰의 목에 너클을 박아넣었다. 분수처럼 쏟아져나오는 피에 가시너클이 붉은색으로 물든다." +
+                "당신은 상급도적을 쓰러뜨렸다. 당신은 숨을 고르며 루크를 돌아보았다. 그웰은 루크에게 제발 살려달라고 빌고 있었다. 하지만 루크는 그대로 그웰의 목을 단검으로 베었다. 분수처럼 쏟아져나오는 피에 그의 옷이 붉은색으로 물든다." +
                 " 루크는 가시너클에 묻은 피를 털어내지도 않고 그대로 담배를 하나 꺼내 입에 물었다. 그러더니 그는 당신을 바라보았다." +
                 "<br><br>\"{lukeTitle}. 불.\"<br><br>"
         },

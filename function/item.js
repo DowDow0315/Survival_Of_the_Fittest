@@ -268,9 +268,9 @@ const WEAPON_SKILLS = {
             name : "도끼가 쾅 적이 짜부",
             cost : 4,
             type : "damage",
-            power : 4.8,
+            power : 4.5,
             unlock : 300,
-            desc : "데미지 4.8배"
+            desc : "데미지 4.5배"
         }
     ],
     "고블린검" :[
@@ -567,6 +567,7 @@ const ITEMS ={
         axeHM : {
             name : "도끼HM",
             type : "weapon",
+            desc : "이니셜 HM님의 소망이 들어간 도끼. 그래서인지 스킬이 공격에 치중되어 있다.",
             price : 2000,
             stats : {
                 str : 9,
@@ -597,6 +598,7 @@ const ITEMS ={
         soldierSpear : {
             name : "경계병창",
             type : "weapon",
+            desc : "경계병들이 사용하는 창. 도시를 지키고자 하는 마음이 담겨있다.",
             price : 2600,
             stats : {
                 str: 9,
@@ -607,6 +609,7 @@ const ITEMS ={
         silverDagger : {
             name : "은장도",
             type: "weapon",
+            desc : "아카시아에게서 받은 은장도. 아카시아향이 미약하게 난다.",
             price: 2800,
             tags : ["magicStick"],
             stats: {
@@ -720,6 +723,7 @@ const ITEMS ={
         raceBra : {
             name : "레이스브라",
             type : "bra",
+            desc : "'레이스브라는 있어야 하는 거 아닌가요?'라는 누군가의 소망으로 생성된 브라. 예쁘다.",
             price : 5000,
             stats : {
                 charm : 1
@@ -899,11 +903,22 @@ const ITEMS ={
         //npc 관련 악세사리
         flowerCrown : {
             name : "꽃왕관",
+            desc : "소라가 만들어준 꽃왕관. 분명 알록달록한 꽃으로 만들었던 거 같은데 점점 하얀색으로 변해가고 있다. 시들지도 않는다.",
             type : "accessary",
             price : 100,
             stats : {
                 charm : 2
             }
+        },
+        lukeNecklace : {
+            name : "부적 목걸이",
+            desc : "삐뚤삐뚤한 부적이 달린 목걸이, 어쩐지 루크의 글씨체와 닮았다.",
+            type : "accessary",
+            stats : {
+                str : 2,
+                dex : 1
+            },
+            price : 50
         }
     },
 
@@ -1179,7 +1194,8 @@ const ITEMS ={
             price: 80
         },
         slimeLiquid: {
-            name: "슬라임에서 나온 정체모를 액체. 만지고 싶지는 않다.",
+            name: "슬라임에서 나온 정체모를 액체.",
+            desc : "과연 만지고 싶은 사람이 있을까?",
             type: "junk",
             price: 40
         },
@@ -1333,19 +1349,28 @@ const ITEMS ={
 
         //중요물품
         matinLocket : {
-            name : "낡은 하트모양 목걸이<br>누군가의 중요한 목걸이같다. 팔면 안 될 거 같은 느낌이 든다.",
+            name : "낡은 하트모양 목걸이",
+            desc : "누군가의 중요한 목걸이같다. 팔면 안 될 거 같은 느낌이 든다",
             type : "key",
             price : 2000
         },
         honorMedal : {
             name : "상류도시 훈장",
+            desc : "상류도시가 하류도시 출신에게 내리는 훈장.",
             type : "key",
             price : 5000
         },
         dericLetter : {
             name : "데릭의 친필 서신",
+            desc : "기울어진 데릭의 글씨체는 우아하다. 하지만 하류도시의 사람들 기준으로는 읽기 힘들다.",
             type : "key",
             price : 5000
+        },
+        lukeWFLSoldier : {
+            name : "경비병의 훈장",
+            desc : "루크의 삐뚤거리는 글씨가 새겨져있는 경비병의 훈장. 막사에 있는 루크에게 가져다주면 반응을 보일지도 모른다.",
+            type : "key",
+            price : 300
         }
     }
 };
@@ -1467,6 +1492,27 @@ function removeItem(player, item){
     player.inventory.splice(index, 1);
     savePlayer(player);
     return true;
+}
+
+function removeItemByKey(player, key, count = 1){
+    const baseItem = findItemByKey(key);
+    let removed = 0;
+
+    for (let i = player.inventory.length - 1; i >= 0 && removed < count; i--){
+        const item = player.inventory[i];
+
+        if (
+            item.key === key ||
+            (baseItem && item.name === baseItem.name)
+        ){
+            player.inventory.splice(i, 1);
+            removed++;
+        }
+    }
+
+    if (removed > 0) savePlayer(player);
+
+    return removed;
 }
 
 function getItemKey(targetItem){

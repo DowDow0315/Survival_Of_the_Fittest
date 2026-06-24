@@ -2149,8 +2149,8 @@ function renderInventoryModal(player){
             } else if (item.type === "arousal"){
                 desc.innerText = `흥분 감소: ${item.value}`;
             }
-
-    info.appendChild(desc);
+            
+            info.appendChild(desc);
         } else if (item.stats){
             const statText = Object.entries(item.stats)
                 .map(([key, value]) => {
@@ -2163,13 +2163,19 @@ function renderInventoryModal(player){
                     const total =
                     value + auto + custom;
                     
-                    return `${key} +${total}`;
+                    return `${key} ${total >= 0 ? "+" : ""}${total}`;
                 })
                 
                 .join(", ");
                 
             const desc = document.createElement("p");
             desc.innerText = statText || "능력치 변화 없음";
+            info.appendChild(desc);
+        }
+
+        if (item.desc){
+            const desc = document.createElement("p");
+            desc.innerHTML = item.desc;
             info.appendChild(desc);
         }
 

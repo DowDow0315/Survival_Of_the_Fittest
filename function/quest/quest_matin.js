@@ -135,10 +135,7 @@ function acceptMatinGraveyardQuest(player){
 function completeMatinGraveyardQuest(player){
     initQuestData(player);
 
-    player.inventory = player.inventory.filter(item =>
-        item.key !== "matinLocket" &&
-        item.name !== ITEMS.misc.matinLocket.name
-    );
+    removeItemByKey(player, "matinLocket");
 
     player.quest.subActive = player.quest.subActive.filter(
         q => q.id !== "matin_graveyard_01"
@@ -151,7 +148,7 @@ function completeMatinGraveyardQuest(player){
     player.flags.matin_graveyard_01_done = true;
     player.flags.matinLocketTaken = false;
     changeGold(player, MATIN_QUESTS.matin_graveyard_01.rewardGold);
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
 }
 
 function failMatinGraveyardQuest(player){

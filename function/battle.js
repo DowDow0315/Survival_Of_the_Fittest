@@ -380,7 +380,7 @@ function playerAttack(isBonusAttack = false){
     }
     
     //적 회피 체크
-    if (tryEvade(enemy)){
+    if (tryEvade(enemy, player)){
         log(getLine(enemy, "evade"));
         enemyTurn()
         return;
@@ -569,7 +569,7 @@ function useSkill(index){
 
     closeSkillMenu();
 
-    if (tryEvade(enemy)){
+    if (tryEvade(enemy, player)){
         log(getLine(enemy, "evade"));
         
         if (enemy.hp <= 0){
@@ -912,7 +912,7 @@ function enemyTurn(){
     log("적의 턴!");
 
     //플레이어 회피 체크
-    if (tryEvade(player)){
+    if (tryEvade(player, enemy)){
         log("당신은 공격을 회피했다!", "evade");
 
         battleState.counter = false;
@@ -1454,28 +1454,27 @@ function getRandom(arr){
     return arr[Math.floor(Math.random()*arr.length)];
 }
 
-function tryEvade(target){
-    let eva = target.derivedStats?.eva || target.eva || 0;
+function tryEvade(target, attacker){
+    let targetEva = target.derivedStats?.eva || target.eva || 0;
+    let attackerEva = attacker?.derivedStats?.eva || attacker?.eva || 0;
+
     if (target.buffs){
         target.buffs.forEach(buff => {
             if (buff.evaMult){
-                eva *= buff.evaMult;
+                targetEva *= buff.evaMult;
             }
         });
     }
 
-    let chance = eva / 200;
-    
-    //럭키(Lucky)
+    let chance = 0.1 + (targetEva - attackerEva) * 0.02;
+    chance = Math.max(0, Math.min(0.6, chance));
+
     if (target === battleState.player && hasBattleTrait(target, "lucky") && Math.random() < 0.3){
-        chance *=1.5;
-        log("당신의 몸에 행운이 넘쳐흐른다! 럭키!")
+        chance *= 1.5;
+        log("당신의 몸에 행운이 넘쳐흐른다! 럭키!");
     }
 
-    if (Math.random() < chance){
-        return true;
-    }
-    return false;
+    return Math.random() < chance;
 }
 
 function chooseEnemySkill(enemy){

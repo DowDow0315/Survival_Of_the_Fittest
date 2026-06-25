@@ -149,9 +149,10 @@ const DUNGEONS = {
         r5c10: { name: "포로방", exits: { left: "r5c9", up: "r4c10" } }
     },
     encounters : [
-        {type : "battle", enemy : "goblin", weight: 50},
+        {type : "battle", enemy : "goblin", weight: 40},
         {type : "event", id : "goblin_rope", weight: 20},
         {type : "event", id : "goblin_trap_log", weight: 20},
+        {type : "event", id : "goblin_meatMeat", weight : 10},
         {type : "event", id : "goblin_slayer", weight : 10}
     ]
     },
@@ -226,12 +227,13 @@ const DUNGEONS = {
         },
         
         encounters: [
-            { type: "battle", enemy: "bandit1", weight: 40 },
-            { type: "battle", enemy: "bandit2", weight: 20 },
+            { type: "battle", enemy: "bandit1", weight: 30 },
+            { type: "battle", enemy: "bandit2", weight: 10 },
             {type : "event", id : "banditHideout_runner", weight: 5},
             {type : "event", id : "banditHideout_furious_child", weight: 20},
             {type : "event", id : "banditHideout_may_i_touch_b", weight: 10},
-            {type : "event", id : "banditHideout_box", weight: 15}
+            {type : "event", id : "banditHideout_box", weight: 15},
+            {type : "event", id : "banditHideOut_food", weight: 15}
         ]},
 
     whiteFlowerLab : {
@@ -299,9 +301,9 @@ const DUNGEONS = {
         },
 
         encounters : [
-            { type: "battle", enemy: "infectedSmall", weight: 15 },
-            { type: "battle", enemy: "infected", weight: 30 },
-            { type: "battle", enemy: "infectedSoldier", weight: 20 },
+            { type: "battle", enemy: "infectedSmall", weight: 10 },
+            { type: "battle", enemy: "infected", weight: 20 },
+            { type: "battle", enemy: "infectedSoldier", weight: 15 },
             {type : "event", id : "whiteFlowerLab_Collapse", weight: 15},
             {type : "event", id : "whiteFlowerLab_flowerAttack", weight: 10},
             {type : "event", id : "whiteFlowerLab_oneWhiteFlower", weight: 5},
@@ -459,13 +461,19 @@ const BANDIT_CHEST_POOL = [
     { id: "gold_300", weight: 30 },
     { id: "gold_500", weight: 20 },
     { id: "gold_1000", weight: 5 },
+    { id: "potato", weight: 8 },
+    { id: "cabbage", weight: 8 },
     { id: "druggy", weight: 30 }
 ];
 
 const whiteFlowerLab_CHEST_POOL = [
     { id: "meat_potion", weight: 20 },
     { id: "medium_potion", weight: 15 },
-    { id: "high_potion", weight: 5 },
+    { id: "potato", weight: 8 },
+    { id: "cabbage", weight: 8 },
+    { id: "wheat", weight: 5 },
+    { id: "rice", weight: 5 },
+    { id: "high_potion", weight: 1 },
     { id: "nothing", weight: 15 },
     { id: "gold_500", weight: 20 },
     { id: "gold_1000", weight: 10 }
@@ -473,7 +481,11 @@ const whiteFlowerLab_CHEST_POOL = [
 
 const whiteFlowerLabRepeated_CHEST_POOL = [
     { id: "medium_potion", weight: 20 },
-    { id: "high_potion", weight: 10 },
+    { id: "high_potion", weight: 5 },
+    { id: "potato", weight: 8 },
+    { id: "cabbage", weight: 8 },
+    { id: "wheat", weight: 10 },
+    { id: "rice", weight: 10 },
     { id: "nothing", weight: 15 },
     { id: "gold_500", weight: 25 },
     { id: "gold_1000", weight: 15 }
@@ -527,7 +539,10 @@ const DUNGEON_CHESTS = {
         type : "fixed",
         reward: (player) => {
             addItem(player, ITEMS.consumable.soju);
-            showSingleTextScene("상자 안에는 소주가 들어있었다.", player);
+            addItem(player, ITEMS.misc.animalMeat);
+            addItem(player, ITEMS.misc.wheat);
+            addItem(player, ITEMS.misc.rice);
+            showSingleTextScene("상자 안에는 소주와 몇몇 음식들이 들어있었다.", player);
         }
     },
 
@@ -601,6 +616,31 @@ const CHEST_REWARDS = {
     meat_potion: (player) => {
         addItem(player, ITEMS.consumable.meatPotion);
         showSingleTextScene("무엇으로 만들어진지 상상하고 싶지 않아지는 고기를 발견했다.", player);
+    },
+
+    potato: (player) => {
+        addItem(player, ITEMS.misc.potato);
+        showSingleTextScene("당신은 감자를 발견했다.", player);
+    },
+
+    cabbage: (player) => {
+        addItem(player, ITEMS.misc.cabbage);
+        showSingleTextScene("당신은 배추를 발견했다.", player);
+    },
+
+    mushroom: (player) => {
+        addItem(player, ITEMS.misc.mushroom);
+        showSingleTextScene("당신은 버섯을 발견했다.", player);
+    },
+
+    wheat: (player) => {
+        addItem(player, ITEMS.misc.wheat);
+        showSingleTextScene("당신은 밀을 발견했다.", player);
+    },
+
+    rice: (player) => {
+        addItem(player, ITEMS.misc.rice);
+        showSingleTextScene("당신은 쌀을 발견했다.", player);
     }
 };
 
@@ -1465,6 +1505,22 @@ const DUNGEON_EVENTS = {
                     }
                 ]
             }
+        ],
+        goblin_meatMeat : [
+            {
+                type : "text",
+                value : [
+                    "동굴을 지나던 당신은 고블린이 식량을 모아놓은 곳을 발견했다. 역시나, 그들은 채소 따위 먹지 않았다. 오로지 사슴고기들뿐이다. 당신은 그들의 유용한 식량을 챙겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.animalMeat);
+                    addItem(player, ITEMS.misc.animalMeatPieces);
+                    addItem(player, ITEMS.misc.animalMeatPieces);
+                }
+            }
         ]
     },
     banditHideout : {
@@ -1647,6 +1703,39 @@ const DUNGEON_EVENTS = {
                     {
                         type : "text",
                         value : "당신은 상자를 내리쳤지만 상자는 꿈쩍도 하지 않았다. 당신은 어쩔 수 없이 상자를 포기했다..."
+                    }
+                ]
+            }
+        ],
+        banditHideOut_food : [
+            {
+                type : "text",
+                value : [
+                    "당신은 도적떼의 저장상자를 발견했다. 자물쇠만 풀어내면 어떻게든 될 거 같다. 당신은 자물쇠에 접근했다."
+                ]
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 13,
+                success : [
+                    {
+                        type : "text",
+                        value : "당신은 상자의 자물쇠를 기민한 손놀림으로 풀어냈다. 그들의 식량을 얻어냈다. 당신은 도적들에게서 도둑질을 해넀다!"
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            addItem(player, ITEMS.misc.animalMeat);
+                            addItem(player, ITEMS.misc.potato);
+                            addItem(player, ITEMS.misc.cabbage);
+                        }
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : "당신은 상자의 자물쇠를 풀어보려고 했지만 잘 되지 않았다. 어쩔 수 없이 당신은 아쉬움을 뒤로 하고 전진했다. 역시 도적은 도적이다."
                     }
                 ]
             }

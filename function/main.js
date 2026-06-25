@@ -787,7 +787,15 @@ function openStatAllocation(player, onDone = null){
     startScene([
         {
             type: "text",
-            value: `혹독한 경험으로 당신은 더 강해졌습니다! <br>남은 스탯 포인트: ${player.statPoints}`
+            value: `
+                혹독한 경험으로 당신은 더 강해졌습니다!
+                <br>남은 스탯 포인트: ${player.statPoints}
+                <br><br><strong>스탯 효과</strong>
+                <br><br> 근력(STR) : <strong>공격력</strong>, 방어력 증가
+                <br> 민첩(DEX) : 공격력, <strong>회피율</strong> 증가
+                <br> 지력(INT) : 회피율, <strong>마법공격력</strong> 증가
+                <br> 매력(CHARM) : 방어력, 회피율, 마법공격력 증가
+                `
         },
         {
             type: "choice",
@@ -1320,22 +1328,28 @@ function showSingleTextScene(text, player, options = {}){
 
 const SEARCH_CONFIG = {
     forest: {
-        monsterChance: 0.4,
-        itemChance: 0.4,
+        monsterChance: 0.2,
+        itemChance: 0.7,
         itemPool: [
             { item: () => ITEMS.misc.wildFruit, weight: 80 },
-            { item: () => ITEMS.misc.rareFruit, weight: 20 }
+            { item: () => ITEMS.misc.rareFruit, weight: 20 },
+            { item: () => ITEMS.misc.potato, weight: 10 },
+            { itme: () => ITEMS.misc.cabbage, weight : 10},
+            { item: () => ITEMS.misc.mushroom, weight: 10 }
         ]
     },
 
     deepForest: {
-        monsterChance: 0.55,
-        itemChance: 0.4,
+        monsterChance: 0.4,
+        itemChance: 0.5,
         itemPool: [
             { item: () => ITEMS.misc.rareFruit, weight: 30 },
             { item: () => ITEMS.misc.wildFruit, weight: 30 },
             { item: () => ITEMS.misc.bloodycloth, weight: 30 },
-            { item: () => ITEMS.misc.pieceofwhiteflower, weight: 10 }            
+            { item: () => ITEMS.misc.pieceofwhiteflower, weight: 10 },
+            { item: () => ITEMS.misc.potato, weight: 20 },
+            { item: () => ITEMS.misc.cabbage, weight: 20 },
+            { item: () => ITEMS.misc.mushroom, weight: 20 }      
         ]
     },
 
@@ -1350,12 +1364,18 @@ const SEARCH_CONFIG = {
     },
 
     banditForest : {
-        monsterChance : 0.6,
-        itemChance : 0.4,
+        monsterChance : 0.4,
+        itemChance : 0.5,
         itemPool : [
+            { item: () => ITEMS.misc.rareFruit, weight: 40 },
             { item: () => ITEMS.misc.silverChain, weight: 60 },
             { item: () => ITEMS.misc.jewerlyPieces, weight: 20 },
-            { item: () => ITEMS.misc.druggy, weight: 20 }
+            { item: () => ITEMS.misc.druggy, weight: 20 },
+            { item: () => ITEMS.misc.potato, weight: 20 },
+            { item: () => ITEMS.misc.cabbage, weight: 20 },
+            { item: () => ITEMS.misc.mushroom, weight: 20 },
+            { item: () => ITEMS.misc.rice, weight: 5 },
+            { item: () => ITEMS.misc.wheat, weight: 5 }
         ]
     }
 };
@@ -1450,7 +1470,7 @@ function getUndercity03SearchHint(player){
 
     if (!isStory03) return "";
 
-    if (Math.random() >= 0.3) return "";
+    if (Math.random() >= 0.5) return "";
 
     if (!player.flags.undercity_03_guard_cloth_found){
         player.flags.undercity_03_guard_cloth_found = true;
@@ -1490,7 +1510,7 @@ function maybeFindNormalGoblinCave(player){
 
     if (isStory03) return "";
     if (player.flags.goblin_cave_visible) return "";
-    if (Math.random() >= 0.15) return "";
+    if (Math.random() >= 0.5) return "";
 
     player.flags.goblin_cave_visible = true;
     savePlayer(player);
@@ -1516,7 +1536,7 @@ function getUndercity05SearchHint(player){
 
     if (!isStory05) return "";
 
-    if (Math.random() >= 0.3) return "";
+    if (Math.random() >= 0.5) return "";
 
     if (!player.flags.undercity_05_cart_found){
         player.flags.undercity_05_cart_found = true;

@@ -14,11 +14,13 @@ const ENEMY_POOLS = {
     ],
     forest: [
         { id: "slime", weight: 40 },
-        { id: "goblin", weight: 40 },
+        { id : "dear", weight: 30 },
+        { id: "goblin", weight: 20 },
         { id: "rapistM", weight: 10 },
         { id: "rapistF", weight: 10 }
     ],
     deepForest: [
+        { id : "dear", weight: 30 },
         { id: "goblin", weight: 70 },
         { id: "flower", weight: 10 },
         { id: "slime", weight: 10 },
@@ -29,15 +31,18 @@ const ENEMY_POOLS = {
         { id: "skeleton", weight : 100}
     ],
     banditForest : [
+        { id : "dear", weight: 10 },
         { id: "bandit1", weight: 70 },
         { id: "bandit2", weight: 30 }
     ],
     guardPost1 : [
+        { id : "dear", weight: 10 },
         { id: "bandit1", weight : 45 },
         { id: "bandit2", weight : 50 },
         { id : "infectedSmall", weight : 5}
     ],
     guardPost2 : [
+        { id : "dear", weight: 5 },
         { id : "infectedSmall", weight : 20 },
         { id : "bandit2", weight : 5 },
         { id : "infectedSoldier", weight : 25},

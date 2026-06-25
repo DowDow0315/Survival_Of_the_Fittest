@@ -337,6 +337,7 @@ function useBattleItem(index){
 
     else if (["weapon","top", "bra", "bottom", "underwear"].includes(item.type)){
         equipItem(player, item);
+        closeSkillMenu();
         log(`${item.name} 장착!`);
     }
     closeBattleInventory();
@@ -505,6 +506,8 @@ function pickupWeapon(){
     player.equipment.weapon = battleState.droppedWeapon;
     battleState.droppedWeapon = null;
 
+    closeSkillMenu();
+
     log("당신은 다시 무기를 들었다.");
 
     enemyTurn();
@@ -554,11 +557,21 @@ function closeSkillMenu(){
 function useSkill(index){
     if (!battleState) return;
 
+    const skills = getAvailableSkills(battleState.player);
+
+    if (!skills[index]){
+        log("그 스킬은 지금 사용할 수 없다.");
+        closeSkillMenu();
+        return;
+    }
+
+    battleState.currentSkills = skills;
+    const skill = skills[index];
+
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
     const enemy = battleState.enemy;
-    const skill = battleState.currentSkills[index];
     const isMagicWeapon = player.equipment.weapon?.name === "지팡이";
     const powerStat = isMagicWeapon ? getFinalMag(player) : getFinalAtk(player);
 
@@ -1366,6 +1379,7 @@ function disarmPlayer(player){
 
     battleState.droppedWeapon = weapon;
     player.equipment.weapon = null;
+    closeSkillMenu();
 
     log(`${weapon.name}이 손에서 튕겨나갔다!`, "warning");
     updateBattleUI();
@@ -1466,7 +1480,7 @@ function tryEvade(target, attacker){
         });
     }
 
-    let chance = 0.1 + (targetEva - attackerEva) * 0.02;
+    let chance = 0.05 + (targetEva - attackerEva) * 0.02;
     chance = Math.max(0, Math.min(0.6, chance));
 
     if (target === battleState.player && hasBattleTrait(target, "lucky") && Math.random() < 0.3){

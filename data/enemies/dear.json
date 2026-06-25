@@ -1,0 +1,102 @@
+{
+    "name": "사슴",
+    "hp": 60,
+    "attack": 20,
+    "defense": 20,
+    "eva": 10,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "animalMeatPieces",
+            "chance": 1
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 0.4
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "사슴은 살기 위해 당신을 공격해왔다."
+        ],
+        "hit": [
+            "동물의 울부짖는 소리가 들린다. 절망에 차있다."
+        ],
+        "evade": [
+            "사슴은 슉슈슉 슉 피했지롱을 시전했다."
+        ],
+        "defeat": [
+            "사슴은 결국 명을 다했다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "몸통박치기",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "사슴은 당신에게 몸통박치기를 했다. 도망가고 싶어하는 눈망울에 습기가 차있다."
+            ]
+        },
+        {
+            "name": "뿔박치기",
+            "power": 1.5,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "사슴은 당신에게 돌진한다! 뿔 공격이다! 효과는!?",
+                "사슴은 야생의 위엄을 보여주려 했다. 효과는 미미했을지도."
+            ]
+        }
+    ],
+    "exp" : 1
+}

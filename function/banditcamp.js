@@ -68,7 +68,8 @@ function startBanditCampRandomEvent(player){
         { id: "banditCamp_supply_trap", weight: 20 },
         { id: "banditCamp_dead_guard", weight: 10 },
         { id : "banditCamp_bandit_being_killed", weight: 15},
-        { id : "banditCamp_bandit_rest", weight : 10}
+        { id : "banditCamp_bandit_rest", weight : 10},
+        { id : "banditCamp_bandit_supply", weight : 5}
     ]);
 
     if (eventId === "banditCamp_battle_low"){
@@ -96,7 +97,7 @@ function startBanditCampRandomEvent(player){
             {
                 type: "text",
                 value:
-                    "버려진 보급 상자처럼 보이는 물건이 있었다. 당신은 가까이 다가가자 상자는 저절로 열려서 분홍색 연기를 뿜어냈다. 마약 연기다!<br><br>"
+                    "버려진 보급 상자처럼 보이는 물건이 있었다. 당신이 가까이 다가가자 상자는 저절로 열려서 분홍색 연기를 뿜어냈다. 마약 연기다!<br><br>"
             },
             {
                 type: "effect",
@@ -171,6 +172,27 @@ function startBanditCampRandomEvent(player){
                 run: (player) => {
                     changeHP(player, Math.floor(player.status.maxHp * 0.2));
                     changeStamina(player, Math.floor(player.status.maxStamina * 0.2));
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd: () => advanceBanditCamp(player)
+        });
+        return;
+    }
+
+    if (eventId === "banditCamp_supply"){
+        startScene([
+            {
+                type: "text",
+                value:
+                    "버려진 보급 상자처럼 보이는 물건이 있었다. 당신은 보급상자에서 자원을 조금 챙길 수 있었다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    addItem(player, ITEMS.misc.cabbage);
+                    addItem(player, ITEMS.misc.potato);
                     savePlayer(player);
                 }
             }

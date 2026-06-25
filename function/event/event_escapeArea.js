@@ -328,6 +328,74 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 20,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 날아다니는 새를 보았다. 어쩌면 저 새, 당신의 소중한 식량이 되어줄 수도 있다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "돌을 던져 새를 맞혀본다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "dex",
+                                    difficulty : 12,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아아, 새는 당신의 소중한 식량이 되어주고 말았습니다. 돌에 맞은 새가 꽥 하는 소리와 함께 그대로 추락했다. 당신은 새를 집어들었다.",
+                                                "<br>GOGI GET! NYAMNAYM MEAT!"
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeat);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아쉽게도 당신은 새를 놓쳤다. 새는 당신을 돌아보지도 않고 그대로 날개를 푸드덕거리며 날아가버렸다."
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 새를 사랑한다. 새의 목숨을 살려주자.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 새를 놓아주었다. 새가 당신이 자비를 베풀었다는 사실을 알고 있는지 모르고 있는지는 모르겠지만, 어쨌든 당신은 마음이 조금이나마 따듯해졌다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -676,6 +744,74 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 날아다니는 새를 보았다. 어쩌면 저 새, 당신의 소중한 식량이 되어줄 수도 있다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "돌을 던져 새를 맞혀본다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "dex",
+                                    difficulty : 12,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아아, 새는 당신의 소중한 식량이 되어주고 말았습니다. 돌에 맞은 새가 꽥 하는 소리와 함께 그대로 추락했다. 당신은 새를 집어들었다.",
+                                                "<br>GOGI GET! NYAMNAYM MEAT!"
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeat);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아쉽게도 당신은 새를 놓쳤다. 새는 당신을 돌아보지도 않고 그대로 날개를 푸드덕거리며 날아가버렸다."
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 새를 사랑한다. 새의 목숨을 살려주자.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 새를 놓아주었다. 새가 당신이 자비를 베풀었다는 사실을 알고 있는지 모르고 있는지는 모르겠지만, 어쨌든 당신은 마음이 조금이나마 따듯해졌다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -984,6 +1120,74 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 날아다니는 새를 보았다. 어쩌면 저 새, 당신의 소중한 식량이 되어줄 수도 있다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "돌을 던져 새를 맞혀본다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "dex",
+                                    difficulty : 12,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아아, 새는 당신의 소중한 식량이 되어주고 말았습니다. 돌에 맞은 새가 꽥 하는 소리와 함께 그대로 추락했다. 당신은 새를 집어들었다.",
+                                                "<br>GOGI GET! NYAMNAYM MEAT!"
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeat);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아쉽게도 당신은 새를 놓쳤다. 새는 당신을 돌아보지도 않고 그대로 날개를 푸드덕거리며 날아가버렸다."
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 새를 사랑한다. 새의 목숨을 살려주자.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 새를 놓아주었다. 새가 당신이 자비를 베풀었다는 사실을 알고 있는지 모르고 있는지는 모르겠지만, 어쨌든 당신은 마음이 조금이나마 따듯해졌다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -1289,6 +1493,74 @@ const ESCAPE_AREA_EVENTS = {
                     type : "text",
                     value : [
                         "나무들 사이에 철창 하나가 보인다. <br><br>문은 부서져 있었고, 안에는 아무도 없었다.<br><br>벽에는 손톱자국만 남아있다."
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 날아다니는 새를 보았다. 어쩌면 저 새, 당신의 소중한 식량이 되어줄 수도 있다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "돌을 던져 새를 맞혀본다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "dex",
+                                    difficulty : 12,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아아, 새는 당신의 소중한 식량이 되어주고 말았습니다. 돌에 맞은 새가 꽥 하는 소리와 함께 그대로 추락했다. 당신은 새를 집어들었다.",
+                                                "<br>GOGI GET! NYAMNAYM MEAT!"
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeat);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "아쉽게도 당신은 새를 놓쳤다. 새는 당신을 돌아보지도 않고 그대로 날개를 푸드덕거리며 날아가버렸다."
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 새를 사랑한다. 새의 목숨을 살려주자.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 새를 놓아주었다. 새가 당신이 자비를 베풀었다는 사실을 알고 있는지 모르고 있는지는 모르겠지만, 어쨌든 당신은 마음이 조금이나마 따듯해졌다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -1);
+                                    }
+                                }
+                            ]
+                        }
                     ]
                 }
             ]
@@ -1653,6 +1925,83 @@ const ESCAPE_AREA_EVENTS = {
                                     run : (player) => {
                                         changeHP(player, -10);
                                         changeTrauma(player, 1);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 부서진 마차를 보았다. [수송대], 경계초소까지 배달되다가 누군가의 공격으로 부서져버린 마차인 거 같다. 여기저기 묻어있는 변색된 피를 통해 당신은 수송대의 마지막이 어땠을지 쉽게 상상할 수 있었다.",
+                        " 당신은 부서진 마차에 다가갔다. 썩은 음식이 대다수지만 잘하면 썩지 않은 음식을 찾아낼 수도 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 음식을 골라냈다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "int",
+                                    difficulty : 15,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 음식을 골라냈다. 당신의 예상대로 썩은 음식들 사이에 아직 썩지 않은 음식들이 몇 개 섞여있었다. 당신은 음식들을 챙긴 후 자리를 떴다. 더 이상 죽음이 맴도는 자리에 있고 싶지 않았다, 그것이 오래된 죽음이라고 하더라도."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.wheat);
+                                                addItem(player, ITEMS.misc.rice);
+                                                addItem(player, ITEMS.misc.cabbage);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 무엇이 썩었고 무엇이 썩지 않았는지 골라낼 수가 없었다. 당신이 얻은 건 고깃조각뿐이었다. 당신은 자리에서 일어났다. 더 이상 누군가가 죽었을 자리에 머무르고 싶지 않았다."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeatPieces);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 수송대를 위해 짧게 묵념을 한 후 돌아섰다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 묵념이 죽은 사람들에게 전해질 리가 없다. 그럼에도 당신은 인간이기 때문에 그들에게 묵념을 했다.",
+                                        "<br><br>당신의 행동이 어떤 결과로 이어지지 않는다고 하더라도, 당신은 인간이었기에."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
                                     }
                                 }
                             ]
@@ -2029,6 +2378,83 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 부서진 마차를 보았다. [수송대], 경계초소까지 배달되다가 누군가의 공격으로 부서져버린 마차인 거 같다. 여기저기 묻어있는 변색된 피를 통해 당신은 수송대의 마지막이 어땠을지 쉽게 상상할 수 있었다.",
+                        " 당신은 부서진 마차에 다가갔다. 썩은 음식이 대다수지만 잘하면 썩지 않은 음식을 찾아낼 수도 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 음식을 골라냈다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "int",
+                                    difficulty : 15,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 음식을 골라냈다. 당신의 예상대로 썩은 음식들 사이에 아직 썩지 않은 음식들이 몇 개 섞여있었다. 당신은 음식들을 챙긴 후 자리를 떴다. 더 이상 죽음이 맴도는 자리에 있고 싶지 않았다, 그것이 오래된 죽음이라고 하더라도."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.wheat);
+                                                addItem(player, ITEMS.misc.rice);
+                                                addItem(player, ITEMS.misc.cabbage);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 무엇이 썩었고 무엇이 썩지 않았는지 골라낼 수가 없었다. 당신이 얻은 건 고깃조각뿐이었다. 당신은 자리에서 일어났다. 더 이상 누군가가 죽었을 자리에 머무르고 싶지 않았다."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeatPieces);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 수송대를 위해 짧게 묵념을 한 후 돌아섰다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 묵념이 죽은 사람들에게 전해질 리가 없다. 그럼에도 당신은 인간이기 때문에 그들에게 묵념을 했다.",
+                                        "<br><br>당신의 행동이 어떤 결과로 이어지지 않는다고 하더라도, 당신은 인간이었기에."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -2052,6 +2478,83 @@ const ESCAPE_AREA_EVENTS = {
                     }
                 }
             ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 부서진 마차를 보았다. [수송대], 경계초소까지 배달되다가 누군가의 공격으로 부서져버린 마차인 거 같다. 여기저기 묻어있는 변색된 피를 통해 당신은 수송대의 마지막이 어땠을지 쉽게 상상할 수 있었다.",
+                        " 당신은 부서진 마차에 다가갔다. 썩은 음식이 대다수지만 잘하면 썩지 않은 음식을 찾아낼 수도 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 음식을 골라냈다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "int",
+                                    difficulty : 15,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 음식을 골라냈다. 당신의 예상대로 썩은 음식들 사이에 아직 썩지 않은 음식들이 몇 개 섞여있었다. 당신은 음식들을 챙긴 후 자리를 떴다. 더 이상 죽음이 맴도는 자리에 있고 싶지 않았다, 그것이 오래된 죽음이라고 하더라도."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.wheat);
+                                                addItem(player, ITEMS.misc.rice);
+                                                addItem(player, ITEMS.misc.cabbage);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 무엇이 썩었고 무엇이 썩지 않았는지 골라낼 수가 없었다. 당신이 얻은 건 고깃조각뿐이었다. 당신은 자리에서 일어났다. 더 이상 누군가가 죽었을 자리에 머무르고 싶지 않았다."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeatPieces);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 수송대를 위해 짧게 묵념을 한 후 돌아섰다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 묵념이 죽은 사람들에게 전해질 리가 없다. 그럼에도 당신은 인간이기 때문에 그들에게 묵념을 했다.",
+                                        "<br><br>당신의 행동이 어떤 결과로 이어지지 않는다고 하더라도, 당신은 인간이었기에."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -2073,6 +2576,83 @@ const ESCAPE_AREA_EVENTS = {
                         changeHP(player, 40);
                         changeStamina(player, 30);
                     }
+                }
+            ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 부서진 마차를 보았다. [수송대], 경계초소까지 배달되다가 누군가의 공격으로 부서져버린 마차인 거 같다. 여기저기 묻어있는 변색된 피를 통해 당신은 수송대의 마지막이 어땠을지 쉽게 상상할 수 있었다.",
+                        " 당신은 부서진 마차에 다가갔다. 썩은 음식이 대다수지만 잘하면 썩지 않은 음식을 찾아낼 수도 있을 거 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 음식을 골라냈다.",
+                            scene : [
+                                {
+                                    type : "check",
+                                    stat : "int",
+                                    difficulty : 15,
+
+                                    success : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 음식을 골라냈다. 당신의 예상대로 썩은 음식들 사이에 아직 썩지 않은 음식들이 몇 개 섞여있었다. 당신은 음식들을 챙긴 후 자리를 떴다. 더 이상 죽음이 맴도는 자리에 있고 싶지 않았다, 그것이 오래된 죽음이라고 하더라도."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.wheat);
+                                                addItem(player, ITEMS.misc.rice);
+                                                addItem(player, ITEMS.misc.cabbage);
+                                            }
+                                        }
+                                    ],
+
+                                    fail : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "당신은 무엇이 썩었고 무엇이 썩지 않았는지 골라낼 수가 없었다. 당신이 얻은 건 고깃조각뿐이었다. 당신은 자리에서 일어났다. 더 이상 누군가가 죽었을 자리에 머무르고 싶지 않았다."
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                addItem(player, ITEMS.misc.animalMeatPieces);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 수송대를 위해 짧게 묵념을 한 후 돌아섰다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 묵념이 죽은 사람들에게 전해질 리가 없다. 그럼에도 당신은 인간이기 때문에 그들에게 묵념을 했다.",
+                                        "<br><br>당신의 행동이 어떤 결과로 이어지지 않는다고 하더라도, 당신은 인간이었기에."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, -2);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }

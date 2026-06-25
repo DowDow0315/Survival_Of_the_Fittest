@@ -1048,28 +1048,28 @@ const ITEMS ={
             type : "heal",
             value : 20,
             tags : ["gift", "sweet", "great"],
-            price : 200,           
+            price : 200         
         },
         normalFruitStirFry : {
             name : "과일볶음",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "normal"],
-            price : 150,           
+            price : 150       
         },
         badFruitStirFry : {
             name : "맛없는 과일볶음",
             type : "heal",
             value : 5,
             tags : ["gift", "sweet", "bad"],
-            price : 50,           
+            price : 50       
         },
         trash : {
             name : "쓰레기",
             type : "heal",
             value : -20,
             tags : ["gift", "trash"],
-            price : 0,           
+            price : 0      
         },
 
         greatFruitberryberry : {
@@ -1077,21 +1077,21 @@ const ITEMS ={
             type : "heal",
             value : 30,
             tags : ["gift", "sweet", "great"],
-            price : 300,           
+            price : 300       
         },
         normalFruitberryberry : {
             name : "고급과일볶음",
             type : "heal",
             value : 20,
             tags : ["gift", "sweet", "normal"],
-            price : 200,           
+            price : 200       
         },
         badFruitberryberry : {
             name : "맛없는 고급과일볶음",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "bad"],
-            price : 100,           
+            price : 100      
         },
 
         greatFruitNectar : {
@@ -1099,21 +1099,21 @@ const ITEMS ={
             type : "heal",
             value : 50,
             tags : ["gift", "sweet", "great"],
-            price : 600,           
+            price : 600      
         },
         normalFruitNectar : {
             name : "꿀과일볶음",
             type : "heal",
             value : 40,
             tags : ["gift", "sweet", "normal"],
-            price : 500,           
+            price : 500 
         },
         badFruitNectar : {
             name : "맛없는 꿀과일볶음",
             type : "heal",
             value : 30,
             tags : ["gift", "sweet", "bad"],
-            price : 400,           
+            price : 400    
         },
 
         greatSmoothJelly : {
@@ -1121,21 +1121,21 @@ const ITEMS ={
             type : "heal",
             value : 15,
             tags : ["gift", "sweet", "great"],
-            price : 200,           
+            price : 200 
         },
         normalSmoothJelly : {
             name : "미끄덩젤리",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "normal"],
-            price : 150,           
+            price : 150 
         },
         badSmoothJelly : {
             name : "맛없는 미끄덩젤리",
             type : "heal",
             value : 5,
             tags : ["gift", "sweet", "bad"],
-            price : 50,           
+            price : 50 
         },
 
         greatFruitSlimeLiquid : {
@@ -1143,21 +1143,21 @@ const ITEMS ={
             type : "arousal",
             value : -25,
             tags : ["gift", "lusty", "great"],
-            price : 150,           
+            price : 150  
         },
         normalFruitSlimeLiquid : {
             name : "불미스러운 것이 들어간 과일 요리",
             type : "arousal",
             value : -15,
             tags : ["gift", "lusty", "normal"],
-            price : 100,           
+            price : 100  
         },
         badFruitSlimeLiquid : {
             name : "불미스러운 것이 들어간 맛없는 과일 요리",
             type : "arousal",
             value : -5,
             tags : ["gift", "lusty", "bad"],
-            price : 50,           
+            price : 50 
         },
 
         greatWTFSlimeLiquid : {
@@ -1165,21 +1165,329 @@ const ITEMS ={
             type : "arousal",
             value : -40,
             tags : ["gift", "lusty", "great"],
-            price : 10,           
+            price : 10 
         },
         normalWTFSlimeLiquid : {
             name : "불미스러운 수프",
             type : "arousal",
             value : -20,
             tags : ["gift", "lusty", "normal"],
-            price : 5,           
+            price : 5
         },
         badWTFSlimeLiquid : {
             name : "맛없게 만들어진 불미스러운 수프",
             type : "arousal",
             value : -10,
             tags : ["gift", "lusty", "bad"],
-            price : 0,           
+            price : 0
+        },
+
+        greatGrilledMeat : {
+            name : "훌륭한 구운 고기 요리",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "meat", "great"],
+            price : 60     
+        },
+        normalGrilledMeat : {
+            name : "구운 고기 요리",
+            type : "heal",
+            value : 7,
+            tags : ["gift", "meat", "normal"],
+            price : 50    
+        },
+        badGrilledMeat : {
+            name : "맛없는 구운 고기 요리",
+            type : "heal",
+            value : 5,
+            tags : ["gift", "meat", "bad"],
+            price : 40     
+        },
+
+        greatMeatSkewer : {
+            name : "훌륭한 고기 꼬치",
+            type : "heal",
+            value : 25,
+            tags : ["gift", "meat", "great"],
+            price : 240
+        },
+        normalMeatSkewer : {
+            name : "고기 꼬치",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "meat", "normal"],
+            price : 220
+        },
+        badMeatSkewer : {
+            name : "맛없는 고기 꼬치",
+            type : "heal",
+            value : 15,
+            tags : ["gift", "meat", "bad"],
+            price : 180
+        },
+
+        greatmeatVegetableSkewer : {
+            name : "훌륭한 고기야채꼬치",
+            type : "heal",
+            value : 50,
+            tags : ["gift", "mixed", "great"],
+            price : 450
+        },
+        normalmeatVegetableSkewer : {
+            name : "고기야채꼬치",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "mixed", "normal"],
+            price : 420
+        },
+        badmeatVegetableSkewer : {
+            name : "맛없는 고기야채꼬치",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "mixed", "bad"],
+            price : 390
+        },
+        
+        greatVegetableSkewer : {
+            name : "훌륭한 야채꼬치",
+            type : "heal",
+            value : 70,
+            tags : ["gift", "vegetable", "great"],
+            price : 550
+        },
+        normalVegetableSkewer : {
+            name : "야채꼬치",
+            type : "heal",
+            value : 60,
+            tags : ["gift", "vegetable", "normal"],
+            price : 520
+        },
+        badVegetableSkewer : {
+            name : "맛없는 야채꼬치",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "vegetable", "bad"],
+            price : 450
+        },
+
+        greatMushroomSoup : {
+            name : "훌륭한 버섯수프",
+            type : "heal",
+            value : 55,
+            tags : ["gift", "vegetable", "great"],
+            price : 520
+        },
+        normalMushroomSoup : {
+            name : "버섯수프",
+            type : "heal",
+            value : 45,
+            tags : ["gift", "vegetable", "normal"],
+            price : 510
+        },
+        badMushroomSoup : {
+            name : "맛없는 버섯수프",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "vegetable", "bad"],
+            price : 440
+        },
+
+        greatPotatoSmash : {
+            name : "훌륭한 감자 스매시",
+            type : "heal",
+            value : 55,
+            tags : ["gift", "vegetable", "great"],
+            price : 520
+        },
+        normalPotatoSmash : {
+            name : "감자 스매시",
+            type : "heal",
+            value : 45,
+            tags : ["gift", "vegetable", "normal"],
+            price : 510
+        },
+        badPotatoSmash : {
+            name : "맛없는 감자 스매시",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "vegetable", "bad"],
+            price : 440
+        },
+
+        greatCabbageSoup : {
+            name : "훌륭한 배추 수프",
+            type : "heal",
+            value : 55,
+            tags : ["gift", "vegetable", "great"],
+            price : 520
+        },
+        normalCabbageSoup : {
+            name : "배추 수프",
+            type : "heal",
+            value : 45,
+            tags : ["gift", "vegetable", "normal"],
+            price : 510
+        },
+        badCabbageSoup : {
+            name : "맛없는 배추 수프",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "vegetable", "bad"],
+            price : 440
+        },
+
+        greatmeatVegetableShoot : {
+            name : "훌륭한 고기야채볶음",
+            type : "heal",
+            value : 70,
+            tags : ["gift", "mixed", "great"],
+            price : 460
+        },
+        normalmeatVegetableShoot : {
+            name : "고기야채볶음",
+            type : "heal",
+            value : 50,
+            tags : ["gift", "mixed", "normal"],
+            price : 430
+        },
+        badmeatVegetableShoot : {
+            name : "맛없는 고기야채볶음",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "mixed", "bad"],
+            price : 400
+        },
+
+        greatVegetableMix : {
+            name : "훌륭한 야채볶음",
+            type : "heal",
+            value : 75,
+            tags : ["gift", "vegetable", "great"],
+            price : 580
+        },
+        normalVegetableMix : {
+            name : "야채볶음",
+            type : "heal",
+            value : 65,
+            tags : ["gift", "vegetable", "normal"],
+            price : 550
+        },
+        badVegetableMix : {
+            name : "맛없는 야채볶음",
+            type : "heal",
+            value : 45,
+            tags : ["gift", "vegetable", "bad"],
+            price : 500
+        },
+
+        greatBread : {
+            name : "훌륭한 빵",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "bread", "great"],
+            price : 620
+        },
+        normalBread : {
+            name : "빵",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "bread", "normal"],
+            price : 600
+        },
+        badBread : {
+            name : "맛없는 빵",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "bread", "bad"],
+            price : 550
+        },
+
+        greatMeatBread : {
+            name : "훌륭한 고기빵",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "meatBread", "great"],
+            price : 380
+        },
+        normalMeatBread : {
+            name : "고기빵",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "meatBread", "normal"],
+            price : 340
+        },
+        badMeatBread : {
+            name : "맛없는 고기빵",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "meatBread", "bad"],
+            price : 300
+        },
+
+        greatVegetableBread : {
+            name : "훌륭한 야채빵",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "vegetableBread", "great"],
+            price : 600
+        },
+        normalVegetableBread : {
+            name : "야채빵",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "vegetableBread", "normal"],
+            price : 560
+        },
+        badVegetableBread : {
+            name : "맛없는 야채빵",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "vegetableBread", "bad"],
+            price : 520
+        },
+
+        greatMeatRice : {
+            name : "훌륭한 고기주먹밥",
+            type : "heal",
+            value : 75,
+            tags : ["gift", "meatRice", "great"],
+            price : 480
+        },
+        normalBread : {
+            name : "고기주먹밥",
+            type : "heal",
+            value : 65,
+            tags : ["gift", "meatRice", "normal"],
+            price : 440
+        },
+        badBread : {
+            name : "맛없는 고기주먹밥",
+            type : "heal",
+            value : 50,
+            tags : ["gift", "meatRice", "bad"],
+            price : 400
+        },
+
+        greatVegetableRice : {
+            name : "훌륭한 야채주먹밥",
+            type : "heal",
+            value : 90,
+            tags : ["gift", "vegetableRice", "great"],
+            price : 700
+        },
+        normalVegetableRice : {
+            name : "야채주먹밥",
+            type : "heal",
+            value : 80,
+            tags : ["gift", "vegetableRice", "normal"],
+            price : 660
+        },
+        badVegetableRice : {
+            name : "맛없는 야채주먹밥",
+            type : "heal",
+            value : 60,
+            tags : ["gift", "vegetableRice", "bad"],
+            price : 620
         }
     },
     misc : {
@@ -1187,6 +1495,47 @@ const ITEMS ={
             name: "찢어진 천조각",
             type: "junk",
             price: 20
+        },
+        animalMeatPieces: {
+            name: "고기조각(동물)",
+            desc : "깔끔하게 잘라내는 게 잘 안 됐다....",
+            type: "junk",
+            price: 15
+        },
+        animalMeat: {
+            name: "고기(동물)",
+            type: "junk",
+            price: 60
+        },
+        dearCrown: {
+            name: "사슴뿔",
+            type: "junk",
+            price: 35
+        },
+        potato: {
+            name: "감자",
+            type: "junk",
+            price: 170
+        },
+        cabbage: {
+            name: "배추",
+            type: "junk",
+            price: 170
+        },
+        mushroom: {
+            name: "버섯",
+            type: "junk",
+            price: 170
+        },
+        wheat: {
+            name: "밀",
+            type: "junk",
+            price: 200
+        },
+        rice: {
+            name: "쌀",
+            type: "junk",
+            price: 300
         },
         rustyRing: {
             name: "녹슨반지",
@@ -1606,7 +1955,7 @@ const RECIPES = {
 
     SmoothJelly : {
         name : "미끄덩젤리",
-        desc : "미끄덩한 슬라임젤리 3개를 합쳐서 만든 요리, 재료만 모르면 맛있다!",
+        desc : "미끄덩한 슬라임젤리 3개를 합쳐서 만든 요리, 재료만 모르면 맛있다! 물론 알고서도 맛있어하는 사람도 있을 테고!",
 
         ingredients : {
             slimeJelly : 3
@@ -1651,5 +2000,244 @@ const RECIPES = {
             bad: "badWTFSlimeLiquid",
             disaster : "trash"
         }
+    },
+
+    grilledMeat : {
+        name : "구운 고기 요리",
+        desc : "별다른 테크닉이나 재료없이 그저 고기조각들을 볶은 요리. 그래도 맛있긴 하다.",
+
+        ingredients : {
+            animalMeatPieces : 3
+        },
+
+        results : {
+            great : "greatGrilledMeat",
+            normal : "normalGrilledMeat",
+            bad : "badGrilledMeat",
+            disaster : "trash"
+        }
+    },
+
+    meatSkewer : {
+        name : "고기꼬치",
+        desc : "괜찮은 고기 3개를 구워서 만든 꼬치 요리",
+
+        ingredients : {
+            animalMeat : 3
+        },
+        
+        results : {
+            great : "greatMeatSkewer",
+            normal : "normalMeatSkewer",
+            bad : "badMeatSkewer",
+            disaster: "trash"
+        }
+    },
+
+    meatVegetableSkewer : {
+        name : "고기야채꼬치",
+        desc : "고기 하나, 배추 하나, 감자 하나를 구워서 만든 꼬치 요리",
+
+        ingredients : {
+            animalMeat : 1,
+            cabbage : 1,
+            potato : 1
+        },
+
+        results : {
+            great : "greatMeatVegetableSkewer",
+            normal : "normalMeatVegetableSkewer",
+            bad : "badMeatVegetableSkewer",
+            disaster: "trash"
+        }
+    },
+
+    vegetableSkewer : {
+        name : "야채꼬치",
+        desc : "버섯 1개와 감자 2개를 구운 다음에 꽂아서 만든 꼬치 요리",
+
+        ingredients : {
+            potato : 2,
+            mushroom : 1
+        },
+
+        results : {
+            great : "greatVegetableSkewer",
+            normal : "normalVegetableSkewer",
+            bad : "badVegetableSkewer",
+            disaster: "trash"
+        }
+    },
+
+    mushroomSoup : {
+        name : "버섯수프",
+        desc : "버섯 3개로 만든 수프 요리",
+
+        ingredients : {
+            mushroom : 3
+        },
+
+        results : {
+            great : "greatMushroomSoup",
+            normal : "normalMushroomSoup",
+            bad : "badMushroomSoup",
+            disaster: "trash"
+        }
+    },
+
+    potatoSmash : {
+        name : "감자 스매시",
+        desc : "감자 3개를 으스러뜨려서 만든 감자 스매시. 뻑뻑할 수도 있지만 괜찮아! 감자니까!",
+
+        ingredients : {
+            potato : 3
+        },
+
+        results : {
+            great : "greatPotatoSmash",
+            normal : "normalPotatoSmash",
+            bad : "badPotatoSmash",
+            disaster: "trash"
+        }
+    },
+
+    cabbageSoup : {
+        name : "배추 수프",
+        desc : "배추 3개로 만든 수프 요리",
+
+        ingredients : {
+            cabbage : 3
+        },
+
+        results : {
+            great : "greatCabbageSoup",
+            normal : "normalCabbageSoup",
+            bad : "badCabbageSoup",
+            disaster: "trash"
+        }
+    },
+
+    meatVegetableShoot : {
+        name : "고기야채볶음",
+        desc : "고기 하나와 버섯, 그리고 배추를 넣어 맛없을 수가 없는 고기 요리",
+
+        ingredients : {
+            animalMeat : 1,
+            mushroom : 1,
+            cabbage : 1
+        },
+
+        results : {
+            great : "greatMeatVegetableShoot",
+            normal : "normalMeatVegetableShoot",
+            bad : "badMeatVegetableShoot",
+            disaster: "trash"
+        }
+    },
+
+    vegetableMix : {
+        name : "야채볶음",
+        desc : "배추, 감자, 그리고 버섯을 넣어만든 건강한 요리",
+
+        ingredients : {
+            cabbage : 1,
+            potato : 1,
+            mushroom : 1
+        },
+
+        results : {
+            great : "greatVegetableMix",
+            normal : "normalVegetableMix",
+            bad : "badVegetableMix",
+            disaster: "trash"
+        }
+    },
+
+    bread : {
+        name : "빵",
+        desc : "정말 아무 것도 넣지 않고 밀만 3개 넣어서 만든 빵이다. 양이 엄청나다.",
+
+        ingredients : {
+            wheat : 3
+        },
+
+        results : {
+            great : "greatBread",
+            normal : "normalBread",
+            bad : "badBread",
+            disaster: "trash"
+        } 
+    },
+
+    meatRice : {
+        name : "고기주먹밥",
+        desc : "고기 2개를 볶은 후 손으로 조물조물해서 만든 고기주먹밥",
+
+        ingredients : {
+            animalMeat : 2,
+            rice : 1
+        },
+
+        results : {
+            great : "greatMeatRice",
+            normal : "normalMeatRice",
+            bad : "badMeatRice",
+            disaster: "trash"
+        }
+    },
+
+    vegetableRice : {
+        name : "야채주먹밥",
+        desc : "배추와 버섯을 넣고 만든 야채주먹밥",
+
+        ingredients : {
+            cabbage : 1,
+            mushroom : 1,
+            rice : 1
+        },
+
+        results : {
+            great : "greatVegetableRice",
+            normal : "normalVegetableRice",
+            bad : "badVegetableRice",
+            disaster: "trash"
+        }
+    },
+
+    meatBread : {
+        name : "고기빵",
+        desc : "고기 2개를 볶은 후 그대로 반죽된 밀의 속에 넣어 만든 고기빵",
+
+        ingredients : {
+            animalMeat : 2,
+            wheat : 1
+        },
+
+        results : {
+            great : "greatMeatBread",
+            normal : "normalMeatBread",
+            bad : "badMeatBread",
+            disaster: "trash"
+        }
+    },
+
+    vegetableBread : {
+        name : "야채빵",
+        desc : "감자와 배추를 넣고 만든 야채빵",
+
+        ingredients : {
+            cabbage : 1,
+            potato : 1,
+            wheat : 1
+        },
+
+        results : {
+            great : "greatVegetableBread",
+            normal : "normalVegetableBread",
+            bad : "badVegetableBread",
+            disaster: "trash"
+        }
     }
+
+
 };

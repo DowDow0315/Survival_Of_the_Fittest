@@ -92,7 +92,9 @@ const MERCHANT_VILLAGE_POOL = [
     ITEMS.misc.pickaxe,
     ITEMS.misc.ironOre,
     ITEMS.misc.silverOre,
-    ITEMS.misc.goldOre
+    ITEMS.misc.goldOre,
+    ITEMS.misc.rice,
+    ITEMS.misc.wheat
 ]
 
 function pickRandomItems(pool, count){

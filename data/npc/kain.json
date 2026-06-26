@@ -2,7 +2,7 @@
     "name" : "카인",
     "hp" : 250,
     "attack" : 35,
-    "defense" : 30,
+    "defense" : 20,
     "eva" : 35,
     "lustResist" : 1.2,
 

@@ -5,7 +5,7 @@ function processMatinText(text, player){
 
 function getMatinTitle(player){
     if (NPC_DATA["matin"].emotion.affection > 90) return "보석";
-    else if(NPC_DATA["matin"].emotion.affection > 70) return "바보녀석";
+    else if(NPC_DATA["matin"].emotion.affection > 70) return "바보";
     return "너";
 }
 

@@ -320,12 +320,16 @@ function startBanditsCapture(player){
     player.banditCamp = player.banditCamp || {};
     player.banditCamp.active = false;
 
+    if (player.quest?.active?.id === "bandit_cleanup"){
+        player.quest.active = null;
+    }
     savePlayer(player);
 
     startScene([
         {
             type: "text",
             value:
+                "<strong style='color:red;'>도적떼 소탕 퀘스트에 실패했다.</strong><br><br>" +
                 "도적들은 쓰러진 당신을 초소 안쪽으로 질질 끌고 갔다. 당신의 구멍에서 흐른 정액이 질질 당신이 끌려간 흔적을 남긴다.<br>" +
                 "눈을 떴을 때, 당신의 손목은 멍이 들 정도로 밧줄에 세게 묶여 있었다. 주변에서는 도적들이 웃고 떠드는 소리가 들린다. 그나마 쇠사슬은 아니어서 다행인 걸까."
         }

@@ -1,9 +1,9 @@
 {
     "name" : "데릭",
-    "hp" : 300,
+    "hp" : 240,
     "attack" : 30,
-    "defense" : 45,
-    "eva" : 40,
+    "defense" : 30,
+    "eva" : 20,
 
     "emotion": {
         "affection" : 0,

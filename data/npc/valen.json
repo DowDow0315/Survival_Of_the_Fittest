@@ -3,7 +3,7 @@
     "hp" : 700,
     "attack" : 50,
     "defense" : 50,
-    "eva" : 45,
+    "eva" : 32,
     "lustResist" : 3,
 
     "emotion": {

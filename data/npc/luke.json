@@ -2,7 +2,7 @@
     "name" : "루크",
     "hp" : 300,
     "attack" : 38,
-    "defense" : 30,
+    "defense" : 35,
     "eva": 35,
     "lustResist" : 1.5,
 

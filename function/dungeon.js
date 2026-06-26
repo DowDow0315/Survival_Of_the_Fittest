@@ -354,6 +354,72 @@ const DUNGEONS = {
             {type : "event", id : "whiteFlowerLab_flowerAttack", weight: 10},
             {type : "event", id : "whiteFlowerLab_oneWhiteFlower", weight: 5}
         ] 
+    },
+    erwinHideout : {
+        id : "erwinHideout",
+        name : "하얀꽃 성지",
+        startRoom : "r0c2",
+        layout : [
+            [    "",     "", "r0c2",     "",     ""],
+            [    "",     "", "r1c2",     "",     ""],
+            [    "",     "", "r2c2",     "",     ""],
+            [    "",     "", "r3c2",     "",     ""],
+            [    "",     "", "r4c2",     "",     ""],
+            [    "",     "", "r5c2",     "",     ""],
+            [    "",     "", "r6c2",     "",     ""]
+        ],
+        rooms : {
+            "r0c2" : {name : "하얀꽃입구", exits : {down : "r1c2"}},
+            "r1c2" : {name : "흐트러진 통로", exits : {down : "r2c2", up : "r0c2"}},
+            "r2c2" : {name : "발자국이 이어진 통로", exits : {down : "r3c2", up : "r1c2"}},
+            "r3c2" : {name : "시체들이 쌓여있는 통로", exits : {down : "r4c2", up : "r2c2"}},
+            "r4c2" : {name : "꽃들만이 가득한 통로", exits : {down : "r5c2", up : "r3c2"}},
+            "r5c2" : {name : "고요한 통로", exits : {down : "r6c2", up : "r4c2"}},
+            "r6c2" : {name : "...그리고 당신", exits : {up : "r5c2"}}
+        }
+    },
+    slaverCamp : {
+        id : "slaverCamp",
+        name : "인신매매단 임시 진지",
+        startRoom : "r6c2",
+
+        layout : [
+            ["r0c0",     "", "r0c2",     "",     ""],
+            ["r1c0",     "", "r1c2", "r1c3",     ""],
+            ["r2c0", "r2c1", "r2c2",     "", "r2c4"],
+            ["r3c0",     "", "r3c2", "r3c3", "r3c4"],
+            ["r4c0",     "", "r4c2",     "", "r4c4"],
+            [    "",     "", "r5c2",     "", "r5c4"],
+            [    "",     "", "r6c2",     "",     ""]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "우리", exits : {down : "r1c0"}},
+            "r0c2" : {name : "수장천막", exits : {down : "r1c2"}},
+
+            "r1c0" : {name : "우리 앞", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "수장천막 앞", exits : {up: "r0c2", down : "r2c2", right : "r1c3"}},
+            "r1c3" : {name : "수장천막 옆 작은 박스 틈", exits: {left : "r1c2"}, safeZone: true, allowRest: true},
+
+            "r2c0" : {name : "갈라지는 흙길L", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
+            "r2c1" : {name : "이어지는 흙길L", exits: {left : "r2c0", right : "r2c2"}},
+            "r2c2" : {name : "흙길4", exits : {up : "r1c2", down : "r3c2", left : "r2c1"}},
+            "r2c4" : {name : "식량창고", exits : {down : "r3c4"}},
+
+            "r3c0" : {name : "대기실 앞", exits : {up : "r2c0", down : "r4c0"}},
+            "r3c2" : {name : "흙길3", exits : {up : "r2c2", down : "r4c2", right : "r3c3"}},
+            "r3c3" : {name : "이어지는 흙길R", exits : {left : "r3c2", right : "r3c4"} },
+            "r3c4" : {name : "갈라지는 흙길R", exits : {up : "r2c4", down : "r4c4", left : "r3c3"}},
+
+            "r4c0" : {name : "대기실", exits : {up : "r3c0"}},
+            "r4c2" : {name : "흙길2", exits : {up : "r3c2", down : "r5c2"}},
+            "r4c4" : {name : "약간 끊어진 흙길", exits : {up : "r3c4", down: "r5c4"}},
+
+            "r5c2" : {name : "흙길1", exits : {up : "r4c2", down : "r6c2"}},
+            "r5c4" : {name : "처리실", exits : {up : "r4c4"}},
+
+            "r6c2" : {name : "입구", exits : {up : "r5c2"}}
+        }
     }
 }
 

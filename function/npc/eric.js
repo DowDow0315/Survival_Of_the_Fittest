@@ -346,8 +346,27 @@ function startEricGloryHolePunishment(player, payment){
 }
 
 function startEricSlaveTraderPunishment(player, payment){
-    player.inEvent = false;
-    startScene(getLocationScene(player), player);
+    player.flags = player.flags || {};
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "에릭은 한동안 아무 말 없이 당신을 바라보았다.<br><br>" +
+                "\"...이제 네가 직접 갚을 필요는 없다.\"<br><br>" +
+                "그 말이 끝나기도 전에, 낯선 남자들이 방 안으로 들어왔다. 당신은 저항하고, 끌려가면서 끝까지 저항했지만 당신을 바라보는 에릭의 녹색 눈동자는 고요하기만 했다." +
+                "<br><br><span class='log-eric'>그는 더 이상 당신을 봐줄 생각이 없다.</span>"
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startSlaverCapture(player, {
+                    reason: "ericDebt"
+                });
+                return true;
+            }
+        }
+    ], player);
 }
 
 function startLukeUndercity04AfterEric(player){

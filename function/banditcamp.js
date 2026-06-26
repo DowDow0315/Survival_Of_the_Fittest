@@ -2,7 +2,7 @@ function initBanditCamp(player){
     player.banditCamp = player.banditCamp || {
         active : false,
         progress : 0,
-        maxProgress : 3
+        maxProgress : 6
     };
 }
 

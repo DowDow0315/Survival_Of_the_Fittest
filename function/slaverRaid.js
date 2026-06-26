@@ -48,6 +48,14 @@ function advanceSlaverRaid(player){
     raid.progress++;
 
     passTime(player, 5);
+
+    if (raid.progress === 7 && !raid.prisonerEventDone){
+        raid.prisonerEventDone = true;
+        savePlayer(player);
+        startSlaverRaidPrisonerEvent(player);
+        return;
+    }
+
     savePlayer(player);
 
     startSlaverRaidRandomEvent(player);
@@ -58,10 +66,11 @@ function startSlaverRaidRandomEvent(player){
         { id: "slaverRaid_trafficker1", weight: 30 },
         { id: "slaverRaid_trafficker2", weight: 30 },
         { id: "slaverRaid_trafficker3", weight: 20 },
-        { id: "slaverRaid_prisoner", weight: 20 },
+        { id: "slaverRaid_prisoner_escape", weight: 20 },
         { id: "slaverRaid_food1", weight: 15 },
         { id: "slaverRaid_food2", weight: 5 },
-        { id: "slaverRaid_caltrops", weight: 10}
+        { id: "slaverRaid_caltrops", weight: 10},
+        { id: "slaverRaid_uppercity", weight : 1}
     ]);
 
     if (eventId === "slaverRaid_trafficker1"){
@@ -97,7 +106,7 @@ function startSlaverRaidRandomEvent(player){
         return;
     }
 
-    if (eventId === "slaverRaid_prisoner"){
+    if (eventId === "slaverRaid_prisoner_escape"){
         startScene([
             {
                 type: "text",
@@ -209,23 +218,173 @@ function startSlaverRaidRandomEvent(player){
         return;
     }
 
+    if (eventId === "slaverRaid_uppercity"){
+        startScene([
+            {
+                type: "text",
+                value:
+                    "그들을 추적하던 중, 당신은 명령서라고 써져있는 종이가 떨어져있는 것을 보았다. 당신은 그 종이를 주웠다. 종이에는 상류도시를 상징하는 도장이 앞에 찍혀있었다." +
+                    "<br><br>하류도시 출신 노예 4명 이송<br><br>" +
+                    "노예 4명을 대가로 한 군사 자원 확인<br><br>" +
+                    "앞으로의 거래에도 협조를 기대하겠음" +
+                    "<br><br><br>다음 거래에는 식량 자원이 필요하다고 함. 준비해놓을 것."
+            }
+        ], player, {
+            onEnd: () => advanceSlaverRaid(player)
+        });
+        return;
+    }
+
     if (eventId === "slaverRaid_caltrops"){
-    startArrowMinigame(player, {
-        target: 3,
-        sequenceLength: 3,
-        timeLimit: 4000,
-        title: "감시자의 눈을 피해 움직이세요!",
-        successText: "당신은 들키지 않고 지나갔다.",
-        failText: "발밑의 나뭇가지가 부러졌다!",
-        onClear: () => advanceSlaverRaid(player),
-        onStepFail: (player, state) => {
-            changeStamina(player, -5);
-            return {
-                text: "당신은 황급히 몸을 낮췄다.",
-                progress: Math.max(0, state.progress - 1)
-            };
-        }
-    });
-    return;
+        startArrowMinigame(player, {
+            target: 3,
+            sequenceLength: 3,
+            timeLimit: 2000,
+            title: "바닥에 칼트롭이 깔려있다! 피하자!",
+            successText: "당신은 칼트롭을 피해서 움직였다!",
+            failText: "당신은 칼트롭을 밟았다...!",
+        
+            onClear: () => advanceSlaverRaid(player),
+            onStepFail: (player, state) => {
+                changeStamina(player, -5);
+                changeHP(player, -10);
+                return {
+                    text: "당신은 다른 길로 피해 당신의 발을 치료했다. 당신이 발을 치료하는 동안 인신매매상이 더 멀어졌을 거 같다....",
+                    progress: Math.max(0, state.progress - 1)
+                };
+            }
+        });
+        return;
+    }
 }
+
+function startSlaverRaidPrisonerEvent(player){
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 마차 바퀴 자국을 따라가던 중, 길가에 버려진 작은 야영지를 발견했다.<br><br>" +
+                "모닥불은 꺼진 지 얼마 되지 않았고, 땅에는 끌린 자국과 피 묻은 천 조각이 남아 있었다. 그 옆에는 쇠사슬에 묶인 사람이 쓰러져 있었다."
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "쇠사슬을 풀어준다",
+                    stat: "str",
+                    difficulty: 15,
+                    success: [
+                        {
+                            type: "text",
+                            value:
+                                "당신은 힘을 주어 쇠사슬을 비틀었다. 잠금쇠가 거칠게 벌어지며 사슬이 풀렸다.<br><br>" +
+                                "쓰러져 있던 사람은 간신히 몸을 일으키더니 떨리는 손으로 한쪽 방향을 가리켰다.<br><br>" +
+                                "그는 도저히 말을 하지 못하겠는지 입술만 달싹였다. 그리고 고개를 숙였다."
+                        },
+                        {
+                            type: "effect",
+                            run: (player) => {
+                                changeTrauma(player, -2);
+                                changeStamina(player, -5);
+                                savePlayer(player);
+                            }
+                        }
+                    ],
+                    fail: [
+                        {
+                            type: "text",
+                            value:
+                                "당신은 쇠사슬을 풀어보려 했지만, 잠금쇠는 쉽게 열리지 않았다.<br><br>" +
+                                "쇠가 긁히는 소리에 쓰러져 있던 사람이 겁에 질려 몸을 움츠렸다. 결국 당신은 주변에서 찾은 천으로 그의 상처를 대충 묶어주는 것밖에 할 수 없었다.<br><br>" +
+                                "그는 울먹이며 한쪽 방향을 가리켰다. 인신매매단의 진지는 멀지 않은 모양이다."
+                        },
+                        {
+                            type: "effect",
+                            run: (player) => {
+                                changeStamina(player, -10);
+                                changeTrauma(player, 1);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text: "주변 흔적을 조사한다",
+                    stat: "int",
+                    difficulty: 14,
+                    success: [
+                        {
+                            type: "text",
+                            value:
+                                "당신은 야영지 주변을 살폈다. 마차는 여러 번 이곳을 오간 흔적이 있었고, 발자국은 모두 같은 방향으로 이어지고 있었다.<br><br>" +
+                                "흔적은 이제 숨길 수 없을 만큼 선명하다. 인신매매단의 임시 진지는 가까운 곳에 있다."
+                        },
+                        {
+                            type: "effect",
+                            run: (player) => {
+                                player.slaverRaid.progress += 1;
+                                savePlayer(player);
+                            }
+                        }
+                    ],
+                    fail: [
+                        {
+                            type: "text",
+                            value:
+                                "당신은 흔적을 살피려 했지만, 이미 너무 많은 발자국이 뒤엉켜 있었다.<br><br>" +
+                                "시간을 낭비했다. 하지만 한 가지는 분명했다. 놈들은 멀리 가지 못했다."
+                        },
+                        {
+                            type: "effect",
+                            run: (player) => {
+                                passTime(player, 10);
+                                changeStamina(player, -8);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text: "더 지체하지 않고 추적을 계속한다",
+                    scene: [
+                        {
+                            type: "text",
+                            value:
+                                "당신은 이를 악물고 다시 발걸음을 옮겼다. 아직 늦지 않았....<br><br>언제 도착하든, 아직 늦지 않았다고 말할 수 있을까."
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player, {
+        onEnd: () => advanceSlaverRaid(player)
+    });
+}
+
+function endSlaverRaidFoundCamp(player){
+    const raid = player.slaverRaid;
+
+    raid.active = false;
+    raid.campFound = true;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 마지막 흔적을 따라 숲을 헤치고 나아갔다. 그리고 그 순간, 당신의 귀에 신음이 섞인 비명소리가 박혔다. 당신은 숨을 멈췄다." +
+                "<br>채찍 소리, 살과 살이 맞부딪히는 소리, 그리고.... 웃음 소리." +
+                "<br><br><strong>그들은 웃고 있었다.</strong><br><br>" +
+                "다른 사람들의 절망 속에서 그들은 웃고 있었다." +
+                "<br><br><br><br><span class='log-warning'>...당신은 인신매매단의 임시 진지를 발견했다.</span>"
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                enterDungeon(player, "slaverCamp");
+                return true;
+            }
+        }
+    ], player);
 }

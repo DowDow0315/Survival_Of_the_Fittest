@@ -1,8 +1,8 @@
 {
     "name": "거지들",
     "hp": 120,
-    "attack": 25,
-    "defense": 25,
+    "attack": 20,
+    "defense": 15,
     "eva": 20,
     "lustResist" : 0.9,
     "drops": [

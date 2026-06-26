@@ -1143,14 +1143,14 @@ const ITEMS ={
             type : "arousal",
             value : -25,
             tags : ["gift", "lusty", "great"],
-            price : 150  
+            price : 170  
         },
         normalFruitSlimeLiquid : {
             name : "불미스러운 것이 들어간 과일 요리",
             type : "arousal",
             value : -15,
             tags : ["gift", "lusty", "normal"],
-            price : 100  
+            price : 160  
         },
         badFruitSlimeLiquid : {
             name : "불미스러운 것이 들어간 맛없는 과일 요리",
@@ -1165,14 +1165,14 @@ const ITEMS ={
             type : "arousal",
             value : -40,
             tags : ["gift", "lusty", "great"],
-            price : 10 
+            price : 150 
         },
         normalWTFSlimeLiquid : {
             name : "불미스러운 수프",
             type : "arousal",
             value : -20,
             tags : ["gift", "lusty", "normal"],
-            price : 5
+            price : 130
         },
         badWTFSlimeLiquid : {
             name : "맛없게 만들어진 불미스러운 수프",

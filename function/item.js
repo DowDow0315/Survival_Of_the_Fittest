@@ -82,10 +82,10 @@ const WEAPON_SKILLS = {
             name: "춤사위",
             cost: 3,
             type: "multiHit",
-            power: 0.6,
-            hits: 6,
+            power: 0.8,
+            hits: 5,
             unlock: 20,
-            desc : "데미지 0.6배로 6번 연속 공격"
+            desc : "데미지 0.8배로 5번 연속 공격"
         },
         {
             name: "독무",
@@ -625,8 +625,8 @@ const ITEMS ={
         replicaBayonet : {
             name: "레플리카 베요네따",
             type: "weapon",
-            desc : "버려진 장식용 총검이지만, 살기 위해 사람들이 무기를 개조했다. 제대로 된 총은 아니지만 총알이 나오긴 나오며 개머리판에는 날카로운 칼날을 달았다.",
-            price: 1500,
+            desc : "버려진 장식용 총검이지만, 살기 위해 사람들이 무기를 개조했다. 개머리판에 날카로운 칼날을 달았으며 총알이 나오긴 나온다.",
+            price: 2000,
             stats: {
                 str: 4,
                 dex: 6

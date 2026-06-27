@@ -312,7 +312,7 @@ const WEAPON_SKILLS = {
                 evaMult : 1.4
             },
             duration : 3,
-            unlock : 200,
+            unlock : 300,
             desc : "3턴간 회피력 1.4배, 방어력 1.4배"
         }
     ],
@@ -472,7 +472,7 @@ const WEAPON_SKILLS = {
             type: "multiHit",
             power: 0.7,
             hits : 6,
-            unlock: 100,
+            unlock: 150,
             desc : "데미지 0.7배로 6번 연속 공격"
         },
         {
@@ -484,7 +484,7 @@ const WEAPON_SKILLS = {
                 evaMult : 2
             },
             duration : 3,
-            unlock : 200,
+            unlock : 300,
             desc : "3턴간 회피율/명중률 2배"
         }
     ]
@@ -492,51 +492,51 @@ const WEAPON_SKILLS = {
 
 const MASTER_SKILLS = {
     "한손검": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "버티기"
     },
     "대검": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "모아베기"
     },
     "대거": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "방어자세"
     },
     "댄싱대거": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "피의환무"
     },
     "도끼HM" : {
-        requiredMastery : 400,
+        requiredMastery : 350,
         skillName : "하이리스크 미디엄리턴"
     },
     "레플리카 베요네따" : {
-        requiredMastery : 400,
+        requiredMastery : 350,
         skillName : "준비 자세"
     },
     "지팡이": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "독가스"
     },
     "클럽": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "얕~보~지~마~"
     },
     "고블린검": {
-        requiredMastery: 400,
+        requiredMastery: 350,
         skillName: "마구때리기"
     },
     "투척단검" : {
-        requiredMastery : 400,
+        requiredMastery : 350,
         skillName : "단검난사"
     },
     "경계병창" : {
-        requiredMastery : 400,
+        requiredMastery : 350,
         skillName : "지키기위한마음"
     },
     "은장도" : {
-        requiredMastery : 400,
+        requiredMastery : 350,
         skillName : "달빛에반사되는"
     }
 };
@@ -606,7 +606,7 @@ const ITEMS ={
             price : 1500,
             tags: ["club"],
             stats : {
-                str:4,
+                str:6,
                 int:3
             }
         },
@@ -625,7 +625,7 @@ const ITEMS ={
         replicaBayonet : {
             name: "레플리카 베요네따",
             type: "weapon",
-            desc : "버려진 장식용 총검이지만, 살기 위해 사람들이 무기를 개조했다. 개머리판에 날카로운 칼날을 달았으며 총알이 나오긴 나온다.",
+            desc : "버려진 장식용 총이지만, 살기 위해 사람들이 무기를 개조했다. 개머리판에 날카로운 칼날을 달았으며 총알이 나오긴 나온다.",
             price: 2000,
             stats: {
                 str: 4,

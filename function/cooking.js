@@ -202,7 +202,7 @@ let weirdIndex = 0;
         title: "요리를 시작한다!",
         target: 4,
         sequenceLength: 6,
-        timeLimit: 4000,
+        timeLimit: 4300,
         hideAfter: 1100,
         
         successText: (player, state) => {

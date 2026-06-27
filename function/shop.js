@@ -14,6 +14,7 @@ const SHOPS = {
             ITEMS.weapon.sword,
             ITEMS.weapon.bigsword,
             ITEMS.weapon.axeHM,
+            ITEMS.weapon.replicaBayonet,
             ITEMS.weapon.magicstick,
 
             ITEMS.top.tshirt,

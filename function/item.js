@@ -273,6 +273,49 @@ const WEAPON_SKILLS = {
             desc : "데미지 4.5배"
         }
     ],
+    "레플리카 베요네따" : [
+        {
+            name : "리프샷",
+            cost : 2,
+            type : "damage",
+            power : 2.3,
+            unlock : 20,
+            desc : "데미지 2.3배, 뒤로 물러나며 위협사격"
+        },
+        {
+            name : "준비 자세",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "player_replicaBeyonet_readytoFight",
+                defMult : 1.3
+            },
+            duration : 4,
+            unlock : 100,
+            desc : "4턴간 방어력 1.3배"
+        },
+        {
+            name: "달려들어 찌르기",
+            cost: 3,
+            type: "damage",
+            power: 3.4,
+            unlock: 150,
+            desc : "데미지 3.4배"
+        },
+        {
+            name : "제대로 된 준비 자세",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "player_axeHM_buffdebuff",
+                defMult : 1.4,
+                evaMult : 1.4
+            },
+            duration : 3,
+            unlock : 200,
+            desc : "3턴간 회피력 1.4배, 방어력 1.4배"
+        }
+    ],
     "고블린검" :[
         {
             name: "습격",
@@ -318,10 +361,10 @@ const WEAPON_SKILLS = {
             name : "단검4 투척",
             cost : 1,
             type : "multiHit",
-            power : 0.3,
+            power : 0.5,
             hits : 4,
             unlock : 20,
-            desc : "데미지 0.3배로 4번 연속 공격"
+            desc : "데미지 0.5배로 4번 연속 공격"
         },
         {
             name : "단검준비",
@@ -468,6 +511,10 @@ const MASTER_SKILLS = {
         requiredMastery : 400,
         skillName : "하이리스크 미디엄리턴"
     },
+    "레플리카 베요네따" : {
+        requiredMastery : 400,
+        skillName : "준비 자세"
+    },
     "지팡이": {
         requiredMastery: 400,
         skillName: "독가스"
@@ -571,7 +618,18 @@ const ITEMS ={
             price : 2000,
             stats : {
                 str : 9,
-                int : -1
+                dex : -1
+            }
+        },
+
+        replicaBayonet : {
+            name: "레플리카 베요네따",
+            type: "weapon",
+            desc : "버려진 장식용 총검이지만, 살기 위해 사람들이 무기를 개조했다. 제대로 된 총은 아니지만 총알이 나오긴 나오며 개머리판에는 날카로운 칼날을 달았다.",
+            price: 1500,
+            stats: {
+                str: 4,
+                dex: 6
             }
         },
 

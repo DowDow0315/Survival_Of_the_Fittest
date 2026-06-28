@@ -848,6 +848,7 @@ function completeQuest(player){
         player.flags.undercity_story_04_ready = false;
         player.flags.story_goblin_cave_visible = false;
         player.flags.undercity_story_04_skip_by_03 = true;
+        player.flags.undercity_story_04_done_day = getCurrentDay(player);
     }
 
     // 04 정식으로 받고 고블린킹 잡고 온 루트

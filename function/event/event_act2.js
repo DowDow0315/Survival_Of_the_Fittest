@@ -1,5 +1,6 @@
 window.EVENTS.push({
     id : "uppercity_valen_messenger_event",
+    priority : true,
     once : true,
 
     condition : (player) =>
@@ -46,6 +47,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "uppercity_heaven_road_first_event",
+    priority : true,
     once : true,
 
     condition : (player) =>

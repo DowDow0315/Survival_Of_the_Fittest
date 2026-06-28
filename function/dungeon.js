@@ -432,7 +432,7 @@ const DUNGEONS = {
     },
 
     slaverCampShelter : {
-        id : "slaverCampYuri",
+        id : "slaverCampShelter",
         name : "유리가 추적한 인신매매단 근거지",
         startRoom : "r0c0",
 
@@ -453,7 +453,7 @@ const DUNGEONS = {
 
             "r1c4" : {name : "밑으로 뻗어가는 길1", exits : {up : "r0c4", down : "r2c4"}, event : "slaverCampShelter_yuri_02"},
             "r2c4" : {name : "밑으로 뻗어가는 길2", exits : {up : "r1c4", down : "r3c4"}},
-            "r3c4" : {name : "밑으로 뻗어가는 길3", extis : {up : "r2c4", down : "r4c4"}, event : "slaverCampSheleter_yuri_03"},
+            "r3c4" : {name : "밑으로 뻗어가는 길3", exits : {up : "r2c4", down : "r4c4"}, event : "slaverCampShelter_memo"},
             "r4c4" : {name : "코너길2", exits : {up : "r3c4", left : "r4c3"}},
 
             "r4c3" : {name : "왼쪽으로 뻗어가는 길1", exits : {left : "r4c2", right : "r4c4"}},
@@ -464,7 +464,7 @@ const DUNGEONS = {
             "r3c0" : {name : "위로 뻗어가는 길1", exits : {down : "r4c0", up : "r2c0"}, event : "slaverCampShelter_yuri_04"},
             "r2c0" : {name : "쉘터를 위한 길", exits : {down : "r3c0", right : "r2c1"}},
             "r2c1" : {name : "결전 직전의 길", exits : {left : "r2c0", right : "r2c2"}, event : "slaverCampShelter_yuri_05"},
-            "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}, boss: "trafficker4"}
+            "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}, boss: "trafficker4", bossIntro: "slaverCampShelter_boss_intro"}
         },
 
         encounters : [
@@ -950,6 +950,11 @@ function moveDungeon(player, direction){
 
 function handleDungeonBossWin(player, dungeon, room){
 
+    if (dungeon.id === "slaverCampShelter" && room.boss === "trafficker4"){
+        handleSlaverCampShelterBossWin(player);
+        return;
+    }
+
     if (dungeon.id === "slaverCamp" && room.boss === "trafficker4"){
         handleSlaverCampBossWin(player);
         return;
@@ -1245,6 +1250,8 @@ function leaveDungeon(player){
             campFound: false
         };
         player.location = "guardPost2";
+    } else if (dungeonId === "slaverCampShelter"){
+        player.location = "shelter";
     } else {
         player.location = "townStreet";
     }
@@ -1855,7 +1862,7 @@ const DUNGEON_EVENTS = {
                 success : [
                     {
                         type : "text",
-                        value : "당신은 상자의 자물쇠를 기민한 손놀림으로 풀어냈다. 그들의 식량을 얻어냈다. 당신은 도적들에게서 도둑질을 해넀다!"
+                        value : "당신은 상자의 자물쇠를 기민한 손놀림으로 풀어냈다. 그들의 식량을 얻어냈다. 당신은 도적들에게서 도둑질을 해냈다!"
                     },
                     {
                         type : "effect",
@@ -2512,6 +2519,7 @@ const DUNGEON_EVENTS = {
             {
                 type : "text",
                 value : [
+                    "당신은 유리의 흔적을 쫓아 인신매매단의 임시 처소 근처에 도착했다. 당신의 인기척을 느낀 유리가 당신을 돌아보았다.",
                     "\"여기에 아이들이...\"<br><br>" +
                     "유리는 고개를 숙였다. 몇 초간 고개를 숙이고 있던 유리는 다시 고개를 돌았다." +
                     "<br><br>\"미안. 이러고 있는 동안에도 그들은 고통을 받고 있겠지.\"" +
@@ -2520,14 +2528,132 @@ const DUNGEON_EVENTS = {
                 ]
             }
         ],
-
         slaverCampShelter_yuri_02 : [
             {
                 type : "text",
                 value : [
                     "당신은 유리가 옆에서 싸우는 모습을 지켜보았다. 그의 동작은 언제나처럼 유려했고 상대방의 숨통을 끊는 일에 주저하지 않았다." +
                     " 당신은 유리에게 언제부터 사람 숨통을 끊을 수 있게 되었냐고 물었다. 당신의 질문에 유리는 자신의 쌍검을 소매 안으로 집어넣었다. 그의 쌍검에는 하류도시의 사람들 것으로는 보이지 않는 보석이 하나 박혀있었다, 그의 눈동자를 닮은 호박." +
-                    ""
+                    "<br><br>\"...누군가를 지키기 위해서는... 누군가를 베어야 할 때가 있어.\"<br><br>",
+                    "유리는 당신의 시선을 피했다.",
+                    "<br><br>\"난 그저 지키고 싶었어. 그뿐이야.\""
+                ]
+            }
+        ],
+        slaverCampShelter_yuri_03 : [
+            {
+                type : "text",
+                value : [
+                    "유리의 걸음이 멈췄다. 아이들의 신발이다. 그리고 피.... 신발은 두 짝이 아니었다. 유리는 조용히 신발 앞에 앉았다. 그리고 신발을 가슴에 안고 잠시 고개를 숙였다." +
+                    "<br><br>\"...가자.\"<br><br>" +
+                    "그는 다시 신발을 내려놓았다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "\"...{playerName}. 너는 이렇게 싸우는 데 의미가 있다고 생각해?\"<br><br>" +
+                    "당신과 같이 걸어가던 유리가 입술을 뗐다." +
+                    "<br><br>\"한 명을 구하고, 한 명을 잃고.... 마치 밑 빠진 독에 물을 붓는 듯한 느낌이야.<br>미안. 너한테는 자꾸 무거운 얘기만 하게 되네.\"" +
+                    "<br><br>유리는 무거운 얘기는 이제 그만하겠다는 듯이 고개를 저었다. 더 얘기를 할 생각은 없는 거 같다. 그는 그저 말없이 당신에게 다가와 당신의 상처를 치료해주었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeHP(player, 50);
+                    changeStamina(player, 50);
+                }
+            }
+        ],
+        slaverCampShelter_yuri_04 : [
+            {
+                type : "text",
+                value : [
+                    "당신의 옆에서 걸으며 유리는 자신의 팔을 치료했다." +
+                    "<br><span class='log-yuri'>우리는 아직 죽지 않았다</span><br>" +
+                    "누군가 바닥에 써놓은 글씨에 유리의 발걸음이 멈췄다. 잠시 생각에 잠겨있던 그는 반란군들에 대해 어떻게 생각하냐고 물었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 반란군에게도 이유가 있을 거라고 대답한다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 대답에 유리는 고개를 끄덕였다."+
+                                    "<br><br>\"반란군은 처음부터 반란을 원해서 시작한 건 아니었어. 그저 그들은 소중한 사람을 지키거나, 찾거나, 약한 사람들을 도와주기 위해서 생겼던 것뿐이야.<br>지금은 상류도시를 전복해야 한다는 생각을 가진 사람들도 많은 거 같지만.... 처음에는 작게 시작했어.\"<br><br>"+
+                                    "유리는 폭력은 싫어한다고 말했다. 그는 상류도시에 괴물들만이 있는 건 당연히 아니라고 말했다. 그곳에서도 소중한 사람들을 사랑할 줄 아는 사람이 있다고, 그리고 타인에게 동정심을 느끼는 사람들도 있다고 그는 이어 말했다." +
+                                    "<br><br>\"하지만 그뿐이야.<br><br>그 도시에는 괴물들이 너무 많아. 그러니 변화를 위해서라면....\"<br><br>" +
+                                    "....<br><br>" +
+                                    "\"누군가는 피를 묻혀야 하는 걸지도 몰라.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 3);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 반란군은 없어져야 한다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그래?\"<br><br>"+
+                                    "유리는 씁쓸하게 웃었다." +
+                                    "<br><br>\"그들이 소중한 것을 되찾기 위해, 그리고 누군가를 도와주기 위해 결성한 거라고 하더라도... 없어져야 한다고 생각해?\"<br><br>" +
+                                    "당신을 돌아보는 유리의 얼굴은 슬퍼보였다." +
+                                    "<br><br>\"...나는 그렇게 생각하지 않아.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -2);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        slaverCampShelter_yuri_05 : [
+            {
+                type : "text",
+                value : [
+                    "울음 소리가 들린다. 비명 소리가 들린다. 그리고, 그 소리들에 섞인 익숙한 목소리들. 유리는 주먹을 불끈 쥐었다." +
+                    "<br><br>\"준비됐어?\"<br><br>" +
+                    "그는 마지막으로 당신을 치료해주었다. 아이들을 위해, 당신은 앞으로 나아가야 한다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeHP(player, 100);
+                    changeStamina(player, 100);
+                }
+            }
+        ],
+        slaverCampShelter_memo : [
+            {
+                type : "text",
+                value : [
+                    "[누군가가 흘겨쓴 쪽지]" +
+                    "<br><br>쉘터를 노리라는 명령이 떨어질 줄은 몰랐다.<br><br>" +
+                    "어린 애들을 잡아다가 어디에 쓰겠다는 거야? 돈만 제대로 준다면야 상관없지만. 뭐, 어린 애들이 취향인 변태새끼들도 이 세상에는 존재하는 법이지." +
+                    "<br><br>들어보니까 지금 누군가를 찾기 위해서 이러는 거란다." +
+                    "<br><br>쉘터에 누군가 있었나?" +
+                    "<br><br>난 쉘터에 하류도시의 영웅이 있다는 것밖에 모르는데." +
+                    "<br><br>아. 어쩌면 하류도시의 영웅이 어떻게 반응하는지 보고 싶었던 건가. 그런 이유라면 정말 더 변태같군." +
+                    "<br><br>역시 상류도시 놈들의 생각은 이해할 수가 없다. 앗차차, 여긴 상류도시 출신도 은근 있으니 입 조심해야지." +
+                    "<br><br>일단 우리 보스부터가 상류도시 출신 사람이니까."
                 ]
             }
         ]
@@ -2904,7 +3030,7 @@ window.startBanditLukeTrophyRoom = function(player){
                         {
                             type: "text",
                             value:
-                                "그 말이 들리자마자 루크는 당신을 벽으로 세게 밀어붙였다. 그의 사나운 자안이 당신을 노려본다.<br><br>\"한번만 더 그딴 눈으로 쳐다보면....\"<br><br>뒷말은 말하지 않아도 알 수 없었다. 어쩐지 당신의 그 말에 더 화가 나버린 거 같다.... 그는 고개를 돌리더니 당신에게 대검 하나를 던졌다. 가져가라는 듯이. 더 이상 루크에게 말을 걸 수 없을 거 같다." +
+                                "그 말이 들리자마자 루크는 당신을 벽으로 세게 밀어붙였다. 그의 사나운 자안이 당신을 노려본다.<br><br>\"한번만 더 그딴 눈으로 쳐다보면....\"<br><br>뒷말은 말하지 않아도 알 수 없었다. 어쩐지 당신의 그 말에 더 화가 나버린 거 같다.... 그는 고개를 돌리더니 당신에게 댄싱대거 하나를 던졌다. 가져가라는 듯이. 더 이상 루크에게 말을 걸 수 없을 거 같다." +
                                 "<br>당신은 화려한 방에서 나갔다. 몇 걸음 옮기지 않았을 때 뒤에서 큰 소리가 들려왔다. 뒤를 돌아보니 화려한 방은 활활 타오르고 있었다...."
                         },
                         {
@@ -3044,6 +3170,56 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startInfectedSmallsBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "slaverCampShelter_boss_intro"){
+        player.flags = player.flags || {};
+        if (player.flags.slaverCampShelter_boss_firstLose){
+
+            startScene([
+                {
+                    type:"text",
+                    value: "유리와 당신이 한번 더 나타나자 인신매매단 간부는 비릿하게 미소를 지었다. <br><br>\"아까는 쥐새끼처럼 빠르더군. 왜 그가 널 쥐새끼라 하는지는 알겠다.\"<br><br>" +
+                           "쇠철로 된 그의 올가미가 바닥에 부딪히며 날카로운 소리를 냈다." +
+                           "<br><br>\"이번에는 놓치지 않아주지. 현실을 깨달아라.\""
+                }
+            ], player, {
+                onEnd: () => startSlaverCampShelterBossBattle(player)
+            });
+
+            return;
+        }
+
+            player.flags.seen_slaverCampShelter_boss_intro = true;
+            savePlayer(player);
+
+            startScene([
+            {
+                type: "text",
+                value:
+                      "천막을 걷어올리는 순간 피비린내가 코를 찔렀다. 아이들, 겁에 질려 떨고 있는 아이들, 몸이 성한 곳이 없는 아이들, 그리고 죽은 아이들.<br><br>유리의 표정이 굳었다." +
+                      "<br><br>\"손님이 올 줄은 몰랐는데.\"<br><br>" +
+                      "술잔을 기울이던 인신매매단 간부는 천천히 자리에서 일어났다. 그는 유리와 당신을 번갈아보다가, 유리에게서 고개가 멈췄다." +
+                      "<br><br>\"...어디서 많이 본 얼굴이군.\"<br><br>" +
+                      "그리고 곧, 그는 미소를 지었다." +
+                      "<br><br>\"살아있을 줄은 알았지만, 네 마지막 종착지가 여기일 줄은 몰랐군. 아니.<br>오히려 여기일 수밖에 없나.\"<br><br>" +
+                      "\"아이들은.\"<br><br>" +
+                      "유리의 말에 인신매매단 간부는 끔찍한 미소를 지어보였다." +
+                      "<br><br>\"안 보이나? 네 앞에 있잖나.\"<br><br>" +
+                      "\"남은 아이들은 어디 있냐는 거다.\"<br><br>" +
+                      "\"남은 아이들? 하하. 여기 없으면 어디에 있겠나.\"<br><br>" +
+                      "유리는 더 이상 망설이지 않는다. 그는 쌍검을 바로 쥐고 그에게 달려들었다. 하지만 쌍검의 날이 그에게 닿기도 전에, 인신매매단 간부는 다른 부하들을 불러냈다. 유리가 부하들에게 둘러싸여있다." +
+                      "<br><br>\"절대로 죽이지 마. 그를 원하는 대물은 하나가 아니니까.\"<br><br>" +
+                      "이번에는 돈을 많이 벌겠군, 이라 흡족하게 중얼거리며 인신매매단 간부는 당신 쪽으로 몸을 돌렸다. 싸움이 시작된다."
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startSlaverCampShelterBossBattle(player);
                     return true;
                 }
             }
@@ -3268,6 +3444,106 @@ function handleSlaverCampBossWin(player){
                 { text: "경비초소로 돌아간다", action: "leave_dungeon_after_boss" },
                 { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
             ]
+        }
+    ], player);
+}
+
+function handleSlaverCampShelterBossWin(player){
+    player.flags = player.flags || {};
+    player.flags.slaverCampShelter_cleared = true;
+
+    addQuestProgress(player, "trafficker4");
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 인신매매단 간부를 이겼다. 유리는 아직 살아있는 아이들에게 다가갔다. 아이들 몇 명은 울음을 터뜨렸고, 아이들 몇 명은 울지도 못하고 그저 가만히 있었다." +
+                "<br><br>\"괜찮아.... 이제 지켜줄게.<br>무슨 일이 있어도, 너네들만큼은 지켜낼게.\"<br><br>" +
+                "아이들에게 하는 약속이기도 하고, 자신에게 하는 약속이기도 했다. 유리는 당신을 돌아보았다." +
+                "<br><br>\"고마워. 네가 없었으면 아이들을 구하지 못했을 거야.\"<br><br>" +
+                "해체된 인신매매단 거점에서 그는 아이들을 이끌고 밖으로 나갔다. 그는 당신에게 쉘터에 갈 때까지 같이 가줄 수 있겠냐고 물었다." +
+                "<br><br>\"...아니. 나랑 같이 쉘터까지 같이 가주겠어?<br>내가, 혼자서는 지키지 못할 거 같거든. 네 도움이 필요해.\"<br><br>"
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "쉘터로 돌아간다", action: "leave_dungeon_after_boss" },
+                { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
+            ]
+        }
+    ], player);
+}
+
+window.startSlaverCampShelterBossBattle = function(player){
+    startBattle("trafficker4", player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_slaverCampShelter_trafficker4 = true;
+            savePlayer(player);
+            
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startSlaverShelterBossLose(player);
+        }
+    });
+};
+
+function startSlaverShelterBossLose(player){
+    player.flags = player.flags || {};
+
+    if (!player.flags.slaverCampShelter_boss_firstLose){
+
+        player.flags.slaverCampShelter_boss_firstLose = true;
+
+        startScene([
+            {
+                type:"text",
+                value:
+                    "당신은 인신매매단 간부의 공격을 버티지 못하고 쓰러졌다. 인신매매단 간부가 당신을 올가미로 제압하려는 순간, 유리가 당신의 몸을 안았다. 그리고 그는 그대로 땅에 무언가를 던졌다." +
+                    "<br><br>! 연막탄이었던 모양이다.<br><br>" +
+                    "뒤에서 쫓아오는 소리가 들렸지만 유리는 당신을 공주님안기로 안고서도 그들보다 더 빨랐다. 그의 품안에서 당신의 눈이 감긴다...."
+            },
+            {
+                type : "text",
+                value : 
+                      "다시 눈을 떴을 때 당신은 헝겊으로 된 침대 위에 누워있었다. 경계를 서고 있던 유리가 당신의 인기척에 뒤를 돌았다." +
+                      "<br><br>\"치료는 다 했어.\"<br><br>" +
+                      "그는 당신의 몸상태를 한번 더 살폈다. 당신의 몸은 더 이상 고통을 느끼고 있지 않다. 당신은 자리에서 일어났다." +
+                      "<br><br>쉘터의 아이들을 위해, 당신은 다시 가야만 했다."
+            },
+            {
+                type:"effect",
+                run:(player)=>{
+                    player.dungeon.room = "r4c0";
+                    changeHP(player, 100);
+                    changeStamina(player, 100);
+                    passTime(player, 50);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    player.dungeon.room = "r4c0";
+    changeHP(player, 100);
+    changeStamina(player, 100);
+    passTime(player, 50);
+
+    startScene([
+        {
+            type:"text",
+            value:
+                "당신은 또 한번 패배했지만 유리의 손은 절대로 당신의 손을 놓지 않았다. 그는 아이들은 전부 지키지 못했지만 당신만큼은 놓칠 수 없었다. <br><br>시야가 껌껌해지고 다시 눈을 떴을 떄 유리는 당신의 옆에 있었다, 언제나처럼."
         }
     ], player);
 }

@@ -1394,21 +1394,21 @@ const ITEMS ={
             price : 440
         },
 
-        greatmeatVegetableShoot : {
+        greatMeatVegetableShoot : {
             name : "훌륭한 고기야채볶음",
             type : "heal",
             value : 70,
             tags : ["gift", "mixed", "great"],
             price : 460
         },
-        normalmeatVegetableShoot : {
+        normalMeatVegetableShoot : {
             name : "고기야채볶음",
             type : "heal",
             value : 50,
             tags : ["gift", "mixed", "normal"],
             price : 430
         },
-        badmeatVegetableShoot : {
+        badMeatVegetableShoot : {
             name : "맛없는 고기야채볶음",
             type : "heal",
             value : 30,
@@ -2011,7 +2011,7 @@ const RECIPES = {
         }
     },
 
-    SmoothJelly : {
+    smoothJelly : {
         name : "미끄덩젤리",
         desc : "미끄덩한 슬라임젤리 3개를 합쳐서 만든 요리, 재료만 모르면 맛있다! 물론 알고서도 맛있어하는 사람도 있을 테고!",
 

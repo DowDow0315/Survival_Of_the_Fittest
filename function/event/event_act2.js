@@ -226,3 +226,128 @@ window.accept_quest_uppercity_story_01 = function(player) {
     acceptQuest(player, "uppercity_story_01");
     return true;
 };
+
+window.EVENTS.push({
+    id : "shelter_attack",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.uppercity_story_01_done &&
+        getCurrentDay(player) >= player.flags.uppercity_story_01_done_day + 3 &&
+        !player.flags?.slaverCampShelter_attack_event_seen &&
+        !player.quest?.active,
+
+    action : (player) => {
+        player.flags.slaverCampShelter_attack_event_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 쉘터에 들어가는 순간, 여기저기서 아이들의 비명소리가 들리기 시작했다. 한 아이가 인신매매상에게서 도망치다가 그대로 당신의 품에 안겼다. 당신의 품에 안겨서 아이는 살려달라고 필사적으로 애원했다." +
+                    "<br>제압봉으로 제압당한 아이들, 전기충격기에 의해 쓰러진 아이들, 그리고 짐승처럼 올가미에 질질 끌려가는 아이들... 당신의 품에 있던 아이가 컥컥거리며 올가미에서 벗어나려고 했다." +
+                    "<br>그 순간, 쇠로 된 올가미가 단칼에 잘렸다. 유리였다. 이제 쉘터에 돌아온 그는 쌍검을 쥐고 아이들을 끌고 가려고 하는 인신매매상에게 달려들었다." +
+                    " 하지만 유리는 혼자였고 인신매매상은 여럿이었다. 당신과 유리는 최선을 다했지만 모든 아이들을 구출할 수는 없었다." +
+                    "<br>아이들이 엉엉 울며 유리와 당신에게 안겨왔다. 쉘터마저 안전하지 않다는 인식이 아이들을 절망에 빠지게 했다." +
+                    "<br><br>\"쉬이. 괜찮아. 오빠가... 어떻게든 데려올게.\"<br><br>" +
+                    "유리는 자신에게 안긴 아이들을 달래주며 약속했다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "아이들을 달래준 후, 모두를 방으로 돌려보낸 유리는 거실 청소를 시작했다. 모든 것이 엉망이었다. 거실 바닥에 묻은 핏자국을 걸레로 지우며 유리는 입술을 악물었다." +
+                    "<br><br>\"...{playerName}. 무리한 부탁이라는 건 아는데.... <br>나랑 같이 가주지 않을래?\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 고개를 끄덕였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 끄덕이자 유리는 안도하는 표정을 지으면서도 미안하다는 듯이 입술을 일그러뜨렸다." +
+                                    "<br><br>\"...고마워. 진심으로.\"<br><br>" +
+                                    "그는 인신매매단의 흔적은 자신이 찾아오겠다고 말했다. <br><br>\"아이들을 잡아간 인신매매단의 임시 거처를 찾으면, 쉘터로 돌아올게.\"<br><br>" +
+                                    "그는 마지막으로 당신에게 고맙다는 듯 고개를 끄덕여보인 후 혼자 밖으로 나갔다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 5);
+                                    player.flags.slaverCampShelter_attack_accepted = true;
+                                    player.flags.slaverCampShelter_attack_accepted_day = getCurrentDay(player);                  
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 저었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 젓자, 유리는 이해한다는 듯이 고개를 끄덕였다. 인신매매단을 토벌하러 간다는 건 목숨을 거는 것과 마찬가지라는 걸 유리도 당연히 알고 있다." +
+                                    "<br><br>\"미안. 너무 무리한 걸 물었지...? 내가 알아서 해볼게.\"<br><br>" +
+                                    "그는 중얼거리며 자신의 쌍검을 꽉 잡았다. 혼자서라도 어떻게든 할 모양인 거 같다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -3);
+                                    player.flags.slaverCampShelter_attack_refused = true;
+                                    player.flags.slaverCampShelter_attack_refused_day = getCurrentDay(player);                  
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "shelter_attack_yuri_memo",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.slaverCampShelter_attack_accepted &&
+        getCurrentDay(player) >= player.flags.slaverCampShelter_attack_accepted_day + 2 &&
+        !player.flags?.shelter_attack_yuri_memo_seen &&
+        !player.quest?.active,
+
+    action : (player) => {
+        player.flags.shelter_attack_yuri_memo_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 오자 편지가 하나 당신의 침대 위에 놓여있었다. 유리의 깔끔한 글씨체다." +
+                    "<br><br><span class='log-yuri'>경계병 제2초소에서 내가 남겨놓은 흔적을 따라와줘. 미안해. 그리고 항상 고마워.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    acceptQuest(player, "rebel_story_01");
+                    return true;
+                }
+            }
+        ], player);
+    }
+});

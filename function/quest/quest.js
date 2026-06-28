@@ -155,7 +155,7 @@ const QUESTS = {
         rewardGold: 4000,
         
         require: {
-            completedQuest: "uppercity?",
+            completedQuest: "rebel_story_01",
             count: 1
         },
         
@@ -396,6 +396,7 @@ const QUESTS = {
     },
 
     //act2
+    //상류도시
     uppercity_story_01 : {
         id : "uppercity_story_01",
         title : "상류도시를 위하여",
@@ -421,6 +422,34 @@ const QUESTS = {
 
         acceptText : "",
         completeText : "마틴은 당신의 보고에 고개를 끄덕였다. 그는 상류도시에 전령을 보내놓겠다고 말했다. 마틴의 전령이 발렌에게 닿으려면 조금 오래 걸릴 것이다.... 발렌이 당신을 정말로 신경쓰고 있다면 오래 걸리지 않을 수도 있고."
+    },
+
+    //반란군 스토리
+    rebel_story_01 : {
+        id : "rebel_story_01",
+        title : "유리가 찾아낸 흔적",
+        type: "boss",
+        bossName : "반란군 수장",
+        repeatable : false,
+        giver : "yuri",
+        source : "event",
+        
+        desc : "쉘터의 아이들을 위해 당신은 유리의 옆에 서기로 했다.",        
+        activeDesc : "당신은 경계병 제2초소에서부터 유리가 찾아낸 인신매매단 거점으로 가야 한다.",
+        readyDesc : "모든 아이들을 구해내지는 못했지만, 당신과 유리는 많은 목숨들을 구하긴 했다. 주점에 가서 마틴에게 보고하자.",
+        
+        targetBoss: "trafficker4",
+        requiredKill: 1,
+        rewardGold: 1500,
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.rebel_story_01_done = true;
+            player.flags.rebel_story_01_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "",
+        completeText : "쉘터의 아이들을 구해냈다. 하지만 쉘터가 더 이상 안전하지 않다는 사실이 유리의 목을 조여오는 거 같다..."
     }
 };
 

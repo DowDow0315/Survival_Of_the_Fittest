@@ -378,7 +378,7 @@ function sellItem(player, item){
 }
 
 function canSellItem(item){
-    return ["weapon", "top", "bottom", "underwear", "heal", "consumable", "sensitivityDown", "junk", "key"].includes(item.type);
+    return ["weapon", "top", "bottom", "underwear", "heal", "arousal", "consumable", "sensitivityDown", "junk", "key"].includes(item.type);
 }
 
 function sellAllItems(player, itemKey){

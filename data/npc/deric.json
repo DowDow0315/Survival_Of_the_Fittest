@@ -1183,7 +1183,7 @@
                                     { "target": "sensitivity", "key": "aSensitivity", "amount": {"male" : 8, "female" : 1} },
                                     { "target" : "fluid", "key" : "a", "amount" : {"male" : 20, "female" : 0}},
                                     { "target": "sensitivity", "key": "bSensitivity", "amount": {"male" : 2, "female" : 7} },
-                                    { "target": "gold", "amount": 1500 }
+                                    { "target": "gold", "amount": 2000 }
                                 ]
                             }
                         ]
@@ -1237,7 +1237,7 @@
                                     { "target" : "fluid", "key" : "c", "amount" : {"male" : 0, "female" : 25}},
                                     { "target": "sensitivity", "key": "aSensitivity", "amount": {"male" : 5, "female" : 1} },
                                     { "target" : "fluid", "key" : "a", "amount" : {"male" : 25, "female" : 0}},
-                                    { "target": "gold", "amount": 800 }
+                                    { "target": "gold", "amount": 2000 }
                                 ]
                             }
                         ]
@@ -1430,7 +1430,7 @@
                 "effects" : [
                     { "target": "player", "key": "hp", "amount": 100 },
                     { "target": "player", "key": "stamina", "amount": 100 },
-                    { "target": "gold", "amount": 1500 }
+                    { "target": "gold", "amount": 2000 }
                 ]
             }
         ],
@@ -1556,7 +1556,7 @@
                 "effects" : [
                     { "target": "player", "key": "hp", "amount": 100 },
                     { "target": "player", "key": "stamina", "amount": 100 },
-                    { "target": "gold", "amount": 1500 }
+                    { "target": "gold", "amount": 2000 }
                 ]
             }
         ]

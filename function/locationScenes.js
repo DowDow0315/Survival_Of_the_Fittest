@@ -374,12 +374,22 @@ function buildGuardPost2Scene(player, loc, randomDesc){
     }
 
     if (
+        player.quest?.active?.id === "rebel_story_01" &&
+        !player.flags?.rebel_story_01_done
+    ){
+        choices.push({
+            text: "유리가 남긴 흔적을 따라간다",
+            action: "move_slaverCampShelter"
+        });
+    }
+
+    if (
         player.quest?.active?.id === "slaverCamp_cleanup" &&
         !player.slaverRaid?.active
     ){
         choices.push({
             text: "인신매매단의 흔적을 추적한다",
-            action: "startSlaverRaid"
+            action: "start_slaverRaid"
         });
     }
 
@@ -397,6 +407,10 @@ function buildGuardPost2Scene(player, loc, randomDesc){
         }
     ];
 }
+
+window.start_slaverRaid = function(player){
+    startSlaverRaid(player);
+};
 
 function buildGuardPost3Scene(player, loc, randomDesc){
     return [

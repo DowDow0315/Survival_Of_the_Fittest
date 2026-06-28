@@ -377,7 +377,7 @@ registerActions("luke", {
             return;
         }
         
-        const playerStr = getPlayerStat(player, "str");
+        const playerStr = player.stats?.str || 0;
         
         if (playerStr >= 15) {
             startScene(

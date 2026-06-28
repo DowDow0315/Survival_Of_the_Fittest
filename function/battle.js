@@ -330,16 +330,11 @@ function useBattleItem(index){
         return;
     }
 
-    if (item.type === "heal"){
-    changeHP(player, item.value);
-    log(`${item.name} 사용! HP +${item.value}`);
+    if (isConsumableItem(item)){
+        useItem(player, item);
+        log(`${item.name} 사용!`);
     }
-
-    else if (["weapon","top", "bra", "bottom", "underwear"].includes(item.type)){
-        equipItem(player, item);
-        closeSkillMenu();
-        log(`${item.name} 장착!`);
-    }
+    
     closeBattleInventory();
 
     updateBattleUI();

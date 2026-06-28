@@ -1284,21 +1284,21 @@ const ITEMS ={
             price : 180
         },
 
-        greatmeatVegetableSkewer : {
+        greatMeatVegetableSkewer : {
             name : "훌륭한 고기야채꼬치",
             type : "heal",
             value : 50,
             tags : ["gift", "mixed", "great"],
             price : 450
         },
-        normalmeatVegetableSkewer : {
+        normalMeatVegetableSkewer : {
             name : "고기야채꼬치",
             type : "heal",
             value : 40,
             tags : ["gift", "mixed", "normal"],
             price : 420
         },
-        badmeatVegetableSkewer : {
+        badMeatVegetableSkewer : {
             name : "맛없는 고기야채꼬치",
             type : "heal",
             value : 30,

@@ -72,7 +72,7 @@
             "conditions" : [
                 {"emotion": "affection", "min": 50}
             ],
-            "text" : "루크는 딩신이 어디서 뭘 하고 있는지 궁금해한다."
+            "text" : "루크는 당신이 어디서 뭘 하고 있는지 궁금해한다."
         },
         {
             "conditions" : [

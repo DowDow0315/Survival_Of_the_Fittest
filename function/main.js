@@ -2167,7 +2167,11 @@ function renderInventoryModal(player){
             } else if (item.type === "stamina"){
                 desc.innerText = `기력 회복량: ${item.value}`;
             } else if (item.type === "arousal"){
-                desc.innerText = `흥분 감소: ${item.value}`;
+                if (item.value >= 0){
+                    desc.innerText = `흥분 감소: ${item.value}`;
+                } else {
+                    desc.innerText = `흥분 증가: ${-item.value}`;
+                }
             }
             
             info.appendChild(desc);

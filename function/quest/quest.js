@@ -137,6 +137,33 @@ const QUESTS = {
         completeText : "마틴은 당신의 보고에 고개를 끄덕였다. <br><br>\"믿고 있었습니다, 하류도시의 영웅.\"<br><br>마틴은 그릇을 닦으며 말했다.<br><br>\"네가 그 의뢰를 받는다는 소식을 들었을 때 발렌이 임무를 마치고 온 네게 전해달라고 한 말이야.\"" 
     },
 
+    slaverCamp_cleanup: {
+        id: "slaverCamp_cleanup",
+        title: "인신매매단 임시 진지 소탕",
+        type: "boss",
+        bossName: "인신매매상 간부",
+        repeatable: true,
+        giver: "matin",
+        
+        desc: "인신매매단이 또 사람들을 끌고 간 모양이다. 흔적을 추적해 임시 진지를 찾아내고 수장을 쓰러뜨리자.",
+        activeDesc: "인신매매단의 흔적을 추적해 임시 진지를 찾아야 한다.",
+        readyDesc: "인신매매단 임시 진지를 무너뜨렸다. 주점으로 돌아가 보고하자.",
+        
+        targetBoss: "trafficker4",
+        requiredKill: 1,
+        
+        rewardGold: 4000,
+        
+        require: {
+            completedQuest: "uppercity?",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신에게 의뢰서를 내밀었다.<br><br>\"...흔적은 경계병 제2초소 근처에서 끊겼다고 해.\"",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신의 보고를 듣고 고개를 끄덕였다.<br><br>\"끝난 건 아니겠지만... 잘했어. 네게 고마워하는 사람들이 많을 거야.\"<br><br>그의 표정이 조금은 부드러워진 거 같다."
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -687,6 +714,19 @@ function acceptQuest(player, questId){
         player.flags = player.flags || {};
         player.flags.whiteFlowerLab_cleanup_done = false;
         delete player.flags.defeated_whiteFlowerLabRepeated_infectedSoldier;
+    }
+
+    if (quest.id === "slaverCamp_cleanup"){
+        player.flags = player.flags || {};
+        delete player.flags.defeated_slaverCamp_trafficker4;
+        
+        player.slaverRaid = {
+            active: false,
+            progress: 0,
+            maxProgress: getRandomSlaverRaidMaxProgress(),
+            prisonerEventDone: false,
+            campFound: false
+        };
     }
 
     player.quest.active = {

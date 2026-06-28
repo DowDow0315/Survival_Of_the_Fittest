@@ -2,7 +2,22 @@ let shopTab = "buy";
 
 function getSellPrice(item){
     if (!item) return 0;
-    return item.type === "junk" ? (item.price || 0) : Math.floor((item.price || 0) * 0.5);
+    // 음식은 정가 판매
+    if (item.type === "heal"){
+        return item.price || 0;
+    }
+
+    if (item.type === "arousal"){
+        return item.price || 0;
+    }
+
+    // 잡템도 정가 판매
+    if (item.type === "junk"){
+        return item.price || 0;
+    }
+
+    // 나머지는 반값
+    return Math.floor((item.price || 0) * 0.5);
 }
 
 const SHOPS = {

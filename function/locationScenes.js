@@ -373,6 +373,16 @@ function buildGuardPost2Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "slaverCamp_cleanup" &&
+        !player.slaverRaid?.active
+    ){
+        choices.push({
+            text: "인신매매단의 흔적을 추적한다",
+            action: "startSlaverRaid"
+        });
+    }
+
     choices.push(
         { text:"경계병 제3초소로 향한다", action:"travel_guardPost2_to_guardPost3" },
         { text:"경계병 제1초소로 돌아간다", action:"travel_guardPost2_to_guardPost1" },

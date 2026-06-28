@@ -394,8 +394,8 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            "r0c0" : {name : "우리", exits : {down : "r1c0"}},
-            "r0c2" : {name : "수장천막", exits : {down : "r1c2"}},
+            "r0c0" : {name : "우리", exits : {down : "r1c0"}, event : "slaverCamp_prisonerCage"},
+            "r0c2" : {name : "수장천막", exits : {down : "r1c2"}, boss: "trafficker4"},
 
             "r1c0" : {name : "우리 앞", exits : {up : "r0c0", down : "r2c0"}},
             "r1c2" : {name : "수장천막 앞", exits : {up: "r0c2", down : "r2c2", right : "r1c3"}},
@@ -404,22 +404,74 @@ const DUNGEONS = {
             "r2c0" : {name : "갈라지는 흙길L", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
             "r2c1" : {name : "이어지는 흙길L", exits: {left : "r2c0", right : "r2c2"}},
             "r2c2" : {name : "흙길4", exits : {up : "r1c2", down : "r3c2", left : "r2c1"}},
-            "r2c4" : {name : "식량창고", exits : {down : "r3c4"}},
+            "r2c4" : {name : "식량창고", exits : {down : "r3c4"}, event : "slaverCamp_foodStorage"},
 
             "r3c0" : {name : "대기실 앞", exits : {up : "r2c0", down : "r4c0"}},
             "r3c2" : {name : "흙길3", exits : {up : "r2c2", down : "r4c2", right : "r3c3"}},
             "r3c3" : {name : "이어지는 흙길R", exits : {left : "r3c2", right : "r3c4"} },
             "r3c4" : {name : "갈라지는 흙길R", exits : {up : "r2c4", down : "r4c4", left : "r3c3"}},
 
-            "r4c0" : {name : "대기실", exits : {up : "r3c0"}},
+            "r4c0" : {name : "대기실", exits : {up : "r3c0"}, event : "slaverCamp_prisonerDespairRoom"},
             "r4c2" : {name : "흙길2", exits : {up : "r3c2", down : "r5c2"}},
             "r4c4" : {name : "약간 끊어진 흙길", exits : {up : "r3c4", down: "r5c4"}},
 
             "r5c2" : {name : "흙길1", exits : {up : "r4c2", down : "r6c2"}},
-            "r5c4" : {name : "처리실", exits : {up : "r4c4"}},
+            "r5c4" : {name : "처리실", exits : {up : "r4c4"}, event : "slaverCamp_slavesEnd"},
 
             "r6c2" : {name : "입구", exits : {up : "r5c2"}}
-        }
+        },
+        encounters : [
+            { type: "battle", enemy: "trafficker1", weight: 30 },
+            { type: "battle", enemy: "trafficker2", weight: 20 },
+            { type: "battle", enemy: "trafficker3", weight: 10 },
+            { type : "event", id : "slaverCamp_coin", weight: 5},
+            { type : "event", id : "slaverCamp_runner", weight: 5},
+            { type : "event", id : "slaverCamp_dancer", weight: 5},
+            { type : "event", id : "slaverCamp_priceTag", weight: 10}
+        ],
+    },
+
+    slaverCampShelter : {
+        id : "slaverCampYuri",
+        name : "유리가 추적한 인신매매단 근거지",
+        startRoom : "r0c0",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2", "r0c3", "r0c4"],
+            [""    ,     "",     "",     "", "r1c4"],
+            ["r2c0", "r2c1", "r2c2",     "", "r2c4"],
+            ["r3c0",     "",     "",     "", "r3c4"],
+            ["r4c0", "r4c1", "r4c2", "r4c3", "r4c4"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "입구", exits : {right : "r0c1"}, event : "slaverCampShelter_yuri_01"},
+            "r0c1" : {name : "오른쪽으로 뻗어가는 길1", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "오른쪽으로 뻗어가는 길2", exits : {left : "r0c1", right : "r0c3"}},
+            "r0c3" : {name : "오른쪽으로 뻗어가는 길3", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "코너길1", exits : {left : "r0c3", down : "r1c4"}},
+
+            "r1c4" : {name : "밑으로 뻗어가는 길1", exits : {up : "r0c4", down : "r2c4"}, event : "slaverCampShelter_yuri_02"},
+            "r2c4" : {name : "밑으로 뻗어가는 길2", exits : {up : "r1c4", down : "r3c4"}},
+            "r3c4" : {name : "밑으로 뻗어가는 길3", extis : {up : "r2c4", down : "r4c4"}, event : "slaverCampSheleter_yuri_03"},
+            "r4c4" : {name : "코너길2", exits : {up : "r3c4", left : "r4c3"}},
+
+            "r4c3" : {name : "왼쪽으로 뻗어가는 길1", exits : {left : "r4c2", right : "r4c4"}},
+            "r4c2" : {name : "왼쪽으로 뻗어가는 길2", exits : {left : "r4c1", right : "r4c3"}, event : "slaverCampShelter_yuri_03"},
+            "r4c1" : {name : "왼쪽으로 뻗어가는 길3", exits : {left : "r4c0", right : "r4c2"}},
+            "r4c0" : {name : "코너길3", exits : {up : "r3c0", right : "r4c1"}},
+
+            "r3c0" : {name : "위로 뻗어가는 길1", exits : {down : "r4c0", up : "r2c0"}, event : "slaverCampShelter_yuri_04"},
+            "r2c0" : {name : "쉘터를 위한 길", exits : {down : "r3c0", right : "r2c1"}},
+            "r2c1" : {name : "결전 직전의 길", exits : {left : "r2c0", right : "r2c2"}, event : "slaverCampShelter_yuri_05"},
+            "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}}
+        },
+
+        encounters : [
+            { type: "battle", enemy: "trafficker1", weight: 30 },
+            { type: "battle", enemy: "trafficker2", weight: 20 },
+            { type: "battle", enemy: "trafficker3", weight: 10 },
+        ]
     }
 }
 
@@ -897,6 +949,12 @@ function moveDungeon(player, direction){
 }
 
 function handleDungeonBossWin(player, dungeon, room){
+
+    if (dungeon.id === "slaverCamp" && room.boss === "trafficker4"){
+        handleSlaverCampBossWin(player);
+        return;
+    }
+
     if (dungeon.id === "whiteFlowerLabRepeated" && room.boss === "infectedSoldier"){
         player.flags = player.flags || {};
         player.flags.whiteFlowerLab_cleanup_done = true;
@@ -1178,9 +1236,19 @@ function leaveDungeon(player){
         player.location = "guardPost2";
     } else if (dungeonId === "whiteFlowerLabRepeated"){
         player.location = "guardPost2";
+    } else if (dungeonId === "slaverCamp"){
+        player.slaverRaid = {
+            active: false,
+            progress: 0,
+            maxProgress: getRandomSlaverRaidMaxProgress(),
+            prisonerEventDone: false,
+            campFound: false
+        };
+        player.location = "guardPost2";
     } else {
         player.location = "townStreet";
     }
+    
 
     localStorage.setItem("playerData", JSON.stringify(player));
     renderMap(player);
@@ -2238,6 +2306,206 @@ const DUNGEON_EVENTS = {
                 ]
             }
         ]
+    },
+    slaverCamp : {
+        slaverCamp_prisonerCage : [
+            {
+                type : "text",
+                value : [
+                    "당신은 금방이라도 끊어질 거 같은 신음 소리를 들었다. 당신은 몸을 숙인 채 신음 소리가 나는 곳으로 고개를 돌렸다. 우리 안에는 수많은 사람들이 있었다. 몇 명은 이미 가슴에 피어싱이 박혀있었고, 또 몇 명은 다리에 보석 피어싱이 박혀서 움직이지도 못하고 있었다." +
+                    " 당신은 우리 근처에서 맴돌았다. 자물쇠를 몰래 따는 걸 시도해볼 수는 있을 거 같다. 도망치는 건 그들의 몫이겠지만...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "자물쇠를 따본다.",
+                        type : "check",
+                        stat : "dex",
+                        difficulty : 18,
+                        
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 자물쇠를 조용히 따는 것에 성공했다. 우리에 있던 사람들이 당신을 쳐다보았다. 몇 명은 당신을 쳐다보지도 않고 도망갔고 몇 명은 당신에게 고맙다는 인사를 해보이며 도망갔다. 그리고 몇 명은 그저 우리 안에 남아있었다.",
+                                    " 우리에 남아있는 사람들은 도망쳐봤자 어차피 다시 잡힐 거라는 생각에 가만히 있는 거 같았다. 그들의 눈에는 이미 의지가 없었다. 그저 주인의 명령대로 복종하는 인형이 되어 있었다. 몇 명은 팔려나갈 예정인지 목에 상품 코드가 붙어 있었다.",
+                                    " 비명 소리가 들린다. 몇 명이 도망치다가 잡힌 모양이다. 당신은 재빨리 그들의 시야 밖으로 도망갔다." +
+                                    "<br><br>...그래도 몇 명은 도망가지 않았을까. 당신은 애써 그렇게 생각했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, 10);
+                                    changeTrauma(player, -3);
+                                }
+                            }
+                        ],
+
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "뒤에서 누군가의 발자국 소리가 들렸다. 자물쇠를 따느라 시간을 너무 지체한 모양이다. 자물쇠를 딴 후 당신은 몸을 돌렸다. 인신매매상이 당신에게 다가오고 있다." +
+                                    "<br><br>\"지지마...!\"<br><br>" +
+                                    "누군가가 뒤에서 당신을 응원했다. 한 사람이 응원하자 다른 사람도 용기를 내 당신을 응원하기 시작했다. 전부가 당신을 응원한 건 아니었지만 어쨌든 당신의 행동에 희망을 얻은 사람이 있다..." +
+                                    "<br><br>당신의 몸에 힘이 솟는다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeHP(player, 100);
+                                    changeStamina(player, 100);
+                                    startBattle("trafficker1", player, {
+                                        onWin: () => startScene(buildDungeonScene(player), player),
+                                        onEscape: () => startScene(buildDungeonScene(player), player)
+                                    });
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "그냥 지나친다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 우리를 그저 지나쳤다... 당신이 이곳에서 할 수 있는 일은 없다. 여기서 당신이 잡히게 된다면? 당신은 그들과 똑같은 운명으로 전락할 것이다." +
+                                    " 설사 당신이 안 잡히고 자물쇠를 풀어준다고 한들, 도망쳐나간 사람들이 인신매매상에 다시 잡히지 않을 확률은 제로에 가까웠다. 당신은 현명한 선택을 한 것이다.... 아마도."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        slaverCamp_foodStorage : [
+            {
+                type : "text",
+                value : [
+                    "당신은 인신매매상이 임시로 놓은 저장창고를 발견했다. 자원이 조금이라도 없어지면 이들이 조금이라도 주춤하지 않을까? 당신은 식량창고를 뒤졌다. 자원을 꽤나 많이 얻을 수 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) =>{
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.cabbage);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.mics.rice);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.mics.rice);
+                }
+            }
+        ],
+        slaverCamp_prisonerDespairRoom : [
+            {
+                type : "text",
+                value : [
+                    "대기실, 대기실이라고 했지만 방이 아니었다. 그저 공간이었다. 벽 하나 없이 땅에 줄만 그어져있는 공간. 그리고 당신은 귀를 틀어막고 눈을 가리고 싶어졌다. 수많은 귀족들이 노예들을 강간하고 있었다. 그 좁은 영역 안에서 수치심도 모르고 짐승처럼 노예들을 착취하고 품평을 하고 있었다." +
+                    " 그런데도 몇몇 노예들은 귀족의 눈에 들기 위해서 웃으며 허리를 흔들었다. 눈은 울고 있었지만 그들의 입꼬리는 부자연스러울 정도로 올라가있었다. 제발 절 사주세요, 라고 노예들을 말하고 있었다." +
+                    " 그들의 절망들로 귀족들은 자신의 위치를 공고화했다. 웃음 소리, 울음 소리, 당신은 뒤로 물러났다. 더 이상 그 자리에 있고 싶지 않았다."
+                ]
+            }
+        ],
+        slaverCamp_coin : [
+            {
+                type : "text",
+                value : [
+                    "당신은 길을 가다가 바닥에서 뭔가 반짝이는 걸 발견했다."
+                ]
+            },
+            {
+                type : "check",
+                stat : "int",
+                difficulty : 18,
+
+                success : [
+                    {
+                        type : "text",
+                        value : [
+                            "동전이다. 귀족이 흘리고 간 걸까. 당신은 돈을 주웠다. 뭔가 축축했다."
+                        ]
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeGold(player, 1000);
+                        }
+                    }
+                ],
+
+                fail : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 다시 한번 눈을 깜박여보았지만 아무 것도 찾을 수 없었다. 갈 길을 가자...."
+                        ]
+                    }
+                ]
+            }
+        ],
+        slaverCamp_runner : [
+            {
+                type : "text",
+                value : [
+                    "길을 가던 당신은 쓰러져있는 노예를 발견했다. 다가가서 상태를 살폈지만 치료를 해준다고 해도 살 가망은 없는 거 같다. 그는 눈을 간신히 뜨더니 당신의 손을 잡았다.",
+                    "<br><br>\"도망가...\"" +
+                    "...그리고 그는 죽었다."
+                ]
+            }
+        ],
+        slaverCamp_priceTag : [
+            {
+                type : "text",
+                value : [
+                    "길을 가던 당신은 노예 명부를 발견했다. <br><br>[이름-나이-성적특성-가격]<br><br>그들은 노예를 인간으로 취급하지 않는다, 가축으로 취급할 뿐." +
+                    "<br><br>....<br><br>" +
+                    "상류도시 인장이 왜 박혀있는 걸까."
+                ]
+            }
+        ],
+        slaverCamp_slavesEnd : [
+            {
+                type : "text",
+                value : [
+                    "피냄새와 썩은냄새가 난다... 당신은 위를 올려다보았다. 형체를 알아볼 수 없을 정도로 훼손된 살덩이들로 갈고리에 매달려 있었다.<br><br>" +
+                    "<span class='log-danger'>철퍽</span>" +
+                    "<br><br>당신은 발밑을 내려다보았다. 피다. 천장에서 떨어진 피가 흙바닥에 작은 웅덩이를 만들고 있었다." +
+                    "<br><br>...아직도 따듯하다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.consumable.meatPotion);
+                }
+            }
+        ],
+        slaverCamp_dancer : [
+            {
+                type : "text",
+                value : [
+                    "쿵, 쿵, 쿵, 어디선가 엄청난 소리가 들려온다. 당신은 고개를 돌렸다. 쉬고 있는 건지 덩치가 있는 인신매매상들이 서로 모여서 춤을 추고 있었다. 근육에 맺힌 땀방울이 촤라락 근육 위에서 튀겼다." +
+                    "<br>당신은 정신이 멍해졌다.<br>" +
+                    "뛸 때마다 그들의 거대하고 아름다운 남성기가 바지를 입었는데도 두드러져 보였다. 왜 상의는 벗고 있는 걸까. 아하! 춤추느라 벗어던진 거였구나!" +
+                    "<br><br>...그들의 웅장한 근육이 꿈에서도 나올 거 같다." +
+                    "<br><br>그래도 그들의 춤 때문인지 당신은 마음이 나름 마음이 풍족해지고(?) 기력이 회복됐다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeArousal(player, 20);
+                    changeHP(player, 20);
+                    changeStamina(player, 20);
+                }
+            }
+        ]
     }
 }
 
@@ -2947,6 +3215,34 @@ function startInfectedSmallsLose(player){
             type:"text",
             value:
                 "당신은 또 작은꽃들에게 져서 쓰러졌다. 그들은 이번에도 당신을 죽이지 않은 모양이다. 당신은 폐기실에서 눈을 떴다."
+        }
+    ], player);
+}
+
+//act2 인신매매상 관련
+function handleSlaverCampBossWin(player){
+    player.flags = player.flags || {};
+    player.flags.slaverCamp_cleared = true;
+    player.flags.slaverCamp_scattered = true;
+
+    addQuestProgress(player, "trafficker4");
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "수장이 쓰러졌다.<br><br>" +
+                "그 순간부터 진지는 무너지기 시작했다. 누군가는 비명을 지르며 도망쳤고, 누군가는 포로들을 내버려둔 채 짐만 챙겨 달아났다.<br><br>" +
+                "흙길 위에는 발자국과 버려진 사슬, 뒤집힌 상자들만 남았다.<br><br>" +
+                "인신매매단 임시 진지는 사실상 해산된 것 같다."
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "경비초소로 돌아간다", action: "leave_dungeon_after_boss" },
+                { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
+            ]
         }
     ], player);
 }

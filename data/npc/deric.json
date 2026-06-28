@@ -1170,6 +1170,8 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": -1 },
@@ -1224,6 +1226,8 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "player", "key": "trauma", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "fear", "amount": 5 },
@@ -1266,6 +1270,14 @@
                                     "점점 그의 손이 당신의 하의 안으로 파고드는 게 느껴진다. 당신의 하부에 들어온 그의 손가락은 아무렇지도 않게 당신의 구멍을 꾹꾹 눌러댔다. 만화 캐릭터가 말하는 소리가 들린다. 하지만 당신의 집중은 온통 그의 손가락에 쏠려있었다. 구멍 안으로 들어올지, 안 들어올지, 그는 언제나 당신을 괴롭히는 걸 즐겼다.",
                                     "당신이 다시 애니메이션 쪽으로 시선을 돌렸을 때 그의 검지가 당신의 구멍 안으로 파고들었다. 그리고 그는 그대로 당신의 구멍을 손가락으로 쑤셔댔다. 당신은 고개를 숙인 채 그의 핑거링을 받아냈다. 데릭은 웃으며 당신의 허리를 감싸안고 있는 손에 힘을 더 주었다.",
                                     "애니메이션이 끝날 때까지 당신이 몇 번을 엣징당한지 모른다. 데릭은 뻗어버린 당신을 안고 침실로 들어왔다. 그는 당신을 제 옆에 눕힌 후 잘 자, 라고 말해주었다."
+                                ]
+                            },
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 눈을 떴을 때 데릭은 이미 완벽하게 차려입고 있었다. 그는 당신을 '아가'라고 부르며 미소를 지었다.",
+                                    "<br>\"아무리 아가라도 옷은 혼자 입을 수 있지?\"<br>",
+                                    "그는 당신이 옷을 갈아입을 때까지 기다려준 후 당신과 함꼐 밖으로 나왔다. 그는 다음 번에 만나자고 말한 뒤 그대로 몸을 돌렸다. 당신은 영광의 거리에 혼자 남았다."
                                 ]
                             },
                             {
@@ -1343,6 +1355,13 @@
                                 ]
                             },
                             {
+                                "type" : "text",
+                                "value" : [
+                                    "아침에 일어난 후, 데릭은 당신이 옷을 다 입을 때까지 기다려준 후 당신과 함께 영광의 거리로 나왔다. 영광의 거리에서 데릭은 당신의 어깨를 장난스럽게 톡 두드렸다.",
+                                    "<br>\"그럼 다음 기회에 또.\""
+                                ]
+                            },
+                            {
                                 "type" : "effect",
                                 "effects" : [
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": -2 },
@@ -1393,6 +1412,8 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "sensitivity", "key": "bSensitivity", "amount": {"male" : 0, "female" : 5} },
                                     { "target": "sensitivity", "key": "cSensitivity", "amount": 8 },
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 3 },

@@ -78,7 +78,7 @@ function startSlaverRaidRandomEvent(player){
             onEnd: () => startBattle("trafficker1", player, {
                 noEscape : true,
 
-                onWin: () => advanceSlaverRaid(player)
+                onWin: () => showSlaverRaidChoice(player)
             })
         });
         return;
@@ -89,7 +89,7 @@ function startSlaverRaidRandomEvent(player){
             onEnd: () => startBattle("trafficker2", player, {
                 noEscape : true,
 
-                onWin: () => advanceSlaverRaid(player)
+                onWin: () => showSlaverRaidChoice(player)
             })
         });
         return;
@@ -100,7 +100,7 @@ function startSlaverRaidRandomEvent(player){
             onEnd: () => startBattle("trafficker3", player, {
                 noEscape : true,
 
-                onWin: () => advanceSlaverRaid(player)
+                onWin: () => showSlaverRaidChoice(player)
             })
         });
         return;
@@ -170,7 +170,7 @@ function startSlaverRaidRandomEvent(player){
                 ]
             }
         ], player, {
-            onEnd: () => advanceSlaverRaid(player)
+            onEnd: () => showSlaverRaidChoice(player)
         });
         return;
     }
@@ -191,7 +191,7 @@ function startSlaverRaidRandomEvent(player){
                 }
             }
         ], player, {
-            onEnd: () => advanceSlaverRaid(player)
+            onEnd: () => showSlaverRaidChoice(player)
         });
         return;
     }
@@ -213,7 +213,7 @@ function startSlaverRaidRandomEvent(player){
                 }
             }
         ], player, {
-            onEnd: () => advanceSlaverRaid(player)
+            onEnd: () => showSlaverRaidChoice(player)
         });
         return;
     }
@@ -230,7 +230,7 @@ function startSlaverRaidRandomEvent(player){
                     "<br><br><br>다음 거래에는 식량 자원이 필요하다고 함. 준비해놓을 것."
             }
         ], player, {
-            onEnd: () => advanceSlaverRaid(player)
+            onEnd: () => showSlaverRaidChoice(player)
         });
         return;
     }
@@ -244,7 +244,7 @@ function startSlaverRaidRandomEvent(player){
             successText: "당신은 칼트롭을 피해서 움직였다!",
             failText: "당신은 칼트롭을 밟았다...!",
         
-            onClear: () => advanceSlaverRaid(player),
+            onClear: () => showSlaverRaidChoice(player),
             onStepFail: (player, state) => {
                 changeStamina(player, -5);
                 changeHP(player, -10);
@@ -357,7 +357,7 @@ function startSlaverRaidPrisonerEvent(player){
             ]
         }
     ], player, {
-        onEnd: () => advanceSlaverRaid(player)
+        onEnd: () => showSlaverRaidChoice(player)
     });
 }
 
@@ -388,3 +388,89 @@ function endSlaverRaidFoundCamp(player){
         }
     ], player);
 }
+
+function failSlaverRaid(player){
+    player.slaverRaid = {
+        active: false,
+        progress: 0,
+        maxProgress: getRandomSlaverRaidMaxProgress(),
+        prisonerEventDone: false,
+        campFound: false
+    };
+
+    if (player.quest?.active?.id === "slaverCamp_cleanup"){
+        player.quest.active = null;
+    }
+
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 추적을 포기했다.<br><br>인신매매단은 당신이 포기한 동안 다시는 추적을 하지 못할 정도로 멀어져버렸다. 임무는 실패했다.",
+        player,
+        {
+            onEnd: () => {
+                player.location = "guardPost2";
+                savePlayer(player);
+                startScene(getLocationScene(player), player);
+            }
+        }
+    );
+}
+
+window.failSlaverRaid = failSlaverRaid;
+
+function showSlaverRaidChoice(player){
+    startScene([
+        {
+            type: "text",
+            value: "인신매매단의 흔적은 아직 이어지고 있다."
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "계속 추적한다",
+                    action: "continueSlaverRaid"
+                },
+                {
+                    text: "잠시 쉰다",
+                    action: "restSlaverRaid"
+                },
+                {
+                    text: "추적을 포기한다",
+                    action: "failSlaverRaid"
+                }
+            ]
+        }
+    ], player);
+}
+
+window.restSlaverRaid = function(player){
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 충분히 쉬어가기로 했다.<br><br>" +
+                "상처를 살피고, 거칠어진 호흡을 가라앉힌다. 그러나 쉬는 동안에도 인신매매단의 흔적은 조금씩 멀어지고 있다."
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                passTime(player, 30);
+                changeHP(player, 50);
+                changeStamina(player, 50);
+
+                // 쉬면 추적이 조금 늦어짐
+                player.slaverRaid.progress = Math.max(0, player.slaverRaid.progress - 1);
+
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd: () => showSlaverRaidChoice(player)
+    });
+};
+
+window.continueSlaverRaid = function(player){
+    advanceSlaverRaid(player);
+};

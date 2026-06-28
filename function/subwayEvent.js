@@ -67,6 +67,16 @@ function checkSubwayArousal(player){
 function showSubwayTurn(player){
     const s = player.subwayEvent;
 
+    if (s.stunned > 0){
+        return showSubwayText(
+            player,
+            "당신은 절정의 여파로 움직이지 못하고 있다...",
+            () => {
+                enemyMolesterAction(player);
+            }
+        );
+    }
+
     startScene([
         {
             type: "text",

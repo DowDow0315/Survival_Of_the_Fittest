@@ -156,9 +156,9 @@ function enhanceItem(player, item, place = "default", customStat = null){
         const gain = getEnhanceGain(nextLevel);
         addEnhanceCustomBonus(item, customStat, gain);
 
-        addLog(`${getDisplayItemName(item)} +${nextLevel} 강화 완료! ${customStat} +${gain} (-${cost}G)`);
+        addLog(`${getDisplayItemName(item)} 강화 완료! ${customStat} +${gain} (-${cost}G)`);
     } else {
-        addLog(`${getDisplayItemName(item)} +${nextLevel} 강화 완료! (-${cost}G)`);
+        addLog(`${getDisplayItemName(item)} 강화 완료! (-${cost}G)`);
     }
 
     savePlayer(player);

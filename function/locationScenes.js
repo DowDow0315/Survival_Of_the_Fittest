@@ -802,7 +802,7 @@ function buildRoyalForgeScene(player, loc, randomDesc){
             value:
                 `${randomDesc}<br><br>` +
                 `줄리앙은 당신의 인기척을 느꼈지만 당신 쪽을 쳐다보지 않았다. 그는 자신의 보석을 박을 수 있는 상대에게만 관심이 있는 거 같다.` +
-                `무엇을 할까?`
+                `<br><br>무엇을 할까?`
         },
         {
             type: "choice",
@@ -810,7 +810,6 @@ function buildRoyalForgeScene(player, loc, randomDesc){
                 { text: "강화한다", action: "open_juliangEnhance" },
                 { text: "보석으로 강화한다", action: "open_juliangSocket" },
                 { text: "상점을 연다", action: "open_juliangShop" },
-                { text: "줄리앙과 대화한다", action: "juliang_talk" },
                 { text: "돌아간다", action: "move_richTownStreet" }
             ]
         }

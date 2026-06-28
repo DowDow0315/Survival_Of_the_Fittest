@@ -1444,11 +1444,11 @@
                 "choices" : [
                     {
                         "text" : "당신은 루크를 거부했다.",
-                        "action" : "patience_limit_accept"
+                        "action" : "luke_patience_limit_refuse"
                     },
                     {
                         "text" : "당신은 고개를 들어 루크에게 키스했다.",
-                        "action" : "patience_limit_refuse"
+                        "action" : "luke_patience_limit_accept"
                     }
                 ]
             }

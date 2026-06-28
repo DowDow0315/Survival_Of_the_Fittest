@@ -828,6 +828,92 @@ const DEFEAT_EVENTS = {
                 }
             ]
         }
+    ],
+    trafficker1 : [
+        {
+            id : "trafficker_capture",
+            weight : 100,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "당신은 인신매매상에게 졌다. 뒷목에 느껴지는 둔탁한 타격과 함께 당신의 눈앞이 깜깜해졌다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startSlaverCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    trafficker2 : [
+        {
+            id : "trafficker_capture",
+            weight : 100,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "당신은 인신매매상에게 졌다. 뒷목에 느껴지는 둔탁한 타격과 함께 당신의 눈앞이 깜깜해졌다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startSlaverCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    trafficker3 : [
+        {
+            id : "trafficker_capture",
+            weight : 100,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "당신은 인신매매상에게 졌다. 뒷목에 느껴지는 둔탁한 타격과 함께 당신의 눈앞이 깜깜해졌다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startSlaverCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
+    trafficker4 : [
+        {
+            id : "trafficker_capture",
+            weight : 100,
+            scene : [
+                {
+                    type: "text",
+                    value : [
+                        "\"사회를 상대로 개인이 이길 수 있을 거라 생각했나? 첫 번째 반란군 수장이 갑자기 왜 종적을 감췄는지 잘 생각해봐라.\"<br><br>" +
+                        "뒷목에 느껴지는 둔탁한 충격과 함께 당신의 눈이 스르르 닫혔다." +
+                        "<br><br>\"물론 지옥에서.\""
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startSlaverCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
     ]
 };
 

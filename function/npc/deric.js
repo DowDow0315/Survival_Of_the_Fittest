@@ -14,7 +14,7 @@ function deric_date_01_accepted(player){
     changeEmotion("deric", "dominance", 5);
     savePlayer(player);
 
-    startScene(SCENES.deric.deric_date_01_accepted, player, {
+    startScene(NPC_DATA["deric"].scenes.deric_date_01_accepted, player, {
         onEnd : () => {
             player.location = "gloryStreet";
             player.flags.dericDate01Accepted = true;
@@ -43,7 +43,7 @@ function deric_date_02_accepted(player){
     changeEmotion("deric", "dominance", 3);
     savePlayer(player);
 
-    startScene(SCENES.deric.deric_date_02_accepted, player, {
+    startScene(NPC_DATA["deric"].scenes.deric_date_02_accepted, player, {
         onEnd : () => {
             player.location = "gloryStreet";
             player.flags.dericDate02Accepted = true;
@@ -73,7 +73,7 @@ function deric_repeat_date(player){
 
     savePlayer(player);
 
-    startScene(SCENES.deric.deric_repeat_date, player, {
+    startScene(NPC_DATA["deric"].scenes.deric_repeat_date, player, {
         onEnd : () => {
             savePlayer(player);
             startScene(getLocationScene(player), player);
@@ -90,7 +90,7 @@ function deric_repeat_date_place(player){
 
     const sceneId = scenes[Math.floor(Math.random() * scenes.length)];
 
-    startScene(SCENES.deric[sceneId], player);
+    startScene(NPC_DATA["deric"].scenes[sceneId], player);
     return true;
 }
 
@@ -110,14 +110,14 @@ function deric_repeat_branch_by_place(player, place){
     const affection = NPC_DATA["deric"].emotion.affection;
 
     if (affection >= 50){
-        startScene(SCENES.deric[`deric_repeat_${place}_to_house`], player, {
+        startScene(NPC_DATA["deric"].scenes[`deric_repeat_${place}_to_house`], player, {
             onEnd : () => {
                 savePlayer(player);
                 startScene(getLocationScene(player), player);
             }
         });
     } else {
-        startScene(SCENES.deric[`deric_repeat_${place}_goodbye`], player, {
+        startScene(NPC_DATA["deric"].scenes[`deric_repeat_${place}_goodbye`], player, {
             onEnd : () => {
                 player.location = "gloryStreet";
                 savePlayer(player);
@@ -137,7 +137,7 @@ function deric_repeat_date_house(player){
 
     const sceneId = scenes[Math.floor(Math.random() * scenes.length)];
 
-    startScene(SCENES.deric[sceneId], player, {
+    startScene(NPC_DATA["deric"].scenes[sceneId], player, {
         onEnd : () => {
             player.location = "gloryStreet";
             passToNextMorning9(player);

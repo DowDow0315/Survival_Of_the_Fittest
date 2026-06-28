@@ -40,7 +40,7 @@ function deric_repeat_date_bad_clothes(player){
 
     savePlayer(player);
 
-    startScene(SCENES.deric.deric_repeat_date_bad_clothes, player, {
+    startScene(NPC_DATA["deric"].scenes.deric_repeat_date_bad_clothes, player, {
         onEnd : () => {
             startScene(getLocationScene(player), player);
         }
@@ -59,7 +59,7 @@ window.EVENTS.push({
         !player.flags.dericLetterReceived,
 
     action : (player) => {
-        startScene(SCENES.deric.deric_first_meeting_high_charm_event, player, {
+        startScene(NPC_DATA["deric"].scenes.deric_first_meeting_high_charm_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
                 player.flags.dericFirstMetDay = getCurrentDay(player);
@@ -82,7 +82,7 @@ window.EVENTS.push({
         !player.flags?.dericFirstMet,
 
     action : (player) => {
-        startScene(SCENES.deric.deric_first_meeting_nikolai_letter_kept_event, player, {
+        startScene(NPC_DATA["deric"].scenes.deric_first_meeting_nikolai_letter_kept_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
                 player.flags.dericFirstMetDay = getCurrentDay(player);
@@ -105,7 +105,7 @@ window.EVENTS.push({
         !player.flags?.dericFirstMet,
 
     action : (player) => {
-        startScene(SCENES.deric.deric_first_meeting_nikolai_letter_sold_event, player, {
+        startScene(NPC_DATA["deric"].scenes.deric_first_meeting_nikolai_letter_sold_event, player, {
             onEnd : () => {
                 player.flags.dericFirstMet = true;
                 player.flags.dericFirstMetDay = getCurrentDay(player);
@@ -131,7 +131,7 @@ window.EVENTS.push({
         ( getTimePeriod(player) === "afternoon" ),
 
     action : (player) => {
-        startScene(SCENES.deric.deric_date_01, player, {
+        startScene(NPC_DATA["deric"].scenes.deric_date_01, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }
@@ -151,7 +151,7 @@ window.EVENTS.push({
         ( getTimePeriod(player) === "afternoon" ),
 
     action : (player) => {
-        startScene(SCENES.deric.deric_date_02, player, {
+        startScene(NPC_DATA["deric"].scenes.deric_date_02, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }

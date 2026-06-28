@@ -28,7 +28,7 @@ registerActions("yuri",{
     
     //쉘터대화로그
     giveFood : (player) => {
-        openGiveFoodMenu(player, "matin");
+        openGiveFoodMenu(player, "yuri");
     },
 
     talk: (player) => {

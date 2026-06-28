@@ -682,7 +682,7 @@ function buildRichTownEntranceScene(player, loc, randomDesc){
             type: "choice",
             choices: [
                 { text: "경비병에게 간다", action: "approach_richGateGuard" },
-                { text: "지하철을 탄다", action: "move_subway" }
+                { text: "지하철로 향한다", action: "move_subway" }
             ]
         }
     ];

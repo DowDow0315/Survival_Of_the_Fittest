@@ -464,7 +464,7 @@ const DUNGEONS = {
             "r3c0" : {name : "위로 뻗어가는 길1", exits : {down : "r4c0", up : "r2c0"}, event : "slaverCampShelter_yuri_04"},
             "r2c0" : {name : "쉘터를 위한 길", exits : {down : "r3c0", right : "r2c1"}},
             "r2c1" : {name : "결전 직전의 길", exits : {left : "r2c0", right : "r2c2"}, event : "slaverCampShelter_yuri_05"},
-            "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}}
+            "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}, boss: "trafficker4"}
         },
 
         encounters : [
@@ -2504,6 +2504,31 @@ const DUNGEON_EVENTS = {
                     changeHP(player, 20);
                     changeStamina(player, 20);
                 }
+            }
+        ]
+    },
+    slaverCampShelter : {
+        slaverCampShelter_yuri_01 : [
+            {
+                type : "text",
+                value : [
+                    "\"여기에 아이들이...\"<br><br>" +
+                    "유리는 고개를 숙였다. 몇 초간 고개를 숙이고 있던 유리는 다시 고개를 돌았다." +
+                    "<br><br>\"미안. 이러고 있는 동안에도 그들은 고통을 받고 있겠지.\"" +
+                    "<br><br>확고한 호박색 눈동자, 그는 자신이 목숨을 잃게 된다고 하더라도 아이들을 구출할 생각이다." +
+                    "<br><br>\"내 옆에 있어줘서 고마워, {playerName}.\""
+                ]
+            }
+        ],
+
+        slaverCampShelter_yuri_02 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 유리가 옆에서 싸우는 모습을 지켜보았다. 그의 동작은 언제나처럼 유려했고 상대방의 숨통을 끊는 일에 주저하지 않았다." +
+                    " 당신은 유리에게 언제부터 사람 숨통을 끊을 수 있게 되었냐고 물었다. 당신의 질문에 유리는 자신의 쌍검을 소매 안으로 집어넣었다. 그의 쌍검에는 하류도시의 사람들 것으로는 보이지 않는 보석이 하나 박혀있었다, 그의 눈동자를 닮은 호박." +
+                    ""
+                ]
             }
         ]
     }

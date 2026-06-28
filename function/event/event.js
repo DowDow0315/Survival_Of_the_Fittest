@@ -1046,6 +1046,23 @@ function checkAllEvents(player){
         return triggerEricWeeklyPayment(player);
     }
 
+    const priorityEvent = EVENTS.find(e => e.id === "undercity_story_05_bandit_attack");
+
+    if (
+        priorityEvent &&
+        !(priorityEvent.once && player.flags?.[priorityEvent.id]) &&
+        priorityEvent.condition(player)
+    ){
+        priorityEvent.action(player);
+
+        if (priorityEvent.once){
+            player.flags[priorityEvent.id] = true;
+            localStorage.setItem("playerData", JSON.stringify(player));
+        }
+
+        return true;
+    }
+
     const shuffled = [...EVENTS].sort(() => Math.random() - 0.5);
 
     for (const event of shuffled){

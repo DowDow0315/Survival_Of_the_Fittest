@@ -433,6 +433,7 @@ const EVENTS = [
     //메인퀘스트 관련 이벤트
     {
         id : "undercity_03_guard_missing_event_01",
+        priority : true,
         once : true,
         condition : (player) =>
             player.location === "townEntrance" &&
@@ -465,6 +466,7 @@ const EVENTS = [
     },
     {
         id : "undercity_03_luke_barrack_event_01",
+        priority : true,
         once : true,
         condition : (player) =>
             player.location === "barracks" &&
@@ -477,6 +479,7 @@ const EVENTS = [
     },
     {
         id : "eric_undercity_04_skip_event",
+        priority : true,
         once : true,
         
         condition : (player) =>
@@ -499,6 +502,7 @@ const EVENTS = [
     },
     {
         id : "undercity_story_05_bandit_attack",
+        priority : true,
         once : true,
         
         condition : (player) =>
@@ -516,6 +520,7 @@ const EVENTS = [
     },
     {
         id : "undercity_story_07_eric_townStreet_event",
+        priority : true,
         
         condition : (player) =>
              player.location === "townStreet" &&
@@ -584,6 +589,7 @@ const EVENTS = [
     },
     {
         id : "undercity_story_07_guardPost1_event",
+        priority : true,
         
         condition : (player) =>
             player.location === "guardPost1" &&
@@ -615,6 +621,7 @@ const EVENTS = [
     },
     {
         id : "yuri_recommend_letter_event",
+        priority : true,
         once : true,
         
         condition : (player) =>
@@ -1039,31 +1046,37 @@ window.EVENTS = EVENTS;
 
 function checkAllEvents(player){
     if (!player || player.inBattle) return false;
+
+    player.flags = player.flags || {};
     updateLukeUndercityAbsence(player);
 
-    // 에릭 수금 이벤트는 1주(1680 time) 경과 후 최우선순위 이벤트. 주당 1회만 발생
+    // 에릭 수금 이벤트 최우선
     if (shouldTriggerEricWeeklyPayment(player)){
         return triggerEricWeeklyPayment(player);
     }
 
-    const priorityEvent = EVENTS.find(e => e.id === "undercity_story_05_bandit_attack");
+    // priority 이벤트 먼저
+    const priorityEvents = EVENTS.filter(e => e.priority);
 
-    if (
-        priorityEvent &&
-        !(priorityEvent.once && player.flags?.[priorityEvent.id]) &&
-        priorityEvent.condition(player)
-    ){
-        priorityEvent.action(player);
+    for (const event of priorityEvents){
+        if (event.once && player.flags[event.id]) continue;
 
-        if (priorityEvent.once){
-            player.flags[priorityEvent.id] = true;
-            localStorage.setItem("playerData", JSON.stringify(player));
+        if (event.condition(player)){
+            event.action(player);
+
+            if (event.once){
+                player.flags[event.id] = true;
+                localStorage.setItem("playerData", JSON.stringify(player));
+            }
+
+            return true;
         }
-
-        return true;
     }
 
-    const shuffled = [...EVENTS].sort(() => Math.random() - 0.5);
+    // 일반 이벤트만 랜덤
+    const shuffled = EVENTS
+        .filter(e => !e.priority)
+        .sort(() => Math.random() - 0.5);
 
     for (const event of shuffled){
         if (event.once && player.flags[event.id]) continue;
@@ -1079,6 +1092,7 @@ function checkAllEvents(player){
             return true;
         }
     }
+
     return false;
 }
 

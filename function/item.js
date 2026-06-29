@@ -765,7 +765,7 @@ const ITEMS ={
         dotBra : {
             name : "도트브라",
             type : "bra",
-            price : 5000,
+            price : 4000,
             stats : {
                 charm : 1
             }
@@ -773,7 +773,7 @@ const ITEMS ={
         ribonBra : {
             name : "리본브라",
             type : "bra",
-            price : 5000,
+            price : 4000,
             stats : {
                 charm : 1
             }
@@ -782,7 +782,7 @@ const ITEMS ={
             name : "레이스브라",
             type : "bra",
             desc : "'레이스브라는 있어야 하는 거 아닌가요?'라는 누군가의 소망으로 생성된 브라. 예쁘다.",
-            price : 5000,
+            price : 4000,
             stats : {
                 charm : 1
             }
@@ -791,7 +791,7 @@ const ITEMS ={
             name : "끈없는브라",
             type : "bra",
             desc : "D로 시작하는 게임에서 어떤 예쁜 캐릭터가 입고 있었던 브라다. 역시 예쁘다.",
-            price : 5000,
+            price : 4000,
             stats : {
                 charm : 1
             }

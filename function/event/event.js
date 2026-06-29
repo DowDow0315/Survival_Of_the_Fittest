@@ -16,7 +16,7 @@ const ENEMY_POOLS = {
     ],
     forest: [
         { id: "slime", weight: 40 },
-        { id : "dear", weight: 30 },
+        { id : "deer", weight: 30 },
         { id: "goblin", weight: 20 },
         { id: "rapistM", weight: 10 },
         { id: "rapistF", weight: 10 },

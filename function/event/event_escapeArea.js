@@ -2898,7 +2898,7 @@ window.mine_dig = function(player){
         if (index >= 0) player.inventory.splice(index, 1);
         text += "<br><br>곡괭이가 완전히 닳아 부서졌다.";
     } else {
-        text += `<br><br>곡괭이 내구도: ${pickaxe.durability}/20`;
+        text += `<br><br>곡괭이 내구도: ${pickaxe.durability}/10`;
     }
 
     startScene([

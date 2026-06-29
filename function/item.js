@@ -940,6 +940,16 @@ const ITEMS ={
                 str : 2,
                 int : -2
             }
+        },
+
+        whiteFlowerPants : {
+            name : "하얀꽃잎팬티",
+            type : "underwear",
+            desc : "금방이라도 흐트러질 거 같지만 흐트러지지 않는다. 하얀꽃의 생명력은 길다.",
+            price : 0,
+            stats : {
+                charm : 3
+            }
         }
     },
 
@@ -1816,6 +1826,12 @@ const ITEMS ={
             desc : "루크의 삐뚤거리는 글씨가 새겨져있는 경비병의 훈장. 막사에 있는 루크에게 가져다주면 반응을 보일지도 모른다.",
             type : "key",
             price : 300
+        },
+        valenAdmission : {
+            name : "발렌의 출입 허가증",
+            desc : "상류도시의 인장이 찍혀있는 발렌의 출입 허가증.",
+            type : "key",
+            price : 0
         }
     }
 };

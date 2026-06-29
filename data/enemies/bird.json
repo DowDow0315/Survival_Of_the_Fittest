@@ -1,0 +1,102 @@
+{
+    "name": "새",
+    "hp": 30,
+    "attack": 1,
+    "defense": 10,
+    "eva": 50,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "animalMeatPieces",
+            "chance": 1
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 0.2
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "새는 작은 부리로 당신을 쪼고 있다!"
+        ],
+        "hit": [
+            "꽤액! 새는 비명을 질렀다."
+        ],
+        "evade": [
+            "새는 슉슈슉 슉 피했지롱을 시전했다."
+        ],
+        "defeat": [
+            "새는 최후의 꽤액!을 남기고 쓰러졌다. 작은 덩치에 비해 너무 용감했다..."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "몸통박치기",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "새는 무리하게 당신에게 몸통박치기를 해댔다. 어디 새대가리의 맛을 봐라! 라고 새의 눈동자는 용감하게 말하고 있었다."
+            ]
+        },
+        {
+            "name": "부리쪼기",
+            "power": 0.3,
+            "hits" : 15,
+            "type": "multiHit",
+            "chance": 0.5,
+            "lines": [
+                "새가 재빠르게 당신을 쪼았다. 콕, 콕콕, 콕콕콕, 콕콕콕콕콕!! 아프진 않은데 JONNA 짜증난다."
+            ]
+        }
+    ],
+    "exp" : 1
+}

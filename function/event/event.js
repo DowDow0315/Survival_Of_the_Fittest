@@ -5,19 +5,22 @@ window.EVENTS = window.EVENTS || [];
 const ENEMY_POOLS = {
     townEntrance: [
         { id: "rapistM", weight: 60 },
-        { id: "rapistF", weight: 40 }
+        { id: "rapistF", weight: 40 },
+        { id: "bird", weight: 90 }
     ],
     townStreet: [
         { id: "rapistM", weight: 50 },
         { id: "rapistF", weight: 40 },
-        { id: "slime", weight: 10}
+        { id: "slime", weight: 10},
+        { id: "bird", weight: 90 }
     ],
     forest: [
         { id: "slime", weight: 40 },
         { id : "dear", weight: 30 },
         { id: "goblin", weight: 20 },
         { id: "rapistM", weight: 10 },
-        { id: "rapistF", weight: 10 }
+        { id: "rapistF", weight: 10 },
+        { id: "bird", weight: 40 }
     ],
     deepForest: [
         { id : "dear", weight: 30 },
@@ -25,23 +28,27 @@ const ENEMY_POOLS = {
         { id: "flower", weight: 10 },
         { id: "slime", weight: 10 },
         { id: "bandit1", weight: 8 },
-        { id : "bandit2", weight : 2}
+        { id : "bandit2", weight : 2},
+        { id: "bird", weight: 40 }
     ],
     graveyard : [
         { id: "skeleton", weight : 100}
     ],
     banditForest : [
         { id : "dear", weight: 10 },
+        { id: "bird", weight: 40 },
         { id: "bandit1", weight: 70 },
         { id: "bandit2", weight: 30 }
     ],
     guardPost1 : [
+        { id: "bird", weight: 40 },
         { id : "dear", weight: 10 },
         { id: "bandit1", weight : 45 },
         { id: "bandit2", weight : 50 },
         { id : "infectedSmall", weight : 5}
     ],
     guardPost2 : [
+        { id: "bird", weight: 20 },
         { id : "dear", weight: 5 },
         { id : "infectedSmall", weight : 20 },
         { id : "bandit2", weight : 5 },

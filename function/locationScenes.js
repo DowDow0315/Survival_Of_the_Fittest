@@ -418,14 +418,42 @@ function buildGuardPost3Scene(player, loc, randomDesc){
         {
             type:"choice",
             choices:[
-                { text:"폐야로 향한다", action:"travel_guardPost3_to_wastedRuin" },
-                { text:"하얀꽃무덤으로 향한다", action:"travel_guardPost3_to_whiteFlowerTomb" },
+                { text:"폐야로 향한다", action:"approach_wastedRuin" },
+                { text:"하얀꽃무덤으로 향한다", action:"approach_whiteFlowerTomb" },
                 { text:"경계병 제2초소로 돌아간다", action:"travel_guardPost3_to_guardPost2" },
                 { text:"잠깐 쉬기", action:"rest" }
             ]
         }
     ];
 }
+
+window.approach_wastedRuin = function(player){
+    if (hasItem(player, "발렌의 출입 허가증")){
+        moveTo(player, "wastedRuin");
+        return;
+    }
+
+    showSingleTextScene(
+        "당신이 폐야 쪽으로 향하려 하자 경계병 한 명이 창으로 길을 막았다.<br><br>" +
+        "\"발렌 님이 아직은 가는 길을 막아두라고 했다. 네가 왜 가고 싶어하는지는 이해가 안 가지만...\"<br><br>" +
+        "그는 당신을 미친 사람 취급하고 있다.",
+        player
+    );
+};
+
+window.approach_whiteFlowerTomb = function(player){
+    if (hasItem(player, "발렌의 출입 허가증")){
+        moveTo(player, "whiteFlowerTomb");
+        return;
+    }
+
+    showSingleTextScene(
+        "당신이 하얀꽃 무덤 쪽으로 향하려 하자 경계병 한 명이 창으로 길을 막았다.<br><br>" +
+        "\"발렌 님이 아직은 가는 길을 막아두라고 했다. 네가 왜 가고 싶어하는지는 이해가 안 가지만...\"<br><br>" +
+        "그는 당신을 미친 사람 취급하고 있다.",
+        player
+    );
+};
 
 function buildWastedRuinScene(player, loc, randomDesc){
     return [

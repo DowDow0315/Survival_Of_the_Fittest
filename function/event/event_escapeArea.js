@@ -1759,12 +1759,13 @@ const ESCAPE_AREA_EVENTS = {
             ]
         },
         {
-            weight : 10,
+            weight : 20,
             scene : [
                 {
                     type : "text",
                     value : [
-                        "길을 걷던 당신은 광산을 발견했다!"
+                        "길을 걷던 당신은 광산을 발견했다!",
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
                     ]
                 },
                 {
@@ -2204,7 +2205,7 @@ const ESCAPE_AREA_EVENTS = {
             ]
         },
         {
-            weight : 10,
+            weight : 20,
             scene : [
                 {
                     type : "text",

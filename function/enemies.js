@@ -44,7 +44,7 @@ function getLine(enemy, type){
 
 async function loadEnemies(){
     const list = [
-        "deat", "bird",
+        "dear", "bird",
         "rapistM", "rapistF", "slime", "goblin", "flower",
         "begger", "beggers", "goblinKing", "skeleton",
         "bandit1", "bandit2", "banditBoss",

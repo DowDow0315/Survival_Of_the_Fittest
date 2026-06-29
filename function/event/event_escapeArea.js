@@ -2901,8 +2901,6 @@ window.mine_dig = function(player){
         text += `<br><br>곡괭이 내구도: ${pickaxe.durability}/20`;
     }
 
-    savePlayer(player);
-
     startScene([
         { type: "text", value: text }
     ], player, {

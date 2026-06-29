@@ -1743,47 +1743,47 @@ const ITEMS ={
         //강화재료
         ironOre: {
             name : "철광석",
-            type : "junk",
+            type : "ore",
             price : 400
         },
         silverOre: {
             name : "은광석",
-            type : "junk",
+            type : "ore",
             price : 500
         },
         goldOre: {
             name : "금광석",
-            type : "junk",
+            type : "ore",
             price : 650
         },
         whiteFlowerLeafStone: {
             name : "백화석",
-            type : "junk",
+            type : "ore",
             price : 1000
         },
         whiteHeart: {
             name : "백심장",
-            type : "junk",
+            type : "ore",
             price : 10000
         },
         ruby : {
             name : "루비",
-            type : "junk",
+            type : "ore",
             price : 8000
         },
         sapphire : {
             name : "사파이어",
-            type : "junk",
+            type : "ore",
             price : 8000
         },
         aquamarine : {
             name : "아쿠아마린",
-            type : "junk",
+            type : "ore",
             price : 8000
         },
         diamond : {
             name : "다이아몬드",
-            type : "junk",
+            type : "ore",
             price : 8000
         },
         pickaxe : {

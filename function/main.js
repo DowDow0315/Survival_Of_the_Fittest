@@ -2089,15 +2089,24 @@ function renderInventoryModal(player){
     };
 
     const miscTab = document.createElement("button");
-    miscTab.innerText = "보조장비";
+    miscTab.innerText = "도구";
     miscTab.className = inventoryTab === "misc" ? "active-tab" : "";
     miscTab.onclick = () => {
         inventoryTab = "misc";
         renderInventoryModal(player);
     };
 
+    const oreTab = document.createElement("button");
+    oreTab.innerText = "광석재료";
+    oreTab.className = inventoryTab === "ore" ? "active-tab" : "";
+    oreTab.onclick = () => {
+        inventoryTab = "ore";
+        renderInventoryModal(player);
+    };
+
     tabWrap.appendChild(equipTab);
     tabWrap.appendChild(itemTab);
+    tabWrap.appendChild(oreTab);
     tabWrap.appendChild(miscTab);
     box.appendChild(tabWrap);
 
@@ -2126,6 +2135,10 @@ function renderInventoryModal(player){
             item.type === "junk" ||
             item.type === "key"
         );
+    } else if (inventoryTab === "ore"){
+        filtered = player.inventory.filter(item =>
+            item.type === "ore"
+        );
     } else if (inventoryTab === "misc"){
         filtered = player.inventory.filter(item =>
             item.type === "misc"
@@ -2140,7 +2153,7 @@ function renderInventoryModal(player){
         return;
     }
 
-    const displayItems = inventoryTab === "items"
+    const displayItems = ["items", "ore"].includes(inventoryTab)
     ? Object.values(
         filtered.reduce((acc, item) => {
             const key = item.key || item.name;

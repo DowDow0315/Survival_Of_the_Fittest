@@ -33,7 +33,7 @@ const WEAPON_SKILLS = {
             cost: 6,
             type: "damage",
             power: 7,
-            unlock: 300,
+            unlock: 200,
             desc : "데미지 7배"
         }
     ],
@@ -229,7 +229,7 @@ const WEAPON_SKILLS = {
             cost: 2,
             type: "damage",
             power: 3,
-            unlock: 300,
+            unlock: 200,
             desc : "데미지 3배"
         }
     ],
@@ -269,7 +269,7 @@ const WEAPON_SKILLS = {
             cost : 4,
             type : "damage",
             power : 4.5,
-            unlock : 300,
+            unlock : 200,
             desc : "데미지 4.5배"
         }
     ],
@@ -312,7 +312,7 @@ const WEAPON_SKILLS = {
                 evaMult : 1.4
             },
             duration : 3,
-            unlock : 300,
+            unlock : 200,
             desc : "3턴간 회피력 1.4배, 방어력 1.4배"
         }
     ],
@@ -352,7 +352,7 @@ const WEAPON_SKILLS = {
             type: "bleed",
             dot: 5,
             duration: 8,
-            unlock: 300,
+            unlock: 200,
             desc : "8턴간 상대방에게 출혈데미지(5)"
         }
     ],
@@ -393,7 +393,7 @@ const WEAPON_SKILLS = {
             type : "multiHit",
             power : 0.5,
             hits : 9,
-            unlock : 300,
+            unlock : 200,
             desc : "데미지 0.5배로 9번 연속 공격"
         }
     ],
@@ -441,7 +441,7 @@ const WEAPON_SKILLS = {
                 defMult : 1.3
             },
             duration : 4,
-            unlock : 300,
+            unlock : 200,
             desc : "4턴간 방어력 1.3배"
         }
     ],
@@ -484,7 +484,7 @@ const WEAPON_SKILLS = {
                 evaMult : 2
             },
             duration : 3,
-            unlock : 300,
+            unlock : 200,
             desc : "3턴간 회피율/명중률 2배"
         }
     ]
@@ -492,51 +492,51 @@ const WEAPON_SKILLS = {
 
 const MASTER_SKILLS = {
     "한손검": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "버티기"
     },
     "대검": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "모아베기"
     },
     "대거": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "방어자세"
     },
     "댄싱대거": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "피의환무"
     },
     "도끼HM" : {
-        requiredMastery : 350,
+        requiredMastery : 300,
         skillName : "하이리스크 미디엄리턴"
     },
     "레플리카 베요네따" : {
-        requiredMastery : 350,
+        requiredMastery : 300,
         skillName : "준비 자세"
     },
     "지팡이": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "독가스"
     },
     "클럽": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "얕~보~지~마~"
     },
     "고블린검": {
-        requiredMastery: 350,
+        requiredMastery: 300,
         skillName: "마구때리기"
     },
     "투척단검" : {
-        requiredMastery : 350,
+        requiredMastery : 300,
         skillName : "단검난사"
     },
     "경계병창" : {
-        requiredMastery : 350,
+        requiredMastery : 300,
         skillName : "지키기위한마음"
     },
     "은장도" : {
-        requiredMastery : 350,
+        requiredMastery : 300,
         skillName : "달빛에반사되는"
     }
 };

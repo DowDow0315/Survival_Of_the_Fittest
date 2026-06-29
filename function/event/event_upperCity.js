@@ -7,6 +7,7 @@ window.EVENTS.push({
         player.location === "richTownStreet",
 
     action : (player) => {
+        player.flags.uppercity_first_entry_event_seen = true;
         player.flags.uppercity_first_entry_event_seen_day = getCurrentDay(player);
         savePlayer(player);
         

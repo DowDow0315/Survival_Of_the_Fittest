@@ -67,9 +67,9 @@ window.EVENTS.push({
                     "당신은 서신에 적힌 곳으로 가기 위해 발걸음을 옮겼다. 온통 금색으로 된 영광의 거리를 지나자 이번에는 백색의 거리가 나타났다. 백색 제복을 입은 사람들이 거리에 한치의 흐트러짐도 없이 일렬로 서있었다. 몇몇은 당신에게 그저 고개만 숙였지만, 몇몇은 사나운 시선으로 당신을 노려보다가 고개를 돌렸다.",
                     " 당신은 천국으로 가는 길을 걸어갔다. 눈이 부실 정도로 깨끗한 거리. 당신은 문득 자신이 상류도시에 처음 들어왔을 때를 떠올렸다. 하지만 이곳은 부유한 거리나 영광의 거리보다도 더 비현실적으로 느껴졌다. 당신은 계속 걸었다.",
                     "<br><br>\"엄마, 난 커서 발렌님 같은 사람이 될 거야!\"<br><br>",
-                    "<br><br>\"그래. 착한 아이가 되면 될 수 있을 거야.\"<br><br>",
+                    "\"그래. 착한 아이가 되면 될 수 있을 거야.\"<br><br>",
                     "아이의 머리를 쓰다듬는 부모는 자랑스러운 미소를 짓고 있었다. <br>...당신은 계속 걸었다.",
-                    "<br><br>그리고 마침내,<br>당신은 천국으로 가는 길의 끝에 다다랐다. 거대한 백색의 성, 햇빛을 받아 백색인데도 황금빛으로 빛나는 첨탑, 천사상을 연상시키는 조각들,<br><br>사람들은 그곳을 천국의 성이라고 불렀다. <br><br>발렌이 머무르는 곳.<br><br>당신은 거대한 성문 앞에 멈춰섰다."
+                    "<br>그리고 마침내,<br>당신은 천국으로 가는 길의 끝에 다다랐다. 거대한 백색의 성, 햇빛을 받아 백색인데도 황금빛으로 빛나는 첨탑, 천사상을 연상시키는 조각들,<br><br>사람들은 그곳을 천국의 성이라고 불렀다. <br><br>발렌이 머무르는 곳.<br><br>당신은 거대한 성문 앞에 멈춰섰다."
                 ]
             },
             {
@@ -93,7 +93,7 @@ window.start_uppercity_valen_first_meeting_event = function(player) {
     player.flags.uppercity_valen_first_meeting_event_seen = true;
     savePlayer(player);
     
-    startScene(VALEN.uppercity_valen_first_meeting_event, player, {
+    startScene(NPC_DATA["valen"].scenes.uppercity_valen_first_meeting_event, player, {
         onEnd : () => startScene(getLocationScene(player), player)
     });
 

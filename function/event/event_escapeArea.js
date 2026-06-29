@@ -2867,14 +2867,30 @@ window.mine_dig = function(player){
     mine.minedSteps = mine.minedSteps || {};
 
     if (mine.minedSteps[mine.step]){
-        showSingleTextScene("이 근처에서는 더 이상 파낼 만한 광석이 보이지 않는다.", player);
+        startScene([
+            {
+                type: "text",
+                value: "이 근처에서는 더 이상 파낼 만한 광석이 보이지 않는다."
+            }
+        ], player, {
+            noSaveScene: true,
+            onEnd: () => startMineScene(player)
+        });
         return;
     }
 
     const pickaxe = getPickaxe(player);
 
     if (!pickaxe){
-        showSingleTextScene("광석을 캐려면 곡괭이가 필요하다.", player);
+        startScene([
+            {
+                type: "text",
+                value: "광석을 캐려면 곡괭이가 필요하다."
+            }
+        ], player, {
+            noSaveScene: true,
+            onEnd: () => startMineScene(player)
+        });
         return;
     }
 

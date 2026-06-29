@@ -2115,7 +2115,8 @@ function renderInventoryModal(player){
         filtered = player.inventory.filter(item =>
             isConsumableItem(item) ||
             item.type === "junk" ||
-            item.type === "key"
+            item.type === "key" ||
+            item.type === "misc"
         );
     }
 
@@ -2201,6 +2202,12 @@ function renderInventoryModal(player){
             const desc = document.createElement("p");
             desc.innerHTML = item.desc;
             info.appendChild(desc);
+        }
+
+        if (item.maxDurability){
+            const durability = document.createElement("p");
+            durability.innerText = `내구도: ${item.durability ?? item.maxDurability}/${item.maxDurability}`;
+            info.appendChild(durability);
         }
 
         div.appendChild(info);

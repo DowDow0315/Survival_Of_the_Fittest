@@ -1705,7 +1705,7 @@ const ITEMS ={
             price : 25
         },
         drug : {
-            name : "마약, 거지들도 구할 수 있을 정도의 싸구려 마약이다.",
+            name : "싸구려 마약",
             type : "junk",
             price : 100
         },

@@ -90,7 +90,7 @@
         {
             "name": "부리쪼기",
             "power": 0.3,
-            "hits" : 15,
+            "hits" : 9,
             "type": "multiHit",
             "chance": 0.5,
             "lines": [

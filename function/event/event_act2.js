@@ -351,3 +351,54 @@ window.EVENTS.push({
         ], player);
     }
 });
+
+window.EVENTS.push({
+    id : "erwin",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.uppercity_story_01_done &&
+        getCurrentDay(player) >= player.flags.uppercity_story_01_done_day + 3 &&
+        !player.flags?.valenwantstokillErwin_event_seen &&
+        !player.quest?.active,
+
+    action : (player) => {
+        player.flags.valenwantstokillErwin_event_seen = true;
+        player.flags.uppercity_story_02_quest_unlocked = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 주점에 들어섰다. 평소의 주점보다 더 어수선한 분위기, 그리고 당신은 2초도 지나지 않아 그 이유를 깨달을 수 있었다." +
+                    "<br>아카시아가 주점 의자에 앉아있었다. 그는 마틴이 내어준 음식을 먹으며 고개를 끄덕였다." +
+                    "<br><br>\"기대 이상으로 맛있군요. 하류도시의 음식이라고는 생각도 들지 않을 정도로.\"<br><br>" +
+                    "발렌에 이어서 아카시아까지 하류도시에 행차하다니, 하류도시의 사람들은 웅성거리며 서로의 눈치를 보고 있었다. 경비병들마저도 아카시아에게는 쉽사리 접근을 못하고 있었다. 아카시아는 우아하게 마지막 숟가락질까지 끝내더니 당신을 돌아보았다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "당신을 평가하는 듯한 차가운 시선. 그의 시선 앞에서 당당하게 어깨를 펼 수 있는 사람은 과연 몇이나 될까. 아카시아는 자리에서 일어나 당신에게 걸어왔다." +
+                    "<br><br>\"당신에게 부탁할 것이 있어서 직접 찾아왔습니다, 하류도시의 영웅.<br>하얀꽃무덤을 아시는지요?\"<br><br>" +
+                    "하얀꽃무덤. 폐야. 두 곳 모두 인간의 마지막 방위선이라고 불리는 경계병 제3초소 너머에 있는 곳이다. 그곳에서 살아돌아온 사람은 없다고 들었다.<br><br>" +
+                    "\"그 하얀꽃무덤에서 결국 한 마물이 내려왔다고 합니다. 경계병 제3초소 근처에서 몸을 숨기고 있지요. 아직은 적극적인 공격을 하지 않지만...\"<br><br>" +
+                    "아카시아의 차가운 시선은 한시도 당신에게서 떨어지지 않고 있다." +
+                    "<br><br>\"그것이 언제 공격할지는 모르는 법이니까요.\""
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "아카시아가 한 걸음 더 당신에게 다가왔다." +
+                    "<br><br>\"물론...\"<br><br>" +
+                    "그는 당신을 직접적으로 건드리지는 않았다. 하지만 거리가 너무 가까웠다. 그의 차가운 숨결이 당신의 뺨위로 느껴진다." +
+                    "<br><br>\"그저 의뢰를 주려고 온 건 아닙니다. 당신을 한번 더 확인해보고 싶었을 뿐.<br><br>이번에도 완벽하게 해내신다면.... 개인적으로도 당신의 공을 치하하고 싶군요.\"<br><br>" +
+                    "아카시아는 다시 당신에게서 반 걸음 물러났다." +
+                    "<br><br>\"의뢰는 주점 게시판에 붙여놓겠습니다. 기대하고 있겠습니다, 하류도시의 영웅.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

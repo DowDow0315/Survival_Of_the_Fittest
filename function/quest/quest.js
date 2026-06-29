@@ -424,6 +424,37 @@ const QUESTS = {
         completeText : "마틴은 당신의 보고에 고개를 끄덕였다. 그는 상류도시에 전령을 보내놓겠다고 말했다. 마틴의 전령이 발렌에게 닿으려면 조금 오래 걸릴 것이다.... 발렌이 당신을 정말로 신경쓰고 있다면 오래 걸리지 않을 수도 있고."
     },
 
+    uppercity_story_02 : {
+        id : "uppercity_story_02",
+        title : "하얀꽃무덤에서 내려온 마물",
+        type: "boss",
+        bossName : "마물",
+        repeatable : false,
+        giver : "akasia",
+        
+        desc : "하얀꽃무덤에서 내려온 마물이 있다고 한다. 경계병 제3초소 근처에서 수색하자.",        
+        activeDesc : "당신은 경계병 제3초소에서부터 마물의 흔적을 쫓아서 가야 한다.",
+        readyDesc : "...마물은 죽었다. 주점에 가서 보고하자.",
+        
+        targetBoss: "erwin",
+        requiredKill: 1,
+        rewardGold: 2500,
+
+        require : {
+            flag : "uppercity_story_02_quest_unlocked"
+        },
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.uppercity_story_02_done = true;
+            player.flags.uppercity_story_02_done_day = getCurrentDay(player);
+            player.flags.uppercity_story_02_quest_unlocked = false;
+        },
+
+        acceptText : "당신이 의뢰서를 가져오자 마틴은 힐끗 당신을 보았다. <br><br>\"....\"<br><br>당신은 의뢰를 받았다.",
+        completeText : "\"...안색이 왜 그래?\"<br><br>당신의 보고를 받던 마틴이 당신에게 물었다. <br><br>\"피곤하면 쉘터에 가서 쉬도록 해. 수고했어.\""
+    },
+
     //반란군 스토리
     rebel_story_01 : {
         id : "rebel_story_01",

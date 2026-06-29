@@ -101,6 +101,12 @@ function normalizePlayer(player){
     }
 
     player.inventory.forEach(item => {
+        item.key ??= getItemKeyByName(item.name);
+        const latest = findItemByKey(item.key);
+        
+        if (latest){
+            item.type = latest.type;
+        }
         ensureEquipmentItemState(item);
     });
 

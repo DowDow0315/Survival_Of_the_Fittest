@@ -24,14 +24,14 @@ window.open_cookingIngredientSelect = function(player){
 
     const choices = [];
 
-    const miscItems = player.inventory.filter(item =>
-        item.type === "junk" &&
+    const foodItems = player.inventory.filter(item =>
+        item.type === "food" &&
         item.key
     );
 
     const grouped = {};
 
-    miscItems.forEach(item => {
+    foodItems.forEach(item => {
         grouped[item.key] = grouped[item.key] || {
             item,
             count: 0

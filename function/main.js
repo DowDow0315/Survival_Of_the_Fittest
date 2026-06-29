@@ -2071,43 +2071,27 @@ function renderInventoryModal(player){
 
     const tabWrap = document.createElement("div");
     tabWrap.className = "inventory-tabs";
-
-    const equipTab = document.createElement("button");
-    equipTab.innerText = "장비";
-    equipTab.className = inventoryTab === "equipment" ? "active-tab" : "";
-    equipTab.onclick = () => {
-        inventoryTab = "equipment";
-        renderInventoryModal(player);
-    };
-
-    const itemTab = document.createElement("button");
-    itemTab.innerText = "아이템";
-    itemTab.className = inventoryTab === "items" ? "active-tab" : "";
-    itemTab.onclick = () => {
-        inventoryTab = "items";
-        renderInventoryModal(player);
-    };
-
-    const miscTab = document.createElement("button");
-    miscTab.innerText = "도구";
-    miscTab.className = inventoryTab === "misc" ? "active-tab" : "";
-    miscTab.onclick = () => {
-        inventoryTab = "misc";
-        renderInventoryModal(player);
-    };
-
-    const oreTab = document.createElement("button");
-    oreTab.innerText = "광석재료";
-    oreTab.className = inventoryTab === "ore" ? "active-tab" : "";
-    oreTab.onclick = () => {
-        inventoryTab = "ore";
-        renderInventoryModal(player);
-    };
-
-    tabWrap.appendChild(equipTab);
-    tabWrap.appendChild(itemTab);
-    tabWrap.appendChild(oreTab);
-    tabWrap.appendChild(miscTab);
+    const tabs = [
+        { id: "equipment", label: "장비" },
+        { id: "consumable", label: "소모품" },
+        { id: "food", label: "식재료" },
+        { id: "key", label: "중요물품" },
+        { id: "ore", label: "광석재료" },
+        { id: "misc", label: "도구" },
+        { id: "junk", label: "잡동사니" }
+    ];
+    
+    tabs.forEach(tab => {
+        const btn = document.createElement("button");
+        btn.innerText = tab.label;
+        btn.className = inventoryTab === tab.id ? "active-tab" : "";
+        btn.onclick = () => {
+            inventoryTab = tab.id;
+            renderInventoryModal(player);
+        };
+        tabWrap.appendChild(btn);
+    });
+    
     box.appendChild(tabWrap);
 
     const listWrap = document.createElement("div");
@@ -2118,34 +2102,36 @@ function renderInventoryModal(player){
     if (inventoryTab === "equipment"){
         const inventoryEquip =
         player.inventory.filter(isEquipmentItem);
-        
         const equipped =
         Object.values(player.equipment || {})
         .filter(item =>
             item && isEquipmentItem(item)
         );
-        
         filtered = [
-            ...equipped,
-            ...inventoryEquip
-        ];
-    } else if (inventoryTab === "items"){
+        ...equipped,
+        ...inventoryEquip
+    ]; } else if (inventoryTab === "consumable"){
         filtered = player.inventory.filter(item =>
-            isConsumableItem(item) ||
-            item.type === "junk" ||
-            item.type === "key"
+            ["heal", "arousal", "alcohol", "sensitivityDown", "stamina"].includes(item.type)
         );
-    } else if (inventoryTab === "ore"){
+    } else if (inventoryTab === "food"){
         filtered = player.inventory.filter(item =>
-            item.type === "ore"
-        );
-    } else if (inventoryTab === "misc"){
+        item.type === "food"
+    ); } else if (inventoryTab === "key"){
         filtered = player.inventory.filter(item =>
-            item.type === "misc"
-        );
-    }
-
-    if (filtered.length === 0){
+        item.type === "key"
+    ); } else if (inventoryTab === "ore"){
+        filtered = player.inventory.filter(item =>
+        item.type === "ore"
+    ); } else if (inventoryTab === "misc"){
+        filtered = player.inventory.filter(item =>
+        item.type === "misc"
+    ); } else if (inventoryTab === "junk"){
+        filtered = player.inventory.filter(item =>
+        !isEquipmentItem(item) &&
+        !["heal", "arousal", "alcohol", "sensitivityDown", "stamina", "food", "key", "ore", "misc"].includes(item.type)
+    );
+    } if (filtered.length === 0){
         const empty = document.createElement("p");
         empty.innerText = "비어있음";
         listWrap.appendChild(empty);
@@ -2153,7 +2139,7 @@ function renderInventoryModal(player){
         return;
     }
 
-    const displayItems = ["items", "ore"].includes(inventoryTab)
+    const displayItems = ["consumable", "food", "key", "ore", "junk"].includes(inventoryTab)
     ? Object.values(
         filtered.reduce((acc, item) => {
             const key = item.key || item.name;

@@ -1590,42 +1590,42 @@ const ITEMS ={
         animalMeatPieces: {
             name: "고기조각(동물)",
             desc : "깔끔하게 잘라내는 게 잘 안 됐다....",
-            type: "junk",
+            type: "food",
             price: 15
         },
         animalMeat: {
             name: "고기(동물)",
-            type: "junk",
+            type: "food",
             price: 60
         },
         dearCrown: {
             name: "사슴뿔",
-            type: "junk",
+            type: "food",
             price: 35
         },
         potato: {
             name: "감자",
-            type: "junk",
+            type: "food",
             price: 170
         },
         cabbage: {
             name: "배추",
-            type: "junk",
+            type: "food",
             price: 170
         },
         mushroom: {
             name: "버섯",
-            type: "junk",
+            type: "food",
             price: 170
         },
         wheat: {
             name: "밀",
-            type: "junk",
+            type: "food",
             price: 200
         },
         rice: {
             name: "쌀",
-            type: "junk",
+            type: "food",
             price: 300
         },
         rustyRing: {
@@ -1635,7 +1635,7 @@ const ITEMS ={
         },
         slimeJelly: {
             name: "슬라임젤리",
-            type: "junk",
+            type: "food",
             price: 50
         },
         slimeCore: {
@@ -1661,17 +1661,17 @@ const ITEMS ={
         },
         goblinMeat: {
             name: "고블린고기",
-            type: "junk",
+            type: "food",
             price: 100
         },
         flower: {
             name: "하얀꽃",
-            type: "junk",
+            type: "food",
             price: 200
         },
         flowerNectar: {
             name: "넥타르",
-            type: "junk",
+            type: "food",
             price: 300
         },
         flowerLeaf: {
@@ -1681,12 +1681,12 @@ const ITEMS ={
         },
         wildFruit: {
             name: "야생열매",
-            type: "junk",
+            type: "food",
             price: 50
         },
         rareFruit: {
             name: "희귀한 숲열매",
-            type: "junk",
+            type: "food",
             price: 150
         },
         bloodycloth : {
@@ -1696,7 +1696,7 @@ const ITEMS ={
         },
         pieceofwhiteflower : {
             name : "하얀꽃잎조각들",
-            type : "junk",
+            type : "food",
             price : 100
         },
         skull : {

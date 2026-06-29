@@ -135,7 +135,8 @@ registerActions("luke", {
                         ]
                     )
                 }
-            ])
+            ], player, { onEnd});
+            return;
         }
 
         if (dominance > 50){
@@ -211,7 +212,8 @@ registerActions("luke", {
                     ]
                 )
             }
-        ], player, { onEnd })
+        ], player, { onEnd });
+        return;
     },
 
     otherTalk : (player) => {

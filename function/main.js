@@ -2088,8 +2088,17 @@ function renderInventoryModal(player){
         renderInventoryModal(player);
     };
 
+    const miscTab = document.createElement("button");
+    miscTab.innerText = "보조장비";
+    miscTab.className = inventoryTab === "misc" ? "active-tab" : "";
+    miscTab.onclick = () => {
+        inventoryTab = "misc";
+        renderInventoryModal(player);
+    };
+
     tabWrap.appendChild(equipTab);
     tabWrap.appendChild(itemTab);
+    tabWrap.appendChild(miscTab);
     box.appendChild(tabWrap);
 
     const listWrap = document.createElement("div");
@@ -2115,7 +2124,10 @@ function renderInventoryModal(player){
         filtered = player.inventory.filter(item =>
             isConsumableItem(item) ||
             item.type === "junk" ||
-            item.type === "key" ||
+            item.type === "key"
+        );
+    } else if (inventoryTab === "misc"){
+        filtered = player.inventory.filter(item =>
             item.type === "misc"
         );
     }

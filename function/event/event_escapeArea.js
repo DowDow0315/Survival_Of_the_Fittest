@@ -2895,7 +2895,7 @@ window.mine_dig = function(player){
     }
 
     if (pickaxe.durability == null){
-        pickaxe.durability = pickaxe.maxDurability || 20;
+        pickaxe.durability = pickaxe.maxDurability || 10;
     }
 
     mine.minedSteps[mine.step] = true;

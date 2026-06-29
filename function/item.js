@@ -1546,7 +1546,30 @@ const ITEMS ={
             value : 60,
             tags : ["gift", "vegetableRice", "bad"],
             price : 620
+        },
+
+        greatGoblinGoblinMeat : {
+            name : "훌륭한 고블린고기볶음",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "meat", "great"],
+            price : 400
+        },
+        normalGoblinGoblinMeat : {
+            name : "고블린고기볶음",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "meat", "normal"],
+            price : 340
+        },
+        badGoblinGoblinMeat : {
+            name : "맛없는 고블린고기볶음",
+            type : "heal",
+            value : 20,
+            tags : ["gift", "meat", "bad"],
+            price : 280
         }
+    
     },
     misc : {
         tornClothes: {
@@ -1903,10 +1926,18 @@ function findItemByKey(key){
 function removeItem(player, item){
     const index = player.inventory.findIndex(invItem => {
         if (isEquipmentItem(item)){
+            return invItem.uid && item.uid && invItem.uid === item.uid;
+        }
+
+        if (item.uid){
             return invItem.uid === item.uid;
         }
 
-        return invItem.key === item.key;
+        if (item.key){
+            return invItem.key === item.key;
+        }
+
+        return invItem.name === item.name;
     });
 
     if (index === -1) return false;
@@ -2293,6 +2324,22 @@ const RECIPES = {
             great : "greatVegetableBread",
             normal : "normalVegetableBread",
             bad : "badVegetableBread",
+            disaster: "trash"
+        }
+    },
+
+    goblinGoblinMeat : {
+        name : "고블린고기볶음",
+        desc : "고블린 고기를 3개 넣고 만든 고블린고기볶음. 질겨서 그렇게 맛있지는 않다.",
+
+        ingredients : {
+            goblinMeat : 3
+        },
+
+        results : {
+            great : "greatGoblinGoblinMeat",
+            normal : "normalGoblinGoblinMeat",
+            bad : "badGoblinGoblinMeat",
             disaster: "trash"
         }
     }

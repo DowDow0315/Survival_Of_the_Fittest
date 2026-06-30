@@ -1913,7 +1913,7 @@ const ITEMS ={
         slimeLiquid: {
             name: "슬라임에서 나온 정체모를 액체.",
             desc : "과연 만지고 싶은 사람이 있을까?",
-            type: "junk",
+            type: "food",
             price: 40
         },
         goblinStick: {

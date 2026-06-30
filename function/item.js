@@ -2751,7 +2751,7 @@ window.RECIPES = {
         ingredients : {
             salmon : 1,
             rice : 1,
-            flowerNectar
+            flowerNectar : 1
         },
 
         results : {

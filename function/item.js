@@ -450,9 +450,9 @@ const WEAPON_SKILLS = {
             name : "은빛파고들기",
             cost : 2,
             type : "damage",
-            power : 2.4,
+            power : 2.6,
             unlock : 20,
-            desc : "데미지 2.4배"
+            desc : "데미지 2.6배"
         },
         {
             name : "은빛시선",
@@ -470,10 +470,10 @@ const WEAPON_SKILLS = {
             name : "은빛나선",
             cost : 4,
             type: "multiHit",
-            power: 0.8,
+            power: 0.9,
             hits : 6,
             unlock: 150,
-            desc : "데미지 0.8배로 6번 연속 공격"
+            desc : "데미지 0.9배로 6번 연속 공격"
         },
         {
             name : "달빛에반사되는",
@@ -533,9 +533,9 @@ const WEAPON_SKILLS = {
             name : "하얀 채찍질",
             cost : 2,
             type : "damage",
-            power : 2.4,
+            power : 2.6,
             unlock : 20,
-            desc : "데미지 2.4배"
+            desc : "데미지 2.6배"
         },
         {
             name : "꽃채찍의 하얀 독",

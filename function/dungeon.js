@@ -253,8 +253,8 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            r0c0 : { name : "하얀꽃방", exits: {right : "r0c1", down : "r1c0"}, event : "whiteFlowerLab_soldier" },
-            r0c1 : { name : "비밀방", exits : { left : "r0c0" }, event : "whiteFlowerLab_erwin" },
+            r0c0 : { name : "하얀꽃방", exits: {right : "r0c1", down : "r1c0"}, event : "whiteFlowerLab_soldier", seenFlag : "whiteFlowerLab_lukeSoldier" },
+            r0c1 : { name : "비밀방", exits : { left : "r0c0" }, event : "whiteFlowerLab_erwin", seenFlag : "whiteFlowerLab_erwin" },
             r0c3 : { name : "백색 복도의 끝", exits : { down : "r1c3", right : "r0c4" } },
             r0c4 : { name : "중추로 가는 길A", exits : { left : "r0c3", right : "r0c5" } },
             r0c5 : { name : "중추로 가는 길B", exits : { left : "r0c4", right : "r0c6" } },
@@ -891,6 +891,10 @@ function moveDungeon(player, direction){
     }
 
     if (newRoom.event){
+        if (newRoom.seenFlag && player.flags?.[newRoom.seenFlag]){
+            startScene(buildDungeonScene(player), player);
+            return;
+        }
         runDungeonEvent(player, newRoom.event);
         return;
     }
@@ -2230,6 +2234,7 @@ const DUNGEON_EVENTS = {
                 type : "effect",
                 run : (player) => {
                     addItem(player, ITEMS.bra.whiteFlowerBra);
+                    player.flags.whiteFlowerLab_erwin = true;
                     savePlayer(player);
                 }
             }

@@ -812,6 +812,37 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 5,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -1188,6 +1219,37 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -1558,6 +1620,37 @@ const ESCAPE_AREA_EVENTS = {
                                     run : (player) => {
                                         changeTrauma(player, -1);
                                     }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
                                 }
                             ]
                         }
@@ -2010,6 +2103,37 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -2456,6 +2580,37 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -2556,6 +2711,69 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 20,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -2650,6 +2868,69 @@ const ESCAPE_AREA_EVENTS = {
                                     run : (player) => {
                                         changeTrauma(player, -2);
                                     }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 20,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다!"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
                                 }
                             ]
                         }
@@ -2980,4 +3261,145 @@ function finishMineRun(player){
             startScene(getLocationScene(player), player);
         }
     });
+}
+
+//낚시
+function getFishingRod(player){
+    return player.inventory.find(item => item.name === "낚시대");
+}
+
+const FISH_TABLE = [
+    { item: null, chance: 0.05, sequence: 4, time: 4000 },
+    { item: ITEMS.misc.stone, chance: 0.05, sequence: 4, time: 3500 },
+    { item: ITEMS.misc.smallFish, chance: 0.45, sequence: 6, time: 4500 },
+    { item: ITEMS.misc.mediumFish, chance: 0.25, sequence: 7, time: 4500 },
+    { item: ITEMS.misc.bigFish, chance: 0.15, sequence: 9, time: 5000 },
+    { item: ITEMS.misc.salmon, chance: 0.05, sequence: 12, time: 5500 }
+];
+
+function getFishingTarget(){
+    const roll = Math.random();
+    let acc = 0;
+
+    for (const fish of FISH_TABLE){
+        acc += fish.chance;
+        if (roll < acc) return fish;
+    }
+
+    return FISH_TABLE[FISH_TABLE.length - 1];
+}
+
+function getFishingText(item){
+    if (!item) return "낚싯줄을 끌어올렸지만, 미끼만 사라져 있었다.";
+    if (item === ITEMS.misc.stone) return "이것은... 돌...?";
+    if (item === ITEMS.misc.smallFish) return "당신은 작은 물고기를 낚았다.";
+    if (item === ITEMS.misc.mediumFish) return "당신은 보통 크기의 물고기를 낚았다.";
+    if (item === ITEMS.misc.bigFish) return "으랏차차! 당신은 큰 물고기를 낚았다.";
+    if (item === ITEMS.misc.salmon) return "몸에도 좋고 맛에도 좋은 연어~ 연어연어~ 연어!";
+    return "당신은 무언가를 낚았다.";
+}
+
+window.fishing = function(player){
+    const rod = getFishingRod(player);
+
+    if (!rod){
+        showSingleTextScene("낚시를 하려면 낚시대가 필요하다.", player);
+        return;
+    }
+
+    const fish = getFishingTarget();
+
+    startArrowMinigame(player, {
+        title: "물고기가 미끼를 물었다!",
+        target: 1,
+        sequenceLength: fish.sequence,
+        timeLimit: fish.time,
+
+        successText: "강태공이 당신에게 칭찬을 할 법한 능숙한 움직임이었다! 쉐킷쉐킷!",
+        failText: "아아앗 안돼... 당신은 물고기에게 졌습니다.",
+
+        onStepFail: () => {
+            return {
+                text: "아아앗 안돼... 당신은 물고기에게 졌습니다. 어쩔 수 없죠. 물고기와의 승부에서 패배한 걸 겸손한 마음으로 받아들이십쇼.",
+                progress: -999
+            };
+        },
+
+        onClear: (player) => {
+            const rod = getFishingRod(player);
+
+            if (rod.durability == null){
+                rod.durability = rod.maxDurability || 15;
+            }
+
+            rod.durability--;
+
+            let text = getFishingText(fish.item);
+
+            if (fish.item) addItem(player, fish.item);
+
+            changeStamina(player, -5);
+            passTime(player, 10);
+
+            if (rod.durability <= 0){
+                const index = player.inventory.indexOf(rod);
+                if (index >= 0) player.inventory.splice(index, 1);
+                text += "<br><br>낚시대가 완전히 닳아 부서졌다.";
+            } else {
+                text += `<br><br>낚시대 내구도: ${rod.durability}/15`;
+            }
+
+            savePlayer(player);
+            renderInventoryModal(player);
+
+            showSingleTextScene(text, player, {
+                onEnd: () => showFishingSpot(player)
+            });
+        },
+
+        onGameOver: (player) => {
+            changeStamina(player, -3);
+            passTime(player, 5);
+            savePlayer(player);
+
+            showSingleTextScene(
+                "내~가 웃고 있나~요~? 모.두 거짓이겠~죠 feat.광대(리쌍)",
+                player,
+                {
+                    onEnd: () => showFishingSpot(player)
+                }
+            );
+        }
+    });
+};
+
+function showFishingSpot(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "물가가 조용하다. 아직 더 낚시할 수 있을 것 같다."
+            ]
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "계속 낚시한다.",
+                    action: "fishing"
+                },
+                {
+                    text: "낚시를 그만둔다.",
+                    scene: [
+                        {
+                            type: "text",
+                            value: [
+                                "당신은 낚시대를 거두고 다시 길을 나섰다."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
 }

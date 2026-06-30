@@ -412,12 +412,12 @@ const WEAPON_SKILLS = {
         },
         {
             name : "연속찌르기",
-            cost : 3,
+            cost : 4,
             type : "multiHit",
-            power : 0.5,
-            hits : 7,
+            power : 0.9,
+            hits : 5,
             unlock : 100,
-            desc : "데미지 0.5배로 7번 연속 공격"
+            desc : "데미지 0.9배로 5번 연속 공격"
         },
         {
             name : "도발",
@@ -428,9 +428,9 @@ const WEAPON_SKILLS = {
                 atkMult : 1.1,
                 defMult : 0.7
             },
-            duration : 4,
+            duration : 8,
             unlock : 150,
-            desc : "4턴간 상대방 공격력 1.1배, 상대방 방어력 0.7배"
+            desc : "8턴간 상대방 공격력 1.1배, 상대방 방어력 0.7배"
         },
         {
             name : "지키기위한마음",
@@ -456,24 +456,24 @@ const WEAPON_SKILLS = {
         },
         {
             name : "은빛시선",
-            cost : 3,
+            cost : 2,
             type : "enemyDebuff",
             effect : {
                 id : "silverDagger_eyetoeye",
-                defMult : 0.7
+                defMult : 0.5
             },
-            duration : 3,
+            duration : 4,
             unlock : 100,
-            desc : "3턴간 상대방 방어력 0.7배"
+            desc : "4턴간 상대방 방어력 0.5배"
         },
         {
             name : "은빛나선",
             cost : 4,
             type: "multiHit",
-            power: 0.7,
+            power: 0.8,
             hits : 6,
             unlock: 150,
-            desc : "데미지 0.7배로 6번 연속 공격"
+            desc : "데미지 0.8배로 6번 연속 공격"
         },
         {
             name : "달빛에반사되는",
@@ -483,9 +483,91 @@ const WEAPON_SKILLS = {
                 id : "silverDagger_becomingMoonLight",
                 evaMult : 2
             },
-            duration : 3,
+            duration : 4,
             unlock : 200,
-            desc : "3턴간 회피율/명중률 2배"
+            desc : "4턴간 회피율/명중률 2배"
+        }
+    ],
+    "뼈대검" : [
+        {
+            name : "내려찍기",
+            cost : 3,
+            type : "damage",
+            power : 3.4,
+            unlock : 20,
+            desc : "공격력 3.4배"
+        },
+        {
+            name : "위압감",
+            cost : 5,
+            type : "enemyDebuff",
+            effect : {
+                id : "skeletonGreatSwordByebye",
+                defMult : 0.7
+            },
+            duration : 10,
+            unlock : 100,
+            desc : "10턴간 상대방 방어력 0.7배"
+        },
+        {
+            name : "뼈검찢기",
+            cost : 3,
+            type : "bleed",
+            dot : 15,
+            duration : 3,
+            unlock : 150,
+            desc : "3턴간 상대방에게 출혈데미지(15)"
+        },
+        {
+            name : "강렬한 두 방",
+            cost : 4,
+            type : "multiHit",
+            power : 2.3,
+            hits : 2,
+            unlock : 100,
+            desc : "데미지 2.3배로 두 번 연속공격"
+        },
+    ],
+    "하얀꽃채찍" : [
+        {
+            name : "하얀 채찍질",
+            cost : 2,
+            type : "damage",
+            power : 2.4,
+            unlock : 20,
+            desc : "데미지 2.4배"
+        },
+        {
+            name : "꽃채찍의 하얀 독",
+            cost : 3,
+            type : "poison",
+            dot : 15,
+            duration : 3,
+            unlock : 100,
+            desc : "3턴간 독데미지(15)"
+        },
+        {
+            name : "채찍돌리기",
+            cost : 2,
+            type: "multiHit",
+            power: 0.9,
+            hits : 3,
+            unlock: 150,
+            desc : "데미지 0.9배로 3번 연속 공격"
+        },
+        {
+            name : "하얀 춤",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "player_flower3Dance",
+                atkMult : 1.2,
+                defMult : 1.3,
+                evaMult : 1.3
+            },
+            duration : 5,
+            unlock : 200,
+            desc : "4턴간 공격력 1.2배, 방어력 1.3배, 회피력 1.3배"
         }
     ]
 };
@@ -538,6 +620,14 @@ const MASTER_SKILLS = {
     "은장도" : {
         requiredMastery : 300,
         skillName : "달빛에반사되는"
+    },
+    "뼈대검" : {
+        requiredMastery : 300,
+        skillName : "뼈검찢기"
+    },
+    "하얀꽃채찍" : {
+        requiredMastery : 300,
+        skillName : "꽃채찍의 하얀 독"
     }
 };
 
@@ -674,6 +764,28 @@ const ITEMS ={
                 int: 10,
                 charm: 2
             } 
+        },
+
+        skeletonGreatSword : {
+            name : "뼈대검",
+            type : "weapon",
+            desc : "큰 해골이 들고 있던 대검. 보통 대검보다 크기가 크다.",
+            price : 2900,
+            stats : {
+                str : 15,
+                dex : -4
+            }
+        },
+
+        flowerleash : {
+            name : "하얀꽃채찍",
+            type : "weapon",
+            desc : "백발의 꽃인간이 들고 있었던 하얀꽃채찍. 채찍을 휘두르면 가끔씩 하얀꽃잎이 날린다.",
+            price : 2900,
+            stats : {
+                str : 3,
+                dex : 9
+            }
         }
     },
 
@@ -1578,7 +1690,162 @@ const ITEMS ={
             value : 20,
             tags : ["gift", "meat", "bad"],
             price : 280
+        },
+
+        greatSmallFishFry : {
+            name : "훌륭한 생선튀김",
+            type : "stamina",
+            value : 40,
+            tags : ["gift", "fish", "great"],
+            price : 700
+        },
+        normalSmallFishFry : {
+            name : "생선튀김",
+            type : "stamina",
+            value : 30,
+            tags : ["gift", "fish", "normal"],
+            price : 650
+        },
+        badSmallFishFry : {
+            name : "맛없는 생선튀김",
+            type : "stamina",
+            value : 10,
+            tags : ["gift", "fish", "bad"],
+            price : 550
+        },
+
+        greatMediumFishFry : {
+            name : "훌륭한 생선찜",
+            type : "stamina",
+            value : 60,
+            tags : ["gift", "fish", "great"],
+            price : 1000
+        },
+        normalMediumFishFry : {
+            name : "생선찜",
+            type : "stamina",
+            value : 50,
+            tags : ["gift", "fish", "normal"],
+            price : 950
+        },
+        badMediumFishFry : {
+            name : "맛없는 생선찜",
+            type : "stamina",
+            value : 20,
+            tags : ["gift", "fish", "bad"],
+            price : 850
+        },
+
+        greatBigFishFry : {
+            name : "훌륭한 생선탕",
+            type : "stamina",
+            value : 80,
+            tags : ["gift", "yuriHate", "fish", "great"],
+            price : 1300
+        },
+        normalBigFishFry : {
+            name : "생선탕",
+            type : "stamina",
+            value : 70,
+            tags : ["gift", "yuriHate", "fish", "normal"],
+            price : 1250
+        },
+        badBigFishFry : {
+            name : "맛없는 생선탕",
+            type : "stamina",
+            value : 40,
+            tags : ["gift", "yuriHate", "fish", "bad"],
+            price : 1000
+        },
+
+        greatAllFish : {
+            name : "훌륭한 생선모듬",
+            type : "stamina",
+            value : 100,
+            tags : ["gift", "fish", "great"],
+            price : 1300
+        },
+        normalAllFish : {
+            name : "생선모듬",
+            type : "stamina",
+            value : 80,
+            tags : ["gift", "fish", "normal"],
+            price : 1200
+        },
+        badAllFish : {
+            name : "맛없는 생선모듬",
+            type : "stamina",
+            value : 40,
+            tags : ["gift", "fish", "bad"],
+            price : 850
+        },
+
+        greatAllFish : {
+            name : "훌륭한 생선모듬",
+            type : "stamina",
+            value : 100,
+            tags : ["gift", "fish", "great"],
+            price : 1300
+        },
+        normalAllFish : {
+            name : "생선모듬",
+            type : "stamina",
+            value : 80,
+            tags : ["gift", "fish", "normal"],
+            price : 1200
+        },
+        badAllFish : {
+            name : "맛없는 생선모듬",
+            type : "stamina",
+            value : 40,
+            tags : ["gift", "fish", "bad"],
+            price : 850
+        },
+
+        greatSalmonSalmon : {
+            name : "훌륭한 연어회",
+            type : "heal",
+            value : 100,
+            tags : ["gift", "fish", "great"],
+            price : 1800
+        },
+        normalSalmonSalmon : {
+            name : "연어회",
+            type : "heal",
+            value : 80,
+            tags : ["gift", "fish", "normal"],
+            price : 1600
+        },
+        badSalmonSalmon : {
+            name : "맛없는 연어회",
+            type : "heal",
+            value : 50,
+            tags : ["gift", "fish", "bad"],
+            price : 1400
+        },
+
+        greatSalmonSushi : {
+            name : "훌륭한 연어초밥",
+            type : "heal",
+            value : 80,
+            tags : ["gift", "matinFavorite", "fish", "great"],
+            price : 1400
+        },
+        normalSalmonSushi : {
+            name : "연어초밥",
+            type : "heal",
+            value : 60,
+            tags : ["gift", "matinFavorite", "fish", "normal"],
+            price : 1200
+        },
+        badSalmonSushi : {
+            name : "맛없는 연어초밥",
+            type : "heal",
+            value : 40,
+            tags : ["gift", "matinFavorite", "fish", "bad"],
+            price : 1000
         }
+
     
     },
     misc : {
@@ -1792,6 +2059,41 @@ const ITEMS ={
             price : 1000,
             desc : "광석을 캘 때 사용한다. 10번 사용하면 부서진다.",
             maxDurability : 10
+        },
+
+        //낚시
+        fisherRod : {
+            name : "낚시대",
+            type : "misc",
+            price : 1000,
+            desc : "낚시를 할 때 사용한다. 15번 사용하면 부서진다.",
+            maxDurability : 15
+        },
+        stone : {
+            name : "돌",
+            type : "junk",
+            price : 10,
+            desc : "걱정마! 언젠가 쓸모가 생길지도 모르잖아!"
+        },
+        smallFish : {
+            name : "작은 생선",
+            type : "food",
+            price : 200
+        },
+        mediumFish : {
+            name : "생선",
+            type : "food",
+            price : 300
+        },
+        bigFish : {
+            name : "큰 생선",
+            type : "food",
+            price : 400
+        },
+        salmon : {
+            name : "연어",
+            type : "food",
+            price : 500
         },
 
         //퀘스트물품
@@ -2356,6 +2658,106 @@ const RECIPES = {
             great : "greatGoblinGoblinMeat",
             normal : "normalGoblinGoblinMeat",
             bad : "badGoblinGoblinMeat",
+            disaster: "trash"
+        }
+    },
+
+    smallFishFry : {
+        name : "생선튀김",
+        desc : "작은 생선 3마리를 넣고 그대로 튀긴 요리",
+
+        ingredients : {
+            smallFish : 3
+        },
+
+        results : {
+            great : "greatSmallFishFry",
+            normal : "normalSmallFishFry",
+            bad : "badSmallFishFry",
+            disaster: "trash"
+        }
+    },
+
+    mediumFishFry : {
+        name : "생선찜",
+        desc : "생선 3마리 찜",
+
+        ingredients : {
+            mediumFish : 3
+        },
+
+        results : {
+            great : "greatMediumFishFry",
+            normal : "normalMediumFishFry",
+            bad : "badMediumFishFry",
+            disaster: "trash"
+        }
+    },
+
+    bigFishFry : {
+        name : "생선탕",
+        desc : "큰 생선 3마리를 넣고 끓인 탕",
+
+        ingredients : {
+            bigFish : 3
+        },
+
+        results : {
+            great : "greatBigFishFry",
+            normal : "normalBigFishFry",
+            bad : "badBigFishFry",
+            disaster: "trash"
+        }
+    },
+
+    allFish : {
+        name : "생선모듬",
+        desc : "작은 생선, 생선, 큰 생선을 모아 만든 모듬 요리",
+
+        ingredients : {
+            smallFish : 1,
+            mediumFish : 1,
+            bigFish : 1
+        },
+
+        results : {
+            great : "greatAllFish",
+            normal : "normalAllFish",
+            bad : "badAllFish",
+            disaster: "trash"
+        }
+    },
+
+    salmonSalmon : {
+        name : "연어회",
+        desc : "연어 3마리를 그대로 회친 것",
+
+        ingredients : {
+            salmon : 3
+        },
+
+        results : {
+            great : "greatSalmonSalmon",
+            normal : "normalSalmonSalmon",
+            bad : "badSalmonSalmon",
+            disaster: "trash"
+        }
+    },
+
+    salmonSushi : {
+        name : "연어초밥",
+        desc : "연어 하나와 밥으로 연어초밥을 만들고 위에 꿀까지 바른 맛난 요리",
+
+        ingredients : {
+            salmon : 1,
+            rice : 1,
+            flowerNectar
+        },
+
+        results : {
+            great : "greatSalmonSushi",
+            normal : "normalSalmonSushi",
+            bad : "badSalmonSushi",
             disaster: "trash"
         }
     }

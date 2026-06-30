@@ -1,9 +1,9 @@
 {
     "name": "에르윈",
     "hp": 320,
-    "attack": 40,
-    "defense": 40,
-    "eva": 45,
+    "attack": 43,
+    "defense": 48,
+    "eva": 49,
     "lustResist" : 1.5,
     "drops": [
         {

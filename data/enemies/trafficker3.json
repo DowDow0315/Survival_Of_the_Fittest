@@ -1,8 +1,8 @@
 {
     "name": "인신매매상(근육)",
     "hp": 270,
-    "attack": 48,
-    "defense": 40,
+    "attack": 45,
+    "defense": 42,
     "eva": 10,
     "lustResist" : 1.6,
     "drops": [

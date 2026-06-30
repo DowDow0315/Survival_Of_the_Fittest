@@ -76,6 +76,7 @@ const SHOPS = {
             ITEMS.bottom.tavernBottom,
 
             ITEMS.misc.pickaxe,
+            ITEMS.misc.fisherRod,
             
             ITEMS.consumable.beer,
             ITEMS.consumable.whiskey,

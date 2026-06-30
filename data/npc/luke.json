@@ -172,9 +172,9 @@
             "duration" : 3,
             "effect" : {
                 "id" : "luke_smoke",
-                "atkMult" : 0.8,
-                "defMult" : 0.8,
-                "evaMult" : 0.7
+                "atkMult" : 0.7,
+                "defMult" : 0.7,
+                "evaMult" : 0.6
             },
             "lines" : [
                 "루크가 길게 담배연기를 내뱉었다. 평소와는 다른 새하얀 연기였다. 그 연기를 맡자마자 당신의 시야가 어지러워졌다.",

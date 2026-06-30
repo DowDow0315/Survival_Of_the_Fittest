@@ -165,7 +165,7 @@
             "name": "맹독꽃봉오리",
             "type": "poison",
             "id" : "infectedPoisonStrong",
-            "dot": 10,
+            "dot": 5,
             "duration": 5,
             "chance" : 0.5,
             "lines": [

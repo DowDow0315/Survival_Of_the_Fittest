@@ -185,7 +185,7 @@
         {
             "name" : "신속공격",
             "type" : "multiHit",
-            "power" : 0.5,
+            "power" : 0.8,
             "hits" : 8,
             "chance" : 0.1,
             "lines" : [
@@ -200,7 +200,8 @@
             "duration" : 5,
             "effect" : {
                 "id" : "eric_battle_stance",
-                "atkMult" : 1.5
+                "atkMult" : 1.5,
+                "defMult" : 1.5
             },
             "lines" : [
                 "에릭은 상황을 빨리 끝내야 한다고 생각했는지 깊게 숨을 들이마셨다. 앞으로 몇 번, 당신의 등뒤로 식은땀이 흘렀다, 맞으면 안 될 거 같다."

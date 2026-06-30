@@ -3,24 +3,24 @@ const NPC_GIFT_CONFIG = {
         reactions: {
             matinFavorite: {
                 great: {
-                    affection: 5,
-                    rage: 0,
+                    affection: 10,
+                    rage: -5,
                     lust : 0,
-                    line: ""
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다.<br><br>\"...고마워. 연어초밥은.... 정말 좋아하거든.<br>...기억하던 맛보다 훨씬 맛있네.\"<br><br>그의 입가에 조용한 미소가 내려앉았다."
                 },
             
                 normal: {
-                    affection: 5,
-                    rage: 0,
+                    affection: 9,
+                    rage: -5,
                     lust : 0,
-                    line: ""
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"연어는 낚기 힘들었을 텐데. 고맙다.\"<br><br>그는 희미하게 웃었다. 웃으면서도 그의 눈동자는 어딜 보고 있는 건지, 묘하게 슬퍼보였다."
                 },
             
                 bad: {
-                    affection: 3,
-                    rage: 0,
+                    affection: 10,
+                    rage: -5,
                     lust : 0,
-                    line: ""
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"...그때와 똑같은 맛이네.\"<br><br>그는 조용히 웃었다.<br><br>\"고마워.\""
                 }
             },
             matinHate: {
@@ -158,6 +158,29 @@ const NPC_GIFT_CONFIG = {
                     rage : 0,
                     lust : 0,
                     line : "마틴은 음식을 먹으며 야채는 원래 맛없어지기 쉽다고 말했다. 하지만 그는 맛없는 야채여도 고기보다는 많이 먹었다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 7,
+                    rage : 0,
+                    lust : 0,
+                    line : "마틴은 당신의 생선 요리를 맛보더니 고개를 끄덕였다. <br><br>\"...맛있다.\"<br><br>그는 당신의 생선 요리를 다른 요리들보다 훨씬 더 많이 먹었다."
+                },
+
+                normal : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "마틴은 당신의 생선 요리를 맛보더니 고개를 끄덕였다. <br><br>\"생선은 몸에 좋아.\"<br><br>마틴은 당신에게 생선 요리 팁을 몇 가지 알려주었다."
+                },
+
+                bad : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 낚기 힘들었을 텐데 생선 요리가 조금 실패해서 속상했을 거 같다고 말했다. 당신이 그에게 낚시를 해봤냐고 묻자 그는 고개를 저었다. <br><br>\"...옆에서 봤던 게 다야. 낚는 게 힘들다는 건 알아.\""
                 }
             },
 
@@ -449,6 +472,29 @@ const NPC_GIFT_CONFIG = {
                 }
             },
 
+            fish : {
+                great : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "소라는 당신의 생선 요리를 먹으며 미소를 지었다. <br><br>\"소라도 낚시할 줄 아는데. 다음 번에 낚시 같이 가자.\""
+                },
+
+                normal : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "소라는 당신의 생선 요리를 먹으며 당신은 이제 낚시도 잘하는 거냐고 물었다. <br><br>\"역시 소라 옆에 평생 있어줘, 응?\""
+                },
+
+                bad : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "소라는 당신의 생선 요리를 남김없이 비웠다. 맛없지는 않냐는 말에 그는 웃으며 당신꺼라면 뭐든 맛있다고 말했다."
+                }
+            },
+
             mixed : {
                 great : {
                     affection : 2,
@@ -623,24 +669,24 @@ const NPC_GIFT_CONFIG = {
             },
             yuriHate: {
                 great: {
-                    affection: -1,
-                    rage: 2,
+                    affection: -3,
+                    rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "생선탕을 본 유리의 표정이 굳었다. 탕이어서 비린 냄새가 더 심하게 올라온 모양이다.... 유리를 그만 괴롭히는 게 좋겠다."
                 },
             
                 normal: {
-                    affection: -2,
-                    rage: 2,
+                    affection: -5,
+                    rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "유리는 당신의 생선탕에 표정 관리를 하지 못했다. 그는 아이들에게 나눠줄 거면 빨리 나눠주라고 말한 후 그대로 쉘터를 다시 나가버렸다. 생선 냄새가 빠질 때까지는 안 들어올 거 같다..."
                 },
             
                 bad: {
-                    affection: -3,
-                    rage: 3,
+                    affection: -7,
+                    rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "\"...{playerName}.\"<br><br>유리는 조용히 당신을 바라보았다. 그는 숨을 옅게 쉬고 있었다. <br><br>\"설마 나한테 먹으라는 건 아니지? 나 생선탕 싫어하는 거 알잖아.\""
                 }
             },
 
@@ -757,6 +803,29 @@ const NPC_GIFT_CONFIG = {
                     rage : 0,
                     lust : 0,
                     line : "그는 당신과 요리를 번갈아보더니 마음을 굳힌 듯 천천히 당신의 요리를 먹었다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "생선 요리를 본 유리가 뒤로 몇 걸음 물러났다. <br><br>\"미안. 비린 건 못 먹어서. 맛있을 거라는 건 알아.\""
+                },
+
+                normal : {
+                    affection : -2,
+                    rage : 0,
+                    lust : 0,
+                    line : "유리는 당신의 생선 요리 냄새에 힘든 모양이다. 그는 애써 웃어보였다. <br><br>\"다른 사람이라면 좋아할 거야.\""
+                },
+
+                bad : {
+                    affection : -4,
+                    rage : 0,
+                    lust : 0,
+                    line : "유리의 표정이 굳었다. 그는 당신에게서 몇 걸음 떨어진 후 미안하다고 말했다."
                 }
             },
 
@@ -1071,6 +1140,29 @@ const NPC_GIFT_CONFIG = {
                 }
             },
 
+            fish : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "카인은 당신의 생선 요리를 보더니 인상을 찌푸렸다. 편식하는 거냐고 묻자 편식하는 건 아니라고 말했다. 하지만 그는 당신의 요리에 손가락 하나 대지 않았다."
+                },
+
+                normal : {
+                    affection : -4,
+                    rage : 3,
+                    lust : 0,
+                    line : "\"...비려.\"<br><br>카인은 당신에게 오지 말라는 듯 손을 내저어보였다. <br><br>\"냄새 배는 거 싫으니까 저리 가.\""
+                },
+
+                bad : {
+                    affection : -8,
+                    rage : 5,
+                    lust : 0,
+                    line : "\"야! 넌 무슨 그런 냄새를 풍기는 음식을!\"<br><br>그는 닿기도 싫다는 듯이 당신에게서 멀리 떨어졌다. <br><br>\"혼자 처먹고 와. 양치질까지 하고 와라?\""
+                }
+            },
+
             mixed : {
                 great : {
                     affection : 1,
@@ -1211,7 +1303,7 @@ const NPC_GIFT_CONFIG = {
             
             default: {
                 trash: {
-                    affection: -7,
+                    affection: -10,
                     rage: 10,
                     lust : 0,
                     line: "\"...뭐야?\"<br><br>카인은 당신의 음식을 그대로 던졌다. 당신의 옆으로 지나간 음식, 그리고 이어서 들리는 쨍그랑 소리. <br><br>\"너나 처먹어.\""
@@ -1378,6 +1470,29 @@ const NPC_GIFT_CONFIG = {
                     rage : 0,
                     lust : 0,
                     line : "루크는 맛없다고 하면서도 음식은 남기지 않았다. 그는 당신에게 빈 그릇을 내밀었다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"오.\"<br><br>루크는 당신의 생선 요리를 보더니 픽 웃었다. <br><br>\"낚시 잘하나 보네?\"<br><br>그는 당신의 요리를 맛있게 먹었다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 당신의 생선 요리를 먹었다. 낚시를 해본 적 있냐는 말에 그는 자신은 손으로 물고기를 잡는다고 말했다. <br>...거짓말이겠지?"
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 비린 냄새가 나는 당신의 생선 요리에도 딱히 별 말은 하지 않았다."
                 }
             },
 
@@ -1582,6 +1697,7 @@ function getGiftTaste(item, npcId){
     if (tags.includes(`${npcId}Hate`)) return `${npcId}Hate`;
 
     if (tags.includes("sweet")) return "sweet";
+    if (tags.includes("fish")) return "fish";
     if (tags.includes("lusty")) return "lusty";
     if (tags.includes("meat")) return "meat";
     if (tags.includes("vegetable")) return "vegetable";

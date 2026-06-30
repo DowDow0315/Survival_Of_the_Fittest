@@ -1,8 +1,8 @@
 {
     "name": "꽃감염경계병",
     "hp": 230,
-    "attack": 42,
-    "defense": 45,
+    "attack": 40,
+    "defense": 44,
     "eva": 15,
     "lustResist" : 1.4,
     "drops": [

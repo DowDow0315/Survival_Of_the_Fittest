@@ -2308,7 +2308,7 @@ function getItemKeyByName(name){
     return null;
 }
 
-const RECIPES = {
+window.RECIPES = {
     fruitStirFry: {
         name: "과일볶음",
         desc : "야생열매 3개로 볶아 만드는 간단한 요리",

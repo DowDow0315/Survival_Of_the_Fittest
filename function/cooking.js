@@ -250,7 +250,7 @@ function findRecipeByIngredients(selectedKeys){
         selectedCounts[key] = (selectedCounts[key] || 0) + 1;
     });
 
-    for (const [recipeId, recipe] of Object.entries(RECIPES)){
+    for (const [recipeId, recipe] of Object.entries(window.RECIPES)){
         const ingredients = recipe.ingredients;
 
         const recipeKeys = Object.keys(ingredients);
@@ -275,7 +275,7 @@ function finishCooking(player, recipeId, grade){
 
     if (recipeId){
         unlockRecipe(player, recipeId);
-        resultItemKey = RECIPES[recipeId].results[grade] || RECIPES[recipeId].results.normal;
+        resultItemKey = window.RECIPES[recipeId].results[grade] || window.RECIPES[recipeId].results.normal;
     } else {
         resultItemKey = "trash";
     }
@@ -333,7 +333,7 @@ window.open_knownRecipes = function(player){
     }
 
     const text = player.knownRecipes.map(recipeId => {
-        const recipe = RECIPES[recipeId];
+        const recipe = window.RECIPES[recipeId];
         if (!recipe) return null;
 
         const ingredientsText = Object.entries(recipe.ingredients)

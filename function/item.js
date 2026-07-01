@@ -2191,8 +2191,8 @@ function getTotalStat(player, stat){
     return player?.stats?.[stat] || 0;
 }
 
-function stat(x){
-    return Math.sign(x) * Math.sqrt(Math.abs(x));
+function scaleStat(x) {
+    return Math.sqrt(Math.max(0, x));
 }
 
 function updateDerivedStats(player){
@@ -2200,20 +2200,26 @@ function updateDerivedStats(player){
     const total = calculateTotalStats(player);
 
     player.derivedStats.atk =
-        stat(total.str) * 6.3 + stat(total.dex) * 1.8;
+        scaleStat(total.str) * 6.0 +
+        scaleStat(total.dex) * 1.5;
 
     player.derivedStats.def =
-        stat(total.str) * 3.2 + stat(total.charm) * 3.2;
+        scaleStat(total.str) * 3.0 +
+        scaleStat(total.charm) * 3.0;
 
     const fluidPenalty = (typeof getBodyFluidTotal === "function")
         ? Math.floor(getBodyFluidTotal(player) / 30)
         : 0;
 
     player.derivedStats.eva =
-        stat(total.dex) * 4.8 + stat(total.int) * 2.5 + stat(total.charm) * 2.2 - fluidPenalty;
+        scaleStat(total.dex) * 4.4 +
+        scaleStat(total.int) * 2.2 +
+        scaleStat(total.charm) * 2.0 -
+        fluidPenalty;
 
     player.derivedStats.mag =
-        stat(total.int) * 6.5 + stat(total.charm) * 2.2;
+        scaleStat(total.int) * 6.0 +
+        scaleStat(total.charm) * 2.0;
 
     player.derivedStats.bodyFluidPenalty = fluidPenalty;
 }

@@ -2029,6 +2029,9 @@ function endEnemyTurn(){
 
     runCustomTurnEvent();
 
+    runAllyTurnSupport();
+    if (!battleState) return;
+
     battleState.energy = Math.min(
         battleState.maxEnergy,
         battleState.energy + 1
@@ -2129,5 +2132,32 @@ function getTightnessEnemyArousalMod(player, part){
         case "널널함": return 0.7;
         case "허벌창": return 0.4;
         default: return 1.0;
+    }
+}
+
+//공격 서포트
+function runAllyTurnSupport(){
+    if (!battleState) return;
+
+    const support = battleState.options?.allyTurnSupport;
+    if (!support) return;
+
+    const enemy = battleState.enemy;
+    const threshold = support.hpRate ?? 0.5;
+
+    if (enemy.hp > enemy.maxHp * threshold) return;
+
+    const damage = support.damage || 15;
+    enemy.hp -= damage;
+
+    if (support.line){
+        log(support.line(), support.logType || "damage");
+    } else {
+        log(`${support.name || "아군"}의 지원공격! ${damage} 데미지!`, "damage");
+    }
+
+    if (enemy.hp <= 0){
+        updateBattleUI();
+        endBattle("win");
     }
 }

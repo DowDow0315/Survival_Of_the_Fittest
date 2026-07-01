@@ -1,9 +1,9 @@
 {
     "name" : "에릭",
-    "hp" : 550,
+    "hp" : 650,
     "attack" : 75,
     "defense" : 65,
-    "eva" : 20,
+    "eva" : 30,
     "lustResist" : 3,
     
     "emotion": {

@@ -295,7 +295,7 @@ const DUNGEONS = {
             r6c1 : { name : "감방", exits : { up : "r5c1" }, event : "whiteFlowerLab_prison" },
             r6c3 : { name : "백색 복도 통로1", exits : { up : "r5c3", down : "r7c3" }, chest: "whiteFlowerLab_chest" },
             r6c6 : { name : "실험실B", exits : { up : "r5c6" }, event : "whiteFlowerLab_experimentB" },
-            r6c8 : { name : "급식실", exits : { up : "r5c8" }, chest : "whiteFlowerLab_fixed_chest", event : "whiteFlowerLab_cafeteria" },
+            r6c8 : { name : "급식실", exits : { up : "r5c8" }, chest : "whiteFlowerLab_fixed_chest", event : "whiteFlowerLab_cafeteria", seenFlag : "whiteFlowerLab_cafeteria" },
             
             r7c3 : { name : "실험실 출입문", exits : { up : "r6c3" } }
         },
@@ -369,13 +369,13 @@ const DUNGEONS = {
             [    "",     "", "r6c2",     "",     ""]
         ],
         rooms : {
-            "r0c2" : {name : "하얀꽃입구", exits : {down : "r1c2"}},
-            "r1c2" : {name : "흐트러진 통로", exits : {down : "r2c2", up : "r0c2"}},
-            "r2c2" : {name : "발자국이 이어진 통로", exits : {down : "r3c2", up : "r1c2"}},
-            "r3c2" : {name : "시체들이 쌓여있는 통로", exits : {down : "r4c2", up : "r2c2"}},
-            "r4c2" : {name : "꽃들만이 가득한 통로", exits : {down : "r5c2", up : "r3c2"}},
-            "r5c2" : {name : "고요한 통로", exits : {down : "r6c2", up : "r4c2"}},
-            "r6c2" : {name : "...그리고 당신", exits : {up : "r5c2"}}
+            "r0c2" : {name : "하얀꽃입구", exits : {down : "r1c2"}, event : "erwin1"},
+            "r1c2" : {name : "흐트러진 통로", exits : {down : "r2c2", up : "r0c2", event : "erwin2"}},
+            "r2c2" : {name : "발자국이 이어진 통로", exits : {down : "r3c2", up : "r1c2"}, event : "erwin3"},
+            "r3c2" : {name : "시체들이 쌓여있는 통로", exits : {down : "r4c2", up : "r2c2"}, event : "erwin4"},
+            "r4c2" : {name : "꽃들만이 가득한 통로", exits : {down : "r5c2", up : "r3c2"}, event : "erwin5", seenFlag : "erwinHideout_erwin5"},
+            "r5c2" : {name : "고요한 통로", exits : {down : "r6c2", up : "r4c2"}, event : "erwin6"},
+            "r6c2" : {name : "...그리고 당신", exits : {up : "r5c2"}, boss : "erwin", bossIntro : "erwin_intro"}
         }
     },
     slaverCamp : {
@@ -2204,6 +2204,9 @@ const DUNGEON_EVENTS = {
                             {
                                 type : "effect",
                                 run: (player) => {
+                                    player.flags.whiteFlowerLab_erwin = true;
+                                    savePlayer(player);
+
                                     const enemyId = "infectedSoldier";
                                     const enemy = ENEMIES[enemyId]();
                                     startBattle("infectedSoldier", player, {
@@ -2292,6 +2295,7 @@ const DUNGEON_EVENTS = {
                                     addItem(player, ITEMS.accessary.whiteFlowerLabBracelet);
                                     changeTrauma(player, 10);
                                     changeStamina(player, -10);
+                                    player.flags.whiteFlowerLab_cafeteria = true;
                                     savePlayer(player);
                                 }
                             }
@@ -2315,6 +2319,8 @@ const DUNGEON_EVENTS = {
                                     changeHP(player, 50);
                                     changeStamina(player, 50);
                                     changeTrauma(player, -5);
+                                    player.flags.whiteFlowerLab_cafeteria = true;
+                                    savePlayer(player);
                                 }
                             }
                         ]
@@ -2663,6 +2669,219 @@ const DUNGEON_EVENTS = {
                     "<br><br>아. 어쩌면 하류도시의 영웅이 어떻게 반응하는지 보고 싶었던 건가. 그런 이유라면 정말 더 변태같군." +
                     "<br><br>역시 상류도시 놈들의 생각은 이해할 수가 없다. 앗차차, 여긴 상류도시 출신도 은근 있으니 입 조심해야지." +
                     "<br><br>일단 우리 보스부터가 상류도시 출신 사람이니까."
+                ]
+            }
+        ]
+    },
+    erwinHideout : {
+        erwin1 : [
+            {
+                type : "text",
+                value : [
+                    "마물의 은신처 입구, 하얀 꽃잎들이 여기저기에 떨어져 있었다. 하얀 꽃잎을 밟고 들어간 입구는 성인 남성 한 명 정도가 겨우 통과할 정도로 작았다. 보통 성인 남성이라면 고개를 숙이고 들어갈 만한 구멍, 그리고 그후로부터의 공간은 점점 넓어졌다." +
+                    "<br>바닥에 깔려있는 하얀 꽃잎들 사이로 당신은 글자 하나를 발견했다. 에르윈, 에르윈, 에르윈.... 누군가가 에르윈이라는 바닥에 몇 번이고 새겨놨다. 끝이 뾰족한 돌과 뭉툭한 돌이 여기저기 널려 있었다. 당신은 발걸음을 옮겼다." +
+                    "<br><br>\"에르윈!\"<br><br>" +
+                    "어디서 목소리가 들렸는지 모르겠다. 당신은 이리저리 고개를 돌렸다. 그 순간 익숙한 얼굴이 당신의 앞에 나타났다. 반란군 수장 처형식에서 봤던 그 여자다. 그 여자는 당신을 보며 손짓을 하고 있었다." +
+                    "<br><br>\"멀리 가지 말라고 했잖니.\"<br><br>" +
+                    "그는 인자하게 웃으며 당신에게 손을 뻗었다. 그리고 그 손이 당신에게 닿는 순간, 눈을 깜박, 그는 사라졌다. 닿았...닿았었나? 당신은 어떤 것도 느끼지 못했다."
+                ]
+            }
+        ],
+
+        erwin2 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 계속 걸어갔다. 하얀꽃잎들이 불안정하게 이리저리 흐트러져 있었다. 당신이 발걸음을 내딛을 때마다 하얀 꽃잎들이 위로 솟구쳤다가 그대로 다시 밑으로 꺼졌다." +
+                    "<br>당신이 모르는 얼굴이 당신의 앞에 나타났다. 그는 애정이 깊은 눈으로 당신을 쳐다보며 밖에서 나돌아다니는 건 네 남동생이나 너나 똑같다고 말했다." +
+                    "<br><br>\"그래서 내가 싫어?\"<br><br>" +
+                    "햇살처럼 밝은 목소리였다. 당신은 그 목소리가 어디에서부터 들려온 건지 찾을 수 없었다. 아무튼 당신의 앞에 서있는 남자는 갑자기 하얀꽃을 건네받고 있었다." +
+                    "<br><br>\"그럴 리가. 내가 널 사랑하는 이유들 중 하나인 걸.\"<br><br>" +
+                    "눈을 깜박였을 때 남자는 없었다. 환상이라도 보는 걸까? 아니면, 또... 누군가의 기억을? 당신은 밑을 내려다보았다. 하얀꽃 하나가 당신의 발목을 꽈악 붙잡고 있었다." +
+                    "<br>...하지만 하얀꽃 하나만으로는 당신의 앞길을 막을 수 없다."
+                ]
+            }
+        ],
+
+        erwin3 : [
+            {
+                type : "text",
+                value : [
+                    "드디어 당신은 입구에서부터 이어지던 많은 발자국들을 찾아냈다. 발자국들은 더 깊은 곳으로 이어져 있었다. 당신은 가다가 바닥의 글자를 읽었다." +
+                    "<br><br><strong>아렌. 아렌이 나를 찾고 있어. 아렌이 위험해. 에르 에리 에르 에르윈이 갈 거야. 누나가 갈게. 제발, 죽지만 말아줘.</strong><br><br>" +
+                    "<strong>다시 그곳으로 돌아가기 싫어. 하지만 내 동생 내 동생 내 동생 내 동 생 내동 생 내 동생</strong><br><br>" +
+                    "그 후의 글자는 없다."
+                ]
+            }
+        ],
+
+        erwin4 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 발자국들을 따라 더 안으로 향했다. 비릿하게 달콤한 냄새가 당신의 코를 찌른다. 당신은 고개를 돌렸다. <br><br>.....<br><br>전부.... 시체들이다. 그리고 시체들 위로 하얀꽃들이 무성하게 피어있었다. 당신은 시체들이 입고 있는 옷을 자세히 보았다." +
+                    "<br>상류도시에서 많이 봤던 백색 제복. 발렌은 당신 이전에도 많은 사람들을 이곳으로 보냈던 걸까? 경계병의 옷을 입고 있는 사람은 없었다."
+                ]
+            }
+        ],
+
+        erwin5 : [
+            {
+                type : "text",
+                value : [
+                    "꽃들이 가득한 공간이다. 당신은 꽃들 사이에서 무언가를 보았다. 하얀꽃잎으로 만들어진...." +
+                    "<br>속옷<br>" +
+                    "저번의 하얀꽃잎으로 만들어진 브라와 관련이 있는 걸까?" +
+                    "<br><br>달콤한 냄새가 점점 강해진다. 곧 마물과 만날 거 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.underwear.whiteFlowerPants);
+                    player.flags.erwinHideout_erwin5 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+
+        erwin6 : [
+            {
+                type : "text",
+                value : [
+                    "통로가 고요하다. 달콤한 냄새는 더 진해졌다. 몇 걸음만 더 나아가면 당신은 마물과 마주칠 수 있을 것이다." +
+                    "<br><br><span class='log-danger'><strong>돌이킬 수 없는 결정입니다.</strong></span>"
+                ]
+            }, 
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 마물을 베기 위해 앞으로 나아갔다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "하얀꽃 무덤에서 내려온 마물은 언젠가 경계병들을 공격할 것이고, 경계병들이 무너져내리면 하류도시를 삼킬 것이고, 하류도시마저 무너지면 결국 상류도시 사람들도 죽게 될 것이다. 마물은 죽여야 한다. 그리고 당신이 받은 임무는 이 마물을 죽이는 거였다." +
+                                    "<br>당신은 앞으로 계속 나아갔다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 임무를 포기했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 임무를 포기했다." +
+                                    "<br><br>당신은 되돌아왔던 길을 다시 나갔다. 하얀꽃잎들이 당신의 발밑에서 바스러졌지만, 시들지는 않았다. 당신은 계속 앞으로 나아갔다." +
+                                    "마물의 은신처에서 벗어난 당신은 달콤한 냄새가 더 이상 나지 않을 때까지 계속 걸어갔다."
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "경계병 제3초소에서 경계를 서고 있던 경계병들이 당신을 발견하고 당신에게 다가왔다. 그들은 당신을 '하류도시의 영웅'이라고 부르며 반겼다. 적어도 하류도시에서 경계병들은 당신을 제대로 존중해주고 있는 거 같다." +
+                                    "<br><br>\"하류도시의 영웅, 마물은 퇴치하고 온 건가?\"<br><br>" +
+                                    "마물에게 당한 것이 많은 만큼, 그들은 기대하는 눈으로 당신의 입술을 보고 있다. 오늘도 그들의 동료들 중 몇몇은 시체로 돌아온 모양이다. 당신은 시체 쪽으로 곁눈질했다. 시체에서는 역한 냄새만 풍겼다. 달콤한 냄새는 전혀 느껴지지 않았다."
+                                ]
+                            },
+                            {
+                                type : "choice",
+                                choices : [
+                                    {
+                                        text : "당신은 마물을 죽였다고 대답했다.",
+                                        scene : [
+                                            {
+                                                type : "text",
+                                                value : [
+                                                    "당신의 대답에 그들은 마물을 죽여줘서 고맙다고 말했다. 상류도시 출신이든, 하류도시 출신이든, 이 순간만큼은 당신에게 감사하는 마음을 전하는 건 똑같았다." +
+                                                    "<br><br>\"어딜 감히 경계병 제3초소까지 내려오려고...\"<br><br>" +
+                                                    "\"절대로 내 가족이 있는 곳으로는 못 가게 할 거다.\"<br><br>" +
+                                                    "그들은 당신의 대답으로 의지를 다지게 된 거 같다."
+                                                ]
+                                            },
+                                            {
+                                                type : "text",
+                                                value : [
+                                                    "<span class='log-eric'>\"마물을 죽였다고?\"</span>" +
+                                                    "<br><br>뒤에서 익숙한 목소리가 들린다. 당신은 에릭을 돌아보았다. 에릭은 차가운 시선으로 당신을 위아래로 훑어보고 있었다." +
+                                                    "<br><br>\"...들어가보면, 답이 나오겠지.\"<br><br>" +
+                                                    "에릭의 손가락이 오른쪽 허리춤의 홀스터를 규칙적으로 톡, 톡 두드렸다. 빠르지 않은 움직임이었지만 그 안에 담긴 의미는 위협적이었다."
+                                                ]
+                                            },
+                                            {
+                                                type : "effect",
+                                                run : (player) => {
+                                                    changeNPCEmotion("eric", "affection", -5);
+                                                    changeNPCEmotion("eric", "rage", 10);
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        text : "당신은 마물을 죽이지 않았다고 대답했다.",
+                                        scene : [
+                                            {
+                                                type : "text",
+                                                value : [
+                                                    "당신의 대답에 경계병들의 표정이 굳었다. 그들은 당신의 대답이 이해가 안 된다는 듯 서로를 바라보았다. 한 명이 못 참고 당신의 멱살을 잡아올렸다." +
+                                                    "<br><br>\"그게 무슨 소리야. 마물을 안 죽였다고?\"<br><br>" +
+                                                    "\"못 죽인 걸 잘못 말한 거겠지. 마물이 좀 세냐.\"<br><br>" +
+                                                    "경계병들 중 몇 명이 과열되려는 분위기를 막아주긴 했지만 당신을 향한 싸늘한 시선은 거두어지지 않았다." +
+                                                    "<br><br>\"미안하다. 요새 죽은 애들이 많아서... 민감해. 대신 사과하마.\"<br><br>" +
+                                                    "경계병 제3초소를 담당하고 있는 대장이 당신의 어깨에 손을 올리며 말했다. 그는 괜찮다는 듯 당신의 어깨를 두드려주었다."
+                                                ]
+                                            },
+                                            {
+                                                type : "text",
+                                                value : [
+                                                    "<span class='log-eric'>\"마물을 안 죽였다, 라.\"</span>" +
+                                                    "<br><br>뒤에서 익숙한 목소리가 들린다. 당신은 에릭을 돌아보았다. 그의 차가운 녹안이 당신을 위아래로 훑어보았다." +
+                                                    "그는 더 이상 아무 말도 하지 않았다. 그저 손가락으로 오른쪽 허리춤의 홀스터를 규칙적으로 톡, 톡 두드렸을 뿐이었다. 하지만 그 단조로운 소리조차 위협적으로 느껴졌다."
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 에릭이 마물의 흔적을 쫓아서 가는 뒷모습을 응시했다. 이유는 모르겠지만 그가 금방 그 마물을 찾을 거 같다는 예감이 든다.... 몇몇 경계병들은 수군거렸고, 몇몇 경계병들은 그래도 당신에게 수고했다는 말을 해주었다.",
+                                    "<br>당신은 경계병 제3초소에 서있다." +
+                                    "<br>달콤한 향이 흐려져 간다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    leaveDungeon(player);
+
+                                    player.flags.uppercity_story_02_notKillErwin = true;
+                                    player.flags.uppercity_story_02_done = true;
+                                    player.flags.uppercity_story_02_done_day = getCurrentDay(player);
+                                    player.flags.uppercity_story_02_quest_unlocked = false;
+                                    
+                                    if (!player.quest.completed.includes("uppercity_story_02")){
+                                        player.quest.completed.push("uppercity_story_02");
+                                    }
+                                    
+                                    if (player.quest.active?.id === "uppercity_story_02"){
+                                        player.quest.active = null;
+                                    }
+
+                                    changeNPCEmotion("eric", "affection", -5);
+                                    changeNPCEmotion("valen", "affection", -10);
+                                    changeNPCEmotion("akasia", "rage", 5);
+                                    changeNPCEmotion("akasia", "affection", -10);
+                                    
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -3219,8 +3438,8 @@ function runDungeonBossIntro(player, introId){
                       "\"아이들은.\"<br><br>" +
                       "유리의 말에 인신매매단 간부는 끔찍한 미소를 지어보였다." +
                       "<br><br>\"안 보이나? 네 앞에 있잖나.\"<br><br>" +
-                      "\"남은 아이들은 어디 있냐는 거다.\"<br><br>" +
-                      "\"남은 아이들? 하하. 여기 없으면 어디에 있겠나.\"<br><br>" +
+                      "\"...다른 아이들.\"<br><br>" +
+                      "\"다른 아이들? 하하. 여기 없으면 어디에 있겠나.\"<br><br>" +
                       "유리는 더 이상 망설이지 않는다. 그는 쌍검을 바로 쥐고 그에게 달려들었다. 하지만 쌍검의 날이 그에게 닿기도 전에, 인신매매단 간부는 다른 부하들을 불러냈다. 유리가 부하들에게 둘러싸여있다." +
                       "<br><br>\"절대로 죽이지 마. 그를 원하는 대물은 하나가 아니니까.\"<br><br>" +
                       "이번에는 돈을 많이 벌겠군, 이라 흡족하게 중얼거리며 인신매매단 간부는 당신 쪽으로 몸을 돌렸다. 싸움이 시작된다."
@@ -3234,11 +3453,70 @@ function runDungeonBossIntro(player, introId){
             }
         ], player);
     }
+
+    if (introId === "erwin_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      ""
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startErwinBossBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
 }
 
 window.startBanditBossBattle = function(player){
     startBattle("banditBoss", player, {
         noEscape: true,
+
+        customTurnEvents : {
+            1: () => {
+                log("인신매매단 간부 : 이렇게 싸우는 것도 인연이니 하나만 말해주지. 저놈 옆에 남아있지마. 주변을 죽음으로 이끄는 놈이니까.", "special");
+            },
+
+            2: () => {
+                log("인신매매단 간부 : 우습게도 항상 혼자만 살아남는 놈이지. 여기서 네가 죽는다? 그래도 저녀석은 살아남을 거다.", "special");
+            },
+
+            3 : () => {
+                log("유리 : 아니. ${player.name}만큼은 내가 무슨 일이 있어도 지킬 거야.", "yuri");
+            },
+
+            4 : () => {
+                log("유리 : ...무슨 일이 있어도.", "yuri");
+            },
+
+            5 : () => {
+                log("인신매매단 간부 : 그 눈빛... 조금은 돌아온 모양이군? 좋아. 마음에 들어. 예상보다 더 비싸게 팔 수 있겠군.", "special")
+            }
+        },
+
+        allyTurnSupport : {
+            name : "yuri",
+            hpRate : 0.5,
+            damage : 15,
+            logType : "yuri",
+            line : () => {
+                const lines = [
+                    "적들을 어느 정도 해치우고 온 유리가 인신매매단 간부의 빈틈을 노린다! 인신매매단 간부의 옆구리에서 피가 난다! 15데미지!",
+                    "유리 : {playerName}, 그리고 쉘터만큼은 무슨 일이 있어도 지켜낼 거야. 15데미지!",
+                    "유리는 인신매매단 간부의 부하들을 밀쳐내고 인신매매단 간부에게 검격을 넣었다. 그의 공격은 굉장히 빨랐다. 15데미지!",
+                    "인신매매단 간부의 옆구리로 유리의 쌍검이 파고들었다. 인신매매단 간부의 손이 유리를 잡기 전에, 유리는 재빨리 뒤로 물러서서 다시 거리를 벌렸다. 15데미지!",
+                    "유리는 지지 않을 것이다. 그의 눈빛은 평소의 상냥함 하나 없이 매서웠다. 그의 쌍검이 인신매매단 간부의 팔을 찢는다. 15데미지!",
+                    "마치 춤을 추듯이 유려하게 유리는 인신매매단 간부를 여기저기서 공격했다. 인신매매단 간부가 한 순간 빈틈을 보였을 때, 유리는 그 순간을 절대로 놓치지 않았다. 15데미지!"
+                ];
+
+                return getRandom(lines).replaceAll("{playerName}", player.name);
+            }
+        },
+
         onWin: () => {
             player.flags = player.flags || {};
             player.flags.defeated_banditHideout_banditBoss = true;

@@ -1,9 +1,9 @@
 {
     "name" : "아카시아",
-    "hp" : 400,
+    "hp" : 450,
     "attack" : 44,
     "defense" : 30,
-    "eva" : 37,
+    "eva" : 44,
     "lustResist" : 3,
 
     "emotion": {

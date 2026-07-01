@@ -301,6 +301,10 @@
             input.addEventListener("input",updatestats);
         });
 
+        function stat(x){
+            return Math.sign(x) * Math.sqrt(Math.abs(x));
+        }
+
         function updatestats(){
             let s=+str.value || 0;
             let d=+dex.value || 0;
@@ -313,10 +317,10 @@
             remain.innerText=left;
 
          // 게임 내 파생스탯 공식과 동일하게 유지
-         atk.innerText=s*1.1+d*0.5;
-         def.innerText=s*0.7+c*0.7;
-         eva.innerText=d*1.1+i*0.4+c*0.5;
-         mag.innerText=i*1.2+c*0.5;
+         atk.innerText = (stat(s) * 6.3 + stat(d) * 1.8).toFixed(1);
+         def.innerText = (stat(s) * 3.2 + stat(c) * 3.2).toFixed(1);
+         eva.innerText = (stat(d) * 4.8 + stat(i) * 2.5 + stat(c) * 2.2).toFixed(1);
+         mag.innerText = (stat(i) * 6.5 + stat(c) * 2.2).toFixed(1);
         }
 
 

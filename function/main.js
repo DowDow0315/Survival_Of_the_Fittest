@@ -790,6 +790,13 @@ function openStatAllocation(player, onDone = null){
             value: `
                 혹독한 경험으로 당신은 더 강해졌습니다!
                 <br>남은 스탯 포인트: ${player.statPoints}
+                <br><br><strong>현재 순수 능력치</strong>
+                <br>STR ${player.stats.str} / DEX ${player.stats.dex} / INT ${player.stats.int} / CHARM ${player.stats.charm}
+                <br><br><strong>현재 최종 능력치(순수+장비)</strong>
+                <br>ATK ${Math.round(player.derivedStats.atk)}
+                <br>DEF ${Math.round(player.derivedStats.def)}
+                <br>EVA ${Math.round(player.derivedStats.eva)}
+                <br>MAG ${Math.round(player.derivedStats.mag)}
                 <br><br><strong>스탯 효과</strong>
                 <br><br> 근력(STR) : <strong>공격력</strong>, 방어력 증가
                 <br> 민첩(DEX) : 공격력, <strong>회피율</strong> 증가

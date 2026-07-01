@@ -2191,27 +2191,31 @@ function getTotalStat(player, stat){
     return player?.stats?.[stat] || 0;
 }
 
+function stat(x){
+    return Math.sign(x) * Math.sqrt(Math.abs(x));
+}
+
 function updateDerivedStats(player){
     player.derivedStats = player.derivedStats || {};
     const total = calculateTotalStats(player);
 
     player.derivedStats.atk =
-        total.str * 1.1 + total.dex * 0.5;
+        stat(total.str) * 6.3 + stat(total.dex) * 1.8;
 
     player.derivedStats.def =
-        total.str * 0.7 + total.charm * 0.7;
+        stat(total.str) * 3.2 + stat(total.charm) * 3.2;
 
     const fluidPenalty = (typeof getBodyFluidTotal === "function")
         ? Math.floor(getBodyFluidTotal(player) / 30)
         : 0;
 
     player.derivedStats.eva =
-        Math.max(0, total.dex * 1.1 + total.int * 0.4 + total.charm * 0.5 - fluidPenalty);
-
-    player.derivedStats.bodyFluidPenalty = fluidPenalty;
+        stat(total.dex) * 4.8 + stat(total.int) * 2.5 + stat(total.charm) * 2.2 - fluidPenalty;
 
     player.derivedStats.mag =
-        total.int * 1.2 + total.charm * 0.5;
+        stat(total.int) * 6.5 + stat(total.charm) * 2.2;
+
+    player.derivedStats.bodyFluidPenalty = fluidPenalty;
 }
 
 function getAlcoholStatModifier(player, stat){

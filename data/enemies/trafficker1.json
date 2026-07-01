@@ -2,8 +2,8 @@
     "name": "인신매매상(제압봉)",
     "hp": 250,
     "attack": 41,
-    "defense": 38,
-    "eva": 27,
+    "defense": 42,
+    "eva": 30,
     "lustResist" : 1.2,
     "drops": [
         {

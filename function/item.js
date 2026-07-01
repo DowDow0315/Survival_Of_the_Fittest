@@ -470,10 +470,10 @@ const WEAPON_SKILLS = {
             name : "은빛나선",
             cost : 4,
             type: "multiHit",
-            power: 0.9,
-            hits : 6,
+            power: 1.8,
+            hits : 3,
             unlock: 150,
-            desc : "데미지 0.9배로 6번 연속 공격"
+            desc : "데미지 1.8배로 3번 연속 공격"
         },
         {
             name : "달빛에반사되는",
@@ -550,10 +550,10 @@ const WEAPON_SKILLS = {
             name : "채찍돌리기",
             cost : 2,
             type: "multiHit",
-            power: 0.9,
+            power: 1.3,
             hits : 3,
             unlock: 150,
-            desc : "데미지 0.9배로 3번 연속 공격"
+            desc : "데미지 1.3배로 3번 연속 공격"
         },
         {
             name : "하얀 춤",

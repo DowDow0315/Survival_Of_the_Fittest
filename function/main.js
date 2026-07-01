@@ -1131,13 +1131,9 @@ const NPC_LUST_GROWTH_CONDITIONS = {
         { key: "affection", min: 80, amount: 1 }
     ],
 
-    matin: [
-        { key: "affection", min: 50, amount: 1 }
-    ],
-
     deric: [
         { key: "dominance", min: 50, amount: 1 },
-        { key: "affection", min: 80, amount: 1 }
+        { key: "affection", min: 50, amount: 1 }
     ],
 
     pale: [

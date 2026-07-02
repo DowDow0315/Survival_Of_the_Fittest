@@ -1080,7 +1080,7 @@ const ITEMS ={
 
         whiteFlowerLabBracelet : {
             name : "하얀꽃팔찌",
-            desc : "당신의 도덕과 교환한, 시든 하얀꽃팔찌. 시들었는데도 하얀꽃들은 서로 이어져 있다.",
+            desc : "당신의 도덕성과 교환한, 시든 하얀꽃팔찌. 시들었는데도 하얀꽃들은 서로 이어져 있다.",
             type : "accessary",
             price : 5000,
             stats : {

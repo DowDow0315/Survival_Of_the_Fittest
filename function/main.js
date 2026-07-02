@@ -2925,7 +2925,8 @@ function startArrowMinigame(player, options = {}){
         onStepSuccess: options.onStepSuccess || null,
         onStepFail: options.onStepFail || null,
         onClear: options.onClear || null,
-        onGameOver: options.onGameOver || null
+        onGameOver: options.onGameOver || null,
+        endOnFail: options.endOnFail || false
     };
 
     function cleanup(){
@@ -3102,12 +3103,14 @@ function startArrowMinigame(player, options = {}){
                         return;
                     }
                     
-                    if (config.onGameOver && progress <= -999){
+                    if (config.endOnFail){
                         cleanup();
-                        config.onGameOver(player);
+                        
+                        if (config.onGameOver){
+                            config.onGameOver(player);
+                        }
                         return;
                     }
-                    
                     renderRound();
                 }
             }

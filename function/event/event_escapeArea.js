@@ -3270,11 +3270,11 @@ function getFishingRod(player){
 
 const FISH_TABLE = [
     { item: null, chance: 0.05, sequence: 4, time: 4000 },
-    { item: ITEMS.misc.stone, chance: 0.05, sequence: 4, time: 3500 },
-    { item: ITEMS.misc.smallFish, chance: 0.45, sequence: 6, time: 4500 },
-    { item: ITEMS.misc.mediumFish, chance: 0.25, sequence: 7, time: 4500 },
-    { item: ITEMS.misc.bigFish, chance: 0.15, sequence: 9, time: 5000 },
-    { item: ITEMS.misc.salmon, chance: 0.05, sequence: 12, time: 5500 }
+    { item: ITEMS.misc.stone, chance: 0.05, sequence: 4, time: 3000 },
+    { item: ITEMS.misc.smallFish, chance: 0.45, sequence: 6, time: 4000 },
+    { item: ITEMS.misc.mediumFish, chance: 0.25, sequence: 8, time: 4000 },
+    { item: ITEMS.misc.bigFish, chance: 0.15, sequence: 10, time: 4500 },
+    { item: ITEMS.misc.salmon, chance: 0.05, sequence: 15, time: 5000 }
 ];
 
 function getFishingTarget(){
@@ -3314,16 +3314,10 @@ window.fishing = function(player){
         target: 1,
         sequenceLength: fish.sequence,
         timeLimit: fish.time,
+        endOnFail: true,
 
         successText: "강태공이 당신에게 칭찬을 할 법한 능숙한 움직임이었다! 쉐킷쉐킷!",
-        failText: "아아앗 안돼... 당신은 물고기에게 졌습니다.",
-
-        onStepFail: () => {
-            return {
-                text: "아아앗 안돼... 당신은 물고기에게 졌습니다. 어쩔 수 없죠. 물고기와의 승부에서 패배한 걸 겸손한 마음으로 받아들이십쇼.",
-                progress: -999
-            };
-        },
+        failText: "아아앗 안돼... 당신은 물고기에게 졌습니다. 어쩔 수 없죠. 물고기와의 승부에서 패배한 걸 겸손한 마음으로 받아들이십쇼.",
 
         onClear: (player) => {
             const rod = getFishingRod(player);

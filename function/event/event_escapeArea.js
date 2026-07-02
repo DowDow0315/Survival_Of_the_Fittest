@@ -2965,7 +2965,7 @@ window.rollEscapeAreaEvent = function(player, fromLocation, targetLocation){
         return null;
     }
 
-    if (Math.random() >= 0.2){
+    if (Math.random() >= 0.5){
         return null;
     }
 

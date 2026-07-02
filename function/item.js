@@ -1080,6 +1080,7 @@ const ITEMS ={
 
         whiteFlowerLabBracelet : {
             name : "하얀꽃팔찌",
+            desc : "당신의 도덕과 교환한, 시든 하얀꽃팔찌. 시들었는데도 하얀꽃들은 서로 이어져 있다.",
             type : "accessary",
             price : 5000,
             stats : {
@@ -1087,6 +1088,17 @@ const ITEMS ={
                 dex : 1,
                 int : 1,
                 str : 1
+            }
+        },
+
+        whiteFlowerRing : {
+            name : "하얀꽃반지",
+            desc : "시들지 않는 하얀꽃반지, 꿈속에서 만난 그대가 시들지 않기를.",
+            type : "accessary",
+            price : 2000,
+            stats : {
+                charm : 2,
+                dex : 1
             }
         },
 

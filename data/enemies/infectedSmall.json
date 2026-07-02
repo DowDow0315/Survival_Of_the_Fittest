@@ -1,9 +1,9 @@
 {
     "name": "작은꽃",
     "hp": 150,
-    "attack": 35,
-    "defense": 35,
-    "eva": 29,
+    "attack": 36,
+    "defense": 36,
+    "eva": 30,
     "lustResist" : 1.8,
     "drops": [
         {

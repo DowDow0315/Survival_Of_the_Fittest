@@ -331,7 +331,7 @@ const DUNGEONS = {
 
             "r1c0" : {name : "창고앞", exits : {up: "r0c0", right : "r1c1"} },
             "r1c1" : {name : "창고앞 복도", exits : {left: "r1c0", right: "r1c2"}},
-            "r1c2" : {name : "중앙갈림길", exits : {left : "r1c1", right : "r1c3"}},
+            "r1c2" : {name : "중앙갈림길", exits : {left : "r1c1", right : "r1c3"}, chest: "whiteFlowerLabRepeated_chest"},
             "r1c3" : {name : "제어실로가는길", exits : {left : "r1c2", up:"r0c3"}},
 
             "r2c2" : {name : "백색통로2", exits : {up: "r1c2", down : "r3c2"}},
@@ -1011,6 +1011,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "whiteFlowerLab" && room.boss === "infectedSmalls"){
         handleInfectedSmallsWin(player);
+        return;
+    }
+
+    if (dungeon.id === "erwinHideout" && room.boss === "erwin"){
+        handleErwinWin(player);
         return;
     }
 
@@ -3459,7 +3464,14 @@ function runDungeonBossIntro(player, introId){
             {
                 type: "text",
                 value:
-                      ""
+                      "당신의 발걸음 앞으로, 하얀색 꽃이 흐드러지게 피어났다. 무성한 하얀꽃들 사이에 여인이 한 명 서있었다. 당신을 마주한 그는 고개를 기울이며 당신의 이름을 불렀다." +
+                      "<br><br>\"...나를.\"<br><br>" +
+                      "바닥까지 길게 뻗은 하얀색 머리카락이 하얀꽃들 사이에서 바스러진다. 머리카락들은 바스라졌다가도 다시 하얀색 꽃과 결합되어 형태를 형성했다. 그는 모든 것이 하얀꽃으로 이루어진 사람으로 보였다." +
+                      "<br><br>\"죽,이러 왔,어.\"<br><br>" +
+                      "<br><br><br><br><strong><span class='log-pale'>왜?</span></strong>" +
+                      "<br><br><strong><span class='log-pale'>왜 네가 나를<br><br>죽이러 온 거야?</span></strong>" +
+                      "<br><br><br>....?" +
+                      "<br><br><br>에르윈은 당신이 자신을 죽이러 왔다는 걸 알고 있다. 에르윈의 처절한 사투가 시작된다...!"
             },
             {
                 type : "effect",
@@ -3472,67 +3484,6 @@ function runDungeonBossIntro(player, introId){
     }
 }
 
-window.startBanditBossBattle = function(player){
-    startBattle("banditBoss", player, {
-        noEscape: true,
-
-        customTurnEvents : {
-            1: () => {
-                log("인신매매단 간부 : 이렇게 싸우는 것도 인연이니 하나만 말해주지. 저놈 옆에 남아있지마. 주변을 죽음으로 이끄는 놈이니까.", "special");
-            },
-
-            2: () => {
-                log("인신매매단 간부 : 우습게도 항상 혼자만 살아남는 놈이지. 여기서 네가 죽는다? 그래도 저녀석은 살아남을 거다.", "special");
-            },
-
-            3 : () => {
-                log("유리 : 아니. ${player.name}만큼은 내가 무슨 일이 있어도 지킬 거야.", "yuri");
-            },
-
-            4 : () => {
-                log("유리 : ...무슨 일이 있어도.", "yuri");
-            },
-
-            5 : () => {
-                log("인신매매단 간부 : 그 눈빛... 조금은 돌아온 모양이군? 좋아. 마음에 들어. 예상보다 더 비싸게 팔 수 있겠군.", "special")
-            }
-        },
-
-        allyTurnSupport : {
-            name : "yuri",
-            hpRate : 0.5,
-            damage : 15,
-            logType : "yuri",
-            line : () => {
-                const lines = [
-                    "적들을 어느 정도 해치우고 온 유리가 인신매매단 간부의 빈틈을 노린다! 인신매매단 간부의 옆구리에서 피가 난다! 15데미지!",
-                    "유리 : {playerName}, 그리고 쉘터만큼은 무슨 일이 있어도 지켜낼 거야. 15데미지!",
-                    "유리는 인신매매단 간부의 부하들을 밀쳐내고 인신매매단 간부에게 검격을 넣었다. 그의 공격은 굉장히 빨랐다. 15데미지!",
-                    "인신매매단 간부의 옆구리로 유리의 쌍검이 파고들었다. 인신매매단 간부의 손이 유리를 잡기 전에, 유리는 재빨리 뒤로 물러서서 다시 거리를 벌렸다. 15데미지!",
-                    "유리는 지지 않을 것이다. 그의 눈빛은 평소의 상냥함 하나 없이 매서웠다. 그의 쌍검이 인신매매단 간부의 팔을 찢는다. 15데미지!",
-                    "마치 춤을 추듯이 유려하게 유리는 인신매매단 간부를 여기저기서 공격했다. 인신매매단 간부가 한 순간 빈틈을 보였을 때, 유리는 그 순간을 절대로 놓치지 않았다. 15데미지!"
-                ];
-
-                return getRandom(lines).replaceAll("{playerName}", player.name);
-            }
-        },
-
-        onWin: () => {
-            player.flags = player.flags || {};
-            player.flags.defeated_banditHideout_banditBoss = true;
-            savePlayer(player);
-
-            handleDungeonBossWin(
-                player,
-                getCurrentDungeon(player),
-                getCurrentDungeonRoom(player)
-            );
-        },
-        onSkipDefeat : () => {
-            startBanditBossLose(player);
-        }
-    });
-};
 
 function handleBanditBossWin(player){
     player.flags = player.flags || {};
@@ -3707,7 +3658,238 @@ function startInfectedSmallsLose(player){
     ], player);
 }
 
+//uppercity_story_02 관련
+window.startErwinBossBattle = function(player){
+    let supportStarted = false;
+
+    startBattle("erwin", player, {
+        noEscape : true,
+
+        allyTurnSupport : {
+            name : "에릭",
+            hpRate : 0.5,
+            damage : 100,
+            logType : "eric",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "탕! 귀가 멍해지는 듯한 큰 소리가 들렸다. 당신은 뒤를 돌아보았다. 에릭이다.<strong>100 데미지!</strong>";
+                }
+
+                const lines = [
+                    "다시 한 번 총성이 울렸다. 에르윈의 하얀 몸 일부가 꽃잎처럼 흩어졌다. 에르윈은 비명을 지르고 있다. <strong>100 데미지!</strong>",
+                    "탕 소리와 함께 에르윈의 찢어질 듯한 비명 소리가 들렸다. 흩어지던 그는 다시 하얀꽃잎들로 재생했다. <strong>100 데미지!</strong>",
+                    "에르윈은 에릭을 공격하려고 했지만, 에릭의 총알이 더 빨랐다. 에릭에게 뻗어지던 촉수들이 그대로 박살났다. <strong>100 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin : () => {
+            player.flags.uppercity_story_02_killErwin = true;
+
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+
+        onSkipDefeat : () => {
+            player.flags.uppercity_story_02_killErwin = true;
+            startErwinLose(player);
+        }
+    });
+};
+
+function handleErwinWin(player){
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 에르윈을 이겼다. 쓰러진 에르윈은 마지막까지 저 멀리로 손을 뻗었지만 결국에는 아무 것도 잡지 못하고 그대로 몸이 팔부터 부서져내렸다. 그가 부서져내린 자리에는 수북한 하얀꽃들만이 남았다." +
+                "<br>에릭은 에르윈이 완전히 부서져내릴 때까지 그 앞에 있었다. 사람인지, 마물인지, 어쨌든 생명이 부서져내리는 것을 보면서도 에릭은 아무 말도 하지 않았다. 그의 녹안은 그저 차갑게 깊기만 했다." +
+                "<br>에르윈이 죽은 걸 확인한 에릭이 몸을 돌렸다. 그 순간 뭔가가 당신의 가슴 위로 떨어졌다. 당신은 어떻게든 당신의 가슴 위로 떨어진 것을 받았다. 돈이 들은 작은 주머니다." +
+                "<br><br>\"퀘스트 보고는 주점에 가서 해라.\"<br><br>"
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 에릭에게 왜 여기까지 몸소 나온 거냐고 물었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value :
+                                "\"...네가 처리하지 못할 수도 있으니까. <br>혹은 안 할 수도 있고.\"<br><br>" +
+                                "에릭의 목소리는 차가웠다. 당신은 만약 자신이 이 마물을 처리하지 않았으면 어떻게 했을 거냐고 물었다." +
+                                "<br><br>\"네 결정과는 상관없이 에르윈은 어차피 죽었을 거다.\"<br><br>" +
+                                "당신은 그에게 마물을 싫어하는 거냐고 물었다. 그러자 에릭은 이 세상에 마물을 좋아하는 사람도 있냐고 물었다. 하얀꽃은 좋아하는 사람이 은근 있지 않냐는 당신의 물음에 에릭은 잠시 말을 멈췄다." +
+                                "<br>...어쩌면 그는 꽃과 관련된 것들은 마물이 아니라고 생각하는 걸지도 모르겠다. 에릭은 당신을 힐끗 보더니 앞서 걸었다. 당신은 그의 뒤를 따랐다."
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 에릭에게 고맙다고 말했다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : 
+                                "\"상응하는 대가를 준 것뿐이다.\"<br><br>" +
+                                "당신의 고맙다는 말에도 에릭은 주저없이 그렇게 말했다. 그는 앞서 걸었고 당신은 그의 뒤를 뒤쫓아 걸었다. 언제나처럼 그의 발은 빨랐지만, 오늘은 그래도 평소보다는 느린 거 같았다. 당신은 에릭의 뒤에서 걸으며 돈 수거를 하러 멀리까지 오는 이유가 뭐냐고 물었다." +
+                                "\"돈 수거를 하러 여기까지 온다고? 여기까지 오는 사람들은 그리 많지 않아.\"<br><br>" +
+                                "돈 수거가 아닌 다른 일 때문에 여기까지 돌아다니는 건가... 당신은 진심으로 에릭이 잠을 자긴 하는지 궁금해졌다."
+                        },
+                        {
+                            type : "effect",
+                            run : player => {
+                                changeNPCEmotion("eric", "affection", 3);
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            type : "text",
+            value :
+                "당신은 경계병 제3초소까지 에릭과 함께 걸어갔다. 경계병 제3초소 근처에 도착하자, 에릭은 경계병들이 자신을 눈치채기 전 발걸음을 멈췄다. 당신은 의아해하며 그를 올려다보았다." +
+                "<br><br><span class='log-eric'>\"하류도시의 영웅은 한 명으로도 충분하다.\"</span><br><br>" +
+                "그게 끝이었다. 그는 그대로 다른 방향으로 저벅저벅 걸어가버렸다. 정말로 당신을 경계병 제3초소 앞까지만 데려다줄 생각이었나 보다. 당신을 발견한 경계병들이 밝은 얼굴로 당신을 맞이하는 것이 보인다." +
+                "<br>그들은 모두 당신에게 마물을 죽이고 온 거냐고 물었다. 당신이 고개를 끄덕이자 그들의 얼굴색은 더 밝아졌다. 적어도 이들은 당신을 제대로 하류도시의 영웅으로 존중해주고 있다." +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>왜</div>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>네가</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>나를</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>죽이러</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>온 거야?</div><br><br>"
+
+        },
+        {
+            type : "text",
+            value : "\"하류도시의 영웅?\"<br><br>" +
+                    "당신의 움직임이 멈추자 그들은 당신에게 너무 무리한 거 아니냐고 물었다. 모여있던 경계병들 중 몇 명이 당신에게 음식을 내밀었다." +
+                    "<br>그들은 당신의 체력이 회복될 때까지 당신을 지켜주었다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeHP(player, 100);
+                changeStamina(player, 100);
+                changeNPCEmotion("eric", "dominance", -5);
+                changeNPCEmotion("eric", "affection", 5);
+                changeNPCEmotion("valen", "affection", 5);
+                changeNPCEmotion("akasia", "affection", 5);
+
+                savePlayer(player);
+
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+function startErwinLose(player){
+    startScene([
+        {
+            type : "text",
+            value : "당신은 에르윈의 공격을 버티지 못하고 쓰러졌지만, 당신이 쓰러지려는 순간 에릭이 당신의 허리를 한손으로 받쳤다. 에르윈은 긴 팔을 당신에게 뻗었다가 에릭이 당신을 부축하자 움직임을 멈췄다." +
+                    "<br><br>\"<span class='log-pale'>아, 아아, 아아아....\"</span><br><br>" +
+                    "에릭은 당신의 귀를 한손으로 막았다. 당신의 한쪽 귀는 에릭의 단단한 복근에 파묻혀 있다. 그래서 당신은 에르윈이 중얼거리는 소리를 하나도 듣지 못했다. 그저 에릭의 심장 뛰는 소리만 들었을 뿐." +
+                    "<br><br>바깥소리는 그저 총소리만,<br>총소리만 들릴 뿐이었다."
+        },
+        {
+            type : "text",
+            value : "3번의 총성 후, 에릭은 천천히 당신을 놓아주었다. 하지만 당신이 그대로 쓰러지려고 하자, 그는 주저하지 않고 당신을 그대로 한손에 낀 후 마물의 은신처를 나왔다." +
+                    "당신을 기다리고 있던 제3초소 경계병들의 눈이 동그래졌다. 에릭은 아무렇지도 않게 당신을 그들에게 던져주었다. 당신의 몸은 가볍게 그들의 손아귀로 떨어졌다." +
+                    "<br><br>\"마물은 퇴치했다.\"<br><br>" +
+                    "그는 누가 마물을 퇴치했는지 주어를 말하지 않았지만, 경계병들은 당신이 마물을 처치한 걸로 받아들인 모양이다. 그들은 마물을 퇴치하고서도 살아돌아온 것이 영웅 그 자체라고 믿으며 당신이 기력과 체력을 회복할 떄까지 당신을 지켜주었다." +
+                    "<br><br>당신이 다시 눈을 떴을 때 당연하게도 에릭은 없었다. 당신은 제3초소 경계병들의 걱정 속에서 몸을 일으켰다. 치료를 잘해줬는지 몸이 가뿐하다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                addQuestProgress(player, "erwin");
+                changeHP(player, 100);
+                changeStamina(player, 100);
+                changeNPCEmotion("eric", "dominance", 5);
+                changeNPCEmotion("eric", "affection", 3);
+                changeNPCEmotion("valen", "affection", 1);
+                changeNPCEmotion("akasia", "affection", 1);
+
+                savePlayer(player);
+                
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
 //act2 인신매매상 관련
+window.startBanditBossBattle = function(player){
+    startBattle("banditBoss", player, {
+        noEscape: true,
+
+        customTurnEvents : {
+            1: () => {
+                log("인신매매단 간부 : 이렇게 싸우는 것도 인연이니 하나만 말해주지. 저놈 옆에 남아있지마. 주변을 죽음으로 이끄는 놈이니까.", "special");
+            },
+
+            2: () => {
+                log("인신매매단 간부 : 우습게도 항상 혼자만 살아남는 놈이지. 여기서 네가 죽는다? 그래도 저녀석은 살아남을 거다.", "special");
+            },
+
+            3 : () => {
+                log("유리 : 아니. ${player.name}만큼은 내가 무슨 일이 있어도 지킬 거야.", "yuri");
+            },
+
+            4 : () => {
+                log("유리 : ...무슨 일이 있어도.", "yuri");
+            },
+
+            5 : () => {
+                log("인신매매단 간부 : 그 눈빛... 조금은 돌아온 모양이군? 좋아. 마음에 들어. 예상보다 더 비싸게 팔 수 있겠군.", "special")
+            }
+        },
+
+        allyTurnSupport : {
+            name : "yuri",
+            hpRate : 0.5,
+            damage : 15,
+            logType : "yuri",
+            line : () => {
+                const lines = [
+                    "적들을 어느 정도 해치우고 온 유리가 인신매매단 간부의 빈틈을 노린다! 인신매매단 간부의 옆구리에서 피가 난다! <strong>15 데미지!</strong>",
+                    "유리 : {playerName}, 그리고 쉘터만큼은 무슨 일이 있어도 지켜낼 거야. <strong>15 데미지!</strong>",
+                    "유리는 인신매매단 간부의 부하들을 밀쳐내고 인신매매단 간부에게 검격을 넣었다. 그의 공격은 굉장히 빨랐다. <strong>15 데미지!</strong>",
+                    "인신매매단 간부의 옆구리로 유리의 쌍검이 파고들었다. 인신매매단 간부의 손이 유리를 잡기 전에, 유리는 재빨리 뒤로 물러서서 다시 거리를 벌렸다. <strong>15 데미지!</strong>",
+                    "유리는 지지 않을 것이다. 그의 눈빛은 평소의 상냥함 하나 없이 매서웠다. 그의 쌍검이 인신매매단 간부의 팔을 찢는다. <strong>15 데미지!</strong>",
+                    "마치 춤을 추듯이 유려하게 유리는 인신매매단 간부를 여기저기서 공격했다. 인신매매단 간부가 한 순간 빈틈을 보였을 때, 유리는 그 순간을 절대로 놓치지 않았다. <strong>15 데미지!</strong>"
+                ];
+
+                return getRandom(lines).replaceAll("{playerName}", player.name);
+            }
+        },
+
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_banditHideout_banditBoss = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startBanditBossLose(player);
+        }
+    });
+};
+
 function handleSlaverCampBossWin(player){
     player.flags = player.flags || {};
     player.flags.slaverCamp_cleared = true;

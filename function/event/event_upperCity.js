@@ -1,6 +1,7 @@
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
+    priority : true,
     once : true,
 
     condition : (player) =>

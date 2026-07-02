@@ -344,12 +344,22 @@ function canShowSoraQuest(player, quest){
 
 //소라 개인퀘스트 2 - 소라 하얀꽃잎조각들
 window.accept_sora_drug_02 = function(player){
-    player.flags = player.flags || {};
+    initQuestData(player);
 
+    const questId = "sora_drug_02";
+
+    const alreadyActive = player.quest.subActive.some(q => q.id === questId);
+    const alreadyCompleted = player.quest.completed.includes(questId);
+
+    if (!alreadyActive && !alreadyCompleted){
+        player.quest.subActive.push({
+            id: questId,
+            progress: 0
+        });
+    }
+    
     player.flags.sora_drug_02_started = true;
     player.flags.sora_drug_02_started_day = getCurrentDay(player);
-
-    acceptQuest(player, "sora_drug_02");
 
     savePlayer(player);
     return true;

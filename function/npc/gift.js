@@ -3,24 +3,24 @@ const NPC_GIFT_CONFIG = {
         reactions: {
             matinFavorite: {
                 great: {
-                    affection: 10,
+                    affection: 7,
                     rage: -5,
                     lust : 0,
-                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다.<br><br>\"...고마워. 연어초밥은.... 정말 좋아하거든.<br>...기억하던 맛보다 훨씬 맛있네.\"<br><br>그의 입가에 조용한 미소가 내려앉았다."
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"...맛있다.\"<br><br>그는 당신의 시선을 마주하다가 다시 고개를 돌렸다. 그의 눈동자는 어디를 바라보고 있는 걸까."
                 },
             
                 normal: {
-                    affection: 9,
+                    affection: 5,
                     rage: -5,
                     lust : 0,
-                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"연어는 낚기 힘들었을 텐데. 고맙다.\"<br><br>그는 희미하게 웃었다. 웃으면서도 그의 눈동자는 어딜 보고 있는 건지, 묘하게 슬퍼보였다."
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"연어는 낚기 힘들었을 텐데.<br>...고맙다.\"<br><br>그는 희미하게 웃었다. 웃으면서도 그의 눈동자는 어딜 보고 있는 건지, 묘하게 슬퍼보였다."
                 },
             
                 bad: {
-                    affection: 10,
+                    affection: 7,
                     rage: -5,
                     lust : 0,
-                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"...그때와 똑같은 맛이네.\"<br><br>그는 조용히 웃었다.<br><br>\"고마워.\""
+                    line: "\"이건...\"<br><br>마틴은 당신과 연어초밥을 번갈아보더니 조심스럽게 한 입 먹었다. <br><br>\"...그때와 똑같은 맛이네.\"<br><br>그는 조용히 웃었다. 더 이상의 말은 없었지만 어쩐지 표정이 평소보다 부드러웠다."
                 }
             },
             matinHate: {
@@ -94,14 +94,14 @@ const NPC_GIFT_CONFIG = {
             },
             lustyHighAffection : {
                 great: {
-                    affection: 3,
+                    affection: 2,
                     rage: 0,
                     lust : 3,
                     line: "마틴은 음식의 냄새를 맡더니 움찔했다. <br><br>\"이런 악취미는 혼자만 간직해...\"<br><br>고개를 돌리고 있는 그의 귀끝은 붉었다. 그는 당신이 가지 않자 고개를 다시 돌렸다. <br><br>\"...설마 먹어보라는 건 아니지?\""
                 },
 
                 normal: {
-                    affection: 3,
+                    affection: 2,
                     rage: 0,
                     lust : 3,
                     line: "마틴은 음식의 냄새를 맡더니 움찔했다. <br><br>\"...먹을 거면 혼자 먹어.\"<br><br>그는 고개를 돌렸다. 하지만 당신은 그가 곁눈질로 당신을 힐끔힐끔 보고 있다는 걸 알아차렸다."
@@ -140,14 +140,14 @@ const NPC_GIFT_CONFIG = {
 
             vegetable : {
                 great : {
-                    affection : 3,
+                    affection : 1,
                     rage : 0,
                     lust : 0,
                     line : "마틴은 음식을 먹으며 이런 음식을 먹으면 속이 편해서 좋다고 말해주었다. <br><br>\"...열심히 했네. 잘했어.\""
                 },
 
                 normal : {
-                    affection : 2,
+                    affection : 1,
                     rage : 0,
                     lust : 0,
                     line : "마틴은 음식을 먹으며 야채는 맛이 없어질 수도 있으니 조심해야 한다고 말했다. <br><br>\"고기보다는 야채를 싫어하는 사람들이 더 많아. 야채가 영양가가 더 높은데도.\""
@@ -163,21 +163,21 @@ const NPC_GIFT_CONFIG = {
 
             fish : {
                 great : {
-                    affection : 7,
+                    affection : 4,
                     rage : 0,
                     lust : 0,
                     line : "마틴은 당신의 생선 요리를 맛보더니 고개를 끄덕였다. <br><br>\"...맛있다.\"<br><br>그는 당신의 생선 요리를 다른 요리들보다 훨씬 더 많이 먹었다."
                 },
 
                 normal : {
-                    affection : 5,
+                    affection : 3,
                     rage : 0,
                     lust : 0,
                     line : "마틴은 당신의 생선 요리를 맛보더니 고개를 끄덕였다. <br><br>\"생선은 몸에 좋아.\"<br><br>마틴은 당신에게 생선 요리 팁을 몇 가지 알려주었다."
                 },
 
                 bad : {
-                    affection : 4,
+                    affection : 2,
                     rage : 0,
                     lust : 0,
                     line : "그는 낚기 힘들었을 텐데 생선 요리가 조금 실패해서 속상했을 거 같다고 말했다. 당신이 그에게 낚시를 해봤냐고 묻자 그는 고개를 저었다. <br><br>\"...옆에서 봤던 게 다야. 낚는 게 힘들다는 건 알아.\""
@@ -186,7 +186,7 @@ const NPC_GIFT_CONFIG = {
 
             mixed : {
                 great : {
-                    affection : 2,
+                    affection : 1,
                     rage : 0,
                     lust : 0,
                     line : "그는 당신의 요리를 먹으며 고개를 끄덕였다. <br><br>\"맛있어.\"<br><br>그는 고기 부분보다는 야채 쪽을 더 많이 먹고 있다."
@@ -278,7 +278,7 @@ const NPC_GIFT_CONFIG = {
 
             vegetableRice : {
                 great : {
-                    affection : 2,
+                    affection : 1,
                     rage : 0,
                     lust : 0,
                     line : "그는 당신의 음식을 먹으며 고개를 끄덕였다. 그는 앞으로도 이렇게만 한다면 음식점을 운영해도 어떻게든 될 거라고 말했다. 반 정도 먹은 후 그는 음식에서 손을 뗐다."
@@ -1742,7 +1742,7 @@ function giveFoodToNpc(player, npcId, item){
         if (
             npcId === "matin" &&
             taste === "lusty" &&
-            affection >= 70
+            affection >= 80
         ){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }
@@ -1778,7 +1778,23 @@ function giveFoodToNpc(player, npcId, item){
         }
         
         if (reaction.affection){
-            changeEmotion(npcId, "affection", reaction.affection);
+            if (
+                npcId === "matin" &&
+                !player.flags?.matinAffectionCapUnlocked
+            ){
+                const current = NPC_DATA["matin"].emotion.affection || 0;
+                
+                if (current < 50){
+                    const gain = Math.min(reaction.affection, 50 - current);
+                    
+                    if (gain > 0){
+                        changeEmotion("matin", "affection", gain);
+                    }
+                }
+            }
+            else {
+                changeEmotion(npcId, "affection", reaction.affection);
+            }
         }
         
         if (reaction.rage){

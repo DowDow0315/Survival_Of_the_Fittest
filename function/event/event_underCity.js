@@ -612,6 +612,58 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "erwin_kill_dream_event",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.uppercity_story_02_done &&
+        player.flags?.uppercity_story_02_killErwin &&
+        !player.flags?.erwin_kill_dream_event_seen,
+
+    action : (player) => {
+        player.flags.erwin_kill_dream_event_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.erwin_kill_dream_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "erwin_notKill_dream_event",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.uppercity_story_02_done &&
+        !player.flags?.uppercity_story_02_killErwin &&
+        player.flags?.uppercity_story_02_notKillErwin &&
+        !player.flags?.erwin_notKill_dream_event_seen,
+
+    action : (player) => {
+        player.flags.erwin_notKill_dream_event_seen = true;
+        addItem(player, ITEMS.accessary.whiteFlowerRing);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.erwin_notKill_dream_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //랜덤이벤트
 window.EVENTS.push({
     id : "whiteflower_hallucination_event01",

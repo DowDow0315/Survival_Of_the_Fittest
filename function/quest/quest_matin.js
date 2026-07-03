@@ -242,3 +242,23 @@ function lieAboutMatinGraveyardQuest02(player){
         }
     ], player);
 }
+
+function isMatinGraveyardQuest02Active(player){
+    return player.quest?.subActive?.some(q => q.id === "matin_graveyard_02");
+}
+
+function completeMatinGraveyardQuest02Investigation(player){
+    player.flags = player.flags || {};
+
+    player.flags.matin_graveyard_sheWasHere = true;
+
+    const active = player.quest?.subActive?.find(
+        q => q.id === "matin_graveyard_02"
+    );
+
+    if (active){
+        active.progress = MATIN_QUESTS.matin_graveyard_02.requiredKill;
+    }
+
+    savePlayer(player);
+}

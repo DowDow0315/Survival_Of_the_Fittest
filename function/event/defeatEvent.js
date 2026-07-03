@@ -607,6 +607,30 @@ const DEFEAT_EVENTS = {
             ]
         }
     ],
+    flower4: [
+        {
+            id : "infected_bigFlower",
+            weight : 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "꽃폭탄인간은 정말로 당신을 죽이려고 했다. 하지만 꽃폭탄이 당신의 입안에서 터지려는 순간, 그는 멈췄다. 그는 스스로조차도 믿을 수 없다는 표정으로 당신이 괴로워하는 얼굴을 내려다보았다." +
+                        "<br>\"내 손으로는 죽일 수 없어...\"<br>" +
+                        "그는 중얼거리더니 울면서 당신을 어딘가로 끌고 갔다. 그리고 거대한 꽃 앞에 서더니, 당신을 그대로 꽃안으로 던졌다." +
+                        "<br>꽃으로 떨어지기 전, 당신은 그의 얼굴을 스쳐지나가듯이 보았다.<br>...이상하게도, 그는 울고 있었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startFlowerEscape(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
     bandit1 : [
         {
             id : "bandits_defeat",

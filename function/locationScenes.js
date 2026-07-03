@@ -651,7 +651,7 @@ window.graveyard_sarcophagus = function(player){
         return;
     }
 
-    showScene([
+    startScene([
         {
             type: "text",
             value:
@@ -663,7 +663,7 @@ window.graveyard_sarcophagus = function(player){
             type: "choice",
             choices: [
                 { text: "계단 아래로 내려간다", action: "graveyard_enterUnderground" },
-                { text: "아직 들어가지 않는다", action: "graveyard_returnTreasureScene" }
+                { text: "아직 들어가지 않는다", action: "graveyard_returnEntrance" }
             ]
         }
     ], player);

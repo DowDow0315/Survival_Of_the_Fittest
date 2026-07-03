@@ -185,7 +185,7 @@
         {
             "name" : "신속공격",
             "type" : "multiHit",
-            "power" : 0.8,
+            "power" : 0.9,
             "hits" : 8,
             "chance" : 0.1,
             "lines" : [
@@ -196,7 +196,7 @@
         {
             "name" : "전투태세",
             "type" : "selfBuff",
-            "chance" : 0.1,
+            "chance" : 0.5,
             "duration" : 5,
             "effect" : {
                 "id" : "eric_battle_stance",
@@ -212,7 +212,7 @@
             "power" : 2,
             "type" : "lust",
             "target" : "a",
-            "chance" : 0.3,
+            "chance" : 0.2,
             "lines" : [
                 "에릭은 무표정으로 당신의 엉덩이를 때렸다. 당신을 말 안 듣는 개새끼라고 생각하는 모양이다.",
                 "당신의 엉덩이는 그에게 맞아서 붉어졌다. 에릭은 당신을 길들이려면 폭력이 답이라고 생각하는 거 같다."
@@ -221,7 +221,7 @@
         {
             "name" : "잡기",
             "type" : "grapple",
-            "chance" : 0.4
+            "chance" : 0.2
         }
 
     ],

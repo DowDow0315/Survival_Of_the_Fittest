@@ -3,7 +3,7 @@
     "hp": 200,
     "attack": 38,
     "defense": 30,
-    "eva": 35,
+    "eva": 38,
     "lustResist" : 4,
     "tags" : ["skeleton"],
     "drops": [

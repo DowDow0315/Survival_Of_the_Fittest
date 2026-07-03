@@ -1,0 +1,25 @@
+{
+    "name" : "시온",
+    "hp" : 300,
+    "attack" : 30,
+    "defense" : 45,
+    "eva" : 38,
+    "lustResist" : 1.1,
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 5}
+            ],
+            "text" : "시온의 시선은 언제나 당신을 쫓고 있다."
+        }
+    ]
+}

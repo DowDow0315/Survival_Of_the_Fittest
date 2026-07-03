@@ -4,7 +4,7 @@ const SORA_QUESTS = {
         title: "소라를 위한 마약 5개",
         type: "collect",
         category : "sub",
-        giver: "sora",
+        giver: "소라",
 
         requiredItem: "drug",
         requiredCount: 5,
@@ -27,7 +27,7 @@ const SORA_QUESTS = {
         title : "소라를 위한 하얀꽃잎조각들 8개",
         type : "collect",
         category : "sub",
-        giver : "sora",
+        giver : "소라",
 
         requiredItem : "pieceofwhiteflower",
         requiredCount : 8,

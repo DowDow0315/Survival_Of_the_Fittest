@@ -2146,6 +2146,12 @@ const ITEMS ={
             desc : "상류도시의 인장이 찍혀있는 발렌의 출입 허가증.",
             type : "key",
             price : 0
+        },
+        graveYardKey : {
+            name : "공동묘지 석관 열쇠",
+            desc : "마틴이 준 열쇠. 공동묘지의 석관을 열 수 있는 열쇠라고 한다.",
+            type : "key",
+            price : 500
         }
     }
 };
@@ -2167,6 +2173,14 @@ function addItem(player, item){
 
 function cloneItem(item){
     return JSON.parse(JSON.stringify(item));
+}
+
+function hasItem(player, itemName){
+    return player.inventory.some(item => item.name === itemName);
+}
+
+function hasItemKey(player, key){
+    return player.inventory.some(item => item.key === key);
 }
 
 //계산식

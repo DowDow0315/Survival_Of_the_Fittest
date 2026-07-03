@@ -130,7 +130,7 @@ const QUESTS = {
             player.flags = player.flags || {};
             player.flags.whiteFlowerLab_cleanup_done = false;
             changeNPCEmotionWithCap("valen", "affection", 1, 10);
-            changeNPCEmotionWithCap("acacia", "affection", 1, 20);
+            changeNPCEmotionWithCap("akasia", "affection", 1, 20);
         },
 
         acceptText : "당신은 하얀꽃 연구소를 폭발시키는 의뢰를 받아들였다. 마틴은 당신에게 의뢰서를 주었다. 아무 말도 없었지만 그는 당신을 힐끔 보았다가 다시 고개를 돌렸다.",
@@ -815,15 +815,6 @@ window.return_tavern = function(player){
     startScene(getLocationScene(player), player);
 };
 
-function findQuest(questId){
-    return (
-        QUESTS?.[questId] ||
-        MATIN_QUESTS?.[questId] ||
-        SORA_QUESTS?.[questId] ||
-        null
-    );
-}
-
 function addQuestProgress(player, enemyId){
     initQuestData(player);
 
@@ -940,4 +931,67 @@ function completeQuest(player){
             ]
         }
     ], player);
+}
+
+//섭퀘 관련
+function findQuest(questId){
+    return (
+        QUESTS?.[questId] ||
+        MATIN_QUESTS?.[questId] ||
+        SORA_QUESTS?.[questId] ||
+        null
+    );
+}
+
+function acceptSubQuest(player, questId){
+    initQuestData(player);
+
+    const quest = findQuest(questId);
+    if (!quest || quest.category !== "sub") return false;
+
+    const alreadyActive = player.quest.subActive.some(q => q.id === questId);
+    const alreadyCompleted = player.quest.completed.includes(questId);
+
+    if (alreadyActive || alreadyCompleted) return false;
+
+    player.quest.subActive.push({
+        id: questId,
+        progress: 0
+    });
+
+    savePlayer(player);
+    return true;
+}
+
+function completeSubQuest(player, questId){
+    initQuestData(player);
+
+    const quest = findQuest(questId);
+    if (!quest || quest.category !== "sub") return false;
+
+    const active = player.quest.subActive.find(q => q.id === questId);
+    if (!active) return false;
+
+    if ((active.progress || 0) < quest.requiredKill) return false;
+
+    player.quest.subActive = player.quest.subActive.filter(
+        q => q.id !== questId
+    );
+
+    player.quest.completedCounts = player.quest.completedCounts || {};
+    player.quest.completedCounts[questId] =
+        (player.quest.completedCounts[questId] || 0) + 1;
+
+    if (!player.quest.completed.includes(questId)){
+        player.quest.completed.push(questId);
+    }
+
+    if (typeof quest.onComplete === "function"){
+        quest.onComplete(player);
+    }
+
+    changeGold(player, quest.rewardGold || 0);
+
+    savePlayer(player);
+    return true;
 }

@@ -4,15 +4,30 @@ const MATIN_QUESTS = {
         title: "마틴의 과거",
         type: "collect",
         category : "sub",
-        giver: "matin",
+        giver: "마틴",
 
         requiredItem: "matinLocket",
         requiredCount: 1,
 
         rewardGold: 1000
+    },
+
+    matin_graveyard_02 : {
+        id: "matin_graveyard_02",
+        title : "석관 너머의 진실",
+        type : "investigate",
+        category : "sub",
+        targetName: "상층과 하층 사이의 계단 틈에 놓여있는 쪽지 찾기",
+        giver : "마틴",
+
+        targetFlag : "matin_graveyard_sheWasHere",
+        requiredKill : 1,
+
+        rewardGold : 1000
     }
 };
 
+//마틴섭퀘01
 const MATIN_GRAVEYARD_EVENT_01 = [
     {
         type : "text",
@@ -160,4 +175,70 @@ function failMatinGraveyardQuest(player){
     player.flags.matin_graveyard_01_failed = true;
     player.flags.matinLocketTaken = false;
     localStorage.setItem("playerData", JSON.stringify(player));
+}
+
+//마틴섭퀘02
+window.acceptMatinGraveyardQuest02 = function(player){
+    acceptSubQuest(player, "matin_graveyard_02");
+
+    addItem(player, ITEMS.consumable.fullPotion, 1);
+    addItem(player, ITEMS.misc.graveYardKey, 1);
+
+    savePlayer(player);
+};
+
+function trySubmitMatinGraveyardQuest02(player){
+    const success = completeSubQuest(player, "matin_graveyard_02");
+
+    if (!success){
+        startScene([
+            {
+                type : "text",
+                value : "당신은 말을 꺼내려 했지만, 아직 마틴에게 전할 만한 것을 찾지 못했다."
+            },
+            {
+                type : "choice",
+                choices : [
+                    { text : "주점으로 돌아간다", action : "return_tavern" }
+                ]
+            }
+        ], player);
+        return;
+    }
+
+    player.flags = player.flags || {};
+    player.flags.matin_graveyard_02_done = true;
+    savePlayer(player);
+
+    startScene(NPC_DATA["matin"].scenes.matin_graveyard_02_complete, player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+}
+
+function lieAboutMatinGraveyardQuest02(player){
+    player.flags = player.flags || {};
+    player.flags.matin_graveyard_02_lied = true;
+
+    const active = player.quest?.subActive?.find(
+        q => q.id === "matin_graveyard_02"
+    );
+
+    if (active){
+        active.progress = MATIN_QUESTS.matin_graveyard_02.requiredKill;
+    }
+
+    completeSubQuest(player, "matin_graveyard_02");
+
+    startScene([
+        {
+            type : "text",
+            value : "당신은 석관 너머에는 아무것도 없었다고 말했다. 그 말에 마틴은 쓴미소를 지으며 고개를 끄덕였다. <br><br>\"그래. 아직까지 남아있을 리가 없지.\"<br><br>그는 당신에게 수고했다고 말한 후 퀘스트 보수를 지불했다."
+        },
+        {
+            type : "choice",
+            choices : [
+                { text : "주점으로 돌아간다", action : "return_tavern" }
+            ]
+        }
+    ], player);
 }

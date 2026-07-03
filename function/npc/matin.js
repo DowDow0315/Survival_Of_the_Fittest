@@ -47,6 +47,31 @@ registerActions("matin",{
     },
 
     //개인 이벤트
+    graveyardQuest02Talk : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : "마틴은 당신을 바라보았다."
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "석관 너머에서 발견한 것에 대해 말한다.",
+                        action : "trySubmitMatinGraveyardQuest02"
+                    },
+                    {
+                        text : "석관 너머에는 아무 것도 없었다고 거짓말한다.",
+                        action : "lieAboutMatinGraveyardQuest02"
+                    },
+                    {
+                        text : "아직 찾지 못했다고 말한다.",
+                        action : "return_tavern"
+                    }
+                ]
+            }
+        ], player);
+    },
 
     //스토리이벤트
 
@@ -180,6 +205,13 @@ registerActions("matin",{
             text: "음식을 건넨다",
             action: "matin_giveFood"
         });
+
+        if (player.quest?.subActive?.some(q => q.id === "matin_graveyard_02")){
+            choices.push({
+                text: "석관 너머에서 찾은 것에 대해 이야기한다",
+                action: "matin_graveyardQuest02Talk"
+            });
+        }
 
         choices.push({ text: "돌아간다", action: "matin_talk" });
 

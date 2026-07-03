@@ -361,6 +361,78 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_rebel_story_01_after",
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.rebel_story_01_done &&
+        !player.flags?.matin_rebel_story_01_after_seen,
+
+    action : (player) => {
+        player.flags.matin_rebel_story_01_after_seen = true;
+        player.flags.matin_rebel_story_01_after_day = getCurrentDay(player);
+        addItem(player, ITEMS.consumable.greatVegetableRice);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_rebel_story_01_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_rebel_story_01_rumor",
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.matin_rebel_story_01_after_seen &&
+        !player.flags?.matin_rebel_story_01_rumor,
+
+    action : (player) => {
+        player.flags.matin_rebel_story_01_rumor = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_rebel_story_01_rumor,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_graveyard_02_startingQuest",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_rebel_story_01_after_seen &&
+        getCurrentDay(player) >= (player.flags.matin_rebel_story_01_after_day + 5) &&
+        !player.flags?.matin_graveyard_02_startingQuest_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_02_startingQuest_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_02_startingQuest,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -425,6 +497,30 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["yuri"].scenes.yuri_shelter_comfort_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_rebel_story_01_after",
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.rebel_story_01_done &&
+        getCurrentDay(player) >= (player.flags.rebel_story_01_done_day + 3) &&
+        !player.flags?.yuri_rebel_story_01_after_seen,
+
+    action : (player) => {
+        player.flags.yuri_rebel_story_01_after_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

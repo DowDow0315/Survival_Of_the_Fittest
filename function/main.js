@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAllNPCData();
     await loadEnemies();
 
-    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael"].forEach(name => {
+    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion"].forEach(name => {
         registerNPCAsEnemy(name);
     })
 
@@ -374,6 +374,7 @@ function processText(text, player){
     text = processValenText(text, player);
     text = processKainText(text, player);
     text = processAkasiaText(text, player);
+    text = processSionText(text, player);
     return text;
 }
 
@@ -1156,6 +1157,11 @@ const NPC_LUST_GROWTH_CONDITIONS = {
     akasia : [
         { key : "affection", min: 70, amount: 1 },
         { key : "dominance", min: 70, amount: 1}
+    ],
+
+    sion : [
+        { key : "affection", min: 30, amount: 1 },
+        { key : "dominance", min: 50, amount: 1}
     ]
 };
 
@@ -2407,7 +2413,7 @@ function saveNpcProgressToLocalStorage(){
 }
 
 async function loadAllNPCData() {
-    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael"];
+    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion"];
     const savedNpcData = JSON.parse(localStorage.getItem("npcData") || "null");
 
     for (const name of npcList) {
@@ -2883,6 +2889,7 @@ function gameOver(player, reason = "당신은 죽었다.") {
 
 
 //미니게임용 함수
+//화살표 입력
 const ARROW_KEYS = {
     ArrowUp: "↑",
     ArrowDown: "↓",
@@ -2922,6 +2929,8 @@ function startArrowMinigame(player, options = {}){
 
         hideAfter: options.hideAfter ?? null,
 
+        sequence : options.sequence || null,
+
         onStepSuccess: options.onStepSuccess || null,
         onStepFail: options.onStepFail || null,
         onClear: options.onClear || null,
@@ -2946,7 +2955,7 @@ function startArrowMinigame(player, options = {}){
         roundLocked = false;
         if (ended) return;
 
-        currentSequence = getRandomArrowSequence(config.sequenceLength);
+        currentSequence = config.sequence || getRandomArrowSequence(config.sequenceLength);
         inputSequence = [];
 
         const sceneBox = document.getElementById("storyText");
@@ -3124,4 +3133,95 @@ function getProgressBar(progress, target){
     progress = Math.max(0, Math.min(progress, target));
     return "●".repeat(progress)
     + "○".repeat(target - progress);
+}
+
+//연산
+//연산
+function startMathMinigame(player, options = {}){
+    const config = {
+        timeLimit: options.timeLimit ?? 3500,
+        min: options.min ?? 1,
+        max: options.max ?? 99,
+        multiplyMin: options.multiplyMin ?? 1,
+        multiplyMax: options.multiplyMax ?? 13,
+        operators: options.operators || ["+", "-", "*"],
+        title: options.title || "계산하라.",
+        hintText: options.hintText || "죽음은 기다려주지 않는다.",
+        onClear: options.onClear || null,
+        onGameOver: options.onGameOver || null
+    };
+
+    const op = pickRandom(config.operators);
+    
+    let a, b;
+    
+    if (op === "*"){
+        a = randomInt(config.multiplyMin, config.multiplyMax);
+        b = randomInt(config.multiplyMin, config.multiplyMax);
+    } else {
+        a = randomInt(config.min, config.max);
+        b = randomInt(config.min, config.max);
+    }
+
+    if (op === "-" && a < b){
+        [a, b] = [b, a];
+    }
+
+    let answer;
+    if (op === "+") answer = a + b;
+    if (op === "-") answer = a - b;
+    if (op === "*") answer = a * b;
+
+    const storyText = document.getElementById("storyText");
+    const choiceArea = document.getElementById("choiceArea");
+    const storyBtn = document.getElementById("storyBtn");
+
+    storyBtn.style.display = "none";
+
+    storyText.innerHTML = `
+        <div class="math-minigame">
+            <h3>${config.title}</h3>
+            <p>『${config.hintText}』</p>
+            <h2>${a} ${op} ${b} = ?</h2>
+            <p>${config.timeLimit / 1000}초 안에 입력하세요.</p>
+        </div>
+    `;
+
+    choiceArea.innerHTML = `
+        <input id="mathInput" type="number" class="story-input" placeholder="정답 입력 후 Enter">
+    `;
+
+    const input = document.getElementById("mathInput");
+
+    let ended = false;
+
+    const timer = setTimeout(() => {
+        if (ended) return;
+        ended = true;
+        if (config.onGameOver) config.onGameOver(player);
+    }, config.timeLimit);
+
+    function submitAnswer(){
+        if (ended) return;
+
+        ended = true;
+        clearTimeout(timer);
+
+        const value = Number(input.value);
+
+        if (value === answer){
+            if (config.onClear) config.onClear(player);
+        } else {
+            if (config.onGameOver) config.onGameOver(player);
+        }
+    }
+
+    input.addEventListener("keydown", e => {
+        if (e.key === "Enter"){
+            e.preventDefault();
+            submitAnswer();
+        }
+    });
+
+    input.focus();
 }

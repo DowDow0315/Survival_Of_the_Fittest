@@ -3893,7 +3893,6 @@ window.startBanditBossBattle = function(player){
 function handleSlaverCampBossWin(player){
     player.flags = player.flags || {};
     player.flags.slaverCamp_cleared = true;
-    player.flags.slaverCamp_scattered = true;
 
     addQuestProgress(player, "trafficker4");
     savePlayer(player);

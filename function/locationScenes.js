@@ -638,11 +638,35 @@ window.graveyard_openChest = function(player){
     );
 }
 
+function hasItemKey(player, key){
+    return player.inventory?.some(item => item.key === key);
+}
+
 window.graveyard_sarcophagus = function(player){
-    showSingleTextScene(
-        "석관은 단단히 닫혀 있다. 당신은 혹시나 싶어서 석관을 두드려보았지만 석관은 열리지 않았다.",
-        player
-    );
+    if (!hasItemKey(player, "graveYardKey")){
+        showSingleTextScene(
+            "석관은 단단히 닫혀 있다. 당신은 혹시나 싶어서 석관을 두드려보았지만 석관은 열리지 않았다.",
+            player
+        );
+        return;
+    }
+
+    showScene([
+        {
+            type: "text",
+            value:
+                "당신은 석관의 열쇠를 어디에다 꽂아야 하는지 고민하다가 열쇠 구멍이 아닌 거 같은 구멍에 집어넣았다. 구멍 안에 열쇠를 꽂는 곳이 숨겨져 있었다. 당신은 그대로 열쇠를 돌렸다." +
+                "<br>쿠구궁 하는 소리와 함께 석관이 열렸다. 석관 뚜껑이 열리자 밑에서부터 차갑고 눅눅한 바람이 올라왔다. 석관 아래에는 어둠 속으로 이어지는 좁은 계단이 숨겨져 있었다." +
+                "<br><br>당신은 밑으로 걸어갔다."
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "계단 아래로 내려간다", action: "graveyard_enterUnderground" },
+                { text: "아직 들어가지 않는다", action: "graveyard_returnTreasureScene" }
+            ]
+        }
+    ], player);
 };
 
 window.graveyard_returnEntrance = function(player){
@@ -732,10 +756,6 @@ function buildRichTownEntranceScene(player, loc, randomDesc){
             ]
         }
     ];
-}
-
-function hasItem(player, itemName){
-    return player.inventory.some(item => item.name === itemName);
 }
 
 window.approach_richGateGuard = function(player){

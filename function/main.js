@@ -1979,7 +1979,6 @@ window.travel_whiteFlowerTomb_to_guardPost3 = function(player){
     travelOuterArea(player, "guardPost3", 7);
 };
 
-
 //전투이벤트
 function startBattle(enemyId, player, options = {}){
     const enemyFactory = ENEMIES[enemyId];

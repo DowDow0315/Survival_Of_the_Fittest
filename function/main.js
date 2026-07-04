@@ -2024,7 +2024,7 @@ function moveTo(player,locationKey){
     const current = player.location;
     const connections = LOCATIONS[current].connections;
 
-    if (!connections[locationKey]){
+    if (!connections[locationKey] && !window.DUNGEONS?.[locationKey]){
         addLog("여기서는 갈 수 없는 곳이다.");
         return;
     }
@@ -2034,7 +2034,7 @@ function moveTo(player,locationKey){
     if (applyActionStatusEffects(player)) return;
     if (player.status.stamina < 0) player.status.stamina = 0;
 
-    const travelTime = connections[locationKey];
+    const travelTime = connections[locationKey] ?? 8;
 
     if (window.DUNGEONS?.[locationKey]){
     passTime(player, travelTime);

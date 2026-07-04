@@ -1466,3 +1466,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "undercity_hero_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.uppercity_hero_event_seen &&
+        Math.random() < 0.05,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "껄렁거리던 경비병이 당신 쪽으로 다가왔다. 그는 당신을 위아래로 훑어보더니 수색을 할 거니 가만히 있으라고 말했다." +
+                    "<br><br>\"수색은 무슨.\"<br><br>" +
+                    "어디서 들린 목소리일까. 경비병의 인상이 확 구겨졌다. 그는 감히 자신의 행동을 방해한 범인을 찾기 위해서 눈을 부라렸지만 고개를 둘러보아도 찾을 수가 없었다. 오히려 몇몇 사람들은 경비병을 노려보고 있었다.",
+                    "<br><br>\"하류도시의 영웅을 괴롭히지마!\"<br><br>\"하류도시의 영웅이 아니었으면 우리는 이미 도적떼들에게 당했다고!\"<br><br>" +
+                    "한 사람이 목소리를 높이자 다른 사람도 목소리를 높이기 시작한다. 당신은 경비병이 사람들에게 둘러싸이는 동안 손쉽게 그 자리를 빠져나갈 수 있었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+

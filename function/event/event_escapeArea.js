@@ -3054,6 +3054,13 @@ function startMineScene(player){
 }
 
 window.mine_next = function(player){
+    if (player.status.stamina <= 0){
+        showSingleTextScene("너무 지쳐서 더 이상 움직일 수 없다.", player, {
+            onEnd: () => startMineScene(player)
+        });
+        return;
+    }
+
     const mine = player.mineRun;
     if (!mine) return;
 
@@ -3142,6 +3149,13 @@ function getOreText(item){
 }
 
 window.mine_dig = function(player){
+    if (player.status.stamina <= 0){
+        showSingleTextScene("너무 지쳐서 더 이상 광석을 캘 수 없다.", player, {
+            onEnd: () => startMineScene(player)
+        });
+        return;
+    }
+
     const mine = player.mineRun;
     if (!mine) return;
 
@@ -3273,8 +3287,8 @@ const FISH_TABLE = [
     { item: ITEMS.misc.stone, chance: 0.05, sequence: 4, time: 3000 },
     { item: ITEMS.misc.smallFish, chance: 0.45, sequence: 6, time: 4000 },
     { item: ITEMS.misc.mediumFish, chance: 0.25, sequence: 8, time: 4000 },
-    { item: ITEMS.misc.bigFish, chance: 0.15, sequence: 10, time: 4500 },
-    { item: ITEMS.misc.salmon, chance: 0.05, sequence: 15, time: 5000 }
+    { item: ITEMS.misc.bigFish, chance: 0.15, sequence: 12, time: 4500 },
+    { item: ITEMS.misc.salmon, chance: 0.05, sequence: 18, time: 5000 }
 ];
 
 function getFishingTarget(){
@@ -3300,6 +3314,13 @@ function getFishingText(item){
 }
 
 window.fishing = function(player){
+    if (player.status.stamina <= 0){
+        showSingleTextScene("너무 지쳐서 더 이상 낚시를 할 수 없다.", player, {
+            onEnd: () => showFishingSpot(player)
+        });
+        return;
+    }
+    
     const rod = getFishingRod(player);
 
     if (!rod){

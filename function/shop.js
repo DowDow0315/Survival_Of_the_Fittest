@@ -11,8 +11,15 @@ function getSellPrice(item){
         return item.price || 0;
     }
 
-    // 잡템도 정가 판매
-    if (item.type === "junk"){
+    if (item.type === "stamina"){
+        return item.price || 0;
+    }
+
+    if (item.type === "food"){
+        return item.price || 0;
+    }
+
+    if (item.type === "regen"){
         return item.price || 0;
     }
 
@@ -382,7 +389,7 @@ function sellItem(player, item){
 }
 
 function canSellItem(item){
-    return ["weapon", "top", "bottom", "underwear", "heal", "arousal", "consumable", "sensitivityDown", "junk", "key"].includes(item.type);
+    return ["weapon", "top", "bottom", "underwear", "heal", "regen", "arousal", "consumable", "food", "sensitivityDown", "junk", "key"].includes(item.type);
 }
 
 function sellAllItems(player, itemKey){

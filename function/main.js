@@ -1932,11 +1932,11 @@ function travelOuterArea(player, targetLocation, requiredSteps){
 }
 
 window.escape_forest = function(player){
-    tryEscapeArea(player, "townEntrance", 5);
+    tryEscapeArea(player, "townEntrance", 3);
 }
 
 window.escape_deepForest = function(player){
-    tryEscapeArea(player, "forest", 5);
+    tryEscapeArea(player, "forest", 3);
 }
 
 window.travel_banditForest_to_guardPost1 = function(player){
@@ -1952,11 +1952,11 @@ window.travel_guardPost2_to_guardPost3 = function(player){
 };
 
 window.travel_guardPost3_to_wastedRuin = function(player){
-    travelOuterArea(player, "wastedRuin", 3);
+    travelOuterArea(player, "wastedRuin", 7);
 };
 
 window.travel_guardPost3_to_whiteFlowerTomb = function(player){
-    travelOuterArea(player, "whiteFlowerTomb", 3);
+    travelOuterArea(player, "whiteFlowerTomb", 7);
 };
 
 window.travel_guardPost1_to_banditForest = function(player){
@@ -1972,11 +1972,11 @@ window.travel_guardPost3_to_guardPost2 = function(player){
 };
 
 window.travel_wastedRuin_to_guardPost3 = function(player){
-    travelOuterArea(player, "guardPost3", 3);
+    travelOuterArea(player, "guardPost3", 7);
 };
 
 window.travel_whiteFlowerTomb_to_guardPost3 = function(player){
-    travelOuterArea(player, "guardPost3", 3);
+    travelOuterArea(player, "guardPost3", 7);
 };
 
 //전투이벤트

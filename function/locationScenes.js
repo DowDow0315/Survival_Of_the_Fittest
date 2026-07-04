@@ -16,6 +16,7 @@ const LOCATION_SCENE_BUILDERS = {
     richTownEntrance : buildRichTownEntranceScene,
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
+    royalHotel: buildRoyalHotelScene,
     theater : buildTheaterScene,
     gloryHole: getGloryHoleScene
 };
@@ -911,6 +912,48 @@ function buildRoyalHospitalScene(player, loc, randomDesc){
         }
     ];
 }
+
+function buildRoyalHotelScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "방을 잡고 잔다 (-1000G)", action: "sleep_royalHotel" },
+                { text: "나간다", action: "move_richTownStreet" }
+            ]
+        }
+    ];
+}
+
+window.sleep_royalHotel = function(player){
+    const price = 1000;
+
+    if (!spendGold(player, price)){
+        showSingleTextScene(
+            "데스크 직원은 당신을 위아래로 훑어보더니 정중하지만 차가운 목소리로 말했다.<br><br>\"죄송합니다. 금액이 부족하십니다.\"",
+            player
+        );
+        return;
+    }
+
+    player.status.stamina = player.status.maxStamina;
+    player.status.hp = player.status.maxHp;
+    passTime(player, 80);
+
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 천국의 쉼터에서 방을 잡고 푹 쉬었다. 깨끗한 침대와 조용한 방 덕분에 몸과 마음이 한결 가벼워졌다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
 
 function buildTheaterScene(player, loc, randomDesc){
     const choices = [];

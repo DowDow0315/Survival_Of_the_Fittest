@@ -354,7 +354,7 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
-    id : "erwin",
+    id : "uppercity_story_02_intro",
     priority : true,
     once : true,
 
@@ -396,6 +396,188 @@ window.EVENTS.push({
                     "<br><br>\"그저 의뢰를 주려고 온 건 아닙니다. 당신을 한번 더 확인해보고 싶었을 뿐.<br><br>이번에도 완벽하게 해내신다면.... 개인적으로도 당신의 공을 치하하고 싶군요.\"<br><br>" +
                     "아카시아는 다시 당신에게서 반 걸음 물러났다." +
                     "<br><br>\"의뢰는 주점 게시판에 붙여놓겠습니다. 기대하고 있겠습니다, 하류도시의 영웅.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_story_02_done_after_event",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.uppercity_story_02_done &&
+        getCurrentDay(player) >= player.flags.uppercity_story_02_done_day + 2 &&
+        !player.flags?.uppercity_story_02_done_after_event_seen,
+
+    action : (player) => {
+        player.flags.uppercity_story_02_done_after_event_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 걷던 당신에게 하얀색 옷을 입은 전령 한 명이 다가왔다." +
+                    "<br><br>\"하류도시의 영웅님, 발렌님께서 부르십니다. 천국의 성으로 오시면 됩니다.\"<br><br>" +
+                    "전령은 잠시 말을 멈췄다." +
+                    "<br><br><span class='log-valen'>\"...당신의 행동에 책임을 질 준비는 되셨냐고도, 여쭤보시라고 했습니다.\"</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_story_03_intro_event_notKillErwin",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.uppercity_story_02_notKillErwin &&
+        !player.flags?.uppercity_story_03_intro_event_notKillErwin_seen,
+
+    action : (player) => {
+        player.flags.uppercity_story_03_intro_event_notKillErwin_seen = true;
+        player.flags.uppercity_story_03_quest_unlocked = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "천국의 성에 도착하자 보인 모습은 발렌이 다른 군사에게 명령을 내리고 있는 모습이었다. 당신의 인기척에 그는 손짓으로 군사를 물렸다." +
+                    "<br><br>\"하류도시의 영웅, 당신이 마물의 흔적을 추격한 끝에, 하얀꽃성지에서 내려온 마물을 죽일 수 있었습니다.<br><span class='log-pale'>마지막까지 당신이 제 부탁을 들어줬으면 더 좋았을 텐데 말이죠.</span>\"<br><br>" +
+                    "발렌의 옆에 서있던 아카시아는 전보다 더 차가운 시선으로 당신을 바라보고 있었다. 아카시아와 다르게 발렌은 입가에서 미소를 잃지 않았다." +
+                    "<br><br>\"괜찮습니다. 누군가에게 자신의 이념을 강요하는 것보다 무의미한 일은 없다는 걸 저는 이미 알고 있으니까요.\"<br><br>" +
+                    "발렌은 여전히 웃고 있었다. 모두의 앞에서, 그는 하류도시의 영웅과 원만하게 대화를 나누고 있는 것으로 보일 테다." +
+                    "<br><br>\"마물은 당신이 처리한 것으로 공표했습니다.\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 경계병들은 이미 당신이 마물을 죽이지 않았다는 걸 알고 있다고 대꾸했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"경계병들이요? 그들은 어차피 살아서 도시에 돌아오지 못할 텐데요.\"<br><br>" +
+                                    "...발렌의 천사같은 미소는 지워지지 않는다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그에게 왜 이렇게까지 자신을 하류도시의 영웅으로 만드려고 하는 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 발렌은 소리없이 웃었다." +
+                                    "<br><br>\"글쎄요, '사람들을 위해서'라고 제가 대답한다고 해도 당신은 믿지 않으시겠죠?\"<br><br>" +
+                                    "이미 발렌은 당신을 신뢰하고 있지 않다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "발렌은 하류도시의 영웅에게 주고 싶은 의뢰가 하나 더 있다고 말했다." +
+                    "<br><br>\"언제나처럼 주점에 올려놓겠습니다. 받을지 말지는 당신에게 달려있지만.... 당신이 하지 않으면 영광에 눈이 먼 하류도시의 사람들이 하나하나 시체가 되어서 돌아올 수도 있겠죠. 아.<br>시체로라도 돌아오면 다행일지도 모르겠습니다.\"<br><br>" +
+                    "발렌은 당신에게 한 걸음 더 가까이 다가오더니 고개를 숙였다. 그의 입이 당신의 귀 바로 옆에서 속삭인다." +
+                    "<br><br>\"하류도시의 영웅은 쉘터에 살고 있다고 했죠...? 당신을 하류도시의 영웅으로 만들기 전부터 저는 쉘터에 관심이 많았답니다.\"<br><br>" +
+                    "그는 자신의 얘기는 끝났다는 듯 다시 당신에게서 한 발자국 멀어졌다. 그는 자연스럽게 손수건으로 자신의 손을 닦으며 당신에게 잘 부탁한다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_story_03_intro_event_killErwin",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.uppercity_story_02_killErwin &&
+        !player.flags?.uppercity_story_03_intro_event_killErwin_seen,
+
+    action : (player) => {
+        player.flags.uppercity_story_03_intro_event_killErwin_seen = true;
+        player.flags.uppercity_story_03_quest_unlocked = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"하류도시의 영웅.\"<br><br>" +
+                    "당신이 천국의 성에 들어오자마자 발렌은 명령을 내리고 있던 군사를 손짓으로 물리고 당신을 웃는 얼굴로 맞이했다. 발렌의 옆에 있던 아카시아도 당신에게 고개를 까닥여보였다. 아카시아의 은빛 눈동자는 전과 다르게 위압적으로 느껴지지 않았다." +
+                    "<br><br>\"기다리고 있었습니다. 고명한 당신에게 하나 더 부탁드릴 것이 있습니다.\"<br><br>" +
+                    "그는 당신에게 미소를 지어보이며 말을 이었다. 그는 100년 전의 연구소들 중 아직 남아있는 연구소들이 있는데, 그중 가장 없애야 할 연구소를 드디어 찾았다고 말했다. '가장 없애야 할 연구소'라는 말에 당신이 의아해하자 발렌은 모든 일의 발단은 거기서부터 시작된 거라고 말해주었다." +
+                    "<br><br>\"이 연구는 아주 오래 전부터 이어졌던 연구입니다. 마물에 대항하여, 우리도 마물을 만들어야겠다는 생각으로 해왔던 실험이었죠.\"<br><br>" +
+                    "다른 사람들에게는 들리지 않을 목소리로 그는 작게 소근소근 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 여전히 그런 실험들을 이어가고 있냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"지금은 명시적으로 금지되어 있습니다. 인간을 대상으로 한 실험이기에, 소문이 새어나갔을 때 상류도시 사람들 중에서도 많은 사람들이 반발했었습니다. 그래서 지금은 하얀꽃을 소지하고 있는 것만으로도 사형을 받을 수 있습니다.\"<br><br>" +
+                                    "발렌은 당신에게 한 걸음 더 다가오더니 고개를 숙이고 작은 목소리로 한 마디를 덧붙였다." +
+                                    "<br><br>\"그렇지만, 여전히 우리는 마물의 습격을 받고 있죠. 경계병 제3초소가 언제 무너질지 모릅니다.<br>...당신이라면, 어떤 선택을 했을까요.\"<br><br>"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 알겠다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아무 것도 묻지 않고 고개를 끄덕이는 당신에 발렌은 미소를 지었다." +
+                                    "<br><br>\"당신은 정말... 꽃같은 사람이군요.\"<br><br>" +
+                                    "그는 점점 당신이 좋아지는 거 같아서 걱정이라고 농담하듯이 가볍게 말했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("valen", "affection", 4);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type: "text",
+                value : [
+                    "\"언제나처럼 의뢰는 주점에 올려놓겠습니다. 잘 부탁드립니다, 하류도시의 영웅.\"<br><br>" +
+                    "발렌은 우아하게 당신에게 인사를 했다. 발렌의 말이 끝나자 옆에 있던 아카시아가 당신에게 다가왔다. 발렌은 아카시아가 당신에게 따로 개인적인 접촉을 하는데도 별 다른 반응을 하지 않았다." +
+                    "<br><br>\"개인적으로도 당신의 공을 치하하고 싶다고 했던 말을 기억하시나요. 저녁에 공연장에서 기다리고 있겠습니다, 하류도시의 영웅.\""
                 ]
             }
         ], player, {

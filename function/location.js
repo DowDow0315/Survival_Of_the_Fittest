@@ -772,7 +772,8 @@ const LOCATIONS ={
             richTownEntrance : 3,
             gloryStreet : 5,
             royalHospital : 3,
-            royalForge : 3
+            royalForge : 3,
+            royalHotel : 3
         }
     },
     royalHospital : {
@@ -818,6 +819,27 @@ const LOCATIONS ={
             ],
             night : [
                 "불꽃과 보석이다. <br>그는 혀를 차며 보석을 가공하고 있다. 지금 그가 만들고 있는 보석은 발렌의 옷에 들어가는 보석과 색이 똑같다."
+            ]
+        },
+        collectorChance: 0,
+        connections : {
+            richTownStreet : 3
+        }
+    },
+    royalHotel : {
+        name : "천국의 쉼터",
+        desc : {
+            dawn : [
+                "천국의 쉼터다. <br>새벽인데도 천국의 쉼터는 고요하다. 방음이 잘 되어있는 모양이다."
+            ],
+            morning : [
+                "천국의 쉼터다. <br>몇몇 연인들이 천국의 쉼터에서 나오며 사랑이 담긴 말들을 속삭였다. <br>\"걸리면 어떡하지?\"<br>\"괜찮아, 자기야, 내가 책임질게.\""
+            ],
+            afternoon : [
+                "천국의 쉼터다. <br>보석으로 화려하게 치장한 사람 한 명이 귀족의 팔에 매달려 천국의 쉼터 데스크에서 방을 잡는 것이 보인다. 그의 눈은 돈으로 반짝이고 있다."
+            ],
+            night : [
+                "천국의 쉼터다. <br>천국의 쉼터는 밤에 사람들이 제일 많다."
             ]
         },
         collectorChance: 0,

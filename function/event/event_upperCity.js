@@ -182,6 +182,36 @@ window.EVENTS.push({
     }
 });
 
+//아카시아
+window.EVENTS.push({
+    id : "akasia_uppercity_story_02_after_affection_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        player.flags?.uppercity_story_03_intro_event_killErwin_seen &&
+        !player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
+        getTimePeriod(player) === "night",
+
+    action : (player) => {
+        player.flags.akasia_uppercity_story_02_after_affection_event_seen = true;
+        addItem(player, ITEMS.top.whiteUppercityTop);
+        addItem(player, ITEMS.bottom.whiteUppercityBottom);
+        changeTrauma(player, -3);
+        passTime(player, 30);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].akasia_uppercity_story_02_after_affection_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",

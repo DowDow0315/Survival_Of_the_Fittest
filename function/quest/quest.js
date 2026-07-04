@@ -455,6 +455,37 @@ const QUESTS = {
         completeText : "\"...안색이 왜 그래?\"<br><br>당신의 보고를 받던 마틴이 당신에게 물었다. <br><br>\"피곤하면 쉘터에 가서 쉬도록 해. 수고했어.\""
     },
 
+    uppercity_story_03 : {
+        id : "uppercity_story_03",
+        title : "또 다른 연구소",
+        type : "investigate",
+        targetName : "연구시설 중추실 장치 작동",
+        repeatable : false,
+        giver : "valen",
+        source : "event",
+        
+        desc : "발렌은 또, 연구시설 중추실에 있는 장치를 작동시켜달라고 부탁했다.",        
+        activeDesc : "연구시설 중추실에 도달해야 한다.",
+        readyDesc : "장치는 정상적으로 작동했다.<br>예상대로 연구시설은 또 무너져내렸다.",
+        
+        targetFlag : "uppercity_quest03_done",
+        requiredKill : 1,    
+        rewardGold : 2500,
+
+        require : {
+            flag : "uppercity_story_03_quest_unlocked"
+        },
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.uppercity_story_03_done = true;
+            player.flags.uppercity_story_03_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "",
+        completeText : "당신이 퀘스트를 보고하자 마틴은 고개를 끄덕였다. 그는 상류도시에 전령을 보내놓겠다고 말했다."
+    },
+
     //반란군 스토리
     rebel_story_01 : {
         id : "rebel_story_01",

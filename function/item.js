@@ -924,6 +924,16 @@ const ITEMS ={
                 str: 10,
                 dex : -3
             },
+        },
+
+        whiteUppercityTop : {
+            name : "백색제복 상의",
+            type : "top",
+            price : 2500,
+            stats : {
+                int : 7,
+                dex : 2
+            }
         }
     },
 
@@ -1069,12 +1079,22 @@ const ITEMS ={
 
         soldierBottom : {
             name : "경계병 갑옷 하의",
-            type : "top",
+            type : "bottom",
             price : 2000,
             stats : {
                 str: 10,
                 dex : -4
             },
+        },
+
+        whiteUppercityBottom : {
+            name : "백색제복 하의",
+            type : "bottom",
+            price : 2500,
+            stats : {
+                str : 4,
+                charm : 5
+            }
         }
     },
 

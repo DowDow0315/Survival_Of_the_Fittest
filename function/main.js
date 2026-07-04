@@ -1852,7 +1852,7 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
 
     changeStamina(player, -5);
     changeArousal(player, -5);
-    passTime(player, 10);
+    passTime(player, 5);
 
     const eventScene =
         typeof window.rollEscapeAreaEvent === "function"

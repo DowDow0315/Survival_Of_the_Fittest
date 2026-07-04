@@ -214,7 +214,11 @@ window.undercity_hero_declare = function(player) {
             run : "accept_quest_uppercity_story_01"
         }
     ], player, {
-        onEnd : () => startScene(getLocationScene(player), player)
+        onEnd : () => {
+            player.location = "tavern";
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
     });
     return true;
 };

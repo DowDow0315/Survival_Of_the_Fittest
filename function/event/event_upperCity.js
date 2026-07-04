@@ -257,6 +257,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "juliang_recognizingMatin_event",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge" &&
+        player.flags.matin_graveyard_sheWasHere &&
+        player.flags.matin_enhance_after_event_01_seen &&
+        !player.flags?.juliang_recognizeingMatin_event_seen,
+        
+    action: (player) => {
+        player.flags.juliang_recognizeingMatin_event_seen = true;
+        startScene(
+            NPC_DATA["juliang"].scenes.juliang_recognizingMatin_event,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //라파엘
 window.EVENTS.push({
     id: "raphael_firstMeeting",

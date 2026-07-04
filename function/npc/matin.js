@@ -73,6 +73,24 @@ registerActions("matin",{
         ], player);
     },
 
+    askAboutJuliang : (player) => {
+        player.flags.matin_asked_about_juliang = true;
+        savePlayer(player);
+        
+        const affection = NPC_DATA["matin"].emotion.affection || 0;
+        let scene;
+        
+        if (affection >= 30){
+            scene = NPC_DATA["matin"].scenes.matin_askAboutJuliang_ok;
+        } else{
+            scene = NPC_DATA["matin"].scenes.matin_askAboutJuliang_notok;
+        }
+        
+        startScene(scene, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });
+    },
+
     //스토리이벤트
 
     //주점알바 시작
@@ -210,6 +228,16 @@ registerActions("matin",{
             choices.push({
                 text: "석관 너머에서 찾은 것에 대해 이야기한다",
                 action: "matin_graveyardQuest02Talk"
+            });
+        }
+
+        if (
+            player.flags?.heardAbout_juliang_knows_matin &&
+            !player.flags?.matin_asked_about_juliang
+        ){
+            choices.push({
+                text: "줄리앙에 대해 묻는다",
+                action: "matin_askAboutJuliang"
             });
         }
 

@@ -230,7 +230,9 @@ window.banditCamp_leave = function(player){
         }
     ], player, {
         onEnd : () => {
-            moveTo(player, "banditForest");
+            layer.location = "banditForest";
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
         }
     });
 };

@@ -569,6 +569,50 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "4턴간 공격력 1.2배, 방어력 1.3배, 회피력 1.3배"
         }
+    ],
+    "우산" : [
+        {
+            name : "칼날개화",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "umbrella_knife",
+                atkMult : 1.4
+            },
+            duration : 6,
+            unlock : 20,
+            desc : "6턴간 공격력 1.4배"
+        },
+        {
+            name : "꼬챙이찌르기",
+            cost : 3,
+            type : "damage",
+            power : 3.5,
+            unlock : 100,
+            desc : "데미지 3.5배"
+        },
+        {
+            name : "우산개화",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "umbrella_open",
+                defMult : 1.3,
+                evaMult : 1.2
+            },
+            duration : 5,
+            unlock : 150,
+            desc : "5턴간 방어력 1.3배, 회피력/명중률 1.2배"
+        },
+        {
+            name : "우산돌리기",
+            cost : 4,
+            type : "multiHit",
+            power : 1.2,
+            hits : 4,
+            unlock : 200,
+            desc : "공격력 1.2배로 4번 연속 공격"
+        }
     ]
 };
 
@@ -628,6 +672,10 @@ const MASTER_SKILLS = {
     "하얀꽃채찍" : {
         requiredMastery : 300,
         skillName : "꽃채찍의 하얀 독"
+    },
+    "우산" : {
+        requiredMastery : 300,
+        skillName : "칼날개화"
     }
 };
 
@@ -785,6 +833,18 @@ const ITEMS ={
             stats : {
                 str : 3,
                 dex : 9
+            }
+        },
+
+        umbrella : {
+            name : "우산",
+            type : "weapon",
+            desc : "누군가의 비 오는 날의 추억이 담겨져 있다. 밀크쉐이크를 같이 먹은 사이일지도?",
+            price : 2900,
+            stats : {
+                str : -1,
+                dex : 11,
+                chamrm : 2
             }
         }
     },
@@ -1154,6 +1214,24 @@ const ITEMS ={
             type : "heal",
             value : 10,
             price : 10
+        },
+        regenPotion: {
+            name: "재생 물약(20*3)",
+            type: "regen",
+            price: 1800,
+            effect: {
+                heal: 20,
+                duration: 3
+            }
+        },
+        regenPotion2: {
+            name: "상급 재생 물약(30*4)",
+            type: "regen",
+            price: 2500,
+            effect: {
+                heal: 30,
+                duration: 4
+            }
         },
         smallStaminaPotion : {
             name : "에너지바(30)",
@@ -1815,45 +1893,63 @@ const ITEMS ={
         },
 
         greatSalmonSalmon : {
-            name : "훌륭한 연어회",
-            type : "heal",
-            value : 100,
+            name : "훌륭한 연어회(25*4)",
+            type : "regen",
+            effect : {
+                heal : 25,
+                duration : 4
+            },
             tags : ["gift", "fish", "great"],
             price : 1800
         },
         normalSalmonSalmon : {
-            name : "연어회",
-            type : "heal",
-            value : 80,
+            name : "연어회(20*4)",
+            type : "regen",
+            effect : {
+                heal : 20,
+                duration : 4
+            },
             tags : ["gift", "fish", "normal"],
             price : 1600
         },
         badSalmonSalmon : {
-            name : "맛없는 연어회",
-            type : "heal",
-            value : 50,
+            name : "맛없는 연어회(15*4)",
+            type : "regen",
+            effect : {
+                heal : 15,
+                duration : 4
+            },
             tags : ["gift", "fish", "bad"],
             price : 1400
         },
 
         greatSalmonSushi : {
-            name : "훌륭한 연어초밥",
-            type : "heal",
-            value : 80,
+            name : "훌륭한 연어초밥(25*3)",
+            type : "regen",
+            effect : {
+                heal : 25,
+                duration : 3
+            },
             tags : ["gift", "matinFavorite", "fish", "great"],
             price : 1400
         },
         normalSalmonSushi : {
-            name : "연어초밥",
-            type : "heal",
-            value : 60,
+            name : "연어초밥(20*3)",
+            type : "regen",
+            effect : {
+                heal : 20,
+                duration : 3
+            },
             tags : ["gift", "matinFavorite", "fish", "normal"],
             price : 1200
         },
         badSalmonSushi : {
-            name : "맛없는 연어초밥",
-            type : "heal",
-            value : 40,
+            name : "맛없는 연어초밥(15*3)",
+            type : "regen",
+            effect : {
+                heal : 15,
+                duration : 3
+            },
             tags : ["gift", "matinFavorite", "fish", "bad"],
             price : 1000
         }

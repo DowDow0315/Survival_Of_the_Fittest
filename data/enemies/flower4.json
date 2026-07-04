@@ -134,6 +134,19 @@
             ]
         },
         {
+            "name" : "재생",
+            "type" : "selfBuff",
+            "chance" : 0.3,
+            "duration" : 3,
+            "effect" : {
+                "id" : "flower4_heal",
+                "heal": 20
+            },
+            "lines" : [
+                "꽃폭탄인간은 양손을 모으더니 하얀색꽃을 하나 개화했다.<br>...그 꽃을 통해 적의 HP가 천천히 회복된다...!"
+            ]
+        },
+        {
             "name": "잡기",
             "type": "grapple",
             "chance": 0.3

@@ -1058,7 +1058,7 @@ function isEquipmentItem(item){
 }
 
 function isConsumableItem(item){
-    return ["heal", "stamina", "arousal", "alcohol", "sensitivityDown"].includes(item.type);
+    return ["heal", "stamina", "regen", "arousal", "alcohol", "sensitivityDown"].includes(item.type);
 }
 
 //시간대함수
@@ -2121,7 +2121,7 @@ function renderInventoryModal(player){
         ...inventoryEquip
     ]; } else if (inventoryTab === "consumable"){
         filtered = player.inventory.filter(item =>
-            ["heal", "arousal", "alcohol", "sensitivityDown", "stamina"].includes(item.type)
+            ["heal", "arousal", "alcohol", "regen", "sensitivityDown", "stamina"].includes(item.type)
         );
     } else if (inventoryTab === "food"){
         filtered = player.inventory.filter(item =>
@@ -2138,7 +2138,7 @@ function renderInventoryModal(player){
     ); } else if (inventoryTab === "junk"){
         filtered = player.inventory.filter(item =>
         !isEquipmentItem(item) &&
-        !["heal", "arousal", "alcohol", "sensitivityDown", "stamina", "food", "key", "ore", "misc"].includes(item.type)
+        !["heal", "arousal", "regen", "alcohol", "sensitivityDown", "stamina", "food", "key", "ore", "misc"].includes(item.type)
     );
     } if (filtered.length === 0){
         const empty = document.createElement("p");
@@ -2180,7 +2180,7 @@ function renderInventoryModal(player){
         : `${item.name} (${item.count || 1}개)`;
         info.appendChild(name);
 
-        if (["heal", "stamina", "arousal"].includes(item.type)){
+        if (["heal", "stamina", "arousal", "regen"].includes(item.type)){
             const desc = document.createElement("p");
             
             if (item.type === "heal"){
@@ -2193,8 +2193,9 @@ function renderInventoryModal(player){
                 } else {
                     desc.innerText = `흥분 증가: ${-item.value}`;
                 }
-            }
-            
+            } else if (item.type === "regen"){
+                desc.innerText = `소모 다음 턴부터 ${item.effect.duration}턴 동안 매 턴 HP ${item.effect.heal} 회복`;
+            }            
             info.appendChild(desc);
         } else if (item.stats){
             const statText = Object.entries(item.stats)
@@ -2308,6 +2309,19 @@ function useItem(player, item){
         changeHP(player, item.value);
 
         consumeItem(player, item); // ← 추가
+        return;
+    }
+
+    if (item.type === "regen"){
+        player.buffs = player.buffs || [];
+        
+        applyBuff(player, {
+            id: item.id || "player_regen",
+            heal: item.effect.heal,
+            duration: item.effect.duration
+        });
+        
+        consumeItem(player, item);
         return;
     }
 

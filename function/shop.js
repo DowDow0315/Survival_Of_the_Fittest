@@ -62,6 +62,9 @@ const SHOPS = {
             ITEMS.consumable.highPotion,
             ITEMS.consumable.fullPotion,
 
+            ITEMS.consumable.regenPotion,
+            ITEMS.consumable.regenPotion2,
+
             ITEMS.consumable.smallStaminaPotion,
             ITEMS.consumable.mediumStaminaPotion,
             ITEMS.consumable.largeStaminaPotion,

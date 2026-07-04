@@ -825,6 +825,28 @@ function updateBuffs(target){
                 log(`${buff.dot}의 지속 피해!`, "damage");
             }
         }
+
+        if (buff.heal){
+            const heal = Number(buff.heal);
+
+            if (target.status){
+                target.status.hp = Math.min(
+                    target.status.maxHp,
+                    target.status.hp + heal
+                );
+                log(`당신은 재생 효과로 HP ${heal} 회복!`, "lust");
+
+            } else {
+                target.hp = Math.min(
+                    target.maxHp,
+                    target.hp + heal
+                );
+                log(`상대방의 상처가 천천히 아물었다. ${heal} 회복!`, "lust");
+            }
+
+            log(`재생 효과! HP ${heal} 회복!`, "lust");
+        }
+
         buff.remaining--;
     });
 

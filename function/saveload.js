@@ -42,7 +42,6 @@ function downloadSaveFile(payload, slot = null){
 
 function savePlayer(player){
     if (player.mineRun){
-        alert("광산 안에서는 저장할 수 없습니다.");
         return;
     }
     saveToLocalStorage(SAVE_PLAYER_KEY, player);

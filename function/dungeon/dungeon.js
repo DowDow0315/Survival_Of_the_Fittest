@@ -350,9 +350,9 @@ const DUNGEONS = {
             { type: "battle", enemy: "infectedSmall", weight: 15 },
             { type: "battle", enemy: "infected", weight: 35 },
             { type: "battle", enemy: "infectedSoldier", weight: 20 },
-            {type : "event", id : "whiteFlowerLab_Collapse", weight: 15},
-            {type : "event", id : "whiteFlowerLab_flowerAttack", weight: 10},
-            {type : "event", id : "whiteFlowerLab_oneWhiteFlower", weight: 5}
+            {type : "event", id : "whiteFlowerLabRepeated_Collapse", weight: 15},
+            {type : "event", id : "whiteFlowerLabRepeated_flowerAttack", weight: 10},
+            {type : "event", id : "whiteFlowerLabRepeated_oneWhiteFlower", weight: 5}
         ] 
     },
     erwinHideout : {
@@ -515,7 +515,7 @@ const DUNGEONS = {
 
             "r4c0" : {name : "시체가 있는 복도", exits : {up : "r3c0", down : "r5c0"}},
             "r4c3" : {name : "하얀꽃잎들이 수북한 방", exits : {up : "r3c3", down : "r5c3"}},
-            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}},
+            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}, boss: "flower5", bossIntro: "whiteFlowerOldLab_boss_intro"},
             "r4c7" : {name : "죽은 촉수가 붙어있는 방", exits : {up : "r3c7", down : "r5c7"}},
 
             "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}},
@@ -534,7 +534,13 @@ const DUNGEONS = {
             "r7c2" : {name : "출입구", exits : {left : "r7c1"}},
             "r7c5" : {name : "흉물 시체", exits : {right : "r7c6"}},
             "r7c6" : {name : "하얀꽃 시체", exits : {left : "r7c5", up : "r6c6"}}
-        }
+        },
+
+        encounters : [
+            { type: "battle", enemy: "flower3", weight: 30 },
+            { type: "battle", enemy: "flower4", weight: 20 },
+            { type: "battle", enemy: "flower5", weight: 5 },
+        ]
     }
 }
 
@@ -2392,6 +2398,116 @@ const DUNGEON_EVENTS = {
                                 }
                             }
                         ]
+                    }
+                ]
+            }
+        ]
+    },
+    whiteFlowerLabRepeated : {
+        whiteFlowerLabRepeated_oneWhiteFlower : [
+            {
+                type : "text",
+                value : "당신은 걸어가다가 하얀 꽃 한 송이가 피어있는 것을 보았다. 그것은 마치 살아있는 것처럼 흔들리고 있었다."
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 꽃을 뽑았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : "당신이 꽃을 뽑는 순간, 당신의 머리에 아이의 비명 소리가 울렸다. 대체 어디서부터 난 비명 소리인지 당신은 알 수가 없다. 확실한 건 분명히 당신에게 들렸다는 것이다. 당신은 뽑은 하얀꽃을 내려다보았다. 하얀꽃의 줄기에서 하얀 액이 주륵주륵 흐른다.... 그리고 그것은 그대로 시들었다."
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeHP(player, 30);
+                                    changeTrauma(player, 2);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 꽃을 그냥 내버려두었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : "하얀 꽃은 당신이 가는 동안에도 너울너울 춤을 추듯 움직였다. 달콤한 냄새가 난다... 어쩐지 당신의 발걸음이 가벼워졌다."
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeHP(player, 10);
+                                    changeStamina(player, 10);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        whiteFlowerLabRepeated_flowerAttack : [
+            {
+                type : "text",
+                value : "당신이 발걸음을 내딛는 순간, 당신의 밑에서 뭔가가 느껴졌다. 당신은 밑을 내려다보았다. 아주 큰 꽃이 당신을 향해 활짝 피어있었다."
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 18,
+                success : [
+                    {
+                        type : "text",
+                        value : "당신은 꽃술이 당신의 애널에 침범하기 전에 재빠르게 자리를 피했다. 큰꽃은 당신을 놓치자 으르렁거리듯 꽃잎을 떨더니 그대로 봉우리를 닫았다."
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : "큰꽃에서 나온 꽃술이 당신의 하의 안으로 쉽게 들어왔다. 당신은 당황해서 꽃술을 움켜잡았지만 꽃술은 멈추지 않았다. 그것은 당신의 엉덩이골 사이로 파고들더니 그대로 찌걱거리는 소리와 함꼐 애널로 돌입했다." +
+                                " 꽃술의 울퉁불퉁한 겉면이 당신의 여린 속살을 자극한다. 돌기가 당신의 속살을 긁을 때마다 당신의 두 다리는 바들바들 떨렸다. 그리고 주르륵, 꽃술에서 무언가가 나왔다. 당신의 애널이 물컹물컹한 애액으로 가득 찼다. 이제는 찌꺽이는 소리도 아니었다. 쭈압, 푸슛, 흥건한 소리가 당신의 애널에서 흘러나온다...." +
+                                "<br>큰꽃은 당신을 몇 분이고 능욕하고 나서야 만족했다. 꽃술이 당신의 애널에서 스르르 빠져나왔다. 습해진 당신의 애널이 뻐끔거린다."
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeHP(player, -5);
+                            changeArousal(player, getSensitivityArousalGain(player, "a", 16)),
+                            changeSensitivity(player, "aSensitivity", 8);
+                            addBodyFluid(player, "a", 20);
+                            passTime(player, 5);
+                        }
+                    }
+                ]
+            }
+        ],
+        whiteFlowerLabRepeated_Collapse : [
+            {
+                type : "text",
+                value : "\"콰앙!\"<br><br>당신의 바로 옆에서 무너지는 소리가 들렸다. 당신이 고개를 돌렸을 때는 이미 기둥이 당신 쪽으로 넘어지고 있었다!"
+            },
+            {
+                type : "check",
+                stat : "str",
+                difficulty : 17,
+                success : [
+                    {
+                        type : "text",
+                        value : "당신은 다행히도 쓰러지는 기둥을 몸으로 받아낼 수 있었다. 아프긴 했지만 당신의 근력으로는 버틸 만했다. 당신은 기둥을 치운 후 앞으로 나아갔다."
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : "당신은 기둥에 그대로 깔렸다. 어떻게든 기둥을 밀어서 빠져나오긴 했지만 빠져나온 후에도 당신의 몸은 욱씬거렸다."
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeHP(player, -20);
+                            changeStamina(player, -20);
+                        }
                     }
                 ]
             }

@@ -613,6 +613,49 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "공격력 1.2배로 4번 연속 공격"
         }
+    ],
+    "백화쌍검" : [
+        {
+            name : "아리따운 춤사위",
+            cost : 3,
+            type : "multiHit",
+            power : 1.2,
+            hits : 3,
+            unlock : 20,
+            desc : "공격력 1.2배로 3번 연속 공격"
+        },
+        {
+            name : "독무쌍검",
+            cost : 3,
+            type : "poison",
+            dot : 20,
+            duration : 3,
+            unlock : 100,
+            desc : "3턴간 독데미지(20)"
+        },
+        {
+            name : "꽃잎이 흔들리며",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "whiteFlowerTwinDaggers_dance",
+                atkMult : 1.4,
+                defMult : 0.8,
+                evaMult : 1.4
+            },
+            duration : 5,
+            unlock : 150,
+            desc : "5턴간 공격력 1.4배, 방어력 0.8배, 회피력/명중률 1.4배"
+        },
+        {
+            name : "끝나지 않는 춤사위",
+            cost : 5,
+            type : "multiHit",
+            power : 1.1,
+            hits : 6,
+            unlock : 200,
+            desc : "1.1배로 6번 연속 공격"
+        }
     ]
 };
 
@@ -676,6 +719,10 @@ const MASTER_SKILLS = {
     "우산" : {
         requiredMastery : 300,
         skillName : "칼날개화"
+    },
+    "백화쌍검" : {
+        requiredMastery : 300,
+        skillName : "끝나지 않는 춤사위"
     }
 };
 
@@ -842,9 +889,20 @@ const ITEMS ={
             desc : "누군가의 비 오는 날의 추억이 담겨져 있다. 밀크쉐이크를 같이 먹은 사이일지도?",
             price : 2900,
             stats : {
-                str : -1,
+                str : -2,
                 dex : 11,
-                chamrm : 2
+                chamrm : 3
+            }
+        },
+
+        whiteFlowerTwinDagger : {
+            name : "백화쌍검",
+            type : "weapon",
+            desc : "말없는 춤, 그것이 세상에서 제일 무서운 춤일지도 모른다.",
+            price : 3000,
+            stats : {
+                dex : 11,
+                charm : 3
             }
         }
     },

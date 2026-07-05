@@ -2115,6 +2115,7 @@ function moveTo(player,locationKey){
         player.justMoved = false;
         return;
     }
+    
     player.justMoved = false;
     renderMap(player);
     startScene(getLocationScene(player), player);

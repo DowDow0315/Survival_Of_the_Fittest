@@ -2078,7 +2078,7 @@ function moveTo(player,locationKey){
 
     if (locationKey === "twinsMansion" && !player.flags?.twinMansionUnlocked){
         showSingleTextScene(
-            "저택 입구는 막혀있다. 데릭이나 에릭 없이는 들어갈 수 없을 거 같다.",
+            "...데릭이나 에릭 없이는 들어갈 수 없을 거 같다.",
             player
         );
         return;

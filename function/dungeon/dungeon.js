@@ -515,7 +515,7 @@ const DUNGEONS = {
 
             "r4c0" : {name : "시체가 있는 복도", exits : {up : "r3c0", down : "r5c0"}},
             "r4c3" : {name : "하얀꽃잎들이 수북한 방", exits : {up : "r3c3", down : "r5c3"}},
-            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}, boss: "flower5", bossIntro: "whiteFlowerOldLab_boss_intro"},
+            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}, boss: "", bossIntro: "whiteFlowerOldLab_boss_intro"},
             "r4c7" : {name : "죽은 촉수가 붙어있는 방", exits : {up : "r3c7", down : "r5c7"}},
 
             "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}},
@@ -537,8 +537,9 @@ const DUNGEONS = {
         },
 
         encounters : [
-            { type: "battle", enemy: "flower3", weight: 30 },
-            { type: "battle", enemy: "flower4", weight: 20 },
+            { type: "battle", enemy: "flower2", weight: 20 },
+            { type: "battle", enemy: "flower3", weight: 20 },
+            { type: "battle", enemy: "flower4", weight: 15 },
             { type: "battle", enemy: "flower5", weight: 5 },
         ]
     }

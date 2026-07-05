@@ -1673,6 +1673,7 @@ function isRichTownLocation(locationKey){
         "richTownStreet",
         "royalHospital",
         "royalForge",
+        "royalHotel",
         "gloryStreet",
         "nobleSquare",
         "arena",
@@ -1736,6 +1737,7 @@ function renderRichTownMap(player){
                     <div class="branch-list">
                         ${node("royalHospital")}
                         ${node("royalForge")}
+                        ${node("royalHotel")}
                     </div>
                 </div>
 

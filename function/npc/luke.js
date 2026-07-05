@@ -83,7 +83,7 @@ registerActions("luke", {
     },
 
     smallTalk : (player) => {
-        passTime(player, 5);
+        passTime(player, 3);
         const affection = NPC_DATA["luke"].emotion.affection || 0;
         const rage = NPC_DATA["luke"].emotion.rage || 0;
         const dominance = NPC_DATA["luke"].emotion.dominance || 0;

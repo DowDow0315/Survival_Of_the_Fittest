@@ -472,6 +472,69 @@ const DUNGEONS = {
             { type: "battle", enemy: "trafficker2", weight: 20 },
             { type: "battle", enemy: "trafficker3", weight: 10 },
         ]
+    },
+    whiteFlowerOldLab : {
+        id : "whiteFlowerOldLab",
+        name : "하얀꽃 실험실",
+        startRoom : "r7c2",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2", "r0c3", "r0c4", "r0c5", "r0c6", "r0c7"],
+            [    "", "r1c1",     "",     "",     "",     "",     "", "r1c7"],
+            [    "", "r2c1",     "", "r2c3", "r2c4", "r2c5", "r2c6", "r2c7"],
+            ["r3c0", "r3c1",     "", "r3c3",     "",     "",     "", "r3c7"],
+            ["r4c0",     "",     "", "r4c3",     "", "r4c5",     "", "r4c7"],
+            ["r5c0", "r5c1",     "", "r5c3", "r5c4", "r5c5",     "", "r5c7"],
+            ["r6c0",     "",     "",     "",     "",     "", "r6c6", "r6c7"],
+            ["r7c0", "r7c1", "r7c2",     "",     "", "r7c5", "r7c6",     ""]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "누군가의 아버지였던 자의 방", exits : {right : "r0c1"}},
+            "r0c1" : {name : "하얀꽃 화관이 걸려있는 문앞", exits : {left : "r0c0", down : "r1c1"}},
+            "r0c2" : {name : "길게 뻗은 복도", exits : {left : "r0c1", right : "r0c3"}},
+            "r0c3" : {name : "피가 묻은 복도", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "피가 묻은 복도2", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "피가 묻은 복도3", exits : {left : "r0c4", right : "r0c6"}},
+            "r0c6" : {name : "하얀 즙이 묻은 복도", exits : {left : "r0c5", right : "r0c7"}},
+            "r0c7" : {name : "복도의 끝", exits : {right : "r0c6", down : "r1c7"}},
+
+            "r1c1" : {name : "달콤한 냄새로 가득한 복도2", exits : {up : "r0c1", down : "r2c1"}},
+            "r1c7" : {name : "하얀꽃밭", exits : {up : "r0c7", down : "r2c7"}},
+
+            "r2c1" : {name : "달콤한 냄새로 가득한 복도", exits : {up : "r1c1", down : "r3c1"}},
+            "r2c3" : {name : "기밀방 문 앞", exits : {down : "r3c3", right : "r2c4"}},
+            "r2c4" : {name : "고요한 복도", exits : {left : "r2c3", right : "r2c6"}},
+            "r2c5" : {name : "하얀꽃병 복도2", exits : {left : "r2c4", right : "r2c6"}},
+            "r2c6" : {name : "하얀꽃병 복도", exits : {left : "r2c5", right : "r2c7"}},
+            "r2c7" : {name : "하얀꽃밭2", exits : {up : "r1c7", left : "r2c6", down : "r3c7"}},
+
+            "r3c0" : {name : "어린아이의 낙서 그림이 붙여져 있는 복도", exits : {right: "r3c1", down : "r4c0"}},
+            "r3c3" : {name : "하얀꽃잎들로 가득한 방", exits : {up : "r2c3", down : "r4c3"}},
+            "r3c7" : {name : "하얀꽃밭3", exits : {up : "r2c7", down : "r4c7"}},
+
+            "r4c0" : {name : "시체가 있는 복도", exits : {up : "r3c0", down : "r5c0"}},
+            "r4c3" : {name : "하얀꽃잎들이 수북한 방", exits : {up : "r3c3", down : "r5c3"}},
+            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}},
+            "r4c7" : {name : "죽은 촉수가 붙어있는 방", exits : {up : "r3c7", down : "r5c7"}},
+
+            "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}},
+            "r5c1" : {name : "시든 반지가 떨어져있는 방", exits : {left : "r5c0"}},
+            "r5c3" : {name : "한 남자의 시체가 있는 방", exits : {up : "r4c3", right : "r5c4"}},
+            "r5c4" : {name : "낙서들로 가득한 방", exits : {right : "r5c3", left : "r5c5"}},
+            "r5c5" : {name : "실험실 앞", exits : {left : "r5c4", up : "r4c5"}},
+            "r5c7" : {name : "촉수병실", exits : {up : "r4c7", down : "r6c7"}},
+
+            "r6c0" : {name : "질질 끌린 피 흔적", exits : {up : "r5c0", down : "r7c0"}},
+            "r6c6" : {name : "촉수 시체", exits : {right : "r7c6"}},
+            "r6c7" : {name : "촉수병실2", exits : {left : "r6c6", up : "r5c7"}},
+
+            "r7c0" : {name : "핏자국?", exits : {up : "r6c0", right : "r7c1"}},
+            "r7c1" : {name : "하얀복도", exits : {left : "r7c0", right : "r7c2"}},
+            "r7c2" : {name : "출입구", exits : {left : "r7c1"}},
+            "r7c5" : {name : "흉물 시체", exits : {right : "r7c6"}},
+            "r7c6" : {name : "하얀꽃 시체", exits : {left : "r7c5", up : "r6c6"}}
+        }
     }
 }
 

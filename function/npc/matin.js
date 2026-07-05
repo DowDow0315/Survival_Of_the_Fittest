@@ -147,7 +147,7 @@ registerActions("matin",{
     },
 
     smallTalk : (player) => {
-        passTime(player, 5);
+        passTime(player, 3);
         const affection = NPC_DATA["matin"].emotion.affection || 0;
         const rage = NPC_DATA["matin"].emotion.rage || 0;
         const onEnd = () => {

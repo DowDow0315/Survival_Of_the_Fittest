@@ -15,15 +15,15 @@ function getSellPrice(item){
         return item.price || 0;
     }
 
-    if (item.type === "food"){
-        return item.price || 0;
-    }
-
     if (item.type === "regen"){
         return item.price || 0;
     }
 
-    // 나머지는 반값
+    if (item.type === "misc"){
+        return item.price || 0;
+    }
+
+    // 나머지는 반값 (음식재료 포함)
     return Math.floor((item.price || 0) * 0.5);
 }
 

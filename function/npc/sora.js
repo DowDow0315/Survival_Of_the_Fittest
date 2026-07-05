@@ -80,7 +80,7 @@ registerActions("sora",{
     },
 
     smallTalk : (player) => {
-        passTime(player, 5);
+        passTime(player, 3);
         const affection = NPC_DATA["sora"].emotion.affection;
         const onEnd = () => {
             if (NPC_DATA["sora"].emotion.affection < 60){

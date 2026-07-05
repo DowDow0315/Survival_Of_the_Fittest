@@ -320,6 +320,7 @@ function startScene(scene, player, options = {}){
                 btn.onclick = () => {
                     if (choice.stat){
                         index++;
+                        
                         if (!choice.noTraumaCheck && checkTraumaFreeze(player)){
                             runScene(
                                 choice.traumaFail || choice.fail || [

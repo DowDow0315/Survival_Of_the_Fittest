@@ -2,7 +2,7 @@
     "name": "작은흉물",
     "hp": 250,
     "attack": 30,
-    "defense": 50,
+    "defense": 48,
     "eva": 48,
     "lustResist" : 1,
     "drops": [

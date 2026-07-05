@@ -2,7 +2,7 @@
     "name": "인신매매상(전기충격기)",
     "hp": 250,
     "attack": 39,
-    "defense": 41,
+    "defense": 39,
     "eva": 36,
     "lustResist" : 1.4,
     "drops": [

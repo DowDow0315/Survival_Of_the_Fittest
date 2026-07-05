@@ -3072,6 +3072,14 @@ window.mine_next = function(player){
     changeStamina(player, -3);
     passTime(player, 5);
 
+    mine.step++;
+
+    if (mine.step >= mine.maxStep){
+        mine.step = mine.maxStep - 1;
+        mineCollapse(player);
+        return;
+    }
+
     if (Math.random() < 0.35){
         const enemyId = pickWeighted(MINE_ENEMY_POOL);
 
@@ -3090,14 +3098,6 @@ window.mine_next = function(player){
                 }
             }
         ], player, { noSaveScene: true });
-        return;
-    }
-
-    mine.step++;
-
-    if (mine.step >= mine.maxStep){
-        mine.step = mine.maxStep - 1;
-        mineCollapse(player);
         return;
     }
 

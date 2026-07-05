@@ -2,7 +2,7 @@
     "name": "인신매매상 간부",
     "hp": 300,
     "attack": 43,
-    "defense": 46,
+    "defense": 42,
     "eva": 35,
     "lustResist" : 2,
     "drops": [

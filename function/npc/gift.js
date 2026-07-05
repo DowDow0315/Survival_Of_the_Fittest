@@ -1643,6 +1643,339 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    nikolai: {
+        reactions: {
+            nikolaiFavorite: {
+                great: {
+                    affection: 7,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 5,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 7,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            nikolaiHate: {
+                great: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 6,
+                    rage: 0,
+                    lust : 0,
+                    line: "니콜라이는 당신의 요리를 먹더니 감동먹은 표정으로 제 뺨을 감싸안았다. <br><br>\"너무 맛있다, 자기! 언젠가 내 전속 요리사가 되어주지 않겠어?\""
+                },
+            
+                normal: {
+                    affection: 4,
+                    rage: 0,
+                    lust : 0,
+                    line: "그는 당신의 달콤한 요리를 혀로 굴리면서 미소를 지었다. <br><br>\"달콤한 건 언제나 기분을 좋아지게 만들어.\""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"자기야...\"<br><br>그는 충격먹은 얼굴로 당신을 바라보았다. <br><br>\"달콤한 맛이 하나도 느껴지지 않아.\""
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 4,
+                    line: "니콜라이는 미소를 지었다. <br><br>\"자기, 나랑 자고 싶구나? 근데 나 엄청 비싼데~ 뭐, 자기라면 공짜로 해줄 수도 있고?\"<br><br>그는 장난스럽게 말하며 당신의 요리를 먹었다."
+                },
+
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 2,
+                    line: "니콜라이는 당신의 요리에 키득키득 웃었다. <br><br>\"어쩔까, 넘어가줄까?\"<br><br>그는 꽃받침을 하고 당신에게 장난스러운 시선을 던졌다."
+                },
+            
+                bad: {
+                    affection: -2,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"비려.\"<br><br>니콜라이는 단호했다. <br><br>\"정액보다 더 비린 냄새가 나는 거 같아... 이쪽이 취향?\""
+                }
+            },
+            lustyHighAffection : {
+                great: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 10,
+                    line: "니콜라이는 미소를 지었다. <br><br>\"방은 언제로 잡을까? 내일? 오늘? 아니면....\"<br><br>그는 당신쪽으로 몸을 기울였다.<br><br>\"지금 당장?\""
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 7,
+                    line: "\"요리는 섹스를 하기 위한 초석이 되기도 하지.\"<br><br>니콜라이는 당신에게 윙크했다. <br><br>\"물론 자기도 이미 알고 있었지?\""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 5,
+                    line: "니콜라이는 미소를 지으며 당신의 요리를 치웠다. <br><br>\"이것보다 덜 비리고, 더 맛있는 게 어딨는지 아는데.... 금방 만들 수 있거든?\"<br><br>그의 숨결이 가까워졌다.<br><br>\"맛보고 싶어?\""
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 고기는 잘 안 먹는다고 말해주었다. <br><br>\"기름기 있는 건 별로더라고. 이 요리는 맛있지만.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 고기를 먹다가 남겼다. 그는 아까 컵케이크를 좀 먹었더니 배불러서 못 먹는 거라고 말하며 윙크를 해보였다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"오...\"<br><br>니콜라이는 고기의 탄 부분을 꾹꾹 찔렀다. <br><br>\"자기, 이런 건 몸에 안 좋아.\""
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 채소는 몸에 좋다고 하며 당신의 요리를 맛있게 먹어주었다. 그는 평소보다 더 많이 먹었다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 당신에게 채소를 좋아하냐고 물었다. <br><br>\"나는 어렸을 때 채소를 많이 못 먹어서 그런가, 사실 지금도 그렇게 많이는 못 먹겠더라고.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 당신에게 채소를 좋아하냐고 물었다. <br><br>\"나는 어렸을 때 채소를 많이 못 먹어서 그런가, 사실 지금도 그렇게 많이는 못 먹겠더라고.\""
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 상류도시의 생선 요리보다 당신의 생선 요리가 더 맛있다고 말하며 엄지를 올려보였다. <br><br>\"자기, 나중에 상류도시에서 주점 차리는 거 어때? 생각보다 잘될지도 몰라.\""
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"뼈 있는 거야?\"<br><br>그는 뼈 있는 생선은 먹기 힘들다고 말하며 생선살을 발랐다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"너무 탔다, 자기, 이것도 재능이야!\"<br><br>그는 가끔 요리를 망치는 것도 매력이라 생각하는 사람들이 있다고 말했다. 오타쿠라나?"
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 야채도 고기도 모두 중요하다고 말하면서 웃었다. <br><br>\"난 이런 반반음식이 좋아.\""
+                },
+
+                normal : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "마틴은 당신의 요리를 먹으며 고개를 끄덕였다. <br><br>\"이정도면 괜찮아.\"<br><br>그는 고기 부분보다는 야채 쪽을 더 많이 먹고 있다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"반반음식보다 더 중요한 게 뭔지 알아? 바로 맛이지.\"<br><br>니콜라이는 쿡쿡 웃었다."
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 빵은 상류도시에 가면 지겹게 먹는다고 말했다. <br><br>\"그런데도 어쩜 이렇게 질리지가 않을까?\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"근데 맨빵보다는 역시 달콤한 빵이 좋아. 컵케이크처럼.\"<br><br>니콜라이는 미소를 지어보였다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"어머... 그냥 빵인데도 맛없을 수가 있네. 자기, 진짜 재능 있다.\""
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 흥얼거리면서 빵을 먹었다. 하지만 몇 입 먹지 못하고 그는 내려놓았다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 고기빵을 몇 입 먹다가 내려놓았다. 그는 다음 번에는 달콤한 빵을 만드는 건 어떠냐고 조심스레 제안해왔다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...탈날 거 같은 맛이 나는데?\"<br><br>니콜라이는 먹다가 슬쩍 내려놓았다."
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 오물오물 야채빵을 먹고 있다. 그는 당신은 어떤 빵을 제일 좋아하냐고 물었다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 야채빵을 먹으며 당신은 뭘 좀 먹었냐고 물었다. <br><br>\"아, 근데 남자들한테는 보통 키 작은 게 메리트가 있긴 하더라. 남자들이란.\"<br><br>...자기도 남자면서?"
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"으...\"<br><br>니콜라이는 웃으며 고개를 절레절레 저었다. <br><br>\"우리 이거 버리자. 차라리 내가 컵케이크 가져올게.\""
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 쌀은 탄수화물 덩어리라서 안 먹는 편이지만, 당신의 요리니까 먹어주는 거라고 장난스레 말했다. 당신이 빵보다는 쌀이 나을 거라 말하자 그는 '쉬잇' 해보였다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 야채밥을 꼭꼭 씹어먹으며 당신 때문에 일하다가 쓰러지지는 않을 거 같다고 말했다. <br><br>\"어디서든 체력이 최고거든.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"맛없어.\"<br><br>그는 숟가락을 내려놓고 과장스럽게 울상을 지어보였다."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 고기밥을 먹으며 당신이 한 요리니 먹어주는 거라고 말했다. <br><br>\"내가 널 얼마나 아끼는지 이제 알겠니?\"<br><br>그는 장난스레 당신에게 윙크했다."
+                },
+
+                normal : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 고기와 밥이 들어가자 더 속이 울렁거리는 거 같다고 말했다. 그는 웃는 얼굴로 숟가락을 내려놓았다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "니콜라이는 요리 냄새밖에 안 맡았는데 바로 숟가락을 내려놓았다. <br><br>\"탈날 거 같아.\""
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -6,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"어머, 자기, 장난이 너무 심하다!\"<br><br>니콜라이는 깔깔 웃었다. 하지만 그의 눈은 전혀 웃고 있지 않았다."
+                }
+            }
+        }
     }
 };
 
@@ -1770,6 +2103,15 @@ function giveFoodToNpc(player, npcId, item){
         ){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }
+
+        if (
+            npcId === "nikolai" &&
+            taste === "lusty" &&
+            affection >= 60
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
 
 
         if (!reaction){

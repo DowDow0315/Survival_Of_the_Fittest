@@ -1218,10 +1218,17 @@ window.gh_office = function(player){
         {
             type: "text",
             value: "니콜라이는 당신을 보자 눈을 접으며 웃었다.<br>\"어, 자기야 왔어? 무슨 일이야?\"<br>그의 앞에는 언제나 노트북이 있었다."
+        },
+        {
+            type: "choice",
+            choices: [
+                ...(player.flags?.nikolai_talk_unlock
+                ? [{ text: "니콜라이와 대화한다", action: "nikolai_talk" }]
+                : []),
+                { text: "돌아간다", action: "leave_gloryHole" }
+            ]
         }
-    ], player, {
-        onEnd: () => startScene(getLocationScene(player), player)
-    });
+    ], player);
 };
 
 window.leave_gloryHole = function(player){

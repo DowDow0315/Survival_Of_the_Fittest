@@ -530,6 +530,31 @@ window.EVENTS.push({
 });
 
 //니콜라이
+window.EVENTS.push({
+    id : "nikolai_feels_good_event",
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.dericDate02Accepted &&
+        player.flags?.metNikolai &&
+        !player.flags?.nikolai_feels_good_event_seen,
+
+    action : (player) => {
+        player.flags.nikolai_feels_good_event_seen = true;
+        player.flags.nikolai_talk_unlock = true;
+
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_feels_good_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //창백
 window.EVENTS.push({

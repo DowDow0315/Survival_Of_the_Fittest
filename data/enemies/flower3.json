@@ -2,7 +2,7 @@
     "name": "백발꽃인간",
     "hp": 270,
     "attack": 45,
-    "defense": 45,
+    "defense": 44,
     "eva": 48,
     "lustResist" : 1.2,
     "drops": [

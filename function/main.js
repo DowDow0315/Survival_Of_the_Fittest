@@ -319,6 +319,7 @@ function startScene(scene, player, options = {}){
 
                 btn.onclick = () => {
                     if (choice.stat){
+                        index++;
                         if (!choice.noTraumaCheck && checkTraumaFreeze(player)){
                             runScene(
                                 choice.traumaFail || choice.fail || [
@@ -360,6 +361,8 @@ function startScene(scene, player, options = {}){
                     }
                     
                     if (choice.scene){
+                        index++;
+
                         runScene(choice.scene, player, {
                             ...options,
                             noSaveScene: true,

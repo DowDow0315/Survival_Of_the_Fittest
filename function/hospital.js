@@ -2,7 +2,8 @@ const HOSPITAL_PRICES = {
     traumaCare: 1000,
     sensitivityUp: 100,
     sensitivityDownBase: 300,
-    bodyModify: 30000
+    bodyModify: 30000,
+    abominationRemoval : 3000
 };
 
 const HOSPITAL_SENSITIVITY_PARTS = {
@@ -241,6 +242,53 @@ function hospitalChangeBody(player, key, value){
 
 window.hospital_back = function(player){
     returnHospital(player);
+};
+
+window.hospital_abominationRemoval = function(player){
+    const price = HOSPITAL_PRICES.abominationRemoval;
+
+    if (!player.abomination?.active){
+        showSingleTextScene("당신의 몸에는 제거할 흉물이 없다.", player);
+        return;
+    }
+
+    if (!spendGold(player, price)){
+        showSingleTextScene("돈이 부족하다.", player);
+        return;
+    }
+
+    const loss = player.abomination.statLoss || {};
+    const strGain = player.abomination.strGain || 0;
+
+    player.stats.dex = (player.stats.dex || 0) + (loss.dex || 0);
+    player.stats.int = (player.stats.int || 0) + (loss.int || 0);
+    player.stats.charm = (player.stats.charm || 0) + (loss.charm || 0);
+
+    player.stats.str = Math.max(0, (player.stats.str || 0) - strGain);
+
+    player.abomination = {
+        active: false,
+        infectedAt: null,
+        lastTick: null,
+        statLoss: {
+            dex: 0,
+            int: 0,
+            charm: 0
+        },
+        strGain: 0
+    };
+
+    passTime(player, 360);
+    updateDerivedStats(player);
+    saveHospitalPlayer(player);
+
+    showSingleTextScene(
+        `${price}G를 지불했다.<br><br>` +
+        "의사는 당신을 수술대 위에 눕혔다. 차가운 마취제가 혈관을 타고 퍼지고, 의식이 어둠 속으로 가라앉는다.<br><br>" +
+        "눈을 떴을 때 당신의 아랫배에는 길고 얇은 봉합 자국이 남아 있었다. 몸 안쪽을 짓누르던 끔찍한 박동은 더 이상 느껴지지 않는다.<br><br>" +
+        "흉물이 제거되었다.<br>잠식으로 변한 능력치가 원래대로 돌아왔다.",
+        player
+    );
 };
 
 //강제입원

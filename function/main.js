@@ -301,7 +301,11 @@ function startScene(scene, player, options = {}){
             : current.fail;
             
             index++;
-            runScene(resultScene || [], player, options);
+            runScene(resultScene || [], player, {
+                ...options,
+                noSaveScene: true,
+                onEnd: () => next()
+            });
             return;
         }
 
@@ -324,29 +328,47 @@ function startScene(scene, player, options = {}){
                                     }
                                 ],
                                 player,
-                                options
+                                {
+                                    ...options,
+                                    noSaveScene: true,
+                                    onEnd: () => next()
+                                }
                             );
                             return;
                         }
-
-    const success = rollCheck(
-        player,
-        choice.stat,
-        choice.difficulty
-    );
-
-    if (success){
-        runScene(choice.success, player, options);
-    } else {
-        runScene(choice.fail, player, options);
-    }
-    return;
-}
-
-                if (choice.scene){
-                    runScene(choice.scene, player, options);
-                    return;
-                }
+                        
+                        const success = rollCheck(
+                            player,
+                            choice.stat,
+                            choice.difficulty
+                        );
+                        
+                        if (success){
+                            runScene(choice.success, player, {
+                                ...options,
+                                noSaveScene: true,
+                                onEnd: () => next()
+                            });
+                        } else {
+                            runScene(choice.fail, player, {
+                                ...options,
+                                noSaveScene: true,
+                                onEnd: () => next()
+                            });
+                        }
+                        return;
+                    }
+                    
+                    if (choice.scene){
+                        runScene(choice.scene, player, {
+                            ...options,
+                            noSaveScene: true,
+                            onEnd: () => {
+                                next();
+                            }
+                        });
+                        return;
+                    }
 
                     handleAction(choice.action, player);
                 };
@@ -1076,6 +1098,30 @@ function passTime(player, amount){
     if (player.status?.alcohol > 0){
         player.status.alcohol = clamp(player.status.alcohol - Math.floor(amount / 2), 0, player.status.maxAlcohol || 100);
     } //1시간마다 5 감소
+
+    // 흉물 잠식 진행
+    if (player.abomination?.active){
+        if (player.abomination.lastTick == null){
+            player.abomination.lastTick = player.time;
+        }
+
+        while (player.time - player.abomination.lastTick >= 240){
+            player.abomination.lastTick += 240;
+
+            const candidates = ["dex", "charm", "int"];
+            const stat = candidates[Math.floor(Math.random() * candidates.length)];
+
+            if ((player.stats[stat] || 0) > 0){
+                player.stats[stat] -= 1;
+                player.abomination.statLoss[stat] = (player.abomination.statLoss[stat] || 0) + 1;
+            }
+
+            player.stats.str = (player.stats.str || 0) + 1;
+            player.abomination.strGain = (player.abomination.strGain || 0) + 1;
+        }
+
+        updateDerivedStats(player);
+    }
 
     updateNpcDaily(player);
 
@@ -3240,4 +3286,28 @@ function startMathMinigame(player, options = {}){
     });
 
     input.focus();
+}
+
+//흉물 공식
+function infectAbomination(player){
+    player.abomination = player.abomination || {
+        active: false,
+        infectedAt: null,
+        lastTick: null,
+        statLoss: { dex: 0, int: 0, charm: 0 },
+        strGain: 0
+    };
+
+    if (player.abomination.active) return;
+
+    player.abomination.active = true;
+    player.abomination.infectedAt = player.time;
+    player.abomination.lastTick = player.time;
+
+    player.stats.charm = Math.max(0, (player.stats.charm || 0) - 1);
+    player.abomination.statLoss.charm += 1;
+
+    updateDerivedStats(player);
+    updateStatusUI(player);
+    savePlayer(player);
 }

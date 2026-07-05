@@ -631,6 +631,27 @@ const DEFEAT_EVENTS = {
             ]
         }
     ],
+    flower5 : [
+        {
+            id : "flower5_defeat",
+            weight : 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "꽃쌍검인간은 당신이 쓰러지는 것을 보고 더 이상 건드리지 않았다. 그는 말없이 당신에게서 멀어져갔다. 당신이 죽었다고 착각하고 있는 모양이다." +
+                        "<br>꽃쌍검인간이 멀어진 후 당신은 움직이고 싶었지만 손가락 하나도 움직일 수 없었다. 그렇게, 당신의 시야는 암전됐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                        passTime(player, 40);
+                    }
+                }
+            ]
+        }
+    ],
     bandit1 : [
         {
             id : "bandits_defeat",
@@ -1076,6 +1097,27 @@ const DEFEAT_EVENTS = {
                         startSlaverCapture(player);
                         return true;
                     }
+                }
+            ]
+        }
+    ],
+
+    abomination1 : [
+        {
+            id : "abomination1_abominated",
+            weight : 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 그대로 쓰러졌다. 당신의 가랑이 사이로 들어간 작은흉물에서 두근두근 심장박동소리가 들린다. 쿵, 쿵, 쿵, 쿵..." +
+                        "<br>끔찍한 고통에 당신은 몸부림을 쳤다. 흉물이 당신의 구멍 안으로 돌입하고 있었다. 당신은 저항하고 싶었지만 당신의 손으로는 어떤 것도 할 수 없었다." +
+                        "끊긴 비명 소리와 함께 흉물은 당신의 안으로 들어갔다. 헐떡이는 숨, 그리고 당신의 안에 자리잡은 흉물... 당신은 흉물의 숙주가 되었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : "infectAbomination"
                 }
             ]
         }

@@ -115,6 +115,18 @@ function normalizePlayer(player){
 
     player.stats = player.stats || { str:0, dex:0, int:0, charm:0 };
 
+    player.abomination = player.abomination || {
+        active: false,          // 흉물 잠식 중인가
+        infectedAt: null,       // 감염된 시간  
+        lastTick: null,         // 마지막으로 스탯 깎인 시간
+        statLoss: {             // 나중에 수술로 복구할 수치        
+            dex: 0,
+            int: 0,
+            charm: 0
+        },
+        strGain: 0              // 흉물 때문에 오른 STR
+    };
+
     player.level = Number.isInteger(player.level) ? player.level : 1;
     player.exp = Number.isFinite(player.exp) ? player.exp : 0;
     player.statPoints = Number.isInteger(player.statPoints) ? player.statPoints : 0;

@@ -907,6 +907,7 @@ function buildRoyalHospitalScene(player, loc, randomDesc){
                 { text: "트라우마 치료를 받는다", action: "hospital_traumaCare" },
                 { text: "민감도 수술을 받는다", action: "hospital_sensitivityMenu" },
                 { text: "신체 개조 상담을 받는다", action: "hospital_bodyModifyMenu" },
+                { text: "흉물 제거 수술을 받는다", action: "hospital_abominationRemoval" },
                 { text: "나간다", action: "move_richTownStreet" }
             ]
         }

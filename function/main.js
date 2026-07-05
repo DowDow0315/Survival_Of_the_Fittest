@@ -2076,6 +2076,14 @@ function moveTo(player,locationKey){
     const current = player.location;
     const connections = LOCATIONS[current].connections;
 
+    if (locationKey === "twinsMansion" && !player.flags?.twinMansionUnlocked){
+        showSingleTextScene(
+            "저택 입구는 막혀있다. 데릭이나 에릭 없이는 들어갈 수 없을 거 같다.",
+            player
+        );
+        return;
+    }
+
     if (!connections[locationKey] && !window.DUNGEONS?.[locationKey]){
         addLog("여기서는 갈 수 없는 곳이다.");
         return;

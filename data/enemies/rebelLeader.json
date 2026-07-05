@@ -90,7 +90,7 @@
             "duration" : 3,
             "effect" : {
                 "id" : "rabelLeader_battle_def_stance",
-                "atkMult" : 2
+                "defMult" : 2
             },
             "lines" : [
                 "반란군수장은 지금 쓰러지면 안 된다는 생각으로 힘을 모으고 있다.",

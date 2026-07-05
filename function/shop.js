@@ -19,7 +19,7 @@ function getSellPrice(item){
         return item.price || 0;
     }
 
-    if (item.type === "misc"){
+    if (item.type === "junk"){
         return item.price || 0;
     }
 

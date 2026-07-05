@@ -2192,6 +2192,28 @@ const ITEMS ={
             type : "junk",
             price : 1000 
         },
+        lumpOfFlesh : {
+            name : "살점덩어리",
+            type : "junk",
+            desc : "누가 이런 물건을 원할 것인가.",
+            price : 100
+        },
+        twistedBone : {
+            name : "뒤틀린 뼈",
+            type : "junk",
+            desc : "흉물에 뒤엉켜있었던 뼈, 심하게 변형되어 있지만 인간의 뼈로 보인다.",
+            price : 150
+        },
+        mutantHeart : {
+            name : "오염된 심장",
+            type : "junk",
+            price : 700
+        },
+        blackBlood : {
+            name : "검은피주머니",
+            type : "junk",
+            price : 300
+        },
 
         //강화재료
         ironOre: {

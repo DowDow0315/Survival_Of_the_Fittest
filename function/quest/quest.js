@@ -119,7 +119,7 @@ const QUESTS = {
         
         targetFlag : "whiteFlowerLab_cleanup_done",
         requiredKill : 1,    
-        rewardGold : 2000,
+        rewardGold : 3000,
 
         require : {
             completedQuest : "uppercity_story_01",
@@ -470,7 +470,7 @@ const QUESTS = {
         
         targetFlag : "uppercity_quest03_done",
         requiredKill : 1,    
-        rewardGold : 2500,
+        rewardGold : 4000,
 
         require : {
             flag : "uppercity_story_03_quest_unlocked"

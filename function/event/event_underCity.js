@@ -156,6 +156,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_firstConfession_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "townEntrance" ||
+         player.location === "townStreet" ) &&
+         player.flags?.uppercity_hero_event_seen &&
+         player.flags?.bandit_luke_event_done &&
+        NPC_DATA["luke"].emotion.affection >= 90 &&
+        !hasNpcRelationship("luke", "lover") &&
+        !hasNpcRelationship("luke", "spouse"),
+
+    action : (player) => {
+        addItem(player, ITEMS.misc.lukeHouseKey);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_firstConfession_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라
 window.EVENTS.push({
     id : "sora_patience_limit_outside_event",

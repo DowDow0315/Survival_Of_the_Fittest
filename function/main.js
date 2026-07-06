@@ -276,7 +276,7 @@ function startScene(scene, player, options = {}){
                 const fn = window[current.run];
                 
                 if (typeof fn === "function"){
-                    const handled = fn(player, options);
+                    const handled = fn(...(current.args || []), player, options);
                     updateDerivedStats(player);
                     updateStatusUI(player);
                     renderMap(player);
@@ -1011,6 +1011,58 @@ function changeNPCEmotionWithCap(npcId, key, amount, max){
         key,
         Math.min(amount, max - current)
     );
+}
+
+const NPC_RELATIONSHIP = {
+    lover: {
+        badge: "❤️",
+        label: "연인"
+    },
+    spouse: {
+        badge: "💍",
+        label: "배우자"
+    },
+    broken: {
+        badge: "💔",
+        label: "결별"
+    }
+};
+
+function getNpcRelationship(npc){
+    return NPC_RELATIONSHIP[npc?.relationship?.type] || null;
+}
+
+function getNpcRelationshipBadge(npc){
+    return getNpcRelationship(npc)?.badge || "";
+}
+
+function setNpcRelationship(npcId, type){
+    const npc = NPC_DATA[npcId];
+    if (!npc) return;
+
+    if (!type){
+        npc.relationship = null;
+    } else {
+        npc.relationship = { type };
+    }
+
+    saveNpcProgressToLocalStorage();
+}
+
+window.becomeLover = function(npcId){
+    setNpcRelationship(npcId, "lover");
+};
+
+window.becomeSpouse = function(npcId){
+    setNpcRelationship(npcId, "spouse");
+};
+
+window.breakUp = function(npcId){
+    setNpcRelationship(npcId, "broken");
+};
+
+function hasNpcRelationship(npcId, type){
+    return NPC_DATA[npcId]?.relationship?.type === type;
 }
 
 function applyEffect(effect, player){
@@ -2489,7 +2541,8 @@ function saveNpcProgressToLocalStorage(){
         npcProgress[id] = {
             emotion: npc.emotion || {},
             flags: npc.flags || {},
-            events: npc.events || {}
+            events: npc.events || {},
+            relationship: npc.relationship || null
         };
     });
 
@@ -2503,10 +2556,11 @@ async function loadAllNPCData() {
     for (const name of npcList) {
         const res = await fetch(`data/npc/${name}.json`);
         const data = await res.json();
+        const savedNpc = savedNpcData?.[name];
 
         NPC_DATA[name] = data;
+        NPC_DATA[name].relationship = savedNpc?.relationship ?? data.relationship ?? null;
 
-        const savedNpc = savedNpcData?.[name];
         if (savedNpc) {
             NPC_DATA[name].emotion = {
                 ...(data.emotion || {}),

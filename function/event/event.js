@@ -141,6 +141,8 @@ const EVENTS = [
             player.location === "townStreet" &&
             player.flags.metLuke &&
             !player.flags.luke_softRoute &&
+            !hasNpcRelationship("luke", "lover") &&
+            !hasNpcRelationship("luke", "spouse") &&
             Math.random() < 0.1,
             
         action: (player) => {
@@ -154,6 +156,8 @@ const EVENTS = [
             player.location === "townEntrance" &&
             player.flags.metLuke &&
             !player.flags.luke_softRoute &&
+            !hasNpcRelationship("luke", "lover") &&
+            !hasNpcRelationship("luke", "spouse") &&
             Math.random() < 0.2,
             
         action: (player) => {

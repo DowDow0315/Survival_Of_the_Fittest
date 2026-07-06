@@ -701,10 +701,11 @@
 
         function renderNpcCard(npc, key){
             const e = npc.emotion || {};
+            const badge = getNpcRelationshipBadge(npc);
             return `
             
             <div class="npc-card">
-                <h4>${escapeHtml(npc.name || key || "이름 없음")}</h4>
+                <h4>${escapeHtml(npc.name || key || "이름 없음")}${badge ? " " + badge : ""}</h4>
                 ${renderHeartBar(e.affection)}
                 ${renderBar("lust", e.lust)}
                 ${renderBar("fear", e.fear)}
@@ -714,9 +715,10 @@
         }
 
         function renderMinorNpcLine(npc, key){
+            const badge = getNpcRelationshipBadge(npc);
             return `
             <div class="minor-npc-line">
-                <b>${escapeHtml(npc.name || key || "이름 없음")}</b>
+                <b>${escapeHtml(npc.name || key || "이름 없음")}${badge ? " " + badge : ""}</b>
                 <p>${escapeHtml(getNpcSummary(npc))}</p>
             </div>
             `;
@@ -1051,7 +1053,8 @@
                 saveData[key] = {
                     emotion: { ...(npc.emotion || {}) },
                     flags: { ...(npc.flags || {}) },
-                    events: { ...(npc.events || {}) }
+                    events: { ...(npc.events || {}) },
+                    relationship: npc.relationship || null
                 };
             }
             return saveData;
@@ -1078,6 +1081,9 @@
                     ...(npcStore[key].events || {}),
                     ...(savedNpc.events || {})
                 };
+
+                npcStore[key].relationship =
+                savedNpc.relationship ?? npcStore[key].relationship ?? null;
             }
         }
 

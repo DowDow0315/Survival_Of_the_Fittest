@@ -1,6 +1,8 @@
 const LOCATION_SCENE_BUILDERS = {
     shop: buildShopScene,
     barracks : buildBarracksScene,
+    darkStreet : buildDarkStreetScene,
+    lukeHouse: buildLukeHouseScene,
     shelter: buildShelterScene,
     tavern : buildTavernScene,
     forest : buildForestScene,
@@ -108,6 +110,84 @@ function isLukeTalkTime(player){
     const hour = Math.floor(player.time / 10) % 24;
     return hour >= 1 && hour < 3;
 }
+
+function buildDarkStreetScene(player, loc, randomDesc){
+    const choices = [
+        { text: "하수도로 간다", action: "move_sewer" },
+        { text: "공동묘지로 간다", action: "move_graveyard" }
+    ];
+
+    if (hasItemKey(player, "lukeHouseKey")){
+        choices.push({
+            text: "루크의 집에 간다",
+            action: "move_lukeHouse"
+        });
+    }
+
+    choices.push({ text: "번화가로 돌아간다", action: "move_townStreet" });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function buildLukeHouseScene(player, loc, randomDesc){
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "잔다", action: "sleep_lukeHouse" },
+                { text: "청소를 해준다", action: "clean_lukeHouse" },
+                { text: "나간다", action: "move_darkStreet" }
+            ]
+        }
+    ];
+}0
+
+window.sleep_lukeHouse = function(player){
+    player.status.hp = player.status.maxHp;
+    player.status.stamina = player.status.maxStamina;
+
+    passTime(player, 60);
+    savePlayer(player);
+    showSingleTextScene(
+        "당신은 루크의 침대에 몸을 눕혔다. 익숙하지 않은 침대였지만 이상할 정도로 편안했다. 눈을 뜨자 몸의 피로가 말끔히 풀려 있었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+window.clean_lukeHouse = function(player){
+    passTime(player, 10);
+
+    if (player.flags.lukeHouseCleanDay !== player.day){
+        changeEmotion("luke", "affection", 1);
+        player.flags.lukeHouseCleanDay = player.day;
+    }
+    changeTrauma(player, -1);
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 한동안 루크의 집을 청소했다. 먼지를 털고 바닥을 닦자 집 안이 확실히 달라졌다! 괜히 뿌듯한 기분이 들었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
 
 function buildShelterScene(player, loc, randomDesc){
     return [
@@ -414,8 +494,8 @@ window.start_slaverRaid = function(player){
 };
 
 function buildGuardPost3Scene(player, loc, randomDesc){
-
     const choices = [];
+
     if (
         player.quest?.active?.id === "uppercity_story_02" &&
         !player.flags?.uppercity_story_02_done
@@ -423,6 +503,16 @@ function buildGuardPost3Scene(player, loc, randomDesc){
         choices.push({
             text: "마물의 흔적을 쫓는다",
             action: "start_erwinRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "uppercity_story_03" &&
+        !player.flags?.uppercity_story_03_done
+    ){
+        choices.push({
+            text: "발렌이 말한 오래된 연구소를 찾아간다.",
+            action: "move_whiteFlowerOldLab"
         });
     }
 

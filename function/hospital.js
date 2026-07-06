@@ -264,11 +264,12 @@ window.hospital_abominationRemoval = function(player){
     player.stats.int = (player.stats.int || 0) + (loss.int || 0);
     player.stats.charm = (player.stats.charm || 0) + (loss.charm || 0);
 
-    player.stats.str = Math.max(0, (player.stats.str || 0) - strGain);
+    player.stats.str = (player.stats.str || 0) - strGain;
 
     player.abomination = {
         active: false,
         infectedAt: null,
+        birthAt: null,
         lastTick: null,
         statLoss: {
             dex: 0,
@@ -283,6 +284,7 @@ window.hospital_abominationRemoval = function(player){
     saveHospitalPlayer(player);
 
     showSingleTextScene(
+        "흉물을 제거하고 싶다는 당신의 말에 의사는 놀라더니 목소리를 낮췄다. 그는 청진기로 당신의 배를 살피더니 굳은 얼굴로 당신을 가장 깊숙한 방으로 안내했다." +
         `${price}G를 지불했다.<br><br>` +
         "의사는 당신을 수술대 위에 눕혔다. 차가운 마취제가 혈관을 타고 퍼지고, 의식이 어둠 속으로 가라앉는다.<br><br>" +
         "눈을 떴을 때 당신의 아랫배에는 길고 얇은 봉합 자국이 남아 있었다. 몸 안쪽을 짓누르던 끔찍한 박동은 더 이상 느껴지지 않는다.<br><br>" +

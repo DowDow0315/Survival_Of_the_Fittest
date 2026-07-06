@@ -459,13 +459,13 @@ const QUESTS = {
         id : "uppercity_story_03",
         title : "또 다른 연구소",
         type : "investigate",
-        targetName : "오래된 연구소 중추실 장치 작동",
+        targetName : "오래된 연구소 깊은 곳 장치 작동",
         repeatable : false,
         giver : "valen",
         source : "event",
         
-        desc : "발렌은 또, 연구시설 중추실에 있는 장치를 작동시켜달라고 부탁했다. 경계병 제3초소 근처에 있다.",        
-        activeDesc : "연구시설 중추실에 도달해야 한다.",
+        desc : "발렌은 또, 연구소의 가장 깊은 곳에 있는 장치를 작동시켜달라고 부탁했다. 경계병 제3초소 근처에 있다.",        
+        activeDesc : "연구시설 가장 깊은 곳에 도달해야 한다.",
         readyDesc : "장치는 정상적으로 작동했다.<br>이제 100년 전의 진실을 아는 자는 몇 명 남지 않았다.",
         
         targetFlag : "uppercity_quest03_done",

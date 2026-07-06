@@ -136,6 +136,13 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_ask_about_ash && player.flags.uppercity_quest03_done ){
+            choices.push({
+                text: "애쉬 가문에 대해 묻는다.",
+                scene: NPC_DATA.nikolai.scenes.nikoai_ask_about_ash
+            });
+        }
+
         startScene([
             {
                 type : "text",

@@ -629,9 +629,9 @@ const WEAPON_SKILLS = {
             cost : 3,
             type : "poison",
             dot : 20,
-            duration : 3,
+            duration : 4,
             unlock : 100,
-            desc : "3턴간 독데미지(20)"
+            desc : "4턴간 독데미지(20)"
         },
         {
             name : "꽃잎이 흔들리며",
@@ -655,6 +655,47 @@ const WEAPON_SKILLS = {
             hits : 6,
             unlock : 200,
             desc : "1.1배로 6번 연속 공격"
+        }
+    ],
+    "하얀꽃낫" : [
+        {
+            name : "하얀꽃긋기",
+            cost : 3,
+            type : "damage",
+            power : 3.7,
+            unlock : 20,
+            desc : "데미지 3.7배 공격"
+        },
+        {
+            name : "하얀꽃독안개",
+            cost : 2,
+            type : "poison",
+            dot : 20,
+            duration : 3,
+            unlock : 100,
+            desc : "3턴간 독데미지(20)"
+        },
+        {
+            name : "꽃잎바람",
+            cost : 3,
+            type : "multiHit",
+            power : 1.3,
+            hits : 4,
+            unlock : 150,
+            desc : "1.3배로 4번 연속 공격"
+        },
+        {
+            name : "마력강화",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "whiteFlowerRipper",
+                atkMult : 2,
+                defMult : 0.7
+            },
+            duration : 5,
+            unlock : 200,
+            desc : "5턴간 공격력 2배, 방어력 0.7배"
         }
     ]
 };
@@ -723,6 +764,10 @@ const MASTER_SKILLS = {
     "백화쌍검" : {
         requiredMastery : 300,
         skillName : "끝나지 않는 춤사위"
+    },
+    "하얀꽃낫" : {
+        requiredMastery : 300,
+        skillName : "꽃잎바람"
     }
 };
 
@@ -886,7 +931,7 @@ const ITEMS ={
         umbrella : {
             name : "우산",
             type : "weapon",
-            desc : "누군가의 비 오는 날의 추억이 담겨져 있다. 밀크쉐이크를 같이 먹은 사이일지도?",
+            desc : "누군가의 비 오는 날 추억이 담겨져 있다. 밀크쉐이크를 같이 먹은 사이일지도?",
             price : 2900,
             stats : {
                 str : -2,
@@ -901,8 +946,22 @@ const ITEMS ={
             desc : "말없는 춤, 그것이 세상에서 제일 무서운 춤일지도 모른다.",
             price : 3000,
             stats : {
-                dex : 11,
+                str : 1,
+                dex : 10,
                 charm : 3
+            }
+        },
+
+        whiteFlowerRipper :{
+            name: "하얀꽃낫",
+            type: "weapon",
+            desx : "자신은 사신처럼 고귀하게 사람들의 목숨을 가져가는 것이라 착각하던 남자의 말로.",
+            price: 3000,
+            tags : ["magicStick"],
+            stats: {
+                dex : 2,
+                int: 11,
+                charm: 1
             }
         }
     },
@@ -2214,6 +2273,18 @@ const ITEMS ={
             type : "junk",
             price : 300
         },
+        abominationSmallEgg : {
+            name : "흉물의 작은 알",
+            type : "junk",
+            desc : "상류도시에 이걸 가져가면 사형이다. 하지만 몇몇은 이 알을 상류도시에 판다는 소문이 있다.",
+            price : 900
+        },
+        abominationBigEgg : {
+            name : "흉물의 큰 알",
+            type : "junk",
+            desc : "상류도시에 이걸 가져가면 사형이다. 하지만 몇몇은 이 알을 상류도시에 판다는 소문이 있다.",
+            price : 1300
+        },
 
         //강화재료
         ironOre: {
@@ -2239,6 +2310,7 @@ const ITEMS ={
         whiteHeart: {
             name : "백심장",
             type : "ore",
+            desc : "하얀꽃의 심장이다. 잘 들어보면 쿵쿵 심장이 뛰고 있는 소리가 들린다.",
             price : 10000
         },
         ruby : {
@@ -2348,6 +2420,12 @@ const ITEMS ={
             desc : "마틴이 준 열쇠. 공동묘지의 석관을 열 수 있는 열쇠라고 한다.",
             type : "key",
             price : 500
+        },
+        soraFatherFlowerNecklace : {
+            name : "압화 목걸이(하얀꽃)",
+            desc : "누군가의 딸이 아버지를 위해 만든 압화 목걸이. 그 딸은 하얀꽃을 좋아했다.",
+            type : "key",
+            price : 200
         }
     }
 };
@@ -2414,7 +2492,8 @@ function getTotalStat(player, stat){
 }
 
 function scaleStat(x) {
-    return Math.sqrt(Math.max(0, x));
+    if (x >= 0) return Math.sqrt(x);
+    return -Math.sqrt(-x);
 }
 
 function updateDerivedStats(player){

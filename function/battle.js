@@ -1905,6 +1905,14 @@ function startPlayerTurn(){
     if (!battleState) return false;
     const player = battleState.player;
 
+    if (
+        player.abomination?.active &&
+        player.status.hp < player.status.maxHp
+    ){
+        changeHP(player, 15);
+        log("당신의 배 속 흉물은 아직 당신이 죽기를 원하지 않는다. 상처가 강제로 봉합된다. HP 15 회복.", "damage");
+    }
+
     const dead = updateBuffs(player); // 🔥 플레이어 DOT만
 
     if (dead || player.status.hp <= 0){

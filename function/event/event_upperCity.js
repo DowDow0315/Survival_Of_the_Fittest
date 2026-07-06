@@ -338,3 +338,103 @@ window.EVENTS.push({
 });
 
 //랜덤이벤트
+window.EVENTS.push({
+    id : "uppercity_hero_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "nobleSquare" &&
+        player.flags?.uppercity_hero_event_seen &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "사교회장에 도착하자 몇 명 사람들이 당신을 흘낏흘낏 쳐다보는 게 느껴졌다. 가면을 쓰고 있는데도 그들의 시선이 적나라하게 느껴졌다.",
+                    "<br>처음에는 하류도시의 영웅이라는 호칭에 따른 흥미였을지도 모르겠다. 하지만 점점 그들의 시선은 노골적으로 변해갔다. 그들은 대놓고 당신의 몸을 위아래로 훑으며 서로 속닥거렸다. 자신들의 대화에 당신을 끼어줄 생각은 없지만 당신을 도마 위의 생선으로는 삼고 싶은 모양이다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그들의 앞에서 빙그르르 춤을 추듯이 돌았다.",
+                        type : "check",
+                        stat : "charm",
+                        difficulty : 18,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 춤에 사람들의 시선이 바뀌었다. 곧 당신은 그들에게 옆구리에 끼고 싶은 트로피들 중 하나가 되었다." +
+                                    "<br><br>\"저런 아이라서 데릭이 관심을 가지는 거지.\"<br><br>" +
+                                    "당신을 빤히 보고 있던 사람들 중 한 명이 돈을 던졌다. 그러자 옆에 있던 다른 사람들도 몇몇 당신에게 돈을 던졌다. 당신은 그들에게 우아하게 인사를 한 후 그들이 던진 돈을 전부 수거했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeGold(player, 300);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 빙그르르 그들의 앞에서 춤을 추었다. 그들은 당신의 춤에 어이없다는 듯이 서로에게 눈짓을 하며 부채로 입을 가렸다. 그들은 당신의 춤을 비웃고 있다." +
+                                    "<br>옛다, 하고 한 명이 당신에게 돈을 던져주었다. 당신의 귀끝이 붉어졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeGold(player, 100);
+                                    changeTrauma(player, -1);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그들의 시선에 신경을 껐다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그들이 당신을 어떤 눈으로 바라보든 신경쓰지 않았다. 남이사~ 당신은 어깨를 피고 당당해졌다. 누가 어떻게 쳐다보든 나는 멋져! 당신은 스스로 멘탈이 회복됐다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, -1);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 숙이고 그 자리를 벗어났다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "고개를 푹 숙이고 그 자리에서 벗어나는 당신을 보며 몇 명이 수군덕거렸다. 그들은 역시 당신이 아무리 영웅이라고 불려도 출신을 극복할 수는 없는 법이라고 쑥덕거렸다. 그런 당신을 지켜보고 있던 한 노예가 조심스럽게 당신에게 다가왔다." +
+                                    " 그는 말이 없었지만, 당신의 손에 쥐어주는 돈만큼은 진심 어린 위로였다. 적어도 상류도시에 있는 하류도시 출신 사람들 중 몇몇은 당신을 응원하고 있다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeGold(player, 100);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

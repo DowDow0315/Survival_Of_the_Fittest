@@ -445,25 +445,25 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            "r0c0" : {name : "입구", exits : {right : "r0c1"}, event : "slaverCampShelter_yuri_01"},
+            "r0c0" : {name : "입구", exits : {right : "r0c1"}, event : "slaverCampShelter_yuri_01", seenFlag : "slaverCampShelter_yuri_01"},
             "r0c1" : {name : "오른쪽으로 뻗어가는 길1", exits : {left : "r0c0", right : "r0c2"}},
             "r0c2" : {name : "오른쪽으로 뻗어가는 길2", exits : {left : "r0c1", right : "r0c3"}},
             "r0c3" : {name : "오른쪽으로 뻗어가는 길3", exits : {left : "r0c2", right : "r0c4"}},
             "r0c4" : {name : "코너길1", exits : {left : "r0c3", down : "r1c4"}},
 
-            "r1c4" : {name : "밑으로 뻗어가는 길1", exits : {up : "r0c4", down : "r2c4"}, event : "slaverCampShelter_yuri_02"},
+            "r1c4" : {name : "밑으로 뻗어가는 길1", exits : {up : "r0c4", down : "r2c4"}, event : "slaverCampShelter_yuri_02", seenFlag : "slaverCampShelter_yuri_02"},
             "r2c4" : {name : "밑으로 뻗어가는 길2", exits : {up : "r1c4", down : "r3c4"}},
-            "r3c4" : {name : "밑으로 뻗어가는 길3", exits : {up : "r2c4", down : "r4c4"}, event : "slaverCampShelter_memo"},
+            "r3c4" : {name : "밑으로 뻗어가는 길3", exits : {up : "r2c4", down : "r4c4"}, event : "slaverCampShelter_memo" },
             "r4c4" : {name : "코너길2", exits : {up : "r3c4", left : "r4c3"}},
 
             "r4c3" : {name : "왼쪽으로 뻗어가는 길1", exits : {left : "r4c2", right : "r4c4"}},
-            "r4c2" : {name : "왼쪽으로 뻗어가는 길2", exits : {left : "r4c1", right : "r4c3"}, event : "slaverCampShelter_yuri_03"},
+            "r4c2" : {name : "왼쪽으로 뻗어가는 길2", exits : {left : "r4c1", right : "r4c3"}, event : "slaverCampShelter_yuri_03", seenFlag : "slaverCampShelter_yuri_03"},
             "r4c1" : {name : "왼쪽으로 뻗어가는 길3", exits : {left : "r4c0", right : "r4c2"}},
             "r4c0" : {name : "코너길3", exits : {up : "r3c0", right : "r4c1"}},
 
-            "r3c0" : {name : "위로 뻗어가는 길1", exits : {down : "r4c0", up : "r2c0"}, event : "slaverCampShelter_yuri_04"},
+            "r3c0" : {name : "위로 뻗어가는 길1", exits : {down : "r4c0", up : "r2c0"}, event : "slaverCampShelter_yuri_04", seenFlag : "slaverCampShelter_yuri_04"},
             "r2c0" : {name : "쉘터를 위한 길", exits : {down : "r3c0", right : "r2c1"}},
-            "r2c1" : {name : "결전 직전의 길", exits : {left : "r2c0", right : "r2c2"}, event : "slaverCampShelter_yuri_05"},
+            "r2c1" : {name : "결전 직전의 길", exits : {left : "r2c0", right : "r2c2"}, event : "slaverCampShelter_yuri_05" },
             "r2c2" : {name : "쉘터의 아이들을 위해", exits : {left : "r2c1"}, boss: "trafficker4", bossIntro: "slaverCampShelter_boss_intro"}
         },
 
@@ -475,7 +475,7 @@ const DUNGEONS = {
     },
     whiteFlowerOldLab : {
         id : "whiteFlowerOldLab",
-        name : "하얀꽃 실험실",
+        name : "오래된 하얀꽃 연구소",
         startRoom : "r7c2",
 
         layout : [
@@ -490,57 +490,61 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            "r0c0" : {name : "누군가의 아버지였던 자의 방", exits : {right : "r0c1"}},
+            "r0c0" : {name : "누군가의 아버지였던 자의 방", exits : {right : "r0c1"}, event : "whiteFlowerOldLab_soraFather01"},
             "r0c1" : {name : "하얀꽃 화관이 걸려있는 문앞", exits : {left : "r0c0", down : "r1c1"}},
             "r0c2" : {name : "길게 뻗은 복도", exits : {left : "r0c1", right : "r0c3"}},
-            "r0c3" : {name : "피가 묻은 복도", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c3" : {name : "피가 묻은 복도", exits : {left : "r0c2", right : "r0c4"}, event : "whiteFlowerOldLab_bloodtunnel", seenFlag : "whiteFlowerOldLab_bloodtunnel"},
             "r0c4" : {name : "피가 묻은 복도2", exits : {left : "r0c3", right : "r0c5"}},
             "r0c5" : {name : "피가 묻은 복도3", exits : {left : "r0c4", right : "r0c6"}},
             "r0c6" : {name : "하얀 즙이 묻은 복도", exits : {left : "r0c5", right : "r0c7"}},
             "r0c7" : {name : "복도의 끝", exits : {right : "r0c6", down : "r1c7"}},
 
             "r1c1" : {name : "달콤한 냄새로 가득한 복도2", exits : {up : "r0c1", down : "r2c1"}},
-            "r1c7" : {name : "하얀꽃밭", exits : {up : "r0c7", down : "r2c7"}},
+            "r1c7" : {name : "하얀꽃밭", exits : {up : "r0c7", down : "r2c7"}, event : "whiteFlowerOldLab_whityFlowers"},
 
             "r2c1" : {name : "달콤한 냄새로 가득한 복도", exits : {up : "r1c1", down : "r3c1"}},
             "r2c3" : {name : "기밀방 문 앞", exits : {down : "r3c3", right : "r2c4"}},
             "r2c4" : {name : "고요한 복도", exits : {left : "r2c3", right : "r2c6"}},
-            "r2c5" : {name : "하얀꽃병 복도2", exits : {left : "r2c4", right : "r2c6"}},
+            "r2c5" : {name : "하얀꽃병 복도2", exits : {left : "r2c4", right : "r2c6"}, event : "whiteFlowerOldLab_whitetunnel", seenFlag : "whiteFlowerOldLab_whitetunnel"},
             "r2c6" : {name : "하얀꽃병 복도", exits : {left : "r2c5", right : "r2c7"}},
             "r2c7" : {name : "하얀꽃밭2", exits : {up : "r1c7", left : "r2c6", down : "r3c7"}},
 
-            "r3c0" : {name : "어린아이의 낙서 그림이 붙여져 있는 복도", exits : {right: "r3c1", down : "r4c0"}},
+            "r3c0" : {name : "어린아이의 낙서 그림이 붙여져 있는 복도", exits : {right: "r3c1", down : "r4c0"}, event : "whiteFlowerOldLab_childPainting"},
+            "r3c1" : {name : "코너길", exits : {left : "r3c0", up : "r2c1"}},
             "r3c3" : {name : "하얀꽃잎들로 가득한 방", exits : {up : "r2c3", down : "r4c3"}},
             "r3c7" : {name : "하얀꽃밭3", exits : {up : "r2c7", down : "r4c7"}},
 
-            "r4c0" : {name : "시체가 있는 복도", exits : {up : "r3c0", down : "r5c0"}},
+            "r4c0" : {name : "이어지는 복도", exits : {up : "r3c0", down : "r5c0"}},
             "r4c3" : {name : "하얀꽃잎들이 수북한 방", exits : {up : "r3c3", down : "r5c3"}},
-            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}, boss: "", bossIntro: "whiteFlowerOldLab_boss_intro"},
-            "r4c7" : {name : "죽은 촉수가 붙어있는 방", exits : {up : "r3c7", down : "r5c7"}},
+            "r4c5" : {name : "죽음의 요람", exits : {down : "r5c5"}, boss: "soraFather", bossIntro: "whiteFlowerOldLab_boss_intro"},
+            "r4c7" : {name : "죽은 촉수가 붙어있는 방", exits : {up : "r3c7", down : "r5c7"}, event : "whiteFlowerOldLab_deadTentacle"},
 
-            "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}},
-            "r5c1" : {name : "시든 반지가 떨어져있는 방", exits : {left : "r5c0"}},
-            "r5c3" : {name : "한 남자의 시체가 있는 방", exits : {up : "r4c3", right : "r5c4"}},
-            "r5c4" : {name : "낙서들로 가득한 방", exits : {right : "r5c3", left : "r5c5"}},
-            "r5c5" : {name : "실험실 앞", exits : {left : "r5c4", up : "r4c5"}},
+            "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}, event : "whiteFlowerOldLab_bloodLine2", seenFlag : "whiteFlowerOldLab_bloodLine2"},
+            "r5c1" : {name : "시든 반지가 떨어져있는 방", exits : {left : "r5c0"}, event : "whiteFlowerOldLab_overSee"},
+            "r5c3" : {name : "한 남자의 시체가 있는 방", exits : {up : "r4c3", right : "r5c4"}, event : "whiteFlowerOldLab_soraFather02", seenFlag : "whiteFlowerOldLab_soraFather02"},
+            "r5c4" : {name : "낙서들로 가득한 방", exits : {right : "r5c3", left : "r5c5"}, event : "whiteFlowerOldLab_soraFather03"},
+            "r5c5" : {name : "실험실 앞 틈새", exits : {left : "r5c4", up : "r4c5"}, safeZone: true, allowRest: true},
             "r5c7" : {name : "촉수병실", exits : {up : "r4c7", down : "r6c7"}},
 
-            "r6c0" : {name : "질질 끌린 피 흔적", exits : {up : "r5c0", down : "r7c0"}},
+            "r6c0" : {name : "질질 끌린 피 흔적", exits : {up : "r5c0", down : "r7c0"} },
             "r6c6" : {name : "촉수 시체", exits : {right : "r7c6"}},
             "r6c7" : {name : "촉수병실2", exits : {left : "r6c6", up : "r5c7"}},
 
-            "r7c0" : {name : "핏자국?", exits : {up : "r6c0", right : "r7c1"}},
+            "r7c0" : {name : "핏자국?", exits : {up : "r6c0", right : "r7c1"}, event : "whiteFlowerOldLab_bloodLine1", seenFlag : "whiteFlowerOldLab_bloodLine1"},
             "r7c1" : {name : "하얀복도", exits : {left : "r7c0", right : "r7c2"}},
             "r7c2" : {name : "출입구", exits : {left : "r7c1"}},
-            "r7c5" : {name : "흉물 시체", exits : {right : "r7c6"}},
-            "r7c6" : {name : "하얀꽃 시체", exits : {left : "r7c5", up : "r6c6"}}
+            "r7c5" : {name : "흉물 시체", exits : {right : "r7c6"}, chest : "whiteFlowerOldLab_fixed_chest1"},
+            "r7c6" : {name : "하얀꽃 시체", exits : {left : "r7c5", up : "r6c6"}, chest : "whiteFlowerOldLab_fixed_chest2"}
         },
 
         encounters : [
-            { type: "battle", enemy: "flower2", weight: 15 },
+            { type: "battle", enemy: "flower2", weight: 20 },
             { type: "battle", enemy: "flower3", weight: 15 },
             { type: "battle", enemy: "flower4", weight: 15 },
-            { type: "battle", enemy: "flower5", weight: 5 },
+            { type: "battle", enemy: "flower5", weight: 1 },
+            { type : "event", id : "whiteFlowerOldLab_flowerfight", weight: 5},
+            { type : "event", id : "whiteFlowerOldLab_abomination", weight: 8},
+            { type : "event", id : "whiteFlowerOldLab_food", weight: 10}
         ]
     }
 }
@@ -738,6 +742,24 @@ const DUNGEON_CHESTS = {
         name: "하얀꽃으로 뒤덮인 상자",
         type: "random",
         pool: whiteFlowerLabRepeated_CHEST_POOL
+    },
+
+    whiteFlowerOldLab_fixed_chest1: {
+        name: "검은 즙이 묻어있는 실험실 상자",
+        type : "fixed",
+        reward: (player) => {
+            addItem(player, ITEMS.misc.whiteFlowerLeafStone);
+            showSingleTextScene("상자 안에는 백화석이 들어있었다. 하얀꽃이 돌 안에서 하늘하늘 흔들리고 있다", player);
+        }
+    },
+
+    whiteFlowerOldLab_fixed_chest2: {
+        name: "하얀 즙이 묻어있는 실험실 상자",
+        type : "fixed",
+        reward: (player) => {
+            addItem(player, ITEMS.misc.abominationBigEgg);
+            showSingleTextScene("상자 안에는 흉뮬의 아주 큰 알이 들어있었다...", player);
+        }
     }
 };
 
@@ -1089,6 +1111,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "whiteFlowerOldLab" && room.boss === "soraFather"){
+        handleSoraFatherWin(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1333,6 +1360,8 @@ function leaveDungeon(player){
         player.location = "shelter";
     } else if (dungeonId === "erwinHideout"){
         resetErwinRaid(player);
+        player.location = "guardPost3";
+    } else if (dungeonId === "whiteFlowerOldLab"){
         player.location = "guardPost3";
     } else {
         player.location = "townStreet";
@@ -2726,6 +2755,12 @@ const DUNGEON_EVENTS = {
                     "<br><br>확고한 호박색 눈동자, 그는 자신이 목숨을 잃게 된다고 하더라도 아이들을 구출할 생각이다." +
                     "<br><br>\"내 옆에 있어줘서 고마워, {playerName}.\""
                 ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.slaverCampShelter_yuri_01 = true;
+                }
             }
         ],
         slaverCampShelter_yuri_02 : [
@@ -2738,6 +2773,12 @@ const DUNGEON_EVENTS = {
                     "유리는 당신의 시선을 피했다.",
                     "<br><br>\"난 그저 지키고 싶었어. 그뿐이야.\""
                 ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.slaverCampShelter_yuri_02 = true;
+                }
             }
         ],
         slaverCampShelter_yuri_03 : [
@@ -2763,6 +2804,7 @@ const DUNGEON_EVENTS = {
                 run : (player) => {
                     changeHP(player, 50);
                     changeStamina(player, 50);
+                    player.flags.slaverCampShelter_yuri_03 = true;
                 }
             }
         ],
@@ -2796,6 +2838,7 @@ const DUNGEON_EVENTS = {
                                 type : "effect",
                                 run : (player) => {
                                     changeNPCEmotion("yuri", "affection", 3);
+                                    player.flags.slaverCampShelter_yuri_04 = true;
                                 }
                             }
                         ]
@@ -2817,6 +2860,7 @@ const DUNGEON_EVENTS = {
                                 type : "effect",
                                 run : (player) => {
                                     changeNPCEmotion("yuri", "affection", -2);
+                                    player.flags.slaverCampShelter_yuri_04 = true;
                                 }
                             }
                         ]
@@ -3067,6 +3111,307 @@ const DUNGEON_EVENTS = {
                             }
                         ]
                     }
+                ]
+            }
+        ]
+    },
+    whiteFlowerOldLab : {
+        whiteFlowerOldLab_flowerfight : [
+            {
+                type : "text",
+                value : [
+                    "연구소를 지나던 당신은 하얀꽃인간의 시체를 보았다. 머리부터 시작해서 몸까지 완전히 시들어있어서 원래 어떤 형태의 하얀꽃인간이었는지도 분간이 되지 않았다. 하지만 확실한 건, 하얀꽃의 시체의 일부분에 하얀즙이 아니라 검은 액이 묻어있다는 것이었다." +
+                    "<br>그리고 그 검은액에서는 달콤한 냄새가 아니라 역겨운 냄새가 났다." +
+                    "<br><br><br>....<br><br><br>썩은 피가 고여있는 냄새."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀꽃 시체에 가까이 다가가서 더 살펴보았다.",
+                        type : "check",
+                        stat : "int",
+                        difficulty : 20,
+
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "가까이 다가간 하얀꽃인간 시체에는 무언가의 살점조각이 붙어 있었다. 격렬하게 싸웠던 건지 다시 살펴본 하얀꽃인간의 몸에는 성한 부분이 없었다. 당신은 시선을 내렸다.",
+                                    "<br>성기가 보통 성기와는 달랐다. 살점들이 더욱 붙은 거 같은, 기괴하게 부풀어있는 상태였다." +
+                                    "<br>...더 이상은 안 보는 게 낫겠다."
+                                ]
+                            }
+                        ],
+
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀꽃인간의 시체를 살폈지만 더 얻을 수 있는 정보는 없었다. 당신은 다시 앞으로 나아가기로 했다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그냥 지나갔다."
+                    }
+                ]
+            }
+        ],
+        whiteFlowerOldLab_abomination : [
+            {
+                type : "text",
+                value : "연구소를 지나던 당신은 평균적인 발 크기만한 벌레처럼 생긴 것을 보았다. 그것은 그륵그륵 소리를 내더니 그대로 당신에게로 달려들었다."
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 17,
+                success : [
+                    {
+                        type : "text",
+                        value : "당신은 다행히도 벌레를 피할 수 있었다. 당신은 그대로 발로 벌레를 밟아눌렀다. 일반 벌레와 다르게 그것은 증기가 빠지는 소리가 나더니 몇 번을 더 꿈틀이다가 그대로 메말라버렸다. <br><br>당신은 그것에서 알같은 것을... 주울 수 있었다."
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            addItem(player, ITEMS.misc.abominationSmallEgg);
+                        }
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : "당신은 벌레를 피하려고 했지만 벌레가 더 빨랐다. 벌레는 당신의 하복부에 찌르듯이 지나가더니 필사적으로 뭔가를 주입하기 시작했다. 당신은 벌레를 떼내려고 했지만 이미 늦었다... <br><br>쿵, 쿵, 당신의 뱃속에서 불길한 것이 박동한다. 최대한 빨리 병원에 가야할 거 같다."
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeTrauma(player, 2);
+                            infectAbomination(player);
+                        }
+                    }
+                ]
+            }
+        ],
+        whiteFlowerOldLab_bloodLine1 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 바닥 위의 변색된 핏자국들을 보았다. 손바닥 모양으로 남아있는 것도 있었고 손톱자국 모양으로 남아있는 것도 있었다. 핏자국들은 전부 연구소 출입문을 향하고 있었다." +
+                    "<br><br>...아무도 연구소 출입문에 닿지 못한 거 같지만." +
+                    "<br><br>당신은 핏자국을 따라 발걸음을 옮겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteFlowerOldLab_bloodLine1 = true;
+                }
+            }
+        ],
+        whiteFlowerOldLab_bloodLine2 : [
+            {
+                type : "text",
+                value : [
+                    "변색된 핏자국의 마지막은 수많은 시체들로 이어져 있었다. 분명 오래된 시체일 텐데 시체들은 마치 가공이라도 된 것마냥 깨끗했다, 온몸이 하얀 꽃줄기로 찢긴 것만 제외하면. 마치 식물이 그들의 몸에서 자라난 것같은 끔찍한 형상이었다.",
+                    "<br>그 과정이 고통스러웠는지 대부분의 시체들이 눈을 감지 못하고 있었다. 눈구덩이는 이미 썩어서 눈알 자체가 없었지만- 몇은 심지어 그 자리에 하얀꽃이 피어있었다- 그들이 얼마나 고통스러웠을지는 짐작할 수 있었다." +
+                    " 시체들 대부분은 흰색 가운을 입고 있었다. 당신은 흰색 가운 사이에서 명찰을 하나 꺼내들었다. 바스락거리는 오래된 종이 위에 누군가의 이름이 써져 있었다. 잘 보이지는 않는다. 하지만 그 위에 유성매직으로 삐뚤삐뚤 **의 엄마라고 써져 있었다." +
+                    "<br>...당신은 명찰을 내려놓았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteFlowerOldLab_bloodLine2 = true;
+                }
+            }
+        ],
+        whiteFlowerOldLab_overSee : [
+            {
+                type : "text",
+                value : [
+                    "당신은 시든 꽃반지 하나를 보았다. 시든 꽃반지에서는 어떤 냄새도 나지 않았다. 당신은 당신도 모르게 당신의 손가락을 만지작거렸다." +
+                    "<br>고개를 들자 누군가가 작게 뚫어둔 구멍이 있었다. 대체 벽을 어떻게 뚫었는지는 모르겠지만 당신은 뚫린 구멍으로 내부를 살펴보았다." +
+                    "<br><br>누군가가 벽에 기대어 앉아있었다. 당신은 조금 더 가까이 얼굴을 댔다. 방안의 구조가 조금씩은 보인다. 여기저기에 설치되어 있는 유리관들, 유리관들은 사람 한 명 정도는 거뜬히 들어갈 수 있을 정도로 컸다." +
+                    "<br><br><span class='log-danger'>그리고 그 유리관들은 전부 깨져있었다.</span>" +
+                    "<br><br>방안을 살펴보던 당신은 다시 이마를 뗐다. 여기서 더 알아낼 수 있는 건 없을 거 같다."
+                ]
+            }
+        ],
+        whiteFlowerOldLab_childPainting : [
+            {
+                type : "text",
+                value : [
+                    "아이가 그린 듯한 그림이 벽에 붙어있다. 하얀꽃들이 가득하고, 주인공처럼 보이는 꽃은 마법전사처럼 화려한 것을 이것저것 두르고 있었다. 그리고 그림의 가장 밑에 있는 글자, [우리가 사람들을 지킬 거예요]."
+                ]
+            }
+        ],
+        whiteFlowerOldLab_soraFather : [
+            {
+                type : "text",
+                value : [
+                    "당신은 누군가의 방에 들어왔다. 책상 위에는 물이 다 증발한 화분이 있었고, 그 화분에는 아마 하얀꽃이었을 어떤 식물의 줄기가 푹 밑으로 꺼져 있었다. 당신은 그의 책상에 다가갔다. 업무 일지가 하나 놓여 있었다." +
+                    "<br><br>" +
+                    "[04/30] 하얀꽃의 재생력은 대단하다. 아직 실험을 하지 않은 아이가 다쳤는데, 사람 몸에서 자랄 수 있도록 개조한 하얀꽃을 상처에 심자마자 바로 무릎의 상처가 나았다." +
+                    "<br>[05/03] 이정도의 재생력이라면 흉물을 이길 수 있을지도 모른다. 게다가 하얀꽃이 몸안에서부터 피어난 실험체들은 모든 능력이 인간이었을 때의 능력을 초월했다. 도시에 이렇게라도 공헌할 수 있는 게 기쁘다." +
+                    "<br>[06/10] 개인의 희생이 필요하다는 걸 모르는 건가? 피실험체의 의지를 없애야 할지도 모르겠다. 하얀꽃에는 환각, 환청 등 인지를 왜곡시키는 성분도 들어있으니 가능할 거 같다." +
+                    "<br>[02/22] 의지와 기억들을 끊어냈다. 그런데도 이들은 인간이 되고 싶어한다. 하얀꽃들을 컨트롤하기 위해서는 하나가 필요하다. 모두와의 감정이 연결된 무언가.... 우리는 그걸 만들기로 했다. 우리에게 복종하고, 다른 실험체들을 복종시킬 아름다운 무언가를." +
+                    "<br>[01/10] 창백. 하얀꽃에서 만들어진 아이는 창백하다. 인간의 형태도 갖추지 못한다. 하지만 그는 우리를 보더니 곧 인간의 형태를 갖추었다. 똑똑하다, 우리 인간들처럼." +
+                    "<br>[12/21] 모든 하얀꽃들은 창백에게서 영향을 받는다. 그래서 우리는 우리들의 대의를 창백에게 설명하려고 했다. 하지만 창백은 그런 거엔 관심이 없다. 그것은 마음에 드는 사람의 얼굴로 변하는 것에 더 관심이 많다. 대체 언제까지 그런 장난을 칠 생각이지?" +
+                    "<br>[03/05] 창백이 말했다. 난 인간이야. 다른 하얀꽃들도 말했다. 우린 인간이야. 인간이 되고자 하는 의지가 예전보다 더 강해진 거 같다. <br><br>...창백을 잘 가르쳐야 한다.",
+                    "<br><br><br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>실험 폐기</div><br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>위험성 : 최고 등급</div>"
+                ]
+            }
+        ],
+        whiteFlowerOldLab_bloodtunnel : [
+            {
+                type : "text",
+                value : [
+                    "피묻은 복도가 시작되었다. 저벅, 저벅, 저벅, 변색된 피라 분명 말라비틀어졌을 텐데도 어쩐지 당신은 발에 뭔가가 끈적끈적 붙는 느낌이 들었다." +
+                    "<br><br>저벅, 저벅, 저벅.<br><br>" +
+                    "저벅, 저벅, 저벅.<br><br>" +
+                    "저벅, 저벅, 저벅.<br><br>" +
+                    "잠깐. 당신의 발자국 소리가 맞는가? 당신은 고개를 들었다. 앞에는 없다. 당신은 뒤를 돌았다." +
+                    "<br><br>당신의 뒤에 쌍검을 든 꽃인간이 하나 있었다. 그는 당신을 증오하는 눈으로 노려보고 있다. 쌍검꽃인간이 당신에게 달려든다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteFlowerOldLab_bloodtunnel = true;
+                    startBattle("flower5", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player)
+                    });
+                }
+            }
+        ],
+        whiteFlowerOldLab_whityFlowers : [
+            {
+                type : "text",
+                value : [
+                    "하얀꽃만이 가득한 꽃밭에 도착했다. 달콤한 냄새가 당신의 코를 기분 좋게 자극한다. 하얀꽃밭 사이사이로 당신은 아이들이 놀다만 장난감으로 보이는 것들도 봤다. 인형, 로봇, 자동차.... 전부 낡았지만 여전히 손떼가 묻어있었다. 아이들은 분명 이 장난감들을 사랑했을 것이다." +
+                    "<br>당신은 종이 한 장을 집어들었다." +
+                    "<br><br>[똑똑한 박사님이 저한테는 하류도시의 영웅이 될 거라고 했어요! 나는 하류도시의 영웅이 될 거예요!]<br><br>" +
+                    "종이의 마지막에는 동그란 도장이 찍혀 있었다.<br><br>[참 잘했어요]"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "그리고 그 종이 뒤에 적혀있는 문장." +
+                    "<br>[어떻게 아이들한테까지 이럴 수 있어? 내가 다 데리고 나갈 거야.]"
+                ]
+            }
+        ],
+        whiteFlowerOldLab_food : [
+            {
+                type : "text",
+                value : [
+                    "조리대다. 당신이 조리대에 가까이 가려는 순간 어디선가 동요가 들려온다." +
+                    "<br><br>어린 아이들과 어른들이 다같이 나눠먹어요~ 다같이 나눠먹어요~ 뭐든 다같이 나눠먹어요~<br><br>" +
+                    "오물조물오물조물, 어린 아이 친구들, 어른들도 잘못을 할 수 있답니다~ 다같이 나눠먹으려면 어른들이 잘못을 했을 때 꼭 말해줘야 해요~" +
+                    "<br><br>안 그러면 안 그러면 흉물이 너를 와아앙, 당신의 부모님이 너에게 안녕안녕 영원한 작별인사를~ 할 수도 있으니까요~" +
+                    "<br><br><br>동요는 멈췄다. 당신은 밀과 쌀을 얻었다. 피실험체에게 밥은 잘 먹였던 모양이다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.rice);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.misc.rice);
+                    addItem(player, ITEMS.misc.wheat);
+                }
+            }
+        ],
+        whiteFlowerOldLab_deadTentacle : [
+            {
+                type : "text",
+                value : [
+                    "죽은 촉수가 벽에 붙어있다. 당신은 처음에 그것이 꽃인간의 촉수인 줄 알았다. 하지만 아니었다. 그 촉수는 흉물의 촉수였다.",
+                    "<br>하얀꽃들이 여기저기에 박혀있는 흉물의 촉수.... 당신은 촉수의 시체에서 시선을 뗐다."
+                ]
+            }
+        ],
+        whiteFlowerOldLab_whitetunnel : [
+            {
+                type : "text",
+                value : [
+                    "백색 복도를 걷고 있는데 뒤에서 또 발걸음 소리가 들려왔다. 당신은 바로 뒤를 돌았다. 당신의 뒤로 접근하고 있던 쌍검꽃인간이 움직임을 멈췄다." +
+                    "<br><br>\"...인간은, 다 싫어.\"<br><br>" +
+                    "당신의 예상보다 훨씬 앳된 목소리였다. 쌍검꽃인간이 당신에게 달려들었다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteFlowerOldLab_whitetunnel = true;
+                    startBattle("flower5", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player)
+                    });
+                }
+            }
+        ],
+        whiteFlowerOldLab_soraFather02 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 남자의 시체를 보았다. 그리고 당신은 그 시체를 알아보았다. 당신이 꿈속에서 보았던 그 남자다, 소라와 똑같은 백발에 금안을 하고 있는 남자. 그는 벽에 기대어 앉아있었다." +
+                    "<br>그의 흉부에 꽂혀있는 하얀꽃이 눈에 띈다. 살아있는 건가? 당신은 그에게 다가가서 손을 대보았다. 차갑다. 하지만 이상하게 죽은 거 같지는 않다. 그는 그저 <span class='log-pale'>창백</span>하다." +
+                    "<br>당신은 그가 들고 있는 무전기에 손을 뻗었다. 전원 버튼을 누르자 지지직 소리가 들린다. 녹음기록이 있다. 당신은 녹음기록을 틀었다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "[녹음기록 1]" +
+                    "<br>\"소라, 아빠 말 좀 들어봐, 응? 이건 그저 대의를 위해ㅅ\"" +
+                    "<br>\"아뇨. 아빠는 이미 떳떳하지 않다는 걸 알고 있었어요. 떳떳했다면 저한테 이렇게 숨기려고 할 생각도 하지 않았겠죠.\"" +
+                    "<br>\"....<br>....<br>....<br>아직 어려서 그런지 말이 안 통하는 구나. 집에 들어가있어라. 그리고 다시는 여기에 오지 말고.\""
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "[녹음기록 2]" +
+                    "<br>\"...다시 말해봐.\"" +
+                    "<br>\"창백과 소라가 교류가 있었던 거 같습니다. <br>과장님. 딸이 소중하시다는 건 알지만 대의를 위해서는 따님을\"" +
+                    "<br>\"아니. 소라는 내가 알아서 한다.\""
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "[녹음기록 3]" +
+                    "<br>\"과장님, 라우렌스 가문에서 마지막 경고를 내렸습니다. 당장 실험을 중단하고 상류도시로 복귀할 것. 그들은 꽃인간이 인간에게 더 큰 피해를 줄 거라 생각합니다.\"<br>" +
+                    "\"지금 와서 폐기라고? 절대 안 될 일이지.... 내가 지금까지 얼마나 많은 사람들을 갈아넣었는데....\"<br>" +
+                    "\"과장님?\"<br>" +
+                    "\"이제 와서 멈추면 내가 지금까지 한 건 학살이야. 실험은 멈추지 않는\"<br>" +
+                    "<br><br><br>쨍그랑 소리와 함께 여기저기서 비명 소리가 들렸다. 지지직 소리와 함께 마지막 녹음 기록이 끊겼다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신은 녹음기를 그의 손에 다시 무전기를 쥐어준 후 걸음을 옮겼다." +
+                    "<br><br>...뭔가 이상하다." +
+                    "<br><br>불길한 기분이 들어서 당신은 뒤를 돌아보았다." +
+                    "<br><br><strong>아까까지만 해도 뒤에 있었던 시체가 없다.</strong>"
+                ]
+            }
+        ],
+        whiteFlowerOldLab_soraFather03 : [
+            {
+                type : "text",
+                value : [
+                    "낙서가 가득한 방이었다. 글씨체는 전부 다 달랐다. 당신은 이걸 한 사람이 쓴 건지, 아니면 여러 사람이 쓴 건지 분간할 수가 없었다. 글씨체는 다 달랐지만 말투는 전부 비슷했기 때문이었다." +
+                    "당신이 아는 이름이 많이 써있었다. <span class='log-pale'>소라. 소라. 소라. 소라. 소라.</span> 안녕하세요/김시합니다/사랑해요/안아주세요 등등 여러 인삿말들도 뒤죽박죽 써있었다." +
+                    "<br><br>어지러운 낙서에서 시선을 떼고 당신은 앞을 바라보았다. 곧 임무를 끝낼 수 있을 거 같다."
                 ]
             }
         ]
@@ -3662,6 +4007,47 @@ function runDungeonBossIntro(player, introId){
             }
         ], player);
     }
+
+    if (introId === "whiteFlowerOldLab_boss_intro"){
+        player.flags = player.flags || {};
+
+        if (player.flags.soraFather_firstLose){
+
+            startScene([
+                {
+                    type:"text",
+                    value: "그는 당신을 돌아보았다. 그는 당신에게서 익숙한 냄새를 맡고 눈이 커졌다. 그의 금안에 눈물이 고인다. <br><br>\"아아.... 내가 지키고 싶었던 건...\"<br><br>그는 이성을 잃었다. 전투가 시작된다."
+                }
+            ], player, {
+                onEnd: () => startSoraFatherBattle(player)
+            });
+
+            return;
+        }
+
+        player.flags.seen_soraFather_intro = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value:
+                      "당신은 연구소의 가장 깊은 곳에 있는 실험실로 향했다. 죽음의 냄새만이 가득한 곳이다. 당신은 실험실이 일반 방이 아니라 하나의 거대한 유리관이라는 걸 눈치챘다. 당신은 발렌이 말한 버튼을 찾기 위해 고개를 둘러보았다." +
+                      "<br>당신은 소각 버튼을 찾았다. 당신이 그 소각 버튼에 다가간 순간, 뒤에서 살기가 느껴졌다. 무언가가 당신의 목을 베기 전, 당신은 재빨리 옆으로 피했다." +
+                      "<br>버튼이 박살났다. 삐, 삐, 삐, 위험한 소리와 함께 관 위로 데이터 로그가 떴다.<br><br>[침입 감지, 복구할 수 없는 데미지 감지, 곧 폭발 시스템을 작동합니다.]" +
+                      "<br><br>당신은 뒤를 돌아보았다. 아까 사라졌었던 그 시체, 당신이 꿈에서 만났던 소라의 아버지, 창백한 그가 당신의 앞에 길쭉하게 서있었다." +
+                      "<br><br>\"애쉬 가문.... 용서하지... 않겠...다...\"<br><br>" +
+                      "그는 이미 이성이 없다. 그는 당신이 누구인지도 못 알아보고 있다. 아니, 어쩌면 당신을 애쉬 가문으로 착각하고 있는 걸지도 모르겠다. 낫이 당신의 목을 향해 날아온다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startSoraFatherBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
 }
 
 
@@ -4192,6 +4578,104 @@ function startSlaverShelterBossLose(player){
             type:"text",
             value:
                 "당신은 또 한번 패배했지만 유리의 손은 절대로 당신의 손을 놓지 않았다. 그는 아이들은 전부 지키지 못했지만 당신만큼은 놓칠 수 없었다. <br><br>시야가 껌껌해지고 다시 눈을 떴을 떄 유리는 당신의 옆에 있었다, 언제나처럼."
+        }
+    ], player);
+}
+
+//상류도시03 퀘스트
+window.startSoraFatherBattle = function(player){
+    startBattle("soraFather", player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_whiteFlowerOldLab_soraFather = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startSoraFatherLose(player);
+        }
+    });
+};
+
+function handleSoraFatherWin(player){
+    player.flags = player.flags || {};
+
+    player.flags.uppercity_quest03_done = true;
+
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "그는 결국 쓰러졌다. 당신은 하얀꽃이 압착되어 있는 목걸이를 주웠다. 당신은 데이터로그를 보았다.<br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #ff0000;'>5</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #ff4901;'>4</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #fbff07;'>3</div><br><br>" +
+                "시간이 없다. 이러다가는 당신마저 타버릴 것이다. 당신은 주변을 둘러보다가 천장을 올려다보았다. 소각 준비 절차인지 아까와 다르게 천장이 뻥 뚫려있었다. 당신은 어떻게든 밟고 뛰면서 천장의 구멍으로 올라갔다." +
+                "<div style='text-align:center; font-size:2rem; color: #ff07c1;'>2</div><br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #a200ff;'>1</div><br><br>" +
+                "<br><br>잠깐의 정적, 그리고, <br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>퍼엉</div><br><br>"
+        },
+        {
+            type : "text",
+            value :
+                "귀가 맹맹하다. 연구소는 완전히 끝났다. 당신은 경계병 제3초소 쪽으로 걸어갔다. 주점에 의뢰 완료를 보고하러 가야 한다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+function startSoraFatherLose(player){
+    player.flags = player.flags || {};
+
+    if (!player.flags.soraFather_firstLose){
+
+        player.flags.soraFather_firstLose = true;
+
+        startScene([
+            {
+                type:"text",
+                value:
+                    "그는 당신의 목을 낫으로 베려고 했다. 하지만 그 순간, 당신의 몸을 누군가가 감싸안았다. 당신을 안고 있는 누군가는 울고 있었다. 점점 의식이 희미해져가는 당신의 뒤로 목소리가 웅얼거리듯이 들린다. 당신은 결국 그들이 뭐라고 하는지는 듣지 못하고 그대로 기절했다." +
+                    "여기가 어디지...? 누군가가 당신에게 죽지 말라고 말하고 있었다. 당신은 다시 잃을 뻔한 의식 속에서도 당신을 구해준 사람을 보기 위해 눈을 부릅 떴다. 백발의 금안... 그리고 꽃으로 으스러지고 있는 누군가. 형태를 유지하기 위해 애써 노력하고 있는 누군가. 당신과 시선을 마주친 그가 입술을 벌렸다." +
+                    "<br><br>\"ㅇ, 서, 해줄, ㄱ... 그ㄹ..ㄴ.... ㄴ게로...와...\"<br><br>" +
+                    "본체가 아니었다. 그 말을 마친 그는 그대로 꽃으로 흩어져내렸다." +
+                    "<br>당신이 다시 눈을 떴을 때 당신은 하얀꽃 무덤이라고 불려도 될 정도로 수북하게 하얀꽃잎들이 쌓여있는 곳에 누워있었다. 당신은 몸을 일으켰다. 몸이 가뿐하다."
+            },
+            {
+                type:"effect",
+                run:(player)=>{
+                    player.dungeon.room = "r5c5";
+                    changeHP(player, 100);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    player.dungeon.room = "r5c5";
+    changeHP(player, 100);
+
+    startScene([
+        {
+            type:"text",
+            value:
+                "당신은 또 그의 낫을 이기지 못하고 쓰러졌다. 하지만 이번에도 당신이 눈을 떴을 때 당신은 하얀꽃들이 수북하게 쌓여있는 곳에 누워있었다. 당신은 몸을 일으켰다."
         }
     ], player);
 }

@@ -668,7 +668,8 @@ function getBodyFluidStatusText(player){
 
 function getCharmArousalGain(player, base = 10){
     const charm = getTotalStat(player, "charm");
-    return Math.floor(base * (1 + charm / (20 + charm)));
+    const bonus = scaleStat(charm) * 0.1;
+    return Math.max(0, Math.floor(base * (1 + bonus)));
 }
 
 window.cleanseBodyFluid = function(player){
@@ -1115,15 +1116,23 @@ function passTime(player, amount){
             const candidates = ["dex", "charm", "int"];
             const stat = candidates[Math.floor(Math.random() * candidates.length)];
 
-            if ((player.stats[stat] || 0) > 0){
-                player.stats[stat] -= 1;
-                player.abomination.statLoss[stat] = (player.abomination.statLoss[stat] || 0) + 1;
-            }
+            player.stats[stat] = (player.stats[stat] || 0) - 1;
+            player.abomination.statLoss[stat] =
+            (player.abomination.statLoss[stat] || 0) + 1;
 
             player.stats.str = (player.stats.str || 0) + 1;
             player.abomination.strGain = (player.abomination.strGain || 0) + 1;
+            changeTrauma(player, 1);
         }
 
+        if (player.abomination.bodyGrowLastTick == null){
+            player.abomination.bodyGrowLastTick = player.abomination.infectedAt ?? player.time;
+        }
+        
+        while (player.time - player.abomination.bodyGrowLastTick >= 30 * 240){
+            player.abomination.bodyGrowLastTick += 30 * 240;
+            growAbominationBodyTrait(player);
+        }
         updateDerivedStats(player);
     }
 
@@ -3306,7 +3315,9 @@ function infectAbomination(player){
     player.abomination = player.abomination || {
         active: false,
         infectedAt: null,
+        birthAt: null,
         lastTick: null,
+        bodyGrowLastTick: null,
         statLoss: { dex: 0, int: 0, charm: 0 },
         strGain: 0
     };
@@ -3315,12 +3326,44 @@ function infectAbomination(player){
 
     player.abomination.active = true;
     player.abomination.infectedAt = player.time;
+    player.abomination.birthAt = player.time + (60 * 240);
     player.abomination.lastTick = player.time;
+    player.abomination.bodyGrowLastTick = player.time;
 
-    player.stats.charm = Math.max(0, (player.stats.charm || 0) - 1);
+    player.stats.charm = (player.stats.charm || 0) - 1;
     player.abomination.statLoss.charm += 1;
 
     updateDerivedStats(player);
     updateStatusUI(player);
     savePlayer(player);
 }
+
+function growAbominationBodyTrait(player){
+    const sizeSteps = {
+        msize: ["작음", "평균", "큼"],
+        bsize: ["남자가슴", "절벽", "작음", "평균", "큼", "거대하고아름다움"],
+        csize: ["병뚜껑", "소추", "보통", "큼", "거대하고아름다움"],
+        asize: ["뼈말", "스키니", "보통", "동글동글", "풍성함"]
+    };
+
+    player.sexTraits = player.sexTraits || {};
+
+    const growable = Object.keys(sizeSteps).filter(key => {
+        const steps = sizeSteps[key];
+        const current = player.sexTraits[key];
+        const index = steps.indexOf(current);
+        return index >= 0 && index < steps.length - 1;
+    });
+
+    if (growable.length === 0) return null;
+
+    const key = growable[Math.floor(Math.random() * growable.length)];
+    const steps = sizeSteps[key];
+    const index = steps.indexOf(player.sexTraits[key]);
+
+    player.sexTraits[key] = steps[index + 1];
+
+    return key;
+}
+
+window.infectAbomination = infectAbomination;

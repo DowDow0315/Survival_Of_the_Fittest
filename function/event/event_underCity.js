@@ -1517,3 +1517,38 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "undercity_hero_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.uppercity_hero_event_seen &&
+        Math.random() < 0.05,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷고 있는 당신의 앞으로 몇 명의 아이들이 달려들었다. 쉘터에서 몇 번 봤던 아이들도 있고, 처음 보는 아이들도 있다. 그들은 모두 휘적휘적 나뭇가지같은 것을 휘두르고 있었다." +
+                    "<br><br>\"자. 날 따라라. 내가 바로 하류도시의 영웅이다!\"<br><br>" +
+                    "당당하게 그 대사를 외치던 아이가 당신과 시선이 마주치자 얼굴이 붉어졌다. 아이의 얼굴이 붉어지자 몇 명이 와르르 웃음을 터뜨렸다." +
+                    "<br><br>\"얘는 당신같은 사람이 되는 게 꿈이래요!\"<br><br>" +
+                    "\"어어, 무슨 소리야! 제가 당신같은 사람이 될 거라고요!\"<br><br>" +
+                    "당신이 그들의 우상이 되어버린 모양이다. 어쩐지 당신의 존재 자체가 아이들에게 희망을 심어준 거 같다. 당신의 마음이 따듯해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeStamina(player, 20);
+                    changeTrauma(player, -3);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+

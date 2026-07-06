@@ -46,7 +46,7 @@ async function loadEnemies(){
     const list = [
         "deer", "bird",
         "rapistM", "rapistF", "slime", "goblin",
-        "flower", "flower2", "flower3", "flower4", "flower5",
+        "flower", "flower2", "flower3", "flower4", "flower5", "soraFather",
         "begger", "beggers", "goblinKing",
         "skeleton", "skeletonEnhanced", "skeletonWheel", "skeletonBig",
         "bandit1", "bandit2", "banditBoss",

@@ -447,7 +447,7 @@
                                             {
                                                 "type": "effect",
                                                 "effects" : [
-                                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -10 },
+                                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -1 },
                                                     { "target": "npc", "npc": "luke", "key": "affection", "amount": 2 }
                                                 ]
                                             }
@@ -797,7 +797,7 @@
                                     { "target": "sensitivity", "key": "mSensitivity", "amount": 3 },
                                     { "target": "player", "key": "arousal", "amount": 10 },
                                     { "target": "time", "amount": 3 },
-                                    {"target" : "npc", "npc":"luke", "key": "dominance", "amount" : 3}
+                                    {"target" : "npc", "npc":"luke", "key": "dominance", "amount" : 5}
                                 ]
                             }
                         ]
@@ -896,7 +896,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": -5 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": -5 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": -2 },
                                         { "target": "sensitivity", "key": "mSensitivity", "amount": 3 },
                                         { "target": "sensitivity", "key": "aSensitivity", "amount": 3 },
                                         { "target": "sensitivity", "key": "cSensitivity", "amount": 3 },
@@ -923,7 +923,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": 3 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 3 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 8 },
                                         { "target": "player", "key": "trauma", "amount": 3 },
                                         { "target": "time", "amount": 5 }
                                     ]
@@ -968,7 +968,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": 3 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 3 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 8 },
                                         { "target": "time", "amount": 5 },
                                         { "target" : "flag", "key" : "luke_patrol_murderer_taken", "value" : true}
                                     ]
@@ -1095,7 +1095,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": 5 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 5 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 10 },
                                         { "target": "npc", "npc": "luke", "key": "lust", "amount": 5 },
                                         { "target": "player", "key": "arousal", "amount": 10 },
                                         { "target": "sensitivity", "key": "mSensitivity", "amount": 8 },
@@ -1277,7 +1277,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": 8 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 3 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 8 },
                                         { "target": "player", "key": "stamina", "amount": 10 },
                                         { "target": "time", "amount": 5 }
                                     ]
@@ -1299,7 +1299,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": 10 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 5 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 15 },
                                         { "target": "player", "key": "stamina", "amount": 10 },
                                         { "target": "time", "amount": 5 }
                                     ]
@@ -1343,7 +1343,7 @@
                                 "effects" : [
                                     { "target": "npc", "npc": "luke", "key": "affection", "amount": -3 },
                                     { "target": "npc", "npc": "luke", "key": "rage", "amount": 5 },
-                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -2 },
                                     { "target": "player", "key": "hp", "amount": -20 },
                                     { "target": "time", "amount": 40 }
                                 ]
@@ -1529,7 +1529,7 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -3 },
+                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -1 },
                     { "target": "npc", "npc": "luke", "key": "affection", "amount": -5 },
                     { "target": "npc", "npc": "luke", "key": "lust", "amount": -100 },
                     { "target": "player", "key": "hp", "amount": -15 },
@@ -1558,7 +1558,7 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -3 },
+                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -1 },
                     { "target": "npc", "npc": "luke", "key": "affection", "amount": -5 },
                     { "target": "npc", "npc": "luke", "key": "lust", "amount": -100 },
                     { "target": "player", "key": "hp", "amount": -15 },
@@ -1770,7 +1770,7 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
-                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "luke", "key": "dominance", "amount": -2 },
                                     { "target": "npc", "npc": "luke", "key": "affection", "amount": 2 }
                                 ]
                             }
@@ -2237,7 +2237,7 @@
                     "<br>\"어차피 별로 쓰지도 않는 곳이야. 난 보통 막사에서 자니까.\"<br>",
                     "그는 잠깐 말을 끊었다.",
                     "<br>\"거기서 자면 아무도 안 올 거다. 열쇠는 줬으니 앞으로 네가 알아서 해.\"<br>",
-                    "그 말을 마치고 루크는 당신의 대답은 듣지도 않고 그대로 가버렸다.... 어쩐지 당신은 루크의 특별한 사람이 되어버린 거 같다, 당신이 원했든 원하지 않았든."
+                    "그 말을 마치고 루크는 당신의 대답은 듣지도 않고 그대로 가버렸다.... <br><br><span class='log-luke'>어쩐지 당신은 루크의 특별한 사람이 되어버린 거 같다, 당신이 원했든 원하지 않았든.</span>"
                 ]
             },
             {

@@ -64,9 +64,28 @@
         },
         {
             "conditions" : [
+                {"emotion": "affection", "min": 50},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "요 근래에 에릭이 쉘터 주변에 나타나는 일이 잦아졌다고 한다. 쉘터의 아이들이 불안해하고 있다."
+        },
+        {
+            "conditions" : [
                 {"emotion": "dominance", "min": 50}
             ],
             "text" : "에릭은 당신의 생존 능력을 인정하고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "dominance", "min": 20}
+            ],
+            "text" : "에릭은 당신이 어디로 도망가든 당신을 잡을 수 있다고 확신하고 있기에 언제나 여유롭다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 30}
+            ],
+            "text" : "에릭은 생각보다 다른 사람들보다 당신을 많이 봐주고 있다."
         }
     ],
     "teaseLines" : {

@@ -1,4 +1,27 @@
 //에릭
+window.EVENTS.push({
+    id : "eric_huntingMonster_event",
+
+    condition : (player) =>
+        player.location === "townEntrance" &&
+        player.flags?.uppercity_story_02_killErwin &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_huntingMonster_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //루크
 window.EVENTS.push({

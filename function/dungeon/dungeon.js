@@ -3103,7 +3103,8 @@ const DUNGEON_EVENTS = {
 
                                     changeNPCEmotion("eric", "affection", -5);
                                     changeNPCEmotion("valen", "affection", -10);
-                                    changeNPCEmotion("akasia", "rage", 5);
+                                    changeNPCEmotion("valen", "rage", 5);
+                                    changeNPCEmotion("akasia", "rage", 10);
                                     changeNPCEmotion("akasia", "affection", -10);
                                     
                                     savePlayer(player);

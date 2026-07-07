@@ -406,7 +406,7 @@ window.luke_normalEncounter_runFailByGender = function(player, options){
 
     let scene;
 
-    if (affection > 80){
+    if (affection > 40){
         scene = isMale
             ? NPC_DATA["luke"].scenes.luke_normalEncounter_fail_male_highAffection
             : NPC_DATA["luke"].scenes.luke_normalEncounter_fail_female_highAffection;

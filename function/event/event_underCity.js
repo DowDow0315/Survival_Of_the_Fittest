@@ -184,6 +184,56 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_normalCheck_relationship_noSmoke",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "townEntrance" ||
+         player.location === "townStreet" ) &&
+        player.flags?.luke_told_stop_smoking &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["luke"].scenes.luke_normalCheck_relationship_noSmoke,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_normalCheck_relationship_smoke",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "townEntrance" ||
+         player.location === "townStreet" ) &&
+        !player.flags?.luke_told_stop_smoking &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["luke"].scenes.luke_normalCheck_relationship_smoke,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라
 window.EVENTS.push({
     id : "sora_patience_limit_outside_event",
@@ -1512,6 +1562,37 @@ window.EVENTS.push({
                     changeTrauma(player, 1);
                     savePlayer(player);
                 }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_pet_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 가고 있는데 누군가가 당신의 목덜미를 잡았다. 경비병들 중 하나다. 그는 당신을 수색하기 위해 징그러운 미소를 지으며 당신에게 손을 뻗었다.",
+                    "<br><br>\"잠깐 멈춰-!\"<br><br>",
+                    "두둥. 대체 어디서 나오는 효과음일까. 엑스트라처럼 등장한 경비병들 중 또 다른 하나가 당신의 목덜미를 잡고 있는 경비병에게 애절한 목소리로 말했다.",
+                    "<br><br><span class='log-luke'>\"그녀석은... 루크의... 깔이라고...!\"</span><br><br>",
+                    "두둥2. 어쩐지 당신은 여기서 '아앗, 내가 루크의 깔...?!'을 외쳐줘야 할 것만 같은 기분이 들었다.",
+                    "<br><br>\"젠장, 몰랐어!\"<br>\"바보녀석, 루크의 깔 정도는 기억해놓으라고!\"<br>\"크윽, 죄송했습니다, 형수님!\"<br>\"실례했습니다!\"<br><br>",
+                    "경비병들이 멀어진다.<br><br>...뭐지 진짜. 당신은 다시 길을 걸어갔다."
+                ]
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)

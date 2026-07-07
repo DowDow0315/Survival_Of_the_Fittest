@@ -595,3 +595,129 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_story_02_intro_event_attack",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet" &&
+        player.flags?.rebel_story_01_done &&
+        getCurrentDay(player) >= (player.flags.rebel_story_01_done_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_story_02_intro_event_attack_seen = true;
+        player.flags.rebel_story_02_intro_event_attack_seen_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어디선가 총소리가 났다. 상류도시에서 총소리가 나는 건 드물었기 때문에 처음에 사람들은 폭죽 소리라고 생각했다." +
+                    "<br><br><span class='log-danger'><strong>꺄아악</strong><span class='log-danger'><br><br>" +
+                    "하지만 곧이어 들려오는 비명 소리에 상류도시 사람들은 뭔가 이상하다는 걸 깨달았다. 그들은 주변을 둘러보다가 피를 흘리며 쓰러지는 사람들을 본다. 그들의 동공이 점점 커졌다, 마치 피를 흘리고 죽는 사람을 처음 보는 것마냥." +
+                    "<br>여기저기서 비명 소리가 들려온다." +
+                    "<br><br>\"반란군이다! 반란군...!\"<br><br>" +
+                    "반란군이라는 소리에 사람들은 더 혼미백산하여 질서를 잃고 뛰어다녔다. 그 순간 반란군 하나가 당신을 향해 뛰어들었다. 그는 당신을 하류도시의 영웅이 아니라 상류도시의 개라고 부르고 있었다." +
+                    "<br><br>당신의 의지와는 상관없이 전투가 시작된다...!"
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelStory02IntroBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startRebelStory02IntroBattle = function(player){
+
+    startBattle("rebels1", player, {
+        noEscape : true,
+        onWin : () => startRebelStory02IntroAfterBattleEvent(player),
+        onLose : () => startRebelStory02IntroAfterLosingBattleEvent(player)
+    });
+
+    return true;
+};
+
+window.startRebelStory02IntroAfterBattleEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 당신을 향해 달려들던 반란군을 쓰러뜨렸다. 그가 쓰러지자 다른 반란군이 분노에 찬 함성을 지르며 당신을 공격하려 들었지만 당신을 공격하려는 순간, 그대로 입에서 피를 뿜으며 쓰러졌다." +
+                "<br><br>발렌.<br><br>" +
+                "그의 얼굴에 더 이상 천사같은 미소는 없었다. 그의 명령에 따라 백색 군단이 반란군들을 휩쓸기 시작했다. 분명 우세를 점하고 있었는데 제대로 훈련을 받은 백색 군단이 투입되자 그들은 하나하나 낙엽처럼 스러져내렸다." +
+                " 발렌의 백색 군단은 하류도시의 경비병들과는 차원이 달랐다. 단 한 명도 전투에서 도망가지 않았고, 단 한 명도 사람을 죽이는 데 머뭇거리지 않았다." +
+                "<br><br>\"젠장, 후퇴다, 후퇴...!\"<br><br>" +
+                "이길 수 없다는 걸 직감한 반란군들은 후퇴하려고 했다. 하지만 그들의 후퇴 발언이 들려오는 순간, 발렌의 손에서 하늘색 칼날을 지닌 검이 소환됐다. 그리고 그는 그 검을 도망가고 있는 사람들의 심장으로 겨누었다.",
+                "<br><br><br>한순간이었다. 검이 빛나는 순간, 도망치던 몇몇 사람들은 일직선으로 꿰뚫린 채 허공에 매달려 있었다. 검이 다시 줄어들었다. 중앙에 구멍이 뚫린 사람들이 툭툭 바닥으로 떨어졌다. 하지만 발렌은 거기서 멈추지 않았다.",
+                "<br>상황은 순식간에 정리되었다. 나머지 처리는 백색 군단에게 손짓으로 명령을 내린 후, 발렌은 당신을 돌아보았다. 당신을 돌아보는 그의 얼굴에는 서늘한 미소가 걸려 있었다." +
+                "<br><br><span class='log-valen'>\"그 누구도 상류도시를 건드릴 수는 없습니다.\"</span><br><br>" +
+                "발렌은 백색 제복을 입은 군인들 몇몇에게 너네들은 상류도시 사람들의 상처를 우선시하라고 명령을 내렸다." +
+                "<br><br>\"...잘 싸워주셨습니다.\"<br><br>" +
+                "발렌은 당신을 돌아보지 않은 채 말했다.",
+                "<br><br><span class='log-valen'>\"하류도시의 영웅이여.\"</span>" +
+                "<br>...발렌은 쓰러진 반란군들에게는 단 한 번도 시선을 주지 않았다. 그의 관심은 오직 아직 살아있는 상류도시 사람들에게만 있었다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("valen", "affection", 3);
+                changeNPCEmotion("valen", "fear", 10);
+                changeNPCEmotion("yuri", "rage", 10);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startRebelStory02IntroAfterLosingBattleEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 반란군의 칼을 이겨내지 못했다. 그가 당신의 목을 찌르려고 할 때, 망토를 쓴 사람이 당신의 앞으로 달려들었다. 하지만 당신은 알 수 있었다. 유리다. 망토 아래로 삐죽 튀어나온 적발, 그리고 공격을 쌍검으로 막는 자세, 그는 유리였다." +
+                "<br>유리는 움직이지 못하는 당신을 안아들더니 연막탄과 함께 그 자리를 벗어났다. 당신을 놓친 반란군이 도망가는 당신들의 뒤로 손을 뻗었다. 가지마-" +
+                "<br><br><br><strong><span class='log-valen'>그리고 당신은 발렌의 하늘색 눈동자와 마주쳤다</span></strong>"
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 눈을 떴을 떄 당신은 쉘터에 있었다. 당신은 당신의 몸을 내려다보았다. 상처는 말끔하게 치료되어 있었다." +
+                "<br><br>\"일어났어?\"<br><br>" +
+                "따듯한 양배추 수프를 가지고 온 유리가 당신의 앞에 앉았다. 그는 당신을 바라보다가 곧 시선을 내리깔았다." +
+                "<br><br>\"...네가 위험한 게 싫어. 하지만 내가 싫다고 해도 너는 계속 위험한 곳으로 나가겠지.\"<br><br>" +
+                "유리는 당신에게 인장이 박혀있는 반지를 하나 건넸다." +
+                "<br><br>\"내 수호 반지라고 생각하고 받아줘.\"<br><br>" +
+                "당신은 이 반지가 뭐냐고 물었지만 유리는 말해주지 않았다. 그는 그저 그 반지는 자신이 예전에 끼고 다니던 수호 반지일 뿐이라고 말했다." +
+                "<br><br>...하지만 당신은 유리가 이런 반지를 끼고 다니는 걸 한번도 본 적이 없다. 유리는 좀 쉬라고 말한 후 자리를 떴다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.rebel_story_02_intro_valenSeesYuri = true;
+                addItem(player, ITEMS.accessary.yuriRebelRing);
+                changeHP(player, 100);
+                changeStamina(player, 100);
+                changeNPCEmotion("yuri", "affection", 2);
+                changeNPCEmotion("yuri", "dominance", 10);
+                changeNPCEmotion("valen", "fear", 5);
+                player.location = "shelter";
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};

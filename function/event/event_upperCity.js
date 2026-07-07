@@ -438,3 +438,108 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "luke_pet_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 가던 당신은 백색 제복 군인들이 당신을 보며 어수선하게 떠드는 것을 느꼈다. 그들은 당신을 손가락으로 가리키며 '루크의 손가락' 등을 말하고 있었다.",
+                    "<br>\"하류도시의 영웅이 그 미천한 개랑? 안 어울리는 군.\"<br>",
+                    "\"발렌 님이 아무리 자비를 베푼다고 해도 하류도시 출신은 역시 안 되는 거지.\"<br>",
+                    "당신을 바라보는 그들의 눈빛이 점점 날카롭고 차가워진다. 그들은 당신을 이곳에 있으면 안 되는 불순물 중 하나로 보고 있는 거 같다. 당신은 재빠르게 발걸음을 옮겼다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_pet_03",
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.uppercity_hero_event_seen &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "백색 제복을 입은 군인이 당신의 앞을 가로막았다. 그는 단호한 얼굴로 당신에게 몸 수색을 할 테니 협조해달라고 말했다.",
+                    "<br><br>\"지금까지는 하류도시의 영웅이라서 하류도시와 상류도시를 왔다갔다 하는 것을 봐드렸지만 더 이상은 봐드릴 수 없습니다.<br>어차피 하류도시에서 몸 수색은 많이 당해보셨지 않습니까. 하류도시의 개랑도 친해보이는데.\"<br><br>",
+                    "하류도시의 개, 당신은 그들이 누구를 말하는 건지 단번에 알아들었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그들에게 루크를 왜 그렇게 싫어하는 건지 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"싫어한다? 그 개는 저희가 싫어할 가치도 없는 짐승입니다.\"<br><br>",
+                                    "당신의 말에 그의 표정은 더 썩었다. 그는 더 이상의 대화는 필요없다고 생각했는지 당신에게 옷을 벗을 것을 명했다. 지나가던 사람들이 몇몇은 흥미로, 몇몇은 동정으로, 그리고 또 몇몇은 경멸로 당신의 상황을 관망하기 시작했다.",
+                                    "<br>여기서 소란을 피웠다가는 더 큰일이 나고 만다. 당신은 어쩔 수 없이 옷을 벗었다. 백색 군인은 당신의 앞을 눈대중으로만 확인하지는 않았다. 그의 손이 당신의 몸을 쓸고 지나간다. 특히 성기 주변에서 그의 손짓은 다른 곳을 훑을 때보다 더 느리게 움직였다. 앞을 다 확인한 후 그는 당신에게 뒤로 돌라고 말했다. 뒤로 돌면서 당신의 얼굴은 붉게 달아올랐다. 허리선을 따라 훑어내려가던 그의 손가락이 당신의 애널 구멍을 찔렀다. 당신의 몸이 본능적으로 움츠러들었다.",
+                                    "<br><br>\"수고하셨습니다. 이제 가셔도 됩니다.\"<br><br>",
+                                    "그의 허락이 떨어지자마자 당신은 재빨리 그 자리를 떴다. 몸 이곳저곳에, 특히 얼굴에 남은 열기는 쉽게 지워질 거 같지가 않다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 3);
+                                    changeSensitivity(player, "cSensitivity", 3);
+                                    changeSensitivity(player, "aSensitivity", 3);
+                                    changeSensitivity(player, "bSensitivity", 3);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 순순히 그들의 수색에 협조했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 순순히 수색에 협조하자 그도 당신에게 옷을 벗으라는 소리까지는 하지 않았다. 그는 기계적으로 당신의 몸을 훑어내리고 뒤적거린 후 고개를 끄덕였다.",
+                                    "<br><br>\"하류도시의 영웅, 누군가가 당신에게 부여해준 권리가 있다면 그 권리를 저버리는 행동은 하지 마시길 바랍니다.\"<br><br>",
+                                    "그는 마지막으로 당신에게 경고를 한 후 가도 좋다는 사인을 남겼다. 당신은 이제 자유다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 1);
+                                    changeSensitivity(player, "bSensitivity", 3);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

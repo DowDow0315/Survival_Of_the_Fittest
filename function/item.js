@@ -697,6 +697,46 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "5턴간 공격력 2배, 방어력 0.7배"
         }
+    ],
+    "반란의 총검" : [
+        {
+            name : "뒤로 도약",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "rebelsReplica_buff",
+                defMult : 1.2,
+                evaMult : 1.4
+            },
+            duration : 4,
+            unlock : 20,
+            desc : "4턴간 방어력 1.2배, 회피력/명중률 1.4배"
+        },
+        {
+            name : "칼 찔러넣기",
+            cost : 3,
+            type : "damage",
+            power : 3.9,
+            unlock : 100,
+            desc : "데미지 3.9배 공격"
+        },
+        {
+            name : "위협사격",
+            cost : 2,
+            type : "multiHit",
+            power : 1.4,
+            hits : 2,
+            unlock : 150,
+            desc : "데미지 1.4배로 2번 공격"
+        },
+        {
+            name : "사격",
+            cost : 4,
+            type : "damage",
+            power : 5.5,
+            unlock : 200,
+            desc : "데미지 5.5배 공격"
+        }
     ]
 };
 
@@ -768,6 +808,10 @@ const MASTER_SKILLS = {
     "하얀꽃낫" : {
         requiredMastery : 300,
         skillName : "꽃잎바람"
+    },
+    "반란의 총검" : {
+        requiredMastery : 300,
+        skillName : "뒤로 도약"
     }
 };
 
@@ -943,7 +987,7 @@ const ITEMS ={
         whiteFlowerTwinDagger : {
             name : "백화쌍검",
             type : "weapon",
-            desc : "말없는 춤, 그것이 세상에서 제일 무서운 춤일지도 모른다.",
+            desc : "말없는 춤, 그것이 세상에서 가장 무서운 춤일지도 모른다.",
             price : 3000,
             stats : {
                 str : 1,
@@ -955,13 +999,25 @@ const ITEMS ={
         whiteFlowerRipper :{
             name: "하얀꽃낫",
             type: "weapon",
-            desx : "자신은 사신처럼 고귀하게 사람들의 목숨을 가져가는 것이라 착각하던 남자의 말로.",
+            desc : "자신은 사신처럼 고귀하게 사람들의 목숨을 가져가는 것이라 착각하던 남자의 말로.",
             price: 3000,
             tags : ["magicStick"],
             stats: {
                 dex : 2,
                 int: 11,
                 charm: 1
+            }
+        },
+
+        rebelsReplica : {
+            name : "반란의 총검",
+            type : "weapon",
+            desc : "들어라, 의지가 다할 때까지. 쏴라, 목숨이 다할 때까지.",
+            price : 3000,
+            stats : {
+                str : 6,
+                dex : 7,
+                int : 1
             }
         }
     },
@@ -1318,6 +1374,17 @@ const ITEMS ={
                 dex : 1
             },
             price : 50
+        },
+        yuriRebelRing : {
+            name : "유리의 수호반지",
+            desc : "인장이 박혀있는 반지다. 자세히 보면 인장에서는 전문가의 솜씨가 전혀 느껴지지 않는다.",
+            type : "accessary",
+            stats : {
+                str : 1,
+                dex : 3,
+                charm : 1
+            },
+            price : 5000
         }
     },
 

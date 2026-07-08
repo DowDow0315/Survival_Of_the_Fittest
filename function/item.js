@@ -780,6 +780,50 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "6턴간 공격력 2배, 회피력/명중률 0.6배"
         }
+    ],
+    "반란의 한손검" : [
+        {
+            name : "방패치기",
+            cost : 2,
+            power : 2.8,
+            unlock : 20,
+            desc : "데미지 2.8배 공격"
+        },
+        {
+            name : "방패굳히기",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsShieldSword_defbuff",
+                defMult : 1.7
+            },
+            duration: 6,
+            unlock : 100,
+            desc : "6턴간 방어력 1.7배"
+        },
+        {
+            name : "한손검 연타",
+            cost : 4,
+            type : "multiHit",
+            power : 1.5,
+            hits : 4,
+            unlock : 150,
+            desc : "데미지 1.5배로 4번 공격"
+        },
+        {
+            name : "무조건 지킨다",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsShieldSword_buff",
+                defMult : 2,
+                evaMult : 1.3,
+                atkMult : 0.8
+            },
+            duration: 6,
+            unlock : 100,
+            desc : "6턴간 방어력 2배, 회피율 1.3배, 공격력 0.8배"
+        }
     ]
 };
 
@@ -859,6 +903,10 @@ const MASTER_SKILLS = {
     "반란의 대검" : {
         requiredMastery : 300,
         skillName : "반란의 칼날"
+    },
+    "반란의 한손검" : {
+        requiredMastery : 300,
+        skillName : "방패굳히기"
     }
 };
 
@@ -1077,6 +1125,18 @@ const ITEMS ={
                 str : 10,
                 dex : 3,
                 charm : 1
+            }
+        },
+
+        rebelsShieldSword : {
+            name : "반란의 한손검",
+            type : "weapon",
+            desc : "우리는 쓰러지지 않는다, 아직 죽지 않았으니까.",
+            price : 3000,
+            stats : {
+                str : 6,
+                dex : 4,
+                int : 4
             }
         }
     },

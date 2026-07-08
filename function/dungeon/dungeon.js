@@ -577,11 +577,11 @@ const DUNGEONS = {
             "r2c3" : {name : "", exits : {up : "r1c3", down : "r3c3"}},
 
             "r3c0" : {name : "", exits : {up : "r2c0", down : "r4c0"}},
-            "r3c2" : {name : "", exits : {down : "r4c2", right : "r3c3"}},
+            "r3c2" : {name : "", exits : {down : "r4c2", right : "r3c3"}, safeZone: true, allowRest: true},
             "r3c3" : {name : "", exits : {up : "r2c3", left : "r3c2"}},
 
             "r4c0" : {name : "", exits : {up: "r3c0", down : "r5c0"}},
-            "r4c2" : {name : "", exits : {up : "r3c2"}},
+            "r4c2" : {name : "", exits : {up : "r3c2"}, boss: "rebelLeader2", bossIntro: "rebelsHideOut_boss_intro"},
 
             "r5c0" : {name : "", exits : {up : "r4c0", down : "r6c0"}},
             "r5c3" : {name : "", exits : {down : "r6c3"}},

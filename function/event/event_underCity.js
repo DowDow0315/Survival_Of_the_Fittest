@@ -775,30 +775,6 @@ window.EVENTS.push({
     }
 });
 
-window.EVENTS.push({
-    id : "yuri_rebel_story_01_after_sleep",
-    once : true,
-
-    condition : (player) =>
-        player.location === "shelter" &&
-        player.flags.yuri_rebel_story_01_after_seen &&
-        getTimePeriod(player) === "night" &&
-        !player.flags?.yuri_rebel_story_01_after_sleep_seen,
-
-    action : (player) => {
-        player.flags.yuri_rebel_story_01_after_sleep_seen = true;
-        savePlayer(player);
-
-        startScene(
-            NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after_sleep,
-            player,
-            {
-                onEnd : () => startScene(getLocationScene(player), player)
-            }
-        );
-    }
-});
-
 //니콜라이
 window.EVENTS.push({
     id : "nikolai_feels_good_event",

@@ -76,14 +76,13 @@ window.EVENTS.push({
     }
 });
 
-function updateLukeUndercityAbsence(player){
+window.updateLukeUndercityAbsence = function(player){
     player.flags = player.flags || {};
 
     const undercityLocations = ["townEntrance", "townStreet", "darkStreet", "barracks"];
     const isInUndercity = undercityLocations.includes(player.location);
     const today = getCurrentDay(player);
 
-    // 이미 루크가 찾으러 올 준비가 됐으면 더 이상 건드리지 않음
     if (player.flags.luke_missing_player_ready) return;
 
     if (isInUndercity) {

@@ -737,6 +737,49 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "데미지 5.5배 공격"
         }
+    ],
+    "반란의 대검" : [
+        {
+            name : "횡베기",
+            cost : 2,
+            type : "damage",
+            power : 2.8,
+            unlock : 20,
+            desc : "데미지 2.8배 공격"
+        },
+        {
+            name : "대의를 위한 굳건한 방어",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsGreatSword_buff",
+                defMult : 1.7
+            },
+            duration : 6,
+            unlock : 100,
+            desc : "6턴간 방어력 1.7배"
+        },
+        {
+            name : "반란의 칼날",
+            cost : 4,
+            type : "damage",
+            power : 5.7,
+            unlock : 150,
+            desc : "데미지 5.7배 공격"
+        },
+        {
+            name : "대의를 위한 날카로운 공격",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsGreatSword_atkbuff",
+                atkMult : 2,
+                evaMult : 0.6
+            },
+            duration: 6,
+            unlock : 200,
+            desc : "6턴간 공격력 2배, 회피력/명중률 0.6배"
+        }
     ]
 };
 
@@ -812,6 +855,10 @@ const MASTER_SKILLS = {
     "반란의 총검" : {
         requiredMastery : 300,
         skillName : "뒤로 도약"
+    },
+    "반란의 대검" : {
+        requiredMastery : 300,
+        skillName : "반란의 칼날"
     }
 };
 
@@ -1019,6 +1066,18 @@ const ITEMS ={
                 dex : 7,
                 int : 1
             }
+        },
+
+        rebelsGreatSword : {
+            name : "반란의 대검",
+            type : "weapon",
+            desc : "지켜라, 몸이 스러질 때까지. 버텨라, 동료가 일어날 때까지",
+            price : 3000,
+            stats : {
+                str : 10,
+                dex : 3,
+                charm : 1
+            }
         }
     },
 
@@ -1106,6 +1165,16 @@ const ITEMS ={
             stats : {
                 int : 7,
                 dex : 2
+            }
+        },
+
+        rebelsTop : {
+            name : "반란군 상의",
+            type : "top",
+            price : 2500,
+            stats : {
+                str : 5,
+                dex : 4
             }
         }
     },
@@ -1267,6 +1336,16 @@ const ITEMS ={
             stats : {
                 str : 4,
                 charm : 5
+            }
+        },
+
+        rebelsBottom : {
+            name : "반란군 하의",
+            type : "bottom",
+            price : 2500,
+            stats : {
+                dex : 5,
+                str : 4
             }
         }
     },

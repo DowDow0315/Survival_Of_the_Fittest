@@ -2126,7 +2126,7 @@ function giveFoodToNpc(player, npcId, item){
             ){
                 const current = NPC_DATA["matin"].emotion.affection || 0;
                 
-                if (current < 50){
+                if (current < 50 && current < 70 ){
                     const gain = Math.min(reaction.affection, 50 - current);
                     
                     if (gain > 0){

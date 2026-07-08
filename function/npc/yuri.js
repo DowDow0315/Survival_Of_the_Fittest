@@ -70,7 +70,11 @@ registerActions("yuri",{
         passTime(player, 5);
         const affection = NPC_DATA["yuri"].emotion.affection;
         const onEnd = () => {
-            if (NPC_DATA["yuri"].emotion.affection < 35){
+            if (affection < 35){
+                changeEmotion("yuri", "affection", 1);
+            }
+
+            if (affection > 85){
                 changeEmotion("yuri", "affection", 1);
             }
 

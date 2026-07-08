@@ -546,6 +546,60 @@ const DUNGEONS = {
             { type : "event", id : "whiteFlowerOldLab_abomination", weight: 8},
             { type : "event", id : "whiteFlowerOldLab_food", weight: 10}
         ]
+    },
+    rebelsHideOut : {
+        id : "rebelsHideOut",
+        name : "반란군 근거지",
+        startRoom : "r5c3",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2", "r0c3"],
+            ["r1c0",     "",     "", "r1c3"],
+            ["r2c0", "r2c1",     "", "r2c3"],
+            ["r3c0",     "", "r3c2", "r3c3"],
+            ["r4c0",     "", "r4c2",     ""],
+            ["r5c0",     "",     "", "r5c3"],
+            ["r6c0", "r6c1",     "", "r6c3"],
+            [    "", "r7c1", "r7c2", "r7c3"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "", exits : {down : "r1c0", right : "r0c1"}},
+            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "", exits : {left : "r0c1", right : "r0c3"}},
+            "r0c3" : {name : "", exits : {left : "r0c2", down : "r1c3"}},
+
+            "r1c0" : {name : "", exits : {down : "r2c0", up : "r0c0"}},
+            "r1c3" : {name : "", exits : {up : "r0c3", down : "r2c3"}},
+
+            "r2c0" : {name : "", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
+            "r2c1" : {name : "", exits : {left : "r2c0"}},
+            "r2c3" : {name : "", exits : {up : "r1c3", down : "r3c3"}},
+
+            "r3c0" : {name : "", exits : {up : "r2c0", down : "r4c0"}},
+            "r3c2" : {name : "", exits : {down : "r4c2", right : "r3c3"}},
+            "r3c3" : {name : "", exits : {up : "r2c3", left : "r3c2"}},
+
+            "r4c0" : {name : "", exits : {up: "r3c0", down : "r5c0"}},
+            "r4c2" : {name : "", exits : {up : "r3c2"}},
+
+            "r5c0" : {name : "", exits : {up : "r4c0", down : "r6c0"}},
+            "r5c3" : {name : "", exits : {down : "r6c3"}},
+
+            "r6c0" : {name : "", exits : {up : "r5c0", right : "r6c1"}},
+            "r6c1" : {name : "", exits : {left : "r6c0", down : "r7c1"}},
+            "r6c3" : {name : "", exits : {up : "r5c3", down : "r7c3"}},
+
+            "r7c1" : {name : "", exits : {up : "r6c1", right : "r7c2"}},
+            "r7c2" : {name : "", exits : {left : "r7c1", right : "r7c3"}},
+            "r7c3" : {name : "", exits : {left : "r7c2", up : "r6c3"}}
+        },
+        
+        encounters : [
+            { type: "battle", enemy: "rebels1", weight: 30 },
+            { type: "battle", enemy: "rebels2", weight: 20 },
+            { type: "battle", enemy: "rebels3", weight: 20 }
+        ]
     }
 }
 

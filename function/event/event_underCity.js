@@ -1,4 +1,28 @@
 //에릭
+window.EVENTS.push({
+    id : "eric_huntingMonster_event",
+
+    condition : (player) =>
+        player.location === "townEntrance" &&
+        player.flags?.uppercity_story_02_killErwin &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        !player.flags.ericDie &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_huntingMonster_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //루크
 window.EVENTS.push({
@@ -343,6 +367,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "shop" &&
         NPC_DATA["sora"].emotion.affection >= 30 &&
+        !player.flags.soraDie &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -368,9 +393,12 @@ window.EVENTS.push({
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
         ) &&
-        Math.random() < 0.08,
+        !player.flags.sora_flowerDate_03_seen,
 
     action : (player) => {
+        player.flags?.sora_flowerDate_03_seen = true;
+        savePlayer(player);
+
         startScene(
             NPC_DATA["sora"].scenes.sora_flowerDate_03,
             player,
@@ -511,6 +539,79 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_beingNightFlirted",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        NPC_DATA["matin"].emotion.affection > 30 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_beingNightFlirted,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_beingNightFlirted2",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        NPC_DATA["matin"].emotion.affection > 30 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_beingNightFlirted2,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_beingNightFlirted3",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        NPC_DATA["matin"].emotion.affection > 30 &&
+        player.flags?.matin_graveyard_sheWasHere &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_beingNightFlirted3,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -518,10 +619,13 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        ["dawn", "night"].includes(getTimePeriod(player)) &&
-        NPC_DATA["yuri"].emotion.affection > 60 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        NPC_DATA["yuri"].emotion.affection > 30 &&
         NPC_DATA["yuri"].emotion.affection < 90 &&
-        NPC_DATA["yuri"].emotion.rage < 80 &&
+        NPC_DATA["yuri"].emotion.rage < 50 &&
         player.status.hp < 50 &&
         Math.random() < 0.15,
 
@@ -544,9 +648,12 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
         NPC_DATA["yuri"].emotion.affection >= 90 &&
-        NPC_DATA["yuri"].emotion.rage < 80 &&
+        NPC_DATA["yuri"].emotion.rage < 50 &&
         player.status.hp < 50 &&
         Math.random() < 0.2,
 
@@ -563,9 +670,12 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
-        ["dawn", "night"].includes(getTimePeriod(player)) &&
-        NPC_DATA["yuri"].emotion.affection > 60 &&
-        NPC_DATA["yuri"].emotion.rage < 80 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        NPC_DATA["yuri"].emotion.affection > 30 &&
+        NPC_DATA["yuri"].emotion.rage < 50 &&
         player.status.trauma > 60 &&
         player.status.hp >= 50 &&
         Math.random() < 0.15,
@@ -599,6 +709,83 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_rebel_story_01_after_sleep",
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags.yuri_rebel_story_01_after_seen &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        !player.flags?.yuri_rebel_story_01_after_sleep_seen,
+
+    action : (player) => {
+        player.flags.yuri_rebel_story_01_after_sleep_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after_sleep,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_sleeping",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.flags.yuri_rebel_story_01_after_sleep_seen &&
+        NPC_DATA["yuri"].emotion.affection > 30 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_sleeping,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_rebel_story_01_after_sleep",
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags.yuri_rebel_story_01_after_seen &&
+        getTimePeriod(player) === "night" &&
+        !player.flags?.yuri_rebel_story_01_after_sleep_seen,
+
+    action : (player) => {
+        player.flags.yuri_rebel_story_01_after_sleep_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after_sleep,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

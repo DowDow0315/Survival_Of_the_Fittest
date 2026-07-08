@@ -7,8 +7,8 @@
     "lustResist" : 1.5,
     "drops": [
         {
-            "item" : "bloodycloth",
-            "chance" : 1
+            "item" : "rebelsBottom",
+            "chance" : 0.05
         },
         {
             "item" : "rebelsReplica",

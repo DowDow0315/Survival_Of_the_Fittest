@@ -9,7 +9,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
         ) &&
-        !player.flags.ericDie &&
+        !player.flags?.ericDie &&
         Math.random() < 0.08,
 
     action : (player) => {
@@ -266,6 +266,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location !== "shop" &&
         NPC_DATA["sora"].emotion.lust >= 100 &&
+        !player.flags?.soraDie &&
         Math.random() < 0.08,
 
     action : (player) => {
@@ -279,6 +280,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shop" &&
+        !player.flags?.soraDie &&
         NPC_DATA["sora"].emotion.lust >= 100 &&
         Math.random() < 0.3,
 
@@ -295,6 +297,7 @@ window.EVENTS.push({
         player.location === "shop" &&
         player.flags?.undercity_story_06_done &&
         getCurrentDay(player) >= player.flags.undercity_story_06_done_day + 1 &&
+        !player.flags?.soraDie &&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -320,6 +323,7 @@ window.EVENTS.push({
         getCurrentDay(player) >= player.flags.undercity_story_06_done_day + 1 &&
         NPC_DATA["sora"].emotion.affection >= 50 &&
         NPC_DATA["luke"].emotion.affection >= 50 &&
+        !player.flags?.soraDie &&
         Math.random() < 0.05,
 
     action : (player) => {
@@ -343,6 +347,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "shop" &&
         NPC_DATA["sora"].emotion.affection >= 20 &&
+        !player.flags?.soraDie &&
         !player.flags?.sora_flowerDate_01_done &&
         Math.random() < 0.15,
 
@@ -367,7 +372,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "shop" &&
         NPC_DATA["sora"].emotion.affection >= 30 &&
-        !player.flags.soraDie &&
+        !player.flags?.soraDie &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -393,7 +398,8 @@ window.EVENTS.push({
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
         ) &&
-        !player.flags.sora_flowerDate_03_seen,
+        !player.flags?.soraDie &&
+        !player.flags?.sora_flowerDate_03_seen,
 
     action : (player) => {
         player.flags?.sora_flowerDate_03_seen = true;

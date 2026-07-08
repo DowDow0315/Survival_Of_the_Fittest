@@ -401,7 +401,7 @@ window.EVENTS.push({
         !player.flags?.sora_flowerDate_03_seen,
 
     action : (player) => {
-        player.flags?.sora_flowerDate_03_seen = true;
+        player.flags.sora_flowerDate_03_seen = true;
         savePlayer(player);
 
         startScene(

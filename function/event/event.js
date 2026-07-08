@@ -400,6 +400,7 @@ const EVENTS = [
             player.flags?.nikolai_dayoff_event_seen &&
             (player.flags?.gloryHoleTotalEarn || 0) >= 20000 &&
             NPC_DATA["nikolai"].emotion.affection >= 60 &&
+            !player.flags?.uppercity_first_entry_event_seen &&
             !player.flags?.nikolai_deric_intro_seen,
             
         action : (player) => {

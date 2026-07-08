@@ -205,7 +205,7 @@ function startErwinRaidMiddleEvent(player){
         {
             type : "text",
             value : [
-                "당신에게 오는 속도가 점점 빨라진다. 창백한 그것은 당신을 보자마자 미친듯이 당신에게 다가오고 있었다. 당신이 지금 도망친다고 해도 저것에게 잡힐 것이다." +
+                "<div style='text-align:center;'>당신에게 오는 속도가 점점 빨라진다. 창백한 그것은 당신을 보자마자 빠르게 당신에게 다가왔다. 당신이 지금 도망친다고 해도 저것에게 잡힐 것이다.</div>" +
                 "<br><br><div style='text-align:center;'><strong style='color: #302ce9; font-size:4rem'>저벅</strong></div>" +
                 "<br><br><div style='text-align:center;'><strong style='color: #302ce9; font-size:4rem'>저벅</strong></div>" +
                 "<br><br><div style='text-align:center;'><strong style='color: #302ce9; font-size:4rem'>저벅</strong></div>" +
@@ -213,7 +213,7 @@ function startErwinRaidMiddleEvent(player){
                 "<br><br><div style='text-align:center;'><strong style='color: #302ce9; font-size:4rem'>저벅</strong></div>" +
                 "<br><br><div style='text-align:center;'><strong style='color: #302ce9; font-size:4rem'>당신에게 그것이 다가온다</strong></div>" +
                 "<br><br><br><div style='text-align:center;'><strong style='color: #0e7430; font-size:4rem'>우뚝</strong></div>" +
-                "<br><br><br>누군가의 인기척에 그것은 멈췄다. 길게 늘어진 그림자가 바르르 떨더니 그대로 모습을 감추었다."
+                "<br><br><br><div style='text-align:center;'>누군가의 인기척에 그것은 멈췄다. 길게 늘어진 그림자가 바르르 떨더니 그대로 모습을 감추었다.</div>"
             ]
         },
         {

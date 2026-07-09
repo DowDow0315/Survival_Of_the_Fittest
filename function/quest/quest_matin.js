@@ -38,6 +38,20 @@ const MATIN_QUESTS = {
         requiredKill : 1,
 
         rewardGold : 1500
+    },
+
+    matin_graveyard_04 : {
+        id : "matin_graveyard_04",
+        title : "마틴과 함께",
+        type : "investigate",
+        category : "sub",
+        targetName : "죽어서도 기다리던 자에게 안식을",
+        giver : "마틴",
+
+        targetFlag : "matin_graveyard_sheWillRest",
+        requiredKill : 1,
+
+        rewardGold : 2000
     }
 };
 
@@ -265,6 +279,7 @@ function completeMatinGraveyardQuest02Investigation(player){
     player.flags = player.flags || {};
 
     player.flags.matin_graveyard_sheWasHere = true;
+    player.flags.matin_graveyard_sheWasHere_day = getCurrentDay(player);
 
     const active = player.quest?.subActive?.find(
         q => q.id === "matin_graveyard_02"
@@ -281,6 +296,21 @@ function completeMatinGraveyardQuest02Investigation(player){
 window.acceptMatinGraveyardQuest03 = function(player){
     acceptSubQuest(player, "matin_graveyard_03");
     player.flags.matin_graveyard_openBottom = true;
+    changeNPCEmotion("matin", "affection", 3);
+
+    savePlayer(player);
+};
+
+//마틴섭퀘04
+window.finishMatinGraveyardQuest04 = function(player){
+    player.flags = player.flags || {};
+
+    player.flags.matin_graveyard_sheWillRest = true;
+
+    addQuestProgress(player);
+    completeSubQuest(player, "matin_graveyard_04");
+
+    changeNPCEmotion("matin", "affection", 10);
 
     savePlayer(player);
 };

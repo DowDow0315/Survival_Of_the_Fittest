@@ -545,6 +545,57 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "matin_graveyard_03_startingQuest",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_graveyard_sheWasHere &&
+        getCurrentDay(player) >= (player.flags.matin_graveyard_sheWasHere_day + 5) &&
+        !player.flags?.matin_graveyard_03_startingQuest_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_03_startingQuest_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_03_startingQuest,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_graveyard_04_startingQuest",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_graveyard_sheStillWaits &&
+        player.quest?.subActive?.some(q => q.id === "matin_graveyard_03") &&
+        !player.flags?.matin_graveyard_04_startingQuest_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_04_startingQuest_seen = true;
+
+        completeSubQuest(player, "matin_graveyard_03");
+        acceptSubQuest(player, "matin_graveyard_04");
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_04_startingQuest,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "matin_beingNightFlirted",
 
     condition : (player) =>

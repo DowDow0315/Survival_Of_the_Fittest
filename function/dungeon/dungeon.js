@@ -3982,14 +3982,63 @@ const DUNGEON_EVENTS = {
         ],
         graveYardBottom_skeletonKnight_after_repeat : [
             {
-                type : "text",
-                value : [
-                    "...구멍 바깥으로 쇠사슬이 끌리는 소리와 상류도시의 사람들이 웃고 있는 소리들이 들린다."
-                ]
+                type : "effect",
+                run : (player) => {
+                    const hasQuest04 = player.quest?.subActive?.some(q => q.id === "matin_graveyard_04");
+                    
+                    if (hasQuest04 && !player.flags?.matin_graveyard_sheWillRest){
+                        startScene(
+                            NPC_DATA["matin"].scenes.matin_graveyard_04_final,
+                            player,
+                            {
+                                onEnd : () => startScene(buildDungeonScene(player), player)
+                            }
+                        );
+                    }
+                    else {
+                        startScene([
+                            {
+                                type : "text",
+                                value : [
+                                    "작은 구멍 너머로 쇠사슬이 질질 끌리는 소리와 웃음 소리들이 들려온다. 몸을 숙이면 지나갈 수 있을 것 같다."
+                                ]
+                            },
+                            {
+                                type : "choice",
+                                choices : [
+                                    {
+                                        text : "구멍으로 나간다.",
+                                        action : "graveYardBottom_toUpperCity"
+                                    },
+                                    {
+                                        text : "공동묘지로 돌아간다.",
+                                        action : "graveYardBottom_toGraveyard"
+                                    }
+                                ]
+                            }
+                        ], player);
+                    }
+                }
             }
         ]
     }
 }
+
+window.graveYardBottom_toUpperCity = function(player){
+    player.dungeon = null;
+    player.location = "gloryStreet";
+
+    savePlayer(player);
+    startScene(getLocationScene(player), player);
+};
+
+window.graveYardBottom_toGraveyard = function(player){
+    player.dungeon = null;
+    player.location = "graveyard";
+
+    savePlayer(player);
+    startScene(getLocationScene(player), player);
+};
 
 window.graveYard_child2_getRandomGem = function(player){
     const gems = ["ruby", "sapphire", "aquamarine", "diamond"];

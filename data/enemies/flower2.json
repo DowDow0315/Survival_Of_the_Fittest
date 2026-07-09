@@ -1,8 +1,8 @@
 {
     "name": "인사하는 꽃인간",
     "hp": 250,
-    "attack": 42,
-    "defense": 42,
+    "attack": 41,
+    "defense": 41,
     "eva": 40,
     "lustResist" : 1.2,
     "drops": [

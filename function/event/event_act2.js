@@ -723,6 +723,50 @@ window.startRebelStory02IntroAfterLosingBattleEvent = function(player){
 };
 
 window.EVENTS.push({
+    id : "rebel_story_02_intro_event_before_yuri",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.rebel_story_02_intro_event_attack_seen &&
+        player.flags?.uppercity_story_02_notKillErwin &&
+        !player.flags.rebel_story_02_intro_valenSeesYuri &&
+        !player.flags.rebel_story_02_intro_event_before_yuri,
+
+    action : (player) => {
+        player.flags.rebel_story_02_intro_event_before_yuri = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 길을 가고 있을 때, 뒤에서 유리가 당신의 이름을 부르는 소리가 났다. 당신은 뒤를 돌아보았다. 무슨 말을 하려는지 몇 번을 입술을 달싹거리던 유리는 결국 입을 여는 대신 당신에게 인장이 박혀있는 반지를 건넸다." +
+                    " 당신은 갑자기 유리가 왜 이 반지를 주는지 모르겠어서 고개를 갸웃했다. 유리는 당신의 손에 반지를 쥐어주며 이건 자신이 예전에 끼고 다니던 수호반지일 뿐이라고 말했다. 그는 이 수호반지는 자기보다는 당신에게 필요할 거라고 말했다." +
+                    "<br>...당신은 단 한번도 유리가 이런 반지를 끼고 다니는 걸 본 적이 없다." +
+                    "<br><br>\"내 마음이라고 생각하고 받아줘.\"<br><br>" +
+                    "유리의 호박색 눈동자는 흔들리다가 다시 마음을 다진 듯 굳어졌다. 그는 당신에게 다치지 말아달라고 부탁했다." +
+                    "<br><br>\"다치게 되면 쉘터로 와. 내가 항상 쉘터에 있을 테니까.\"<br><br>" +
+                    "그 말을 끝으로 유리는 돌아섰다. 당신은 문득, 그의 뒷모습이 2년 전 그때와 같다는 생각을 했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.accessary.yuriRebelRing);
+                    changeHP(player, 100);
+                    changeStamina(player, 100);
+                    changeNPCEmotion("yuri", "affection", 2);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "rebel_story_02_valen_order",
     priority : true,
     once : true,
@@ -731,7 +775,7 @@ window.EVENTS.push({
         player.location === "richTownEntrance" &&
         !player.quest?.active &&
         player.flags?.rebel_story_02_intro_event_attack_seen &&
-        getCurrentDay(player) >= (player.flags.rebel_story_02_intro_event_attack_seen_day + 2),
+        getCurrentDay(player) >= (player.flags.rebel_story_02_intro_event_attack_seen_day + 4),
 
     action : (player) => {
         startScene([

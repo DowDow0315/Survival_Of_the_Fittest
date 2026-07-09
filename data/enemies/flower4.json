@@ -2,7 +2,7 @@
     "name": "꽃폭탄인간",
     "hp": 300,
     "attack": 44,
-    "defense": 44,
+    "defense": 41,
     "eva": 30,
     "lustResist" : 1.7,
     "drops": [

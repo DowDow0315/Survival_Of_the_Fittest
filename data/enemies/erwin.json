@@ -1,7 +1,7 @@
 {
     "name": "에르윈",
     "hp": 500,
-    "attack": 43,
+    "attack": 40,
     "defense": 40,
     "eva": 47,
     "lustResist" : 1.5,

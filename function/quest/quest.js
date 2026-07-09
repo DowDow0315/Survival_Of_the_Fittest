@@ -491,7 +491,7 @@ const QUESTS = {
         id : "rebel_story_01",
         title : "유리가 찾아낸 흔적",
         type: "boss",
-        bossName : "반란군 수장",
+        bossName : "인신매매단 간부",
         repeatable : false,
         giver : "yuri",
         source : "event",
@@ -512,6 +512,33 @@ const QUESTS = {
 
         acceptText : "",
         completeText : "쉘터의 아이들을 구해냈다. 하지만 쉘터가 더 이상 안전하지 않다는 사실이 유리의 목을 조여오는 거 같다..."
+    },
+
+    rebel_story_02 : {
+        id : "rebel_story_02",
+        title : "반란의 씨앗을 찾아",
+        type: "investigate",
+        targetName : "반란군 소탕",
+        repeatable : false,
+        giver : "valen",
+        source : "event",
+        
+        desc : "당신은 발렌의 명에 따라 상류도시를 공격했던 반란군 근거지를 소탕하기로 했다.",        
+        activeDesc : "당신은 백색 군단과 함께 반란군 근거지를 소탕해야 한다.",
+        readyDesc : "끝났다. 발렌은 하류도시에 돌아가서 주점에 퀘스트 완료를 보고하길 원한다. 그는 하류도시에도 당신의 행적을 널리 알릴 생각이다.",
+        
+        targetFlag : "rebel_story02_done",
+        requiredKill: 1,
+        rewardGold: 5000,
+        
+        onComplete: (player) => {
+            player.flags = player.flags || {};
+            player.flags.rebel_story_02_done = true;
+            player.flags.rebel_story_02_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "",
+        completeText : "당신은 하류도시의 주점에서 반란군 소탕을 마쳤다고 보고했다. 하류도시의 영웅이 반란군을 소탕했다는 소식은 전역에 널리 퍼질 것이다."
     }
 };
 

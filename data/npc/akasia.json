@@ -20,6 +20,12 @@
                 {"emotion": "affection", "min": 90}
             ],
             "text" : "아카시아는 당신을 적으로 돌리고 싶지 않아한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "rage", "min": 20}
+            ],
+            "text" : "아카시아의 차가운 눈빛은 언제나 당신을 지켜보고 있다."
         }
     ],
 

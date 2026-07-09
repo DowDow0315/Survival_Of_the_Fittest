@@ -418,7 +418,7 @@ function playerAttack(isBonusAttack = false){
     battleState.usedNormalAttack = true;
 
     if (!player.equipment.weapon) {
-    log("당신은 맨주먹으로 상대를 후려쳤다!", "damage");
+    log(`당신은 맨주먹으로 상대를 후려쳤다! 제발 무기를 잡아라! (${formatStatNumber(damage)} 데미지!)`, "damage");
     } else {
     log(`${formatStatNumber(damage)} 데미지!`, "damage");
     }
@@ -500,6 +500,9 @@ function pickupWeapon(){
 
     player.equipment.weapon = battleState.droppedWeapon;
     battleState.droppedWeapon = null;
+    if (typeof updateDerivedStats === "function"){
+        updateDerivedStats(player);
+    }
 
     closeSkillMenu();
 
@@ -604,6 +607,8 @@ function useSkill(index){
         case "multiHit": {
             let total = 0;
             const hits = skill.hits || 2;
+
+            log(`${skill.name}!`, "damage");
             
             for (let i = 0; i < hits; i++){
                 const defenseRate = 0.5 + Math.random() * 0.2;
@@ -1396,6 +1401,9 @@ function disarmPlayer(player){
 
     battleState.droppedWeapon = weapon;
     player.equipment.weapon = null;
+    if (typeof updateDerivedStats === "function"){
+        updateDerivedStats(player);
+    }
     closeSkillMenu();
 
     log(`${weapon.name}이 손에서 튕겨나갔다!`, "warning");

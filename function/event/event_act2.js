@@ -616,7 +616,7 @@ window.EVENTS.push({
                 type : "text",
                 value : [
                     "어디선가 총소리가 났다. 상류도시에서 총소리가 나는 건 드물었기 때문에 처음에 사람들은 폭죽 소리라고 생각했다." +
-                    "<br><br><span class='log-danger'><strong>꺄아악</strong><span class='log-danger'><br><br>" +
+                    "<br><br><span class='log-danger'><strong>꺄아악</strong></span><br><br>" +
                     "하지만 곧이어 들려오는 비명 소리에 상류도시 사람들은 뭔가 이상하다는 걸 깨달았다. 그들은 주변을 둘러보다가 피를 흘리며 쓰러지는 사람들을 본다. 그들의 동공이 점점 커졌다, 마치 피를 흘리고 죽는 사람을 처음 보는 것마냥." +
                     "<br>여기저기서 비명 소리가 들려온다." +
                     "<br><br>\"반란군이다! 반란군...!\"<br><br>" +
@@ -693,7 +693,7 @@ window.startRebelStory02IntroAfterLosingBattleEvent = function(player){
         {
             type : "text",
             value : [
-                "당신이 다시 눈을 떴을 떄 당신은 쉘터에 있었다. 당신은 당신의 몸을 내려다보았다. 상처는 말끔하게 치료되어 있었다." +
+                "당신이 다시 눈을 떴을 때 당신은 쉘터에 있었다. 당신은 당신의 몸을 내려다보았다. 상처는 말끔하게 치료되어 있었다." +
                 "<br><br>\"일어났어?\"<br><br>" +
                 "따듯한 양배추 수프를 가지고 온 유리가 당신의 앞에 앉았다. 그는 당신을 바라보다가 곧 시선을 내리깔았다." +
                 "<br><br>\"...네가 위험한 게 싫어. 하지만 내가 싫다고 해도 너는 계속 위험한 곳으로 나가겠지.\"<br><br>" +
@@ -720,4 +720,84 @@ window.startRebelStory02IntroAfterLosingBattleEvent = function(player){
     ], player, {
         onEnd : () => startScene(getLocationScene(player), player)
     });
+};
+
+window.EVENTS.push({
+    id : "rebel_story_02_valen_order",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        !player.quest?.active &&
+        player.flags?.rebel_story_02_intro_event_attack_seen &&
+        getCurrentDay(player) >= (player.flags.rebel_story_02_intro_event_attack_seen_day + 2),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시 마을 입구에서 백색 군단의 옷을 입은 자가 당신에게 다가왔다. 그는 지금부터 반란군을 소탕하러 갈 건데 발렌 님께서 당신의 조력을 얻어 진행할 것을 당부했다고 말했다." +
+                    "<br><br>\"가시죠. 하류도시의 영웅.\"<br><br>" +
+                    "그의 말이 끝나는 것과 동시에 백색 군대가 당신의 주변에 나타났다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그들과 함께 반란군을 소탕하러 갔다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 대답에 그들은 고개를 끄덕였다. 당신은 그들을 따라 던전으로 향했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : "accept_rebel_story_02_and_enter"
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 싫다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...거절을 하는 겁니까? 안타깝게 되었군요.\"<br><br>" +
+                                    "그 말과 동시에 사방에서 칼날이 당신에게 쏟아지기 시작했다. 당신은 최대한 싸우려고 했다. 하지만 이 많은 숫자를 상대로 혼자 싸우는 건 무리였다. 공격을 막아내던 당신은 뒤에서부터 오는 통증에 거칠게 숨을 내뱉었다." +
+                                    "<br>숨을 뱉었는데, 뜨거운 뭔가가 같이 흘러내렸다. 당신은 흐려지는 시야 사이로 아래를 내려다보았다. 붉은색 피. 당신의 입은 지금 피를 쏟아내고 있다. 당신은 눈을 느리게 두어 번 깜박였다. 분명 또 통증이 느껴지는데, 그렇게 아프지는 않았다." +
+                                    "<br>당신이 한번 더 눈을 깜박였을 때 시야는 이미 기울어져 있었다. 당신이 볼 수 있는 건 백색 군대의 발들뿐이었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    gameOver(player, "당신은 죽었다. 누군가가 당신의 귀에 속삭였다. <br><br>\"하류도시의 영웅은 부탁을 거절하지 않습니다.\"<br><br>앞으로도 상류도시는 찬란하게 빛날 것이다, 아마도.");
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.accept_rebel_story_02_and_enter = function(player){
+    initQuestData(player);
+
+    player.quest.active = {
+        id: "rebel_story_02",
+        progress: 0
+    };
+
+    savePlayer(player);
+    enterDungeon(player, "rebelsHideOut");
 };

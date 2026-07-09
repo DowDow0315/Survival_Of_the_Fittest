@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAllNPCData();
     await loadEnemies();
 
-    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion"].forEach(name => {
+    ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion", "aiden"].forEach(name => {
         registerNPCAsEnemy(name);
     })
 
@@ -2550,7 +2550,7 @@ function saveNpcProgressToLocalStorage(){
 }
 
 async function loadAllNPCData() {
-    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion"];
+    const npcList = ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion", "aiden"];
     const savedNpcData = JSON.parse(localStorage.getItem("npcData") || "null");
 
     for (const name of npcList) {

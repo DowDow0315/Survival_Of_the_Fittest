@@ -2669,6 +2669,14 @@ function hasItemKey(player, key){
     return player.inventory.some(item => item.key === key);
 }
 
+function hasItemOrEquipped(player, key){
+    if (player.inventory.some(item => item.key === key)){
+        return true;
+    }
+
+    return Object.values(player.equipment || {}).some(item => item?.key === key);
+}
+
 //계산식
 function calculateTotalStats(player){
     let total = {

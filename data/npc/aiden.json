@@ -1,0 +1,54 @@
+{
+    "name" : "에이든",
+    "hp" : 350,
+    "attack" : 48,
+    "defense" : 47,
+    "eva" : 30,
+    "type" : "minor",
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "defaultStatusLine" : "에이든은 당신의 행동 하나하나를 주시하고 있다.",
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "rage", "min": 50}
+            ],
+            "text" : "에이든은 언제든 당신을 죽일 준비가 되어있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "rage", "min": 10}
+            ],
+            "text" : "에이든은 당신을 경계하고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 80}
+            ],
+            "text" : "에이든은 당신을 믿고 있다. 그는 당신과 함께 발렌의 날개가 되길 원한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50}
+            ],
+            "text" : "에이든은 당신의 부탁을 어느 정도의 선에서는 들어줄 생각이 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 20}
+            ],
+            "text" : "에이든은 당신의 업적을 인정하고 있다."
+        }
+    ],
+
+    "scenes" : {
+    }
+}

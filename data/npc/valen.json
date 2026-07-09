@@ -22,6 +22,12 @@
                 {"emotion": "affection", "min": 90}
             ],
             "text" : "발렌은 당신이 자신의 옆에 있기를 바란다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "rage", "min": 20}
+            ],
+            "text" : "당신을 바라보며 짓는 그의 미소는 얼음장처럼 차갑다."
         }
     ],
 

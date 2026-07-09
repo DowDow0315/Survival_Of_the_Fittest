@@ -1,7 +1,7 @@
 {
     "name": "반란군(한손검)",
     "hp": 240,
-    "attack": 42,
+    "attack": 41,
     "defense": 41,
     "eva": 30,
     "lustResist" : 1.5,

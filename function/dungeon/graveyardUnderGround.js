@@ -279,17 +279,22 @@ function buildGraveyardUpperClearScene(player){
 }
 
 window.graveyard_enterLowerUnderground = function(player){
-    player.graveyardUnderground.area = "lower";
-    savePlayer(player);
+    player.flags = player.flags || {};
 
-    showSingleTextScene(
-        "당신은 계단을 내려갔다. 하지만 계단 앞에는 또 문이 하나 있었다. 당신은 그 문을 열려다가 말았다. 등골이 오싹하다. 지금은 가면 안 될 거 같다....",
-        player,
-        {
-            onEnd: () => startScene(buildGraveyardUndergroundUpperScene(player), player)
-        }
-    );
+    if (!player.flags.matin_graveyard_openBottom){
+        showSingleTextScene(
+            "당신은 계단을 내려갔다. 하지만 계단 앞에는 또 문이 하나 있었다. 당신은 그 문을 열려다가 말았다. 등골이 오싹하다. 지금은 가면 안 될 거 같다....",
+            player,
+            {
+                onEnd: () => startScene(buildGraveyardUndergroundUpperScene(player), player)
+            }
+        );
+        return;
+    }
+
+    enterDungeon(player, "graveYardBottom");
 };
+
 
 //마틴
 function buildMatinGraveyardQuest02FoundScene(player){

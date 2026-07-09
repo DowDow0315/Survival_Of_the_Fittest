@@ -124,7 +124,7 @@ function buildDarkStreetScene(player, loc, randomDesc){
         });
     }
 
-    choices.push({ text: "번화가로 돌아간다", action: "move_townStreet" });
+    choices.push({ text: "길거리로 돌아간다", action: "move_townStreet" });
 
     return [
         {

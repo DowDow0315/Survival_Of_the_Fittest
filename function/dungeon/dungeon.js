@@ -564,41 +564,97 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            "r0c0" : {name : "", exits : {down : "r1c0", right : "r0c1"}},
-            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
-            "r0c2" : {name : "", exits : {left : "r0c1", right : "r0c3"}},
-            "r0c3" : {name : "", exits : {left : "r0c2", down : "r1c3"}},
+            "r0c0" : {name : "깨진 창문이 있는 통로", exits : {down : "r1c0", right : "r0c1"}},
+            "r0c1" : {name : "놀이방", exits : {left : "r0c0", right : "r0c2"}, event : "rebelsHideOut_playroom", seenFlag : "rebelsHideOut_playroom"},
+            "r0c2" : {name : "교육방", exits : {left : "r0c1", right : "r0c3"}, event : "rebelsHideOut_studyroom", seenFlag : "rebelsHideOut_studyroom"},
+            "r0c3" : {name : "식당", exits : {left : "r0c2", down : "r1c3"}, event : "rebelsHideOut_cafeteria", seenFlag : "rebelsHideOut_cafeteria"},
 
-            "r1c0" : {name : "", exits : {down : "r2c0", up : "r0c0"}},
-            "r1c3" : {name : "", exits : {up : "r0c3", down : "r2c3"}},
+            "r1c0" : {name : "어지러운 통로4", exits : {down : "r2c0", up : "r0c0"}},
+            "r1c3" : {name : "짧은 통로", exits : {up : "r0c3", down : "r2c3"}},
 
-            "r2c0" : {name : "", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
-            "r2c1" : {name : "", exits : {left : "r2c0"}},
-            "r2c3" : {name : "", exits : {up : "r1c3", down : "r3c3"}},
+            "r2c0" : {name : "어지러운 통로3", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
+            "r2c1" : {name : "당직실", exits : {left : "r2c0"}, chest: "rebelsHideOut_chest"},
+            "r2c3" : {name : "벽이 지도로 가득 차있는 방", exits : {up : "r1c3", down : "r3c3"}, chest: "rebelsHideOut_chest"},
 
-            "r3c0" : {name : "", exits : {up : "r2c0", down : "r4c0"}},
-            "r3c2" : {name : "", exits : {down : "r4c2", right : "r3c3"}, safeZone: true, allowRest: true},
-            "r3c3" : {name : "", exits : {up : "r2c3", left : "r3c2"}},
+            "r3c0" : {name : "어지러운 통로2", exits : {up : "r2c0", down : "r4c0"}},
+            "r3c2" : {name : "작전실 앞, 작은 틈새", exits : {down : "r4c2", right : "r3c3"}, safeZone: true, allowRest: true},
+            "r3c3" : {name : "마지막 코너길", exits : {up : "r2c3", left : "r3c2"}},
 
-            "r4c0" : {name : "", exits : {up: "r3c0", down : "r5c0"}},
-            "r4c2" : {name : "", exits : {up : "r3c2"}, boss: "rebelLeader2", bossIntro: "rebelsHideOut_boss_intro"},
+            "r4c0" : {name : "어지러운 통로1", exits : {up: "r3c0", down : "r5c0"}},
+            "r4c2" : {name : "작전실", exits : {up : "r3c2"}, boss: "rebelLeader2", bossIntro: "rebelsHideOut_boss_intro"},
 
-            "r5c0" : {name : "", exits : {up : "r4c0", down : "r6c0"}},
-            "r5c3" : {name : "", exits : {down : "r6c3"}},
+            "r5c0" : {name : "발자국들이 여기저기 흩어져 있는 통로", exits : {up : "r4c0", down : "r6c0"}},
+            "r5c3" : {name : "반란군 은신처 입구", exits : {down : "r6c3"}},
 
-            "r6c0" : {name : "", exits : {up : "r5c0", right : "r6c1"}},
-            "r6c1" : {name : "", exits : {left : "r6c0", down : "r7c1"}},
-            "r6c3" : {name : "", exits : {up : "r5c3", down : "r7c3"}},
+            "r6c0" : {name : "붉은 깃발이 걸려있는 방", exits : {up : "r5c0", right : "r6c1"}, chest: "rebelsHideOut_chest"},
+            "r6c1" : {name : "반란의 불빛을 따라 걷는 길", exits : {left : "r6c0", down : "r7c1"}},
+            "r6c3" : {name : "축축한 통로", exits : {up : "r5c3", down : "r7c3"}},
 
-            "r7c1" : {name : "", exits : {up : "r6c1", right : "r7c2"}},
-            "r7c2" : {name : "", exits : {left : "r7c1", right : "r7c3"}},
-            "r7c3" : {name : "", exits : {left : "r7c2", up : "r6c3"}}
+            "r7c1" : {name : "점점 밝아지는 통로", exits : {up : "r6c1", right : "r7c2"}},
+            "r7c2" : {name : "어두운 통로", exits : {left : "r7c1", right : "r7c3"}},
+            "r7c3" : {name : "끊어진 쇠사슬들이 널려있는 통로", exits : {left : "r7c2", up : "r6c3"}, event : "rebelsHideOut_savingPeople"}
         },
         
         encounters : [
             { type: "battle", enemy: "rebels1", weight: 30 },
             { type: "battle", enemy: "rebels2", weight: 20 },
-            { type: "battle", enemy: "rebels3", weight: 20 }
+            { type: "battle", enemy: "rebels3", weight: 20 },
+            { type : "event", id : "rebelsHideOut_undercityHero", weight: 20},
+            { type : "event", id : "rebelsHideOut_slave1", weight: 10},
+            { type : "event", id : "rebelsHideOut_slave2", weight: 10}
+        ]
+    },
+
+    graveYardBottom : {
+        id : "graveYardBottom",
+        name : "공동묘지 지하 하층",
+        startRoom : "r1c0",
+
+        layout : [
+            [    "",     "", "r0c2", "r0c3", "r0c4", "r0c5"],
+            ["r1c0",     "", "r1c2",     "",     "", "r1c5"],
+            ["r2c0", "r2c1",     "", "r2c3",     "", "r2c5"],
+            ["r3c0",     "", "r3c2", "r3c3", "r3c4", "r3c5"],
+            ["r4c0", "r4c1", "r4c2",     "", "r4c4",     ""]
+        ],
+
+        rooms : {
+            "r0c2" : {name : "지키는 자의 무덤", exits : {right : "r0c3", down : "r1c2"}, boss: "skeletonKnight"},
+            "r0c3" : {name : "안식의 장소", exits : {left : "r0c2", right : "r0c4"}, safeZone: true, allowRest: true},
+            "r0c4" : {name : "울퉁불퉁한 길", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "해골먼지길", exits : {left : "r0c4", down : "r1c5"}, chest: "graveYardBottom_chest"},
+
+            "r1c0" : {name : "상층으로 올라가는 계단 입구", exits : {down : "r2c0"}},
+            "r1c2" : {name : "작은 구멍으로 이어지는 길", exits : {up : "r0c2"}, safeZone : true, noEncounter : true,
+                     event : "graveYardBottom_skeletonKnight_after", seenFlag : "graveYardBottom_skeletonKnight_after_seen", repeatEvent : "graveYardBottom_skeletonKnight_after_repeat"},
+            "r1c5" : {name : "어른이 겨우 통과할 법한 길", exits : {up : "r0c5", down : "r2c5"}},
+
+            "r2c0" : {name : "을씨년스러운 길", exits : {up : "r1c0", down : "r3c0", right : "r2c1"}},
+            "r2c1" : {name : "환청이 들리는 방", exits : {left : "r2c0"}, chest: "graveYardBottom_chest"},
+            "r2c3" : {name : "작은 방", exits : {down : "r3c3"}, chest: "graveYardBottom_chest"},
+            "r2c5" : {name : "좁은 통로", exits : {up : "r1c5", down : "r3c5"}},
+
+            "r3c0" : {name : "으스스한 길", exits : {up : "r2c0", down : "r4c0"}},
+            "r3c2" : {name : "도주로", exits : {right : "r3c3", down : "r4c2"}},
+            "r3c3" : {name : "누군가의 찢어진 옷이 남은 길", exits : {left : "r3c2", right : "r3c4", up : "r2c3"}},
+            "r3c4" : {name : "보석이 으깨져있는 길", exits : {left : "r3c3", right : "r3c5", down : "r4c4"}},
+            "r3c5" : {name : "너무 좁은 통로", exits : {left : "r3c4", up : "r2c5"}},
+
+            "r4c0" : {name : "아주 좁은 통로", exits : {up : "r3c0", right : "r4c1"}},
+            "r4c1" : {name : "온기가 남지 않은 시체가 있는 길", exits : {left : "r4c0", right : "r4c2"}},
+            "r4c2" : {name : "누군가 끌려간 흔적이 남아있는 길", exits : {left : "r4c1", up : "r3c2"}},
+            "r4c4" : {name : "어린이가 들어갈 만한 구멍", exits : {up : "r3c4"}, chest: "graveYardBottom_chest"}
+        },
+
+        encounters : [
+            { type: "battle", enemy: "skeletonBig", weight: 15 },
+            { type: "battle", enemy: "skeletonEnhanced", weight: 25 },
+            { type: "battle", enemy: "skeletonWheel", weight: 25 },
+            { type : "event", id : "graveYardBottom_child", weight: 20},
+            { type : "event", id : "graveYardBottom_child2", weight: 1},
+            { type : "event", id : "graveYardBottom_child3", weight: 20},
+            { type : "event", id : "graveYardBottom_whiteClothes", weight: 20},
+            { type : "event", id : "graveYardBottom_whiteClothes2", weight: 20}
         ]
     }
 }
@@ -737,6 +793,28 @@ const whiteFlowerLabRepeated_CHEST_POOL = [
     { id: "gold_1000", weight: 15 }
 ];
 
+const rebelsHideOut_CHEST_POOL = [
+    { id: "medium_potion", weight: 20 },
+    { id: "high_potion", weight: 10 },
+    { id: "mushroom", weight: 8 },
+    { id: "potato", weight: 8 },
+    { id: "cabbage", weight: 8 },
+    { id: "wheat", weight: 10 },
+    { id: "rice", weight: 10 },
+    { id: "nothing", weight: 5 },
+    { id: "gold_500", weight: 25 },
+    { id: "gold_1000", weight: 20 }
+];
+
+const graveYardBottom_CHEST_POOL = [
+    { id: "medium_potion", weight: 30 },
+    { id: "high_potion", weight: 20 },
+    { id: "nothing", weight: 5 },
+    { id: "gold_500", weight: 25 },
+    { id: "gold_1000", weight: 20 },
+    { id: "gold_1500", weight: 5 }
+];
+
 const DUNGEON_CHESTS = {
     sewer_chest: {
         name: "녹슨 상자",
@@ -814,6 +892,18 @@ const DUNGEON_CHESTS = {
             addItem(player, ITEMS.misc.abominationBigEgg);
             showSingleTextScene("상자 안에는 흉뮬의 아주 큰 알이 들어있었다...", player);
         }
+    },
+
+    rebelsHideOut_chest: {
+        name: "반란군들의 보급 상자",
+        type: "random",
+        pool: rebelsHideOut_CHEST_POOL
+    },
+
+    graveYardBottom_chest : {
+        name : "해골상자",
+        type : "random",
+        pool : graveYardBottom_CHEST_POOL
     }
 };
 
@@ -841,6 +931,11 @@ const CHEST_REWARDS = {
     gold_1000: (player) => {
         changeGold(player, 1000);
         showSingleTextScene("! 상자 안에는 1000 골드가 들어 있었다.", player);
+    },
+
+    gold_1500: (player) => {
+        changeGold(player, 1500);
+        showSingleTextScene("!! 상자 안에는 1500 골드가 들어 있었다.", player);
     },
 
     small_potion: (player) => {
@@ -1170,6 +1265,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "rebelsHideOut" && room.boss === "rebelLeader2"){
+        handleRebelLeader2Win(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1238,7 +1338,7 @@ function buildDungeonScene(player){
     return [
         {
             type: "text",
-            value: `${room.name}이다.<br>축축한 악취가 코를 찌른다.<br><br>어디로 갈까?`
+            value: `${room.name}(이)다.<br><br>어디로 갈까?`
         },
         {
             type: "choice",
@@ -1417,6 +1517,8 @@ function leaveDungeon(player){
         player.location = "guardPost3";
     } else if (dungeonId === "whiteFlowerOldLab"){
         player.location = "guardPost3";
+    } else if (dungeonId === "rebelsHideOut"){
+        player.location = "richTownEntrance";
     } else {
         player.location = "townStreet";
     }
@@ -2192,7 +2294,7 @@ const DUNGEON_EVENTS = {
                 fail : [
                     {
                         type : "text",
-                        value : "큰꽃에서 나온 꽃술이 당신의 하의 안으로 쉽게 들어왔다. 당신은 당황해서 꽃술을 움켜잡았지만 꽃술은 멈추지 않았다. 그것은 당신의 엉덩이골 사이로 파고들더니 그대로 찌걱거리는 소리와 함꼐 애널로 돌입했다." +
+                        value : "큰꽃에서 나온 꽃술이 당신의 하의 안으로 쉽게 들어왔다. 당신은 당황해서 꽃술을 움켜잡았지만 꽃술은 멈추지 않았다. 그것은 당신의 엉덩이골 사이로 파고들더니 그대로 찌걱거리는 소리와 함께 애널로 돌입했다." +
                                 " 꽃술의 울퉁불퉁한 겉면이 당신의 여린 속살을 자극한다. 돌기가 당신의 속살을 긁을 때마다 당신의 두 다리는 바들바들 떨렸다. 그리고 주르륵, 꽃술에서 무언가가 나왔다. 당신의 애널이 물컹물컹한 애액으로 가득 찼다. 이제는 찌꺽이는 소리도 아니었다. 쭈압, 푸슛, 흥건한 소리가 당신의 애널에서 흘러나온다...." +
                                 "<br>큰꽃은 당신을 몇 분이고 능욕하고 나서야 만족했다. 꽃술이 당신의 애널에서 스르르 빠져나왔다. 습해진 당신의 애널이 뻐끔거린다."
                     },
@@ -2823,8 +2925,8 @@ const DUNGEON_EVENTS = {
                 value : [
                     "당신은 유리가 옆에서 싸우는 모습을 지켜보았다. 그의 동작은 언제나처럼 유려했고 상대방의 숨통을 끊는 일에 주저하지 않았다." +
                     " 당신은 유리에게 언제부터 사람 숨통을 끊을 수 있게 되었냐고 물었다. 당신의 질문에 유리는 자신의 쌍검을 소매 안으로 집어넣었다. 그의 쌍검에는 하류도시의 사람들 것으로는 보이지 않는 보석이 하나 박혀있었다, 그의 눈동자를 닮은 호박." +
-                    "<br><br>\"...누군가를 지키기 위해서는... 누군가를 베어야 할 때가 있어.\"<br><br>",
-                    "유리는 당신의 시선을 피했다.",
+                    "<br><br>\"...누군가를 지키기 위해서는... 누군가를 베어야 할 때가 있어.\"<br><br>" +
+                    "유리는 당신의 시선을 피했다." +
                     "<br><br>\"난 그저 지키고 싶었어. 그뿐이야.\""
                 ]
             },
@@ -3099,6 +3201,7 @@ const DUNGEON_EVENTS = {
                                                 run : (player) => {
                                                     changeNPCEmotion("eric", "affection", -5);
                                                     changeNPCEmotion("eric", "rage", 10);
+                                                    savePlayer(player);
                                                 }
                                             }
                                         ]
@@ -3233,6 +3336,7 @@ const DUNGEON_EVENTS = {
                         type : "effect",
                         run : (player) => {
                             addItem(player, ITEMS.misc.abominationSmallEgg);
+                            savePlayer(player);
                         }
                     }
                 ],
@@ -3246,6 +3350,7 @@ const DUNGEON_EVENTS = {
                         run : (player) => {
                             changeTrauma(player, 2);
                             infectAbomination(player);
+                            savePlayer(player);
                         }
                     }
                 ]
@@ -3259,12 +3364,6 @@ const DUNGEON_EVENTS = {
                     "<br><br>...아무도 연구소 출입문에 닿지 못한 거 같지만." +
                     "<br><br>당신은 핏자국을 따라 발걸음을 옮겼다."
                 ]
-            },
-            {
-                type : "effect",
-                run : (player) => {
-                    player.flags.whiteFlowerOldLab_bloodLine1 = true;
-                }
             }
         ],
         whiteFlowerOldLab_bloodLine2 : [
@@ -3276,12 +3375,6 @@ const DUNGEON_EVENTS = {
                     " 시체들 대부분은 흰색 가운을 입고 있었다. 당신은 흰색 가운 사이에서 명찰을 하나 꺼내들었다. 바스락거리는 오래된 종이 위에 누군가의 이름이 써져 있었다. 잘 보이지는 않는다. 하지만 그 위에 유성매직으로 삐뚤삐뚤 **의 엄마라고 써져 있었다." +
                     "<br>...당신은 명찰을 내려놓았다."
                 ]
-            },
-            {
-                type : "effect",
-                run : (player) => {
-                    player.flags.whiteFlowerOldLab_bloodLine2 = true;
-                }
             }
         ],
         whiteFlowerOldLab_overSee : [
@@ -3336,7 +3429,6 @@ const DUNGEON_EVENTS = {
             {
                 type : "effect",
                 run : (player) => {
-                    player.flags.whiteFlowerOldLab_bloodtunnel = true;
                     startBattle("flower5", player, {
                         onWin: () => startScene(buildDungeonScene(player), player),
                         onEscape: () => startScene(buildDungeonScene(player), player)
@@ -3380,6 +3472,7 @@ const DUNGEON_EVENTS = {
                     addItem(player, ITEMS.misc.wheat);
                     addItem(player, ITEMS.misc.rice);
                     addItem(player, ITEMS.misc.wheat);
+                    savePlayer(player);
                 }
             }
         ],
@@ -3404,7 +3497,6 @@ const DUNGEON_EVENTS = {
             {
                 type : "effect",
                 run : (player) => {
-                    player.flags.whiteFlowerOldLab_whitetunnel = true;
                     startBattle("flower5", player, {
                         onWin: () => startScene(buildDungeonScene(player), player),
                         onEscape: () => startScene(buildDungeonScene(player), player)
@@ -3465,13 +3557,454 @@ const DUNGEON_EVENTS = {
                 type : "text",
                 value : [
                     "낙서가 가득한 방이었다. 글씨체는 전부 다 달랐다. 당신은 이걸 한 사람이 쓴 건지, 아니면 여러 사람이 쓴 건지 분간할 수가 없었다. 글씨체는 다 달랐지만 말투는 전부 비슷했기 때문이었다." +
-                    "당신이 아는 이름이 많이 써있었다. <span class='log-pale'>소라. 소라. 소라. 소라. 소라.</span> 안녕하세요/김시합니다/사랑해요/안아주세요 등등 여러 인삿말들도 뒤죽박죽 써있었다." +
+                    "당신이 아는 이름이 여러 번 써있었다. <span class='log-pale'>소라. 소라. 소라. 소라. 소라.</span> 안녕하세요/김시합니다/사랑해요/안아주세요 등등 여러 인삿말들도 뒤죽박죽 써있었다." +
                     "<br><br>어지러운 낙서에서 시선을 떼고 당신은 앞을 바라보았다. 곧 임무를 끝낼 수 있을 거 같다."
+                ]
+            }
+        ]
+    },
+    rebelsHideOut : {
+        rebelsHideOut_savingPeople : [
+            {
+                type : "text",
+                value : [
+                    "당신은 반란군의 근거지에서 끊어진 쇠사슬들이 여기저기에 널려있는 것을 보았다. 몇몇 쇠사슬에는 값비싼 보석 조각들이 달려 있었다. 어쩌면 반란군들이 상류도시의 노예를 구했던 흔적일지도 모르겠다고 당신은 생각했다." +
+                    "<br><br>당신은 주변을 보았다. 백색 군인들이 쇠사슬은 신경도 쓰지 않고 앞으로만 나아가는 모습이 보인다."
+                ]
+            }
+        ],
+        rebelsHideOut_playroom : [
+            {
+                type : "text",
+                value : [
+                    "아이들이 노는 방이었을까? 당신은 지금까지 걸어왔던 곳들과 이 방이 굉장히 이질적이라고 생각했다. 어디서 사왔는지 바닥에는 레고 블럭, 인형, 로봇들이 여기저기 흩어져있었다. 당신은 레고블럭으로 쌓은 레고성을 보았다. 레고성의 가장 꼭대기에는 붉은 깃발이 올라가 있었다." +
+                    "<br>백색 군인 중 한 명이 지나가면서 그대로 레고성을 부서뜨렸다. 레고성이 부서지고 붉은색 깃발도 쓰러졌지만, 붉은색 깃발이 아직 찢어지지는 않았다." +
+                    "<br><br>멀리서 반란군이 발견됐는지 싸우는 소리가 났다. 싸우는 소리는 단말마와 함께 금방 끊겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsHideOut_studyroom : [
+            {
+                type : "text",
+                value : [
+                    "공부를 시키는 방이었을까? 진한 색깔의 피 아래로 책 표지가 드러났다. 어린이용 책이다. 어린이용 책 주변에 어린이들이 받아쓰기를 한 것같은 종이들이 여기저기 널려 있었다." +
+                    " 백색 군인들은 아무렇지도 않게 그들의 흔적을 짓밟았다. 아이들이 공부를 한 흔적 위로 붉은색 발자국들이 찍힌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsHideOut_cafeteria : [
+            {
+                type : "text",
+                value : [
+                    "식당이다. 아이용 식판과 어른용 식판이 가지런하게 꽂혀 있었다. <br><br>[편식하면 나쁜 어린이]<br>[남기지 말고 꼭꼭 씹기]<br>[우리는 아직 죽지 않았다]" +
+                    "<br><br>천 위에 써져있는 슬로건들, 그리고 슬로건들 밑에는 아이들이 낙서한 건지 여러 그림들이 그려져 있었다. 큰 돼지 밑에 여러 사람이 각자 그린 듯한 작은돼지들이 모여있는 그림도 있었다." +
+                    "<br>당신은 식당에서 아직 상하지 않은 자원 몇 개를 발견했다. 아이들이 살고 있었을 이 식당에는 이제 죽음밖에 없다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.misc.rice);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsHideOut_undercityHero : [
+            {
+                type : "text",
+                value : [
+                    "당신은 뒤에서 엄청난 살의를 느꼈다. 칼날이 당신을 향해 날아든다!"
+                ]
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 20,
+                success : [
+                    {
+                        type : "text",
+                        value : "당신은 가까스로 반란군의 마지막 회심의 일격을 피했다. 그가 당신에게 튀어나오자마자 옆에 있던 백색 군인이 그의 목을 그대로 칼로 꿰뚫었다. 역류한 피가 입과 코에서 줄줄 흘러내렸다. 하지만 반란군은 죽으면서도 당신을 노려보았다.<br>...죽은 후에도 그의 서슬 퍼런 눈은 당신이 있던 방향만을 노려보고 있었다."
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : "\"죽어라, 상류도시의 개!\"<br><br>당신은 옆구리에 날카로운 통증을 느꼈다. 어둠에서 튀어나와 당신의 옆구리를 찌른 반란군은 곧 백색 군인들에 의해 목이 잘렸다. 머리가 데굴데굴 바닥을 구른다. 하지만 그는 목이 잘리고서도 눈을 뜨고 있었다, 당신을 보는 건지 아니면 다른 누군가를 보는 건지."
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeHP(player, -20);
+                            savePlayer(player);
+                        }
+                    }
+                ]
+            }
+        ],
+        rebelsHideOut_slave1 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 노예 몇 명이 백색 군인 발을 잡고 있는 걸 보았다. 그들은 다른 노예들은 도망갔지만 자신들은 도망가지 않았다며 제발 다시 상류도시로 보내달라고 간청하고 있었다. 반란군들은 분명 저들을 구했다. 하지만 이미 자유를 잃어버렸던 노예들에게는 자유가 문밖의 빛이 아니라 어디로 가야 할지 모르는 어둠처럼 보였을지도 모르겠다." +
+                    "<br><br>당신이 하류도시의 영웅이란 걸 알아본 노예들이 당신의 발도 붙잡기 시작했다. 제발 저를 상류도시로 보내주세요, 라고 그들은 말했다." +
+                    "<br><br>\"여긴 저희가 알아서 처리하겠습니다.\"<br><br>" +
+                    "백색 군인들 중 몇 명이 노예들을 이끌고 밖으로 나가는 모습이 보인다. 백색 군인을 따라 나가던 노예들 중 한 명이 당신의 손에 돈을 쥐어주었다. 그리고 그는 감사하다고 말한 후 백색 군인을 따라갔다.<br>...그들을 인간취급도 하지 않는 도시로."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeGold(player, 100);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsHideOut_slave2 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 구석에 웅크리고 숨어있는 노예 한 명을 발견했다. 그는 도망가려다가 못 도망갔는지 불안한 눈동자를 이리저리 굴리고 있었다. 당신과 시선을 마주친 노예가 숨을 죽였다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 노예를 숨겨주었다.",
+                        stat : "int",
+                        difficulty : 20,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 노예를 숨겨주었다. 당신은 노예가 숨어있는 구조를 이용해 은밀하게 그의 몸을 가려주었다. 백색 군인들은 다행히도 당신의 행동에 위화감을 느끼지 못하고 그대로 지나갔다. 백색 군인들 몇 명이 지나간 후, 당신은 다시 자리를 비켜주었다. 노예는 당신의 손을 붙잡더니 연신 꾸벅꾸벅 고개를 숙였다. 옛주인에게 맞고 살았는지 그의 몸에는 옅고 진한 상처들로 가득했다." +
+                                    "<br>그는 당신의 손에 자신이 아껴왔던 감자 하나를 쥐어주었다. 그리고 그는 백색 군인들의 눈을 피해 나갔다. 그가 도망에 성공할지 실패할지는 알 수 없다. 하지만 그래도 당신은 오늘, 한 사람의 자유를 구했다. 마음이 따듯해졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.misc.potato);
+                                    changeTrauma(player, -1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 노예를 숨겨주려고 했지만 백색 군인은 금방 당신의 위화감을 찾아냈다. 그들은 노예를 질질 끌고 나왔다. 노예는 처음에는 발버둥을 쳤지만 그들의 무력 앞에서 저항할 수 없다는 걸 깨닫고 그대로 축 늘어졌다. 노예를 찾아냈던 백색 군인이 당신을 응시했다." +
+                                    "<br><br>\"하류도시의 영웅. 설마 노예를 숨기려고 했던 건 아니시겠죠?<br>발렌 님은 당신을 특별하게 생각하고 있습니다. 그의 마음을 저버리지 마시길 바랍니다.\"<br><br>" +
+                                    "그 말을 끝으로 그는 더 이상 당신을 추궁하지 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    graveYardBottom : {
+        graveYardBottom_child : [
+            {
+                type : "text",
+                value : [
+                    "당신은 내려가다가 한 아이를 보았다. 술래잡기라도 하고 있는 건지 아이는 신나게 누군가에게 쫓기며 놀다가 당신을 돌아보았다. 아이는 당신에게 가벼운 발걸음으로 다가왔다." +
+                    "<br><br>\"나랑 놀자! 내가 술래!\"<br><br>" +
+                    "아이가 당신에게 달려오기 시작한다. 아이치고 발걸음이 너무 빠르다!"
+                ]
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 15,
+                success : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 아이보다 더 빠르게 달렸다. 당신을 쫓아오던 아이의 소리가 점점 멀어졌다." +
+                            "<br><br>\"빨라!\"<br><br>" +
+                            "어디선가 빨라-빨라-빨라 메아리가 들려왔다. 당신은 아이의 소리가 사라지고 나서야 뛰는 것을 멈췄다. 하지만 당신이 눈을 깜박였을 때 아이는 당신의 앞에 서있었다." +
+                            "<br><br>\"내가 조금만 더 빨랐더라면.\"<br><br>" +
+                            "아이가 중얼거리듯이 말했다. 다시 눈을 감았다 떴을 때 아이는 그 자리에 없었다. 당신은 처음부터 이곳에 혼자였다."
+                        ]
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 아이에게 잡히지 않기 위해 열심히 뛰었지만 아이는 너무 빨랐다. 아이의 손이 당신을 잡는다. 아니, 잡지 못한다. 아이의 손은 그대로 당신의 몸을 통과했다." +
+                            "<br><br>\"당신도 잡혔어.\"<br><br>" +
+                            "웃는 건지 우는 건지 모르겠는 목소리로 아이가 말했다." +
+                            "<br><br>\"그러니 당신도 죽은 거야.\"<br><br>" +
+                            "마지막 선고와 함께 당신의 몸에서 힘이 빠졌다. 생명력을 빼앗긴 느낌이다...."
+                        ]
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            changeHP(player, -20);
+                            savePlayer(player);
+                        }
+                    }
+                ]
+            }
+        ],
+        graveYardBottom_child2 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 작은 몸집의 시체를 보았다. 아이의 귀에는 보석귀걸이가 걸려 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "아이의 귀에 있는 보석귀걸이를 떼려고 해본다.",
+                        stat : "int",
+                        difficulty : 25,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 아이의 귀에 있는 보석귀걸이를 떼냈다. 보석 하나가 손안에 떨어졌다." +
+                                    "<br><br>누군가의 울음 소리가 당신의 귀를 때린다. 당신은 귀를 막았다. 하지만 울음 소리는 없어지지 않았다, 당신이 그 자리를 재빠르게 벗어날 때까지 쭈욱."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : "graveYardBottom_child2_getRandomGem"
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 아이의 귀에 있는 보석귀걸이를 떼려고 했지만 잘 되지 않았다. 아이의 귀가 뜯어졌다. 낡은 장식은 부서졌다.<br>어디선가 울음 소리가 들려온다. 정신이 아득해져서 당신은 눈을 감았다가 떴다.",
+                                    "<br><br>시체는 백골이 되어 스러졌다. 당신은 소스라치게 놀라며 뒷걸음질쳤다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 10);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "죽은 아이를 애도한다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 죽은 아이를 애도했다. 어디선가 아이의 울음 섞인 웃음 소리가 들려온 거 같기도 하다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, -2);
+                                    changeHP(player, 30);
+                                    changeStamina(player, 30);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        graveYardBottom_child3 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 공동묘지를 걸어가다가 아이를 보았다. 처음에는 환상인 줄 알았다. 하지만 정말 살아있는 아이였다. 아이는 당신을 보더니 겁을 먹으며 뒤로 물러났다." +
+                    "<br>당신은 아이의 걸음걸이가 이상하다는 걸 눈치챘다. 절뚝, 절뚝, 아이의 다리에는 상처가 많았고 발 밑에는 큰 보석같은 것이 끼어져 있었다. 저 보석을 그냥 뺐다가는 과다출혈로 죽을 것이다. 하지만 과연 저 다리로 아이가 멀리까지 도망갈 수 있을까?"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 아이에게 손짓을 한 후 아이의 상처를 조금이라도 치료해주었다.",
+                        stat : "charm",
+                        difficulty : 15,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이는 머뭇거리다가 천천히 당신에게 다가갔다. 당신은 아이의 상처를 치료해주었다. 아이는 처음에는 움찔거렸지만 곧 얌전해져서 당신의 손길을 받아들였다." +
+                                    "<br><br>\"감사합니다...\"<br><br>" +
+                                    "그는 같이 살던 사람들과 함께 상류도시에서 도망 오는 길이었다고 말했다. 중간에 무시무시한 해골을 만나긴 헀는데 이상하게 자신은 공격하지 않았다고 말했다." +
+                                    "<br><br>\"해골들 중에서도 착한 해골이 있는 걸까요?\"<br><br>" +
+                                    "치료를 다 끝낸 후 아이는 당신에게 한번 더 인사를 했다. 여전히 절뚝이긴 하지만, 아까보다는 생존 확률이 높아진 거 같다. 당신은 쉘터에서 그 아이를 만날 수 있길 빌었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, -2);
+                                    changeStamina(player, 20);
+                                    player.flags.graveYardBottom_savingChild = true;
+                                    passTime(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 아이를 지나쳐갔다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "이 세상에서 생존은 아이에게든 어른에게든 똑같은 문제다. 자신의 생존 문제는 자신이 해결해야 한다. 당신은 아이에게 더 이상 시선을 두지 않았다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        graveYardBottom_whiteClothes : [
+            {
+                type : "text",
+                value : [
+                    "당신은 길을 걷다가 찢어져 있는 하얀 천을 발견했다. 분명 상류도시의 군인들이 입는 제복의 천이다. 이런 천이 왜 여기에 있는 걸까?" +
+                    "<br>당신은 주변에 어지럽게 흩어진 발자국들을 바라보았다. 어린아이의 발자국들, 그리고 어른의 발자국들...."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.tornClothes);
+                }
+            }
+        ],
+        graveYardBottom_whiteClothes2 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 어디선가 누군가의 신음 소리를 들었다. 살아있는 사람의 신음 소리다. 당신은 신음 소리가 나는 쪽으로 다가갔다. 하얀 제복을 입고 있는 상류도시의 사람이다. 그는 당신을 보더니 '하류도시의 영웅'이라고 불렀다." +
+                    "<br>그의 상처가 깊다. 이대로 내버려두면 죽을 것이다. 하지만 그가 여기까지 내려온 이유를 생각해보면.... 어차피 당신이 지금 그를 외면한다고 해도 아무도 모를 것이다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그의 상처를 치료해주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "그는 당신의 치료를 받으며 감사하다고 고개를 숙여 말했다. 상류도시에서 도망간 사람들을 잡고 있었는데 갑자기 해골 기사가 공격해왔다고 그는 말했다.",
+                                    "<br><br>\"...이런 거라도.\"<br><br>" +
+                                    "그는 당신에게 쌀과 밀을 내밀었다. 그는 지금은 이것밖에 없어서 죄송하다고 말했다." +
+                                    "<br><br>\"조심하십시오, 하류도시의 영웅. 그대가 다치지 않기를 바랍니다.\"<br><br>"+
+                                    "그는 당신에게 마지막으로 한번 더 고개 숙여 감사 인사를 전한 후 절뚝거리며 돌아갔다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.graveYardBottom_savingUpper = true;
+                                    addItem(player, ITEMS.misc.wheat);
+                                    addItem(player, ITEMS.misc.rice);
+                                    passTime(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 외면하고 가버렸다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "상류도시의 그 사람은 당신이 그럴 줄 알았다는 듯이, 아무 반응도 보이지 않았다. 그의 앓는 소리가 점점 멀어진다." +
+                                    "<br>어느 순간, 그의 신음 소리는 뚝 끊겼다.<br><br>당신은 계속 걸어갔다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        graveYardBottom_skeletonKnight_after : [
+            {
+                type : "text",
+                value : [
+                    "해골기사가 쓰러진 후 안으로 조금 더 들어가자 작은 구멍이 보였다. 큰 사람은 고개를 숙여서 들어가야 겨우 들어갈 수 있는 크기의 구멍이다. 당신은 주변을 둘러보다가 마틴이 말했던 생선 모양의 목걸이를 찾았다." +
+                    "<br>당신은 그 생선 모양의 목걸이를 줍기 위해 손을 뻗었지만, 뻗은 손은 뭔가에 부딪히듯 자꾸 튕겨져나왔다. 목걸이에 닿을 수 없다. 당신은 멍하니 그 목걸이를 내려다보았다." +
+                    "<br><br>[지켜줄게]<br><br>" +
+                    "목걸이에서 반짝 빛이 났다. 으득, 으드득, 뭔가가 일어나는 소리가 나서 당신은 고개를 돌렸다. 널부러져 있던 해골들이 천천히 형체를 갖추어 가고 있었다. 해골 기사가 다시 태어나려고 하고 있다." +
+                    "<br>...당신이 여기서 할 수 있는 일은 더 없다. 당신은 마틴에게로 돌아가기로 했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.matin_graveyard_sheStillWaits = true;
+                    addQuestProgress(player);
+                    savePlayer(player);
+                }
+            }
+        ],
+        graveYardBottom_skeletonKnight_after_repeat : [
+            {
+                type : "text",
+                value : [
+                    "...구멍 바깥으로 쇠사슬이 끌리는 소리와 상류도시의 사람들이 웃고 있는 소리들이 들린다."
                 ]
             }
         ]
     }
 }
+
+window.graveYard_child2_getRandomGem = function(player){
+    const gems = ["ruby", "sapphire", "aquamarine", "diamond"];
+    const itemKey = gems[Math.floor(Math.random() * gems.length)];
+
+    addItem(player, itemKey, 1);
+    changeTrauma(player, 5);
+    savePlayer(player);
+
+    const item = ITEMS[itemKey];
+    showSingleTextScene(
+        `${item.name}을(를) 얻었다.`,
+        () => startScene(getLocationScene(player), player)
+    );
+};
 
 window.DUNGEON_EVENTS = DUNGEON_EVENTS;
 
@@ -4103,8 +4636,33 @@ function runDungeonBossIntro(player, introId){
             }
         ], player);
     }
-}
 
+    if (introId === "rebelsHideOut_boss_intro"){
+        const hasYuriRing = hasItemOrEquipped(player, "yuriRebelRing");
+        const ringText = hasYuriRing
+        ? "그는 당신이 갖고 있는 유리의 수호반지를 보더니 순간 숨을 멈췄다. <br><br>\"왜 그걸 네가...?\"<br><br>하지만 곧 그는 마음을 다잡았다. 그는 자신의 동료들을 지키는 것이 우선이다."
+        : "그는 방패를 들고 한손검 칼날을 당신 쪽으로 들이밀었다. 그는 당신을 앞으로 보내줄 생각이 없다.";
+            startScene([
+            {
+                type: "text",
+                value:
+                      "백색 군인들이 반란군들의 씨를 말리기 시작한다. 후퇴하면서 싸우고 있던 반란군들 앞으로 이 거점의 수장이었던 자가 붉은색 깃발을 들고 나왔다. 그는 붉은색 깃발을 바닥에 세우더니 자신들의 구호를 외쳤다." +
+                      "<br><br>\"우리는 아직 죽지 않았다.\"<br><br>" +
+                      "그 말에 전세가 기울어가던 반란군들이 다시 힘을 냈다. 그들은 자신의 동료들을 후퇴시키기 위해 다시 무기를 들고 싸우고 있다. 처절한 전투 속, 당신의 앞으로 반란군 수장이 걸어나왔다." +
+                      "<br><br>\"네 상대는 나다.\"<br><br>" +
+                      ringText +
+                      "<br><br>전투가 시작된다...!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startRebelsHideOutStoryBossBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+}
 
 function handleBanditBossWin(player){
     player.flags = player.flags || {};
@@ -4733,4 +5291,146 @@ function startSoraFatherLose(player){
                 "당신은 또 그의 낫을 이기지 못하고 쓰러졌다. 하지만 이번에도 당신이 눈을 떴을 때 당신은 하얀꽃들이 수북하게 쌓여있는 곳에 누워있었다. 당신은 몸을 일으켰다."
         }
     ], player);
+}
+
+//rebel02 스토리 관련
+window.startRebelsHideOutStoryBossBattle = function(player){
+    startBattle("rebelLeader2", player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags = player.flags || {};
+            player.flags.defeated_rebelsHideOut_rebelLeader2 = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startRebelLeader2Lose(player);
+        }
+    });
+};
+
+function handleRebelLeader2Win(player){
+    player.flags = player.flags || {};
+
+    player.flags.rebel_story02_done = true;
+    addQuestProgress(player);
+
+    const hasYuriRing = hasItemOrEquipped(player, "yuriRebelRing");
+
+    if (hasYuriRing){
+        startScene([
+            {
+                type: "text",
+                value:
+                    "무릎 한쪽을 꿇은 채, 반란군 수장은 마지막까지 당신을 공격하려고 했다. 하지만 당신이 가지고 있는 유리의 반지에 시선이 닿자 그는 순간적으로 공격을 멈추었다." +
+                    "<br>백색 군단은 다른 반란군들을 죽이느라 바쁘다. 어쩌면, 당신은 당신의 선택으로 그를 살려줄 수 있을지도 모른다. 지금까지 있었던 일들이 주마등처럼 당신의 머리를 스치고 지나갔다." +
+                    "<br><br><span class='log-danger'><strong>돌이킬 수 없는 결정입니다.</strong></span>"
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "그를 살려준다.", action: "spare_rebelLeader2" },
+                    { text: "그를 죽인다.", action: "kill_rebelLeader2_withRing" }
+                ]
+            }
+        ], player);
+    } else {
+        player.flags.rebelLeader2KilledNoRing = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value:
+                    "반란군 수장은 끝까지 당신을 죽이려고 들었다. 그가 한손검을 다시 쥐었을 때 당신은 어쩔 수 없이 그의 목을 벴다, 지금까지 당신이 죽여온 많은 사람들처럼." +
+                    "백색 군단장이 당신에게 다가왔다. 그는 당신에게 고개를 숙여보이더니 \"수고하셨습니다\"라고 말했다. 당신이 반란군 수장의 목을 벨 때까지 쭉 곁에서 지켜보고 있었던 모양이다. 고개를 들자 하늘색 머리 밑으로 그의 금안이 드러났다." +
+                    "<br><br>\"발렌 님께 보고드리겠습니다. 그리고 발렌 님이 의뢰 완료는 하류도시 주점에서 해달라고 말씀하셨습니다.\"<br><br>" +
+                    "그는 당신의 '왜?' 질문은 받지 않았다. 그는 딱 그 말을 던지고 나머지 백색 군단을 통솔하며 전장을 마무리했다." +
+                    "<br><br>...당신은 던전에서 나왔다."
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("aiden", "affection", 20);
+                    changeNPCEmotion("valen", "affection", 10);
+                    changeNPCEmotion("akasia", "affection", 10);
+                    savePlayer(player);
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+    }
+}
+
+window.spare_rebelLeader2 = function(player){
+    player.flags = player.flags || {};
+
+    player.flags.rebelLeader2SparedWithRing = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 무기를 거두었다. 반란군 수장은 믿을 수 없다는 듯이 당신을 바라보다가 \"역시...\"라는 말과 함꼐 자리에서 일어났다. 그는 그 반지의 주인에게 우리는 아직 살아있다고 전해달라고 부탁했다. 그리고 우리는, 여전히 당신의 도움을 필요로 한다는 말까지." +
+                "<br>그는 당신의 자비를 헛되게 쓰지 않았다. 살릴 수 있는 반란군들을 통솔하며 그는 쫓아오는 백색 군단에서 멀어졌다. 당신이 안도의 한숨을 쉬고 뒤를 도는 순간," +
+                "<br><br>\"수고하셨습니다, 하류도시의 영웅. 발렌 님께서 이 일은 주점에서 보고하길 원하십니다.\"<br><br>" +
+                "대체 언제부터 보고 있었던 걸까. 하늘색 머리카락 밑으로 그의 금안이 드러났다. 지금 그가 무슨 생각을 하고 있는지 그 눈동자만을 봐서는 알 수가 없다. 그는 그 말만을 마치고 당신에게서 고개를 돌렸다." +
+                "<br><br>...그들을 뒤로 하고 당신은 전장에서 일탈했다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("aiden", "affection", -10);
+                changeNPCEmotion("valen", "affection", -3);
+                changeNPCEmotion("akasia", "affection", -5);
+                changeNPCEmotion("aiden", "rage", 10);
+                changeNPCEmotion("valen", "rage", 10);
+                changeNPCEmotion("akasia", "rage", 10);
+                savePlayer(player);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+};
+
+window.kill_rebelLeader2_withRing = function(player){
+    player.flags = player.flags || {};
+
+    player.flags.rebelLeader2KilledWithRing = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 그가 공격이 멈춘 걸 보긴 했지만, 그래도 반란군 수장의 목을 베었다. 반란군 수장은 그대로 당신의 앞에 쓰러져서 죽었다, 어쩌면 당신에게 무언가의 말을 전하려다가 그 말을 결국에는 전하지 못한 채로 죽은 걸지도 모르겠다." +
+                "<br><br>그 순간, 백색 군단장이 당신에게 다가왔다. 하늘색 머리 밑의 금안, 그는 대체 언제부터 당신을 지켜보고 있었던 걸까. 그는 당신에게 고개를 숙여보이더니 수고하셨다고 말했다." +
+                "<br><br>\"발렌 님께 보고드리겠습니다. 그리고 발렌 님은 당신이 주점에서 임무 완수 보고를 하길 바라십니다.\"<br><br>" +
+                "그는 당신에게 질문이나 반박의 여지를 남기지 않았다. 그저 고개를 한번 더 숙여보인 후 고개를 돌려 반란군 잔당 처리를 시작했다. 반란군들의 죽어가는 소리가 당신의 귀에 울린다." +
+                "<br><br>...당신은 전장에서 일탈했다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("aiden", "affection", 20);
+                changeNPCEmotion("valen", "affection", 5);
+                changeNPCEmotion("akasia", "affection", 5);
+                savePlayer(player);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+};
+
+function startRebelLeader2Lose(player){
+    gameOver(
+        player,
+        "당신은 반란군 수장에게 패배했다. 마지막 순간, 붉은 깃발 아래에서 누군가가 외치는 소리가 들렸다.<br><br>우리는 아직 죽지 않았다.<br><br>칼날이 당신의 목으로 떨어진다. 당신이 다시 눈을 떴을 때, 아주 잠깐, 당신의 시야는 뒤집혀 있었다."
+    );
 }

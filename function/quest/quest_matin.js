@@ -24,6 +24,20 @@ const MATIN_QUESTS = {
         requiredKill : 1,
 
         rewardGold : 1000
+    },
+
+    matin_graveyard_03 : {
+        id : "matin_graveyard_03",
+        title : "공동묘지 아래로",
+        type : "investigate",
+        category : "sub",
+        targetName : "마틴의 목걸이 회수",
+        giver : "마틴",
+
+        targetFlag : "matin_graveyard_sheStillWaits",
+        requiredKill : 1,
+
+        rewardGold : 1500
     }
 };
 
@@ -262,3 +276,11 @@ function completeMatinGraveyardQuest02Investigation(player){
 
     savePlayer(player);
 }
+
+//마틴섭퀘03
+window.acceptMatinGraveyardQuest03 = function(player){
+    acceptSubQuest(player, "matin_graveyard_03");
+    player.flags.matin_graveyard_openBottom = true;
+
+    savePlayer(player);
+};

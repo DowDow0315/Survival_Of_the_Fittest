@@ -2147,7 +2147,7 @@ function giveFoodToNpc(player, npcId, item){
             changeEmotion(npcId, "lust", reaction.lust);
         }
         
-        removeItem(player, item);
+        removeItem(player, item.key);
         savePlayer(player);
         
         let line = reaction.line || "상대는 음식을 받아들였다.";

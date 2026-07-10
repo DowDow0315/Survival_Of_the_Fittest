@@ -219,7 +219,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
-        Math.random() < 0.1,
+        Math.random() < 0.08,
 
     action : (player) => {
         startScene(
@@ -244,7 +244,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
-        Math.random() < 0.1,
+        Math.random() < 0.08,
 
     action : (player) => {
         startScene(

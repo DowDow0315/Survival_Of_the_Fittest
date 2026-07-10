@@ -362,7 +362,6 @@ window.accept_sora_drug_02 = function(player){
     player.flags.sora_drug_02_started_day = getCurrentDay(player);
 
     savePlayer(player);
-    return true;
 };
 
 function trySubmitSoraDrugQuest02(player){

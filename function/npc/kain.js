@@ -196,3 +196,26 @@ function isKainAvailable(player){
 
     return true;
 }
+
+window.kain_nobleSquare_dance_01_refused = function(player){
+    const dominance = NPC_DATA["kain"]?.emotion?.dominance || 0;
+
+    if (dominance >= 50){
+        startScene(
+            NPC_DATA["kain"].scenes.kain_nobleSquare_dance_01_refused_highDominance,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    startScene(
+        NPC_DATA["kain"].scenes.kain_nobleSquare_dance_01_refused_lowDominance,
+        player,
+        {
+            onEnd : () => startScene(getLocationScene(player), player)
+        }
+    );
+};

@@ -182,6 +182,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "deric_nobleSquare_dance_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "nobleSquare" &&
+        NPC_DATA["deric"].emotion.affection > 30 &&
+        getTimePeriod(player) === "night" &&
+        player.flags?.deric_nobleSquare_dance_01_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action: (player) => {
+        player.flags.deric_nobleSquare_dance_01_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_nobleSquare_dance_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -192,6 +218,7 @@ window.EVENTS.push({
         player.location === "theater" &&
         player.flags?.uppercity_story_03_intro_event_killErwin_seen &&
         !player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
+        isPlayerProperlyDressed(player) &&
         getTimePeriod(player) === "night",
 
     action : (player) => {
@@ -212,17 +239,44 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_undercity_comeToSeeYou_event",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
+        NPC_DATA["akasia"].emotion.affection > 30 &&
+        isPlayerProperlyDressed(player) &&
+        getTimePeriod(player) === "night" &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].akasia_undercity_comeToSeeYou_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",
     once: true,
 
     condition: (player) =>
-        player.flags.dericDate02Accepted &&
+        player.flags?.dericDate02Accepted &&
         getCurrentDay(player) >= player.flags.dericDate02AcceptedDay + 2 &&
+        !player.flags?.kain_firstMeeting_seen &&
         player.location === "gloryStreet",
 
     action: (player) => {
+        player.flags.kain_firstMeeting_seen = true;
+        savePlayer(player);
+
         startScene(
             NPC_DATA["kain"].scenes.kain_firstMeeting,
             player,
@@ -233,6 +287,127 @@ window.EVENTS.push({
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_noShow_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.kain_firstMeeting_seen &&
+        player.location === "gloryStreet" &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_noShow_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_noShow_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.kain_firstMeeting_seen &&
+        ["richTownStreet", "gloryStreet", "theater"].includes(player.location) &&
+        Math.random() < 0.06,
+
+    action: (player) => {
+        
+        startScene(
+            NPC_DATA["kain"].scenes.kain_noShow_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_noShow_03",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.kain_firstMeeting_seen &&
+        player.location === "theater" &&
+        Math.random() < 0.06,
+
+    action: (player) => {
+        
+        startScene(
+            NPC_DATA["kain"].scenes.kain_noShow_03,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_blushesAtYou",
+    once: true,
+
+    condition: (player) =>
+        NPC_DATA["kain"].emotion.affection > 30 &&
+        !player.flags?.kain_blushesAtYou_seen &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        player.location === "gloryStreet",
+
+    action: (player) => {
+        player.flags.kain_blushesAtYou_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_blushesAtYou,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_nobleSquare_dance_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.kain_firstMeeting_seen &&
+        player.location === "nobleSquare" &&
+        NPC_DATA["kain"].emotion.affection > 30 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        player.flags?.kain_nobleSquare_dance_01_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action: (player) => {
+        player.flags.kain_nobleSquare_dance_01_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["kain"].scenes.kain_nobleSquare_dance_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
             }
         );
     }
@@ -440,6 +615,70 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "uppercity_hero_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.rebelLeader2KilledNoRing &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 당신이 뒤를 돌아보자 반란군이 달려들었다. 싸움이다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("rebels3", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_hero_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.rebelLeader2KilledWithRing &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 당신이 뒤를 돌아보자 반란군이 달려들었다. 싸움이다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("rebels3", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "luke_pet_02",
     condition : (player) =>
         player.justMoved &&
@@ -533,6 +772,76 @@ window.EVENTS.push({
                                     changeTrauma(player, 1);
                                     changeSensitivity(player, "bSensitivity", 3);
                                 }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "nobleSquare_approach",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "nobleSquare" &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "사교회장에 있던 당신에게 귀족들 중 한 명이 접근해왔다. 그는 자신과 어울려주면 돈을 주겠다고 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 고개를 끄덕이고 그의 파트너가 되어주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그의 파트너가 되어 이곳저곳 돌아다녔다. 그는 당신을 옆구리에 낀 채 트로피처럼 써먹었다.",
+                                    "<br>대화를 하던 중에 그의 손이 당신의 엉덩이로 내려왔다. 그는 다른 귀족들과 얘기를 하면서 계속 당신의 엉덩이를 주물럭거렸다. 다른 귀족들은 성희롱을 봤으면서도 그것이 일상이라는 듯 계속 대화를 이어갔다.",
+                                    "대화가 끝날 떄까지 당신은 그에게 엉덩이를 만져줘야만 했다. 어느 순간부터는 남자의 땀이 당신의 엉덩이에 느껴져서 불쾌했다..."
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "몇 시간이 흐른 후, 남자는 당신에게 수고했다고 말하며 돈을 건넸다. 당신의 엉덩이에 붙은 불쾌감은 쉽게 사라지지 않을 거 같다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 1);
+                                    changeArousal(
+                                        player,
+                                        getSensitivityArousalGain(player, "a", 10)
+                                    );
+                                    changeSensitivity(player, "aSensitivity", 10);
+                                    changeStamina(player, -20);
+                                    chnageGold(player, 800);
+                                    passTime(player, 35);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 저었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 젓자 그는 아쉬운 표정을 짓긴 했지만 당신에게 더는 강요하지 않았다."
+                                ]
                             }
                         ]
                     }

@@ -353,7 +353,9 @@ window.EVENTS.push({
                     return true;
                 }
             }
-        ], player);
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
     }
 });
 

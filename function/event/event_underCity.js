@@ -266,7 +266,7 @@ window.EVENTS.push({
         player.location !== "shop" &&
         NPC_DATA["sora"].emotion.lust >= 100 &&
         !player.flags?.soraDie &&
-        Math.random() < 0.08,
+        Math.random() < 0.07,
 
     action : (player) => {
         startSoraPatienceLimitOutsideEvent(player);
@@ -545,6 +545,57 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "matin_graveyard_03_startingQuest",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_graveyard_sheWasHere &&
+        getCurrentDay(player) >= (player.flags.matin_graveyard_sheWasHere_day + 5) &&
+        !player.flags?.matin_graveyard_03_startingQuest_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_03_startingQuest_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_03_startingQuest,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_graveyard_04_startingQuest",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_graveyard_sheStillWaits &&
+        player.quest?.subActive?.some(q => q.id === "matin_graveyard_03") &&
+        !player.flags?.matin_graveyard_04_startingQuest_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_04_startingQuest_seen = true;
+
+        completeSubQuest(player, "matin_graveyard_03");
+        acceptSubQuest(player, "matin_graveyard_04");
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_04_startingQuest,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "matin_beingNightFlirted",
 
     condition : (player) =>
@@ -728,7 +779,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "shelter" &&
-        player.flags.yuri_rebel_story_01_after_seen &&
+        player.flags?.yuri_rebel_story_01_after_seen &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -741,6 +792,83 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["yuri"].scenes.yuri_rebel_story_01_after_sleep,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_past_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.rebelLeader2SparedWithRing &&
+        !player.flags?.yuri_past_01_seen,
+
+    action : (player) => {
+        player.flags.yuri_past_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_past_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_past_01_rage",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.yuri_past_01_seen &&
+        !player.flags?.yuri_past_01_rage_seen,
+
+    action : (player) => {
+        player.flags.yuri_past_01_rage_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_past_01_rage,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_confession_01",
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.rebelLeader2SparedWithRing &&
+        NPC_DATA["yuri"].emotion.affection > 90 &&
+        player.flags?.yuri_past_01_seen &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        !player.flags?.yuri_confession_01_seen,
+
+    action : (player) => {
+        player.flags.yuri_confession_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_confession_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1820,6 +1948,70 @@ window.EVENTS.push({
                 run : (player) => {
                     changeStamina(player, 20);
                     changeTrauma(player, -3);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_hero_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.rebelLeader2KilledNoRing &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 당신이 뒤를 돌아보자 반란군이 달려들었다. 싸움이다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("rebels2", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_hero_04",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.rebelLeader2KilledWithRing &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 당신이 뒤를 돌아보자 반란군이 달려들었다. 싸움이다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("rebels2", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
                 }
             }
         ], player, {

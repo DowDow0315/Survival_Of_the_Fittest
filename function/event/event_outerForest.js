@@ -9,6 +9,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "morning" ||
             getTimePeriod(player) === "afternoon"
         ) &&
+        !player.flags?.yuriDie &&
         Math.random() < 0.1,
 
     action : (player) => {

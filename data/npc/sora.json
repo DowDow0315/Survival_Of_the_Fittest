@@ -19,6 +19,12 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "rage", "min": 70}
+            ],
+            "text" : "<span class='log-sora'>소라는 당신을 삼키고 싶어한다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "dominance", "min": 90}
             ],
             "text" : "소라는 당신을 자신과 한몸이 되길 원한다.<br><span class='log-sora'>영원히. 함께.</span>"
@@ -26,7 +32,7 @@
         {
             "conditions" : [
                 {"emotion": "affection", "min": 50},
-                {"emotion" : "rage", "min": 70}
+                {"emotion" : "rage", "min": 50}
             ],
             "text" : "소라는 당신을 견디고 있다. 오직 사랑이란 이유 하나로."
         },
@@ -61,12 +67,6 @@
                 {"emotion": "affection", "min": 30}
             ],
             "text" : "소라는 요새 당신이 상점에 올 때까지 꽃점을 뗀다고 한다. 마지막 꽃잎을 뗄 때는 무조건 '당신이 온다'다."
-        },
-        {
-            "conditions" : [
-                {"emotion": "rage", "min": 70}
-            ],
-            "text" : "<span class='log-sora'>소라는 당신을 삼키고 싶어한다.</span>"
         }
     ],
     "teaseLines" : {

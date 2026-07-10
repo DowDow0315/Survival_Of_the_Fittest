@@ -283,7 +283,7 @@ window.graveyard_enterLowerUnderground = function(player){
 
     if (!player.flags.matin_graveyard_openBottom){
         showSingleTextScene(
-            "당신은 계단을 내려갔다. 하지만 계단 앞에는 또 문이 하나 있었다. 당신은 그 문을 열려다가 말았다. 등골이 오싹하다. 지금은 가면 안 될 거 같다....",
+            "당신은 계단을 내려갔다. 하지만 계단 앞에는 또 문이 하나 있었다. 하층인가? 하지만 아직은 갈 필요가 없다.",
             player,
             {
                 onEnd: () => startScene(buildGraveyardUndergroundUpperScene(player), player)

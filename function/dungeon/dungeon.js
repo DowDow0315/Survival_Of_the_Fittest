@@ -3964,8 +3964,8 @@ const DUNGEON_EVENTS = {
             {
                 type : "text",
                 value : [
-                    "해골기사가 쓰러진 후 안으로 조금 더 들어가자 작은 구멍이 보였다. 큰 사람은 고개를 숙여서 들어가야 겨우 들어갈 수 있는 크기의 구멍이다. 당신은 주변을 둘러보다가 마틴이 말했던 생선 모양의 목걸이를 찾았다." +
-                    "<br>당신은 그 생선 모양의 목걸이를 줍기 위해 손을 뻗었지만, 뻗은 손은 뭔가에 부딪히듯 자꾸 튕겨져나왔다. 목걸이에 닿을 수 없다. 당신은 멍하니 그 목걸이를 내려다보았다." +
+                    "해골기사가 쓰러진 후 안으로 조금 더 들어가자 작은 구멍이 보였다. 큰 사람은 고개를 숙여서 들어가야 겨우 들어갈 수 있는 크기의 구멍이다. 당신은 주변을 둘러보다가 생선 모양의 키링이 달려있는 목걸이를 발견헀다." +
+                    "<br>당신은 그 생선 모양의 목걸이를 줍기 위해 손을 뻗었지만, 뻗은 손은 뭔가에 부딪히듯 자꾸 튕겨져나왔다. 당신의 손은 목걸이에 닿을 수 없다. 당신은 멍하니 그 목걸이를 내려다보았다." +
                     "<br><br>[지켜줄게]<br><br>" +
                     "목걸이에서 반짝 빛이 났다. 으득, 으드득, 뭔가가 일어나는 소리가 나서 당신은 고개를 돌렸다. 널부러져 있던 해골들이 천천히 형체를 갖추어 가고 있었다. 해골 기사가 다시 태어나려고 하고 있다." +
                     "<br>...당신이 여기서 할 수 있는 일은 더 없다. 당신은 마틴에게로 돌아가기로 했다."
@@ -3982,14 +3982,63 @@ const DUNGEON_EVENTS = {
         ],
         graveYardBottom_skeletonKnight_after_repeat : [
             {
-                type : "text",
-                value : [
-                    "...구멍 바깥으로 쇠사슬이 끌리는 소리와 상류도시의 사람들이 웃고 있는 소리들이 들린다."
-                ]
+                type : "effect",
+                run : (player) => {
+                    const hasQuest04 = player.quest?.subActive?.some(q => q.id === "matin_graveyard_04");
+                    
+                    if (hasQuest04 && !player.flags?.matin_graveyard_sheWillRest){
+                        startScene(
+                            NPC_DATA["matin"].scenes.matin_graveyard_04_final,
+                            player,
+                            {
+                                onEnd : () => startScene(buildDungeonScene(player), player)
+                            }
+                        );
+                    }
+                    else {
+                        startScene([
+                            {
+                                type : "text",
+                                value : [
+                                    "작은 구멍 너머로 쇠사슬이 질질 끌리는 소리와 웃음 소리들이 들려온다. 몸을 숙이면 지나갈 수 있을 것 같다."
+                                ]
+                            },
+                            {
+                                type : "choice",
+                                choices : [
+                                    {
+                                        text : "구멍으로 나간다.",
+                                        action : "graveYardBottom_toUpperCity"
+                                    },
+                                    {
+                                        text : "공동묘지로 돌아간다.",
+                                        action : "graveYardBottom_toGraveyard"
+                                    }
+                                ]
+                            }
+                        ], player);
+                    }
+                }
             }
         ]
     }
 }
+
+window.graveYardBottom_toUpperCity = function(player){
+    player.dungeon = null;
+    player.location = "richTownStreet";
+
+    savePlayer(player);
+    startScene(getLocationScene(player), player);
+};
+
+window.graveYardBottom_toGraveyard = function(player){
+    player.dungeon = null;
+    player.location = "graveyard";
+
+    savePlayer(player);
+    startScene(getLocationScene(player), player);
+};
 
 window.graveYard_child2_getRandomGem = function(player){
     const gems = ["ruby", "sapphire", "aquamarine", "diamond"];

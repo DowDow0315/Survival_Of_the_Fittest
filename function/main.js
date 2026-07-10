@@ -43,10 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     player = normalizePlayer(player);
     player.flags = player.flags || {};
 
-    initStoryUI(); //DOM 먼저 생성
-
     await loadAllNPCData();
     await loadEnemies();
+
+    initStoryUI();
 
     ["eric", "luke", "sora", "yuri", "matin", "deric", "pale", "nikolai", "valen", "kain", "akasia", "juliang", "raphael", "sion", "aiden"].forEach(name => {
         registerNPCAsEnemy(name);

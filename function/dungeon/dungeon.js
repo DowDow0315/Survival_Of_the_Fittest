@@ -3135,7 +3135,7 @@ const DUNGEON_EVENTS = {
                 type : "text",
                 value : [
                     "통로가 고요하다. 달콤한 냄새는 더 진해졌다. 몇 걸음만 더 나아가면 당신은 마물과 마주칠 수 있을 것이다." +
-                    "<br><br><span class='log-danger'><strong>돌이킬 수 없는 결정입니다.</strong></span>"
+                    "<br><br><span class='log-danger'>돌이킬 수 없는 결정입니다.</span>"
                 ]
             }, 
             {
@@ -4968,8 +4968,8 @@ function handleErwinWin(player){
                             value : 
                                 "\"상응하는 대가를 준 것뿐이다.\"<br><br>" +
                                 "당신의 고맙다는 말에도 에릭은 주저없이 그렇게 말했다. 그는 앞서 걸었고 당신은 그의 뒤를 뒤쫓아 걸었다. 언제나처럼 그의 발은 빨랐지만, 오늘은 그래도 평소보다는 느린 거 같았다. 당신은 에릭의 뒤에서 걸으며 돈 수거를 하러 멀리까지 오는 이유가 뭐냐고 물었다." +
-                                "\"돈 수거를 하러 여기까지 온다고? 여기까지 오는 사람들은 그리 많지 않아.\"<br><br>" +
-                                "돈 수거가 아닌 다른 일 때문에 여기까지 돌아다니는 건가... 당신은 진심으로 에릭이 잠을 자긴 하는지 궁금해졌다."
+                                "<br>\"...여기까지 오는 사람들은 그리 많지 않아.\"<br><br>" +
+                                "돈 수거가 아닌 다른 일 때문에 여기까지 돌아다니는 건가... 당신은 진심으로 에릭이 잠을 자기는 하는지 궁금해졌다."
                         },
                         {
                             type : "effect",
@@ -4987,8 +4987,8 @@ function handleErwinWin(player){
                 "당신은 경계병 제3초소까지 에릭과 함께 걸어갔다. 경계병 제3초소 근처에 도착하자, 에릭은 경계병들이 자신을 눈치채기 전 발걸음을 멈췄다. 당신은 의아해하며 그를 올려다보았다." +
                 "<br><br><span class='log-eric'>\"하류도시의 영웅은 한 명으로도 충분하다.\"</span><br><br>" +
                 "그게 끝이었다. 그는 그대로 다른 방향으로 저벅저벅 걸어가버렸다. 정말로 당신을 경계병 제3초소 앞까지만 데려다줄 생각이었나 보다. 당신을 발견한 경계병들이 밝은 얼굴로 당신을 맞이하는 것이 보인다." +
-                "<br>그들은 모두 당신에게 마물을 죽이고 온 거냐고 물었다. 당신이 고개를 끄덕이자 그들의 얼굴색은 더 밝아졌다. 적어도 이들은 당신을 제대로 하류도시의 영웅으로 존중해주고 있다." +
-                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>왜</div>" +
+                "<br>그들은 모두 당신에게 마물을 죽이고 온 거냐고 물었다. 당신이 고개를 끄덕이자 그들의 얼굴색은 더 밝아졌다. 적어도 이들은 당신을 제대로 하류도시의 영웅으로 존중해주고 있다.<br><br>" +
+                "<div style='text-align:center; font-size:2rem; color: #302ce9;'>왜</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #302ce9;'>네가</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #302ce9;'>나를</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #302ce9;'>죽이러</div><br><br>" +
@@ -5378,7 +5378,7 @@ function handleRebelLeader2Win(player){
                 value:
                     "무릎 한쪽을 꿇은 채, 반란군 수장은 마지막까지 당신을 공격하려고 했다. 하지만 당신이 가지고 있는 유리의 반지에 시선이 닿자 그는 순간적으로 공격을 멈추었다." +
                     "<br>백색 군단은 다른 반란군들을 죽이느라 바쁘다. 어쩌면, 당신은 당신의 선택으로 그를 살려줄 수 있을지도 모른다. 지금까지 있었던 일들이 주마등처럼 당신의 머리를 스치고 지나갔다." +
-                    "<br><br><span class='log-danger'><strong>돌이킬 수 없는 결정입니다.</strong></span>"
+                    "<br><br><span class='log-danger'>돌이킬 수 없는 결정입니다.</span>"
             },
             {
                 type: "choice",

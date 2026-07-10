@@ -230,7 +230,7 @@ window.EVENTS.push({
         savePlayer(player);
 
         startScene(
-            NPC_DATA["akasia"].akasia_uppercity_story_02_after_affection_event,
+            NPC_DATA["akasia"].scenes.akasia_uppercity_story_02_after_affection_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -253,7 +253,7 @@ window.EVENTS.push({
 
     action : (player) => {
         startScene(
-            NPC_DATA["akasia"].akasia_undercity_comeToSeeYou_event,
+            NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

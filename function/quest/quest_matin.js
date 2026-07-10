@@ -297,7 +297,6 @@ window.acceptMatinGraveyardQuest03 = function(player){
     acceptSubQuest(player, "matin_graveyard_03");
     player.flags.matin_graveyard_openBottom = true;
     changeNPCEmotion("matin", "affection", 1);
-
     savePlayer(player);
 };
 

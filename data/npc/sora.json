@@ -1002,6 +1002,10 @@
                                                     { "target": "npc", "npc": "sora", "key": "dominance", "amount": 5 },
                                                     { "target": "npc", "npc": "sora", "key": "lust", "amount": 5 }
                                                 ]
+                                            },
+                                            {
+                                                "type" : "effect",
+                                                "run" : "accept_sora_drug_02"
                                             }
                                         ]
                                     },
@@ -1020,14 +1024,14 @@
                                                 "effects" : [
                                                     { "target": "npc", "npc": "sora", "key": "affection", "amount": 3 }
                                                 ]
+                                            },
+                                            {
+                                                "type" : "effect",
+                                                "run" : "accept_sora_drug_02"
                                             }
                                         ]
                                     }
                                 ]
-                            },
-                            {
-                                "type" : "effect",
-                                "run" : "accept_sora_drug_02"
                             }
                         ]
                     },

@@ -596,6 +596,35 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "matin_graveyard_04_after",
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.matin_graveyard_sheWillRest &&
+        getTimePeriod(player) === "dawn" &&
+        getCurrentDay(player) >= (player.flags.matin_graveyard_sheWillRest_day + 4) &&
+        !player.flags?.matin_graveyard_04_after_seen,
+
+    action : (player) => {
+        player.flags.matin_graveyard_04_after_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_04_after,
+            player,
+            {
+                onEnd: () => {
+                    player.location = "darkStreet";
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "matin_beingNightFlirted",
 
     condition : (player) =>

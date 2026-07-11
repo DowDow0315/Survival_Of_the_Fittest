@@ -5055,52 +5055,8 @@ function startErwinLose(player){
     ], player);
 }
 
-//act2 인신매매상 관련
 window.startBanditBossBattle = function(player){
     startBattle("banditBoss", player, {
-        noEscape: true,
-
-        customTurnEvents : {
-            1: () => {
-                log("인신매매단 간부 : 이렇게 싸우는 것도 인연이니 하나만 말해주지. 저놈 옆에 남아있지마. 주변을 죽음으로 이끄는 놈이니까.", "special");
-            },
-
-            2: () => {
-                log("인신매매단 간부 : 우습게도 항상 혼자만 살아남는 놈이지. 여기서 네가 죽는다? 그래도 저녀석은 살아남을 거다.", "special");
-            },
-
-            3 : () => {
-                log("유리 : 아니. ${player.name}만큼은 내가 무슨 일이 있어도 지킬 거야.", "yuri");
-            },
-
-            4 : () => {
-                log("유리 : ...무슨 일이 있어도.", "yuri");
-            },
-
-            5 : () => {
-                log("인신매매단 간부 : 그 눈빛... 조금은 돌아온 모양이군? 좋아. 마음에 들어. 예상보다 더 비싸게 팔 수 있겠군.", "special")
-            }
-        },
-
-        allyTurnSupport : {
-            name : "yuri",
-            hpRate : 0.5,
-            damage : 15,
-            logType : "yuri",
-            line : () => {
-                const lines = [
-                    "적들을 어느 정도 해치우고 온 유리가 인신매매단 간부의 빈틈을 노린다! 인신매매단 간부의 옆구리에서 피가 난다! <strong>15 데미지!</strong>",
-                    "유리 : {playerName}, 그리고 쉘터만큼은 무슨 일이 있어도 지켜낼 거야. <strong>15 데미지!</strong>",
-                    "유리는 인신매매단 간부의 부하들을 밀쳐내고 인신매매단 간부에게 검격을 넣었다. 그의 공격은 굉장히 빨랐다. <strong>15 데미지!</strong>",
-                    "인신매매단 간부의 옆구리로 유리의 쌍검이 파고들었다. 인신매매단 간부의 손이 유리를 잡기 전에, 유리는 재빨리 뒤로 물러서서 다시 거리를 벌렸다. <strong>15 데미지!</strong>",
-                    "유리는 지지 않을 것이다. 그의 눈빛은 평소의 상냥함 하나 없이 매서웠다. 그의 쌍검이 인신매매단 간부의 팔을 찢는다. <strong>15 데미지!</strong>",
-                    "마치 춤을 추듯이 유려하게 유리는 인신매매단 간부를 여기저기서 공격했다. 인신매매단 간부가 한 순간 빈틈을 보였을 때, 유리는 그 순간을 절대로 놓치지 않았다. <strong>15 데미지!</strong>"
-                ];
-
-                return getRandom(lines).replaceAll("{playerName}", player.name);
-            }
-        },
-
         onWin: () => {
             player.flags = player.flags || {};
             player.flags.defeated_banditHideout_banditBoss = true;
@@ -5117,6 +5073,8 @@ window.startBanditBossBattle = function(player){
         }
     });
 };
+
+//act2 인신매매상 관련
 
 function handleSlaverCampBossWin(player){
     player.flags = player.flags || {};
@@ -5175,6 +5133,46 @@ function handleSlaverCampShelterBossWin(player){
 window.startSlaverCampShelterBossBattle = function(player){
     startBattle("trafficker4", player, {
         noEscape: true,
+        customTurnEvents : {
+            1: () => {
+                log("인신매매단 간부 : 이렇게 싸우는 것도 인연이니 하나만 말해주지. 저놈 옆에 남아있지마. 주변을 죽음으로 이끄는 놈이니까.", "special");
+            },
+
+            2: () => {
+                log("인신매매단 간부 : 우습게도 항상 혼자만 살아남는 놈이지. 여기서 네가 죽는다? 그래도 저녀석은 살아남을 거다.", "special");
+            },
+
+            3 : () => {
+                log(`유리 : 아니. ${player.name}만큼은 내가 무슨 일이 있어도 지킬 거야.`, "yuri");
+            },
+
+            4 : () => {
+                log("유리 : ...무슨 일이 있어도.", "yuri");
+            },
+
+            5 : () => {
+                log("인신매매단 간부 : 그 눈빛... 조금은 돌아온 모양이군? 좋아. 마음에 들어. 예상보다 더 비싸게 팔 수 있겠군.", "special")
+            }
+        },
+
+        allyTurnSupport : {
+            name : "yuri",
+            hpRate : 0.5,
+            damage : 15,
+            logType : "yuri",
+            line : () => {
+                const lines = [
+                    "적들을 어느 정도 해치우고 온 유리가 인신매매단 간부의 빈틈을 노린다! 인신매매단 간부의 옆구리에서 피가 난다! <strong>15 데미지!</strong>",
+                    `유리 : ${player.name}, 그리고 쉘터만큼은 무슨 일이 있어도 지켜낼 거야. <strong>15 데미지!</strong>`,
+                    "유리는 인신매매단 간부의 부하들을 밀쳐내고 인신매매단 간부에게 검격을 넣었다. 그의 공격은 굉장히 빨랐다. <strong>15 데미지!</strong>",
+                    "인신매매단 간부의 옆구리로 유리의 쌍검이 파고들었다. 인신매매단 간부의 손이 유리를 잡기 전에, 유리는 재빨리 뒤로 물러서서 다시 거리를 벌렸다. <strong>15 데미지!</strong>",
+                    "유리는 지지 않을 것이다. 그의 눈빛은 평소의 상냥함 하나 없이 매서웠다. 그의 쌍검이 인신매매단 간부의 팔을 찢는다. <strong>15 데미지!</strong>",
+                    "마치 춤을 추듯이 유려하게 유리는 인신매매단 간부를 여기저기서 공격했다. 인신매매단 간부가 한 순간 빈틈을 보였을 때, 유리는 그 순간을 절대로 놓치지 않았다. <strong>15 데미지!</strong>"
+                ];
+
+                return getRandom(lines).replaceAll("{playerName}", player.name);
+            }
+        },
         onWin: () => {
             player.flags = player.flags || {};
             player.flags.defeated_slaverCampShelter_trafficker4 = true;

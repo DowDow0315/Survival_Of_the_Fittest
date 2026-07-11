@@ -620,7 +620,7 @@ window.EVENTS.push({
         player.justMoved &&
         ["richTownStreet", "gloryStreet"].includes(player.location) &&
         player.flags?.rebelLeader2KilledNoRing &&
-        Math.random() < 0.08,
+        Math.random() < 0.06,
 
     action : (player) => {
         startScene([
@@ -652,7 +652,7 @@ window.EVENTS.push({
         player.justMoved &&
         ["richTownStreet", "gloryStreet"].includes(player.location) &&
         player.flags?.rebelLeader2KilledWithRing &&
-        Math.random() < 0.08,
+        Math.random() < 0.06,
 
     action : (player) => {
         startScene([
@@ -666,6 +666,78 @@ window.EVENTS.push({
                 type : "effect",
                 run : (player) => {
                     startBattle("rebels3", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "night_attack_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet", "darkStreet"].includes(player.location) &&
+        player.flags?.uppercity_hero_event_seen &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 인신매매상이 당신을 뒤에서부터 노리고 있다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("trafficker1", player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "night_attack_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet", "darkStreet"].includes(player.location) &&
+        player.flags?.uppercity_hero_event_seen &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 인기척이 느껴졌다. 인신매매상이 당신을 뒤에서부터 노리고 있다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle("trafficker2", player, {
                         onWin : () => startScene(getLocationScene(player), player),
                         onEscape : () => startScene(getLocationScene(player), player),
                     });

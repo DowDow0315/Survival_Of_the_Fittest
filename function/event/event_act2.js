@@ -847,3 +847,207 @@ window.accept_rebel_story_02_and_enter = function(player){
     savePlayer(player);
     enterDungeon(player, "rebelsHideOut");
 };
+
+window.EVENTS.push({
+    id : "rebel_story_02_after_event_attack",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.rebelLeader2SparedWithRing &&
+        player.flags?.rebel_story_02_done &&
+        !player.flags.rebel_story_02_after_event_attack_seen &&
+        getCurrentDay(player) >= (player.flags.rebel_story_02_done_day + 7),
+
+    action : (player) => {
+        player.flags.rebel_story_02_after_event_attack_seen = true;
+        player.flags.rebel_story_02_after_event_attack_seen_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리에 들어선 당신은 쉘터 쪽에서 아이들의 울음 소리를 들었다. 당신의 시선이 쉘터 쪽으로 돌아갔다. 인신매매단 습격에 이어서 또, 하류도시의 아이들의 숨통을 트이게 했던 곳이 공격당하고 있었다." +
+                    "<br><br>유리가 지키고자 했던 아이들이.<br><br>" +
+                    "하류도시의 사람들이 쉘터 주변에 모여있다. 당신은 그들을 제치고 쉘터에 다가갔다. 백색 제복- 발렌의 군대다. 그들은 반란군이 있었다는 증거를 찾아냈다. 당신도 몇 번이고 봐왔던 그 문장," +
+                    "<br><br><br><span class='log-yuri'>우리는 아직 죽지 않았다</span><br><br><br>" +
+                    "그들이 찾아낸 증거에 많은 사람들은 백색 군단이 쉘터를 습격한 이유를 이해했다." +
+                    "<br><br>몇몇 큰 아이들이 작은 아이들을 지키기 위해 앞으로 나섰다. 백색 군인들은 그들 모두에게 반란군을 감춰준다는 죄를 씌어버렸다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "그들은 반란군들을 잡아간다는 명목 하에 어린 아이들 몇 명을 끌고 나갔다." +
+                    "<br><br>...그리고 당신은 위화감을 느꼈다. 그들은 일부러 시간을 끌며 누군가를 기다리고 있었다." +
+                    "<br><br>\"하류도시의 영웅, 발렌 님께서 그대는 이 일에 관여하지 말라고 했습니다.\"<br><br>" +
+                    "당신은 뒤를 돌았다. 백색 군인들이 당신을 쳐다보고 있었다. 그들 중 몇 명은 자신의 무기를 만지작거렸다." +
+                    "<br><br>\"그리고 만약 당신의 방해를 받을 시에는 당신을 무력화시키라고도 하셨었죠.\"<br><br>" +
+                    "당신이 무기를 잡고 있든 말든, 그들은 당신을 공격할 생각이다. 전투가 시작된다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelStory02AfterBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startRebelStory02AfterBattle = function(player){
+
+    startBattle("whiteArmy1", player, {
+        noEscape : true,
+        onWin : () => startRebelStory02AfterBattle1Event(player),
+        onLose : () => startRebelStory02AfterBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startRebelStory02AfterBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "첫 번째 군인이 쓰러지자, 대열 뒤에 있던 또 다른 백색 군인이 앞으로 걸어 나왔다." +
+                "<br><br>\"고작 한 명 쓰러뜨린 것으로 끝났다고 생각했습니까?\""
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle("whiteArmy1", player, {
+                    noEscape: true,
+                    onWin: () => startRebelStory02AfterBattle2Event(player),
+                    onLose: () => startRebelStory02AfterBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startRebelStory02AfterBattle2Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "두 번째 군인마저 쓰러지자 다른 군인이 앞으로 나왔다. 그는 당신을 바라보며 자신의 쌍도끼를 꺼내 들었다." +
+                "<br><br>\"당신이 설사 이 전투에서 이긴다고 해도, 바꿀 수 있는 게 있을 거라고 생각합니까?\""
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle("whiteArmy2", player, {
+                    noEscape: true,
+                    onWin: () => startRebelStory02AfterBattleAllWinEvent(player),
+                    onLose: () => startRebelStory02AfterBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+
+window.startRebelStory02AfterBattleAllWinEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 당신에게 달려드는 백색 군인들을 전부 해치웠다. 상류도시에서 내려온 군인들을 당신이 전부 이기자, 하류도시의 사람들은 믿기지 않는다는 얼굴로 당신을 보았다. 하류도시의 경비병들도 그건 마찬가지였다." +
+                "<br>무서울 정도로 고요한 정적이었다. 하류도시 마을사람들 중 한 명이 갑자기 울음을 터뜨렸다." +
+                "<br><br>\"상류도시의 명령을 거역하면 어떡해!\"<br><br>" +
+                "당신의 힘에 압도당하는 것도 잠시, 걱정과 두려움이 그들 사이에 퍼졌다. 당신이 우리를 계속 지켜줄 거야? 그들은 당신을 원망했다. 몇몇 사람들은 말리긴 했지만 이미 두려움에 젖은 사람들의 기세를 누르기는 어려워보였다." +
+                "<br><br>\"그만해요! 영웅님은 우리를 구해주셨다고요!\"<br><br>" +
+                "시온이 당신과 아우성치는 하류도시 사람들 사이를 가로막고 섰다. 그는 두 팔을 벌리고 영웅님은 우리를 지켜준 것뿐이라고 말했다." +
+                "<br><br>\"우리를? 반란군을 지켜준 거겠지!\"<br><br>" +
+                "\"우리를 지켜준 거야! 상류도시가 언제 우리를 지켜준 적이 있어!?\"<br><br>" +
+                "두 갈래로 나눠져 싸우는 사람들의 중심에 당신이 있다. 사람들에게 으르렁거리던 시온이 걱정 어린 눈으로 당신을 보았다. 그는 당신에게 괜찮냐고 물었다. 당신의 시야가 흐려졌다가 다시 선명해졌다. 백색 군단은 누군가에게 보고를 하더니 뒤로 물러났다." +
+                "<br>...누군가를 놓쳤다는 보고다. 당신은 어쩐지 그 '누군가'가 누구인지 알 것 같았다." +
+                "<br><br><br><br>백색 군단이 물러나고 쉘터의 아이들은 당신의 주변에 옹기종기 모여있었다. 몇몇 아이들은 울음을 터뜨렸고 몇몇 아이들은 그 아이들을 달래주었고, 또 몇몇 아이들은 시온처럼 당신에게 고맙다고 말했다." +
+                "<br><br>...그 누구도 챙겨주지 않은 우리들을, 챙겨줘서 고마워."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.rebel_story_02_after_youWinAll = true;
+                changeNPCEmotion("valen", "affection", -3);
+                changeNPCEmotion("valen", "rage", 10);
+                changeNPCEmotion("akasia", "affection", -3);
+                changeNPCEmotion("akasia", "rage", 10);
+                changeNPCEmotion("yuri", "rage", -10);
+                changeNPCEmotion("yuri", "affection", 10);
+                changeNPCEmotion("sion", "affection", 10);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.location = "shelter";
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.startRebelStory02AfterBattleLosingEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 백색 군단의 힘을 이겨낼 수가 없었다. 하류도시의 영웅이 쓰러졌다. 당신이 쓰러지자 몇몇 시민들이 당신의 앞에 나섰다. 몇몇은 하류도시의 영웅을 살려달라고 말했고, 몇몇은 당신의 이름을 부르며 당신을 더 이상 해치지 말라고 말했다. 당신은 누군가 당신의 몸을 껴안는 걸 느꼈다." +
+                "<br>시온이다. 그는 당신을 껴안으며 분노에 찬 시선으로 백색 군인을 노려보고 있었다. 그는 당신을 해치려면 자신을 먼저 죽이고 가야 할 거라고 말했다." +
+                "<br><br>\"나는 절대로, 하류도시의 영웅 님을 다치게 하지 않을 거예요.\"<br><br>" +
+                "그는 눈물을 뚝뚝 흘리며 당신에게 약해서 미안하다고 말했다." +
+                "<br><br>\"무슨 일이 있어도 강해질게요... 그래서 아무도 지켜주지 않는 당신을, 제가 지켜줄게요...\"<br><br>" +
+                "어디선가 \"찾았다!\"하는 소리가 들렸다. 백색 군단은 더 이상 당신에게 관심이 없았다. 그들은 누군가를 쫓아가고 있었다." +
+                "<br>당신은 그대로, 시온의 품에서 기절하고 말았다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 눈을 떴을 때 쉘터는 엉망진창이었다. 당신의 상처를 치료해주던 유리가 입술을 뗐다. 하지만 그는 아무 말도 하지 못하고 다시 입술을 다물었다." +
+                "<br>당신의 상처는 유리가 말끔하게 치료해놓았다. 당신은 붕대를 감고 있는 유리의 팔을 보았다. 당신의 시선을 눈치챈 유리는 말없이 다친 팔을 뒤로 숨겼다." +
+                "<br><br>\"...쉬어.\"<br><br>" +
+                "그는 입술을 악물었다." +
+                "<br><br>\"그리고 미안해.\""
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.rebel_story_02_after_youLose = true;
+                changeNPCEmotion("valen", "affection", -3);
+                changeNPCEmotion("valen", "fear", 10);
+                changeNPCEmotion("akasia", "affection", -3);
+                changeNPCEmotion("akasia", "fear", 10);
+                changeNPCEmotion("yuri", "affection", 5);
+                changeNPCEmotion("sion", "affection", 5);
+                changeNPCEmotion("sion", "dominance", 10);
+                changeHP(player, 100);
+                changeStamina(player, 100);
+                passTime(player, 50);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.location = "shelter";
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};

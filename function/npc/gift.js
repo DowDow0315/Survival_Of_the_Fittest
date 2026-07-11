@@ -1315,24 +1315,24 @@ const NPC_GIFT_CONFIG = {
         reactions: {
             lukeFavorite: {
                 great: {
-                    affection: 5,
-                    rage: 0,
-                    lust : 0,
-                    line: ""
+                    affection: 10,
+                    rage: -4,
+                    lust : 2,
+                    line: "\"뭐야, 금연 강요냐?\"<br><br>루크는 피식 웃으면서도 당신이 만든 막대사탕을 쪽쪽 빨아먹었다. 그는 사탕 때문에 색이 변한 혀를 내밀어보였다.<br><br>\"왜, 이런 걸 바라고 준 거 아니었어?\""
                 },
             
                 normal: {
-                    affection: 5,
-                    rage: 0,
+                    affection: 8,
+                    rage: -2,
                     lust : 0,
-                    line: ""
+                    line: "루크는 당신이 만든 막대사탕을 먹으며 자신이 처음부터 단 맛을 좋아했던 건 아니었다고 말했다. <br><br>\"뭐, 현재가 제일 중요하긴 하지.\"<br><br>와작, 그는 막대사탕을 씹으며 입꼬리를 올렸다."
                 },
             
                 bad: {
-                    affection: 3,
-                    rage: 0,
+                    affection: 6,
+                    rage: -1,
                     lust : 0,
-                    line: ""
+                    line: "루크는 맛없는 막대사탕에도 뭐라 하지 않았다. 그는 사탕은 어떤 맛이든 다 사탕이라고 말했다. 그가 요리를 못하는 이유를 조금은 알 것만도 같다."
                 }
             },
             lukeHate: {

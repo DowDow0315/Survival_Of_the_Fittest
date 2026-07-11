@@ -56,6 +56,16 @@ const ENEMY_POOLS = {
         { id : "infected", weight : 40 },
         { id : "trafficker1", weight : 5},
         { id : "trafficker2", weight : 5}
+    ],
+    guardPost3 : [
+        { id: "bird", weight: 20 },
+        { id : "deer", weight: 5 },
+        { id : "flower2", weight : 20 },
+        { id : "flower", weight : 25},
+        { id : "infected", weight : 20 },
+        { id : "abomination1", weight : 5},
+        { id : "trafficker2", weight : 20},
+        { id : "trafficker1", weight : 20}
     ]
 };
 

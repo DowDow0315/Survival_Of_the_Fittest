@@ -53,7 +53,8 @@ async function loadEnemies(){
         "rebelLeader", "erwin", "rebels1", "rebels2", "rebelLeader2",
         "infectedSmall", "infected", "infectedSoldier", "infectedSmalls",
         "trafficker1", "trafficker2", "trafficker3", "trafficker4",
-        "abomination1"
+        "abomination1",
+        "whiteArmy1", "whiteArmy2"
     ];
 
     for (const name of list){

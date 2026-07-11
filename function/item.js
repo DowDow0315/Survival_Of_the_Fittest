@@ -51,6 +51,7 @@ const WEAPON_SKILLS = {
             name: "독바르기",
             cost: 3,
             type: "poison",
+            id : "dagger_poison",
             dot: 5,
             duration: 3,
             unlock: 100,
@@ -91,6 +92,7 @@ const WEAPON_SKILLS = {
             name: "독무",
             cost: 3,
             type: "poison",
+            id : "dancingDagger_poison",
             dot : 5,
             duration: 3,
             unlock: 100,
@@ -100,6 +102,7 @@ const WEAPON_SKILLS = {
             name: "피의환무",
             cost: 3,
             type: "bleed",
+            id : "dancingDagger_bleed",
             dot: 5,
             duration: 3,
             unlock: 150,
@@ -109,6 +112,7 @@ const WEAPON_SKILLS = {
             name: "독사의이빨",
             cost: 5,
             type: "poison",
+            id : "dancingDagger_strongPoison",
             dot: 10,
             duration: 5,
             unlock: 200,
@@ -179,6 +183,7 @@ const WEAPON_SKILLS = {
             name: "독가스",
             cost: 5,
             type: "poison",
+            id : "magicStick_poison",
             dot: 10,
             duration: 5,
             unlock: 150,
@@ -350,6 +355,7 @@ const WEAPON_SKILLS = {
             name: "피나게때리기",
             cost: 6,
             type: "bleed",
+            id : "goblinSword_bleed",
             dot: 5,
             duration: 8,
             unlock: 200,
@@ -382,6 +388,7 @@ const WEAPON_SKILLS = {
             name : "흩뿌려지는 피",
             cost : 3,
             type : "bleed",
+            id : "throwingDagger_bleed",
             dot : 3,
             duration : 10,
             unlock : 150,
@@ -513,6 +520,7 @@ const WEAPON_SKILLS = {
             name : "뼈검찢기",
             cost : 3,
             type : "bleed",
+            id : "skeletonGreatSword_bleed",
             dot : 15,
             duration : 3,
             unlock : 150,
@@ -541,6 +549,7 @@ const WEAPON_SKILLS = {
             name : "꽃채찍의 하얀 독",
             cost : 3,
             type : "poison",
+            id : "flowerleash_poison",
             dot : 15,
             duration : 3,
             unlock : 100,
@@ -628,6 +637,7 @@ const WEAPON_SKILLS = {
             name : "독무쌍검",
             cost : 3,
             type : "poison",
+            id : "whiteFlowerTwinDagger_poison",
             dot : 20,
             duration : 4,
             unlock : 100,
@@ -670,6 +680,7 @@ const WEAPON_SKILLS = {
             name : "하얀꽃독안개",
             cost : 2,
             type : "poison",
+            id : "whiteFlowerRipper_poison",
             dot : 20,
             duration : 3,
             unlock : 100,
@@ -763,12 +774,12 @@ const WEAPON_SKILLS = {
             name : "반란의 칼날",
             cost : 4,
             type : "damage",
-            power : 5.7,
+            power : 5.8,
             unlock : 150,
-            desc : "데미지 5.7배 공격"
+            desc : "데미지 5.8배 공격"
         },
         {
-            name : "대의를 위한 날카로운 공격",
+            name : "대의를 위한 묵직한 공격",
             cost : 3,
             type : "buff",
             effect : {
@@ -823,6 +834,49 @@ const WEAPON_SKILLS = {
             duration: 6,
             unlock : 100,
             desc : "6턴간 방어력 2배, 회피율 1.3배, 공격력 0.8배"
+        }
+    ],
+    "백색 군대의 쌍도끼" : [
+        {
+            name : "두 번 던지기",
+            cost : 2,
+            type : "multiHit",
+            power : 1.6,
+            hits : 2,
+            unlock : 20,
+            desc : "데미지 1.6배로 2번 공격" 
+        },
+        {
+            name : "쌍도끼 크로스오버",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteArmyTwinAxe_buff",
+                atkfMult : 1.5,
+                defMult : 1.1
+            },
+            duration: 6,
+            unlock : 100,
+            desc : "6턴간 공격력 1.5배, 방어력 1.1배"
+        },
+        {
+            name: "쌍도끼 긁기",
+            cost: 3,
+            type: "bleed",
+            id : "whiteArmyTwinAxe_bleed",
+            dot: 15,
+            duration: 5,
+            unlock: 150,
+            desc : "5턴간 상대방에게 출혈데미지(15)"
+        },
+        {
+            name : "마구 던지기",
+            cost : 5,
+            type : "multiHit",
+            power : 1.5,
+            hits : 6,
+            unlock : 200,
+            desc : "데미지 1.5배로 6번 공격" 
         }
     ]
 };
@@ -907,6 +961,10 @@ const MASTER_SKILLS = {
     "반란의 한손검" : {
         requiredMastery : 300,
         skillName : "방패굳히기"
+    },
+    "백색 군대의 쌍도끼" : {
+        requiredMastery : 300,
+        skillName : "마구 던지기"
     }
 };
 
@@ -1137,6 +1195,18 @@ const ITEMS ={
                 str : 6,
                 dex : 4,
                 int : 4
+            }
+        },
+
+        whiteArmyTwinAxe : {
+            name : "백색 군대의 쌍도끼",
+            type : "weapon",
+            desc : "그들의 정의는 어쩌면 한 사람의 정의에 달려있을지도 모른다.",
+            price : 3000,
+            stats : {
+                str : 9,
+                dex : 3,
+                int : 2
             }
         }
     },
@@ -1749,6 +1819,28 @@ const ITEMS ={
             value : 5,
             tags : ["gift", "sweet", "bad"],
             price : 50 
+        },
+
+        greatCandyBar : {
+            name : "훌륭한 막대사탕",
+            type : "heal",
+            value : 45,
+            tags : ["gift", "lukeFavorite", "sweet", "great"],
+            price : 750 
+        },
+        normalCandyBar : {
+            name : "막대사탕",
+            type : "heal",
+            value : 30,
+            tags : ["gift", "lukeFavorite", "sweet", "normal"],
+            price : 700 
+        },
+        badCandyBar : {
+            name : "맛없는 막대사탕",
+            type : "heal",
+            value : 15,
+            tags : ["gift", "lukeFavorite", "sweet", "bad"],
+            price : 600
         },
 
         greatFruitSlimeLiquid : {
@@ -2911,6 +3003,25 @@ window.RECIPES = {
             bad: "badSmoothJelly",
             disaster : "trash"
         }
+    },
+
+    candyBar : {
+        name : "막대사탕",
+        desc : "하얀꽃과 넥타르, 그리고 희귀한 숲열매를 넣어서 만든 달콤한 막대사탕",
+
+        ingredients : {
+            flower : 1,
+            flowerNectar : 1,
+            rareFruit : 1
+        },
+
+        results : {
+            great: "greatCandyBar",
+            normal: "normalCandyBar",
+            bad: "badCandyBar",
+            disaster : "trash"
+        }
+        
     },
 
     fruitSlimeLiquid : {

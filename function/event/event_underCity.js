@@ -935,6 +935,7 @@ window.EVENTS.push({
 //니콜라이
 window.EVENTS.push({
     id : "nikolai_feels_good_event",
+    priority : true,
     once : true,
 
     condition : (player) =>

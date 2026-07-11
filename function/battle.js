@@ -644,6 +644,7 @@ function useSkill(index){
             
             applyBuff(enemy, {
                 id : skill.id || skill.type,
+                statusType: "bleed",
                 dot: skill.dot,
                 duration: skill.duration
             });
@@ -665,6 +666,7 @@ function useSkill(index){
             
             applyBuff(enemy, {
                 id : skill.id || skill.type,
+                statusType: "poison",
                 dot: skill.dot,
                 duration: skill.duration
             });
@@ -784,7 +786,7 @@ function applyBuff(target, effect, type = "buff"){
         const existing = target.buffs.find(buff => buff.id === effect.id);
 
         if (existing){
-            existing.remaining = effect.duration;
+            existing.remaining += effect.duration;
             return;
         }
     }
@@ -822,9 +824,9 @@ function updateBuffs(target){
                 }
             }
 
-            if (buff.id === "bleed"){
+            if (buff.statusType === "bleed"){
                 log(`출혈 데미지 ${buff.dot}!`, "damage");
-            } else if (buff.id === "poison"){
+            } else if (buff.statusType === "poison"){
                 log(`독 데미지 ${buff.dot}!`, "damage");
             } else {
                 log(`${buff.dot}의 지속 피해!`, "damage");
@@ -1152,7 +1154,8 @@ function enemyTurn(){
     }
 
     applyBuff(player, {
-        id : skill.id || skill.type,
+        id: skill.id || skill.type,
+        statusType: "poison",
         dot: skill.dot,
         duration: skill.duration
     });
@@ -1169,7 +1172,8 @@ function enemyTurn(){
     }
 
     applyBuff(player, {
-        id : skill.id || skill.type,
+        id: skill.id || skill.type,
+        statusType: "bleed",
         dot: skill.dot,
         duration: skill.duration
     });

@@ -190,6 +190,26 @@ window.clean_lukeHouse = function(player){
 };
 
 function buildShelterScene(player, loc, randomDesc){
+    const choices = [
+        { text: "자기", action: "sleep" },
+        { text: "잠깐 쉬기", action: "rest" },
+        { text: "몸을 정비한다", action: "cleanseBodyFluid" },
+        { text: "침착하게 정신을 다스린다", action: "calmDown" },
+        { text: "유리와 대화", action: "yuri_talk" }
+    ];
+
+    if (player.flags?.sion_talk_unlocked) {
+        choices.push({
+            text: "시온과 대화",
+            action: "sion_talk"
+        });
+    }
+
+    choices.push({
+        text: "나가기",
+        action: "move_townStreet"
+    });
+
     return [
         {
             type: "text",
@@ -197,14 +217,7 @@ function buildShelterScene(player, loc, randomDesc){
         },
         {
             type: "choice",
-            choices: [
-                { text: "자기", action: "sleep" },
-                { text : "잠깐 쉬기", action : "rest"},
-                { text: "몸을 정비한다", action: "cleanseBodyFluid" },
-                { text: "침착하게 정신을 다스린다", action: "calmDown" },
-                { text: "유리와 대화", action: "yuri_talk" },
-                { text: "나가기", action: "move_townStreet" }
-            ]
+            choices
         }
     ];
 }

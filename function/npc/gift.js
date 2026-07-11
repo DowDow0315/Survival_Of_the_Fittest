@@ -1976,6 +1976,340 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    sion: {
+        reactions: {
+            sionFavorite: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            sionHate: {
+                great: {
+                    affection: -1,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"영웅님은 달콤한 거 좋아하세요?\"<br><br>시온은 당신의 요리를 먹으며 미소를 지었다.<br><br>\"단 걸 좋아하는 영웅님이라니, 상상만 해도 너무 귀여운 거 같아요.\""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: "시온은 자신이 달콤한 걸 좋아할 거 같지 생겼냐고 물었다. 그는 자신이 당신에게 어려보일까봐 걱정하는 거 같다."
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"...응?\"<br><br>요리를 먹던 시온이 당신을 쳐다보았다. 그러더니 웃었다. <br><br>\"요리 못하는 영웅님이라니, 귀여워...\""
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 5,
+                    line: "시온은 얼굴이 붉어져서 당신이 내민 요리와 당신의 얼굴을 번갈아보았다. 그의 얼굴은 금방이라도 터질 거 같다..."
+                },
+
+                normal: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 5,
+                    line: "시온은 붉어진 얼굴로 당신의 요리를 받았다. 그는 고개를 푹 숙인 후 고개를 들지 못하고 있다..."
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 5,
+                    line: "\"...이, 이런 냄새 좋아하세요...?\"<br><br>시온의 얼굴은 붉다. 그는 요리의 냄새를 맡으며 당신의 눈치를 살폈다."
+                }
+            },
+
+            lustyHighAffection : {
+                great: {
+                    affection: 8,
+                    rage: 0,
+                    lust : 10,
+                    line: "\"영웅님..\"<br><br>시온은 붉게 달아오른 얼굴로 당신을 바라보았다. <br><br>\"...저도, 언젠가 대접해드릴게요...\""
+                },
+
+                normal: {
+                    affection: 8,
+                    rage: 0,
+                    lust : 10,
+                    line: "시온은 당신의 요리와 당신의 얼굴을 번갈아보다가 붉어진 얼굴로 웃었다. <br><br>\"이 빚은 꼭 갚을게요, 영웅님.\""
+                },
+            
+                bad: {
+                    affection: 5,
+                    rage: 0,
+                    lust : 5,
+                    line: "\"영웅님은... 이런 냄새 좋아하시는 구나.\"<br><br>시온은 미소를 지었다. 그는 당신의 요리 냄새를 더 맡았다."
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 고기 요리를 먹다가 당신에게도 고기를 내밀었다. <br><br>\"영웅님도 건강해야 해요.\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 고기 요리를 먹다가 \"아~\"하며 당신에게 고기를 내밀었다. 내심 당신이 입을 벌려주길 바라고 있다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 고기 요리를 다 먹었다. 그리고 그는 웃었다. <br><br>\"잘 먹었아요, 영웅님.\"<br><br>어쩐지 그가 당신을 귀엽게 여기는 거 같다."
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 8,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"영웅님이 절 위해서, 이런 건강식을...\"<br><br>그는 감동한 얼굴로 당신의 요리를 먹다가 당신에게도 요리를 내밀었다."
+                },
+
+                normal : {
+                    affection : 6,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 야채 요리를 맛있게 먹고 있다. 그는 당신도 먹으라며 당신의 입에 숟가락을 내밀었다."
+                },
+
+                bad : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 야채 요리를 다 먹은 후 히죽 웃었다. <br><br>\"...귀여워...\"<br><br>그는 속삭이듯이 중얼거렸다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"다음 번에 연어 낚아올게요.\"<br><br>시온은 다짐하듯이 주먹을 쥐었다. 그리고 그는 당신의 요리를 먹다가 당신에게도 요리를 내밀었다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"다음 번에 연어 낚아올게요.\"<br><br>시온은 다짐하듯이 주먹을 쥐었다. 그리고 그는 당신의 요리를 먹다가 당신에게도 요리를 내밀었다."
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 웃으며 다음 번에 생선을 더 낚아올 테니 같이 요리 연습을 하자고 말했다. <br><br>\"같이...\""
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"고기랑 채소, 균형이 좋죠.\"<br><br>시온은 당신에게 \"아~\"하며 말했다. 그는 당신의 건강을 신경쓰고 있다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신과 한 숟가락씩 나눠먹으며 당신의 음식 취향에 대해 물었다."
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 요리를 먹으며 싱글싱글 웃었다. 어쩐지 그가 당신을 귀엽게 여기는 거 같다."
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 맨빵은 무슨 맛으로 먹는지 모르겠다고 말하며 빵을 먹었다. <br><br>\"헉, 혹시... 영웅님이 좋다면 저도 좋아요.\"<br><br>그는 빠르게 빵을 해치웠다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 빵을 먹은 적은 거의 없다고 말했다. <br><br>\"사실 본 적도 많이 없어요.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 빵을 먹다가 인상을 찌푸렸다. <br><br>\"...감사해요, 영웅님. 잘 먹었습니다.\""
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 고기빵을 먹으며 역시 빵에는 뭔가가 들어가야 맛있다고 말했다. <br><br>\"고기라든지, 야채라든지...\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 빵 한조각을 떼서 당신의 입에 넣어주다가 얼굴이 붉어졌다."
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 빵을 먹으며 히죽 웃었다. <br><br>\"요리 못하는 영웅님이라니... 귀여워.\"<br><br>그는 작게 중얼거렸다."
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 웃으며 빵을 먹었다. 그는 이런저런 얘기를 재잘거리다가 당신의 입에도 빵을 넣어주었다. 그의 손가락이 은근슬쩍 당신의 입술을 스쳤다."
+                },
+
+                normal : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신과 빵을 나눠먹으며 상류도시에 갔을 때 당신도 빵을 많이 먹는 편이냐고 물었다."
+                },
+
+                bad : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 빵을 먹으며 히죽 웃었다. <br><br>\"요리 못하는 영웅님이라니... 귀여워.\"<br><br>그는 작게 중얼거렸다."
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"밥은 정말 금방 배가 차네요.\"<br><br>시온은 당신의 요리를 먹으며 말했다. 그는 당신에게도 \"아~\"하며 얼굴을 붉혔다."
+                },
+
+                normal : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신과 밥을 한숟가락씩 나눠먹으며 웃었다. <br><br>\"신혼부부...들도 이러겠죠?\"<br><br>그의 뺨이 상기됐다."
+                },
+
+                bad : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 요리를 먹으며 어떤 상상으로 얼굴을 붉히고 있다. <br>...당신을 귀엽다고 생각하고 있는 걸지도."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 요리를 먹다가도 큰 고기가 나오면 당신의 입에 넣어주었다. 그는 당신의 오물거리는 입을 사랑스럽다는 듯이 바라보고 있다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 헤실헤실 웃으며 당신과 밥을 나눠먹고 있다. <br><br>\"가끔 영웅님은 아기새같아요....\""
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "시온은 당신의 요리를 먹으며 어떤 상상으로 얼굴을 붉히고 있다. <br>...당신을 귀엽다고 생각하고 있는 걸지도."
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -5,
+                    rage: 0,
+                    lust : 0,
+                    line: "시온은 쓰레기와 당신의 얼굴을 번갈아보았다. <br><br>\"...요새 저한테 뭐 화난 거라도 있나요...?\""
+                }
+            }
+        }
     }
 };
 
@@ -2112,6 +2446,13 @@ function giveFoodToNpc(player, npcId, item){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }
 
+        if (
+            npcId === "sion" &&
+            taste === "lusty" &&
+            affection >= 50
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
 
 
         if (!reaction){

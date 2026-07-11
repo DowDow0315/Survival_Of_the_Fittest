@@ -359,7 +359,7 @@ window.EVENTS.push({
     once: true,
 
     condition: (player) =>
-        NPC_DATA["kain"].emotion.affection > 30 &&
+        NPC_DATA["kain"].emotion.affection >= 30 &&
         !player.flags?.kain_blushesAtYou_seen &&
         (
             getTimePeriod(player) === "night" ||
@@ -369,10 +369,38 @@ window.EVENTS.push({
 
     action: (player) => {
         player.flags.kain_blushesAtYou_seen = true;
+        player.flags.kain_blushesAtYou_seen_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(
             NPC_DATA["kain"].scenes.kain_blushesAtYou,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_umbrella",
+    once: true,
+
+    condition: (player) =>
+        player.flags?.kain_blushesAtYou_seen &&
+        !player.flags?.kain_umbrella_seen &&
+        getCurrentDay(player) >= player.flags.kain_blushesAtYou_seen_day + 3 &&
+        player.location === "theater",
+
+    action: (player) => {
+        player.flags.kain_umbrella_seen = true;
+        addItem(player, ITEMS.weapon.umbrella);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_umbrella,
             player,
             {
                 onEnd: () => {

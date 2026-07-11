@@ -257,6 +257,61 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_luckySkebe_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "townEntrance" ||
+         player.location === "townStreet" ) &&
+        (
+        player.sexualTraits.bSize === "큼" ||
+        player.sexualTraits.bSize === "거대하고아름다움"
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["luke"].scenes.luke_luckySkebe_event_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_luckySkebe_event_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "lukeHouse" &&
+        (
+        player.sexualTraits.bSize === "큼" ||
+        player.sexualTraits.bSize === "거대하고아름다움"
+        ) &&
+        player.flags.luke_luckySkebe_event_02_day !== getCurrentDay(player) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        player.flags.luke_luckySkebe_event_02_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_luckySkebe_event_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라
 window.EVENTS.push({
     id : "sora_patience_limit_outside_event",
@@ -406,6 +461,31 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["sora"].scenes.sora_flowerDate_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_whiteFlowerRing_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        hasItemOrEquipped(player, "whiteFlowerRing") &&
+        !player.flags?.sora_whiteFlowerRing_event_seen &&
+        !player.flags?.soraDie,
+
+    action : (player) => {
+        player.flags.sora_whiteFlowerRing_event_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_whiteFlowerRing_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -785,10 +865,11 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "shelter" &&
         player.flags?.rebel_story_01_done &&
-        getCurrentDay(player) >= (player.flags.rebel_story_01_done_day + 3) &&
+        getCurrentDay(player) >= (player.flags.rebel_story_01_done_day + 2) &&
         !player.flags?.yuri_rebel_story_01_after_seen,
 
     action : (player) => {
+        player.flags.yuri_rebel_story_01_after_seen_day = getCurrentDay(player);
         player.flags.yuri_rebel_story_01_after_seen = true;
         savePlayer(player);
 
@@ -973,6 +1054,28 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["pale"].scenes.pale_afterFlowerDateDream_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+//시온
+window.EVENTS.push({
+    id : "sion_hisLittleConfession",
+    once : true,
+
+    condition : (player) =>
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        NPC_DATA["sion"].emotion.affection > 5 &&
+        player.location === "townStreet" &&
+        player.justMoved,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisLittleConfession,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

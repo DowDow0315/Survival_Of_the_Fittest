@@ -8,7 +8,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "spouse")
         ) &&
         !player.flags?.soraDie &&
-        Math.random() < 0.05,
+        Math.random() < 0.06,
 
     action : (player) => {
         startScene([
@@ -97,7 +97,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shop" &&
-        NPC_DATA["matin"].emotion.affection > 10 &&
+        NPC_DATA["matin"].emotion.affection > 20 &&
         NPC_DATA["sora"].emotion.affection > 30 &&
         !player.flags?.soraDie &&
         Math.random() < 0.08,

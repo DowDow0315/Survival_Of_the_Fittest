@@ -445,8 +445,8 @@ const DUNGEONS = {
         ],
 
         rooms : {
-            "r0c0" : {name : "입구", exits : {right : "r0c1"}, event : "slaverCampShelter_yuri_01", seenFlag : "slaverCampShelter_yuri_01"},
-            "r0c1" : {name : "오른쪽으로 뻗어가는 길1", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c0" : {name : "입구", exits : {right : "r0c1"}},
+            "r0c1" : {name : "오른쪽으로 뻗어가는 길1", exits : {left : "r0c0", right : "r0c2"}, event : "slaverCampShelter_yuri_01", seenFlag : "slaverCampShelter_yuri_01"},
             "r0c2" : {name : "오른쪽으로 뻗어가는 길2", exits : {left : "r0c1", right : "r0c3"}},
             "r0c3" : {name : "오른쪽으로 뻗어가는 길3", exits : {left : "r0c2", right : "r0c4"}},
             "r0c4" : {name : "코너길1", exits : {left : "r0c3", down : "r1c4"}},

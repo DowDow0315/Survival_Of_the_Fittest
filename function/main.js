@@ -1089,11 +1089,11 @@ function applyEffect(effect, player){
     }
 
     else if (effect.target === "sensitivity"){
-        changeSensitivity(player, effect.key, effect.amount);
+        changeSensitivity(player, effect.key, amount);
     }
 
     else if (effect.target === "fluid"){
-        addBodyFluid(player, effect.key, effect.amount);
+        addBodyFluid(player, effect.key, amount);
     }
 
     else if (effect.target === "npc"){
@@ -1110,7 +1110,26 @@ function applyEffect(effect, player){
     }
 
     else if (effect.target === "item"){
-        addItem(player, effect.key, effect.amount || 1);
+        const item =
+        ITEMS.weapon?.[effect.key] ||
+        ITEMS.top?.[effect.key] ||
+        ITEMS.bra?.[effect.key] ||
+        ITEMS.bottom?.[effect.key] ||
+        ITEMS.underwear?.[effect.key] ||
+        ITEMS.accessary?.[effect.key] ||
+        ITEMS.consumable?.[effect.key] ||
+        ITEMS.misc?.[effect.key];
+        
+        if (!item){
+            console.warn("아이템을 찾을 수 없음:", effect.key);
+            return;
+        }
+
+        const count = amount || 1;
+        
+        for (let i = 0; i < count; i++){
+            addItem(player, item);
+        }
     }
 
     else if (effect.target === "gold"){
@@ -1791,7 +1810,8 @@ function isRichTownLocation(locationKey){
         "theater",
         "twinsMansion",
         "heavenRoad",
-        "heavenPalace"
+        "heavenPalace",
+        "heavenValenRoom"
     ].includes(locationKey);
 }
 
@@ -1875,6 +1895,10 @@ function renderRichTownMap(player){
 
                 <div class="map-row center">
                     ${node("heavenPalace")}
+
+                    <div class="branch-list">
+                        ${node("heavenValenRoom")}
+                    </div>
                 </div>
 
             </div>

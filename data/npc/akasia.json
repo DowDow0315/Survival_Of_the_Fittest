@@ -17,9 +17,42 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "affection", "min": 90},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "아카시아의 사전에는 [당신의 부재]라는 단어가 존재하지 않는다."
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90}
             ],
             "text" : "아카시아는 당신을 적으로 돌리고 싶지 않아한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 60},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "아카시아는 당신이 생각날 때마다 당신을 주저없이 만나러 간다. 그의 머릿속에는 당신의 거절이 아예 없다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 60}
+            ],
+            "text" : "아카시아는 당신도 자신의 생각을 자주 하는지 궁금해하고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 30},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "아카시아는 당신이 자신의 제안을 거절할 거라 생각하지 않는다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "dominance", "min": 50}
+            ],
+            "text" : "아카시아는 당신을 데리고 이곳저곳 돌아다니는 걸 즐긴다."
         },
         {
             "conditions" : [

@@ -19,6 +19,8 @@ const LOCATION_SCENE_BUILDERS = {
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
+    heavenPalace : buildHeavenPalaceScene,
+    heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
     gloryHole: getGloryHoleScene
 };
@@ -148,6 +150,7 @@ function buildLukeHouseScene(player, loc, randomDesc){
             type: "choice",
             choices: [
                 { text: "잔다", action: "sleep_lukeHouse" },
+                { text: "쉰다", action: "rest_lukeHouse" },
                 { text: "청소를 해준다", action: "clean_lukeHouse" },
                 { text: "나간다", action: "move_darkStreet" }
             ]
@@ -163,6 +166,21 @@ window.sleep_lukeHouse = function(player){
     savePlayer(player);
     showSingleTextScene(
         "당신은 루크의 침대에 몸을 눕혔다. 익숙하지 않은 침대였지만 이상할 정도로 편안했다. 눈을 뜨자 몸의 피로가 말끔히 풀려 있었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+window.rest_lukeHouse = function(player){
+    changeHP(player, 50);
+    changeStamina(player, 50);
+
+    passTime(player, 30);
+    savePlayer(player);
+    showSingleTextScene(
+        "당신은 루크의 방에서 잠시 쉬었다. 안심하고 쉴 수 있어서인지 당신의 피로는 금방 회복되었다.",
         player,
         {
             onEnd: () => startScene(getLocationScene(player), player)
@@ -1169,6 +1187,91 @@ function getKainBackstageScene(player){
         NPC_DATA["kain"].scenes.kain_theaterRandom_AffectionLow
     );
 }
+
+function buildHeavenPalaceScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"발렌의 집무실로 향한다", action:"approach_heavenValenRoom" },
+        { text:"천국으로 가는 길로 돌아간다", action:"move_heavenRoad" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
+        }
+    ];
+}
+
+window.approach_heavenValenRoom = function(player){
+    if (hasItem(player, "아카시아 꽃 훈장")){
+        moveTo(player, "heavenValenRoom");
+        return;
+    }
+
+    showSingleTextScene(
+        "당신이 발렌의 집무실로 들어가려고 하자 앞에 서있던 백색 군인이 막았다. 그는 발렌의 허락 없이는 발렌의 집무실에 들어올 수 없다고 말했다.",
+        player
+    );
+};
+
+function buildHeavenValenRoomScene(player, loc, randomDesc){
+    const choices = [
+        { text: "자기", action: "sleep_valenRoom" },
+        { text: "잠깐 쉬기", action: "rest_valenRoom" },
+        { text: "침착하게 정신을 다스린다", action: "calmDown" },
+        { text: "발렌과 대화", action: "valen_talk" },
+        { text: "아카시아와 대화", action: "akasia_talk" }
+    ];
+
+    choices.push({
+        text: "나가기",
+        action: "move_heavenPalace"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+window.sleep_valenRoom = function(player){
+    player.status.hp = player.status.maxHp;
+    player.status.stamina = player.status.maxStamina;
+
+    passTime(player, 40);
+    savePlayer(player);
+    showSingleTextScene(
+        "당신은 발렌의 집무실 안쪽에 있는 침대에 몸을 눕혔다. 침대는 너무 편했다. 당신은 금방 잠들어버렸다. 눈을 뜨자 몸의 피로가 말끔히 풀려 있었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+window.rest_valenRoom = function(player){
+    changeHP(player, 50);
+    changeStamina(player, 50);
+    passTime(player, 20);
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 발렌의 집무실에서 잠시 쉬었다. 발렌과 아카시아의 허락 없이는 아무도 오지 않을 거라는 안도감 때문일까, 당신의 몸은 금방 가벼워졌다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
 
 function getGloryHoleScene(player){
     return [

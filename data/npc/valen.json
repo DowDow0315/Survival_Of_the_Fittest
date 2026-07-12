@@ -19,9 +19,73 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "rage", "min": 50}
+            ],
+            "text" : "발렌은 당신을 믿지 않는다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 70},
+                {"emotion" : "fear", "min": 50}
+            ],
+            "text" : "발렌은 당신을 꽤 귀엽다고 생각한다. 그는 당신을 놓아줄 생각이 없다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 70},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "발렌은 당신을 위한 강아지목걸이를 색깔별로 가지고 있다. 그는 요새 당신과 마주하는 것이 즐겁다."
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90}
             ],
             "text" : "발렌은 당신이 자신의 옆에 있기를 바란다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 70}
+            ],
+            "text" : "발렌은 실시간으로 당신의 동향을 보고받고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50},
+                {"emotion" : "fear", "min": 50}
+            ],
+            "text" : "발렌은 당신이 소동물을 닮았다고 생각한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50},
+                {"emotion" : "dominance", "min": 50}
+            ],
+            "text" : "발렌은 당신을 훈련시키고 싶어한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50}
+            ],
+            "text" : "발렌은 당신에게 어울릴 만한 옷이나 장신구를 찾아보는 취미가 생겼다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "fear", "min": 40}
+            ],
+            "text" : "발렌은 당신이 자신을 두려워하고 있다는 걸 알고 있고, 그걸 철저하게 이용할 생각이다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "dominance", "min": 40}
+            ],
+            "text" : "발렌은 당신의 순종적인 태도를 사랑한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 30}
+            ],
+            "text" : "당신은 발렌의 미소가 당신의 앞에서만 미묘하게 더 부드러워지는 것을 가끔씩 느낀다."
         },
         {
             "conditions" : [

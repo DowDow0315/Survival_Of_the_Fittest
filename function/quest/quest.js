@@ -462,7 +462,6 @@ const QUESTS = {
         targetName : "오래된 연구소 깊은 곳 장치 작동",
         repeatable : false,
         giver : "valen",
-        source : "event",
         
         desc : "발렌은 또, 연구소의 가장 깊은 곳에 있는 장치를 작동시켜달라고 부탁했다. 경계병 제3초소 근처에 있다.",        
         activeDesc : "연구시설 가장 깊은 곳에 도달해야 한다.",
@@ -482,7 +481,7 @@ const QUESTS = {
             player.flags.uppercity_story_03_done_day = getCurrentDay(player);
         },
 
-        acceptText : "",
+        acceptText : "당신은 발렌의 의뢰서를 떼어냈다.",
         completeText : "당신이 퀘스트를 보고하자 마틴은 고개를 끄덕였다. 그는 상류도시에 전령을 보내놓겠다고 말했다."
     },
 

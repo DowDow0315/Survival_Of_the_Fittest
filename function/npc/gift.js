@@ -2310,6 +2310,675 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    valen: {
+        reactions: {
+            valenFavorite: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            valenHate: {
+                great: {
+                    affection: -1,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"달콤한 건 좋아합니다.\"<br><br>발렌은 미소를 지었다.<br><br>\"저랑은 어울리지 않아도 생각하십니까?\""
+                },
+            
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "발렌은 당신의 요리를 먹으며 다음 번에는 자신이 요리를 대접하겠다고 말했다."
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 0,
+                    lust : 0,
+                    line: "발렌은 당신의 요리를 힐끗 보더니 웃는 얼굴로 말했다. <br><br>\"미안합니다. 배가 부르네요.\""
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"하류도시는 이런 천박한 음식을 좋아하는 군요.\"<br><br>발렌은 미소를 유지하고 있긴 했지만 당신의 요리를 먹을 생각은 없어 보인다."
+                },
+
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"하류도시는 이런 천박한 음식을 좋아하는 군요.\"<br><br>발렌은 미소를 유지하고 있긴 했지만 당신의 요리를 먹을 생각은 없어 보인다."
+                },
+            
+                bad: {
+                    affection: -5,
+                    rage: 3,
+                    lust : 0,
+                    line: "발렌은 당신의 요리를 보더니 고개를 돌렸다. 그의 미소가 조금은 희미해진 거 같기도 했다. <br><br>\"장난이 심하시군요.\""
+                }
+            },
+
+            lustyHighAffection : {
+                great: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 3,
+                    line: "\"당신이 무슨 생각을 하는 지는 잘 알겠습니다.\"<br><br>발렌은 미소를 지었다. 하지만 그는 당신의 요리에는 입도 대지 않았다, 그저 당신을 위아래로 훑어보며 야릇한 미소를 지어보일 뿐."
+                },
+
+                normal: {
+                    affection: 0,
+                    rage: 3,
+                    lust : 0,
+                    line: "\"...제가 이런 걸 좋아할 거라고 생각하는 겁니까?\"<br><br>발렌은 웃고 있긴 했지만, 웃는 게 웃는 걸로 보이지는 않았다..."
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"....\"<br><br>발렌은 아무 말 없이 당신을 바라보았다. 당신의 등골이 오싹해졌다."
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리를 예의상 맛보면서 고기 요리는 별로 좋아하지 않는다고 말했다. <br><br>\"책상 앞에서 거북해지는 게 싫어서요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 다음 번에 자신이 상류도시의 고기 요리를 대접해주겠다고 말했다. 그는 당신이 가져온 것에는 입도 대지 않았다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...아카시아에게 하류도시에도 요리를 잘하는 주점이 있다고 들었습니다만.\"<br><br>그는 미소를 지었다. <br><br>\"손수 요리를 하느니 차라리 사먹는 게 어떻겠습니까?\""
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 채소 요리를 먹으며 하류도시에서는 채소가 귀한 거 아니냐고 물었다. <br><br>\"하류도시의 영웅이 제게 채소 요리를, 영광이군요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 미소를 지으며 다음 번에는 자신이 상류도시의 야채 요리를 대접해주겠다고 말했다. 그는 당신의 요리는 몇 입 먹다가 그만두었다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...아카시아에게 하류도시에도 요리를 잘하는 주점이 있다고 들었습니다만.\"<br><br>그는 미소를 지었다. <br><br>\"손수 요리를 하느니 차라리 사먹는 게 어떻겠습니까?\""
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 생선 요리는 상류도시에서도 먹기 힘들다고 말했다. <br><br>\"저 말입니까? 저는 물론 적게 먹지는 않았지요. 아카시아가 생선 요리를 좋아하기도 하고요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 생선 요리를 먹더니 다음 번에는 상류도시의 생선 요리를 대접해주겠다고 말했다. <br><br>\"제게 점수를 따려는 거라면 아쉽군요. 저는 입맛이 까다로워서요.\""
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리와 당신을 번갈아보더니 웃었다. <br><br>\"낚시는 힘들다고 들었는데, 낚시한 보람이 없겠군요, 하류도시의 영웅.\""
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"균형이 잡힌 요리군요.\"<br><br>발렌은 당신의 요리를 맛보며 말했다. <br><br>\"하류도시에서 건강을 챙기는 건 사치라고 들었습니다. 하지만 하류도시의 영웅인 당신은 건강을 챙겼으면 좋겠군요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 다음 번에는 상류도시의 요리 코스를 대접해주겠다고 말했다. <br><br>\"...아니면 데릭에게 언질을 해야 하나.\"<br><br>그는 작게 중얼거렸다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 말없이 당신의 요리를 바라보다가 고개를 돌렸다. <br><br>\"정성은 감사합니다.\"<br><br>그는 당신의 요리에는 손도 대지 않았다."
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신이 가져온 빵에 미소를 지었다. <br><br>\"밀가루로만 만든 빵은 양만 많죠. 물론 그걸 좋아하시는 분들도 꽤 있지만.... 비난하는 건 아닙니다. 취향 차이죠.\"<br><br>그는 몇 입 먹다가 그만두었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 상류도시에서도 아무 것도 들지 않는 빵을 먹는 자와 그 빵을 먹지 않는 자로 나뉜다고 말했다. 그는 당신의 빵을 거의 먹지 않았다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 말없이 미소만 지었다. 그의 시선은 이런 식으로 재료를 낭비하느니 차라리 사먹으라고 말하고 있는 거 같았다."
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신에게 고기빵을 많이 먹어봤냐고 물었다. <br><br>\"상류도시 사람들은 고기빵을 즐겨먹습니다.\"<br><br>발렌은 몇 입 먹은 후 내려놓았다. <br><br>\"그래서 많이 준비해놓는 편이죠.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 고기빵이라면 상류도시 축제에서도 마음껏 먹을 수 있다고 말했다. 그는 당신에게 축제 일정을 몇 개 알려주었다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리를 보고 미소를 지었다. <br><br>\"다음부터는 재료를 아끼시는 게 좋을 거 같습니다. 이정도 맛이면 재료에게도 미안하니까요.\""
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 야채빵은 상류도시 사람들도 많이 먹는 빵이라고 말했다. <br><br>\"다음 축제 때 손을 빌릴 수 있으면 좋겠군요.\"<br><br>그는 몇 입 먹다가 그만두었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신에게 야채빵을 많이 먹어봤냐고 물었다. <br><br>\"어쩌면 언젠가는 당신도 주식으로 야채빵을 먹게 될지도 모르죠.\"<br><br>그는 조용히 웃었다."
+                },
+
+                bad : {
+                    affection :-3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리를 보고 미소를 지었다. <br><br>\"다음부터는 재료를 아끼시는 게 좋을 거 같습니다. 이정도 맛이면 재료에게도 미안하니까요.\""
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"하류도시 사람들의 입맛은...\"<br><br>발렌은 몇 입 먹더니 멈추었다. <br><br>\"저랑은 안 맞는 거 같군요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 쌀알을 몇 번 건드리더니 미소를 지으며 수저를 내려놓았다. <br><br>\"품위없는 행동이었군요. 죄송합니다. 하지만 이런 상태의 쌀알은 저도 오랜만에 봐서요.\""
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 미소를 지으며 당신의 요리를 응시했다. 은근하게 치우는 손짓은 명백한 거절을 의미하고 있었다."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리에 제대로 손도 대지 않았다. <br><br>\"이런 건 저한테 주시는 것보다 다른 분들께 드리는 게 나을 거 같군요.\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 쌀알을 몇 번 건드리더니 미소를 지으며 수저를 내려놓았다. <br><br>\"품위없는 행동이었군요. 죄송합니다. 하지만 이런 상태의 쌀알은 저도 오랜만에 봐서요. 고기의 기름기 때문만은 아닌 거 같네요.\""
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "발렌은 당신의 요리를 물끄러미 쳐다보다가 고개를 돌려 당신과 시선을 마주했다. <br><br>\"하류도시 사람들도 싫어할 거 같은데요. 아, 제가 그들을 너무 과대평가한 걸까요?\""
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -10,
+                    rage: 0,
+                    lust : 0,
+                    line: "발렌은 쓰레기를 말없이 바라보았다. 그는 여전히 웃고 있었지만 침묵이 길어질수록 당신의 목뒤로는 식은땀이 흘렀다."
+                }
+            }
+        }
+    },
+
+    akasia: {
+        reactions: {
+            akasiaFavorite: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            akasiaHate: {
+                great: {
+                    affection: -1,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"단 것은 입안이 끈적끈적해져서 싫어합니다.\"<br><br>아카시아는 고개를 저었다. 입에 대고 싶어하지도 않아하는 거 같다."
+                },
+            
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "아카시아는 단 것은 손님 대접용으로만 쓴다고 말했다. 그는 당신의 요리를 맛볼 생각이 없다."
+                },
+            
+                bad: {
+                    affection: -5,
+                    rage: 3,
+                    lust : 0,
+                    line: "\"달콤한 것에다가 맛이 없는 것이라니.\"<br><br>아카시아는 당신을 쳐다보았다. <br><br>\"저를 모욕하시려는 겁니까?\""
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 5,
+                    line: "아카시아는 의미심장한 눈으로 당신을 보았다. <br><br>\"뻔한 수작이군요. 하지만 언젠가는.... 일부러 먹어드릴 수도요?\""
+                },
+
+                normal: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 3,
+                    line: "아카시아는 당신의 요리에 의미심장한 표정을 지었다. <br><br>\"...언젠가는 당신의 요리를 먹어드릴 수도 있죠. 하지만 지금은 아닙니다.\""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"저를 원하신다면 더 노력해야 할 겁니다.\"<br><br>아카시아는 당신을 의미심장한 눈으로 응시하며 말했다."
+                }
+            },
+
+            lustyHighAffection : {
+                great: {
+                    affection: 4,
+                    rage: 0,
+                    lust : 10,
+                    line: "아카시아는 당신을 무표정으로 바라보았다. 하지만 그는 당신을 똑바로 바라보며 당신의 앞에서 그 요리를 음미하듯이 먹어주었다. 어쩐지 분위기가 야릇해졌다...."
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 5,
+                    line: "그는 말보다는 행동으로 보여주었다. 당신의 앞에서 당신의 요리를 먹으며, 그는 단 한번도 당신의 시선을 피하지 않았다. 오히려 당신의 얼굴이 붉어질 것만 같다."
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 3,
+                    line: "\"더 노력해주세요.\"<br><br>아카시아는 고개를 기울였다. <br><br>\"이런 정성으로는 제가 넘어가드리지 않습니다.\""
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 고기는 별로 좋아하지 않는다고 말했다. <br><br>\"어려서부터 고기는 많이 안 먹어서 익숙하지 않은 걸지도 모르겠네요.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 제 부모님이 자신에게 고기보다는 야채를 더 많이 먹였다고 말했다. <br><br>\"물론 그렇다고 야채를 좋아하는 것도 아니지만요.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"요리를 못하시는 군요. 요리 선생님이라도 붙여드릴까요?\"<br><br>아카시아는 당신의 요리에 손도 대지 않았다."
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 채소 요리를 먹으며 어렸을 떄부터 부모님이 채소를 많이 먹였다고 말했다. <br><br>\"그래서 조금 질렸을지도요. 하지만 당신의 요리는 맛있습니다.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 그냥 채소 요리는 질리는데 밥이랑 같이 먹는 채소 요리는 맛있다고 말했다. <br><br>\"역시 쌀이 맛있는 걸까요?\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"요리를 못하시는 군요. 요리 선생님이라도 붙여드릴까요?\"<br><br>아카시아는 당신의 요리에 손도 대지 않았다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 7,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 생선 요리를 먹으며 희미하게 웃었다. <br><br>\"저를 위한 생선 요리인가요? 센스가 좋군요.\"<br><br>그는 맛있게 당신의 생선 요리를 먹었다."
+                },
+
+                normal : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 발렌은 생선 요리를 잘 먹지 않는다고 말했다. <br><br>\"발렌도 어렸을 때부터 생선 요리를 너무 많이 먹은 걸까요?\"<br><br>아카시아는 잠시 멈췄다. <br><br>\"그건 아닐 수도 있겠네요. 아마 제가 생선 요리를 어렸을 때부터 더 많이 먹었을 거 같은데, 전 아직 질리지 않았습니다.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 생선을 아깝다는 듯이 바라보았다. <br><br>\"훌륭한 요리사를 만나지 못했군요...\""
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 균형이 잡힌 요리라고 말하며 고개를 끄덕였다. <br><br>\"하류도시의 영웅이라 그런지, 보통 하류도시 사람들이 만들 법한 요리랑은 다른 요리를 만들어주시는 군요.\""
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 요리를 먹으며 간이 좀 아쉽다고 말했다. <br><br>\"뭐가 부족한지는 모르겠지만... 설탕이 아닌 다른 조미료일 겁니다.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 요리를 내려다보더니 낮게 한숨을 쉬었다. <br><br>\"재료가 엉망이 되었군요.\""
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 빵은 질리게 먹었다고 말했다. <br><br>\"저는 뭔가를 넣은 빵보다는 그냥 빵이 좋은 거 같습니다. 담백해서.\"<br><br>아카시아는 당신이 가져온 식빵을 냠냠 먹었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 뺭을 먹었다. 그는 아무 말 없이 몇 입 더 먹다가 그만두었다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...마틴의 주점에는 빵을 안 팔던데, 그래서 당신이 빵은 못 굽는 걸까요?\"<br><br>아카시아는 당신이 가져온 빵을 먹지 않았다."
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"저는 빵에 뭔가가 들어간 건 좋아하지 않습니다. 먹기는 먹지만.... 여기서까지 먹고 싶지는 않네요.\"<br><br>아카시아는 당신의 빵을 먹을 생각이 없다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 빵을 쳐다보더니 고개를 저었다. <br><br>\"여기서까지 빵을 먹고 싶지는 않습니다.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 빵을 물끄러미 쳐다보았다. <br><br>\"맛없는 빵을 먹고 싶진 않군요.\""
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"저는 빵에 뭔가가 들어간 건 좋아하지 않습니다. 먹기는 먹지만.... 여기서까지 먹고 싶지는 않네요.\"<br><br>아카시아는 당신의 빵을 먹을 생각이 없다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 빵을 쳐다보더니 고개를 저었다. <br><br>\"여기서까지 빵을 먹고 싶지는 않습니다.\""
+                },
+
+                bad : {
+                    affection :-1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 빵을 물끄러미 쳐다보았다. <br><br>\"맛없는 빵을 먹고 싶진 않군요.\""
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 야채는 좋아하지 않지만 역시 밥이랑 섞여서 맛있는 거 같다고 말했다. 그는 당신의 요리를 맛있게 먹어주었다."
+                },
+
+                normal : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 당신의 요리를 먹으며 쌀이 요리를 살린 거 같다고 말했다. 그는 당신의 요리를 맛있게 먹어주었다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 쌀이 들어간 요리가 맛이 없을 수 있다는 것에 충격을 받은 모양이다. <br><br>\"정말 최선을 다한 요리였나요?\""
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 고기는 좋아하지 않지만 역시 밥이랑 섞여서 맛있는 요리로 탄생한 거 같다고 말했다. <br><br>\"달콤한 것에도 쌀이 들어가면 맛있을까요?\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 고기의 기름기에 인상을 쓰긴 했지만 어쨌든 다 먹긴 했다. <br><br>\"다음 번에는 고기는 적게 부탁드려요. 감사합니다.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아카시아는 쌀이 들어간 요리가 맛이 없을 수 있다는 것에 충격을 받은 모양이다. <br><br>\"...요리를 계속하시는 이유가 있나요?\""
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -15,
+                    rage: 5,
+                    lust : 0,
+                    line: "아카시아의 차가운 시선이 당신을 꿰뚫는다. <br><br>\"...의도를 모르겠군요.\"<br><br>당신은 한기뿐만 아니라 살기마저 느꼈다."
+                }
+            }
+        }
     }
 };
 
@@ -2450,6 +3119,22 @@ function giveFoodToNpc(player, npcId, item){
             npcId === "sion" &&
             taste === "lusty" &&
             affection >= 50
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
+        if (
+            npcId === "valen" &&
+            taste === "lusty" &&
+            affection >= 70
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
+        if (
+            npcId === "akasia" &&
+            taste === "lusty" &&
+            affection >= 60
         ){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }

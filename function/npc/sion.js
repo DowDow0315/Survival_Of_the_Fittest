@@ -169,6 +169,11 @@ registerActions("sion",{
             });
         }
 
+        choices.push({
+            text: "음식을 건넨다",
+            action: "sion_giveFood"
+        });
+
         choices.push({ text: "돌아간다", action: "sion_talk" });
 
         startScene([

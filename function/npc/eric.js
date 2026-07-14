@@ -78,7 +78,24 @@ registerActions("eric", {
     },
 
     //개인스토리
+    eric_chasingSomething_event_02_care: (player) => {
+        const eric = NPC_DATA["eric"].emotion;        
+        
+        if (eric.affection > 50) {
+            startScene(
+                NPC_DATA["eric"].scenes.eric_chasingSomething_event_02_care_highAffection,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
 
+        startScene(NPC_DATA["eric"].scenes.eric_chasingSomething_event_02_care_lowAffection, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });       
+    },
     //돈 수거 이벤트 
     weeklyPayment_no: (player) => {
         changeEmotion("eric", "rage", 10);

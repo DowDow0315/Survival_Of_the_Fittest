@@ -436,6 +436,7 @@ function subwaySuccess(player){
         onEnd: () => {
             player.location = s.destination;
             player.inEvent = false;
+            player.subwayEvent = null;
 
             renderMap(player);
 
@@ -486,6 +487,7 @@ function subwayFail(player){
         onEnd: () => {
             player.location = s.destination;
             player.inEvent = false;
+            player.subwayEvent = null;
 
             renderMap(player);
 

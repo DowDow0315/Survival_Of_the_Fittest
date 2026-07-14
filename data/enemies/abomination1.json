@@ -142,8 +142,8 @@
         },
         {
             "name": "검은독",
-            "type": "bleed",
-            "id" : "abomination1Bleed",
+            "type": "poison",
+            "id" : "abomination1Poison",
             "chance" : 1,
             "dot": 10,
             "duration": 3,
@@ -183,5 +183,5 @@
             ]
         }
     ],
-    "exp": 130
+    "exp": 120
 }

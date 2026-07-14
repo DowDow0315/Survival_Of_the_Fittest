@@ -32,6 +32,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_invitation_01",
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.rebel_story_02_after_uppercity_promise_invitation &&
+        isPlayerProperlyDressed(player) &&
+        !player.flags?.valen_invitation_01_seen,
+
+    action : (player) => {
+        player.flags.valen_invitation_01_seen = true;
+        savePlayer(player);
+        
+        startScene(NPC_DATA["valen"].scenes.valen_invitation_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};

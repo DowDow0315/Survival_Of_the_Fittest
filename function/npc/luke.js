@@ -395,6 +395,25 @@ registerActions("luke", {
         startScene(forceScene, player, {
             onEnd: () => startScene(getLocationScene(player), player)
         });
+    },
+
+    luke_cooking_event_01_refuse: (player) => {
+        const luke = NPC_DATA["luke"].emotion;        
+        
+        if (luke.dominance > 50) {
+            startScene(
+                NPC_DATA["luke"].scenes.luke_cooking_event_01_refuse_no,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+
+        startScene(NPC_DATA["luke"].scenes.luke_cooking_event_01_refuse_yes, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });       
     }
 })
 

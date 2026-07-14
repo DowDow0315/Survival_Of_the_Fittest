@@ -1297,13 +1297,24 @@ const ITEMS ={
                 dex : 2
             }
         },
+        
+        whiteRebelsTop : {
+            name : "갈망의 꽃 상의",
+            type : "top",
+            price : 2500,
+            stats : {
+                dex : 4,
+                charm : 5
+            },
+            desc : "당신을 갈망하던 자가 당신만을 위해 만든 옷일지도 모른다."
+        },
 
         rebelsTop : {
             name : "반란군 상의",
             type : "top",
-            price : 2500,
+            price : 2600,
             stats : {
-                str : 5,
+                str : 6,
                 dex : 4
             }
         }
@@ -1469,13 +1480,25 @@ const ITEMS ={
             }
         },
 
-        rebelsBottom : {
-            name : "반란군 하의",
+        whiteRebelsBottom : {
+            name : "갈망의 꽃 하의",
             type : "bottom",
             price : 2500,
             stats : {
+                int : 4,
+                charm : 5
+            },
+            tags : ["easyAccess"],
+            desc : "누군가가 자신의 바람을 가득 담아 만든 옷일지도 모른다."
+        },
+
+        rebelsBottom : {
+            name : "반란군 하의",
+            type : "bottom",
+            price : 2600,
+            stats : {
                 dex : 5,
-                str : 4
+                str : 5
             }
         }
     },

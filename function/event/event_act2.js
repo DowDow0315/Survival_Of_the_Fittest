@@ -708,7 +708,7 @@ window.startRebelStory02IntroAfterLosingBattleEvent = function(player){
         {
             type : "effect",
             run : (player) => {
-                player.flags.rebel_story_02_intro_valenSeesYuri = true;
+                player.flags.rebel_story_02_valenSeesYuri = true;
                 addItem(player, ITEMS.accessary.yuriRebelRing);
                 changeHP(player, 100);
                 changeStamina(player, 100);
@@ -848,6 +848,8 @@ window.accept_rebel_story_02_and_enter = function(player){
     enterDungeon(player, "rebelsHideOut");
 };
 
+//반란스토리02 분기
+
 window.EVENTS.push({
     id : "rebel_story_02_after_event_attack",
     priority : true,
@@ -957,7 +959,6 @@ window.startRebelStory02AfterBattle2Event = function(player){
     ], player);
 };
 
-
 window.startRebelStory02AfterBattleAllWinEvent = function(player){
     startScene([
         {
@@ -966,7 +967,7 @@ window.startRebelStory02AfterBattleAllWinEvent = function(player){
                 "당신은 당신에게 달려드는 백색 군인들을 전부 해치웠다. 상류도시에서 내려온 군인들을 당신이 전부 이기자, 하류도시의 사람들은 믿기지 않는다는 얼굴로 당신을 보았다. 하류도시의 경비병들도 그건 마찬가지였다." +
                 "<br>무서울 정도로 고요한 정적이었다. 하류도시 마을사람들 중 한 명이 갑자기 울음을 터뜨렸다." +
                 "<br><br>\"상류도시의 명령을 거역하면 어떡해!\"<br><br>" +
-                "당신의 힘에 압도당하는 것도 잠시, 걱정과 두려움이 그들 사이에 퍼졌다. 당신이 우리를 계속 지켜줄 거야? 그들은 당신을 원망했다. 몇몇 사람들은 말리긴 했지만 이미 두려움에 젖은 사람들의 기세를 누르기는 어려워보였다." +
+                "당신의 힘에 압도당하는 것도 잠시, 걱정과 두려움이 그들 사이에 퍼졌다.<br><br>\"당신이 우리를 계속 지켜줄 거야?\"<br>\"오늘은 살았지만 내일은?\"<br>\"우린 당신만큼 강하지 않아.\"<br><br>그들은 당신을 원망했다. 아니. 사실 원망하기보다는 눈앞에 닥쳐올 미래를 두려워하고 있는 걸지도 모르겠다. 몇몇 사람들은 말리긴 했지만 이미 공포에 젖은 사람들의 기세를 누르기는 어려워보였다." +
                 "<br><br>\"그만해요! 영웅님은 우리를 구해주셨다고요!\"<br><br>" +
                 "시온이 당신과 아우성치는 하류도시 사람들 사이를 가로막고 섰다. 그는 두 팔을 벌리고 영웅님은 우리를 지켜준 것뿐이라고 말했다." +
                 "<br><br>\"우리를? 반란군을 지켜준 거겠지!\"<br><br>" +
@@ -1049,5 +1050,176 @@ window.startRebelStory02AfterBattleLosingEvent = function(player){
             savePlayer(player);
             startScene(getLocationScene(player), player);
         }
+    });
+};
+
+window.EVENTS.push({
+    id : "rebel_story_02_after_event_uppercityPromise",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        (player.flags?.rebelLeader2KilledWithRing ||
+         player.flags?.rebelLeader2KilledNoRing ) &&
+        player.flags?.rebel_story_02_done &&
+        !player.flags.rebel_story_02_after_event_uppercityPromise_seen &&
+        getCurrentDay(player) >= (player.flags.rebel_story_02_done_day + 7),
+
+    action : (player) => {
+        player.flags.rebel_story_02_after_event_uppercityPromise_seen = true;
+        player.flags.rebel_story_02_after_event_uppercityPromise_seen_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리에 있던 당신은 일렬로 늘어선 행렬을 보았다. 하류도시의 경비병들이 또 누군가의 목들을 나르고 있었다. 아니, 당신은 더 이상 '누군가'의 목이라고 말할 수 없었다. 그 목들은 당신이 소탕했던 반란군들의 것이었다. 하류도시의 경비병들 중 몇몇이 이렇게까지 해야 하냐고 불쾌한 기색을 드러냈다. 그들은 반란군들의 머리를 그저 나무꼬챙이에 매달아놓은 것이 아니었다." +
+                    "<br><br>나무꼬챙이는 반란군들의 턱에서부터 정수리까지 꿰뚫고 있었다.<br><br>" +
+                    "처참한 광경에 몇몇 어른들이 아이들의 눈을 가려주었다. 당신은 쉘터의 조금 큰 아이들마저 자신보다 작은 아이들의 눈을 가려주는 것을 보았다.",
+                    "<br>그 순간, 누군가가 처절하게 울부짖는 소리가 들렸다.<br>",
+                    "<br>\"누구를 위한 정의인가!\"<br><br>",
+                    "그는 당신에게 말하고 있지 않았다. 그는 참혹한 광경에 눈을 돌려버린 하류도시 사람들에게 죽음을 각오하고 말하고 있었다. 경비병들이 그를 체포하기 위해 달려들었지만 반란군은 무기를 들고 당신만을 가리켰다.",
+                    "<br><br>\"상류도시의 영웅! 네 목만큼은 내가 기필코 가져가마.\"<br><br>",
+                    "누가 말릴 새도 없이 그는 당신에게로 달려들었다. 반란군의 처절한 사투가 시작된다...!"
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelStory02AfterUppercityPromiseBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startRebelStory02AfterUppercityPromiseBattle = function(player){
+
+    startBattle("rebels1", player, {
+        noEscape : true,
+        onWin : () => startRebelStory02AfterUppercityPromiseBattle1Event(player),
+        onLose : () => startRebelStory02AfterUppercityPromiseBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startRebelStory02AfterUppercityPromiseBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "첫 번쨰 반란군이 쓰러지자 숨어있었던 반란군이 당신을 제거하기 위해 튀어나왔다.<br><br>...끈질기다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle("rebels2", player, {
+                    noEscape: true,
+                    onWin: () => startRebelStory02AfterUppercityPromiseBattle2Event(player),
+                    onLose: () => startRebelStory02AfterUppercityPromiseBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startRebelStory02AfterUppercityPromiseBattle2Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "두 번쨰 반란군까지 쓰러졌지만 그들은 아직 죽지 않았다. 마지막 한 명의 반란군이 목숨을 걸고 당신을 향해 달려든다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle("rebels3", player, {
+                    noEscape: true,
+                    onWin: () => startRebelStory02AfterUppercityPromiseBattleAllWinEvent(player),
+                    onLose: () => startRebelStory02AfterUppercityPromiseBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startRebelStory02AfterUppercityPromiseBattleAllWinEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 당신을 향해 달려드는 반란군들을 모두 죽여버렸다. 일순간 주변에 정적이 흘렀다." +
+                "<br><br>\"역시 반란군은 없어져야 해.\"<br>\"그들은 대체 무엇을 위해 싸우는 거야?\"<br>\"저런 꼴을 당해도 싸지.\"<br><br>" +
+                "어른들은 아이들에게 반란군은 되면 안 된다고 말하고, 아이들은 반란군이 되면 어떤 최후를 맞을 수 있는지 목격해버리고 말았다. 그들은 자신을 양에 비유하고, 반란군들을 늑대에 비유하며, 상류도시를 목장주로 비유했다." +
+                "<br><br><span class='log-valen'>상류도시의 뜻대로.</span><br><br>" +
+                "언제부터 지켜보고 있었던 걸까. 당신은 평소와 다르게 검은 망토를 두르고 있는 발렌을 보았다. 머리에 후드를 뒤집어쓰고 있었지만 당신을 바라보는 그 눈동자는 분명 하늘색이었다. 그는 당신을 스쳐지나가며 당신의 소매에 뭔가를 넣었다. 당신은 그가 가자마자 그가 준 쪽지를 확인했다." +
+                "<br><br>아카시아 꽃잎이 그려져있는 쪽지 위의 활자 인쇄라도 한 듯 정갈하고 깔끔한 글씨<br><br>" +
+                "<span class='log-valen'>상류도시에 한번 들러주시길. 당신에게 보여드리고 싶은 게 있습니다.</span>"
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.rebel_story_02_after_uppercity_promise_invitation = true;
+                changeNPCEmotion("valen", "affection", 10);
+                changeNPCEmotion("akasia", "affection", 10);
+                changeNPCEmotion("yuri", "rage", 10);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startRebelStory02AfterUppercityPromiseBattleLosingEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 당신에게로 달려드는 반란군들을 이기지 못했다. 당신이 쓰러지는 찰나에 백색 제복이 당신을 감싸안았다. 당신을 감싼 누군가의 정체를 알아차리자마자 누군가가 비명을 질렀다. 당신은 붉게 물드는 백색 제복을 본 후 고개를 들었다.<br><br>발렌이었다.<br><br>" +
+                "발렌은 당신을 안은 채로 반란군을 보지도 않고 그의 목을 뚫어버렸다. 가차없는 칼날이었지만 그의 잔혹성은 대두되지 않았다. 사람들은 오로지 당신을 지키려다가 난 그의 상처에만 집중하고 있었다." +
+                "<br><br>\"하류도시의 사람을 위해....\"<br><br>" +
+                "발렌은 당신을 부드럽게 끌어안은 채 당신의 얼굴을 더 제 품으로 끌어당겼다. 당신은 그의 얼굴을 올려다보았다. 그는 참담한 표정을 짓고 있었지만 당신과 순간적으로 마추진 시선만큼은 차가웠다." +
+                "<br><br>\"여러분.<br>저는 시민들이 더 다치기 전에 반란군들을 막고 싶습니다.\"<br><br>" +
+                "그의 손이 당신의 허리를 더 바짝 끌어안았다." +
+                "<br><br>\"그리고 전, 시민 여러분들이 절 도와주실 거라 믿습니다.\""
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "짧지만 강렬한 말이 끝나자 환호는 길게 이어졌다. 발렌은 당신을 데리고 헬리콥터에 탔다." +
+                "<br><br>\"잘해주셨습니다, 하류도시의 영웅.\"<br><br>" +
+                "그는 피가 묻은 백색 상의를 벗더니 붕대로 상처를 지혈한 후 다른 옷으로 갈아입었다. 헬리콥터는 상류도시가 아니라 당신의 쉘터로 향하고 있었다." +
+                "<br><br>\"보답으로 다음 번에 상류도시에서 대접을 해드리고 싶습니다.\"<br><br>" +
+                "발렌은 쉘터를 내려다보았다. 그의 하늘색 눈동자에 붉은색 머리가 비쳤다. 그는 알 수 없는 미소를 지었다." +
+                "<br><br>\"그러니 시간이 되시면 꼭 와주시길.\"<br><br>" +
+                "그는 당신을 쉘터에 내려다준 후 헬리콥터를 타고 상류도시로 떠났다. 상류도시로 가는 동안, 그는 그때처럼 단 한번도 하류도시를 돌아보지 않았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.rebel_story_02_after_uppercity_promise_invitation = true;
+                player.flags.rebel_story_02_valenSeesYuri = true;
+                changeNPCEmotion("valen", "affection", 5);
+                changeNPCEmotion("valen", "dominance", 10);
+                changeNPCEmotion("akasia", "affection", 5);
+                changeNPCEmotion("yuri", "rage", 10);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
     });
 };

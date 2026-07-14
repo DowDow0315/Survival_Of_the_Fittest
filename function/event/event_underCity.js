@@ -10,7 +10,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "dawn"
         ) &&
         !player.flags?.ericDie &&
-        Math.random() < 0.08,
+        Math.random() < 0.07,
 
     action : (player) => {
 
@@ -304,6 +304,35 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["luke"].scenes.luke_luckySkebe_event_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_cooking_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "lukeHouse" &&
+        player.flags.luke_cooking_event_01_day !== getCurrentDay(player) &&
+        getTimePeriod(player) === "morning" &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.luke_cooking_event_01_day = getCurrentDay(player);
+        addItem(player, ITEMS.consumable.trash);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_cooking_event_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1054,6 +1083,33 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["pale"].scenes.pale_afterFlowerDateDream_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_uppercity_story_02_after_affection_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.flags?.uppercity_story_02_notKillErwin &&
+        !player.flags?.pale_uppercity_story_02_after_affection_event_seen,
+
+    action : (player) => {
+        player.flags.pale_uppercity_story_02_after_affection_event_seen = true;
+        addItem(player, ITEMS.top.whiteRebelsTop);
+        addItem(player, ITEMS.bottom.whiteRebelsBottom);
+        changeEmotion("pale", "affection", 10);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_uppercity_story_02_after_affection_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

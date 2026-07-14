@@ -491,7 +491,7 @@ const DUNGEONS = {
 
         rooms : {
             "r0c0" : {name : "누군가의 아버지였던 자의 방", exits : {right : "r0c1"}, event : "whiteFlowerOldLab_soraFather01"},
-            "r0c1" : {name : "하얀꽃 화관이 걸려있는 문앞", exits : {left : "r0c0", down : "r1c1"}},
+            "r0c1" : {name : "하얀꽃 화관이 걸려있는 문앞", exits : {left : "r0c0", down : "r1c1", right : "r0c2"}},
             "r0c2" : {name : "길게 뻗은 복도", exits : {left : "r0c1", right : "r0c3"}},
             "r0c3" : {name : "피가 묻은 복도", exits : {left : "r0c2", right : "r0c4"}, event : "whiteFlowerOldLab_bloodtunnel", seenFlag : "whiteFlowerOldLab_bloodtunnel"},
             "r0c4" : {name : "피가 묻은 복도2", exits : {left : "r0c3", right : "r0c5"}},

@@ -3,6 +3,7 @@ window.EVENTS.push({
     id : "yuri_hisGathering",
 
     condition : (player) =>
+        player.justMoved &&
         player.location === "deepForest" &&
         NPC_DATA["yuri"].emotion.affection > 30 &&
         (
@@ -29,6 +30,7 @@ window.EVENTS.push({
     id : "eric_chasingSomething_event_01",
 
     condition : (player) =>
+        player.justMoved &&
         player.location === "deepForest" &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_01_day !== getCurrentDay(player) &&
@@ -57,6 +59,7 @@ window.EVENTS.push({
     id : "eric_chasingSomething_event_02",
 
     condition : (player) =>
+        player.justMoved &&
         player.location === "banditForest" &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_02_day !== getCurrentDay(player) &&
@@ -85,6 +88,7 @@ window.EVENTS.push({
     id : "eric_chasingSomething_event_03",
 
     condition : (player) =>
+        player.justMoved &&
         player.location === "guardPost3" &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_03_day !== getCurrentDay(player) &&

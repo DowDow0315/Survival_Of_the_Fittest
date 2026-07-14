@@ -1290,7 +1290,7 @@ const NPC_LUST_GROWTH_CONDITIONS = {
     ],
 
     sion : [
-        { key : "affection", min: 30, amount: 1 },
+        { key : "affection", min: 5, amount: 1 },
         { key : "dominance", min: 50, amount: 1}
     ]
 };

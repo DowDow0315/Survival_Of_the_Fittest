@@ -320,10 +320,14 @@ window.EVENTS.push({
     condition: (player) =>
         player.justMoved &&
         player.flags?.kain_firstMeeting_seen &&
+        player.flags?.kain_noShow_01_day !== getCurrentDay(player) &&
         player.location === "gloryStreet" &&
         Math.random() < 0.07,
 
     action: (player) => {
+        player.flags.kain_noShow_01_day = getCurrentDay(player);
+        savePlayer(player);
+        
         startScene(
             NPC_DATA["kain"].scenes.kain_noShow_01,
             player,
@@ -340,11 +344,14 @@ window.EVENTS.push({
     condition: (player) =>
         player.justMoved &&
         player.flags?.kain_firstMeeting_seen &&
+        player.flags?.kain_noShow_02_day !== getCurrentDay(player) &&
         ["richTownStreet", "gloryStreet", "theater"].includes(player.location) &&
         Math.random() < 0.06,
 
     action: (player) => {
-        
+        player.flags.kain_noShow_02_day = getCurrentDay(player);
+        savePlayer(player);
+
         startScene(
             NPC_DATA["kain"].scenes.kain_noShow_02,
             player,
@@ -361,11 +368,14 @@ window.EVENTS.push({
     condition: (player) =>
         player.justMoved &&
         player.flags?.kain_firstMeeting_seen &&
+        player.flags?.kain_noShow_03_day !== getCurrentDay(player) &&
         player.location === "theater" &&
         Math.random() < 0.06,
 
     action: (player) => {
-        
+        player.flags.kain_noShow_03_day = getCurrentDay(player);
+        savePlayer(player);
+
         startScene(
             NPC_DATA["kain"].scenes.kain_noShow_03,
             player,

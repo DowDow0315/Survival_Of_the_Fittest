@@ -1140,6 +1140,79 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sion_spying_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_spying_01_day !== getCurrentDay(player) &&
+        player.location === "shelter" &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.sion_spying_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_spying_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_spying_02_day !== getCurrentDay(player) &&
+        player.location === "townEntrance" &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.sion_spying_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_spying_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_spying_03_day !== getCurrentDay(player) &&
+        (player.location === "darkStreet" ||
+         player.location === "townStreet" ) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.sion_spying_03_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //스토리이벤트
 window.EVENTS.push({
     id : "undercity_story_07_rebel_leader_head_event",

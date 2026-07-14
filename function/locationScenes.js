@@ -195,6 +195,8 @@ window.clean_lukeHouse = function(player){
         changeEmotion("luke", "affection", 1);
         player.flags.lukeHouseCleanDay = player.day;
     }
+    changeEmotion("luke", "affection", 1);
+    changeEmotion("luke", "rage", -1);
     changeTrauma(player, -1);
     savePlayer(player);
 

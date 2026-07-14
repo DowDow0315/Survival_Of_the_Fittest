@@ -1290,7 +1290,6 @@ function getGloryHoleScene(player){
                 { text: "니콜라이의 집무실로 간다", action: "gh_office" },
                 { text: "1번 방에 들어간다", action: "gh_room1" },
                 { text: "2번 방에 들어간다", action: "gh_room2" },
-                { text: "손님으로 왔다", action: "gh_customer" },
                 { text: "나간다", action: "leave_gloryHole" }
             ]
         }
@@ -1433,10 +1432,14 @@ window.gh_office = function(player){
                 ...(player.flags?.nikolai_talk_unlock
                 ? [{ text: "니콜라이와 대화한다", action: "nikolai_talk" }]
                 : []),
-                { text: "돌아간다", action: "leave_gloryHole" }
+                { text: "돌아간다", action: "return_gh" }
             ]
         }
     ], player);
+};
+
+window.return_gh = function(player){
+    startScene(getGloryHoleScene(player), player);
 };
 
 window.leave_gloryHole = function(player){

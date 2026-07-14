@@ -2777,7 +2777,15 @@ function collapse_noRescue(player){
             type: "text",
             value: "눈을 떴을 때, 당신은 쓰러졌던 그 자리에 그대로 있었다... 누군가 당신이 의식을 잃었을 떄 몸을 사용했는지, 몸에는 끈적함과 아픔만 남아있다..."
         }
-    ], player);
+    ], player, {
+        onEnd: () => {
+            if (player.dungeon?.active){
+                startScene(buildDungeonScene(player), player);
+            } else {
+                startScene(getLocationScene(player), player);
+            }
+        }
+    });
 }
 
 function collapse_yuri(player){

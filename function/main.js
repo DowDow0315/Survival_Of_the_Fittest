@@ -880,7 +880,6 @@ window.stat_charm = function(player){ allocateStat(player, "charm"); };
 
 function spendGold(player,amount){
     if (player.gold<amount){
-        addLog("돈이부족해");
         return false;
     }
     player.gold -= amount;
@@ -2343,27 +2342,33 @@ function renderInventoryModal(player){
                 desc.innerText = `소모 다음 턴부터 ${item.effect.duration}턴 동안 매 턴 HP ${item.effect.heal} 회복`;
             }            
             info.appendChild(desc);
-        } else if (item.stats){
-            const statText = Object.entries(item.stats)
-                .map(([key, value]) => {
-                    const auto =
-                    getAutoEnhanceBonus(item, key);
-                    
-                    const custom =
-                    item.enhanceCustom?.[key] || 0;
+        } else if (item.stats || item.enhanceCustom){
+    const statLabels = {
+        str: "힘",
+        dex: "민첩",
+        int: "지능",
+        charm: "매력"
+    };
 
-                    const total =
-                    value + auto + custom;
-                    
-                    return `${key} ${total >= 0 ? "+" : ""}${total}`;
-                })
-                
-                .join(", ");
-                
-            const desc = document.createElement("p");
-            desc.innerText = statText || "능력치 변화 없음";
-            info.appendChild(desc);
-        }
+    const statText = ["str", "dex", "int", "charm"]
+        .map(key => {
+            const base = Number(item.stats?.[key]) || 0;
+            const auto = getAutoEnhanceBonus(item, key);
+            const custom = Number(item.enhanceCustom?.[key]) || 0;
+
+            const total = base + auto + custom;
+
+            if (total === 0) return null;
+
+            return `${statLabels[key]} ${total > 0 ? "+" : ""}${total}`;
+        })
+        .filter(Boolean)
+        .join(", ");
+
+    const desc = document.createElement("p");
+    desc.innerText = statText || "능력치 변화 없음";
+    info.appendChild(desc);
+}
 
         if (item.desc){
             const desc = document.createElement("p");

@@ -2750,6 +2750,10 @@ function pickWeightedRescue(list){
 }
 
 function collapse_noRescue(player){
+    const dungeonState = player.dungeon
+        ? JSON.parse(JSON.stringify(player.dungeon))
+        : null;
+
     startScene([
         {
             type: "text",
@@ -2759,6 +2763,10 @@ function collapse_noRescue(player){
             type: "effect",
             run: (player)=>{
                 clearSpecialStateAfterCollapse(player);
+
+                if (dungeonState?.active){
+                    player.dungeon = dungeonState;
+                }
 
                 addBodyFluid(player, "a", 20);
                 addBodyFluid(player, "m", 20);
@@ -2771,6 +2779,8 @@ function collapse_noRescue(player){
 
                 player.status.hp = Math.floor(player.status.maxHp * 0.5);
                 player.status.stamina = Math.floor(player.status.maxStamina * 0.5);
+
+                savePlayer(player);
             }
         },
         {

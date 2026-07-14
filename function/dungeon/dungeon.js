@@ -3397,7 +3397,7 @@ const DUNGEON_EVENTS = {
                 ]
             }
         ],
-        whiteFlowerOldLab_soraFather : [
+        whiteFlowerOldLab_soraFather01 : [
             {
                 type : "text",
                 value : [

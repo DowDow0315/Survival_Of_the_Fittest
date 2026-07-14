@@ -2815,16 +2815,16 @@ function calculateTotalStats(player){
     };
 
     Object.values(player?.equipment || {}).forEach(item=>{
-        if (!item || !item.stats) return;
-        
-        for (let key in item.stats){
-            const baseValue = item.stats[key] || 0;
-            const autoBonus = getAutoEnhanceBonus(item, key);
-            const customBonus = item.enhanceCustom?.[key] || 0;
-            
-            total[key] = (total[key] || 0) + baseValue + autoBonus + customBonus;
-        }
-    });
+    if (!item) return;
+
+    for (const key of ["str", "dex", "int", "charm"]){
+        const baseValue = item.stats?.[key] || 0;
+        const autoBonus = getAutoEnhanceBonus(item, key);
+        const customBonus = item.enhanceCustom?.[key] || 0;
+
+        total[key] = (total[key] || 0) + baseValue + autoBonus + customBonus;
+    }
+});
 
     for (const key of ["str", "dex", "int", "charm"]){
         total[key] = Math.floor(total[key] * getAlcoholStatModifier(player, key));

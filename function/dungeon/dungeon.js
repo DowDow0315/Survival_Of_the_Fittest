@@ -1608,6 +1608,7 @@ function runDungeonRoomEvent(player, eventId){
                     onWin: () => startScene(buildDungeonScene(player), player),
                     onEscape: () => startScene(buildDungeonScene(player), player)
                 });
+                return true;
             }
         });
     }
@@ -2755,6 +2756,7 @@ const DUNGEON_EVENTS = {
                                         onWin: () => startScene(buildDungeonScene(player), player),
                                         onEscape: () => startScene(buildDungeonScene(player), player)
                                     });
+                                    return true;
                                 }
                             }
                         ]
@@ -3433,6 +3435,7 @@ const DUNGEON_EVENTS = {
                         onWin: () => startScene(buildDungeonScene(player), player),
                         onEscape: () => startScene(buildDungeonScene(player), player)
                     });
+                    return true;
                 }
             }
         ],
@@ -3501,6 +3504,7 @@ const DUNGEON_EVENTS = {
                         onWin: () => startScene(buildDungeonScene(player), player),
                         onEscape: () => startScene(buildDungeonScene(player), player)
                     });
+                    return true;
                 }
             }
         ],

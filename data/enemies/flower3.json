@@ -1,9 +1,9 @@
 {
     "name": "백발꽃인간",
     "hp": 270,
-    "attack": 43,
+    "attack": 41,
     "defense": 38,
-    "eva": 45,
+    "eva": 43,
     "lustResist" : 1.2,
     "drops": [
         {

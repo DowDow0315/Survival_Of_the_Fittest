@@ -169,3 +169,89 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "soraAndMatin_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        NPC_DATA["matin"].emotion.affection > 30 &&
+        NPC_DATA["sora"].emotion.affection > 30 &&
+        !player.flags?.soraDie &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "주점에 들르자 카운터에 앉아있던 소라가 벌떡 일어났다." +
+                    "<br><br>\"여기 네가 올 줄 알고 기다리고 있었어!\"<br><br>" +
+                    "소라는 당신에게 달려오더니 그대로 당신의 팔에 팔짱을 꼈다. 그는 요새 상점보다 주점에 더 많이 들르는 거 아니냐고 툴툴거렸다." +
+                    "<br><br>\"소라는 {soraTitle} 보고 싶어서 항상 두근두근거리는데....\"<br><br>" +
+                    "소라는 당신을 올려다보다가 마틴의 시선을 눈치채고 고개를 갸웃거렸다. 마틴은 다른 사람한테 무관심한 편인데 이상하네, 조용히 중얼거리던 소라는 당신의 옆구리에 더욱 달라붙었다." +
+                    "<br><br>\"...여기서 해도 돼?\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 눈을 감고 소라 쪽으로 고개를 틀었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 눈을 감고 소라 쪽으로 고개를 틀자 소라의 표정이 전보다 더 환해졌다. 그는 발뒤꿈치를 들더니 그대로 당신의 목에 두 팔을 감으며 당신의 입술에 자신의 입술을 묻었다. 달콤한 냄새가 당신의 정신을 어지럽힌다." +
+                                    " 어쩐지 현기증이 나서 당신은 그대로 뒤로 쓰러질 뻔했다. 그러자 소라는 당신의 목에 매달리듯이 균형을 자기 쪽으로 기울였다. 당신의 몸이 소라 쪽으로 기울어진다. 점점 더, 점점 더, 그리고 쿵. 당신이 정신을 차렸을 때 소라는 당신의 밑에서 행복하다는 듯이 웃고 있었다." +
+                                    "<br>주점의 모든 사람들이 당신과 소라를 쳐다보고 있는 느낌이 든다. 몇 명은 박수까지 쳤다. 당신은 당신도 모르게 마틴 쪽으로 시선을 돌렸다. 마틴은 당신을 쳐다보고 있지도 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "affection", 5);
+                                    changeNPCEmotion("matin", "rage", 3);
+                                    changeSensitivity(player, "mSensitivity", 5);
+                                    changeArousal(
+                                        player,
+                                        getSensitivityArousalGain(player, "m", 5)
+                                    );
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 소라를 거절했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "소라는 당신의 거절에도 방긋 웃으며 고개를 기울였다." +
+                                    "<br><br>\"쑥스러워서 그래? 쑥스러워하지 않아도 되는데.\"<br><br>" +
+                                    "소라는 아무렇지도 않게 당신의 가슴에 얼굴을 기댔다. 당신의 심장 박동 소리라도 듣는 줄 알았지만, 아무래도 그런 것 같지는 않았다. 소라는 당신의 가슴에 뺨을 기댄 채로 가만히 있다가 당신에게 자신을 안아줘야 하는 거 아니냐고 물었다." +
+                                    "<br><br>\"보통 사람들은 여기서 마주 안아주잖아?\"<br><br>" +
+                                    "삐쳤다는 듯 뺨을 부풀리는 소라의 앞으로 맥주 한 잔이 툭 내밀어졌다. 마틴이었다." +
+                                    "<br><br>\"할 거면 방 잡고 해. 주점에서 물의 일으키지 말고.\"<br><br>" +
+                                    "그 말을 끝으로 마틴은 다시 카운터로 돌아갔다. 소라는 맥주와 마틴을 번갈아보더니 입꼬리를 올렸다.<br>...어쩐지 웃는 게 웃는 게 아닌 거 같다.<br>소라는 갑작스럽게 당신의 뺨에 콕 뽀뽀를 하더니 환하게 웃었다." +
+                                    "<br><br>\"다음 번에는 방 잡고 해야겠다, 그치?\"<br><br>" +
+                                    "보고 싶은 사람 봤으니까 난 이제 갈게, 소라는 당신에게 팔을 휘휘 흔들어보이더니 주점을 나갔다. <br>...주점에 평화가 찾아왔다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "rage", 1);
+                                    changeNPCEmotion("matin", "affection", 1);
+                                    changeNPCEmotion("matin", "rage", -1);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

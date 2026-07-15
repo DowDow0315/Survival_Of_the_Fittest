@@ -2945,21 +2945,33 @@ const ESCAPE_AREA_EVENTS = {
         }
     ],
 
-    guardPost3_to_wastedRuin : [
+    forest_act3_to_deepForest_act3 : [
 
     ],
 
-    wastedRuin_to_guardPost3 : [
+    deepForest_act3_to_forest_act3 : [
 
     ],
 
-    guardPost3_to_whiteFlowerTomb : [
+    forest_act3_to_townEntrance_act3 : [
 
     ],
 
-    whiteFlowerTomb_to_guardPost3 : [
+    deepForest_act3_to_wastedRuin : [
 
     ],
+
+    wastedRuin_to_deepForest_act3 : [
+
+    ],
+
+    deepForest_act3_to_whiteFlowerTomb : [
+
+    ],
+
+    whiteFlowerTomb_to_deepForest_act3 : [
+
+    ]
 };
 
 window.rollEscapeAreaEvent = function(player, fromLocation, targetLocation){

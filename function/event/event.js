@@ -680,6 +680,7 @@ const EVENTS = [
             player.justMoved &&
             (player.location === "townEntrance" ||
             player.location === "townStreet") &&
+            !player.flags?.act3CollapseDone &&
             Math.random() < 0.3,
 
         action: (player) => {
@@ -1009,6 +1010,7 @@ const EVENTS = [
         condition : (player) =>
             player.justMoved &&
             player.location === "shelter" &&
+            !player.flags?.yuriDie &&
             player.flags?.undercity_story_04_done &&
             Math.random() < 0.2,
 

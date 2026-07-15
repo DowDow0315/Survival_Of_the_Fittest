@@ -22,7 +22,9 @@ const LOCATION_SCENE_BUILDERS = {
     heavenPalace : buildHeavenPalaceScene,
     heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
-    gloryHole: getGloryHoleScene
+    gloryHole: getGloryHoleScene,
+    forest_act3 : buildForest_act3Scene,
+    deepForest_act3 : buildDeepForest_act3Scene
 };
 
 function getLocationScene(player){
@@ -91,9 +93,13 @@ function buildBarracksScene(player, loc, randomDesc){
         choices.push({ text: "루크와 대화", action: "luke_talk" });
     }
 
+    const exitAction = player.flags?.act3CollapseDone
+        ? "move_townEntrance_act3"
+        : "move_townEntrance";
+
     choices.push(
         { text: "조사실로 들어가기", action: "move_inquisitRoom" },
-        { text: "나가기", action: "move_townEntrance" }
+        { text: "나가기", action: exitAction }
     );
 
     return [
@@ -566,10 +572,6 @@ function buildGuardPost3Scene(player, loc, randomDesc){
 }
 
 window.approach_wastedRuin = function(player){
-    if (hasItem(player, "발렌의 출입 허가증")){
-        moveTo(player, "wastedRuin");
-        return;
-    }
 
     showSingleTextScene(
         "당신이 폐야 쪽으로 향하려 하자 경계병 한 명이 창으로 길을 막았다.<br><br>" +
@@ -580,10 +582,6 @@ window.approach_wastedRuin = function(player){
 };
 
 window.approach_whiteFlowerTomb = function(player){
-    if (hasItem(player, "발렌의 출입 허가증")){
-        moveTo(player, "whiteFlowerTomb");
-        return;
-    }
 
     showSingleTextScene(
         "당신이 하얀꽃 무덤 쪽으로 향하려 하자 경계병 한 명이 창으로 길을 막았다.<br><br>" +
@@ -597,30 +595,78 @@ window.start_erwinRaid = function(player){
     startErwinRaid(player);
 };
 
-function buildWastedRuinScene(player, loc, randomDesc){
+function buildForest_act3Scene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"주변을 수색한다", action:"search" },
+        { text:"잠깐 쉬기", action:"rest" },
+        { text:"뒤틀린 깊은숲으로 들어간다", action:"travel_forest_act3_to_deepForest_act3" },
+        { text:"마을입구로 돌아간다", action:"travel_forest_act3_to_townEntrance_act3" }
+    );
+
     return [
         { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
         {
             type:"choice",
-            choices:[
-                { text:"주변을 수색한다", action:"search" },
-                { text:"잠깐 쉬기", action:"rest" },
-                { text:"경계병 제3초소로 돌아간다", action:"travel_wastedRuin_to_guardPost3" }
-            ]
+            choices
+        }
+    ];
+}
+
+function buildDeepForest_act3Scene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"주변을 수색한다", action:"search" },
+        { text:"잠깐 쉬기", action:"rest" },
+        { text:"뒤틀린 숲으로 돌아간다", action:"travel_deepForest_act3_to_forest_act3" },
+        { text:"폐야로 향한다", action:"travel_deepForest_act3_to_wastedRuin" },
+        { text:"하얀꽃무덤으로 향한다", action:"travel_deepForest_act3_to_whiteFlowerTomb" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
+        }
+    ];
+}
+
+
+function buildWastedRuinScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"주변을 수색한다", action:"search" },
+        { text:"잠깐 쉬기", action:"rest" },
+        { text:"뒤틀린 깊은숲으로 돌아간다", action:"travel_wastedRuin_to_deepForest_act3" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
         }
     ];
 }
 
 function buildWhiteFlowerTombScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"주변을 수색한다", action:"search" },
+        { text:"잠깐 쉬기", action:"rest" },
+        { text:"뒤틀린 깊은숲으로 돌아간다", action:"travel_whiteFlowerTomb_to_deepForest_act3" }
+    );
+
     return [
         { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
         {
             type:"choice",
-            choices:[
-                { text:"주변을 수색한다", action:"search" },
-                { text:"잠깐 쉬기", action:"rest" },
-                { text:"경계병 제3초소로 돌아간다", action:"travel_whiteFlowerTomb_to_guardPost3" }
-            ]
+            choices
         }
     ];
 }

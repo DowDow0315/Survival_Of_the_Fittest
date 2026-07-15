@@ -90,7 +90,6 @@ registerActions("matin",{
             onEnd: () => startScene(getLocationScene(player), player)
         });
     },
-
     //스토리이벤트
 
     //주점알바 시작
@@ -238,6 +237,13 @@ registerActions("matin",{
             choices.push({
                 text: "줄리앙에 대해 묻는다",
                 action: "matin_askAboutJuliang"
+            });
+        }
+
+        if (!player.flags?.matin_askAboutVice && player.flags.matin_graveyard_04_after_seen ){
+            choices.push({
+                text: "바이스에 대해 묻는다",
+                scene: NPC_DATA.matin.scenes.matin_askAboutVice
             });
         }
 

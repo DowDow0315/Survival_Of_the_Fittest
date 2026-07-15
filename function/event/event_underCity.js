@@ -499,6 +499,27 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "sora_flowerDate_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.affection >= 50 &&
+        !player.flags?.soraDie &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_flowerDate_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "sora_whiteFlowerRing_event",
     once : true,
 
@@ -798,6 +819,25 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["matin"].scenes.matin_beingNightFlirted3,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_darkStreetWishing_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_darkStreetWishing_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1171,7 +1211,8 @@ window.EVENTS.push({
         player.justMoved &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_spying_02_day !== getCurrentDay(player) &&
-        player.location === "townEntrance" &&
+        (player.location === "townEntrance" ||
+         player.location === "townEntrance_act3" ) &&
         Math.random() < 0.1,
 
     action : (player) => {

@@ -4,7 +4,8 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
-        player.location === "deepForest" &&
+        (player.location === "deepForest" ||
+         player.location === "forest_act3" ) &&
         NPC_DATA["yuri"].emotion.affection > 30 &&
         (
             getTimePeriod(player) === "morning" ||
@@ -25,13 +26,40 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_hisGathering_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "forest_act3" &&
+        NPC_DATA["yuri"].emotion.affection > 30 &&
+        (
+            getTimePeriod(player) === "morning" ||
+            getTimePeriod(player) === "afternoon"
+        ) &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_hisGathering_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //에릭
 window.EVENTS.push({
     id : "eric_chasingSomething_event_01",
 
     condition : (player) =>
         player.justMoved &&
-        player.location === "deepForest" &&
+        (player.location === "deepForest" ||
+         player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_01_day !== getCurrentDay(player) &&
         (
@@ -60,7 +88,8 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
-        player.location === "banditForest" &&
+        (player.location === "banditForest" ||
+         player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_02_day !== getCurrentDay(player) &&
         (
@@ -89,7 +118,8 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
-        player.location === "guardPost3" &&
+        (player.location === "guardPost3" ||
+         player.location === "townEntrance_act3" ) &&
         player.flags?.uppercity_story_02_done &&
         player.flags?.eric_chasingSomething_event_03_day !== getCurrentDay(player) &&
         (
@@ -118,7 +148,8 @@ window.EVENTS.push({
     once : true,
 
     condition : (player) =>
-        player.location === "guardPost3" &&
+        (player.location === "guardPost3" ||
+         player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
         NPC_DATA["eric"].emotion.affection > 30 &&
         (

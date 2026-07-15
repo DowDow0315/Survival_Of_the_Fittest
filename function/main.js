@@ -1515,6 +1515,57 @@ const SEARCH_CONFIG = {
             { item: () => ITEMS.misc.rice, weight: 5 },
             { item: () => ITEMS.misc.wheat, weight: 5 }
         ]
+    },
+
+    forest_act3 : {
+        monsterChance : 0.4,
+        itemChance : 0.5,
+        itemPool : [
+            { item: () => ITEMS.misc.wildFruit, weight: 30 },
+            { item: () => ITEMS.misc.rareFruit, weight: 40 },
+            { item: () => ITEMS.misc.potato, weight: 20 },
+            { item: () => ITEMS.misc.cabbage, weight: 20 },
+            { item: () => ITEMS.misc.mushroom, weight: 20 }
+        ]
+    },
+
+    deepForest_act3 : {
+        monsterChance : 0.4,
+        itemChance : 0.5,
+        itemPool : [
+            { item: () => ITEMS.misc.wildFruit, weight: 30 },
+            { item: () => ITEMS.misc.rareFruit, weight: 40 },
+            { item: () => ITEMS.misc.potato, weight: 20 },
+            { item: () => ITEMS.misc.mushroom, weight: 20 },
+            { item: () => ITEMS.misc.rice, weight: 5 },
+            { item: () => ITEMS.misc.wheat, weight: 5 }
+        ]
+    },
+
+    wastedRuin : {
+        monsterChance : 0.4,
+        itemChance : 0.5,
+        itemPool : [
+            { item: () => ITEMS.misc.lumpOfFlesh, weight: 40 },
+            { item: () => ITEMS.misc.twistedBone, weight: 20 },
+            { item: () => ITEMS.misc.cabbage, weight: 20 },
+            { item: () => ITEMS.misc.mushroom, weight: 20 },
+            { item: () => ITEMS.misc.rice, weight: 10 },
+            { item: () => ITEMS.misc.wheat, weight: 10 }
+        ]
+    },
+
+    whiteFlowerTomb : {
+        monsterChance : 0.4,
+        itemChance : 0.5,
+        itemPool : [
+            { item: () => ITEMS.misc.wildFruit, weight: 20 },
+            { item: () => ITEMS.misc.rareFruit, weight: 30 },
+            { item: () => ITEMS.misc.pieceofwhiteflower, weight: 20 },
+            { item: () => ITEMS.misc.flowerNectar, weight: 20 },
+            { item: () => ITEMS.misc.rice, weight: 10 },
+            { item: () => ITEMS.misc.wheat, weight: 10 }
+        ]
     }
 };
 
@@ -1730,6 +1781,14 @@ function renderMap(player){
         return;
     }
 
+    if (
+        player.flags?.act3CollapseDone &&
+        isAct3OuterLocation(player.location)
+    ){
+        renderAct3OuterForestMap(player);
+        return;
+    }
+
     if (isOuterForestLocation(player.location)){
         renderOuterForestMap(player);
         return;
@@ -1750,6 +1809,14 @@ function renderMap(player){
         `;
     }
 
+    const forestKey = player.flags?.act3CollapseDone
+    ? "forest_act3"
+    : "forest";
+    
+    const townEntranceKey = player.flags?.act3CollapseDone
+    ? "townEntrance_act3"
+    : "townEntrance";
+
     mapArea.innerHTML = `
         <div class="map-box">
             <h3>지도</h3>
@@ -1757,13 +1824,13 @@ function renderMap(player){
             <div class="fixed-map">
 
                 <div class="map-row center">
-                    ${node("forest")}
+                    ${node(forestKey)}
                 </div>
 
                 <div class="map-v-line"></div>
 
                 <div class="map-row center">
-                    ${node("townEntrance")}
+                    ${node(townEntranceKey)}
                 </div>
 
                 <div class="map-v-line"></div>
@@ -1821,6 +1888,15 @@ function isOuterForestLocation(locationKey){
         "guardPost1",
         "guardPost2",
         "guardPost3",
+        "wastedRuin",
+        "whiteFlowerTomb"
+    ].includes(locationKey);
+}
+
+function isAct3OuterLocation(locationKey){
+    return [
+        "forest_act3",
+        "deepForest_act3",
         "wastedRuin",
         "whiteFlowerTomb"
     ].includes(locationKey);
@@ -1967,6 +2043,54 @@ function renderOuterForestMap(player){
     `;
 }
 
+function renderAct3OuterForestMap(player){
+    const mapArea = document.getElementById("mapArea");
+    if (!mapArea || !player) return;
+
+    const currentKey = player.location;
+
+    function node(key){
+        const loc = LOCATIONS[key];
+        if (!loc) return "";
+
+        const currentClass =
+            currentKey === key
+                ? " current-map-node"
+                : "";
+
+        return `
+            <div class="map-node${currentClass}">
+                ${loc.name}
+            </div>
+        `;
+    }
+
+    mapArea.innerHTML = `
+        <div class="map-box">
+            <h3>붕괴한 외곽 지도</h3>
+
+            <div class="fixed-map">
+
+                <div class="map-row center">
+                    ${node("forest_act3")}
+                </div>
+
+                <div class="map-v-line"></div>
+
+                <div class="map-row street-branch">
+                    ${node("deepForest_act3")}
+
+                    <div class="branch-list">
+                        ${node("wastedRuin")}
+                        ${node("whiteFlowerTomb")}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    `;
+}
+
 function moveToFromMap(locationKey){
     if (!player) return;
     moveTo(player, locationKey);
@@ -2016,7 +2140,10 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
         guardPost3: 0.50,
 
         wastedRuin: 0.70,
-        whiteFlowerTomb: 0.70
+        whiteFlowerTomb: 0.70,
+
+        forest_act2 : 0.60,
+        deepForest_act3 : 0.60
     };
     
     let dangerChance = DANGER_CHANCE_BY_LOCATION[fromLocation] ?? 0.25;
@@ -2087,13 +2214,6 @@ window.travel_guardPost2_to_guardPost3 = function(player){
     travelOuterArea(player, "guardPost3", 5);
 };
 
-window.travel_guardPost3_to_wastedRuin = function(player){
-    travelOuterArea(player, "wastedRuin", 7);
-};
-
-window.travel_guardPost3_to_whiteFlowerTomb = function(player){
-    travelOuterArea(player, "whiteFlowerTomb", 7);
-};
 
 window.travel_guardPost1_to_banditForest = function(player){
     travelOuterArea(player, "banditForest", 5);
@@ -2107,12 +2227,32 @@ window.travel_guardPost3_to_guardPost2 = function(player){
     travelOuterArea(player, "guardPost2", 5);
 };
 
-window.travel_wastedRuin_to_guardPost3 = function(player){
-    travelOuterArea(player, "guardPost3", 7);
+window.travel_forest_act3_to_deepForest_act3 = function(player){
+    travelOuterArea(player, "deepForest_act3", 5);
 };
 
-window.travel_whiteFlowerTomb_to_guardPost3 = function(player){
-    travelOuterArea(player, "guardPost3", 7);
+window.travel_deepForest_act3_to_forest_act3 = function(player){
+    travelOuterArea(player, "forest_act3", 5);
+};
+
+window.travel_forest_act3_to_townEntrance_act3 = function(player){
+    travelOuterArea(player, "townEntrance_act3", 3);
+};
+
+window.travel_deepForest_act3_to_wastedRuin = function(player){
+    travelOuterArea(player, "wastedRuin", 5);
+};
+
+window.travel_wastedRuin_to_deepForest_act3 = function(player){
+    travelOuterArea(player, "deepForest", 5);
+};
+
+window.travel_travel_deepForest_act3_to_whiteFlowerTomb = function(player){
+    travelOuterArea(player, "whiteFlowerTomb", 5);
+};
+
+window.travel_whiteFlowerTomb_to_deepForest_act3 = function(player){
+    travelOuterArea(player, "deepForest", 5);
 };
 
 //전투이벤트

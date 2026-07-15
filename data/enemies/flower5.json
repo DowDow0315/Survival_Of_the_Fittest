@@ -121,7 +121,7 @@
         {
             "name" : "아리따운 춤사위",
             "type" : "multiHit",
-            "power" : 0.8,
+            "power" : 0.6,
             "hits" : 3,
             "chance" : 0.5,
             "lines" : [

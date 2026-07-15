@@ -1223,3 +1223,146 @@ window.startRebelStory02AfterUppercityPromiseBattleLosingEvent = function(player
         onEnd : () => startScene(getLocationScene(player), player)
     });
 };
+
+//act2 마지막
+window.EVENTS.push({
+    id : "act_02_abomination_attack_start_rebel_route",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance" &&
+        player.flags?.rebel_story_02_after_event_attack_seen &&
+        getCurrentDay(player) >= (player.flags.rebel_story_02_after_event_attack_seen_day + 7) &&
+        !player.flags?.act_02_abomination_attack_start_rebel_route_seen,
+
+    action : (player) => {
+        player.flags.act_02_abomination_attack_start_rebel_route_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구에 들어서자마자 어디선가 비명소리가 들렸다. 당신이 고개를 돌렸을 때, 거대한 흉물이 한 명을 질질 끌고 가고 있었다. 경계선 너머에만 있다고 믿었던 흉물이 눈앞에 나타나자 사람들의 표정에 균열이 생겼다. 경비병들도 시민들과 다르지는 않았다. 몇몇은 흉물을 막아섰지만 몇몇은 자기 목숨을 살리기 위해 시민들 사이로 숨어들었다." +
+                    "<br><br>\"씨발, 이게 뭔...\"<br><br>" +
+                    "당신은 루크가 경비병들을 이끌고 마을 입구에서 흉물 하나를 막아내는 것을 보았다. 거대한 흉물은 그들의 공격에 꿈틀거리더니 집어삼킨 사람을 끌고 그대로 숲으로 돌아가버렸다. 루크는 자신의 뺨에 묻은 마물의 검은피를 손등으로 닦았다.",
+                    "<br>경계병 하나가 마을 입구로 기어왔다. 그는 경비병단장 루크를 보더니 흉물이 경계병 제3초소를 뚫고 있다고 말했다. 그는 경계병 제3초소가 뚫리면 모든 초소가 다 뚫릴 거라고 말했다.",
+                    "<br><br>\"...이미 뚫린 거 아냐? 지금...\"<br><br>" +
+                    "\"미처 못 막아낸 거야.... 아직도 우리들은 싸우고 있어. 우리가 뚫리면 전부 끝이야...\"<br><br>" +
+                    "경계병은 중얼거리다가 그대로 고개를 떨구었다. 그의 입에서 역겨운 냄새가 나면서 검은피가 흘러내렸다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "루크는 그의 입에서 태어난 흉물의 새끼들을 발로 밟아죽였다. 그는 입에 담배를 물었다. 하늘을 한번 올려다보더니 그는 마을 입구로 향했다. 뒤에서 경비병들이 루크를 말리는 소리들이 들린다. 하지만 루크는 딱 한번 그들을 돌아본 후 다시 길을 나섰다.",
+                    "<br><br><br><span class='log-danger'>경계병 제3초소에 도착해 이벤트를 진행할 시, 세계의 흐름이 크게 바뀝니다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "act_02_abomination_attack_start_uppercity_route",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance" &&
+        player.flags.rebel_story_02_after_event_uppercityPromise_seen &&
+        getCurrentDay(player) >= (player.flags.rebel_story_02_after_event_uppercityPromise_seen_day + 7) &&
+        !player.flags?.act_02_abomination_attack_start_uppercity_route_seen,
+
+    action : (player) => {
+        player.flags.act_02_abomination_attack_start_uppercity_route_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"하류도시의 영웅.\"<br><br>" +
+                    "뒤를 돌아보니 백색 군인이 다급한 목소리로 당신을 부르고 있었다." +
+                    "<br><br>\"현재 경계병 제3초소가 뚫리고 있다는 연락이....\"<br><br>" +
+                    "그가 말을 끝내기도 전에 그의 뒤에서 거대한 흉물이 입을 벌렸다. 백색 군인은 아슬아슬하게 거대한 흉물의 공격을 피했다. 마을 입구에 있던 시민들은 경계선 너머에만 있다고 믿었던 흉물이 눈앞이 있자 순간 멍하니 그것을 바라보기만 했다." +
+                    "<br><br>\"으아아아악!\"<br><br>" +
+                    "한 명이 삼켜지고 나서야 시민들은 비명을 지르며 도망가기 시작했다. 흉물의 입에 걸린 한쪽 다리는 살고 싶다는 듯이 파닥거리다가 이내 그대로 축 늘어져버렸다." +
+                    "<br>당신은 루크가 욕설을 뱉는 소리를 들었다. 그는 거대 흉물에 분명 타격을 먹였지만, 거대 흉물은 형태만 조금 변했을 뿐 똑같았다. 루크의 뺨에 거대 흉물의 검은피가 묻었다. 그는 신경질적으로 손등으로 제 뺨에 묻은 검은피를 닦아냈다." +
+                    "<br><br>\"경계병 제3초소가 뚫리고 있다고?\"<br><br>" +
+                    "다행인지 불행인지 인간 하나를 삼킨 거대 흉물은 알아서 물러났다. 루크는 거대 흉물이 마을 입구에서 멀어져 숲으로 들어가는 것을 보고 난 후에야 당신과 백색 군인에게 시선을 돌렸다. 그는 백색 군인의 대답을 듣지도 않았다. 그는 그대로 마을 입구를 나섰다. 뒤에서 루크의 경비병들이 네가 거기를 가봤자 죽는다고 말리는 소리가 들리긴 했지만 루크는 딱 한번 그들을 돌아봤을 뿐, 자신의 걸음을 멈추지 않았다." +
+                    "<br><br>\"하류도시의 영웅, 막을 수 있으면 막지만...\"<br><br>" +
+                    "백색 군인은 당신을 바라보았다.",
+                    "<br><br>\"못 막을 거 같으면 버리라고, 발렌 님께서 말씀하셨습니다. 행운을 빕니다.\"" +
+                    "<br><br><br><span class='log-danger'>경계병 제3초소에 도착해 이벤트를 진행할 시, 세계의 흐름이 크게 바뀝니다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "act_02_abomination_attack_guardPost3",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "guardPost3" &&
+        (player.flags?.act_02_abomination_attack_start_rebel_route_seen ||
+         player.flags?.act_02_abomination_attack_start_uppercity_route_seen ) &&
+        !player.flags?.act_02_abomination_attack_guardPost3_seen,
+
+    action : (player) => {
+        player.flags.act_02_abomination_attack_guardPost3_seen = true;
+        player.flags.act3CollapseDone = true;
+        applyAct3LocationChange();
+        clearCollapsedAreaQuest(player);
+        player.location = "townEntrance_act3";
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 경계병 제3초소로 향했다. 하지만 이미 경계병 제3초소는 무너져 있었다. 모든 바닥이 흉물들의 색깔마냥 붉었고 끈적끈적했다. 바닥 사이사이에 있는 뒤틀린 뼈들은 오래된 것처럼 보이지 않는다. 우둑우둑 소리와 함께 짓눌린 비명 소리들이 여기저기서 들린다. 흉물 하나가 고개를 들었다. 흉물의 안에는 사람 한 명이 결합되어 있었다.",
+                    "<br>당신이라는 먹잇감을 발견한 흉물이 하나둘 고개를 들었다. 수가 너무 많다...! 당신은 당신도 모르는 사이에 뒷걸음질을 쳤다. 흉물 하나가 당신을 집어삼키려고 몸을 길게 늘였다. 당신이 걸음을 떼는 순간, 바닥에 있던 끈적끈적한 것이 당신의 다리를 잡아당겼다...!",
+                    "<br><br>...당신은 익숙한 욕설을 들었다. 당신의 허리를 단단하게 잡은 따듯한 팔, 그리고 당신은 그대로 그와 함께 어딘가로 굴러떨어졌다. 하지만 어디로 굴러떨어지든 붉은색 바닥 위였다." +
+                    "<br>흉물들은 루크에게 다가오려다가 멈칫했다. 하지만 그것도 잠시 그들은 두 먹잇감을 향해 포위를 서서히 좁혀왔다. 어떻게든 도망가려던 당신은 당신을 끌어안고 있는 루크가 정신을 잃었다는 걸 인지했다. 그의 몸은 따듯한 게 아니라 뜨거웠다. 당신은 그의 얼굴을 보았다. 그의 뺨은 염증이라도 난 듯 부글부글 끓고 있었다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "...당신은 루크뿐만 아니라 당신도 열이 난다는 사실을 알게 되었다. 당신의 의식이 점점 흐려진다. 흐려지는 의식 사이로 당신과 루크에게로 다가오는 흉물들이 보인다...." +
+                    "<br>당신은 눈을 깜박였다. 백발을 길게 늘어뜨린 여자가 당신을 내려다보고 있었다." +
+                    "<br><br>...소라?<br><br>"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신은 언젠가 이런 일이 똑같이 있었다는 걸 기억했다. 당신은 분명 그날도 죽을 뻔했었다." +
+                    "<br>경계심 많은 금안 하나, 그것이 처음부터 당신을 살리려고 했다고는 생각하지 않는다. 그것은 움직이지 못하는 당신의 주변을 그저 맴돌았었다." +
+                    " 그러다가 그것은 당신에게 다가왔다. 당신이 자신에게 위험하지 않다는 것을 살피고 고개를 갸웃거리며, 그것은 당신에게 손을 뻗는다. 만약 그날 당신이 그것의 손길을 거부했다면 당신은 그날 죽었을지도 모른다. 하지만 당신은 그것의 손길을 받아들였다." +
+                    "<br>그리고 그것은 자신의 손길을 거부하지 않은 당신을 눈을 깜박거리며 바라보더니 말했다." +
+                    "<br><br>\"날, ㄷ, 와, ㅈ.\"<br><br>" +
+                    "당신은 그것을 도와주기로 했다. 당신이 고개를 끄덕이자 그것은 울음을 터뜨렸다. 그것은 당신을 하얀꽃 무덤으로 데려갔다." +
+                    "<br>환각과 환청 속에서 당신은 몸을 회복했다. 당신은 그것과 대화를 나누었고 그것은 당신과의 대화를 좋아했다. 그것은 진짜 사람과 이야기를 나누는 것은 100년만이라고 더듬더듬 말했다." +
+                    "<br><br>\"ㄱ, 리, ㅇ...ㅇ...\"<br><br>" +
+                    "그것은 당신의 손에 뺨을 기댔다. 그것은 당신의 온기에 눈물을 흘린다. 그리고 그것은 당신의 이름을 묻는다. 당신은 그것에게 당신의 이름을 말해주었다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "다시 눈을 떴을 때, 당신은 그때처럼 마을 입구에 서있었다. 멍하니. 당신은 완전히 박살난 마을 입구를 응시한다." +
+                    "<br><br>인간이 그어놨던 경계는 무너졌다. 숲과 깊은숲은 이미 흉물의 영억이 되어 있었고, 경계병 제3초소 너머에 있던 폐야와 하얀꽃무덤은 이제 하류도시의 바로 앞까지 밀려와 있었다." +
+                    "<br><br><br>당신은 마을 입구의 앞으로 경계병 초소를 세우는 모습을 멍하니 응시했다. 나무판자와 부서진 마차로 급하게 만든 초소였다. 경계병 제3초소를 대신하기에는 너무 작고, 너무 가까웠다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

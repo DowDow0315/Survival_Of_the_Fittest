@@ -74,6 +74,8 @@ const QUESTS = {
             count : 1
         },
 
+        act3Disable : true,
+
         acceptText : "마틴은 당신에게 의뢰서를 주었다.",
         cancelText : "마틴은 무표정으로 당신에게서 의뢰서를 다시 받았다.",
         completeText : "마틴은 의뢰서를 확인하더니 동전을 내밀었다. 그는 당신이 구출한 사람들은 모두 인도됐다고 말했다. 어디로 인도된지는 말해주지 않았다."
@@ -99,6 +101,8 @@ const QUESTS = {
             completedQuest : "undercity_story_06",
             count : 1
         },
+
+        act3Disable : true,
         
         acceptText : "당신이 도적떼를 소탕하는 의뢰를 받아들이자 마틴의 눈동자가 순간 평소와 달라보였다. 착각이었을까? 마틴은 당신에게 의뢰서를 주었다.",
         cancelText : "마틴은 무표정으로 당신에게서 의뢰서를 다시 받았다.",
@@ -125,6 +129,8 @@ const QUESTS = {
             completedQuest : "uppercity_story_01",
             count : 1
         },
+
+        act3Disable : true,
         
         onComplete: (player) => {
             player.flags = player.flags || {};
@@ -158,6 +164,8 @@ const QUESTS = {
             completedQuest: "rebel_story_01",
             count: 1
         },
+
+        act3Disable : true,
         
         acceptText: "마틴은 당신에게 의뢰서를 내밀었다.<br><br>\"...흔적은 경계병 제2초소 근처에서 끊겼다고 해.\"",
         cancelText: "마틴은 의뢰서를 다시 받아갔다.",
@@ -766,6 +774,11 @@ function getQuestCompleteCount(player, questId){
 }
 
 function canShowQuest(player, quest){
+
+    if (quest.act3Disable && player.flags?.act3CollapseDone){
+        return false;
+    }
+
     if (!quest.require) return true;
 
     if (quest.require.flag){
@@ -1051,4 +1064,18 @@ function completeSubQuest(player, questId){
 
     savePlayer(player);
     return true;
+}
+
+//act3 붕괴 함수
+function clearCollapsedAreaQuest(player) {
+
+    const active = player.quest?.active;
+    if (!active) return;
+
+    const quest = findQuest(active.id);
+
+    if (quest?.act3Disable){
+        player.quest.active = null;
+        savePlayer(player);
+    }
 }

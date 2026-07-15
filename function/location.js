@@ -1096,5 +1096,132 @@ const LOCATIONS ={
         connections : {
             heavenPalace : 3
         }
+    },
+    //Act3 이후 새로 생긴 맵
+    townEntrance_act3 : {
+        name : "하류도시 마을입구",
+        desc : {
+            dawn : [
+                "하류도시 마을입구다. <br>요새 정신을 놓아버린 사람들이 많아진 거 같다.",
+                "하류도시 마을입구다. <br>더 많아진 하얀꽃 중독자들이 마을 입구로 비척비척 걸어간다. 그들은 직접 숲으로 나가 하얀꽃들을 가져올 생각인 듯하다.",
+                "하류도시 마을입구다. <br>하류도시 사람들은 그래도 나름 자신의 더 끔찍해진 생활에 적응해가고 있다."
+            ],
+            morning: [
+                "하류도시 마을입구다. <br>몇몇 사람들이 마을에서 나갈 준비를 하고 있는 게 보인다.",
+                "하류도시 마을입구다. <br>이른 시간인데도 사람들이 분주하다.",
+                "하류도시 마을입구다. <br>경계병들은 여전히 경비병들을 무시하고 있긴 하지만, 그래도 조금은 서로 사이가 좋아졌다."
+            ],
+            afternoon : [
+                "하류도시 마을입구다. <br>경비병들이 서로 떠드는 소리가 들린다. 몇몇은 힐끗힐끗 당신을 바라본다.",
+                "하류도시 마을입구다. <br>누군가가 마을 입구에서 제 애인에게 키스를 했다. <br><br>\"돌아와야 해.\"<br><br>\"물론, 난 언제나 네 곁으로 돌아갈 거야.\"",
+                "하류도시 마을입구다. <br>경비병들을 이끌고 루크가 마을 입구에서 순찰하는 모습이 보인다. 옆모습이 더 날카로워진 거 같다."
+            ],
+            night : [
+                "하류도시 마을입구다. <br>해가 진다. 저녁에 돌아다니는 것은 위험하다.",
+                "하류도시 마을입구다. <br>당신과 시선이 마주친 몇몇 주민들이 흠칫하더니 고개를 돌린다.",
+                "하류도시 마을입구다. <br>입구 주변에서 비명 소리가 들렸다. 경비병들이 뛰어가는 소리가 들린다."
+            ]
+        },
+        collectorChance: 0.8,
+        connections : {}
+    },
+    forest_act3 : {
+        name : "뒤틀린 숲",
+        desc : {
+            dawn : [
+                "뒤틀린 숲이다. <br>당신은 뒤틀린 숲에서 자원을 채집하는 쉘터의 아이와 눈이 마주쳤다.",
+                "뒤틀린 숲이다. <br>어쨌든 사람들은 살아가야 하기에, 여전히 마을 입구 밖으로 나도는 사람들은 많다. 당신은 여기저기 흩어진 발자국들을 발견했다."
+            ],
+            morning: [
+                "뒤틀린 숲이다. <br>나무마저 기괴하게 뒤틀려있는 기분이 든다.",
+                "뒤틀린 숲이다. <br>당신은 하얀꽃이 꽂힌 채 죽어있는 흉물의 시체를 보았다.",
+                "뒤틀린 숲이다. <br>몇몇 경계병들이 나서서 순찰을 돌고 있는 모습이 보인다. 다친 사람이 있는지 그들은 한 명을 에워싼 채로 걸어가고 있다."
+            ],
+            afternoon : [
+                "뒤틀린 숲이다. <br>고블린들의 살점이 떨어져 있다. 살덩어리는 전부 검붉게 변색되어 있었다. <br>...아니, 살아있는 것처럼 펄떡펄떡거리고 있다.",
+                "뒤틀린 숲이다. <br>길들이 전부 뒤틀려버려서 길을 잃기가 쉽다. 당신은 도적떼의 흔적에 걸음을 멈췄다.... 이들은 살았을까?",
+                "뒤틀린 숲이다. <br>당신은 백색 군단이 누군가를 죽이는 장면을 봐버렸다. 다행히도 당신은 그들에게 들키지 않았다."
+            ],
+            night : [
+                "뒤틀린 숲이다. <br>어둠이 밀려온다. 어둠 속에서 뒤틀린 숲을 헤매는 건 위험하다.",
+                "뒤틀린 숲이다. <br>당신이 나뭇가지를 밟는 소리에 주변이 전부 조용해졌다. <br>....뭔가가 지켜보고 있는 느낌이다.",
+                "뒤틀린 숲이다. <br>재밌는 얘기를 하며 지나가는 목소리가 들린다."
+            ]
+        },
+        collectorChance: 0.8,
+        sleepDanger: 0.6,
+        sleepEnemyPool : [
+            { id : "abomination1", weight : 45},
+            { id : "abomination2", weight : 35},
+            { id : "flower2", weight : 20}
+        ],
+        connections : {}
+    },
+    deepForest_act3 : {
+        name : "뒤틀린 깊은숲",
+        desc : {
+            dawn : [
+                "뒤틀린 깊은숲이다. <br>찌걱찌걱거리는 소리가 들린다. 당신은 고개를 돌렸다. 하지만 당신의 시야가 닿는 곳에는 이미 아무도 없었다.",
+                "뒤틀린 깊은숲이다. <br>누군가 살려달라고 비명을 지르는 소리가 들린다. 그 비명은 곧 마찰음과 함꼐 사라져버렸다.",
+                "뒤틀린 깊은숲이다. <br>새벽에도 하얀꽃은 피어있다. 하얀꽃 주변만큼은 역겨운 냄새가 안 나고 있다."
+            ],
+            morning: [
+                "뒤틀린 깊은숲이다. <br>나무마저 기괴하게 뒤틀려있는 기분이 든다.",
+                "뒤틀린 깊은숲이다. <br>쿵, 하는 소리가 들려서 당신은 고개를 돌렸다. 하얀꽃인간이 검은피를 머금은 채로 죽어있었다.",
+                "뒤틀린 깊은숲이다. <br>당신은 경계병의 시체를 보았다. 경계병의... 하반신은 대체 어디로 갔을까."
+            ],
+            afternoon : [
+                "뒤틀린 깊은숲이다. <br>당신은 찢겨져 있는 백색 제복을 보았다. 누군가의 최후를 상상하는 게 이렇게도 쉬운 일이었나.",
+                "뒤틀린 깊은숲이다. <br>길들이 전부 뒤틀려버려서 길을 잃기가 쉽다. 당신은 누군가가 나무에 표시를 해놓은 흔적을 발견했다.",
+                "뒤틀린 깊은숲이다. <br>당신은 잘려나간 살덩이에서 뚝뚝 흉물의 알이 떨어지는 것을 보았다."
+            ],
+            night : [
+                "뒤틀린 깊은숲이다. <br>어둠이 밀려온다. 어둠 속에서 뒤틀린 깊은숲을 헤매는 건 위험하다.",
+                "뒤틀린 깊은숲이다. <br>찌꺽찌꺽거리는 소리가 어딘가에서 들려온다. 당신은 몸을 움츠렸다.",
+                "뒤틀린 깊은숲이다. <br>바닥에 손톱자국같은 것이 나있다. 어디론가로 끌려간 모양이다."
+            ]
+        },
+        collectorChance: 0.4,
+        sleepDanger: 0.6,
+        sleepEnemyPool : [
+            { id : "abomination2", weight : 35},
+            { id : "abomination3", weight : 45},
+            { id : "flower3", weight : 20}
+        ],
+        connections : {}
     }
+}
+
+//ACT3 이후
+function applyAct3LocationChange(){
+
+    // 하류도시 길거리 → 기존 마을입구 제거
+    delete LOCATIONS.townStreet.connections.townEntrance;
+    LOCATIONS.townStreet.connections.townEntrance_act3 = 4;
+
+    // 막사 → 기존 마을입구 제거
+    delete LOCATIONS.barracks.connections.townEntrance;
+    LOCATIONS.barracks.connections.townEntrance_act3 = 2;
+
+    // Act3 마을입구
+    LOCATIONS.townEntrance_act3.connections.townStreet = 4;
+    LOCATIONS.townEntrance_act3.connections.barracks = 2;
+    LOCATIONS.townEntrance_act3.connections.forest_act3 = 8;
+
+    // Act3 숲
+    LOCATIONS.forest_act3.connections.townEntrance_act3 = 8;
+    LOCATIONS.forest_act3.connections.deepForest_act3 = 10;
+
+    // Act3 깊은숲
+    LOCATIONS.deepForest_act3.connections.forest_act3 = 10;
+    LOCATIONS.deepForest_act3.connections.wastedRuin = 10;
+    LOCATIONS.deepForest_act3.connections.whiteFlowerTomb = 10;
+
+    // 폐야의 기존 제3초소 연결 제거
+    delete LOCATIONS.wastedRuin.connections.guardPost3;
+    LOCATIONS.wastedRuin.connections.deepForest_act3 = 10;
+
+    // 하얀꽃무덤의 기존 제3초소 연결 제거
+    delete LOCATIONS.whiteFlowerTomb.connections.guardPost3;
+    LOCATIONS.whiteFlowerTomb.connections.deepForest_act3 = 10;
 }

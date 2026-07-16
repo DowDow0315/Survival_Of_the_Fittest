@@ -538,7 +538,7 @@ const DUNGEONS = {
         },
 
         encounters : [
-            { type: "battle", enemy: "flower1", weight: 20 },
+            { type: "battle", enemy: "flower", weight: 20 },
             { type: "battle", enemy: "flower2", weight: 20 },
             { type: "battle", enemy: "flower3", weight: 10 },
             { type: "battle", enemy: "flower4", weight: 5 },

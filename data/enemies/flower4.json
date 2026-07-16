@@ -1,7 +1,7 @@
 {
     "name": "꽃폭탄인간",
     "hp": 300,
-    "attack": 44,
+    "attack": 43,
     "defense": 41,
     "eva": 30,
     "lustResist" : 1.7,
@@ -114,7 +114,7 @@
         {
             "name" : "꽃폭탄돌리기",
             "type" : "multiHit",
-            "power" : 1.2,
+            "power" : 1.1,
             "hits" : 2,
             "chance" : 0.5,
             "lines" : [

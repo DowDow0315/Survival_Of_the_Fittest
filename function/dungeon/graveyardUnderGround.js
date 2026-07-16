@@ -44,7 +44,8 @@ function buildGraveyardUndergroundUpperScene(player){
             type: "choice",
             choices: [
                 { text: "앞으로 나아간다", action: "graveyard_upper_nextTrial" },
-                { text: "다시 올라간다", action: "graveyard_returnEntrance" }
+                { text: "다시 올라간다", action: "graveyard_returnEntrance" },
+                { text : "잠깐 쉰다", action : "rest"}
             ]
         }
     ];

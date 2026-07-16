@@ -5293,7 +5293,7 @@ function handleSoraFatherWin(player){
                 "<div style='text-align:center; font-size:2rem; color: #ff0000;'>5</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #ff4901;'>4</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #fbff07;'>3</div><br><br>" +
-                "시간이 없다. 이러다가는 당신마저 타버릴 것이다. 당신은 주변을 둘러보다가 천장을 올려다보았다. 소각 준비 절차인지 아까와 다르게 천장이 뻥 뚫려있었다. 당신은 어떻게든 밟고 뛰면서 천장의 구멍으로 올라갔다." +
+                "시간이 없다. 이러다가는 당신마저 타버릴 것이다. 당신은 주변을 둘러보다가 천장을 올려다보았다. 소각 준비 절차인지 아까와 다르게 천장이 뻥 뚫려있었다. 당신은 어떻게든 밟고 뛰면서 천장의 구멍으로 올라갔다.<br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #ff07c1;'>2</div><br><br>" +
                 "<div style='text-align:center; font-size:2rem; color: #a200ff;'>1</div><br><br>" +
                 "<br><br>잠깐의 정적, 그리고, <br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>퍼엉</div><br><br>"

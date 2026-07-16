@@ -701,7 +701,8 @@ function buildGraveyardScene(player, loc, randomDesc){
                 { text: "왼쪽으로 나아간다", action: "graveyard_left" },
                 { text: "오른쪽으로 나아간다", action: "graveyard_right" },
                 { text: "주변을 수색한다", action: "search" },
-                { text: "밖으로 나간다", action: "leave_graveyard" }
+                { text: "밖으로 나간다", action: "leave_graveyard" },
+                { text : "잠깐 쉬기", action : "rest"}
             ]
         }
     ];

@@ -123,7 +123,7 @@ const QUESTS = {
         
         targetFlag : "whiteFlowerLab_cleanup_done",
         requiredKill : 1,    
-        rewardGold : 3000,
+        rewardGold : 5000,
 
         require : {
             completedQuest : "uppercity_story_01",
@@ -536,7 +536,7 @@ const QUESTS = {
         
         targetFlag : "rebel_story02_done",
         requiredKill: 1,
-        rewardGold: 5000,
+        rewardGold: 10000,
         
         onComplete: (player) => {
             player.flags = player.flags || {};

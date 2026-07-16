@@ -1,7 +1,7 @@
 {
     "name": "작은 흉물 촉수",
-    "hp": 230,
-    "attack": 41,
+    "hp": 200,
+    "attack": 38,
     "defense": 42,
     "eva": 38,
     "lustResist" : 1.3,

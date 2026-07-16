@@ -1118,7 +1118,7 @@
                                     "type" : "effect",
                                     "effects" : [
                                         { "target": "npc", "npc": "luke", "key": "affection", "amount": -2 },
-                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": 3 },
+                                        { "target": "npc", "npc": "luke", "key": "dominance", "amount": -3 },
                                         { "target": "npc", "npc": "luke", "key": "lust", "amount": 5 },
                                         { "target": "player", "key": "arousal", "amount": 5 },
                                         { "target": "sensitivity", "key": "mSensitivity", "amount": 2 },

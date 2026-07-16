@@ -67,16 +67,8 @@ window.graveYard_rest = function(player){
         {
             type: "effect",
             run: (player) => {
-                player.stamina = Math.min(
-                    player.maxStamina ?? 100,
-                    player.stamina + 20
-                );
-
-                player.hp = Math.min(
-                    player.maxHp ?? 100,
-                    player.hp + 50
-                );
-
+                changeHP(player, 40);
+                changeStamina(player, 30);
                 passTime(player, 10);
 
                 savePlayer(player);

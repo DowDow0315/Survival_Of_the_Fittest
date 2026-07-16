@@ -2120,7 +2120,7 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
             : null;
 
     if (eventScene){
-        player.pendingEscapeTargetLocationTargetLocation = targetLocation;
+        player.pendingEscapeTargetLocation = targetLocation;
         player.pendingEscapeRequiredSteps = requiredSteps;
         player.pendingEscapeKey = key;
 

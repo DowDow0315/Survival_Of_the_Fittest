@@ -199,7 +199,7 @@ const LOCATIONS ={
             { id : "bandit1", weight : 70},
             { id : "bandit2", weight : 30}
         ],
-        collectorChance: 0.0,
+        collectorChance: 0.7,
         connections : {
             deepForest: 10,
             banditHideout : 5,
@@ -280,6 +280,7 @@ const LOCATIONS ={
             banditForest: 30,
             guardPost2 : 30
         },
+        collectorChance: 0.6,
         sleepDanger: 0,
         sleepEnemyPool: [
             {id: "bandit1", weight : 10},
@@ -314,6 +315,7 @@ const LOCATIONS ={
             guardPost3 : 40,
             whiteFlowerLab : 20
         },
+        collectorChance: 0.5,
         sleepDanger: 0
     },
     whiteFlowerLab : {
@@ -370,6 +372,7 @@ const LOCATIONS ={
             wastedRuin : 10,
             whiteFlowerTomb : 15
         },
+        collectorChance: 0.5,
         sleepDanger: 0
     },
     wastedRuin : {
@@ -393,6 +396,7 @@ const LOCATIONS ={
                 "폐야다. <br>당신은 무언가를 밟았다. 지금까지 밟았던 거랑 달라서 밑을 보니 살색이 보였다... 신음 소리도 들린 거 같다. 당신은 바로 발을 뗐다."
             ]
         },
+        collectorChance: 0,
         connections : {
             guardPost3: 10
         },
@@ -422,6 +426,7 @@ const LOCATIONS ={
         connections : {
             guardPost3: 10
         },
+        collectorChance: 0,
         sleepDanger: 0.8
     },
     townStreet:{

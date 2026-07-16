@@ -521,7 +521,7 @@ const DUNGEONS = {
 
             "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}, event : "whiteFlowerOldLab_bloodLine2", seenFlag : "whiteFlowerOldLab_bloodLine2"},
             "r5c1" : {name : "시든 반지가 떨어져있는 방", exits : {left : "r5c0"}, event : "whiteFlowerOldLab_overSee"},
-            "r5c3" : {name : "한 남자의 시체가 있는 방", exits : {up : "r4c3", right : "r5c4"}, event : "whiteFlowerOldLab_soraFather02", seenFlag : "whiteFlowerOldLab_soraFather02"},
+            "r5c3" : {name : "누군가가 있었던 방", exits : {up : "r4c3", right : "r5c4"}, event : "whiteFlowerOldLab_soraFather02", seenFlag : "whiteFlowerOldLab_soraFather02"},
             "r5c4" : {name : "낙서들로 가득한 방", exits : {left : "r5c3", right : "r5c5"}, event : "whiteFlowerOldLab_soraFather03"},
             "r5c5" : {name : "실험실 앞 틈새", exits : {left : "r5c4", up : "r4c5"}, safeZone: true, allowRest: true},
             "r5c7" : {name : "촉수병실", exits : {up : "r4c7", down : "r6c7"}},
@@ -3532,7 +3532,7 @@ const DUNGEON_EVENTS = {
                     "[녹음기록 1]" +
                     "<br>\"소라, 아빠 말 좀 들어봐, 응? 이건 그저 대의를 위해ㅅ\"" +
                     "<br>\"아뇨. 아빠는 이미 떳떳하지 않다는 걸 알고 있었어요. 떳떳했다면 저한테 이렇게 숨기려고 할 생각도 하지 않았겠죠.\"" +
-                    "<br>\"....<br>....<br>....<br>아직 어려서 그런지 말이 안 통하는 구나. 집에 들어가있어라. 그리고 다시는 여기에 오지 말고.\""
+                    "<br>\"....<br> ....<br> ....<br>아직 어려서 그런지 말이 안 통하는 구나. 집에 들어가있어라. 그리고 다시는 여기에 오지 말고.\""
                 ]
             },
             {
@@ -3570,7 +3570,7 @@ const DUNGEON_EVENTS = {
                 type : "text",
                 value : [
                     "낙서가 가득한 방이었다. 글씨체는 전부 다 달랐다. 당신은 이걸 한 사람이 쓴 건지, 아니면 여러 사람이 쓴 건지 분간할 수가 없었다. 글씨체는 다 달랐지만 말투는 전부 비슷했기 때문이었다." +
-                    "당신이 아는 이름이 여러 번 써있었다. <span class='log-pale'>소라. 소라. 소라. 소라. 소라.</span> 안녕하세요/김시합니다/사랑해요/안아주세요 등등 여러 인삿말들도 뒤죽박죽 써있었다." +
+                    "당신이 아는 이름이 여러 번 써있었다. <span class='log-pale'>소라. 소라. 소라. 소라. 소라.</span> 안녕하세요/감사합니다/사랑해요/안아주세요 등등 여러 인삿말들도 뒤죽박죽 써있었다." +
                     "<br><br>어지러운 낙서에서 시선을 떼고 당신은 앞을 바라보았다. 곧 임무를 끝낼 수 있을 거 같다."
                 ]
             }

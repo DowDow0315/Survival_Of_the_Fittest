@@ -118,7 +118,7 @@
         {
             "name" : "꽃잎바람",
             "type" : "multiHit",
-            "power" : 0.6,
+            "power" : 0.5,
             "hits" : 4,
             "chance" : 0.5,
             "lines" : [
@@ -130,7 +130,7 @@
             "name" : "마력강화",
             "type" : "selfBuff",
             "chance" : 0.5,
-            "duration" : 3,
+            "duration" : 2,
             "effect" : {
                 "id" : "soraFather_battle_stance",
                 "atkMult" : 1.5,

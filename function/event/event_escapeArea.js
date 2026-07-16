@@ -2946,31 +2946,465 @@ const ESCAPE_AREA_EVENTS = {
     ],
 
     forest_act3_to_deepForest_act3 : [
-
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     deepForest_act3_to_forest_act3 : [
-
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     forest_act3_to_townEntrance_act3 : [
-
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     deepForest_act3_to_wastedRuin : [
-
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     wastedRuin_to_deepForest_act3 : [
-
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     deepForest_act3_to_whiteFlowerTomb : [
-
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 20,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ],
 
     whiteFlowerTomb_to_deepForest_act3 : [
-
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 낚시할 수 있는 지점을 발견했다! 환경이 아무리 안 좋아져도 생물은 어떻게도 살아남을 길을 찾는 모양이다, 더러운 물에도 사는 물고기가 있는 것처럼. <br><br>역시 자연의 힘은 위대하다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "낚시를 시작한다",
+                            action : "fishing"
+                        },
+                        {
+                            text : "그냥 지나친다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "지금 이 상황에 낚시가 중요하겠는가. 뭣이 중헌디. 그럼 뭣이 중허냔 말이여. 당신은 그대로 낚시지점을 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 20,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 광산을 발견했다." +
+                        "<br><br><span class='log-warning'>광산에서는 저장할 수 없습니다.</span>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "광산으로 들어간다",
+                            action : "enter_mine"
+                        },
+                        {
+                            text : "광산에 들어가지 않는다",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "광산에 들어가면 어떤 일이 생길지 모른다. 당신은 광산을 지나쳐 걸어갔다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ]
 };
 

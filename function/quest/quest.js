@@ -820,7 +820,7 @@ function acceptQuest(player, questId){
                 type: "choice",
                 choices: [
                     { text: "퀘스트 게시판으로 돌아가기", action: "open_tavernQuests" },
-                    { text: "주점으로 돌아가기", action: "return_tavern" }
+                    { text: "주점으로 돌아가기", action: "return_location" }
                 ]
             }
         ], player);
@@ -878,6 +878,10 @@ function acceptQuest(player, questId){
         }
     ], player);
 }
+
+window.return_location = function(player){
+    startScene(getLocationScene(player), player);
+};
 
 window.return_tavern = function(player){
     player.location = "tavern";

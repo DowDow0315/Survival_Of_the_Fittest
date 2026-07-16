@@ -497,14 +497,14 @@ const DUNGEONS = {
             "r0c4" : {name : "피가 묻은 복도2", exits : {left : "r0c3", right : "r0c5"}},
             "r0c5" : {name : "피가 묻은 복도3", exits : {left : "r0c4", right : "r0c6"}},
             "r0c6" : {name : "하얀 즙이 묻은 복도", exits : {left : "r0c5", right : "r0c7"}},
-            "r0c7" : {name : "복도의 끝", exits : {right : "r0c6", down : "r1c7"}},
+            "r0c7" : {name : "복도의 끝", exits : {left : "r0c6", down : "r1c7"}},
 
             "r1c1" : {name : "달콤한 냄새로 가득한 복도2", exits : {up : "r0c1", down : "r2c1"}},
             "r1c7" : {name : "하얀꽃밭", exits : {up : "r0c7", down : "r2c7"}, event : "whiteFlowerOldLab_whityFlowers"},
 
             "r2c1" : {name : "달콤한 냄새로 가득한 복도", exits : {up : "r1c1", down : "r3c1"}},
             "r2c3" : {name : "기밀방 문 앞", exits : {down : "r3c3", right : "r2c4"}},
-            "r2c4" : {name : "고요한 복도", exits : {left : "r2c3", right : "r2c6"}},
+            "r2c4" : {name : "고요한 복도", exits : {left : "r2c3", right : "r2c5"}},
             "r2c5" : {name : "하얀꽃병 복도2", exits : {left : "r2c4", right : "r2c6"}, event : "whiteFlowerOldLab_whitetunnel", seenFlag : "whiteFlowerOldLab_whitetunnel"},
             "r2c6" : {name : "하얀꽃병 복도", exits : {left : "r2c5", right : "r2c7"}},
             "r2c7" : {name : "하얀꽃밭2", exits : {up : "r1c7", left : "r2c6", down : "r3c7"}},
@@ -522,12 +522,12 @@ const DUNGEONS = {
             "r5c0" : {name : "소리없는 비명 복도", exits : {up: "r4c0", right : "r5c1", down : "r6c0"}, event : "whiteFlowerOldLab_bloodLine2", seenFlag : "whiteFlowerOldLab_bloodLine2"},
             "r5c1" : {name : "시든 반지가 떨어져있는 방", exits : {left : "r5c0"}, event : "whiteFlowerOldLab_overSee"},
             "r5c3" : {name : "한 남자의 시체가 있는 방", exits : {up : "r4c3", right : "r5c4"}, event : "whiteFlowerOldLab_soraFather02", seenFlag : "whiteFlowerOldLab_soraFather02"},
-            "r5c4" : {name : "낙서들로 가득한 방", exits : {right : "r5c3", left : "r5c5"}, event : "whiteFlowerOldLab_soraFather03"},
+            "r5c4" : {name : "낙서들로 가득한 방", exits : {left : "r5c3", right : "r5c5"}, event : "whiteFlowerOldLab_soraFather03"},
             "r5c5" : {name : "실험실 앞 틈새", exits : {left : "r5c4", up : "r4c5"}, safeZone: true, allowRest: true},
             "r5c7" : {name : "촉수병실", exits : {up : "r4c7", down : "r6c7"}},
 
             "r6c0" : {name : "질질 끌린 피 흔적", exits : {up : "r5c0", down : "r7c0"} },
-            "r6c6" : {name : "촉수 시체", exits : {right : "r7c6"}},
+            "r6c6" : {name : "촉수 시체", exits : {down : "r7c6", right : "r6c7"}},
             "r6c7" : {name : "촉수병실2", exits : {left : "r6c6", up : "r5c7"}},
 
             "r7c0" : {name : "핏자국?", exits : {up : "r6c0", right : "r7c1"}, event : "whiteFlowerOldLab_bloodLine1", seenFlag : "whiteFlowerOldLab_bloodLine1"},
@@ -538,13 +538,14 @@ const DUNGEONS = {
         },
 
         encounters : [
+            { type: "battle", enemy: "flower1", weight: 20 },
             { type: "battle", enemy: "flower2", weight: 20 },
-            { type: "battle", enemy: "flower3", weight: 15 },
-            { type: "battle", enemy: "flower4", weight: 15 },
+            { type: "battle", enemy: "flower3", weight: 10 },
+            { type: "battle", enemy: "flower4", weight: 5 },
             { type: "battle", enemy: "flower5", weight: 1 },
             { type : "event", id : "whiteFlowerOldLab_flowerfight", weight: 5},
             { type : "event", id : "whiteFlowerOldLab_abomination", weight: 8},
-            { type : "event", id : "whiteFlowerOldLab_food", weight: 10}
+            { type : "event", id : "whiteFlowerOldLab_food", weight: 15}
         ]
     },
     rebelsHideOut : {
@@ -1537,6 +1538,14 @@ window.exit_dungeon = function(player){
 
     if (roomKey !== dungeon.startRoom){
         showSingleTextScene("여기서는 던전 밖으로 나갈 수 없다.", player);
+        return;
+    }
+
+    if (dungeon.id === "slaverCampShelter" && !player.flags?.slaverCampShelterClear ){
+        showSingleTextScene(
+            "이대로 물러날 수는 없다. 쉘터의 아이들을 구해야 한다.",
+            player
+        );
         return;
     }
 
@@ -5083,6 +5092,7 @@ window.startBanditBossBattle = function(player){
 function handleSlaverCampBossWin(player){
     player.flags = player.flags || {};
     player.flags.slaverCamp_cleared = true;
+    player.flags.slaverCampShelterClear = true;
 
     addQuestProgress(player, "trafficker4");
     savePlayer(player);

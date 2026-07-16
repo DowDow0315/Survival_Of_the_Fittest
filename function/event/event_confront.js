@@ -255,3 +255,158 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "dericAndKain_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "nobleSquare" &&
+        NPC_DATA["kain"].emotion.affection > 10 &&
+        NPC_DATA["deric"].emotion.affection > 10 &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "사교회장에 들어선 당신은 데릭과 카인이 함께 있는 것을 발견했다. 분위기가 심상치 않다...." +
+                    "<br><br>둘 다 잘 차려입긴 했지만 분위기가 너무 험악해서 몇몇 귀족들이 서로 수군거리는 것이 보인다. 데릭의 욕은 없고 전부 카인에 대한 욕이다. 그들은 카인이 또 분위기를 흐렸다고 쑥덕거렸다.",
+                    "<br>데릭은 그들이 카인에게 들리도록 말하고 있다는 걸 알면서도 모르는 척 미소만 지었다. 카인의 표정이 점점 썩어가는 게 보인다...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 데릭에게 어른이면 어른답게 굴라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 주변의 분위기가 싸해졌다. 데릭은 웃는 얼굴로 당신을 바라보고 있었지만 그의 녹안은 전혀 웃고 있지 않았다." +
+                                    "<br><br>\"하류도시의 영웅이 아직 상류도시에 적응을 못해서 그런 겁니다. 출신 때문에 모자란 점이라면 저희가 이해해줘야죠.\"<br><br>" +
+                                    "그는 당신의 어깨를 가볍게 잡았다." +
+                                    "<br><br>\"다만 네 명성에 먹칠할 행동은 삼가는 게 좋겠구나.\"<br><br>" +
+                                    "그 순간 카인이 당신의 어깨를 제쪽으로 끌어당겼다. 순간 중심을 잡지 못한 당신은 그대로 카인의 품에 안겼다." +
+                                    "<br><br>\"뭐래. 명성에 먹칠은 무슨.<br><br>존나 멋있는데.\"<br><br>" +
+                                    "카인은 당신의 손을 잡더니 그대로 다른 쪽으로 걸어가버렸다. 당신의 뒤로 데릭의 시선이 느껴진다...."
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "데릭과 다른 귀족들에게서 떨어진 카인은 당신을 돌아보았다." +
+                                    "<br><br>\"다른 귀족들이 이제 네 욕도 하겠다. 욕하면... 나한테 말해. 내가 지랄견으로도 유명하긴 하거든.\"<br><br>" +
+                                    "그는 벨보이에게서 샴페인 두 잔을 가져왔다. 그는 한 잔을 당신에게 준 후 건배를 하자는 듯 잔을 내밀었다." +
+                                    "<br><br>\"...위하여.\"<br><br>" +
+                                    "뭘 위하여라고 말해야 할지는 모르겠다며 그는 중얼거리더니 멋대로 당신의 잔에 자신의 잔을 부딪힌 후 샴페인을 마셨다. 당신과 카인은 꽤 오랜 시간 동안 서로의 근황에 대해 이야기를 나누었다. 카인의 기분이 좋아보인다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("deric", "affection", -2);
+                                    changeNPCEmotion("deric", "rage", 3);
+                                    changeNPCEmotion("deric", "dominance", -5);
+                                    changeNPCEmotion("kain", "affection", 5);
+                                    changeNPCEmotion("kain", "rage", -4);
+                                    changeAlcohol(player, 20);
+                                    passTime(player, 15);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 카인에게 또 뭔 짓을 했냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "카인은 당신이 자신을 공격하자 바로 인상을 굳혔다. 그는 데릭에게서 시선을 떼더니 당신을 노려보며 마치 말을 짓이기듯이 으르렁거리며 입술을 뗐다." +
+                                    "<br><br>\"네가 뭔 상관...\"<br><br>" +
+                                    "\"우리 {dericTitle}, 여기에서 만나다니. 행운의 여신이 오늘은 내 손을 들어준 모양이구나.\"<br><br>" +
+                                    "데릭은 자연스럽게 당신을 자신의 옆으로 끌어당겼다. 카인은 자연스럽게 데릭의 옆자리에서 밀려났다." +
+                                    "<br><br>\"...오늘은 이만 가봐도 좋아.\"<br><br>" +
+                                    "데릭의 차가운 눈빛이 카인을 쏘아본다. 카인은 당신과 데릭을 번갈아 노려보다가 그대로 자리를 떴다."
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 데릭의 옆에서 귀족들과 이야기를 나누었다. 몇몇 귀족들은 하류도시의 영웅인 당신을 얻은 데릭을 부러워했고, 몇몇 귀족들은 데릭의 옆에 있는 당신을 부러워했다. 그들의 대화는 점점 당신이 흥미를 느끼지 못하는 분야로까지 넘어갔다." +
+                                    " 데릭은 당신이 피곤해할 거라는 걸 알았는지 대화를 중간에 유연하게 끊더니 당신을 구석으로 데려갔다." +
+                                    "<br><br>\"너는 정말 갑자기 나타나서 내 기분을 좋아지게 만드는 구나.\"<br><br>" +
+                                    "데릭은 당신의 이마 위로 가볍게 입술을 묻었다가 떨어뜨렸다. 그는 가는 길에 과자라도 사먹으라고 당신의 손에 돈을 쥐어주었다. 귀족들에게로 다시 향하는 그의 발걸음은 평소보다 가벼워보였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("kain", "affection", -1);
+                                    changeNPCEmotion("kain", "rage", 5);
+                                    changeNPCEmotion("deric", "dominance", 5);
+                                    changeNPCEmotion("deric", "affection", 3);
+                                    changeNPCEmotion("deric", "rage", -2);
+                                    changeGold(player, 1000);
+                                    passTime(player, 15);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "둘 다 너무 유치하다. 이 판에는 안 끼는 게 좋겠다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 두 사람의 일에 관여하지 않기로 했다. 슬그머니 자리를 피했건만, 두 사람의 시선이 순간 당신에게로 닿는 것이 느껴졌다." +
+                                    "<br><br>당신은 재빨리 그 자리를 벗어났다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("kain", "affection", -1);
+                                    changeNPCEmotion("deric", "affection", -1);
+                                    changeNPCEmotion("kain", "rage", 1);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "dericAndEric_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        !player.flags?.ericDie &&
+        getTimePeriod(player) === "dawn" &&
+        player.flags?.dericAndEric_01_day !== getCurrentDay(player) &&
+        NPC_DATA["deric"].emotion.affection > 10 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.dericAndEric_01_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "영광의 거리를 걷던 당신은 에릭이 데릭을 부축하며 걸어오는 모습을 보았다. 데릭은 에릭의 목에 팔을 두른 채로 무어라 떠벌떠벌 말하고 있었고 에릭의 표정은.... 읽을 수가 없었다." +
+                    " 혼자 떠들어대던 데릭은 그대로 푹 고개를 숙였다. 데릭이 말을 멈추고 나서야 에릭은 데릭을 힐끗 내려다보았다. <br><br>...두 사람은 그대로 쌍둥이 저택으로 들어가버렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

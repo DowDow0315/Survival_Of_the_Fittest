@@ -143,6 +143,13 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_ask_about_hisUppercity_01 && player.flags.nikolai_upperOneNight_01_seen ){
+            choices.push({
+                text: "상류도시에서 무슨 일을 하고 있냐고 묻는다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_ask_about_hisUppercity_01
+            });
+        }
+
         startScene([
             {
                 type : "text",

@@ -319,6 +319,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "lukeHouse" &&
         player.flags.luke_cooking_event_01_day !== getCurrentDay(player) &&
+        player.flags.luke_cooking_event_02_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
         (
             hasNpcRelationship("luke", "lover") ||
@@ -333,6 +334,35 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["luke"].scenes.luke_cooking_event_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_cooking_event_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "lukeHouse" &&
+        player.flags.luke_cooking_event_01_day !== getCurrentDay(player) &&
+        player.flags.luke_cooking_event_02_day !== getCurrentDay(player) &&
+        getTimePeriod(player) === "morning" &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.luke_cooking_event_02_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_cooking_event_02,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -853,6 +883,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        !player.flags?.yuriDie &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -882,6 +913,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        !player.flags?.yuriDie &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -904,6 +936,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
+        !player.flags?.yuriDie &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -1064,6 +1097,7 @@ window.EVENTS.push({
         player.location === "shelter" &&
         player.flags.yuri_rebel_story_01_after_sleep_seen &&
         NPC_DATA["yuri"].emotion.affection > 30 &&
+        !player.flags?.yuriDie &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -1082,6 +1116,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_protecting_children_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        (
+            getTimePeriod(player) === "morning" ||
+            getTimePeriod(player) === "afternoon"
+        ) &&
+        player.flags?.yuri_protecting_children_01_day !== getCurrentDay(player) &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.yuri_protecting_children_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_protecting_children_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //니콜라이
 window.EVENTS.push({
     id : "nikolai_feels_good_event",
@@ -1092,6 +1154,7 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         player.flags?.dericDate02Accepted &&
         player.flags?.metNikolai &&
+        NPC_DATA["nikolai"].emotion.affection > 5 &&
         !player.flags?.nikolai_feels_good_event_seen,
 
     action : (player) => {
@@ -1109,6 +1172,35 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "nikolai_upperOneNight_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        player.flags?.nikolai_upperOneNight_01_day !== getCurrentDay(player) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.nikolai_upperOneNight_01_seen = true;
+        player.flags.nikolai_upperOneNight_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_upperOneNight_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //창백
 window.EVENTS.push({
@@ -1245,7 +1337,7 @@ window.EVENTS.push({
         savePlayer(player);
         
         startScene(
-            NPC_DATA["sion"].scenes.sion_spying_02,
+            NPC_DATA["sion"].scenes.sion_spying_03,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

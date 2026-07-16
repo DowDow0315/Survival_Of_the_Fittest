@@ -230,6 +230,31 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "deric_alcohol_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        NPC_DATA["deric"].emotion.affection > 30 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.deric_alcohol_01_day !== getCurrentDay(player) &&
+        Math.random() < 0.1,
+
+    action: (player) => {
+        player.flags.deric_alcohol_01_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_alcohol_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -428,7 +453,9 @@ window.EVENTS.push({
 
     action: (player) => {
         player.flags.kain_umbrella_seen = true;
+        player.flags.kain_umbrella_seen_day = getCurrentDay(player);
         addItem(player, ITEMS.weapon.umbrella);
+
         savePlayer(player);
 
         startScene(
@@ -438,6 +465,64 @@ window.EVENTS.push({
                 onEnd: () => {
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_sing_01",
+    once: true,
+
+    condition: (player) =>
+        NPC_DATA["kain"].emotion.affection >= 30 &&
+        player.flags?.kain_umbrella_seen &&
+        !player.flags?.kain_sing_01_seen &&
+        getCurrentDay(player) >= player.flags.kain_umbrella_seen_day + 7 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        player.location === "theater",
+
+    action: (player) => {
+        player.flags.kain_sing_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_sing_01,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_sing_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        NPC_DATA["kain"].emotion.affection >= 30 &&
+        NPC_DATA["kain"].emotion.rage <= 60 &&
+        player.flags?.kain_sing_01_seen &&
+        !player.flags?.KainWillNotSingHisSong &&
+        player.flags?.kain_sing_02_day !== getCurrentDay(player) &&
+        player.location === "theater" &&
+        Math.random() < 0.08,
+
+    action: (player) => {
+        player.flags.kain_sing_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_sing_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
             }
         );
     }

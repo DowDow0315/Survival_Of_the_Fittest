@@ -1237,7 +1237,7 @@
                                     { "target" : "fluid", "key" : "c", "amount" : {"male" : 0, "female" : 25}},
                                     { "target": "sensitivity", "key": "aSensitivity", "amount": {"male" : 5, "female" : 1} },
                                     { "target" : "fluid", "key" : "a", "amount" : {"male" : 25, "female" : 0}},
-                                    { "target": "gold", "amount": 2000 }
+                                    { "target": "gold", "amount": 3000 }
                                 ]
                             }
                         ]
@@ -1430,7 +1430,7 @@
                 "effects" : [
                     { "target": "player", "key": "hp", "amount": 100 },
                     { "target": "player", "key": "stamina", "amount": 100 },
-                    { "target": "gold", "amount": 2000 }
+                    { "target": "gold", "amount": 3000 }
                 ]
             }
         ],
@@ -1556,7 +1556,7 @@
                 "effects" : [
                     { "target": "player", "key": "hp", "amount": 100 },
                     { "target": "player", "key": "stamina", "amount": 100 },
-                    { "target": "gold", "amount": 2000 }
+                    { "target": "gold", "amount": 3000 }
                 ]
             }
         ],
@@ -1643,6 +1643,82 @@
                                     { "target": "player", "key": "hp", "amount": -10 },
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": -5 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": 8 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "deric_alcohol_01" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "영광의 거리를 걷던 당신은 데릭이 자신의 집 앞에서 빙글빙글 도는 것을 발견했다. 아무래도 집을 못 찾고 있는 것 같다... 바로 자기 집 앞에 서있으면서도.",
+                    "데릭은 휙 고개를 돌더니 바로 당신을 발견했다. 그는 술에 취했으면서도 우아한 미소를 지으며 자연스럽게 당신을 반겼다.",
+                    "<br>\"이런 늦은 밤에 무슨 일이니, {dericTitle}? 나라면 몰라도, 하류도시 출신인 너에게는 상류도시의 밤도 위험할 수 있단다.\"<br>"
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 어쩌다가 술을 이렇게 많이 마신 거냐고 물었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신의 말에 데릭은 웃었다.",
+                                    "<br>\"술을 마시는 데 이유가 있나...? 마치 에릭처럼 말하는구나, {dericTitle}.\"<br>",
+                                    "그러더니 그는 당신을 꽈악 끌어안았다. 아무리 좋은 술을 마셨다고 해도, 대체 술을 얼마나 마셔 댄 건지 술냄새는 지독했다. 하지만 데릭은 당신을 품에서 놓아주지 않았다.",
+                                    "<br>\"잠깐만 이대로 있어봐...\"<br>",
+                                    "...그는 당신을 끌어안고 선 자리에서 그대로 잠들었다. 당신의 다리가 아파올 때쯤에야 잠에서 깬 데릭은 당신에게 수고했다고 중얼거리며 당신의 손에 돈을 쥐어주었다.",
+                                    "<br>...이제 다행히 자신의 집을 찾을 수는 있는 모양이다. 그는 쌍둥이 저택으로 비틀거리며 들어가버렸다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "player", "key": "hp", "amount": -5 },
+                                    { "target": "player", "key": "stamina", "amount": -10 },
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": 3 },
+                                    { "target": "gold", "amount": 1000 },
+                                    { "target" : "time", "amount" : 20 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 지금 설마 집을 못 찾고 있는 거냐고 물었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"...내가? 집을?\"<br>",
+                                    "데릭은 당신이 한 말의 일부를 되뇌었다. 그러더니 피식 웃었다.",
+                                    "<br>\"...그래. 우리의 집이지.\"<br>",
+                                    "그러더니 그는 다른 방향으로 걸어가버렸다. 거기는 당신의 집으로 가는 방향이 아니에요 당근당근~ 당신의 당근은 만취 상태인 그에게는 효과가 없다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 하류도시 출신인 자신에게만 상류도시의 밤이 위험한 이유가 뭐냐고 물었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"그야 그들은... 하류도시 출신만 데려가니까...\"<br>",
+                                    "몽롱한 목소리로 말하던 데릭은 하류도시의 영웅인 당신은 몰라도 되는 문제라고 말했다. 서서히 그의 목소리가 또렷해지기 시작했다. 그는 인상을 찌푸리더니 자신의 관자놀이를 꾹꾹 누르면서 여기에는 무슨 일로 왔냐고 물었다.",
+                                    "<br>\"...네가 강하다는 건 알지만 조심은 하렴. 인생은... 단 한 번의 획으로도 전혀 다른 모양이 되어버리는 법이거든.<br>아름다운 널 보지 못하게 된다니, 벌써부터 마음이 슬퍼지는구나.\"<br>",
+                                    "마지막 말은 가볍게 속삭이며 데릭은 당신에게서 몇 걸음 물러났다. 그리고 그는 쌍둥이 저택으로 들어가버렸다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "player", "key": "trauma", "amount": 1 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 }
                                 ]
                             }
                         ]

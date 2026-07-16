@@ -45,11 +45,52 @@ function buildGraveyardUndergroundUpperScene(player){
             choices: [
                 { text: "앞으로 나아간다", action: "graveyard_upper_nextTrial" },
                 { text: "다시 올라간다", action: "graveyard_returnEntrance" },
-                { text : "잠깐 쉰다", action : "rest"}
+                { text : "잠깐 쉰다", action : "graveYard_rest"}
             ]
         }
     ];
 }
+
+window.graveYard_rest = function(player){
+    if (!player.graveyardUnderground){
+        graveyard_enterUnderground(player);
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 차가운 벽에 기대어 잠시 숨을 골랐다." +
+                "<br><br>편히 쉴 만한 장소는 아니었지만, 지친 몸을 추스르기에는 충분했다."
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                player.stamina = Math.min(
+                    player.maxStamina ?? 100,
+                    player.stamina + 20
+                );
+
+                player.hp = Math.min(
+                    player.maxHp ?? 100,
+                    player.hp + 50
+                );
+
+                passTime(player, 10);
+
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd: () => {
+            startScene(
+                buildGraveyardUndergroundUpperScene(player),
+                player
+            );
+        }
+    });
+};
 
 window.graveyard_upper_nextTrial = function(player){
     const state = player.graveyardUnderground;

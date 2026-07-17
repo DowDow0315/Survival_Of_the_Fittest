@@ -1431,7 +1431,7 @@ function doDungeonRest(player){
 
     if (!dungeon || !room) return;
 
-    let danger = 0.5;
+    let danger = 0.4;
 
     if (room.safeZone) danger = 0;
     else if (room.nearBoss) danger = 0.7;
@@ -1454,8 +1454,8 @@ function doDungeonRest(player){
         }
     }
 
-    changeHP(player, Math.floor(player.status.maxHp * 0.2));
-    changeStamina(player, Math.floor(player.status.maxStamina * 0.3));
+    changeHP(player, Math.floor(player.status.maxHp * 0.4));
+    changeStamina(player, Math.floor(player.status.maxStamina * 0.4));
 
     showSingleTextScene("잠시 숨을 골랐다.", player);
 }
@@ -3739,6 +3739,24 @@ const DUNGEON_EVENTS = {
                                 type : "effect",
                                 run : (player) => {
                                     changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 노예를 고발했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 노예를 고발했다. 노예는 질질 끌려가면서도 마지막까지 당신을 바라보았다...."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
                                     savePlayer(player);
                                 }
                             }

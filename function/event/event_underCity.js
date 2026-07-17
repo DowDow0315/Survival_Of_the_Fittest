@@ -218,9 +218,6 @@ window.EVENTS.push({
         NPC_DATA["luke"].emotion.affection >= 80,
 
     action : (player) => {
-
-        savePlayer(player);
-
         startScene(
             NPC_DATA["luke"].scenes.luke_training_01,
             player,
@@ -231,7 +228,6 @@ window.EVENTS.push({
                         increasePlayerMaxHp(player, 10);
                         changeStamina(player, -40);
                         passTime(player, 40);
-
                     }
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
@@ -611,6 +607,38 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "sora_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        NPC_DATA["sora"].emotion.affection >= 50 &&
+        !player.flags?.sora_training_01_seen &&
+        !player.flags?.soraDie,
+
+    action : (player) => {
+        player.flags.sora_training_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    changeSensitivity(player, "bSensitivity", 8);
+                    passTime(player, 20);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "sora_whiteFlowerRing_event",
     once : true,
 
@@ -695,6 +723,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "matin_rebel_story_01_after",
+    priority : true,
     once : true,
 
     condition : (player) =>
@@ -720,6 +749,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "matin_rebel_story_01_rumor",
+    priority : true,
     once : true,
 
     condition : (player) =>
@@ -743,6 +773,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "matin_graveyard_02_startingQuest",
+    priority : true,
     once : true,
 
     condition : (player) =>
@@ -767,6 +798,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "matin_graveyard_03_startingQuest",
+    priority : true,
     once : true,
 
     condition : (player) =>
@@ -791,6 +823,7 @@ window.EVENTS.push({
 
 window.EVENTS.push({
     id : "matin_graveyard_04_startingQuest",
+    priority : true,
     once : true,
 
     condition : (player) =>

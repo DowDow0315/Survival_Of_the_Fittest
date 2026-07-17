@@ -370,7 +370,7 @@ const DUNGEONS = {
         ],
         rooms : {
             "r0c2" : {name : "하얀꽃입구", exits : {down : "r1c2"}, event : "erwin1"},
-            "r1c2" : {name : "흐트러진 통로", exits : {down : "r2c2", up : "r0c2", event : "erwin2"}},
+            "r1c2" : {name : "흐트러진 통로", exits : {down : "r2c2", up : "r0c2"}, event : "erwin2"},
             "r2c2" : {name : "발자국이 이어진 통로", exits : {down : "r3c2", up : "r1c2"}, event : "erwin3"},
             "r3c2" : {name : "시체들이 쌓여있는 통로", exits : {down : "r4c2", up : "r2c2"}, event : "erwin4"},
             "r4c2" : {name : "꽃들만이 가득한 통로", exits : {down : "r5c2", up : "r3c2"}, event : "erwin5", seenFlag : "erwinHideout_erwin5"},

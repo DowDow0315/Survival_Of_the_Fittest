@@ -281,6 +281,8 @@ function startSoraPatienceLimitOutsideEvent(player){
                     onEnd : () => startScene(getLocationScene(player), player)
                 });
 
+                changeNPCEmo
+
                 return true;
             }
         }
@@ -314,6 +316,7 @@ window.sora_patience_limit_outside_after_fail = function(player){
     addBodyFluid(player, "c", 50);
     addBodyFluid(player, "b", 50);
     changeArousal(player, 50);
+    changeEmotion("sora", "lust", -100);
     passTime(player, 40);
     savePlayer(player);
 };
@@ -325,7 +328,7 @@ function getSoraPatienceLimitOutsideIntro(player){
             value : [
                 "<div style='text-align:center;'>문득, 당신은 뒤에서부터 누군가가 지켜보고 있는 듯한 시선을 느꼈다. 당신은 주변을 둘러보았지만 아무도 없었다.</div>",
                 "<br><div style='text-align:center;'>그래. 당신의 주변에는 지금 아무도 없었다.</div><br>",
-                "<br><br><br><div style='text-align:center;'>분명</div><br><br><br><div style='text-align:center;'>아무도</div><br><br><br>...?",
+                "<br><br><br><div style='text-align:center;'>분명</div><br><br><br><div style='text-align:center;'>아무도<br><br><br>...?</div>",
                 "<span class='status-danger'><div style='text-align:center;'>촉수가 당신을 덮쳐온다</div></span>"
             ]
         }

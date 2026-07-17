@@ -9,7 +9,7 @@ window.ride_subway_townStreet = function(player){
 function startSubwayRide(player, destination){
     player.inEvent = true;
 
-    if (Math.random() < 0.6){
+    if (Math.random() < 0.3){
         startMolesterMiniGame(player, destination);
         return;
     }

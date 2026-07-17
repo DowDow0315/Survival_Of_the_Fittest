@@ -17,6 +17,10 @@ function getRandomGraveyardUndergroundEnemy(){
 }
 
 window.graveyard_enterUnderground = function(player){
+
+    player.graveyard.step = 0;
+    player.graveyard.cleared = false;
+    
     player.graveyardUnderground = {
         area: "upper",
         step: 0,

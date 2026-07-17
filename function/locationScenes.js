@@ -844,15 +844,16 @@ function buildGraveyardTreasureScene(player){
 }
 
 window.graveyard_openChest = function(player){
-    if (player.flags?.matinLocketTaken){
+    if (player.flags?.matinLocketTaken || player.flags?.matin_graveyard_01_done){
         showSingleTextScene("상자는 이미 비어 있다.", player);
         return;
-    }
+    };
 
     player.flags = player.flags || {};
     player.flags.matinLocketTaken = true;
 
     addItem(player, ITEMS.misc.matinLocket);
+    savePlayer(player);
     renderInventoryModal(player);
 
     showSingleTextScene(

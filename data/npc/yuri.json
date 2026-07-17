@@ -713,7 +713,8 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
-                                    { "target": "time", "amount": 10 }
+                                    { "target": "time", "amount": 10 },
+                                    { "target": "npc", "npc": "sion", "key": "affection", "amount": 5 }
                                 ]
                             }
                         ]

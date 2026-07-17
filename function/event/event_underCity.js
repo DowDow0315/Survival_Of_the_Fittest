@@ -238,6 +238,39 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "luke_training_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "lukeHouse" &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        !player.flags?.luke_training_02_seen,
+
+    action : (player) => {
+        player.flags.luke_training_02_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_training_02,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "luke_normalCheck_relationship_noSmoke",
 
     condition : (player) =>

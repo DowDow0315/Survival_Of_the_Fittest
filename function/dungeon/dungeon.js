@@ -1584,6 +1584,14 @@ function runDungeonEvent(player, eventId){
         }
     }
 
+    if (
+        dungeon.id === "graveYardBottom" &&
+        finalEventId === "graveYardBottom_skeletonKnight_after_repeat"
+    ){
+        runGraveYardBottomSkeletonKnightRepeat(player);
+        return;
+    }
+
     runScene(events[finalEventId], player, {
         sceneState: {
             type: "dungeonEvent",
@@ -4023,47 +4031,6 @@ const DUNGEON_EVENTS = {
                     savePlayer(player);
                 }
             }
-        ],
-        graveYardBottom_skeletonKnight_after_repeat : [
-            {
-                type : "effect",
-                run : (player) => {
-                    const hasQuest04 = player.quest?.subActive?.some(q => q.id === "matin_graveyard_04");
-                    
-                    if (hasQuest04 && !player.flags?.matin_graveyard_sheWillRest){
-                        startScene(
-                            NPC_DATA["matin"].scenes.matin_graveyard_04_final,
-                            player,
-                            {
-                                onEnd : () => startScene(buildDungeonScene(player), player)
-                            }
-                        );
-                    }
-                    else {
-                        startScene([
-                            {
-                                type : "text",
-                                value : [
-                                    "작은 구멍 너머로 쇠사슬이 질질 끌리는 소리와 웃음 소리들이 들려온다. 몸을 숙이면 지나갈 수 있을 것 같다."
-                                ]
-                            },
-                            {
-                                type : "choice",
-                                choices : [
-                                    {
-                                        text : "구멍으로 나간다.",
-                                        action : "graveYardBottom_toUpperCity"
-                                    },
-                                    {
-                                        text : "공동묘지로 돌아간다.",
-                                        action : "graveYardBottom_toGraveyard"
-                                    }
-                                ]
-                            }
-                        ], player);
-                    }
-                }
-            }
         ]
     }
 }
@@ -5525,4 +5492,49 @@ function startRebelLeader2Lose(player){
         player,
         "당신은 반란군 수장에게 패배했다. 마지막 순간, 붉은 깃발 아래에서 누군가가 외치는 소리가 들렸다.<br><br>우리는 아직 죽지 않았다.<br><br>칼날이 당신의 목으로 떨어진다. 당신이 다시 눈을 떴을 때, 아주 잠깐, 당신의 시야는 뒤집혀 있었다."
     );
+}
+
+function runGraveYardBottomSkeletonKnightRepeat(player){
+    const hasQuest04 =
+        player.quest?.subActive?.some(
+            q => q.id === "matin_graveyard_04"
+        );
+
+    if (
+        hasQuest04 &&
+        !player.flags?.matin_graveyard_sheWillRest
+    ){
+        startScene(
+            NPC_DATA["matin"].scenes.matin_graveyard_04_final,
+            player,
+            {
+                onEnd: () => {
+                    startScene(buildDungeonScene(player), player);
+                }
+            }
+        );
+        return;
+    }
+
+    startScene([
+        {
+            type: "text",
+            value: [
+                "작은 구멍 너머로 쇠사슬이 질질 끌리는 소리와 웃음 소리들이 들려온다. 몸을 숙이면 지나갈 수 있을 것 같다."
+            ]
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "구멍으로 나간다.",
+                    action: "graveYardBottom_toUpperCity"
+                },
+                {
+                    text: "공동묘지로 돌아간다.",
+                    action: "graveYardBottom_toGraveyard"
+                }
+            ]
+        }
+    ], player);
 }

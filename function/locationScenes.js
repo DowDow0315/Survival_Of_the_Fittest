@@ -1204,7 +1204,7 @@ function buildArenaScene(player, loc, randomDesc){
                 },
                 {
                     text: "나간다",
-                    action: "move_richTownStreet"
+                    action: "move_gloryStreet"
                 }
             ]
         }

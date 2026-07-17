@@ -4077,7 +4077,7 @@ window.graveYardBottom_toGraveyard = function(player){
     startScene(getLocationScene(player), player);
 };
 
-window.graveYard_child2_getRandomGem = function(player){
+window.graveYardBottom_child2_getRandomGem = function(player){
     const gems = ["ruby", "sapphire", "aquamarine", "diamond"];
     const itemKey = gems[Math.floor(Math.random() * gems.length)];
 

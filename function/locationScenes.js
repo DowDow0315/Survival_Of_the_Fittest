@@ -1272,7 +1272,7 @@ window.arena_startRun = function(player){
             value:
                 "당신은 아레나 참가 신청서에 이름을 적었다. 접수원은 당신에게 한 번 경기장에 들어가면 패배하거나 스스로 물러날 때까지 연전이 이어진다고 설명했다." +
                 "<br><br>\"승리를 이어갈수록 상금도 커집니다. 하지만 물러나는 순간 연승 기록은 초기화됩니다.\"" +
-                "<br><br><br><br><span class='log-warning'>아레나에서는 저장할 수 없습니다.</span>"
+                "<br><br><br><br><span class='log-warning'>아레나에서는 저장할 수 없습니다. 5번 이길 시 체력 70퍼센트가 회복됩니다.</span>"
         },
         {
             type: "choice",
@@ -1355,6 +1355,22 @@ function handleArenaVictory(player){
     const roundReward = getArenaRoundReward(streak);
     player.flags.arena_pending_reward = (player.flags.arena_pending_reward || 0) + roundReward;
     const totalReward = player.flags.arena_pending_reward;
+
+    const recovered = streak % 5 === 0;
+    
+    if (recovered){
+        player.status ??= {};
+        
+        const maxHp = player.maxHp || 100;
+        const heal = Math.floor(maxHp * 0.7);
+        
+        player.status.hp = Math.min(
+            maxHp,
+            (player.status.hp || 0) + heal
+        );
+        
+        player.status.stamina = 100;
+    }
     
     passTime(player, 5);
     savePlayer(player);

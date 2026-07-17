@@ -208,6 +208,40 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "luke_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.bandit_luke_event_done &&
+        NPC_DATA["luke"].emotion.affection >= 80,
+
+    action : (player) => {
+
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_training_01,
+            player,
+            {
+                onEnd : () => {
+                    if (!player.flags?.luke_training_01_rewarded){
+                        player.flags.luke_training_01_rewarded = true;
+                        increasePlayerMaxHp(player, 10);
+                        changeStamina(player, -40);
+                        passTime(player, 40);
+
+                    }
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "luke_normalCheck_relationship_noSmoke",
 
     condition : (player) =>

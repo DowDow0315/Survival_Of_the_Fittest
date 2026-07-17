@@ -19,6 +19,7 @@ const LOCATION_SCENE_BUILDERS = {
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
+    arena : buildArenaScene,
     heavenPalace : buildHeavenPalaceScene,
     heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
@@ -120,7 +121,13 @@ function isLukeTalkTime(player){
 }
 
 function buildDarkStreetScene(player, loc, randomDesc){
+    const trainingCount =
+        player.flags.darkStreet_hp_training_count || 0;
+
+    const trainingPrice = getHpTrainingPrice(2000, trainingCount);
+
     const choices = [
+        { text: `뒷골목 단련장에서 훈련한다 (-${trainingPrice.toLocaleString()}G / 최대 HP +5)`, action: "darkStreet_hpTraining" },
         { text: "하수도로 간다", action: "move_sewer" },
         { text: "공동묘지로 간다", action: "move_graveyard" }
     ];
@@ -146,6 +153,51 @@ function buildDarkStreetScene(player, loc, randomDesc){
     ];
 }
 
+window.darkStreet_hpTraining = function(player){
+    
+    const trainingCount = player.flags.darkStreet_hp_training_count || 0;    
+    const price = getHpTrainingPrice(2000, trainingCount);
+
+    if ((player.status?.stamina || 0) < 30){
+        showSingleTextScene(
+            "당신은 훈련을 시작하려 했지만 몸에 힘이 들어가지 않았다. 아무도 당신을 말리지는 않겠지만, 이 상태로 했다가는 돈만 버리는 꼴이 될 것이다.",
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+    
+    if (!spendGold(player, price)){
+        showSingleTextScene(
+            "단련장의 남자는 당신이 가진 돈을 확인하더니 코웃음을 쳤다.<br><br>\"돈도 없으면서 몸은 키우고 싶은가 보지?\"",
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    player.flags.darkStreet_hp_training_count = trainingCount + 1;
+    
+    increasePlayerMaxHp(player, 5);
+    changeStamina(player, -30);
+    passTime(player, 30);
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 낡은 단련장에서 거칠게 몸을 단련했다. 제대로 된 장비도, 친절한 지도도 없었지만 몸은 분명 이전보다 단단해졌다." +
+        "<br><br><b>최대 HP가 5 증가했다.</b>" +
+        `<br>지금까지 받은 뒷골목 단련: ${trainingCount + 1}회`,
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
 function buildLukeHouseScene(player, loc, randomDesc){
     return [
         {
@@ -162,7 +214,7 @@ function buildLukeHouseScene(player, loc, randomDesc){
             ]
         }
     ];
-}0
+}
 
 window.sleep_lukeHouse = function(player){
     player.status.hp = player.status.maxHp;
@@ -1126,6 +1178,287 @@ window.sleep_royalHotel = function(player){
     );
 };
 
+function buildArenaScene(player, loc, randomDesc){
+    const trainingCount = player.flags.arena_hp_training_count || 0;
+    const trainingPrice = getHpTrainingPrice(4000, trainingCount);
+    
+    return [
+        {
+            type: "text",
+            value:
+                `${randomDesc}` +
+                `<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text:
+                        `전문 체력 단련을 받는다 ` +
+                        `(-${trainingPrice.toLocaleString()}G / 최대 HP +15)`,
+                    action: "arena_hpTraining"
+                },
+                {
+                    text: "아레나 경기에 참가한다",
+                    action: "arena_startRun"
+                },
+                {
+                    text: "나간다",
+                    action: "move_richTownStreet"
+                }
+            ]
+        }
+    ];
+}
+
+window.arena_hpTraining = function(player){
+    const trainingCount = player.flags.arena_hp_training_count || 0;
+
+    const price = getHpTrainingPrice(4000, trainingCount);
+
+    if ((player.status?.stamina || 0) < 40){
+        showSingleTextScene(
+            "당신은 전문 단련을 신청하려 했지만 몸에 힘이 남아 있지 않았다. 아레나 훈련 교관은 당신을 위아래로 내려다보더니 지금 상태로는 당신을 단련시킬 수 없다고 말했다.",
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    if (!spendGold(player, price)){
+        showSingleTextScene(
+            "접수원은 당신이 내민 돈을 확인하고는 정중하게 돌려주었다." +
+            "<br><br>\"죄송하지만 금액이 부족합니다.\"",
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    player.flags.arena_hp_training_count = trainingCount + 1;
+    
+    increasePlayerMaxHp(player, 15);
+    changeStamina(player, -40);
+    passTime(player, 20);
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 아레나의 전문 교관에게 체계적인 훈련을 받았다. 교관은 당신이 한계에 도달할 때마다 조금씩 더 강한 부하를 가했다. 모든 훈련이 끝났을 때는 손가락 하나 움직이기 힘들었지만, 당신의 육체는 이전보다 훨씬 강인해져 있었다." +
+        "<br><br><b>최대 HP가 15 증가했다.</b>" +
+        `<br>지금까지 받은 아레나 단련: ${trainingCount + 1}회`,
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+window.arena_startRun = function(player){
+    player.flags ??= {};
+
+    player.flags.arena_run_active = true;
+    player.flags.arena_win_streak = 0;
+    player.flags.arena_pending_reward = 0;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 아레나 참가 신청서에 이름을 적었다. 접수원은 당신에게 한 번 경기장에 들어가면 패배하거나 스스로 물러날 때까지 연전이 이어진다고 설명했다." +
+                "<br><br>\"승리를 이어갈수록 상금도 커집니다. 하지만 물러나는 순간 연승 기록은 초기화됩니다.\"" +
+                "<br><br><br><br><span class='log-warning'>아레나에서는 저장할 수 없습니다.</span>"
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "경기장으로 들어간다",
+                    action: "arena_nextBattle"
+                },
+                {
+                    text: "경기에 참가하지 않는다",
+                    action: "arena_cancelRun"
+                }
+            ]
+        }
+    ], player);
+};
+
+window.arena_cancelRun = function(player){
+    resetArenaRun(player);
+    startScene(getLocationScene(player), player);
+};
+
+function resetArenaRun(player){
+    player.flags ??= {};
+
+    player.flags.arena_run_active = false;
+    player.flags.arena_win_streak = 0;
+    player.flags.arena_pending_reward = 0;
+
+    savePlayer(player);
+}
+
+const ARENA_ENEMIES = [
+    "bandit1", "bandit2", "banditBoss",
+    "rebels1", "rebels2", "rebels3",
+    "trafficker1", "trafficker2", "trafficker3", "trafficker4",
+    "whiteArmy1", "whiteArmy2"
+];
+
+function getRandomArenaEnemy(){
+    return ARENA_ENEMIES[
+        Math.floor(Math.random() * ARENA_ENEMIES.length)
+    ];
+}
+
+window.arena_nextBattle = function(player){
+
+    if (!player.flags.arena_run_active){
+        showSingleTextScene(
+            "현재 진행 중인 아레나 연전이 없다.",
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    const enemyId = getRandomArenaEnemy();
+
+    startBattle(enemyId, player, {
+        onWin: () => {
+            handleArenaVictory(player);
+        },
+
+        onSkipDefeat: () => {
+            handleArenaDefeat(player);
+        }
+    });
+};
+
+function getArenaRoundReward(streak){
+    const reward = 500 * Math.pow(streak, 1.5);
+    return Math.floor(reward / 100) * 100;
+}
+
+function handleArenaVictory(player){
+    player.flags.arena_win_streak = (player.flags.arena_win_streak || 0) + 1;
+    const streak = player.flags.arena_win_streak;
+    const roundReward = getArenaRoundReward(streak);
+    player.flags.arena_pending_reward = (player.flags.arena_pending_reward || 0) + roundReward;
+    const totalReward = player.flags.arena_pending_reward;
+    
+    passTime(player, 5);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신의 상대가 경기장 바닥에 쓰러졌다.",
+                "<br><br>잠시 정적이 흐른 뒤, 관중석에서 거대한 함성이 터져 나왔다.",
+                `<br><br><b>${streak}연승을 달성했다.</b>`,
+                `<br>이번 경기 상금: ${roundReward.toLocaleString()}G`,
+                `<br>현재 누적 상금: ${totalReward.toLocaleString()}G`,
+                "<br><br>계속해서 다음 상대와 싸울까?"
+            ]
+        },
+        {
+            type: "choice",
+            choices: [
+                {
+                    text: "다음 경기로 나아간다",
+                    action: "arena_nextBattle"
+                },
+                {
+                    text: `누적 상금 ${totalReward.toLocaleString()}G를 받고 나간다`,
+                    action: "arena_cashOut"
+                }
+            ]
+        }
+    ], player);
+}
+
+window.arena_cashOut = function(player){
+    player.flags ??= {};
+
+    const streak =
+        player.flags.arena_win_streak || 0;
+
+    const reward =
+        player.flags.arena_pending_reward || 0;
+
+    if (reward > 0){
+        addGold(player, reward);
+    }
+
+    resetArenaRun(player);
+
+    showSingleTextScene(
+        `당신은 더 이상의 경기를 포기하고 아레나에서 물러났다. 접수원은 당신에게 누적 상금 ${reward.toLocaleString()}G를 건넸다.` +
+        `<br><br>${streak}연승 기록은 종료되었다.`,
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+function handleArenaDefeat(player){
+    player.flags ??= {};
+
+    const lostStreak =
+        player.flags.arena_win_streak || 0;
+
+    const lostReward =
+        player.flags.arena_pending_reward || 0;
+
+    player.flags.arena_run_active = false;
+    player.flags.arena_win_streak = 0;
+    player.flags.arena_pending_reward = 0;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신은 결국 상대의 공격을 버티지 못하고 아레나 바닥에 쓰러졌다.",
+                `<br><br>${lostStreak}연승 기록과 누적 상금 ${lostReward.toLocaleString()}G를 모두 잃었다.`,
+                "<br><br>심판은 당신의 패배를 선언했지만, 흥분한 관중들은 쉽게 자리를 떠나지 않았다."
+            ]
+        },
+        {
+            type: "text",
+            value: [
+                "관중들은 패배한 당신에게 몰려들었다. 그들의 추잡한 손길이 당신에게 쏟아지는 것이 느껴진다... 하지만 당신은 그들의 욕정을 다 받아낼 때까지 움직일 수가 없었다."
+            ]
+        }
+    ], player, {
+        onEnd: () => {
+            changeTrauma(player, 20);
+            changeSensitivity(player, "mSensitivity", 30);
+            changeSensitivity(player, "aSensitivity", 30);
+            changeSensitivity(player, "cSensitivity", 30);
+            changeSensitivity(player, "bSensitivity", 30);
+            addBodyFluid(player, "m", 50);
+            addBodyFluid(player, "c", 50);
+            addBodyFluid(player, "a", 50);
+            addBodyFluid(player, "b", 50);
+            changeHP(player, 1);
+            startScene(getLocationScene(player), player);
+        }
+    });
+}
+
 function buildTheaterScene(player, loc, randomDesc){
     const choices = [];
 
@@ -1735,3 +2068,8 @@ const GH_ROOM2_EVENTS = [
         }
     }
 ]
+
+//hp 단련 함수
+function getHpTrainingPrice(basePrice, count){
+    return Math.floor(basePrice * Math.pow(1.8, count));
+}

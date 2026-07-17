@@ -414,6 +414,22 @@ function changeHP(player, amount){
     localStorage.setItem("playerData", JSON.stringify(player));
 }
 
+function increasePlayerMaxHp(player, amount){
+    if (!player?.status) return;
+
+    const increase = Math.max(0, Math.floor(Number(amount) || 0));
+    if (increase <= 0) return;
+
+    player.status.maxHp += increase;
+    player.status.hp += increase;
+
+    if (player.status.hp > player.status.maxHp){
+        player.status.hp = player.status.maxHp;
+    }
+
+    savePlayer(player);
+}
+
 function changeStamina(player, amount){
     player.status.stamina += amount;
 

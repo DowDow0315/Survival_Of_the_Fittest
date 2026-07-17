@@ -114,6 +114,54 @@ registerActions("matin",{
         });
     },
 
+    //hp 단련
+    hpTraining : (player) => {
+        const affection = NPC_DATA["matin"]?.emotion?.affection || 0;
+        const trainingCount = player.flags.matin_hp_training_count || 0;
+        
+        if (affection <= 30){
+            startScene([
+                {
+                    type: "text",
+                    value: "마틴은 당신을 무표정으로 쳐다보았다. 그러더니 아무 말 없이 시선을 돌렸다. 그는 당신을 무시하고 있다."
+                }
+            ], player, {
+                onEnd: () => startScene(getLocationScene(player), player)
+            });
+            return;
+        }        
+        const nextCount = trainingCount + 1;
+        const trainingTexts = [
+            "당신의 말에도 마틴은 아무 말이 없었다. 당신을 쳐다보지도 않고 요리를 하는 마틴에 당신은 그에게 무시당한 줄 알았지만, 그는 곧 당신의 앞으로 처음 보는 요리를 내왔다.<br><br>식사를 마친 후 어쩐지 당신은 뭔가 달라진 기분이 들었다.",
+            "당신의 두 번째 부탁에 마틴은 또 아무 말도 하지 않았지만 당신의 앞으로 요리를 내왔다. 당신은 마틴에게 이런 요리는 대체 어떻게 하는 거냐고 물었다. <br><br>\"...그냥 해본 거야.\"<br><br>...? 설마 그도 이런 요리는 처음 만들어본 걸까? 식사를 마친 후 당신의 몸은 예전과 달라졌다.",
+            "당신의 세 번째 부탁에 마틴은 익숙하게 당신의 앞으로 요리를 내왔다. 당신은 그에게 요리 레시피를 알려줄 수 있냐고 물었다. <br><br>\"...알게 되면 다 뱉고 싶어질 걸.\"<br><br>...농담이겠지? 제발 농담이어라."
+    ];
+
+    startScene([
+        {
+            type: "text",
+            value: trainingTexts[trainingCount]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                player.flags ??= {};
+                player.flags.matin_hp_training_count = nextCount;
+                increasePlayerMaxHp(player, 5);
+                passTime(player, 15);
+            }
+        },
+        {
+            type: "text",
+            value:
+                `<b>최대 HP가 5 증가했다.</b>` +
+                `<br><br>마틴에게 받은 단련: ${nextCount}/3`
+        }
+    ], player, {
+        onEnd: () => startScene(getLocationScene(player), player)
+    });
+},
+
     //주점대화로그
     giveFood : (player) => {
         openGiveFoodMenu(player, "matin");
@@ -222,6 +270,19 @@ registerActions("matin",{
             text: "음식을 건넨다",
             action: "matin_giveFood"
         });
+
+        const matinAffection = NPC_DATA["matin"]?.emotion?.affection || 0;
+        const matinHpTrainingCount = player.flags?.matin_hp_training_count || 0;
+        
+        if (
+            matinAffection > 30 &&
+            matinHpTrainingCount < 3
+        ){
+            choices.push({
+                text: `체력 단련을 부탁한다 (${matinHpTrainingCount + 1}/3)`,
+                action: "matin_hpTraining"
+            });
+        }
 
         if (player.quest?.subActive?.some(q => q.id === "matin_graveyard_02")){
             choices.push({

@@ -41,7 +41,7 @@ function downloadSaveFile(payload, slot = null){
 }
 
 function savePlayer(player){
-    if (player.mineRun){
+    if (player.mineRun || player.flags?.arena_run_active ){
         return;
     }
     saveToLocalStorage(SAVE_PLAYER_KEY, player);

@@ -1617,6 +1617,19 @@ const ITEMS ={
                 charm : 1
             },
             price : 5000
+        },
+
+        flowerBribeCrown : {
+            name : "하얀꽃 면사포",
+            desc : "시들지 않는 하얀꽃 면사포, 당신을 잃지 않고자 하는 소라의 바람이 담겨져 있다.",
+            type : "accessary",
+            price : 100,
+            stats : {
+                str : 2,
+                dex : 2,
+                int : 1,
+                charm : 3
+            }
         }
     },
 

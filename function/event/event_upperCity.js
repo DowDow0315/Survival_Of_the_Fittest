@@ -371,7 +371,7 @@ window.EVENTS.push({
         player.flags?.kain_firstMeeting_seen &&
         player.flags?.kain_noShow_02_day !== getCurrentDay(player) &&
         ["richTownStreet", "gloryStreet", "theater"].includes(player.location) &&
-        Math.random() < 0.06,
+        Math.random() < 0.08,
 
     action: (player) => {
         player.flags.kain_noShow_02_day = getCurrentDay(player);
@@ -395,7 +395,7 @@ window.EVENTS.push({
         player.flags?.kain_firstMeeting_seen &&
         player.flags?.kain_noShow_03_day !== getCurrentDay(player) &&
         player.location === "theater" &&
-        Math.random() < 0.06,
+        Math.random() < 0.07,
 
     action: (player) => {
         player.flags.kain_noShow_03_day = getCurrentDay(player);
@@ -933,7 +933,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
-        Math.random() < 0.1,
+        Math.random() < 0.08,
 
     action : (player) => {
         startScene([

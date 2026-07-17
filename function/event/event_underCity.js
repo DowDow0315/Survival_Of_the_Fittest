@@ -550,6 +550,33 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "sora_forced_confession_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sora"].emotion.affection >= 70 &&
+        !player.flags?.sora_forced_confession_event_seen &&
+        !player.flags?.soraDie,
+
+    action : (player) => {
+        becomeLover("sora");
+        addItem(player, ITEMS.accessary.flowerBribeCrown);
+        player.flags.sora_forced_confession_event_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_forced_confession_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "sora_whiteFlowerRing_event",
     once : true,
 

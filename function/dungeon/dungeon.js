@@ -1308,8 +1308,14 @@ function buildDungeonScene(player){
         { text: "침착하게 정신을 다스린다", action: "calmDown" },
     ];
 
-    if (roomKey === dungeon.startRoom){
-        choices.push({ text: "던전에서 나간다", action: "exit_dungeon" });
+    if (
+        roomKey === dungeon.startRoom &&
+        dungeon.id !== "rebelsHideOut"
+    ){
+        choices.push({
+            text: "던전에서 나간다",
+            action: "exit_dungeon"
+        });
     }
 
     //숏컷들

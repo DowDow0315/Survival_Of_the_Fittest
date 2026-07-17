@@ -1111,7 +1111,9 @@
                 };
 
                 npcStore[key].relationship =
-                savedNpc.relationship ?? npcStore[key].relationship ?? null;
+                 savedNpc.relationship !== undefined
+                 ? savedNpc.relationship
+                 : null;
             }
         }
 

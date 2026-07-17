@@ -3275,6 +3275,8 @@ const DUNGEON_EVENTS = {
                                         player.quest.active = null;
                                     }
 
+                                    changeNPCEmotion("yuri", "affection", 5);
+                                    changeNPCEmotion("yuri", "rage", -5);
                                     changeNPCEmotion("eric", "affection", -5);
                                     changeNPCEmotion("valen", "affection", -10);
                                     changeNPCEmotion("valen", "rage", 5);

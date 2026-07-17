@@ -1054,7 +1054,8 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target": "npc", "npc": "yuri", "key": "affection", "amount": 3 }
+                    { "target": "npc", "npc": "yuri", "key": "affection", "amount": 3 },
+                    { "target": "npc", "npc": "yuri", "key": "affection", "amount": -10 }
                 ]
             }
         ],

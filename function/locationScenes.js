@@ -124,7 +124,7 @@ function buildDarkStreetScene(player, loc, randomDesc){
     const trainingCount =
         player.flags.darkStreet_hp_training_count || 0;
 
-    const trainingPrice = getHpTrainingPrice(2000, trainingCount);
+    const trainingPrice = getHpTrainingPrice(3000, trainingCount);
 
     const choices = [
         { text: `뒷골목 단련장에서 훈련한다 (-${trainingPrice.toLocaleString()}G / 최대 HP +5)`, action: "darkStreet_hpTraining" },
@@ -156,7 +156,7 @@ function buildDarkStreetScene(player, loc, randomDesc){
 window.darkStreet_hpTraining = function(player){
     
     const trainingCount = player.flags.darkStreet_hp_training_count || 0;    
-    const price = getHpTrainingPrice(2000, trainingCount);
+    const price = getHpTrainingPrice(3000, trainingCount);
 
     if ((player.status?.stamina || 0) < 30){
         showSingleTextScene(
@@ -1180,7 +1180,7 @@ window.sleep_royalHotel = function(player){
 
 function buildArenaScene(player, loc, randomDesc){
     const trainingCount = player.flags.arena_hp_training_count || 0;
-    const trainingPrice = getHpTrainingPrice(4000, trainingCount);
+    const trainingPrice = getHpTrainingPrice(7500, trainingCount);
     
     return [
         {
@@ -1214,7 +1214,7 @@ function buildArenaScene(player, loc, randomDesc){
 window.arena_hpTraining = function(player){
     const trainingCount = player.flags.arena_hp_training_count || 0;
 
-    const price = getHpTrainingPrice(4000, trainingCount);
+    const price = getHpTrainingPrice(7500, trainingCount);
 
     if ((player.status?.stamina || 0) < 40){
         showSingleTextScene(

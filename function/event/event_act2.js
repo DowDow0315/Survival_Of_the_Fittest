@@ -777,6 +777,7 @@ window.EVENTS.push({
         player.location === "gloryStreet" &&
         !player.quest?.active &&
         player.flags?.rebel_story_02_intro_event_attack_seen &&
+        player.flags?.uppercity_story_02_done &&
         getCurrentDay(player) >= (player.flags.rebel_story_02_intro_event_attack_seen_day + 4),
 
     action : (player) => {

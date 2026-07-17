@@ -1133,10 +1133,6 @@ function moveDungeon(player, direction){
     }
 
     if (newRoom.event){
-        if (newRoom.seenFlag && player.flags?.[newRoom.seenFlag]){
-            startScene(buildDungeonScene(player), player);
-            return;
-        }
         runDungeonEvent(player, newRoom.event);
         return;
     }
@@ -1571,9 +1567,18 @@ function runDungeonEvent(player, eventId){
     if (room?.seenFlag){
         player.flags = player.flags || {};
 
-        if (player.flags[room.seenFlag] && room.repeatEvent){
-            finalEventId = room.repeatEvent;
+        // 이미 본 이벤트
+        if (player.flags[room.seenFlag]){
+            // 반복 이벤트가 있으면 반복 이벤트 실행
+            if (room.repeatEvent){
+                finalEventId = room.repeatEvent;
+            } else {
+                // 반복 이벤트가 없으면 아무 이벤트도 실행하지 않음
+                startScene(buildDungeonScene(player), player);
+                return;
+            }
         } else {
+            // 최초 방문이면 본 것으로 기록
             player.flags[room.seenFlag] = true;
             localStorage.setItem("playerData", JSON.stringify(player));
         }

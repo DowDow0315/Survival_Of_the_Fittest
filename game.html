@@ -805,14 +805,37 @@
             }
         }
 
+        function getManualSaveBlockedMessage(){
+            if (player?.mineRun){
+                return "광산 안에서는 저장할 수 없습니다.\n광산을 나간 뒤 저장해주세요.";
+            }
+            
+            if (player?.flags?.arena_run_active){
+                return "아레나 진행 중에는 저장할 수 없습니다.\n아레나가 끝난 뒤 저장해주세요.";
+            }
+            
+            return null;
+        }
+        
+        function checkManualSaveAllowed(){
+            const message = getManualSaveBlockedMessage();
+            
+            if (message){
+                alert(message);
+                return false;
+            }
+            
+            return true;
+        }
+
         function makeSavePayload(slot){
             const npcProgress = getNpcProgressSaveData();
             return {
                 version: 2,
                 slot,
                 savedAt: new Date().toISOString(),
-                playerData: JSON.parse(saveToLocalStorage("playerData", player)),
-                npcData: JSON.parse(saveToLocalStorage("npcData", npcProgress))
+                playerData: structuredClone(player),
+                npcData: structuredClone(npcProgress)
             };
         }
 
@@ -827,6 +850,9 @@
         }
 
         function openSaveSlotModal(mode = "load"){
+            if (mode === "save" && !checkManualSaveAllowed()){
+                return;
+            }
             currentSaveSlotMode = mode;
             const modal = document.getElementById("saveSlotModal");
             const title = document.getElementById("saveSlotTitle");
@@ -865,11 +891,8 @@
         }
 
         function saveGame(slot){
-            if (player?.mineRun){
-                alert(
-                    "광산 안에서는 저장할 수 없습니다.\n" +
-                    "광산을 나간 뒤 저장해주세요."
-                );
+            if (!checkManualSaveAllowed()){
+                closeSaveSlotModal();
                 return;
             }
             
@@ -894,6 +917,10 @@
         }
 
         function downloadCurrentJsonBackup(){
+            if (!checkManualSaveAllowed()){
+                return;
+            }
+            
             if (!player){
                 alert("다운로드할 플레이어 데이터가 없습니다.");
                 return;

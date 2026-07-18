@@ -77,7 +77,6 @@ window.EVENTS.push({
 });
 
 window.updateLukeUndercityAbsence = function(player){
-    player.flags = player.flags || {};
 
     const undercityLocations = ["townEntrance", "townStreet", "darkStreet", "barracks"];
     const isInUndercity = undercityLocations.includes(player.location);
@@ -265,6 +264,37 @@ window.EVENTS.push({
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_firstLove",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        !player.flags?.luke_firstLove_seen,
+
+    action : (player) => {
+        player.flags.luke_firstLove_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_firstLove,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
             }
         );
     }

@@ -238,6 +238,13 @@ registerActions("luke", {
             });
         }
 
+        if (player.flags?.luke_firstLove_seen && !player.flags?.luke_cigarette_01_seen){
+            choices.push({
+                text: "루크가 담배를 어떻게 피게 됐는지 묻는다.",
+                scene: NPC_DATA.luke.scenes.luke_cigarette_01
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "luke_talk" });
 
         startScene([

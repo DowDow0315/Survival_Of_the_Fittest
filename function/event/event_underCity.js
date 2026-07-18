@@ -917,17 +917,169 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "tavern" &&
-        player.flags?.matin_tryToIgnore_01_day !== getCurrentDay(player) &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
         NPC_DATA["matin"].emotion.affection >= 50 &&
         NPC_DATA["matin"].emotion.affection < 70 &&
-        Math.random() < 0.1,
+        Math.random() < 0.09,
 
     action : (player) => {
-        player.flags.matin_tryToIgnore_01_day = getCurrentDay(player);
+        player.flags.matin_affection_event_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(
             NPC_DATA["matin"].scenes.matin_tryToIgnore_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_tryToIgnore_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 50 &&
+        NPC_DATA["matin"].emotion.affection < 70 &&
+        (
+            getTimePeriod(player) === "night" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_tryToIgnore_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_tryToIgnore_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 50 &&
+        NPC_DATA["matin"].emotion.affection < 70 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_tryToIgnore_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_cantIgnore_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cantIgnore_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_cantIgnore_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        changeHP(player, 20);
+        changeStamina(player, 20);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cantIgnore_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_cantIgnore_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 50 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cantIgnore_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_cantIgnore_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_affection_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cantIgnore_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

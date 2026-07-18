@@ -912,6 +912,31 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "matin_tryToIgnore_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.matin_tryToIgnore_01_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 50 &&
+        NPC_DATA["matin"].emotion.affection < 70 &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.matin_tryToIgnore_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_tryToIgnore_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "matin_beingNightFlirted",
 
     condition : (player) =>

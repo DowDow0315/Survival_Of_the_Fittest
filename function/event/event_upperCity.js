@@ -1045,7 +1045,7 @@ window.EVENTS.push({
                                     );
                                     changeSensitivity(player, "aSensitivity", 10);
                                     changeStamina(player, -20);
-                                    chnageGold(player, 800);
+                                    changeGold(player, 800);
                                     passTime(player, 35);
                                 }
                             }

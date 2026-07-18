@@ -543,6 +543,8 @@ window.EVENTS.push({
 
     action: (player) => {
         player.flags.kain_about_yuri_01_seen = true;
+        player.flags.kain_about_yuri_01_seen_day = getCurrentDay(player);
+
         savePlayer(player);
 
         startScene(

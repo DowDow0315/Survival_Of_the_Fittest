@@ -227,7 +227,7 @@ registerActions("matin",{
             return;
         }
 
-        if (affection > 90){
+        if (affection >= 90){
             startScene([
                 {
                     type : "text",
@@ -239,7 +239,7 @@ registerActions("matin",{
                     ])
                 }
             ], player, { onEnd });
-        } else if (affection > 70){
+        } else if (affection >= 70){
             startScene([
                 {
                     type : "text",

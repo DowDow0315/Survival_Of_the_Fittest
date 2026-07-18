@@ -156,7 +156,7 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target" : "flag", "key" : "sion_talk_unlocked", "value" : true}
+                    { "target" : "flag", "key" : "sion_talk_unlocked", "value" : true }
                 ]
             }
         ],

@@ -1133,7 +1133,7 @@ const ITEMS ={
             stats : {
                 str : -2,
                 dex : 11,
-                chamrm : 3
+                charm : 3
             }
         },
 

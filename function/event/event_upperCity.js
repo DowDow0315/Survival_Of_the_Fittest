@@ -529,6 +529,35 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id: "kain_about_yuri_01",
+    once: true,
+
+    condition: (player) =>
+        NPC_DATA["kain"].emotion.affection >= 50 &&
+        (
+            getTimePeriod(player) === "afternoon" ||
+            getTimePeriod(player) === "night"
+        ) &&
+        !player.flags?.kain_about_yuri_01_seen &&
+        player.location === "theater",
+
+    action: (player) => {
+        player.flags.kain_about_yuri_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_about_yuri_01,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id: "kain_nobleSquare_dance_01",
 
     condition: (player) =>

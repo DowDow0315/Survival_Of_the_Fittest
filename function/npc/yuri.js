@@ -139,6 +139,13 @@ registerActions("yuri",{
             });
         }
 
+        if (player.flags?.kain_about_yuri_01_seen && !player.flags?.yuri_about_kain_01_seen ){
+            choices.push({
+                text : "데릭이 카인에게 한 짓에 대해 말한다.",
+                scene : NPC_DATA.yuri.scenes.yuri_about_kain_01
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "yuri_talk" });
 
         startScene([

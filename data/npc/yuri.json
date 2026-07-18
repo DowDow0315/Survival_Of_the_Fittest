@@ -713,8 +713,7 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
-                                    { "target": "time", "amount": 10 },
-                                    { "target": "npc", "npc": "sion", "key": "affection", "amount": 5 }
+                                    { "target": "time", "amount": 10 }
                                 ]
                             }
                         ]
@@ -738,7 +737,8 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target": "player", "key": "trauma", "amount": -2 }
+                    { "target": "player", "key": "trauma", "amount": -2 },
+                    { "target": "npc", "npc": "sion", "key": "affection", "amount": 5 }
                 ]
             }
         ],

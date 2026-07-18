@@ -1112,7 +1112,7 @@ window.startRebelStory02AfterUppercityPromiseBattle1Event = function(player){
         {
             type: "text",
             value: [
-                "첫 번쨰 반란군이 쓰러지자 숨어있었던 반란군이 당신을 제거하기 위해 튀어나왔다.<br><br>...끈질기다."
+                "첫 번째 반란군이 쓰러지자 숨어있었던 반란군이 당신을 제거하기 위해 튀어나왔다.<br><br>...끈질기다."
             ]
         },
         {
@@ -1135,7 +1135,7 @@ window.startRebelStory02AfterUppercityPromiseBattle2Event = function(player){
         {
             type: "text",
             value: [
-                "두 번쨰 반란군까지 쓰러졌지만 그들은 아직 죽지 않았다. 마지막 한 명의 반란군이 목숨을 걸고 당신을 향해 달려든다."
+                "두 번째 반란군까지 쓰러졌지만 그들은 아직 죽지 않았다. 마지막 한 명의 반란군이 목숨을 걸고 당신을 향해 달려든다."
             ]
         },
         {

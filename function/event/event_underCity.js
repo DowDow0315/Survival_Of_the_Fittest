@@ -1650,6 +1650,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sion_hisLittleConfession_02",
+    once : true,
+
+    condition : (player) =>
+        NPC_DATA["sion"].emotion.affection > 20 &&
+        player.location === "townEntrance" &&
+        player.justMoved,
+
+    action : (player) => {
+        addItem(player, ITEMS.accessary.sionRedRose);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisLittleConfession_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //스토리이벤트
 window.EVENTS.push({
     id : "undercity_story_07_rebel_leader_head_event",

@@ -1,0 +1,121 @@
+{
+    "name": "흉물멧돼지",
+    "hp": 220,
+    "attack": 40,
+    "defense": 35,
+    "eva": 38,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "animalMeatPieces",
+            "chance": 0.6
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 1
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 0.7
+        },
+        {
+            "item" : "lumpOfFlesh",
+            "chance": 0.9
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "흉물멧돼지는 당신을 향해 돌진했다. 멧돼지의 소리와 흉물 소리가 겹쳐서 들린다."
+        ],
+        "hit": [
+            "멧돼지는 맞았지만 금방 꿈틀거리며 살점이 회복됐다."
+        ],
+        "evade": [
+            "멧돼지는 슉슈슉 슉 피했지롱을 시전했다."
+        ],
+        "defeat": [
+            "멧돼지가 쓰러지면서 흉물 같은 것도 쏟아져나왔다. 흉물은 꿈틀거리다가 파사삭 말라버렸다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "돌진공격",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "흉물멧돼지는 당신에게 돌진했다. 맞으면 아플 것 같다!",
+                "흉물멧돼지는 발을 구르더니 그대로 씩씩거리며 돌진했다."
+            ]
+        },
+        {
+            "name": "흉물돌진공격",
+            "power": 1.2,
+            "type": "damage",
+            "chance": 0.7,
+            "lines": [
+                "흉물멧돼지는 평소 돌진보다 더 빠르게 당신에게로 돌진했다. 당신은 그것의 등위에서 꿈틀거리는 촉수를 보았다.",
+                "흉물이 으르렁거리는 소리와 함께 흉물멧돼지는 당신에게로 돌진해왔다!"
+            ]
+        },
+        {
+            "name" : "돌진연속공격",
+            "type" : "multiHit",
+            "power" : 0.6,
+            "hits" : 3,
+            "chance" : 0.5,
+            "lines" : [
+                "흉물멧돼지는 발을 구르더니 당신에게로 돌진해왔다. 그것은 당신이 피격당할 때까지 멈출 생각이 없다!"
+            ]
+        }
+    ],
+    "exp" : 80
+}

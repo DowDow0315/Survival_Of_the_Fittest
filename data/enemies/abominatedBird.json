@@ -1,0 +1,110 @@
+{
+    "name": "새",
+    "hp": 180,
+    "attack": 20,
+    "defense": 10,
+    "eva": 57,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "animalMeatPieces",
+            "chance": 1
+        },
+        {
+            "item": "animalMeatPieces",
+            "chance": 0.8
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 0.8
+        },
+        {
+            "item" : "lumpOfFlesh",
+            "chance": 0.9
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "흉물새는 작은 부리로 당신을 쪼고 있다!"
+        ],
+        "hit": [
+            "꽤애르르륵! 흉물새는 비명을 질렀다. 비명 사이에 흉물의 소리가 섞여있다."
+        ],
+        "evade": [
+            "흉물새는 슉슈슉 슉 피했지롱을 시전했다. 얄밉지? 짹짹."
+        ],
+        "defeat": [
+            "흉물새가 공중에서 툭 떨어졌다. 자세히 살펴보니 그것의 온몸에서는 흉물이 부르르 날뛰고 있었다.... 새의 겉면이 파스슥 말라버렸다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "몸통박치기",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "흉물새는 당신에게 날아들었다. 포켓몬 기술로 치면 이것이 바로 '제비반환'일 것이다."
+            ]
+        },
+        {
+            "name": "부리쪼기",
+            "power": 0.5,
+            "hits" : 9,
+            "type": "multiHit",
+            "chance": 0.5,
+            "lines": [
+                "흉물새가 재빠르게 당신을 쪼았다. 콕, 콕콕, 콕콕콕, 콕콕콕콕콕!! 3분콕(?)!"
+            ]
+        }
+    ],
+    "exp" : 70
+}

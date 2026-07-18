@@ -1630,6 +1630,17 @@ const ITEMS ={
                 int : 1,
                 charm : 3
             }
+        },
+
+        sionRedRose : {
+            name : "시온의 붉은 장미",
+            desc : "시온이 당신을 생각하며 기른 붉은 장미. 시들지 않도록 코팅이 잘 되어 있다.",
+            type : "accessary",
+            price : 1000,
+            stats : {
+                int : 2,
+                charm : 3
+            }
         }
     },
 

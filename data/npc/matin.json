@@ -824,6 +824,12 @@
                         ]
                     }
                 ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target" : "flag", "key" : "matin_askAboutVice", "value" : true }
+                ]
             }
         ],
         "matin_beingNightFlirted" : [

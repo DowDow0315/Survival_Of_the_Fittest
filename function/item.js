@@ -796,6 +796,7 @@ const WEAPON_SKILLS = {
         {
             name : "방패치기",
             cost : 2,
+            type : "damage",
             power : 2.8,
             unlock : 20,
             desc : "데미지 2.8배 공격"
@@ -832,7 +833,7 @@ const WEAPON_SKILLS = {
                 atkMult : 0.8
             },
             duration: 6,
-            unlock : 100,
+            unlock : 200,
             desc : "6턴간 방어력 2배, 회피율 1.3배, 공격력 0.8배"
         }
     ],

@@ -589,6 +589,39 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id: "kain_confession",
+    once: true,
+
+    condition: (player) =>
+        NPC_DATA["kain"].emotion.affection >= 80 &&
+        (
+            getTimePeriod(player) === "dawn" ||
+            getTimePeriod(player) === "night"
+        ) &&
+        !player.flags?.KainWillNotSingHisSong &&
+        !player.flags?.kain_hurt &&
+        player.flags.kain_about_yuri_02_seen &&
+        !hasNpcRelationship("kain", "lover") &&
+        !hasNpcRelationship("kain", "spouse") &&
+        player.location === "theater",
+
+    action: (player) => {
+        becomeLover("kain");
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_confession,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id: "kain_nobleSquare_dance_01",
 
     condition: (player) =>

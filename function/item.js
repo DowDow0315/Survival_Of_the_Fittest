@@ -853,7 +853,7 @@ const WEAPON_SKILLS = {
             type : "buff",
             effect : {
                 id : "whiteArmyTwinAxe_buff",
-                atkfMult : 1.5,
+                atkMult : 1.5,
                 defMult : 1.1
             },
             duration: 6,

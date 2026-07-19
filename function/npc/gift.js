@@ -1651,21 +1651,21 @@ const NPC_GIFT_CONFIG = {
                     affection: 7,
                     rage: -5,
                     lust : 0,
-                    line: ""
+                    line: "\"어머, 자기! 이걸 나 위한 거야?\"<br><br>니콜라이는 눈을 반짝이며 당신의 마카롱을 받아들였다. 그는 입을 오물오물거리더니 맛있다고 말하며 당신에게도 한입 베어물라고 하며 마카롱의 남은 부분을 내밀었다."
                 },
             
                 normal: {
                     affection: 5,
                     rage: -5,
                     lust : 0,
-                    line: ""
+                    line: "\"마카롱은 작고 달콤하고...\"<br><br>그는 당신의 마카롱을 먹다가 남은 것을 당신의 입에 쏙 집어넣었다. <br><br>\"자기같아~\""
                 },
             
                 bad: {
-                    affection: 7,
-                    rage: -5,
+                    affection: 1,
+                    rage: -3,
                     lust : 0,
-                    line: ""
+                    line: "\"으흥, 가끔은 이런 날도 있는 거지.\"<br><br>니콜라이는 당신의 맛없는 마카롱도 맛있게 먹어주었다. 어쩌면 연기일지도 모르겠지만, 그는 당신의 마음을 받아들였다."
                 }
             },
             nikolaiHate: {
@@ -2315,24 +2315,24 @@ const NPC_GIFT_CONFIG = {
         reactions: {
             valenFavorite: {
                 great: {
-                    affection: 3,
+                    affection: 7,
                     rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "\"...꽤 좋아합니다. 남들에게 들키면 안 되겠지만요.\"<br><br>발렌은 당신이 내온 차에 만족하며 다과를 꺼내왔다."
                 },
             
                 normal: {
                     affection: 2,
                     rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "\"달콤한 간식과 함께면 더 맛있습니다.\"<br><br>발렌은 당신의 앞으로 다과를 가져왔다. 하지만 정작 그는 하얀꽃차만 홀짝이고 다과에는 관심을 두지 않았다."
                 },
             
                 bad: {
-                    affection: 0,
+                    affection: -3,
                     rage: 0,
                     lust : 0,
-                    line: ""
+                    line: "\"맛없는 차군요.\"<br><br>그는 당신의 하얀꽃차를 내려다보며 미소를 지었디.<br><br>\"다음부터는 요리사한테 맡기는 걸로 하죠.\""
                 }
             },
             valenHate: {
@@ -2979,6 +2979,340 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    deric : {
+        reactions: {
+            dericFavorite: {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            dericHate: {
+                great: {
+                    affection: -10,
+                    rage: 10,
+                    lust : 0,
+                    line: "데릭은 당신의 연어회를 보더니 인상을 굳혔다. <br><br>\"아가. 난 생선을 싫어한단다.\"<br><br>그는 당신에게 나가라는 듯 손짓을 해보였다."
+                },
+            
+                normal: {
+                    affection: -12,
+                    rage: 10,
+                    lust : 0,
+                    line: "당신의 연어회에 그의 녹안이 서늘하게 굳었다. 그는 지금 당장 그 요리를 갖고 나가라는 듯 손짓을 해보였다."
+                },
+            
+                bad: {
+                    affection: -15,
+                    rage: 15,
+                    lust : 0,
+                    line: "데릭은 당신의 요리를 믿을 수가 없었다. 그는 비틀거리더니 벽에 기대어서며 그 흉측한 요리를 당장 가지고 나가라고 말했다. 진심으로 화가 난 것 같다."
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"귀부인들이 달콤한 것을 꽤나 좋아하지.\"<br><br>그는 당신의 요리를 먹으며 미소를 지었다. <br><br>\"우리 아가는 귀부인들에게도 사랑받을 줄을 아는 구나.\""
+                },
+            
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "데릭은 달콤한 요리를 먹으며 니콜라이는 컵케이크를 좋아한다고 말했다. <br><br>\"상류도시에 오면 언제나 사가더구나.\""
+                },
+            
+                bad: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: "데릭은 한 입 먹더니 미소가 사라졌다. 그는 당신의 요리를 내려놓았다. <br><br>\"아가, 설마 이런 걸 먹고 다니니?\""
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 5,
+                    line: "데릭은 이런 요리보다는 당신의 나체가 더 자극적이라고 말했다. 그는 당신이 지금 당장이라도 옷을 벗는 걸 기대하고 있는 듯하다."
+                },
+
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 3,
+                    line: "\"...날 꼬시고 싶은 거라면 옷을 벗는 게 어떻니? 아빠의 지갑은 열려있단다.\"<br><br>그는 자신의 지갑을 흔들어보였다, 장난스럽게."
+                },
+            
+                bad: {
+                    affection: -2,
+                    rage: 3,
+                    lust : 0,
+                    line: "\"...이런 것보다 더 고급스럽고 효과가 좋은 약을 알고 있단다.\"<br><br>데릭은 당신을 위아래로 훑어보았다. <br><br>\"언젠가 그 맛을 알려줘야 할지도 모르겠구나.\""
+                }
+            },
+
+            lustyHighAffection : {
+                great: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 10,
+                    line: "데릭은 미소를 짓더니 당신에게 다가왔다. 그의 그림자가 당신의 그림자를 덮친다. <br><br>\"수락의 의미로 받아들여도 되겠지?\"<br><br>그의 손가락이 당신의 입술을 누른다."
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 5,
+                    line: "데릭은 미소를 짓더니 당신에게 다가왔다. 그의 그림자가 당신의 그림자를 덮친다. <br><br>\"수락의 의미로 받아들여도 되겠지?\"<br><br>그의 손가락이 당신의 입술을 누른다."
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 3,
+                    line: "\"노력은 가상하니... 조금 봐줄까?\"<br><br>데릭이 당신의 입술을 엄지로 누르며 말했다. 그는 당신의 반응을 즐기고 있다."
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 5,
+                    rage : -5,
+                    lust : 0,
+                    line : "\"...정말 맛있구나.\"<br><br>데릭은 당신의 고기 요리를 먹으며 칭찬했다. 그는 당신의 요리를 맛있고 우아하게 먹어주었다."
+                },
+
+                normal : {
+                    affection : 3,
+                    rage : -3,
+                    lust : 0,
+                    line : "데릭은 당신의 요리를 먹으며 아쉬웠던 점을 말해주었다. <br><br>\"다음 번에는 더 잘할 수 있을 거라 믿는단다, 아가.\"<br><br>그는 당신의 요리를 다 먹었다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 1,
+                    lust : 0,
+                    line : "\"태운 고기 요리는 고기 요리라고 할 수 없단다.\"<br><br>데릭은 당신의 요리를 거부했다."
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 당신의 채소 요리를 먹으며 고개를 끄덕였다. <br><br>\"요리는 어디서 배웠니?\"<br><br>그의 목소리는 부드럽다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 당신의 채소 요리를 먹으며 희미하게 미소를 지었다. <br><br>\"조금 더 노력해야겠구나.\""
+                },
+
+                bad : {
+                    affection : -2,
+                    rage : 0,
+                    lust : 2,
+                    line : "데릭은 한 입 먹더니 미소가 사라졌다. 그는 당신의 요리를 내려놓았다. <br><br>\"아가, 설마 이런 걸 먹고 다니니?\""
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 생선 요리는 어떻게 먹어도 비려서 싫다고 말했다. <br><br>\"안 비리게 했다고 해도... 안 비렸던 적은 없었단다.\"<br><br>그는 고개를 저었다."
+                },
+
+                normal : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...이렇게 비린 걸 남들은 어떻게 먹는지 모르겠구나.\"<br><br>그는 생선의 눈알을 보더니 고개를 돌렸다. <br><br>\"저 눈도 마음에 안 들고.\""
+                },
+
+                bad : {
+                    affection : -2,
+                    rage : 2,
+                    lust : 0,
+                    line : "데릭은 한 입 먹더니 미소가 사라졌다. 그는 당신의 요리를 내려놓았다. <br><br>\"아가, 설마 이런 걸 먹고 다니니?\""
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 고기와 야채가 섞인 요리를 먹으며 고개를 끄덕였다. <br><br>\"내 동생보다 요리를 잘하는 구나.\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 에릭이 이런 요리를 많이 해줬다고 말했다. <br><br>\"균형 식사.... 그 자식은 맛보다 영양분을 더 따지는 것 같아.\""
+                },
+
+                bad : {
+                    affection : -2,
+                    rage : 2,
+                    lust : 0,
+                    line : "데릭은 한 입 먹더니 미소가 사라졌다. 그는 당신의 요리를 내려놓았다. <br><br>\"아가, 설마 이런 걸 먹고 다니니?\""
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 익숙하게 빵을 먹으며 고개를 끄덕였다. <br><br>\"아무 것도 안 들어갔는데 맛있다는 건 네 요리 솜씨가 정말 좋다는 뜻이지.\""
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 익숙하게 빵을 먹으며 제빵으로 상류도시에서 먹고 사는 사람들도 많다고 말했다. <br><br>\"요새는 레드오션이지만.\""
+                },
+
+                bad : {
+                    affection : -2,
+                    rage : 0,
+                    lust : 2,
+                    line : "\"이런, 아가. 방금 너의 요리 솜씨가 다 밝혀지고 말았구나.\"<br><br>데릭은 당신의 빵을 내려놓더니 입가를 손수건으로 닦았다."
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 7,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 한 입 크기로 먹을 수 있는 고기를 좋아한다고 말했다. <br><br>\"마치 이런 고기빵처럼.\""
+                },
+
+                normal : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 당신의 요리를 먹으며 미소를 지었다. <br><br>\"우리 아가는 센스도 좋지.\""
+                },
+
+                bad : {
+                    affection : -2,
+                    rage : 2,
+                    lust : 0,
+                    line : "\"...네 요리 솜씨는 정말 놀랍구나.\"<br><br>데릭은 당신의 요리를 한 입 먹고 내려놓았다. <br><br>\"다 태웠어.\""
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 당신의 야채빵을 먹으며 고개를 끄덕였다. 그는 야채와 빵을 잘 어울리는 조합이라고 말했다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "데릭은 당신의 요리를 먹으며 아쉬웠던 점을 말해주었다. <br><br>\"괜찮아, 아가. 다음 번에는 더 잘할 수 있을 거야.\""
+                },
+
+                bad : {
+                    affection :-2,
+                    rage : 2,
+                    lust : 0,
+                    line : "\"...네 요리 솜씨는 정말 놀랍구나.\"<br><br>데릭은 당신의 요리를 한 입 먹고 내려놓았다. <br><br>\"정말 맛없구나, 아가.\""
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"하류도시의 음식을 여기까지 가져온 거니?\"<br><br>데릭은 당신의 요리를 밀어냈다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"하류도시의 음식을 여기까지 가져온 거니?\"<br><br>데릭은 당신의 요리를 밀어냈다."
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 3,
+                    lust : 0,
+                    line : "\"대단하구나. 맛없는 하류도시의 음식을 여기까지 가져오다니.\"<br><br>그의 미소는 서늘했다."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...고기가 아깝구나.\"<br><br>데릭은 당신의 요리를 밀어냈다."
+                },
+
+                normal : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"...고기가 아깝구나.\"<br><br>데릭은 당신의 요리를 밀어냈다."
+                },
+
+                bad : {
+                    affection : -4,
+                    rage : 4,
+                    lust : 0,
+                    line : "데릭은 당신을 말없이 쳐다보았다.<br><br>\"내가 기뻐할 거라 생각해서 가져온 건 아닐 테고... 그렇게 멍청하지는 않을 테니까 말이야.\"<br><br>그의 입가에는 평소의 가식적인 미소조차 사라져 있었다."
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -10,
+                    rage: 5,
+                    lust : 0,
+                    line: "데릭은 당신을 말없이 바라보다가 차가운 미소를 지었다. <br><br>\"아가는 혼나는 걸 좋아하니?\""
+                }
+            }
+        }
     }
 };
 
@@ -3133,6 +3467,14 @@ function giveFoodToNpc(player, npcId, item){
 
         if (
             npcId === "akasia" &&
+            taste === "lusty" &&
+            affection >= 60
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
+        if (
+            npcId === "deric" &&
             taste === "lusty" &&
             affection >= 60
         ){

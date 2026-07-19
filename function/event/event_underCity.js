@@ -1488,7 +1488,6 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         player.flags?.dericDate02Accepted &&
         player.flags?.metNikolai &&
-        NPC_DATA["nikolai"].emotion.affection > 5 &&
         !player.flags?.nikolai_feels_good_event_seen,
 
     action : (player) => {
@@ -1499,6 +1498,31 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_feels_good_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_will_follow_uppercity",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        NPC_DATA["sion"].emotion.affection >= 30 &&
+        player.flags?.metNikolai &&
+        !player.flags?.sion_uppercity,
+
+    action : (player) => {
+        player.flags.sion_uppercity = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.sion_will_follow_uppercity,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

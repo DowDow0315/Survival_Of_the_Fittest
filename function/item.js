@@ -2205,14 +2205,14 @@ const ITEMS ={
             tags : ["gift", "meatRice", "great"],
             price : 480
         },
-        normalBread : {
+        normalMeatRice : {
             name : "고기주먹밥",
             type : "heal",
             value : 65,
             tags : ["gift", "meatRice", "normal"],
             price : 440
         },
-        badBread : {
+        badMeatRice : {
             name : "맛없는 고기주먹밥",
             type : "heal",
             value : 50,
@@ -2381,7 +2381,7 @@ const ITEMS ={
                 heal : 25,
                 duration : 4
             },
-            tags : ["gift", "fish", "great"],
+            tags : ["gift", "fish", "dericHate", "great"],
             price : 1800
         },
         normalSalmonSalmon : {
@@ -2391,7 +2391,7 @@ const ITEMS ={
                 heal : 20,
                 duration : 4
             },
-            tags : ["gift", "fish", "normal"],
+            tags : ["gift", "fish", "dericHate", "normal"],
             price : 1600
         },
         badSalmonSalmon : {
@@ -2401,7 +2401,7 @@ const ITEMS ={
                 heal : 15,
                 duration : 4
             },
-            tags : ["gift", "fish", "bad"],
+            tags : ["gift", "fish", "dericHate", "bad"],
             price : 1400
         },
 
@@ -2434,6 +2434,59 @@ const ITEMS ={
             },
             tags : ["gift", "matinFavorite", "fish", "bad"],
             price : 1000
+        },
+
+        greatWhiteFlowerTea : {
+            name : "훌륭한 하얀꽃차(40*3)",
+            type : "regen",
+            effect : {
+                heal : 40,
+                duration : 3
+            },
+            tags : ["gift", "valenFavorite", "sweat", "great"],
+            price : 1000
+        },
+        normalWhiteFlowerTea : {
+            name : "하얀꽃차(20*3)",
+            type : "regen",
+            effect : {
+                heal : 20,
+                duration : 3
+            },
+            tags : ["gift", "valenFavorite", "sweat", "normal"],
+            price : 800
+        },
+        badWhiteFlowerTea : {
+            name : "맛없는 하얀꽃차(10*3)",
+            type : "regen",
+            effect : {
+                heal : 10,
+                duration : 3
+            },
+            tags : ["gift", "valenFavorite", "sweat", "bad"],
+            price : 600
+        },
+
+        greatMacaron : {
+            name : "훌륭한 마카롱",
+            type : "stamina",
+            value : 60,
+            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            price : 1200
+        },
+        normalMacaron : {
+            name : "마카롱",
+            type : "stamina",
+            value : 40,
+            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            price : 1000
+        },
+        badMacaron : {
+            name : "맛없는 마카롱",
+            type : "stamina",
+            value : 20,
+            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            price : 750
         }
 
     
@@ -3460,6 +3513,42 @@ window.RECIPES = {
             great : "greatSalmonSushi",
             normal : "normalSalmonSushi",
             bad : "badSalmonSushi",
+            disaster: "trash"
+        }
+    },
+
+    whiteFlowerTea : {
+        name : "하얀꽃차",
+        desc : "하얀꽃에 꿀을 넣고, 마지막에 하얀꽃잎조각들을 올린 차",
+
+        ingredients : {
+            flower : 1,
+            pieceofwhiteflower : 1,
+            flowerNectar : 1
+        },
+
+        results : {
+            great : "greatWhiteFlowerTea",
+            normal : "normalWhiteFlowerTea",
+            bad : "badWhiteFlowerTea",
+            disaster: "trash"
+        }
+    },
+
+    macaron : {
+        name : "마카롱",
+        desc : "밀가루, 꿀 그리고 하얀꽃을 넣어 만든 달콤한 마카롱",
+
+        ingredients : {
+            flower : 1,
+            wheat : 1,
+            flowerNectar : 1
+        },
+
+        results : {
+            great : "greatMacaron",
+            normal : "normalMacaron",
+            bad : "badMacaron",
             disaster: "trash"
         }
     }

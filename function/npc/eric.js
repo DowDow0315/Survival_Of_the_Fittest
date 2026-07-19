@@ -120,6 +120,177 @@ registerActions("eric", {
                 startScene(getLocationScene(player), player);
             }
         });
+    },
+    //talk
+    talk: (player) => {
+        if (!isEricAvailable(player)){
+            showSingleTextScene(
+                "에릭은 지금 집에 없다. 그는 집에 잘 들어오지 않는다.",
+                player
+            );
+            return;
+        }
+
+        startScene([
+            {
+                type: "text",
+                value: "에릭의 방 안에서 희미한 인기척이 느껴졌다. 당신이 방문을 열자 쉬고 있던 에릭이 고개를 들었다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "사소한 잡담을 한다", action: "eric_smallTalk" },
+                    { text: "다른 얘기를 한다", action: "eric_otherTalk" },
+                    { text: "돌아간다", action: "back_location" }
+                ]
+            }
+        ], player);
+    },
+    smallTalk : (player) => {
+        passTime(player, 5);
+        const affection = NPC_DATA["eric"].emotion.affection || 0;
+        const rage = NPC_DATA["eric"].emotion.rage || 0;
+        const dominance = NPC_DATA["eric"].emotion.dominance || 0;
+        const fear = NPC_DATA["eric"].emotion.fear || 0;
+        const onEnd = () => {
+            startScene(getLocationScene(player), player);
+        };
+
+        if (rage >= 50){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 자신의 휴식을 방해하는 당신을 쳐다보았다. 노려본 게 아닌데도 묵직한 살기가 느껴진다.",
+                        "총을 장전하던 에릭은 당신을 돌아보았다. 분위기가 무섭다.... 당신은 지금 말을 걸 타이밍이 아니었다는 걸 뒤늦게 깨달았다."
+                    ])
+                }
+            ], player, { onEnd });
+            return;
+        }
+
+        if (fear >= 90 && affection >= 80){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 당신이 쉽사리 방 안으로 들어오지 못하는 걸 보고서도 침묵을 지켰다. 그는 말없이 자신의 일을 하고 있다.",
+                        "에릭은 쉽사리 자신의 방으로 들어오지 못하는 당신을 보더니 고개를 까닥였다. 당신은 그의 방으로 들어오긴 했지민 그에게 가까이 붙어있지는 못했다.",
+                        "당신은 그의 방에 들어간 후 적막 속에서 살짝 졸았다. 졸다가 눈을 떴을 때 당신의 위에는 담요 한 장이 덮어져 있었다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (dominance >= 80 && affection >= 80){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 당신이 어디에 있는지 확인하듯 가끔 시선을 들었다. 당신이 그가 정해준 자리에서 벗어나지 않는 한, 그는 별다른 제지를 하지 않았다.",
+                        "에릭은 당신을 시야에 둔 채 자신의 일을 하고 있다. 당신이 슬쩍 고개를 내밀자 그는 당신을 흘낏 보긴 했지만 당신을 밀어내지는 않았다.",
+                        "당신은 그의 가까이에서 그가 작업에 몰두하는 모습을 볼 수 있었다. 에릭은 당신의 시선에도 아랑곳하지 않고 자신의 일을 계속했다.",
+                        "당신이 자신의 작업에 손을 대려고 하자 에릭은 당신의 손을 막았다. 당신은 그의 물건을 만질 수 없다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (fear > 50 && dominance > 50){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 어차피 당신이 자신의 명령에 거스르지 못할 거라는 걸 알고 있다. 그는 당신이 옆에 있든말든 자신의 일을 계속하고 있다.",
+                        "당신이 일에 대해 물어보자 에릭은 짧게 대답해주었다. 당신이 질문을 멈추자 다시 적막이 흘렀다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection >= 100){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "당신이 그의 옆에 다가와도 에릭은 제지하지 않았다. 당신은 에릭의 뺨을 손가락으로 꾹 눌렀다. 그제야 에릭이 당신을 쳐다보았다. 당신과 에릭은 몇 초 동안 서로만을 응시했다.",
+                        "당신은 에릭에게 일을 좀 쉬면 안 되냐고 물었다. 에릭은 잠시 말이 없더니 당신을 향해 몸을 돌렸다. 드디어 그가 일에서 손을 뗐다.",
+                        "당신은 에릭의 무릎 위로 올라와 앉았다. 그의 품은 따듯했다. 에릭은 당신을 품에 안은 채로 자신의 일을 계속하다가 시선을 밑으로 내렸다. 당신과 에릭의 시선이 마주쳤다, 평소보다 더 길게.",
+                        "당신의 곁에서 에릭은 얕은 잠에 빠졌다. 어쩌면 당신이 곁에 있기에, 오늘만큼은 평소보다 조금 더 오래 눈을 감고 있을 수 있는지도 몰랐다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection >= 80){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "당신이 다가오자 에릭은 당신에게로 시선을 던졌다. 그는 당신을 위아래로 훑어보더니 다친 곳이 없는 걸 확인하고 다시 시선을 돌렸다.",
+                        "에릭은 당신이 자신의 옆에 기대어 앉아도 뭐라고 하지 않았다. 살짝 졸았던 걸까, 당신이 다시 눈을 떴을 때 당신은 에릭의 침대에 누워있었다. 당신은 책상에 앉아 작업을 하고 있는 그의 뒷모습을 바라보았다.",
+                        "당신은 그의 곁에 앉아 묵묵히 손을 움직이는 모습을 바라보았다. 에릭은 시선을 돌리지 않았지만, 당신이 가까이 있는 것을 불편해하지는 않았다.",
+                        "당신이 그의 곁에 가만히 앉아있자 에릭은 당신에게 병을 하나 내밀었다. 말린 과일이 담겨있는 병이다. 당신은 말린 과일을 먹으며 그를 기다렸다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (fear >= 50){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "방문은 열었지만 당신은 에릭의 곁에 가까이 갈 수 없었다.... 당신은 방문 주변에서만 서성였다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection >= 50 && dominance >= 50){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 당신이 자신의 주변에 있어도 불편해하지 않았다. 아니, 어쩌면 신경을 아예 쓰지 않는 걸지도...? 당신이 방문 쪽으로 향하자 그제야 에릭의 시선이 당신의 뒤로 붙었다가 떨어졌다.",
+                        "당신은 에릭의 의자 옆에 놓여있는 작은 쿠션을 보았다. 그가 당신을 위해 준비해둔 걸까? 당신은 그 쿠션 위에 앉아 에릭을 지켜보았다.",
+                        "에릭이 일을 하지 않는 모습을 본 적이 없는 것 같다. 당신은 괜히 그의 휴식 시간을 방해한 것 같아서 조금 미안해졌다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection >= 50){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "당신이 방에 발걸음을 디뎌도 에릭은 아무 말도 하지 않았다. 그는 책상 위에 올려놓았던 서류를 다시 집어들었다.<br><br>원래 눈을 붙이려고 했던 걸까.",
+                        "당신은 그에게 좀 쉬는 게 어떻겠냐고 물었다. 에릭은 당신을 힐끗 보더니 네가 신경쓸 일은 아니라고 짧게 대꾸했다. 그는 다시 일을 할 생각인 것 같다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection >= 30){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "에릭은 당신이 자신의 방에 들어오자 눈썹을 살짝 올리긴 했지만 제지하지는 않았다. 하지만 당신이 거리를 더 좁히자 그는 고개를 돌려 당신을 응시했다. 거기서 더 다가오지는 말라는 뜻이다.",
+                        "에릭은 당신이 일정 거리 안으로 들어오는 건 허락하지 않았다. 당신은 허락한 범위 내에서만 그의 방에 머무를 수 있었다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else{
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "당신이 방 안으로 들어오기 전 에릭이 당신을 쳐다보았다. <br><br>\"...데릭이 허락해줬나.\"<br><br>그는 낮게 중얼거리더니 다시 문을 닫아버렸다. 당신은 그의 방에 아직 들어갈 수 없다.",
+                        "방 안으로 들어오려던 당신의 앞으로 문이 닫혔다. 당신은 아직 그의 공간에 허락받지 못했다."
+                    ])
+                }
+            ], player, { onEnd });
+        }
+    },
+    otherTalk : (player) => {
+        const choices = [];
+
+        startScene([
+            {
+                type : "text",
+                value : "무엇에 대해 물어볼까."
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ], player);
     }
 })
 
@@ -396,4 +567,20 @@ function startLukeUndercity04AfterEric(player){
             }
         }
     );
+}
+
+function isEricAvailable(player){
+    const day = getWeekdayIndex(player);
+    const time = getTimePeriod(player);
+
+    // 월/수/일 새벽에만 있음
+    if ([0, 2, 6].includes(day) && time !== "dawn"){
+        return false;
+    }
+
+    // 토, 아침에만 있음
+    if ([5].includes(day) && time !== "morning"){
+        return false;
+    }
+    return true;
 }

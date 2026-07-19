@@ -1362,7 +1362,7 @@ function handleArenaVictory(player){
     if (recovered){
         player.status ??= {};
         
-        const maxHp = player.maxHp || 100;
+        const maxHp = player.status.maxHp;
         const heal = Math.floor(maxHp * 0.7);
         
         player.status.hp = Math.min(

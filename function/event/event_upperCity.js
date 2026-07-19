@@ -1099,3 +1099,29 @@ window.EVENTS.push({
         });
     }
 });
+
+//시온
+window.EVENTS.push({
+    id : "sion_spying_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
+        (player.location === "richTownStreet" ||
+         player.location === "gloryStreet" ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.sion_spying_04_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});

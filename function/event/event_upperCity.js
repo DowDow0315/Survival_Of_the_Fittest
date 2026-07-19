@@ -622,6 +622,35 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "kain_patience_limit_event",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "nobleSquare" ||
+         player.location === "gloryStreet" ||
+         player.location === "richTownStreet") &&
+        NPC_DATA["kain"].emotion.lust >= 100 &&
+        ( hasNpcRelationship("kain", "lover") ||
+          hasNpcRelationship("kain", "spouse") ) &&
+        Math.random() < 0.2,
+
+    action : (player) => {
+        player.location = "theater";
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_patience_limit_event,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id: "kain_nobleSquare_dance_01",
 
     condition: (player) =>

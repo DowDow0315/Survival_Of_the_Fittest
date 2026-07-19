@@ -15,6 +15,41 @@ registerActions("kain", {
         openGiveFoodMenu(player, "kain");
     },
 
+    //개인 이벤트
+    patience_limit_accept: (player) => {
+        const scene = player.gender === "male"
+        ? NPC_DATA["kain"].scenes.kain_patience_limit_accept_male
+        : NPC_DATA["kain"].scenes.kain_patience_limit_accept_female;
+        startScene(scene, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });
+    },
+    
+    patience_limit_refuse: (player) => {
+        const kain = NPC_DATA["kain"].emotion;
+        const forceScene = player.gender === "male"
+        ? NPC_DATA["kain"].scenes.kain_patience_limit_force_male
+        : NPC_DATA["kain"].scenes.kain_patience_limit_force_female;
+        
+        const forceCondition = kain.rage >= 50
+        
+        if (forceCondition) {
+            startScene(forceScene, player, {
+                onEnd: () => startScene(getLocationScene(player), player)
+            });
+            return;
+        }
+        
+        startScene(
+            NPC_DATA["kain"].scenes.kain_patience_limit_respect,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+        
+    },
+
     talk: (player) => {
         if (!isKainAvailable(player)){
             showSingleTextScene(

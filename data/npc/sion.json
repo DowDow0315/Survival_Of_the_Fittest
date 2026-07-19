@@ -1,9 +1,9 @@
 {
     "name" : "시온",
     "hp" : 300,
-    "attack" : 30,
+    "attack" : 40,
     "defense" : 45,
-    "eva" : 38,
+    "eva" : 47,
     "lustResist" : 1.1,
 
     "emotion": {

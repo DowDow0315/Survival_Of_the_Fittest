@@ -1727,6 +1727,31 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sion_spying_06",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.sion_spying_06_day !== getCurrentDay(player) &&
+        NPC_DATA["sion"].emotion.affection > 50 &&
+        player.location === "shelter" &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.sion_spying_06_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_06,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+
 //스토리이벤트
 window.EVENTS.push({
     id : "undercity_story_07_rebel_leader_head_event",

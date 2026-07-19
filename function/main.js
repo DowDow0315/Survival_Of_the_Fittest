@@ -1260,7 +1260,7 @@ function getCalendarDate(player){
 
 const NPC_LUST_GROWTH_CONDITIONS = {
     sora: [
-        { key: "affection", min: 30, amount: 3 },
+        { key: "affection", min: 30, amount: 2 },
         { key: "dominance", min: 40, amount: 1 }
     ],
 

@@ -1,7 +1,7 @@
 {
     "name": "꽃쌍검인간",
     "hp": 320,
-    "attack": 40,
+    "attack": 43,
     "defense": 30,
     "eva": 49,
     "lustResist" : 2,
@@ -121,7 +121,7 @@
         {
             "name" : "아리따운 춤사위",
             "type" : "multiHit",
-            "power" : 0.6,
+            "power" : 0.7,
             "hits" : 3,
             "chance" : 0.5,
             "lines" : [

@@ -1235,6 +1235,7 @@ window.EVENTS.push({
         player.location === "townEntrance" &&
         player.flags?.rebel_story_02_after_event_attack_seen &&
         getCurrentDay(player) >= (player.flags.rebel_story_02_after_event_attack_seen_day + 7) &&
+        getCurrentDay(player) >= (player.flags.uppercity_story_03_done_day + 7) &&
         !player.flags?.act_02_abomination_attack_start_rebel_route_seen,
 
     action : (player) => {
@@ -1272,6 +1273,7 @@ window.EVENTS.push({
         player.location === "townEntrance" &&
         player.flags.rebel_story_02_after_event_uppercityPromise_seen &&
         getCurrentDay(player) >= (player.flags.rebel_story_02_after_event_uppercityPromise_seen_day + 7) &&
+        getCurrentDay(player) >= (player.flags.uppercity_story_03_done_day + 7) &&
         !player.flags?.act_02_abomination_attack_start_uppercity_route_seen,
 
     action : (player) => {
@@ -1285,7 +1287,7 @@ window.EVENTS.push({
                     "\"하류도시의 영웅.\"<br><br>" +
                     "뒤를 돌아보니 백색 군인이 다급한 목소리로 당신을 부르고 있었다." +
                     "<br><br>\"현재 경계병 제3초소가 뚫리고 있다는 연락이....\"<br><br>" +
-                    "그가 말을 끝내기도 전에 그의 뒤에서 거대한 흉물이 입을 벌렸다. 백색 군인은 아슬아슬하게 거대한 흉물의 공격을 피했다. 마을 입구에 있던 시민들은 경계선 너머에만 있다고 믿었던 흉물이 눈앞이 있자 순간 멍하니 그것을 바라보기만 했다." +
+                    "그가 말을 끝내기도 전에 그의 뒤에서 거대한 흉물이 입을 벌렸다. 백색 군인은 아슬아슬하게 거대한 흉물의 공격을 피했다. 마을 입구에 있던 시민들은 경계선 너머에만 있다고 믿었던 흉물이 눈앞에 있자 순간 멍하니 그것을 바라보기만 했다." +
                     "<br><br>\"으아아아악!\"<br><br>" +
                     "한 명이 삼켜지고 나서야 시민들은 비명을 지르며 도망가기 시작했다. 흉물의 입에 걸린 한쪽 다리는 살고 싶다는 듯이 파닥거리다가 이내 그대로 축 늘어져버렸다." +
                     "<br>당신은 루크가 욕설을 뱉는 소리를 들었다. 그는 거대 흉물에 분명 타격을 먹였지만, 거대 흉물은 형태만 조금 변했을 뿐 똑같았다. 루크의 뺨에 거대 흉물의 검은피가 묻었다. 그는 신경질적으로 손등으로 제 뺨에 묻은 검은피를 닦아냈다." +

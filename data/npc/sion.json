@@ -369,6 +369,7 @@
                                     { "target": "npc", "npc": "sion", "key": "affection", "amount": -3 },
                                     { "target": "npc", "npc": "sion", "key": "dominance", "amount": 1 },
                                     { "target": "npc", "npc": "sion", "key": "rage", "amount": 1 },
+                                    { "target": "player", "key": "trauma", "amount": 5 },
                                     { "target": "player", "key": "hp", "amount": -10 }
                                 ]
                             }
@@ -448,11 +449,31 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
-                                    { "target": "npc", "npc": "sion", "key": "affection", "amount": -3 }
+                                    { "target": "npc", "npc": "sion", "key": "affection", "amount": -3 },
+                                    { "target": "player", "key": "trauma", "amount": 5 }
                                 ]
                             }
                         ]
                     }
+                ]
+            }
+        ],
+        "sion_spying_06" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "쉘터에 들어온 당신은 쉬기 위해 당신의 방을 찾았다. 누군가 당신의 방에 있다. 당신은 유리가 방을 청소하고 있는 줄 알고 아무 생각 없이 방문을 열었다.",
+                    "<br><br><span class='log-sion'>시온이 당신의 옷에 얼굴을 묻은 채 숨을 들이쉬고 있었다.</span><br><br>",
+                    "당신과 시온의 시선이 마주쳤다. 어색한 정적이 흘렀다.",
+                    "<br>\"...죄송해요.\"<br>",
+                    "그는 얼굴을 붉히며 고개를 숙였다. <br><br>...하지만 그는 당신의 옷은 내려놓지 않았다."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "npc", "npc": "sion", "key": "lust", "amount": 3 },
+                    { "target": "player", "key": "trauma", "amount": 10 }
                 ]
             }
         ],

@@ -559,6 +559,36 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id: "kain_about_yuri_02",
+    once: true,
+
+    condition: (player) =>
+        NPC_DATA["kain"].emotion.affection >= 50 &&
+        (
+            getTimePeriod(player) === "dawn" ||
+            getTimePeriod(player) === "night"
+        ) &&
+        getCurrentDay(player) >= player.flags.kain_about_yuri_01_seen_day + 2 &&
+        !player.flags?.kain_about_yuri_02_seen &&
+        player.location === "theater",
+
+    action: (player) => {
+        player.flags.kain_about_yuri_02_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_about_yuri_02,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id: "kain_nobleSquare_dance_01",
 
     condition: (player) =>
@@ -1107,6 +1137,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_uppercity &&
         player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
         (player.location === "richTownStreet" ||
          player.location === "gloryStreet" ) &&
@@ -1131,6 +1162,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
+        player.flags?.sion_uppercity &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_spying_05_day !== getCurrentDay(player) &&
         player.location === "theater" &&

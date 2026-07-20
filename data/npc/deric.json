@@ -1176,8 +1176,6 @@
                                     { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": -1 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": -100 },
-                                    { "target": "player", "key": "hp", "amount": 100 },
-                                    { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "sensitivity", "key": "mSensitivity", "amount": 3 },
                                     { "target": "sensitivity", "key": "cSensitivity", "amount": {"male" : 2, "female" : 8} },
                                     { "target" : "fluid", "key" : "c", "amount" : {"male" : 0, "female" : 20}},
@@ -1233,13 +1231,11 @@
                                     { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "fear", "amount": 5 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": -100 },
-                                    { "target": "player", "key": "hp", "amount": 100 },
-                                    { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "sensitivity", "key": "cSensitivity", "amount": {"male" : 0, "female" : 5} },
                                     { "target" : "fluid", "key" : "c", "amount" : {"male" : 0, "female" : 25}},
                                     { "target": "sensitivity", "key": "aSensitivity", "amount": {"male" : 5, "female" : 1} },
                                     { "target" : "fluid", "key" : "a", "amount" : {"male" : 25, "female" : 0}},
-                                    { "target": "gold", "amount": 3000 }
+                                    { "target": "gold", "amount": 2000 }
                                 ]
                             }
                         ]
@@ -1478,7 +1474,10 @@
                                 "type" : "effect",
                                 "effects" : [
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 5 },
-                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -30 }
+                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -30 },
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
+                                    { "target": "gold", "amount": 3500 }
                                 ]
                             }
                         ],
@@ -1508,7 +1507,10 @@
                                 "effects" : [
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 2 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": -30 },
-                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 5 }
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 5 },
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
+                                    { "target": "gold", "amount": 3000 }
                                 ]
                             }
                         ]
@@ -1548,19 +1550,14 @@
                                     { "target": "npc", "npc": "deric", "key": "dominance", "amount": -3 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": 3 },
                                     { "target": "npc", "npc": "deric", "key": "fear", "amount": 5 },
-                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -100 }
+                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -100 },
+                                    { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "player", "key": "stamina", "amount": 100 },
+                                    { "target": "gold", "amount": 2000 }
                                 ]
                             }
                         ]
                     }
-                ]
-            },
-            {
-                "type" : "effect",
-                "effects" : [
-                    { "target": "player", "key": "hp", "amount": 100 },
-                    { "target": "player", "key": "stamina", "amount": 100 },
-                    { "target": "gold", "amount": 3000 }
                 ]
             }
         ],

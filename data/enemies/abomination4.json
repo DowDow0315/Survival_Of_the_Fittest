@@ -168,7 +168,7 @@
         },
         {
             "name": "거대흉물m",
-            "power": 4,
+            "power": 5,
             "type" : "lust",
             "target": "m",
             "chance": 1,
@@ -180,7 +180,7 @@
     "toplessGrappleSkills": [
         {
             "name": "거대흉물b",
-            "power": 4,
+            "power": 5,
             "type" : "lust",
             "target": "b",
             "chance": 1,
@@ -192,7 +192,7 @@
     "bottomlessGrappleSkills": [
         {
             "name": "거대흉물c",
-            "power": 4,
+            "power": 5,
             "type" : "lust",
             "target": "c",
             "chance": 0.8,
@@ -208,7 +208,7 @@
         },
         {
             "name": "거대흉물a",
-            "power": 4,
+            "power": 5,
             "type" : "lust",
             "target": "a",
             "chance": 0.8,

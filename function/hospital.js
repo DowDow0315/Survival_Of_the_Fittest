@@ -1,7 +1,7 @@
 const HOSPITAL_PRICES = {
     traumaCare: 1000,
     sensitivityUp: 100,
-    sensitivityDownBase: 300,
+    sensitivityDownBase: 2000,
     bodyModify: 30000,
     abominationRemoval : 3000
 };

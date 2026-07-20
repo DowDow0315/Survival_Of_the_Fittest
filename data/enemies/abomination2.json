@@ -3,7 +3,7 @@
     "hp": 250,
     "attack": 41,
     "defense": 45,
-    "eva": 34,
+    "eva": 40,
     "lustResist" : 1,
     "drops": [
         {
@@ -183,7 +183,7 @@
     "toplessGrappleSkills": [
         {
             "name": "기어다니는흉물b",
-            "power": 3,
+            "power": 4,
             "type" : "lust",
             "target": "b",
             "chance": 0.8,
@@ -196,7 +196,7 @@
     "bottomlessGrappleSkills": [
         {
             "name": "기어다니는흉물c",
-            "power": 3,
+            "power": 4,
             "type" : "lust",
             "target": "c",
             "chance": 0.8,

@@ -3,7 +3,7 @@
     "hp": 200,
     "attack": 38,
     "defense": 42,
-    "eva": 45,
+    "eva": 50,
     "lustResist" : 1.3,
     "drops": [
         {
@@ -161,7 +161,7 @@
         },
         {
             "name": "작은흉물촉수m",
-            "power": 3,
+            "power": 4,
             "type" : "lust",
             "target": "m",
             "chance": 1,

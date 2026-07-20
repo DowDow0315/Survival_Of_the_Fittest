@@ -240,7 +240,7 @@ window.EVENTS.push({
         NPC_DATA["deric"].emotion.affection > 30 &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         player.flags?.deric_alcohol_01_day !== getCurrentDay(player) &&
-        Math.random() < 0.1,
+        Math.random() < 0.07,
 
     action: (player) => {
         player.flags.deric_alcohol_01_day = getCurrentDay(player);

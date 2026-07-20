@@ -3272,6 +3272,7 @@ const ESCAPE_AREA_EVENTS = {
                         changeHP(player, 100);
                         changeStamina(player, 100);
                         passTime(player, 3);
+                        savePlayer(player);
                     }
                 }
             ]
@@ -3303,6 +3304,7 @@ const ESCAPE_AREA_EVENTS = {
                                         changeTrauma(player, 10);
                                         addItem(player, ITEMS.misc.wildFruit);
                                         addItem(player, ITEMS.misc.rareFruit);
+                                        savePlayer(player);
                                     }
                                 }
                             ]
@@ -3321,10 +3323,64 @@ const ESCAPE_AREA_EVENTS = {
                                     run : (player) => {
                                         changeTrauma(player, -1);
                                         passTime(player, 3);
+                                        savePlayer(player);
                                     }
                                 }
                             ],
                             
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "빠른 발자국 소리가 들린다. 온몸이 상처로 가득한 사람이 당신에게로 뛰어오고 있었다. 그는 당신을 보더니 횡설수설하며 저기에 흉물이 있었다고 말했다." +
+                        "<br>\"나도 버리고 싶지 않았어! 나는... 내... 내... 연인이...<br><br>아니야! 둘 다 죽는 것보단 낫잖아!\"<br>"
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그래서 연인을 버리고 온 거냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "그는 당신의 말에 굳더니 당신이라고 뭐가 다르냐고 물었다. 그는 당신을 밀치려고 헀지만, 그의 힘으로는 당신을 밀칠 수 없었다." +
+                                        "<br><br>\"너라고, 너라고 뭐가 다를 것 같냐고..... 하류도시인 영웅인 너는 강하니까 그렇게 말할 수 있지만 우리는...!\"<br><br>" +
+                                        "그는 더 이상 말을 잇지 못했다. 그는 당신의 어깨를 밀치더니 그대로 비틀비틀 걸어가버렸다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 어쩔 수 없었던 거니 이해한다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 그는 울음을 터뜨렸다." +
+                                        "<br><br>\"나는 정말.... 정말.... 이해해줘서 고마워.\"<br><br>" +
+                                        "그는 주머니를 뒤적이더니 당신에게 비타민을 내밀었다." +
+                                        "<br><br>\"<span class='log-danger'>그를 밀지 않았다면.... 내가 죽었을 거야....</span>\"" +
+                                        "그는 비틀거리며 당신에게서 멀어졌다. 마을로 걸어가는 것 같다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 10);
+                                        addItme(ITEMS.consumable.mediumPotion);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -3432,9 +3488,9 @@ const ESCAPE_AREA_EVENTS = {
                 {
                     type : "text",
                     value : [
-                        "어디선가 질질 끌리는 소리가 났다. 당신은 소리가 나는 쪽으로 고개를 돌렸다. 어떤 사람이 자신의 몸을 질질 끌고 오고 있었다.",
-                        "<br><br><span class='log-danger'>하반신이 없다</span><br><br>",
-                        "\"사.... 살려주세요.... 저 흉물에 삽켜졌다가 이제야...\"<br>",
+                        "어디선가 질질 끌리는 소리가 났다. 당신은 소리가 나는 쪽으로 고개를 돌렸다. 어떤 사람이 자신의 몸을 질질 끌고 오고 있었다." +
+                        "<br><br><span class='log-danger'>하반신이 없다</span><br><br>" +
+                        "\"사.... 살려주세요.... 저 흉물에 삼켜졌다가 이제야...\"<br>" +
                         "그는 울면서 당신에게 손을 뻗었다."
                     ]
                 },
@@ -3447,11 +3503,11 @@ const ESCAPE_AREA_EVENTS = {
                                 {
                                     type : "text",
                                     value : [
-                                        "당신의 말에 그의 눈동자가 사시나무처럼 떨렸다.",
-                                        "<br>\"그게, 그게 무슨 소리... 내가 이렇게 살아있는데....\"<br>",
-                                        "그는 애써 웃으며 자신의 아래를 내려다보았다.",
-                                        "<br>\"아, 아.... 아아아아아악!\"<br>",
-                                        "비명과 함께 당신의 앞에서 남자는 흉물을 토해냈다. 그의 눈동자가 공포에 질려 자신이 뱉어낸 흉물을 본다. 작은 흉물은 그의 입에서 나오자마자 재빨리 도망갔다.",
+                                        "당신의 말에 그의 눈동자가 사시나무처럼 떨렸다." +
+                                        "<br>\"그게, 그게 무슨 소리... 내가 이렇게 살아있는데....\"<br>" +
+                                        "그는 애써 웃으며 자신의 아래를 내려다보았다." +
+                                        "<br>\"아, 아.... 아아아아아악!\"<br>" +
+                                        "비명과 함께 당신의 앞에서 남자는 흉물을 토해냈다. 그의 눈동자가 공포에 질려 자신이 뱉어낸 흉물을 본다. 작은 흉물은 그의 입에서 나오자마자 재빨리 도망갔다." +
                                         "<br>...그의 눈동자는 더 이상 아무 것도 보지 못한다."
                                     ]
                                 },
@@ -3459,6 +3515,7 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, 15);
+                                        savePlayer(player);
                                     }
                                 }
                             ]
@@ -3469,9 +3526,9 @@ const ESCAPE_AREA_EVENTS = {
                                 {
                                     type : "text",
                                     value : [
-                                        "그는 당신의 손을 마주잡으며 고개를 끄덕였다. 당신이 어떤 얘기를 하든 그는 즐겁다는 듯이 받아들이며 눈물 섞인 얼굴로 웃었다.",
-                                        "<br>\"죽기 싫어서.... 근데 졸려....\"<br>",
-                                        "그는 당신에게 잠깐만 잘 테니 그후에 깨워달라고 말하며 눈을 감았다.",
+                                        "그는 당신의 손을 마주잡으며 고개를 끄덕였다. 당신이 어떤 얘기를 하든 그는 즐겁다는 듯이 받아들이며 눈물 섞인 얼굴로 웃었다." +
+                                        "<br>\"죽기 싫어서.... 근데 졸려....\"<br>" +
+                                        "그는 당신에게 잠깐만 잘 테니 그후에 깨워달라고 말하며 눈을 감았다." +
                                         "<br>...당신은 이제 그가 눈을 뜨지 않을 거란 걸 알고 있다."
                                     ]
                                 },
@@ -3479,11 +3536,32 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, 5);
+                                        savePlayer(player);
                                     }
                                 }
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            weight : 12,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 가다가 끈적거리는 붉은 것을 밟는 바람에 휘청거리며 옆에 있던 벽에 손을 짚었다." +
+                        "<br><br>두근<br><br>" +
+                        "당신의 심장 박동 소리가 아니었다. 당신은 벽에서 손을 뗐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 3);
+                        savePlayer(player);
+                    }
                 }
             ]
         }
@@ -3589,9 +3667,9 @@ const ESCAPE_AREA_EVENTS = {
                 {
                     type : "text",
                     value : [
-                        "어디선가 질질 끌리는 소리가 났다. 당신은 소리가 나는 쪽으로 고개를 돌렸다. 어떤 사람이 자신의 몸을 질질 끌고 오고 있었다.",
-                        "<br><br><span class='log-danger'>하반신이 없다</span><br><br>",
-                        "\"사.... 살려주세요.... 저 흉물에 삽켜졌다가 이제야...\"<br>",
+                        "어디선가 질질 끌리는 소리가 났다. 당신은 소리가 나는 쪽으로 고개를 돌렸다. 어떤 사람이 자신의 몸을 질질 끌고 오고 있었다." +
+                        "<br><br><span class='log-danger'>하반신이 없다</span><br><br>" +
+                        "\"사.... 살려주세요.... 저 흉물에 삼켜졌다가 이제야...\"<br>" +
                         "그는 울면서 당신에게 손을 뻗었다."
                     ]
                 },
@@ -3604,11 +3682,11 @@ const ESCAPE_AREA_EVENTS = {
                                 {
                                     type : "text",
                                     value : [
-                                        "당신의 말에 그의 눈동자가 사시나무처럼 떨렸다.",
-                                        "<br>\"그게, 그게 무슨 소리... 내가 이렇게 살아있는데....\"<br>",
-                                        "그는 애써 웃으며 자신의 아래를 내려다보았다.",
-                                        "<br>\"아, 아.... 아아아아아악!\"<br>",
-                                        "비명과 함께 당신의 앞에서 남자는 흉물을 토해냈다. 그의 눈동자가 공포에 질려 자신이 뱉어낸 흉물을 본다. 작은 흉물은 그의 입에서 나오자마자 재빨리 도망갔다.",
+                                        "당신의 말에 그의 눈동자가 사시나무처럼 떨렸다." +
+                                        "<br>\"그게, 그게 무슨 소리... 내가 이렇게 살아있는데....\"<br>" +
+                                        "그는 애써 웃으며 자신의 아래를 내려다보았다." +
+                                        "<br>\"아, 아.... 아아아아아악!\"<br>" +
+                                        "비명과 함께 당신의 앞에서 남자는 흉물을 토해냈다. 그의 눈동자가 공포에 질려 자신이 뱉어낸 흉물을 본다. 작은 흉물은 그의 입에서 나오자마자 재빨리 도망갔다." +
                                         "<br>...그의 눈동자는 더 이상 아무 것도 보지 못한다."
                                     ]
                                 },
@@ -3616,6 +3694,7 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, 15);
+                                        savePlayer(player);
                                     }
                                 }
                             ]
@@ -3626,9 +3705,9 @@ const ESCAPE_AREA_EVENTS = {
                                 {
                                     type : "text",
                                     value : [
-                                        "그는 당신의 손을 마주잡으며 고개를 끄덕였다. 당신이 어떤 얘기를 하든 그는 즐겁다는 듯이 받아들이며 눈물 섞인 얼굴로 웃었다.",
-                                        "<br>\"죽기 싫어서.... 근데 졸려....\"<br>",
-                                        "그는 당신에게 잠깐만 잘 테니 그후에 깨워달라고 말하며 눈을 감았다.",
+                                        "그는 당신의 손을 마주잡으며 고개를 끄덕였다. 당신이 어떤 얘기를 하든 그는 즐겁다는 듯이 받아들이며 눈물 섞인 얼굴로 웃었다." +
+                                        "<br>\"죽기 싫어서.... 근데 졸려....\"<br>" +
+                                        "그는 당신에게 잠깐만 잘 테니 그후에 깨워달라고 말하며 눈을 감았다." +
                                         "<br>...당신은 이제 그가 눈을 뜨지 않을 거란 걸 알고 있다."
                                     ]
                                 },
@@ -3636,11 +3715,32 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, 5);
+                                        savePlayer(player);
                                     }
                                 }
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            weight : 12,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 가다가 끈적거리는 붉은 것을 밟는 바람에 휘청거리며 옆에 있던 벽에 손을 짚었다." +
+                        "<br><br>두근<br><br>" +
+                        "당신의 심장 박동 소리가 아니었다. 당신은 벽에서 손을 뗐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 3);
+                        savePlayer(player);
+                    }
                 }
             ]
         }
@@ -3739,6 +3839,107 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "순간, 당신의 뒤에서 익숙한 목소리가 들렸다. 그는 처절하게, 도와달라는 듯이, 당신의 이름을 뒤에서 부르고 있었다." +
+                        " 당신은 뒤를 돌았다." +
+                        "<br><br>하지만 당신의 뒤에는 아무도 없었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 5);
+                        savePlayer(player);
+                    }
+                }
+            ]
+        },
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 하얀꽃을 보았다. 하얀꽃잎의 끝에서 꿀물이 떨어지고 있다. 잘 달래면, 꿀물을 얻을 수 있을지도 모른다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 노래로 하얀꽃을 달랬다.",
+                            stat : "charm",
+                            difficulty : 25,
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 노래에 하얀 꽃잎들이 살랑이더니 그대로 활짝 폈다. 당신은 노래를 부르며 하얀꽃에서 넥타르를 얻어냈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 노래를 불러 하얀꽃을 달래려고 했지만 하얀꽃은 당신의 노래에도 열리지 않았다. 오히려 하얀꽃과 연결되어있던 촉수가 사방에서 뻗어나왔다. 당신이 제대로 도망치기도 전에 하얀 촉수가 당신의 입으로 파고들었다." +
+                                        "<br>마치 당신이 원했던 것을 주겠다는 듯이 하얀 촉수는 당신의 입을 유린하며 애액을 뿜어냈다. 당신의 입안에는 달콤한 것이 가득 찼다...."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeArousal(player, getSensitivityArousalGain(player, "m", 15));
+                                        changeSensitivity(player, "mSensitivity", 20);
+                                        addBodyFluid(player, "m", 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그냥 지나쳤다.",
+                            scene : [
+                                "당신은 그냥 지나쳤다. 당신은 하얀꽃과 관련된 것은 건드리고 싶지 않았다."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 6,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "흰꽃바람이 불어온다. 당신을 안정시켜주는 달콤한 향, 하얀꽃들을 바람을 타고 당신의 주변을 돌며 따라오라는 듯 하늘하늘 흔들렸다." +
+                        "<br>당신은 쉽게 길을 찾을 수 있었다. 당신의 기력이 회복됐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeStamina(player, 30);
+                        savePlayer(player);
+                    }
+                }
+            ]
         }
     ],
 
@@ -3833,6 +4034,107 @@ const ESCAPE_AREA_EVENTS = {
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "순간, 당신의 뒤에서 익숙한 목소리가 들렸다. 그는 처절하게, 도와달라는 듯이, 당신의 이름을 뒤에서 부르고 있었다." +
+                        " 당신은 뒤를 돌았다." +
+                        "<br><br>하지만 당신의 뒤에는 아무도 없었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 5);
+                        savePlayer(player);
+                    }
+                }
+            ]
+        },
+        {
+            weight : 8,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 하얀꽃을 보았다. 하얀꽃잎의 끝에서 꿀물이 떨어지고 있다. 잘 달래면, 꿀물을 얻을 수 있을지도 모른다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 노래로 하얀꽃을 달랬다.",
+                            stat : "charm",
+                            difficulty : 25,
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 노래에 하얀 꽃잎들이 살랑이더니 그대로 활짝 폈다. 당신은 노래를 부르며 하얀꽃에서 넥타르를 얻어냈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        addItem(player, ITEMS.misc.flowerNectar);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 노래를 불러 하얀꽃을 달래려고 했지만 하얀꽃은 당신의 노래에도 열리지 않았다. 오히려 하얀꽃과 연결되어있던 촉수가 사방에서 뻗어나왔다. 당신이 제대로 도망치기도 전에 하얀 촉수가 당신의 입으로 파고들었다." +
+                                        "<br>마치 당신이 원했던 것을 주겠다는 듯이 하얀 촉수는 당신의 입을 유린하며 애액을 뿜어냈다. 당신의 입안에는 달콤한 것이 가득 찼다...."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeArousal(player, getSensitivityArousalGain(player, "m", 15));
+                                        changeSensitivity(player, "mSensitivity", 20);
+                                        addBodyFluid(player, "m", 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그냥 지나쳤다.",
+                            scene : [
+                                "당신은 그냥 지나쳤다. 당신은 하얀꽃과 관련된 것은 건드리고 싶지 않았다."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 6,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "흰꽃바람이 불어온다. 당신을 안정시켜주는 달콤한 향, 하얀꽃들을 바람을 타고 당신의 주변을 돌며 따라오라는 듯 하늘하늘 흔들렸다." +
+                        "<br>당신은 쉽게 길을 찾을 수 있었다. 당신의 기력이 회복됐다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeStamina(player, 30);
+                        savePlayer(player);
+                    }
                 }
             ]
         }

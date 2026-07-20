@@ -46,6 +46,10 @@ registerActions("nikolai", {
     //스토리이벤트
 
     //talk
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "nikolai");
+    },
+
     talk: (player) => {
         startScene([
             {

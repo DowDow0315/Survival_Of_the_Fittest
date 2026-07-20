@@ -122,6 +122,10 @@ registerActions("eric", {
         });
     },
     //talk
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "eric");
+    },
+
     talk: (player) => {
         if (!isEricAvailable(player)){
             showSingleTextScene(

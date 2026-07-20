@@ -2516,7 +2516,7 @@ window.EVENTS.push({
                 type : "text",
                 value : [
                     "쉘터 벽 한구석에 새로 적힌 낙서가 보인다.",
-                    "<br><br><br><strong><div style='color:#4ce1f5; font-style:italic'>\"우리는 아직 죽지 않았다.\"</div></strong><br><br><br>"                  
+                    "<br><br><br><strong><div style='color:#dd8b1f; font-style:italic'>\"우리는 아직 죽지 않았다.\"</div></strong><br><br><br>"                  
                 ]
             },
             {

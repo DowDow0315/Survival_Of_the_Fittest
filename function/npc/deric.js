@@ -175,6 +175,10 @@ registerActions("deric", {
     //스토리이벤트
 
     //talk
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "deric");
+    },
+
     talk: (player) => {
         if (!isDericAvailable(player)){
             showSingleTextScene(

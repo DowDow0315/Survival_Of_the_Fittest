@@ -265,9 +265,13 @@ window.EVENTS.push({
          player.location === "gloryStreet" ||
          player.location === "richTownStreet") &&
         NPC_DATA["deric"].emotion.rage >= 80 &&
+        player.flags?.deric_rage_limit_event_day !== getCurrentDay(player) &&
         Math.random() < 0.4,
 
     action : (player) => {
+        player.flags.deric_rage_limit_event_day = getCurrentDay(player);
+        savePlayer(player);
+
         startScene(
             NPC_DATA["deric"].scenes.deric_rage_limit_event,
             player,

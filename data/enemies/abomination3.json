@@ -3,7 +3,7 @@
     "hp": 200,
     "attack": 38,
     "defense": 42,
-    "eva": 38,
+    "eva": 45,
     "lustResist" : 1.3,
     "drops": [
         {

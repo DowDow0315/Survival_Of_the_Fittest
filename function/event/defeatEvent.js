@@ -1,4 +1,7 @@
 const DEFEAT_EVENTS = {
+    abomination2 : abominationDefeat,
+    abomination3 : abominationDefeat,
+    abomination4 : abominationDefeat,
     rapistM : [
         {
             id: "rapistM_defeat",
@@ -1123,6 +1126,56 @@ const DEFEAT_EVENTS = {
         }
     ]
 };
+
+const abominationDefeat = [
+    {
+        id : "abomination_defeat",
+        weight : 100,
+        scene : [
+            {
+                type : "text",
+                value : [
+                    "당신이 눈을 떴을 때, 당신은 당신이 어디에 있는지 분간할 수 없었다. 어둠 속에서 느껴지는 것은 오로지 당신의 온몸을 유린하고 있는 촉수들뿐이었다. 의식을 되찾자마자 밀려오는 쾌감의 파도에 당신의 허리는 경련하듯이 휘어졌다." +
+                    "<br>흉물은 당신의 몸을 마치 자신의 것처럼 다루었다. 앞, 뒤, 가슴.... 당신은 흉물의 피스톤질에 맞춰 앞뒤로, 그리고 위아래로도 격렬하게 흔들렸다. 흐려지는 시야 사이로 당신은 살점들을 보았다. 이미 상체는 어디 갔는지 모르겠는데 하반신의 구멍만 뚝뚝 알을 흘리고 있는 살점들도 있었고, 반대로 상체만 나와서 큰 가슴에서 뚝뚝 흉물의 알을 배춣하는 살점들도 있었다. 당신은 그들이 차라리 죽은 것이라 믿고 싶었다." +
+                    " 촉수들은 당신의 스팟 깊숙한 곳까지 찢을 듯이 파고들었다. 당신은 당신의 의지와는 상관없이 격렬하게 반응했다. 그것들에게 당신은 살아있는 가축이자 오나홀이고, 인큐베이터였다. 뱃속 깊은 곳부터 울컥거리는 무언가에 당신은 결국 이성을 잃어버리고 말았다." +
+                    "<br><br>당신은 당연히 당신이 죽었을 거라 생각했다. 하지만 다시 눈을 떴을 때 당신은 흉물이 다른 인큐베이터를 관리하느라 당신에게서 관심이 떨어진 것을 눈치챘다. 당신은 이를 악물고 기어갔다..." +
+                    "<br><br><br>당신은 어떻게든 살아남을 수 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.status.trauma = Math.min(                        
+                    player.status.maxTrauma,
+                    player.status.trauma + 30
+                );
+                passTime(player, 10);
+                if (player.gender === "male"){
+                        changeSensitivity(player, "aSensitivity", 20);
+                        changeSensitivity(player, "mSensitivity", 20);
+                        changeSensitivity(player, "cSensitivity", 20);
+                        changeSensitivity(player, "bSensitivity", 20);
+                        addBodyFluid(player, "a", 100);
+                        addBodyFluid(player, "m", 60);
+                    } else {
+                        changeSensitivity(player, "aSensitivity", 20);
+                        changeSensitivity(player, "mSensitivity", 20);
+                        changeSensitivity(player, "cSensitivity", 20);
+                        changeSensitivity(player, "bSensitivity", 20);
+                        addBodyFluid(player, "a", 60);
+                        addBodyFluid(player, "c", 60);
+                        addBodyFluid(player, "m", 60);
+                    }                        
+                    return true;
+                }
+            },
+            {
+                type : "effect",
+                run : "infectAbomination"
+            }
+        ]
+    }
+]
 
 
 function pickDefeatEvent(enemyId, player){

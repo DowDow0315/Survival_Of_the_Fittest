@@ -1378,6 +1378,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "shelter" &&
         player.flags?.yuri_past_01_seen &&
+        player.flags?.rebelLeader2KilledWithRing &&
         !player.flags?.yuri_past_01_rage_seen,
 
     action : (player) => {

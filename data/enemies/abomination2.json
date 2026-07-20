@@ -1,7 +1,7 @@
 {
     "name": "기어다니는 흉물",
     "hp": 250,
-    "attack": 34,
+    "attack": 41,
     "defense": 45,
     "eva": 34,
     "lustResist" : 1,

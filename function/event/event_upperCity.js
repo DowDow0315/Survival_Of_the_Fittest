@@ -191,6 +191,7 @@ window.EVENTS.push({
         player.flags?.dericDate02Accepted &&
         player.flags?.dericRepeatDateCheckedDay !== getCurrentDay(player) &&
         getCurrentDay(player) % 7 === 6 &&
+        NPC_DATA["deric"].emotion.rage < 60 &&
         player.location === "theater" &&
         getTimePeriod(player) === "afternoon",
 
@@ -250,6 +251,30 @@ window.EVENTS.push({
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_rage_limit_event",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "nobleSquare" ||
+         player.location === "gloryStreet" ||
+         player.location === "richTownStreet") &&
+        NPC_DATA["deric"].emotion.rage >= 80 &&
+        Math.random() < 0.4,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["deric"].scenes.deric_rage_limit_event,
+            player,
+            {
+                onEnd: () => {
+                    startScene(getLocationScene(player), player);
+                }
             }
         );
     }

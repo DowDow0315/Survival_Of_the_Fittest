@@ -1001,6 +1001,26 @@ const CHEST_REWARDS = {
     rice: (player) => {
         addItem(player, ITEMS.misc.rice);
         showSingleTextScene("당신은 쌀을 발견했다.", player);
+    },
+
+    ruby : (player) => {
+        addItem(player, ITEMS.misc.ruby);
+        showSingleTextScene("당신은 루비를 발견했다!", player);
+    },
+
+    sapphire : (player) => {
+        addItem(player, ITEMS.misc.sapphire);
+        showSingleTextScene("당신은 사파이어를 발견했다!", player);
+    },
+
+    aquamarine : (player) => {
+        addItem(player, ITEMS.misc.aquamarine);
+        showSingleTextScene("당신은 아쿠아마린을 발견했다!", player);
+    },
+
+    diamond : (player) => {
+        addItem(player, ITEMS.misc.diamond);
+        showSingleTextScene("당신은 다이아몬드를 발견했다!", player);
     }
 };
 
@@ -1299,6 +1319,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "survivalBandit" && room.boss === "advancedBanditBoss"){
+        handleAdvancedBanditBossWin(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1557,10 +1582,13 @@ function leaveDungeon(player){
         player.location = "guardPost3";
     } else if (dungeonId === "rebelsHideOut"){
         player.location = "richTownEntrance";
+    } else if (dungeonId === "survivalBandit"){
+        player.location = "deepForest_act3";
+    } else if (dungeonId === "survivalBanditRepeated"){
+        player.location = "deepForest_act3";
     } else {
         player.location = "townStreet";
     }
-    
 
     localStorage.setItem("playerData", JSON.stringify(player));
     renderMap(player);
@@ -4493,8 +4521,6 @@ window.startBanditLukeTrophyRoom = function(player){
 
 function runDungeonBossIntro(player, introId){
     if (introId === "banditBoss_intro"){
-        player.flags = player.flags || {};
-
         if (player.flags.banditBoss_firstLose){
 
             startScene([

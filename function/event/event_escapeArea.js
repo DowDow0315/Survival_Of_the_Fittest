@@ -3063,6 +3063,24 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 피에 젖은 쪽지 한 장을 발견했다. 삐뚤삐뚤한 글씨로 [반드시 형이 다시 돌아올 테니 쉘터에서 기다리고 있어]라는 글자가 써있다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 5);
+                        savePlayer(player);
+                    }
+                }
+            ]
         }
     ],
 
@@ -3182,6 +3200,24 @@ const ESCAPE_AREA_EVENTS = {
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            weight : 15,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 피에 젖은 쪽지 한 장을 발견했다. 삐뚤삐뚤한 글씨로 [반드시 누나가 다시 돌아올 테니 쉘터에서 기다리고 있어]라는 글자가 써있다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 5);
+                        savePlayer(player);
+                    }
                 }
             ]
         }
@@ -3326,8 +3362,7 @@ const ESCAPE_AREA_EVENTS = {
                                         savePlayer(player);
                                     }
                                 }
-                            ],
-                            
+                            ]
                         }
                     ]
                 }

@@ -836,6 +836,58 @@ window.EVENTS.push({
     }
 });
 
+//시온
+window.EVENTS.push({
+    id : "sion_spying_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_uppercity &&
+        player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
+        (player.location === "richTownStreet" ||
+         player.location === "gloryStreet" ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.sion_spying_04_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_spying_05",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.sion_uppercity &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sion_spying_05_day !== getCurrentDay(player) &&
+        player.location === "theater" &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.sion_spying_05_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["sion"].scenes.sion_spying_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //랜덤이벤트
 window.EVENTS.push({
     id : "uppercity_hero_01",
@@ -994,6 +1046,39 @@ window.EVENTS.push({
                         onEscape : () => startScene(getLocationScene(player), player),
                     });
                     return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_hero_04",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.act3CollapseDone &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "걷고 있는 당신의 뒤로 말소리들이 들린다." +
+                    "<br><br>\"하류도시에 흉물이 또 처들어왔다는데요?\"<br><br>" +
+                    "\"저희 쪽에서 군대를 지원해줘도 못 막는다니... 하류도시의 군대는 얼마나 저급한 걸까요. 대체 우리가 언제까지 도와줘야 하는지...\"<br><br>" +
+                    "\"이러면 저희 사람들만 이유 없는 죽음을 당하는 거 아니냐고요. 다음 번에 제게 말할 기회가 온다면 무슨 일이 있어도 하류도시에 대한 지원을 끊어야 한다고 말해야겠어요.\"<br><br>" +
+                    "대화를 하다가 그들은 당신을 발견했지만, 당신을 신경쓰지 않았다. 이미 그들에게 당신은 들리는 귀가 없는 하류도시 사람이었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
                 }
             }
         ], player, {
@@ -1249,54 +1334,35 @@ window.EVENTS.push({
     }
 });
 
-//시온
 window.EVENTS.push({
-    id : "sion_spying_04",
-
+    id : "flower_head_01",
     condition : (player) =>
         player.justMoved &&
-        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
-        player.flags?.sion_uppercity &&
-        player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
-        (player.location === "richTownStreet" ||
-         player.location === "gloryStreet" ) &&
-        Math.random() < 0.08,
+        player.flags?.act3CollapseDone &&
+        ["heavenPalace", "heavenRoad"].includes(player.location) &&
+        Math.random() < 0.09,
 
     action : (player) => {
-        player.flags.sion_spying_04_day = getCurrentDay(player);
-        savePlayer(player);
-        
-        startScene(
-            NPC_DATA["sion"].scenes.sion_spying_04,
-            player,
+        startScene([
             {
-                onEnd : () => startScene(getLocationScene(player), player)
-            }
-        );
-    }
-});
-
-window.EVENTS.push({
-    id : "sion_spying_05",
-
-    condition : (player) =>
-        player.justMoved &&
-        player.flags?.sion_uppercity &&
-        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
-        player.flags?.sion_spying_05_day !== getCurrentDay(player) &&
-        player.location === "theater" &&
-        Math.random() < 0.08,
-
-    action : (player) => {
-        player.flags.sion_spying_05_day = getCurrentDay(player);
-        savePlayer(player);
-        
-        startScene(
-            NPC_DATA["sion"].scenes.sion_spying_05,
-            player,
+                type : "text",
+                value : [
+                    "상류도시 귀족들 중 몇몇이 당신을 힐끗 보더니 마물을 묻혀온 건 아니냐며 손가락질을 했다." +
+                    "<br><br>\"아무리 하류도시의 영웅이라도.... 마물병을 옮겨오면 어떡해요?\"<br><br>" +
+                    "당신은 마물병에 대해서는 들어본 적도 없다.... 도대체 상류도시에는 어떤 소문이 돌고 있는 걸까. 상류도시의 귀족들은 당신이 전염병 환자라도 되는 것마냥 피했다." +
+                    "<br>그중 몇몇은 당신에게 들고 있던 부채나 쓰레기를 던지며 돌아가라고 직접적으로 공격성을 표출하기도 했다. 당신이 쓰레기를 맞는 걸 보면서 즐기고 비웃는 사람들도 보인다." +
+                    "<br><br>...당신은 마치 광대가 된 느낌이었다."
+                ]
+            },
             {
-                onEnd : () => startScene(getLocationScene(player), player)
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
             }
-        );
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
     }
 });

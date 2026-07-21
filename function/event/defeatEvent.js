@@ -1073,6 +1073,29 @@ const DEFEAT_EVENTS = {
             ]
         }
     ],
+    advancedBanditBoss : [
+        {
+            id : "advancedBanditBoss",
+            weight : 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "\"네 몸값으로 우리는 며칠 더 살 수 있을 거다.\"<br><br>" +
+                        "그들 때문에 얼마나 많은 피해자들이 발생했는가. 하지만 이제 당신도 그들 중 하나이다. 그는 당신의 몸을 묶더니 바로 누군가에게 연락을 했다." +
+                        "<br>곧이어 당신의 눈위로 안대가 씌어졌다. 당신은 다시 눈을 떴을 때 당신이 끔찍한 곳에 가있을 거라는 것을 직감했다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        startSlaverCapture(player);
+                        return true;
+                    }
+                }
+            ]
+        }
+    ],
     infectedSmall: [
         {
             id: "infectedSmall_defeat",

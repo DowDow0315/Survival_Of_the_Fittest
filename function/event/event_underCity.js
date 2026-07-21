@@ -2554,6 +2554,94 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "shelter_rebel_event_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.act3CollapseDone &&
+        player.location === "shelter" &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 들어오자, 몇몇 아이들이 당신이 들어오는 것을 보지 못하고 구석에서 쑥덕거리고 있는 소리가 들렸다." +
+                    "<br><br>\"나, 반란군에 들어갈 거야.\"<br><br>" +
+                    "\"그게 무슨 소리야? 반란군은 나쁜 사람들이라고. 그리고 저번에 못 봤어? 가봤자 개죽음....\"<br><br>" +
+                    "\"그럼 이렇게 사는 게 맞다고 생각해? 애초에 상류도시 사람들이 우리를 지켜주긴 해? 군대 하나 제대로 안 보내주잖아. 성안에만 틀어박혀있고!\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 아이에게 닥치라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 아이는 움찍하더니 그래도 자신은 의견을 굽히지 않을 거라고 말했다. 그는 당신이 상류도시의 개가 됐듯이 자신은 반란군이 될 거라고 당당히 말했다." +
+                                    "<br>진심으로 당신을 상류도시의 개라고 생각했다면, 당신이 고발하면 자기가 개죽음을 당할 거라는 걸 모르는 걸까? 그 아이의 결말이 어떻게 날지 당신의 눈앞에 뻔히 보였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 아이의 말에 맞장구를 쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 맞장구를 치자 아이는 당당하게 고개를 끄덕였다. 그는 반란군이 되어서라도 이 쉘터와 당신, 그리고 유리를 지킬 거라고 말했다." +
+                                    "<br><br>\"내가 꼭 멋진 반란군이 되어서 돌아올 테니까...\"<br><br>" +
+                                    "반란군은 어떻게 되냐는 물음에 아이는 제대로 대답을 하지 못했다. 하지만 주먹을 불끈 쥐고 있는 것을 보아 일을 벌일 것 같긴 하다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 아이에게 마음은 이해하나 지금 그러다가는 큰일난다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"아니. 난 겁쟁이가 되지 않을 거예요.\"<br><br>" +
+                                    "무지한 용기는 어떤 결과값을 가져오는가. 지금까지 이 세상에서 살아남은 당신은 현실을 너무나도 잘 알고 있었다. 하지만 아이는 그저 자신은 겁쟁이가 아니라고만 생각하고 있었다. 당신의 눈앞에 아이가 맞을 최후가 뻔히 그려졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "rescued_prisoner_after_bandit_event",
 
     condition : (player) =>
@@ -2671,7 +2759,7 @@ window.EVENTS.push({
     id : "luke_pet_01",
     condition : (player) =>
         player.justMoved &&
-        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        ["townStreet", "townEntrance"].includes(player.location) &&
         (
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
@@ -2691,6 +2779,43 @@ window.EVENTS.push({
                     "<br><br>\"젠장, 몰랐어!\"<br>\"바보녀석, 루크의 깔 정도는 기억해놓으라고!\"<br>\"크윽, 죄송했습니다, 형수님!\"<br>\"실례했습니다!\"<br><br>",
                     "경비병들이 멀어진다.<br><br>...뭐지 진짜. 당신은 다시 길을 걸어갔다."
                 ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_pet_04",
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.act3CollapseDone &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 걷다가 루크의 얼굴에 대해 얘기를 나누는 경비병들과 마주쳤다. 그들은 루크의 얼굴에 생긴 흉은 안타깝지만 커지지는 않아서 다행이라고 말하며 한숨을 쉬었다." +
+                    "<br><br>\"어, 형수님.\"<br><br>" +
+                    "경비병들 몇 명에게 이미 당신은 '형수님'으로 낙인찍히고 만 모양이다... 그들은 당신에게 다가오더니 요새 분위기가 안 좋은데 힘든 일 있으면 자기들한테 말해달라고 말했다." +
+                    "<br><br>\"몇몇은 여전히 당신에게 험하게 구는 것 같지만.... 우리들 중 당신을 좋아하는 사람들은 많습니다! 이제 얼굴도 못생겨진 루크를 형수님 말고 누가 데려가겠어요!\"<br><br>" +
+                    "그들은 몇 분을 더 당신과 떠들다가 길을 나섰다. 루크의 경비병들 중 몇몇에게는 나름 애정을 받고 있는 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    savePlayer(player);
+                }
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)
@@ -2822,4 +2947,64 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "undercity_hero_05",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.act3CollapseDone &&
+        Math.random() < 0.09,
 
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신에게 누군가 뛰어들었다. 그는 당신을 하류도시의 영웅이라고 부르며 대체 왜 우리를 구해주지 않은 거냐고 부르짖었다. 주변에 있던 몇몇 사람들이 어떻게 이게 하류도시 영웅의 잘못이냐며 뜯어말렸지만 공포에 질린 그의 삿대질은 멈출 생각이 없어 보였다." +
+                    "<br><br>누군가에게 희망이 되는 건, 당신이 의도했든 의도하지 않았든 무거운 법이다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 10);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_hero_06",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.act3CollapseDone &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신에게 누군가 뛰어들었다. 그는 당신을 보더니 언제나 응원하고 있다고 말했다." +
+                    "<br><br>\"안 좋은 소리도 많이 들었을 텐데.... 우리는 여전히 당신을 믿고 있어요. 힘내요.\"<br><br>" +
+                    "그는 당신에게 버섯수프를 내밀었다. 대단한 건 아니지만 당신을 위해 끓인 거라고 하며 그는 어색한 미소를 지었다." +
+                    "<br>당신은 버섯수프를 받아들였다. 어쩐지 당신의 가슴이 조금은 따듯해진 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    addItem(player, ITEMS.consumable.greatMushroomSoup);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

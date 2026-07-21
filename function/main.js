@@ -1264,10 +1264,6 @@ const NPC_LUST_GROWTH_CONDITIONS = {
         { key: "dominance", min: 40, amount: 1 }
     ],
 
-    yuri: [
-        { key: "affection", min: 90, amount: 1 }
-    ],
-
     luke: [
         { key: "affection", min: 50, amount: 1 },
         { key: "dominance", min: 30, amount: 1 }

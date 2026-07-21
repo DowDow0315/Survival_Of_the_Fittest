@@ -66,8 +66,70 @@ const ENEMY_POOLS = {
         { id : "abomination1", weight : 5},
         { id : "trafficker2", weight : 20},
         { id : "trafficker1", weight : 20}
+    ],
+
+    townEntrance_act3 : [
+        { id : "abominatedBird", weight : 40 },
+        { id : "abominatedBoar", weight : 60 }
+    ],
+
+    forest_act3 : [
+        { id : "advancedBandit1", weight : 20 },
+        { id : "advancedBandit2", weight : 20 },
+        { id : "abominatedBird", weight : 10 },
+        { id : "abominatedBoar", weight : 30 }
+    ],
+
+    deepForest_act3 : [
+        { id : "abominatedBird", weight : 20 },
+        { id : "abominatedBoar", weight : 20 },
+        { id : "abomination1", weight : 40 },
+        { id : "abomination3", weight : 30 },
+        { id : "abomination2", weight : 3}
+    ],
+
+    wastedRuin : [
+        { id : "abomination1", weight : 40 },
+        { id : "abomination3", weight : 30 },
+        { id : "abomination2", weight : 20 },
+        { id : "abomination4", weight : 10 }
+    ],
+
+    whiteFlowerTomb : [
+        { id : "infectedSoldier", weight : 20 },
+        { id : "flower2", weight : 50 },
+        { id : "flower3", weight : 50 },
+        { id : "flower4", weight : 30 },
+        { id : "flower5", weight : 10 },
     ]
 };
+
+const MULTI_ENCOUNTER_LOCATIONS = {
+    townEntrance_act3 : {
+        minCount : 1,
+        maxCount : 2
+    },
+
+    forest_act3 : {
+        minCount : 1,
+        maxCount : 3
+    },
+
+    deepForest_act3 : {
+        minCount : 1,
+        maxCount : 4
+    },
+
+    wastedRuin : {
+        minCount : 2,
+        maxCount : 4
+    },
+
+    whiteFlowerTomb : {
+        minCount : 2,
+        maxCount : 4
+    }
+}
 
 const WEEK_TIME = 1680;
 
@@ -662,15 +724,38 @@ const EVENTS = [
     //랜덤습격 이벤트
     {
         id: "random_encounter",
-        condition: (player) =>
-        player.justMoved &&
-        ENEMY_POOLS[player.location] &&
-        Math.random() < Math.min(0.95, 0.4 + ((typeof getBodyFluidDebuffLevel === "function" ? getBodyFluidDebuffLevel(player) : 0) * 0.05)),
         
-        action: (player) => {
-        const enemyId = pickWeighted(ENEMY_POOLS[player.location]);
-        startBattle(enemyId, player, { noEscape: false });
-    }
+        condition: (player) =>
+            player.justMoved &&
+            ENEMY_POOLS[player.location] &&
+            Math.random() < Math.min( 0.95, 0.4 +
+                (
+                    (
+                        typeof getBodyFluidDebuffLevel === "function"
+                        ? getBodyFluidDebuffLevel(player)
+                        : 0
+                    ) * 0.1
+                )
+            ),
+            
+            action: (player) => {
+                const pool = ENEMY_POOLS[player.location];
+                if (!pool || pool.length === 0){
+                    return;
+                }
+                
+                const config = MULTI_ENCOUNTER_LOCATIONS[player.location];
+                const minCount = config?.minCount ?? 1;
+                const maxCount = config?.maxCount ?? 1;
+                
+                const enemyIds = pickEncounterEnemies( pool, minCount, maxCount );
+                
+                if (enemyIds.length === 0){
+                    return;
+                }
+                
+                startBattle(enemyIds, player, { noEscape: false });
+            }
     },
     
     //장소 이벤트

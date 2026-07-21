@@ -4,8 +4,11 @@ function initBattle(enemy,player, options={}){
     player.buffs = player.buffs || [];
     battleState = {
         player: player,
-        enemy: enemy,
+        enemies: Array.isArray(enemy) ? enemy : [enemy],
+        selectedEnemyIndex: 0, //플레이어 공격 대상
+        actingEnemyIndex: 0, //지금 행동 중인 적
         grapple: false,
+        grappleEnemyIndex: null,
         grappleBonus: 0,
         energy: 1,
         maxEnergy: 7,
@@ -23,6 +26,100 @@ function initBattle(enemy,player, options={}){
     }
 
     renderBattleUI();
+}
+
+function getSelectedEnemy(){
+    return battleState.enemies[battleState.selectedEnemyIndex];
+}
+
+function getActingEnemy(){
+    return battleState.enemies[battleState.actingEnemyIndex];
+}
+
+function selectNextLivingEnemy(){
+    if (!battleState) return;
+
+    const nextIndex = battleState.enemies.findIndex(
+        enemy => enemy.hp > 0
+    );
+
+    if (nextIndex !== -1){
+        battleState.selectedEnemyIndex = nextIndex;
+    }
+
+    updateBattleUI();
+}
+
+function selectBattleTarget(index){
+    if (!battleState) return;
+
+    const enemy = battleState.enemies[index];
+
+    if (!enemy || enemy.hp <= 0){
+        log("이미 쓰러진 상대는 공격할 수 없다.");
+        return;
+    }
+
+    if (
+        battleState.grapple &&
+        battleState.grappleEnemyIndex !== null &&
+        index !== battleState.grappleEnemyIndex
+    ){
+        log("붙잡힌 상태에서는 자신을 붙잡은 상대만 노릴 수 있다.", "lust");
+        return;
+    }
+
+    battleState.selectedEnemyIndex = index;
+
+    updateBattleUI();
+}
+
+function renderEnemyTargets(){
+    if (!battleState) return;
+
+    const container = document.getElementById("enemyTargets");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    battleState.enemies.forEach((enemy, index) => {
+        const button = document.createElement("button");
+
+        const isDead = enemy.hp <= 0;
+        const isSelected = index === battleState.selectedEnemyIndex;
+
+        const lockedByGrapple =
+            battleState.grapple &&
+            battleState.grappleEnemyIndex !== null &&
+            index !== battleState.grappleEnemyIndex;
+
+        let label = enemy.name;
+
+        if (isDead){
+            label += " [격파!]";
+        } else {
+            label += ` (${formatStatNumber(enemy.hp)}/${formatStatNumber(enemy.maxHp)})`;
+        }
+
+        if (isSelected && !isDead){
+            label = `▶ ${label}`;
+        }
+
+        button.innerText = label;
+        button.disabled = isDead || lockedByGrapple;
+
+        if (isSelected){
+            button.classList.add("selected-target");
+        }
+
+        if (isDead){
+            button.classList.add("defeated-target");
+        }
+
+        button.onclick = () => selectBattleTarget(index);
+
+        container.appendChild(button);
+    });
 }
 
 function getLine(enemy, type){
@@ -52,6 +149,7 @@ function renderBattleUI(){
 
             <div class="battle-panel enemy-panel">
                 <h3>적</h3>
+                <div id="enemyTargets"></div>
                 <p id="enemyName"></p>
                 <p id="enemyHp"></p>
                 <p id="enemyArousal"></p>
@@ -72,8 +170,10 @@ function renderBattleUI(){
 
     logBox.innerHTML = "";
 
-    if (isNaked(battleState.player) && battleState.enemy.lines.nakedStart){
-        log(getLine(battleState.enemy, "nakedStart"));
+    const enemy = getSelectedEnemy();
+
+    if (isNaked(battleState.player) && enemy?.lines?.nakedStart){
+        log(getLine(enemy, "nakedStart"));
     }
 
     updateBattleUI();
@@ -83,7 +183,7 @@ function renderBattleUI(){
 function updateBattleUI(){
     if (!battleState) return;
     const player = battleState.player;
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
 
     document.getElementById("enemyName").innerText =
         enemy.name;
@@ -123,6 +223,7 @@ function updateBattleUI(){
     document.getElementById("weaponMastery").innerText =
     weapon ? `숙련도 : ${mastery}` : "숙련도 : -";
 
+    renderEnemyTargets();
     updateStatusUI(player);
 }
 
@@ -175,6 +276,7 @@ function applyEnemyReleaseToPlayer(target){
     if (!battleState) return;
 
     const player = battleState.player;
+    const enemy = getActingEnemy() || getSelectedEnemy();
 
     flashScreenMulti(3);
 
@@ -186,7 +288,9 @@ function applyEnemyReleaseToPlayer(target){
         if (line){
             log(line, "lust");
         }
-        battleState.enemyStunned = 1;
+        if (enemy){
+            enemy.stunned = 1;
+        }
     }
     updateBattleUI();
 }
@@ -194,7 +298,7 @@ function applyEnemyReleaseToPlayer(target){
 function applyEnemySoloRelease(){
     if (!battleState) return;
 
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
 
     flashScreenMulti(3);
 
@@ -207,13 +311,12 @@ function applyEnemySoloRelease(){
         log("상대는 이어지는 흥분에 참지 못하고 혼자 절정했다.", "lust");
     }
 
-    battleState.enemyStunned = 2;
+    enemy.stunned = 2;
     updateBattleUI();
 }
 
 
-function getEnemyReleaseLine(target){
-    const enemy = battleState?.enemy;
+function getEnemyReleaseLine(target, enemy = getSelectedEnemy()){
     if (!enemy?.releaseLines) return null;
 
     let pool = enemy.releaseLines[target] || enemy.releaseLines.default;
@@ -255,8 +358,10 @@ function checkArousalState(player){
 
         flashScreenMulti(3);
 
-        if(battleState.enemy.lines.orgasm){
-            log(getLine(battleState.enemy,"orgasm"));
+        const enemy = getActingEnemy() || getSelectedEnemy();
+
+        if (enemy?.lines?.orgasm){
+            log(getLine(enemy, "orgasm"));
         }
     }
 }
@@ -358,7 +463,7 @@ function playerAttack(isBonusAttack = false){
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
 
     if (battleState.grapple){
         log("붙잡혀서 공격할 수 없다!");
@@ -445,11 +550,16 @@ function playerAttack(isBonusAttack = false){
     checkWeaponSkillUnlock(player);
     checkArousalState(player);
     updateBattleUI();
+
     if (enemy.hp <= 0){
-    endBattle("win");
-    return;
-}
-enemyTurn();
+        log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+        if (areAllEnemiesDead()){
+            endBattle("win");
+            return;
+        }
+        selectNextLivingEnemy();
+    }
+    enemyTurn();
 }
 
 function gainWeaponExp(player){
@@ -569,7 +679,7 @@ function useSkill(index){
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
     const isMagicWeapon = player.equipment.weapon?.name === "지팡이";
     const powerStat = isMagicWeapon ? getFinalMag(player) : getFinalAtk(player);
 
@@ -584,8 +694,12 @@ function useSkill(index){
         log(getLine(enemy, "evade"));
         
         if (enemy.hp <= 0){
-            endBattle("win");
-            return;
+            log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+            if (areAllEnemiesDead()){
+                endBattle("win");
+                return;
+            }
+            selectNextLivingEnemy();
         }
         
         updateBattleUI();
@@ -687,8 +801,12 @@ function useSkill(index){
     }
     
     if (enemy.hp <= 0){
-        endBattle("win");
-        return;
+        log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+        if (areAllEnemiesDead()){
+            endBattle("win");
+            return;
+        }
+        selectNextLivingEnemy();
     }
     updateBattleUI();
     enemyTurn();
@@ -877,7 +995,7 @@ function playerTease(){
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
 
     if (!useEnergy(1)){
         log("에너지가 부족하다.");
@@ -924,22 +1042,36 @@ function playerTease(){
 function enemyTurn(){
     if (!battleState) return;
 
-    if (battleState.enemyStunned > 0){
-        log("상대가 잠시 움직이지 못한다!", "lust");
-        battleState.enemyStunned--;
+    const player = battleState.player;
+    const enemy = getActingEnemy();
+
+    if (!enemy){
+        finishEnemyPhase();
+        return;
+    }
+
+    if (enemy.hp <= 0){
+        moveToNextEnemy();
+        return;
+    }
+
+    if (
+        battleState.grapple &&
+        battleState.grappleEnemyIndex !== null &&
+        battleState.actingEnemyIndex !== battleState.grappleEnemyIndex
+    ){
         endEnemyTurn();
         return;
     }
-    
-    const player = battleState.player;
-    const enemy = battleState.enemy;
 
-    if (!startEnemyTurn()) return;
-
-    if (enemy.hp <= 0){
-    endBattle("win");
-    return;
+    if (enemy.stunned > 0){
+        log(`${enemy.name}은 잠시 움직이지 못한다!`, "lust");
+        enemy.stunned--;
+        endEnemyTurn();
+        return;
     }
+
+    if (!startEnemyTurn(enemy)) return;
     
     if (player.status.hp <= 0){
     endBattle("lose");
@@ -953,13 +1085,9 @@ function enemyTurn(){
         log("당신은 공격을 회피했다!", "evade");
 
         battleState.counter = false;
-
-        battleState.energy = Math.min(
-        battleState.maxEnergy,
-        battleState.energy + 1
-     );
-     updateBattleUI();
-     return;
+        updateBattleUI();
+        endEnemyTurn();
+        return;
     }
 
     let skill = chooseEnemySkill(enemy);
@@ -1006,6 +1134,15 @@ function enemyTurn(){
 
         log("당신은 자세를 낮추고 반격했다!", "damage");
         log("피해를 절반으로 줄이고 적에게 5의 피해!", "damage");
+        
+        if (enemy.hp <= 0){
+            if (areAllEnemiesDead()){
+                endBattle("win");
+                return;
+            }
+            moveToNextEnemy();
+            return;
+        }
     }
     }
     
@@ -1104,6 +1241,8 @@ function enemyTurn(){
         }
         
         battleState.grapple = true;
+        battleState.grappleEnemyIndex = battleState.actingEnemyIndex;
+        battleState.selectedEnemyIndex = battleState.actingEnemyIndex;
 
         log(getLine(enemy,"grappleStart"));
 
@@ -1252,17 +1391,21 @@ function enemyTurn(){
     endBattle("lose");
     return;
     }
+
     if (enemy.hp <= 0){
-    endBattle("win");
-    return;
+        log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+
+        if (areAllEnemiesDead()){
+            endBattle("win");
+            return;
+        }
+        
+        moveToNextEnemy();
+        return;
     }
 
-    battleState.energy = Math.min(
-    battleState.maxEnergy,
-    battleState.energy + 1
-    );
-
     updateBattleUI();
+    endEnemyTurn();
 }
 
 function grappleAction(action){
@@ -1270,7 +1413,7 @@ function grappleAction(action){
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
     const player = battleState.player;
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
 
     if (action === "struggle"){
         const dmg = calculateDamage(
@@ -1282,8 +1425,21 @@ function grappleAction(action){
         log(`당신은 붙잡힌 채로 발버둥쳐 ${formatStatNumber(dmg)} 데미지를 줬다!`, "damage");
         
         if (enemy.hp <= 0){
-            endBattle("win");
-            return;
+            log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+
+            battleState.grapple = false;
+            battleState.grappleEnemyIndex = null;
+            battleState.grappleBonus = 0;
+            
+            const ui = document.getElementById("grappleUI");
+            if (ui) ui.remove();
+            
+            if (areAllEnemiesDead()){
+                endBattle("win");
+                return;
+            }
+
+            selectNextLivingEnemy();
         }
     }
 
@@ -1298,20 +1454,22 @@ function grappleAction(action){
         baseChance -= arousalRatio * 0.3;
         baseChance = Math.max(0.1, Math.min(0.8, baseChance));
 
-        if (battleState.enemyStunned > 0){
+        if (enemy.stunned > 0){
             log("상대가 빈틈을 보인 사이 당신은 구속을 풀어냈다!", "evade");
             battleState.grapple = false;
+            battleState.grappleEnemyIndex = null;
             battleState.grappleBonus = 0;
             
             const ui = document.getElementById("grappleUI");
             if (ui) ui.remove();
-            endEnemyTurn();
+            enemyTurn();
             return;
         }
 
         if (Math.random() < baseChance){
             log("당신은 빠져나왔다!", "evade");
             battleState.grapple = false;
+            battleState.grappleEnemyIndex = null;
             battleState.grappleBonus = 0;
 
             const ui = document.getElementById("grappleUI");
@@ -1658,7 +1816,7 @@ function handleGrappleAttack(enemy, player){
         return;
     }
 
-    processGrappleAttack(attack, player);
+    processGrappleAttack(attack, player, enemy);
 }
 function pickByChance(arr){
     let total = arr.reduce((sum,a)=>sum + (a.chance || 1), 0);
@@ -1673,7 +1831,7 @@ function pickByChance(arr){
     return arr[0];
 }
 //성공격 처리
-function processGrappleAttack(attack, player){
+function processGrappleAttack(attack, player, enemy){
 
     if (attack.type === "lust"){
         const base = 3 * (attack.power || 1);
@@ -1707,14 +1865,14 @@ function processGrappleAttack(attack, player){
         let total = 0;
         for (let i = 0; i < (attack.hits || 2); i++) {
             total += calculateDamage(
-                getEnemyFinalAtk(battleState.enemy) * (attack.power || 1),
+                getEnemyFinalAtk(enemy) * (attack.power || 1),
                 getFinalDef(player)
             );
         }
         player.status.hp -= total;
     } else {
         const dmg = calculateDamage(
-            getEnemyFinalAtk(battleState.enemy) * (attack.power || 1),
+            getEnemyFinalAtk(enemy) * (attack.power || 1),
             getFinalDef(player)
         );
         player.status.hp -= dmg;
@@ -1832,6 +1990,9 @@ function isNaked(player){
 function runAway(){
     if (!battleState) return;
 
+    const player = battleState.player;
+    const enemy = getSelectedEnemy();
+
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
 
@@ -1847,14 +2008,12 @@ function runAway(){
         return;
     }
 
-    const player = battleState.player;
-
     let chance = 0.3 + (player.derivedStats.eva / 200);
     chance = Math.min(0.7, chance);
 
     if (Math.random() < chance){
-        if (battleState.enemy.lines.escapeSuccess){
-            log(getLine(battleState.enemy, "escapeSuccess"));
+        if (enemy?.lines?.escapeSuccess){
+            log(getLine(enemy, "escapeSuccess"));
         }
 
         const p = battleState.player;
@@ -1889,8 +2048,8 @@ function runAway(){
 
     } else {
 
-        if (battleState.enemy.lines.escapeFail){
-            log(getLine(battleState.enemy, "escapeFail"));
+        if (enemy?.lines?.escapeFail){
+            log(getLine(enemy, "escapeFail"));
         }
 
         enemyTurn();
@@ -1938,16 +2097,17 @@ function startPlayerTurn(){
     }
     return true;
 }
-function startEnemyTurn(){
-    if (!battleState) return false;
-    const enemy = battleState.enemy;
 
-    const dead = updateBuffs(enemy); // 🔥 적 DOT만
+function startEnemyTurn(enemy){
+    if (!battleState || !enemy) return false;
+
+    const dead = updateBuffs(enemy);
 
     if (dead || enemy.hp <= 0){
-        endBattle("win");
+        moveToNextEnemy();
         return false;
     }
+
     return true;
 }
 
@@ -1955,7 +2115,7 @@ function startEnemyTurn(){
 function endBattle(result){
     if (!battleState) return;
 
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
     const player = battleState.player;
     const options = battleState.options || {};
 
@@ -1981,14 +2141,25 @@ function endBattle(result){
     }
 
     if (result === "win"){
-        log(getLine(enemy, "defeat"));
-        giveLoot(player, enemy);
-        gainExp(player, enemy.exp || 0);
+    const enemies = battleState.enemies;
 
-        if (typeof addQuestProgress === "function"){
-        addQuestProgress(player, enemy.id);
+    enemies.forEach(defeatedEnemy => {
+        if (defeatedEnemy?.lines?.defeat){
+            log(getLine(defeatedEnemy, "defeat"));
         }
-    }
+
+        if (defeatedEnemy.noReward) return;
+        giveLoot(player, defeatedEnemy);
+        gainExp(player, defeatedEnemy.exp || 0);
+
+        if (
+            defeatedEnemy.id &&
+            typeof addQuestProgress === "function"
+        ){
+            addQuestProgress(player, defeatedEnemy.id);
+        }
+    });
+}
 
     if (result === "lose"){
         player.status.hp = 0;
@@ -2055,6 +2226,41 @@ function endBattle(result){
     }, 3000);
 }
 
+function areAllEnemiesDead(){
+    const bossCores = battleState.enemies.filter(
+        enemy => enemy.isBossCore
+    );
+
+    if (bossCores.length > 0){
+        return bossCores.every(
+            enemy => enemy.hp <= 0
+        );
+    }
+
+    return battleState.enemies.every(
+        enemy => enemy.hp <= 0
+    );
+}
+
+function moveToNextEnemy(){
+    if (!battleState) return;
+
+    battleState.actingEnemyIndex++;
+
+    while (
+        battleState.actingEnemyIndex < battleState.enemies.length &&
+        battleState.enemies[battleState.actingEnemyIndex].hp <= 0
+    ){
+        battleState.actingEnemyIndex++;
+    }
+
+    if (battleState.actingEnemyIndex >= battleState.enemies.length){
+        finishEnemyPhase();
+        return;
+    }
+
+    enemyTurn();
+}
 
 function endEnemyTurn(){
     if (!battleState) return;
@@ -2064,14 +2270,22 @@ function endEnemyTurn(){
         return;
     }
 
-    if (battleState.enemy.hp <= 0){
+    if (areAllEnemiesDead()){
         endBattle("win");
         return;
     }
 
-    runCustomTurnEvent();
+    moveToNextEnemy();
+}
 
+function finishEnemyPhase(){
+    if (!battleState) return;
+
+    battleState.actingEnemyIndex = 0;
+
+    runCustomTurnEvent();
     runAllyTurnSupport();
+
     if (!battleState) return;
 
     battleState.energy = Math.min(
@@ -2135,7 +2349,7 @@ function runCustomTurnEvent(){
     const event = events[battleState.turnCount];
 
     if (typeof event === "function"){
-        event(battleState.player, battleState.enemy, battleState);
+        event(battleState.player, battleState.enemies, battleState);
     }
 }
 
@@ -2184,7 +2398,7 @@ function runAllyTurnSupport(){
     const support = battleState.options?.allyTurnSupport;
     if (!support) return;
 
-    const enemy = battleState.enemy;
+    const enemy = getSelectedEnemy();
     const threshold = support.hpRate ?? 0.5;
 
     if (enemy.hp > enemy.maxHp * threshold) return;
@@ -2199,7 +2413,11 @@ function runAllyTurnSupport(){
     }
 
     if (enemy.hp <= 0){
-        updateBattleUI();
-        endBattle("win");
+        log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+        if (areAllEnemiesDead()){
+            endBattle("win");
+            return;
+        }
+        selectNextLivingEnemy();
     }
 }

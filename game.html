@@ -173,6 +173,7 @@
     <script src="function/tavernwork.js"></script>
     <script src="function/nikolaiPunishmentRoom.js"></script>
     <script src="function/dungeon/dungeon.js"></script>
+    <script src="function/dungeon/dungeonAct3.js"></script>
     <script src="function/raid/banditCampRaid.js"></script>
     <script src="function/raid/slaverRaid.js"></script>
     <script src="function/raid/erwinRaid.js"></script>
@@ -1573,6 +1574,30 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
+        }
+        
+        #enemyTargets {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        #enemyTargets button {
+            width: 100%;
+            padding: 7px 10px;
+            cursor: pointer;
+        }
+        
+        #enemyTargets button.selected-target {
+            font-weight: bold;
+            outline: 2px solid currentColor;
+        }
+        
+        #enemyTargets button.defeated-target {
+            opacity: 0.45;
+            text-decoration: line-through;
+            cursor: default;
         }
 
         .log-damage { color: #ff4d4d; }

@@ -1138,7 +1138,13 @@ function moveDungeon(player, direction){
     }
 
     if (newRoom.boss){
-        const bossDefeatedFlag = `defeated_${dungeon.id}_${newRoom.boss}`;
+        const bossId = newRoom.bossId || (
+            Array.isArray(newRoom.boss)
+            ? newRoom.boss.join("_")
+            : newRoom.boss
+        );
+        
+        const bossDefeatedFlag = `defeated_${dungeon.id}_${bossId}`;
         
         if (player.flags?.[bossDefeatedFlag]){
             startScene(buildDungeonScene(player), player);
@@ -1176,7 +1182,8 @@ function moveDungeon(player, direction){
     const encounter = pickDungeonEncounter(dungeon);
     if (encounter){
         if (encounter.type === "battle"){
-            startBattle(encounter.enemy, player);
+            const enemyIds = buildEncounterEnemyIds(encounter);
+            startBattle(enemyIds, player);
             return;
         }
 
@@ -1188,6 +1195,31 @@ function moveDungeon(player, direction){
 
     renderMap(player);
     startScene(buildDungeonScene(player), player);
+}
+
+function buildEncounterEnemyIds(encounter){
+    if (!encounter) return [];
+
+    // 적 목록이 직접 지정된 고정 조합
+    if (Array.isArray(encounter.enemies)){
+        return [...encounter.enemies];
+    }
+
+    // 기존 1마리 인카운터
+    if (!encounter.minCount && !encounter.maxCount){
+        return [encounter.enemy];
+    }
+
+    const min = encounter.minCount ?? 1;
+    const max = encounter.maxCount ?? min;
+
+    const count =
+        min + Math.floor(Math.random() * (max - min + 1));
+
+    return Array.from(
+        { length: count },
+        () => encounter.enemy
+    );
 }
 
 function handleDungeonBossWin(player, dungeon, room){
@@ -1440,9 +1472,12 @@ function doDungeonRest(player){
         if (encounter){
             showSingleTextScene("습격이다!", player, {
                 onEnd: () => {
-                    startBattle(encounter.enemy, player, {
-                        onWin: () => startScene(buildDungeonScene(player), player),
-                        onEscape: () => startScene(buildDungeonScene(player), player)
+                    const enemyIds = buildEncounterEnemyIds(encounter);
+                    startBattle(enemyIds, player, {
+                        onWin: () =>
+                            startScene(buildDungeonScene(player), player),
+                        onEscape: () =>
+                            startScene(buildDungeonScene(player), player)
                     });
                 }
             });
@@ -3455,7 +3490,7 @@ const DUNGEON_EVENTS = {
                     "저벅, 저벅, 저벅.<br><br>" +
                     "저벅, 저벅, 저벅.<br><br>" +
                     "잠깐. 당신의 발자국 소리가 맞는가? 당신은 고개를 들었다. 앞에는 없다. 당신은 뒤를 돌았다." +
-                    "<br><br>당신의 뒤에 쌍검을 든 꽃인간이 하나 있었다. 그는 당신을 증오하는 눈으로 노려보고 있다. 쌍검꽃인간이 당신에게 달려든다!"
+                    "<br><br>당신의 뒤에 쌍검을 든 꽃인간이 하나 있었다. 그는 당신을 증오하는 눈으로 노려보고 있다. 꽃쌍검인간이 당신에게 달려든다!"
                 ]
             },
             {
@@ -3473,7 +3508,7 @@ const DUNGEON_EVENTS = {
             {
                 type : "text",
                 value : [
-                    "하얀꽃만이 가득한 꽃밭에 도착했다. 달콤한 냄새가 당신의 코를 기분 좋게 자극한다. 하얀꽃밭 사이사이로 당신은 아이들이 놀다만 장난감으로 보이는 것들도 봤다. 인형, 로봇, 자동차.... 전부 낡았지만 여전히 손떼가 묻어있었다. 아이들은 분명 이 장난감들을 사랑했을 것이다." +
+                    "하얀꽃만이 가득한 꽃밭에 도착했다. 달콤한 냄새가 당신의 코를 기분 좋게 자극한다. 하얀꽃밭 사이사이로 당신은 아이들이 놀다만 장난감으로 보이는 것들도 봤다. 인형, 로봇, 자동차.... 전부 낡았지만 여전히 손때가 묻어있었다. 아이들은 분명 이 장난감들을 사랑했을 것이다." +
                     "<br>당신은 종이 한 장을 집어들었다." +
                     "<br><br>[똑똑한 박사님이 저한테는 하류도시의 영웅이 될 거라고 했어요! 나는 하류도시의 영웅이 될 거예요!]<br><br>" +
                     "종이의 마지막에는 동그란 도장이 찍혀 있었다.<br><br>[참 잘했어요]"
@@ -3522,9 +3557,9 @@ const DUNGEON_EVENTS = {
             {
                 type : "text",
                 value : [
-                    "백색 복도를 걷고 있는데 뒤에서 또 발걸음 소리가 들려왔다. 당신은 바로 뒤를 돌았다. 당신의 뒤로 접근하고 있던 쌍검꽃인간이 움직임을 멈췄다." +
+                    "백색 복도를 걷고 있는데 뒤에서 또 발걸음 소리가 들려왔다. 당신은 바로 뒤를 돌았다. 당신의 뒤로 접근하고 있던 꽃쌍검인간이 움직임을 멈췄다." +
                     "<br><br>\"...인간은, 다 싫어.\"<br><br>" +
-                    "당신의 예상보다 훨씬 앳된 목소리였다. 쌍검꽃인간이 당신에게 달려들었다!"
+                    "당신의 예상보다 훨씬 앳된 목소리였다. 꽃쌍검인간이 당신에게 달려들었다!"
                 ]
             },
             {
@@ -3569,7 +3604,7 @@ const DUNGEON_EVENTS = {
                 type : "text",
                 value : [
                     "[녹음기록 3]" +
-                    "<br>\"과장님, 라우렌스 가문에서 마지막 경고를 내렸습니다. 당장 실험을 중단하고 상류도시로 복귀할 것. 그들은 꽃인간이 인간에게 더 큰 피해를 줄 거라 생각합니다.\"<br>" +
+                    "<br>\"과장님, 아카시아 가문에서 마지막 경고를 내렸습니다. 당장 실험을 중단하고 상류도시로 복귀할 것. 그들은 꽃인간이 인간에게 더 큰 피해를 줄 거라 생각합니다.\"<br>" +
                     "\"지금 와서 폐기라고? 절대 안 될 일이지.... 내가 지금까지 얼마나 많은 사람들을 갈아넣었는데....\"<br>" +
                     "\"과장님?\"<br>" +
                     "\"이제 와서 멈추면 내가 지금까지 한 건 학살이야. 이 실험은 멈추지 않는\"<br>" +

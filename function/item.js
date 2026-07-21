@@ -879,6 +879,89 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "데미지 1.5배로 6번 공격" 
         }
+    ],
+    "대포" : [
+        {
+            name : "세 번 쏘기",
+            cost : 2,
+            type : "multiHit",
+            power : 1.2,
+            hits : 3,
+            unlock : 20,
+            desc : "데미지 1.2배로 3번 공격" 
+        },
+        {
+            name : "대포장전",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "cannon_buff",
+                evaMult : 1.1,
+                atkMult : 1.5
+            },
+            duration: 6,
+            unlock : 100,
+            desc : "6턴간 회피율 1.1배, 공격력 1.5배"
+        },
+        {
+            name: "가시탄",
+            cost: 3,
+            type: "bleed",
+            id : "cannon_bleed",
+            dot: 25,
+            duration: 4,
+            unlock: 150,
+            desc : "4턴간 상대방에게 독데미지(25)"
+        },
+        {
+            name : "모았다 쏘기",
+            cost : 3,
+            type : "damage",
+            power : 4.1,
+            unlock : 200,
+            desc : "데미지 4.1배 공격"
+        }
+    ],
+    "흉물대검" : [
+        {
+            name : "크게 베기",
+            cost : 2,
+            type : "damage",
+            power : 3,
+            unlock : 20,
+            desc : "데미지 3배 공격"
+        },
+        {
+            name : "본능적인 두려움",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "enemyDebuff",
+                atkMult : 0.8,
+                evaMult : 0.7
+            },
+            duration: 6,
+            unlock : 100,
+            desc : "6턴간 적 공격력 0.8배, 회피력 0.7배"
+        },
+        {
+            name: "융합된 독",
+            cost: 3,
+            type: "poison",
+            id : "abominatedGreatSword_poison",
+            dot: 20,
+            duration: 5,
+            unlock: 150,
+            desc : "5턴간 상대방에게 독데미지(20)"
+        },
+        {
+            name : "내려찍기",
+            cost : 4,
+            type : "damage",
+            power : 5.7,
+            unlock : 200,
+            desc : "데미지 5.7배 공격"
+        }
     ]
 };
 
@@ -966,6 +1049,14 @@ const MASTER_SKILLS = {
     "백색 군대의 쌍도끼" : {
         requiredMastery : 300,
         skillName : "마구 던지기"
+    },
+    "대포" : {
+        requiredMastery : 300,
+        skillName : "가시탄"
+    },
+    "흉물대검" : {
+        requiredMastery : 300,
+        skillName : "본능적인 두려움"
     }
 };
 
@@ -1209,6 +1300,30 @@ const ITEMS ={
                 dex : 3,
                 int : 2
             }
+        },
+
+        cannon : {
+            name : "대포",
+            type : "weapon",
+            desc : "그가 지금까지 살아남았던 이유가 대포에만 있진 않았겠지. 하지만 대포가 그의 생존에 지대한 영향을 끼쳤다는 건 확실하다.",
+            price : 3000,
+            stats : {
+                str : 8,
+                dex : 3,
+                int : 3
+            }
+        },
+
+        abominatedGreatSword : {
+            name : "흉물대검",
+            type : "weapon",
+            desc : "징그럽다. 대검이 아니라 한쪽 팔로 보이기도 한다. 휘두르는 사람의 비위를 칭찬한다.",
+            price : 3000,
+            stats : {
+                str : 15,
+                dex : 3,
+                charm : -3
+            }
         }
     },
 
@@ -1317,6 +1432,17 @@ const ITEMS ={
             stats : {
                 str : 6,
                 dex : 4
+            }
+        },
+
+        survivalTop : {
+            name : "생존한 도적 상의",
+            type : "top",
+            price : 2800,
+            stats : {
+                str : 4,
+                dex : 7,
+                int : 1
             }
         }
     },
@@ -1500,6 +1626,18 @@ const ITEMS ={
             stats : {
                 dex : 5,
                 str : 5
+            }
+        },
+
+        survivalBottom : {
+            name : "생존한 도적 하의",
+            type : "top",
+            price : 2800,
+            stats : {
+                str : 5,
+                dex : 7,
+                int : 1,
+                charm : -2
             }
         }
     },

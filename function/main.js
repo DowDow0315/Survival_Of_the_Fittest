@@ -2155,11 +2155,11 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
         guardPost2: 0.40,
         guardPost3: 0.50,
 
-        wastedRuin: 0.70,
-        whiteFlowerTomb: 0.70,
+        wastedRuin: 0.65,
+        whiteFlowerTomb: 0.65,
 
-        forest_act2 : 0.60,
-        deepForest_act3 : 0.60
+        forest_act3 : 0.50,
+        deepForest_act3 : 0.50
     };
     
     let dangerChance = DANGER_CHANCE_BY_LOCATION[fromLocation] ?? 0.25;
@@ -2171,15 +2171,36 @@ function tryEscapeArea(player, targetLocation, requiredSteps){
     );
 
     if (Math.random() < dangerChance){
-        const enemyId = getEncounterEnemyForLocation(fromLocation) || "slime";
-        startBattle(enemyId, player, {
-            noEscape: false,
-            onWin: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key),
-            onEscape: () => finishEscapeAreaStep(player, targetLocation, requiredSteps, key)
+        const pool = ENEMY_POOLS[fromLocation];
+        let enemyIds;
+        
+        if (pool && pool.length > 0){
+            const config = MULTI_ENCOUNTER_LOCATIONS[fromLocation];
+            const minCount = config?.minCount ?? 1;
+            const maxCount = config?.maxCount ?? 1;
+            
+            enemyIds = pickEncounterEnemies( pool, minCount, maxCount );
+        } else {
+            enemyIds = ["slime"];
+        }
+        
+        startBattle(enemyIds, player, { noEscape: false,
+            onWin: () => finishEscapeAreaStep(
+                player,
+                targetLocation,
+                requiredSteps,
+                key
+            ),
+            
+            onEscape: () => finishEscapeAreaStep(
+                player,
+                targetLocation,
+                requiredSteps,
+                key
+            )
         });
         return;
     }
-
     finishEscapeAreaStep(player, targetLocation, requiredSteps, key);
 }
 
@@ -2260,33 +2281,46 @@ window.travel_deepForest_act3_to_wastedRuin = function(player){
 };
 
 window.travel_wastedRuin_to_deepForest_act3 = function(player){
-    travelOuterArea(player, "deepForest", 5);
+    travelOuterArea(player, "deepForest_act3", 5);
 };
 
-window.travel_travel_deepForest_act3_to_whiteFlowerTomb = function(player){
+window.travel_deepForest_act3_to_whiteFlowerTomb = function(player){
     travelOuterArea(player, "whiteFlowerTomb", 5);
 };
 
 window.travel_whiteFlowerTomb_to_deepForest_act3 = function(player){
-    travelOuterArea(player, "deepForest", 5);
+    travelOuterArea(player, "deepForest_act3", 5);
 };
 
 //전투이벤트
-function startBattle(enemyId, player, options = {}){
-    const enemyFactory = ENEMIES[enemyId];
+function startBattle(enemyInput, player, options = {}){
+    const enemyIds = Array.isArray(enemyInput)
+        ? enemyInput
+        : [enemyInput];
 
-    if (!enemyFactory){
+    const enemies = enemyIds
+        .map(enemyId => {
+            const enemyFactory = ENEMIES[enemyId];
+
+            if (!enemyFactory){
+                console.error(`적 데이터가 없습니다: ${enemyId}`);
+                return null;
+            }
+
+            return enemyFactory();
+        })
+        .filter(Boolean);
+
+    if (enemies.length === 0){
         alert("적 데이터가 없습니다.");
         return;
     }
-
-    const enemy = enemyFactory();
 
     player.inBattle = true;
 
     showBattleUI();
 
-    initBattle(enemy, player, options);
+    initBattle(enemies, player, options);
 }
 
 
@@ -2804,6 +2838,24 @@ function pickWeighted(list){
         r -= e.weight;
         if (r <= 0) return e.id;
     }
+}
+
+function pickEncounterEnemies(pool, minCount = 1, maxCount = 1){
+    if (!pool || pool.length === 0){
+        return [];
+    }
+
+    const count =
+        minCount +
+        Math.floor(Math.random() * (maxCount - minCount + 1));
+
+    const enemyIds = [];
+
+    for (let i = 0; i < count; i++){
+        enemyIds.push(pickWeighted(pool));
+    }
+
+    return enemyIds;
 }
 
 function getTraumaPenalty(player){

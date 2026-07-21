@@ -239,15 +239,43 @@ window.EVENTS.push({
         player.location === "gloryStreet" &&
         NPC_DATA["deric"].emotion.affection > 30 &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
-        player.flags?.deric_alcohol_01_day !== getCurrentDay(player) &&
+        player.flags?.deric_alcohol_day !== getCurrentDay(player) &&
         Math.random() < 0.07,
 
     action: (player) => {
-        player.flags.deric_alcohol_01_day = getCurrentDay(player);
+        player.flags.deric_alcohol_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene(
             NPC_DATA["deric"].scenes.deric_alcohol_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "deric_alcohol_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        NPC_DATA["deric"].emotion.affection >= 50 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.deric_alcohol_day !== getCurrentDay(player) &&
+        (!hasNpcRelationship("deric", "lover") ||
+        !hasNpcRelationship("deric", "spouse") ) &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        player.flags.deric_alcohol_day = getCurrentDay(player);
+        changeGold(player, 1000);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_alcohol_02,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)

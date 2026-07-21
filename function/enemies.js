@@ -49,11 +49,12 @@ async function loadEnemies(){
         "flower", "flower2", "flower3", "flower4", "flower5", "soraFather",
         "begger", "beggers", "goblinKing",
         "skeleton", "skeletonEnhanced", "skeletonWheel", "skeletonBig", "skeletonKnight",
-        "bandit1", "bandit2", "banditBoss",
+        "bandit1", "bandit2", "banditBoss", "advancedBandit1", "advancedBandit2", "advancedBanditBoss",
         "rebelLeader", "erwin", "rebels1", "rebels2", "rebels3", "rebelLeader2",
         "infectedSmall", "infected", "infectedSoldier", "infectedSmalls",
         "trafficker1", "trafficker2", "trafficker3", "trafficker4",
         "abomination1", "abomination2", "abomination3", "abomination4",
+        "abominationMixedHead", "abominationMixedArms", "abominationMixedMiddle",
         "whiteArmy1", "whiteArmy2"
     ];
 

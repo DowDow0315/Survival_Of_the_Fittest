@@ -20,7 +20,7 @@
                 {"emotion": "dominance", "min": 70},
                 {"emotion" : "affection", "min": 90}
             ],
-            "text" : "<span class='log-sion'>나의 영웅 님. 당신의 옆에는 항상 제가 있을 거예요. 언제나.</span>"
+            "text" : "<span class='log-sion'>나의 영웅님. 당신의 옆에는 항상 제가 있을 거예요. 언제나.</span>"
         },
         {
             "conditions" : [
@@ -33,7 +33,7 @@
                 {"emotion": "dominance", "min": 70},
                 {"emotion" : "affection", "min": 70}
             ],
-            "text" : "<span class='log-sion'>어디 가세요, 영웅 님?</span>"
+            "text" : "<span class='log-sion'>어디 가세요, 영웅님?</span>"
         },
         {
             "conditions" : [
@@ -52,7 +52,7 @@
             "conditions" : [
                 {"emotion": "dominance", "min": 70}
             ],
-            "text" : "<span class='log-sion'>영웅 님, 나의 영웅 님.</span>"
+            "text" : "<span class='log-sion'>영웅님, 나의 영웅님.</span>"
         },
         {
             "conditions" : [

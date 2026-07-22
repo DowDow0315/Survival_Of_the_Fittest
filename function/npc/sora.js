@@ -281,7 +281,9 @@ function startSoraPatienceLimitOutsideEvent(player){
                     onEnd : () => startScene(getLocationScene(player), player)
                 });
 
-                changeNPCEmo
+                changeEmotion("sora", "lust", -100);
+                changeTrauma(player, 15);
+                savePlayer(player);
 
                 return true;
             }

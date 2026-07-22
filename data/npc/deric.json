@@ -855,7 +855,7 @@
                                 "effects" : [
                                     { "target": "player", "key": "arousal", "amount": 10 },
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 5 },
-                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -10 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": -3 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": 5 }
                                 ]
@@ -1836,6 +1836,7 @@
                                     { "target": "player", "key": "hp", "amount": -15 },
                                     { "target": "player", "key": "stamina", "amount": -20 },
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": -10 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -15 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": -10 }
                                 ]
                             }
@@ -1974,7 +1975,7 @@
                             {
                                 "type" : "effect",
                                 "effects" : [
-                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -3 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": 15 },
                                     { "target": "time", "amount": 15 },
                                     { "target": "player", "key": "stamina", "amount": -20 },
@@ -1996,7 +1997,7 @@
                                 "type" : "effect",
                                 "effects" : [
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": -5 },
-                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -10 },
                                     { "target": "npc", "npc": "deric", "key": "rage", "amount": 8 }
                                 ]
                             }

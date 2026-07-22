@@ -15,24 +15,24 @@ Object.assign(DUNGEONS, {
         rooms : {
             "r0c0" : {name : "살아남은 자의 방", exits : {down : "r1c0"}, boss : "advancedBanditBoss"},
             "r0c2" : {name : "핏자국을 따라 2", exits : {down : "r1c2", right : "r0c3"}},
-            "r0c3" : {name : "픿자국을 따라 1", exits : {left : "r0c2", right : "r0c4"}},
-            "r0c4" : {name : "아수라장", exits : {left : "r0c3", down : "r1c4"}},
+            "r0c3" : {name : "핏자국을 따라 1", exits : {left : "r0c2", right : "r0c4"}, event : "survivalBandit_bloodLine"},
+            "r0c4" : {name : "아수라장", exits : {left : "r0c3", down : "r1c4"}, event : "survivalBandit_mess"},
 
             "r1c0" : {name : "쉬어가는 틈", exits : {up : "r0c0", down : "r2c0"}, safeZone: true, allowRest: true},
             "r1c2" : {name : "핏자국을 따라 3", exits : {up : "r0c2", down : "r2c2"}},
-            "r1c4" : {name : "쉘터의 아이가 남긴 쪽지", exits : {up : "r0c4", down : "r2c4"}},
+            "r1c4" : {name : "쉘터의 아이가 남긴 쪽지", exits : {up : "r0c4", down : "r2c4"}, event : "survivalBandit_shelterMemo"},
 
             "r2c0" : {name : "보석가루가 흩뿌려져 있는 방", exits : {up : "r1c0", right : "r2c1"}},
             "r2c1" : {name : "절망의 길", exits : {left : "r2c0", down : "r3c1", right : "r2c2"}},
             "r2c2" : {name : "저항의 길", exits : {left : "r2c1", up : "r1c2"}},
             "r2c4" : {name : "생존자들의 근거지 입구", exits : {up : "r1c4"}},
 
-            "r3c1" : {name : "아이를 껴안고 있는 어른의 시체", exits : {up : "r2c1", down : "r4c1"}},
+            "r3c1" : {name : "아이를 껴안고 있는 어른의 시체", exits : {up : "r2c1", down : "r4c1"}, event : "survivalBandit_corpsesOfThem"},
 
-            "r4c0" : {name : "감방", exits : {right : "r4c1"}, chest : "survivalBandit_chest"},
+            "r4c0" : {name : "감방", exits : {right : "r4c1"}, event : "survivalBandit_prison", seenFlag : "survivalBandit_prison"},
             "r4c1" : {name : "감방 앞", exits : {left : "r4c0", up : "r3c1", right : "r4c2"}},
             "r4c2" : {name : "검문소", exits : {left : "r4c1", right : "r4c3"}},
-            "r4c3" : {name : "도적들 침실", exits : {left : "r4c2"}}
+            "r4c3" : {name : "도적들 침실", exits : {left : "r4c2"}, event : "survivalBandit_banditMemo"}
         },
 
         encounters : [
@@ -61,25 +61,25 @@ Object.assign(DUNGEONS, {
 
         rooms : {
             "r0c0" : {name : "살아남은 자의 방", exits : {down : "r1c0"}, boss : "advancedBanditBoss"},
-            "r0c2" : {name : "", exits : {down : "r1c2", right : "r0c3"}},
-            "r0c3" : {name : "", exits : {left : "r0c2", right : "r0c4"}},
-            "r0c4" : {name : "", exits : {left : "r0c3", down : "r1c4"}},
+            "r0c2" : {name : "들어가는 길2", exits : {down : "r1c2", right : "r0c3"}},
+            "r0c3" : {name : "들어가는 길1", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "좁은 길2", exits : {left : "r0c3", down : "r1c4"}},
 
             "r1c0" : {name : "쉬어가는 틈", exits : {up : "r0c0", down : "r2c0"}, safeZone: true, allowRest: true},
-            "r1c2" : {name : "", exits : {up : "r0c2", down : "r2c2"}},
-            "r1c4" : {name : "", exits : {up : "r0c4", down : "r2c4"}},
+            "r1c2" : {name : "길목", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "좁은 길1", exits : {up : "r0c4", down : "r2c4"}},
 
-            "r2c0" : {name : "", exits : {up : "r1c0", right : "r2c1"}},
-            "r2c1" : {name : "", exits : {left : "r2c0", down : "r3c1", right : "r2c2"}},
-            "r2c2" : {name : "", exits : {left : "r2c1", up : "r1c2"}},
-            "r2c4" : {name : "", exits : {up : "r1c4"}},
+            "r2c0" : {name : "악행길", exits : {up : "r1c0", right : "r2c1"}},
+            "r2c1" : {name : "갈래길", exits : {left : "r2c0", down : "r3c1", right : "r2c2"}, chest : "survivalBandit_chest"},
+            "r2c2" : {name : "코너길", exits : {left : "r2c1", up : "r1c2"}},
+            "r2c4" : {name : "근거지 입구", exits : {up : "r1c4"}},
 
-            "r3c1" : {name : "", exits : {up : "r2c1", down : "r4c1"}},
+            "r3c1" : {name : "남쪽으로 빠지는 길", exits : {up : "r2c1", down : "r4c1"}},
 
-            "r4c0" : {name : "", exits : {right : "r4c1"}, chest : "survivalBandit_chest"},
-            "r4c1" : {name : "", exits : {left : "r4c0", up : "r3c1", right : "r4c2"}},
-            "r4c2" : {name : "", exits : {left : "r4c1", right : "r4c3"}},
-            "r4c3" : {name : "", exits : {left : "r4c2"}, chest : "survivalBandit_chest"}
+            "r4c0" : {name : "구석", exits : {right : "r4c1"}, chest : "survivalBandit_chest"},
+            "r4c1" : {name : "길목", exits : {left : "r4c0", up : "r3c1", right : "r4c2"}},
+            "r4c2" : {name : "좁게 들어가는 길", exits : {left : "r4c1", right : "r4c3"}},
+            "r4c3" : {name : "좁은 구석", exits : {left : "r4c2"}, chest : "survivalBandit_chest"}
         },
 
         encounters : [
@@ -375,6 +375,100 @@ Object.assign(DUNGEON_EVENTS, {
                     }
                 ]
             }
+        ],
+        survivalBandit_bloodLine : [
+            {
+                type : "text",
+                value : [
+                    "아수라장을 지나자 핏자국이 바닥에 길게 늘어져 있었다. 누군가 피를 흘린 채로 질질 끌려간 것이다. 가끔씩 핏자국 옆에 손톱으로 긁은 자국들도 보이고는 했다. 당신은 핏자국을 따라 계속 길을 걸어갔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        survivalBandit_mess : [
+            {
+                type : "text",
+                value : [
+                    "복도에 들어서자마자 당신이 마주한 건 아수라장이었다. 핏자국은 여기저기에 튀어 있었고 구석에는 시체가 입고 있었던 것으로 보이는 옷들이 쌓여 있었다. 그들은 그들의 옷가지까지 벗겨내어 민간에 팔려고 했던 것이다." +
+                    "<br>벽 구석에 낙서가 하나 보인다.<br><br>" +
+                    "<strong>우리는 아직 죽지 않았다? 웃기시네. 우리가 아직 죽지 않은 거겠지. 우리는 내버려뒀지만 반란군들은 쥐잡듯이 뒤졌었다고. 저 말은 우리가 써야할 말이야.</strong>" +
+                    "<br><br>그리고 그 밑에 낙서가 하나 더 써있었다.<br><br>" +
+                    "<strong>우리는 아직 죽지 않았다!</strong>" +
+                    "<br><br>...그들은 반란군을 조롱하고 있었다. 몇몇 낙서들은 방패막이가 되어줘서 고맙다는 추잡한 내용까지 담고 있었다."
+                ]
+            }
+        ],
+        survivalBandit_shelterMemo : [
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이가 남긴 것만 같은 쪽지다. 당신은 쪽지를 읽어내렸다." +
+                    "<br><br>[유리 형. 형이 만약 이 편지를 보게 된다면.... 날 구하지 못했다고 해서 죄책감을 느끼지는 않았으면 좋겠어. 날 구하지 못했다면 형은 분명 다른 사람들을 구하고 있는 걸 테니까.]<br><br>" +
+                    "[나는 지금까지 형과 형의 소꿉친구가 우리를 위해 얼마나 많은 일을 해왔는지 알아. 그래서 두 사람만은 나 때문에 괴롭지 않았으면 좋겠어.]<br><br>" +
+                    "[요새 밥도 제대로 안 먹는 것 같던데. 형 친구는 살아있을 거야. 난 그렇게 믿어. 그러니까 그 친구가 돌아왔을 때 슬퍼하지 않도록 밥은 꼭 챙겨먹도록 해.]<br><br>" +
+                    "[...하나만 고백해도 돼? 나 사실 형 소꿉친구 좋아했었다. 아름답고 강하잖아.]<br><br>" +
+                    "[내가 아는 그 사람은 이 세상에서 제일 아름답고 강한 사람이니까, 유리 형도 믿어. 언젠가는 돌아올 거라고.]<br><br>" +
+                    "[지금까지 고마웠어. 완전 마지막 추신! 밥은 꼭 챙겨먹어.]"
+                ]
+            }
+        ],
+        survivalBandit_corpsesOfThem : [
+            {
+                type : "text",
+                value : [
+                    "당신은 부둥켜안고 있는 시체를 보았다. 어른의 머리는 얼마나 세게 맞았는지 단순한 골절상도 아니고 머리가 아예 움푹 파여 있었다. 어른의 품에 안겨있는 시체는 아이의 시체였다." +
+                    "<br>둘 중에 누가 먼저 죽었는지는 모르겠다. 당신이 알 수 있는 건 이들은 이미 인간이 넘지 말아야 할 선을 넘었다는 것이다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        survivalBandit_prison : [
+            {
+                type : "text",
+                value : [
+                    "감옥에는 아직 살아있는 사람들이 있었다. 수용된 인원에 비해 공간이 너무 적어서 그들 중 몇몇은 앉아있지도 못하고 있었다. 다리가 썩은 자만이 누워서 앓는 소리를 내고 있었다." +
+                    "<br><br>당신을 알아본 몇몇 이들이 창살 가까이로 다가왔다. 그들 중에는 쉘터에서 몇 번 본 아이들도 있었다." +
+                    "<br><br>\"구해주러 온 거예요?\"<br><br>" +
+                    "한 명이 창살 사이로 손을 뻗었다. 얼마나 말랐는지 그의 손은 좁은 창살 사이로도 삐죽 튀어나왔다. 그는 당신에게 요구르트를 쥐어주었다." +
+                    "<br><br>\"얼마 안 되지만....\"<br><br>" +
+                    "그가 내민 요구르트에는 온기가 남아있었다. 그는 도적떼들을 꼭 죽여달라고 말했다." +
+                    "<br><br>\"믿고 있을게요, 하류도시의 영웅.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.consumable.smallPotion);
+                    changeTrauma(player, -2);
+                    player.flags.survivalBandit_prison = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        survivalBandit_banditMemo : [
+            {
+                type : "text",
+                value : [
+                    "도적들이 자는 방이다. 당신은 도적들이 휘갈겨쓴 쪽지를 읽었다." +
+                    "<br><br>몇 놈은 대장이 남겨놓으라는데... 우리한테는 저급매춘부밖에 지급이 안 되네, 씨발.<br>" +
+                    "그걸로 배는 채울 수 있으니 상관은 없지. 어차피 구멍은 다 똑같은 구멍이야. <br>" +
+                    "구멍이 어떻게 다 똑같은 구멍이냐. 아오. 그나마 괜찮은 애 골라서 놀아야겠다.<br>" +
+                    "근데 저번 그 말은 뭐냐. 인신매ㅁ" +
+                    "<br><br>글자가 끊겨져 있다. 무슨 말을 하려던 걸까."
+                ]
+            }
         ]
     },
     survivalBanditRepeated : {
@@ -583,3 +677,23 @@ Object.assign(DUNGEON_EVENTS, {
 })
 
 //act3 던전 보스들 처리
+function handleAdvancedBanditBossWin(player){
+    startScene([
+        {
+            type: "text",
+            value:
+                "\"...내가 죽는다고 해도... 너 혼자서 우리를 다 막을 수는 없을 거다...\"<br><br>" +
+                "생존자들의 왕은 당신을 금방이라도 끊길 것 같은 목소리로 비웃었다. 그는 자신이 사라져도 결국에는 다른 사람이 이 자리를 채울 것이고, 당신이 지키고자 하는 세상은 찾아오지 않을 것이라고 말했다." +
+                "<br><br>\"하수구의 거지들처럼 말이다...\"<br><br>" +
+                "그는 당신을 마지막으로 올려다본 후 피를 쏟고 죽었다." +
+                "<br><br><br>...어쨌든 당신은 몇몇 사람들의 인생을 구해냈다."
+        },
+        {
+            type: "choice",
+            choices: [
+                { text: "숲으로 돌아간다", action: "leave_dungeon_after_boss" },
+                { text: "조금 더 둘러본다", action: "continue_dungeon_after_boss" }
+            ]
+        }
+    ], player);
+}

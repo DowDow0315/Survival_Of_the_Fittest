@@ -1344,6 +1344,7 @@
                 "type" : "effect",
                 "effects" : [
                     { "target": "npc", "npc": "kain", "key": "affection", "amount": 3 },
+                    { "target": "npc", "npc": "kain", "key": "rage", "amount": -10 },
                     { "target": "npc", "npc": "kain", "key": "lust", "amount": -100 },
                     { "target": "sensitivity", "key": "mSensitivity", "amount": 4 },
                     { "target": "sensitivity", "key": "aSensitivity", "amount": 4 },
@@ -1370,6 +1371,7 @@
                 "type" : "effect",
                 "effects" : [
                     { "target": "npc", "npc": "kain", "key": "affection", "amount": 3 },
+                    { "target": "npc", "npc": "kain", "key": "rage", "amount": -10 },
                     { "target": "npc", "npc": "kain", "key": "lust", "amount": -100 },
                     { "target": "sensitivity", "key": "mSensitivity", "amount": 4 },
                     { "target": "sensitivity", "key": "aSensitivity", "amount": 4 },
@@ -1444,6 +1446,67 @@
                     { "target": "sensitivity", "key": "bSensitivity", "amount": 6 },
                     { "target" : "fluid", "key" : "c", "amount" : 18},
                     { "target": "time", "amount": 50 }
+                ]
+            }
+        ],
+        "kain_afterAct3Collapse" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "상류도시의 입구에 도착하자마자 시끄러운 소리가 들렸다. 익숙한 목소리다.",
+                    "<br>\"놔, 씨발! 나 하류도시 갈 거라고!\"<br>",
+                    "\"네가 가봤자 뭐할 건데! 지금 하류도시 가면 안 되는 거 몰라!?\"<br>",
+                    "이새끼 대체 저번부터 왜 이러는 거야! 카인을 잡고 있던 지배인의 눈빛에 살기가 돌았다. 그는 주변에 있던 종업원들에게 카인의 팔을 붙잡으라고 말했다.",
+                    "<br>\"다음번에 또 말썽을 피우면 발목을 부러뜨려도 된다고 했었어. 잡아.\"<br>",
+                    "그리고 지배인은 그의 발목을 잡았다."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 카인과 지배인의 사이에 끼어들었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"...너!\"<br>",
+                                    "당신을 보자마자 카인의 발버둥이 멎었다. 그는 자신의 팔을 잡고 있던 지배인을 뿌리치더니 그대로 당신을 끌어안았다. 숨이 막혀서 당신은 당신도 모르게 바둥거렸지만 카인은 당신을 놓아줄 생각이 없었다.",
+                                    "<br>\"씨발, 진짜.... 없어지기만 해봐....<br><span class='log-kain'>어디든 따라가줄 테니까.</span>\"<br>",
+                                    "그는 젖은 눈으로 당신을 노려보았다. 그의 주황색 눈동자는 살기가 등등했지만, 그에게 안겨 있는 당신은 알 수 있었다. 당신을 끌어안고 있는 그의 몸은 사시나무처럼 떨리고 있었다.",
+                                    "<br>당신은 그가 진정될 때까지 그의 품에 안겨 있어 주었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": 3 },
+                                    { "target": "npc", "npc": "kain", "key": "rage", "amount": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 그대로 카인을 지나쳤다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신은 그대로 카인을 지나쳤지만, 카인의 눈은 당신을 놓치지 않았다. 그의 발버둥은 당신을 포착하자마자 더 격렬해졌다.",
+                                    "<br>\"씨발, 너 어디 가? 이리 안 와!?\"<br>",
+                                    "그의 말이 끝나기도 전에 지배인은 그를 더 세게 억눌렀다. 그는 당신과 카인을 번갈아보더니 더 이상 카인이 하류도시에 내려가려고 하지 않을 거라는 것을 알았는지 한숨을 쉬며 그의 발목은 놓아주었다.",
+                                    "뒤에서 카인의 욕설이 들려왔지만 그뿐이었다. 당신은 카인에게 가지 않았고, 카인은 당신에게 닿지 못했다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": -8 },
+                                    { "target": "npc", "npc": "kain", "key": "rage", "amount": 8 }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]

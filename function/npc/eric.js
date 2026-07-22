@@ -78,7 +78,7 @@ registerActions("eric", {
     },
 
     //개인스토리
-    eric_chasingSomething_event_02_care: (player) => {
+    chasingSomething_event_02_care: (player) => {
         const eric = NPC_DATA["eric"].emotion;        
         
         if (eric.affection > 50) {

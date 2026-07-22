@@ -54,6 +54,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["valen"].emotion.affection >= 30 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.valen_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.valen_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["valen"].scenes.valen_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};
@@ -206,6 +232,30 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "deric_callMeDaddy_01",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["deric"].emotion.affection >= 90 &&
+        (getTimePeriod(player) === "afternoon" ||
+         getTimePeriod(player) === "night") &&
+         player.flags?.deric_callMeDaddy_day !== getCurrentDay(player) &&
+         player.location === "theater",
+
+    action : (player) => {
+        player.flags.deric_callMeDaddy_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["deric"].scenes.deric_callMeDaddy_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
     id: "deric_nobleSquare_dance_01",
 
     condition: (player) =>
@@ -312,6 +362,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["deric"].emotion.affection >= 70 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.deric_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.deric_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -358,6 +434,32 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenRoad" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["akasia"].emotion.affection >= 30 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.akasia_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.akasia_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_afterAct3Collapse,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -732,6 +834,32 @@ window.EVENTS.push({
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownEntrance" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["kain"].emotion.affection >= 30 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.kain_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.kain_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
             }
         );
     }

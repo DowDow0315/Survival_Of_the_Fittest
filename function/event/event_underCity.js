@@ -464,6 +464,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["luke"].emotion.affection >= 80 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.luke_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.luke_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라
 window.EVENTS.push({
     id : "sora_patience_limit_outside_event",
@@ -718,6 +744,35 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["sora"].scenes.sora_whiteFlowerRing_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        player.flags?.act3CollapseDone &&
+        (
+            hasNpcRelationship("sora", "lover") ||
+            hasNpcRelationship("sora", "spouse")
+        ) &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.sora_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.sora_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_afterAct3Collapse,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1210,6 +1265,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.matin_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.matin_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -1560,6 +1641,31 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "nikolai_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["nikolai"].emotion.affection >= 30 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.nikolai_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.nikolai_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //창백
 window.EVENTS.push({
@@ -1744,6 +1850,32 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["sion"].scenes.sion_spying_06,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_afterAct3Collapse",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["sion"].emotion.affection >= 5 &&
+        !player.flags?.act3_quest_01_done &&
+        !player.flags?.sion_afterAct3Collapse,
+
+    action : (player) => {
+        player.flags.sion_afterAct3Collapse = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_afterAct3Collapse,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

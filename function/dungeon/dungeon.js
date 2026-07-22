@@ -4160,8 +4160,6 @@ function handleSewerBossWin(player){
 }
 //고블린동굴 undercity_04
 function handleGoblinKingWin(player){
-    player.flags = player.flags || {};
-
     startScene([
         {
             type: "text",

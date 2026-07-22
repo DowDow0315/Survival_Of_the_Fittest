@@ -2,7 +2,7 @@
     "name": "생존자들의 왕",
     "hp": 350,
     "attack": 48,
-    "defense": 42,
+    "defense": 44,
     "eva": 49,
     "lustResist" : 1.1,
     "drops": [

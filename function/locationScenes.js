@@ -650,6 +650,25 @@ window.start_erwinRaid = function(player){
 function buildForest_act3Scene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.quest?.active?.id === "act3_quest_01" &&
+        !player.flags?.act3_quest_01_done
+    ){
+        choices.push({
+            text : "도적떼를 해치우러 간다",
+            action : "move_survivalBandit"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "survivalBanditRepeated_cleanup"
+    ){
+        choices.push({
+            text : "도적떼를 소탕하러 간다",
+            action : "move_survivalBanditRepeated"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },

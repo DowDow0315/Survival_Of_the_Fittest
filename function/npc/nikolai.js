@@ -88,7 +88,20 @@ registerActions("nikolai", {
             return;
         }
 
-        if (affection > 80){
+        else if (affection >= 90){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "니콜라이는 조용히 당신의 옆에서 휴식을 즐기다가 당신이 가려고 하자 당신의 팔을 살짝 잡았다. <br><br>\"조금만 더...\"",
+                        "니콜라이는 당신의 손에 손깍지를 끼며 장난을 쳤다. 그러다가 그는 당신의 가슴에 머리를 묻으며 당신과 있으면 진짜 쉬는 것 같아서 좋다고 말했다.",
+                        "\"언젠가 내가 죽게 된다고 해도...\"<br><br>니콜라이는 아무렇지도 않게 웃으며 말을 이었다. <br><br>\"자기만큼은 날, 니콜라이로 기억해줬으면 해.\""
+                    ])
+                }
+            ], player, { onEnd });
+        } 
+
+        else if (affection >= 80){
             startScene([
                 {
                     type : "text",

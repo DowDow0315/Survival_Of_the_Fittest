@@ -3065,7 +3065,7 @@ const ESCAPE_AREA_EVENTS = {
             ]
         },
         {
-            weight : 15,
+            weight : 10,
             scene : [
                 {
                     type : "text",
@@ -3079,6 +3079,68 @@ const ESCAPE_AREA_EVENTS = {
                         changeTrauma(player, 5);
                         savePlayer(player);
                     }
+                }
+            ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 경비병들끼리 싸우고 있는 모습을 보았다." +
+                        "<br><br>\"너 혼자 도망가면 어쩌자는 거야?\"<br><br>\"그러면 뭐, 다같이 개죽음이라도 당하자는 거야!?\"<br><br>" +
+                        "그들의 싸움은 점점 더 격해졌다. 결국 경비병들 중 한 명이 자신의 옷을 벗어던지며 자신은 경비병을 그만두겠다고 말했다." +
+                        "<br><br>\"난, 난 더 이상 못해! 개죽음은 너나 당하라고!\"<br><br>" +
+                        "\"누군 죽음이 안 무서운 줄 알아!? 다 무서워. 하지만 우리가 물러섰다가는...!\"<br><br>" +
+                        "<br><br>\"그니까 왜 우리여야 하냐고!\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 경비병이면 경비병답게 굴라고 일갈했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 경비병의 표정이 일그러졌다. 그는 당장이라도 당신에게 손을 올리려고 했지만 그와 싸우고 있던 다른 경비병이 그의 손을 막았다. 그는 그에게 정신 차리라고 말했다." +
+                                        "<br><br>\"...그래. 너같은 놈은 차라리 없는 게 낫겠다.\"<br><br>" +
+                                        "결국 당신과 그는 탈주경비병의 마음을 돌리지 못했다. 남은 경비병이 당신을 돌아보더니 노력해줘서 감사하다고 말했다." +
+                                        "<br><br>\"나도 살짝 흔들리긴 했지만.... 그래도 역시 하류도시는 내가 지켜야겠어.\"<br><br>"
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, -10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 탈주하려는 경비병의 마음에 힘을 실어주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 다른 경비병의 눈동자도 흔들리기 시작했다. 하류도시의 영웅마저 그렇게 말하니, 이성으로 억누르고 있던 공포가 결국 흘러나와버린 모양이다. 눈치챈 경비병이 그의 어깨를 잡았다. 그리고 조용히, 우리가 죽는다고 해서 우리를 알아줄 사람은 없을 거라고 말했다." +
+                                        "<br><br>\"왜 목숨을 바쳐야 하는 사람이 우리여야 해?\"<br><br>" +
+                                        "결국 탈주병은 2명이 되어버렸다. 당신은 경비병의 훈장을 떼는 두 사람의 뒷모습을 지켜보다가 다시 발걸음을 옮겼다. 당신은 그들을 살린 걸까, 아니면 죽인 걸까."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("luke", "affection", -2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -3204,7 +3266,7 @@ const ESCAPE_AREA_EVENTS = {
             ]
         },
         {
-            weight : 15,
+            weight : 10,
             scene : [
                 {
                     type : "text",
@@ -3218,6 +3280,68 @@ const ESCAPE_AREA_EVENTS = {
                         changeTrauma(player, 5);
                         savePlayer(player);
                     }
+                }
+            ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 경비병들끼리 싸우고 있는 모습을 보았다." +
+                        "<br><br>\"너 혼자 도망가면 어쩌자는 거야?\"<br><br>\"그러면 뭐, 다같이 개죽음이라도 당하자는 거야!?\"<br><br>" +
+                        "그들의 싸움은 점점 더 격해졌다. 결국 경비병들 중 한 명이 자신의 옷을 벗어던지며 자신은 경비병을 그만두겠다고 말했다." +
+                        "<br><br>\"난, 난 더 이상 못해! 개죽음은 너나 당하라고!\"<br><br>" +
+                        "\"누군 죽음이 안 무서운 줄 알아!? 다 무서워. 하지만 우리가 물러섰다가는...!\"<br><br>" +
+                        "<br><br>\"그니까 왜 우리여야 하냐고!\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 경비병이면 경비병답게 굴라고 일갈했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 경비병의 표정이 일그러졌다. 그는 당장이라도 당신에게 손을 올리려고 했지만 그와 싸우고 있던 다른 경비병이 그의 손을 막았다. 그는 그에게 정신 차리라고 말했다." +
+                                        "<br><br>\"...그래. 너같은 놈은 차라리 없는 게 낫겠다.\"<br><br>" +
+                                        "결국 당신과 그는 탈주경비병의 마음을 돌리지 못했다. 남은 경비병이 당신을 돌아보더니 노력해줘서 감사하다고 말했다." +
+                                        "<br><br>\"나도 살짝 흔들리긴 했지만.... 그래도 역시 하류도시는 내가 지켜야겠어.\"<br><br>"
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, -10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 탈주하려는 경비병의 마음에 힘을 실어주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 다른 경비병의 눈동자도 흔들리기 시작했다. 하류도시의 영웅마저 그렇게 말하니, 이성으로 억누르고 있던 공포가 결국 흘러나와버린 모양이다. 눈치챈 경비병이 그의 어깨를 잡았다. 그리고 조용히, 우리가 죽는다고 해서 우리를 알아줄 사람은 없을 거라고 말했다." +
+                                        "<br><br>\"왜 목숨을 바쳐야 하는 사람이 우리여야 해?\"<br><br>" +
+                                        "결국 탈주병은 2명이 되어버렸다. 당신은 경비병의 훈장을 떼는 두 사람의 뒷모습을 지켜보다가 다시 발걸음을 옮겼다. 당신은 그들을 살린 걸까, 아니면 죽인 걸까."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("luke", "affection", -2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -3599,6 +3723,59 @@ const ESCAPE_AREA_EVENTS = {
                     }
                 }
             ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 길을 가다가 흉물조각에 파묻힌 곡괭이를 파견했다. 누군가 여기까지 광석을 캐러 나왔다가 흉물들에게.... 당신은 그의 최후는 상상하지 않기로 했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 흉물조각에서 곡괭이를 빼냈다.",
+                            stat : "str",
+                            difficulty : 25,
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 흉물조각에서 곡괭이를 빼내는 것에 성공했다! 검은 피를 좀 털어내긴 해야 했지만 어떻게든 해냈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 2);
+                                        addItem(player, ITEMS.misc.pickaxe);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 흉물조각에서 곡괭이를 빼내려고 했지만 빼내지 못했다. 오히려 곡괭이를 품고 있는 흉물의 살점이 꿈틀거리는 것처럼 느껴져서 당신은 빠르게 손을 뗐다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 10);
+                                        changeStamina(player, -10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -3776,6 +3953,59 @@ const ESCAPE_AREA_EVENTS = {
                         changeTrauma(player, 3);
                         savePlayer(player);
                     }
+                }
+            ]
+        },
+        {
+            weight : 10,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 길을 가다가 흉물조각에 파묻힌 곡괭이를 파견했다. 누군가 여기까지 광석을 캐러 나왔다가 흉물들에게.... 당신은 그의 최후는 상상하지 않기로 했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 흉물조각에서 곡괭이를 빼냈다.",
+                            stat : "str",
+                            difficulty : 25,
+                            success : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 흉물조각에서 곡괭이를 빼내는 것에 성공했다! 검은 피를 좀 털어내긴 해야 했지만 어떻게든 해냈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 2);
+                                        addItem(player, ITEMS.misc.pickaxe);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ],
+                            fail : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 흉물조각에서 곡괭이를 빼내려고 했지만 빼내지 못했다. 오히려 곡괭이를 품고 있는 흉물의 살점이 꿈틀거리는 것처럼 느껴져서 당신은 빠르게 손을 뗐다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 10);
+                                        changeStamina(player, -10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -4206,6 +4436,7 @@ window.rollEscapeAreaEvent = function(player, fromLocation, targetLocation){
 
 
 //광산
+//광산 붕괴 이전
 const MINE_ENEMY_POOL = [
     { id: "infected", weight: 35 },
     { id: "bandit1", weight: 20 },
@@ -4213,6 +4444,21 @@ const MINE_ENEMY_POOL = [
     { id: "rapistM", weight: 10 },
     { id: "rapistF", weight: 10 }
 ];
+
+//광산 붕괴 후
+const MINE_ENEMY_POOL_AFTER_COLLAPSE = [
+    { id: "abomination3", weight: 20 },
+    { id: "abomination2", weight: 20 },
+    { id: "abomination", weight: 5 },
+    { id: "flower4", weight: 10 },
+    { id: "flower5", weight: 10 }
+];
+
+function getMineEnemyPool(player){
+    return player.flags?.act3CollapseDone
+        ? MINE_ENEMY_POOL_AFTER_COLLAPSE
+        : MINE_ENEMY_POOL;
+}
 
 function pickWeighted(pool){
     const total = pool.reduce((sum, e) => sum + e.weight, 0);
@@ -4295,7 +4541,8 @@ window.mine_next = function(player){
     }
 
     if (Math.random() < 0.35){
-        const enemyId = pickWeighted(MINE_ENEMY_POOL);
+        const enemyPool = getMineEnemyPool(player);
+        const enemyId = pickWeighted(enemyPool);
 
         startScene([
             { type: "text", value: "광산 안쪽에서 인기척이 들렸다. 어둠 속에서 무언가가 당신을 향해 다가온다." },

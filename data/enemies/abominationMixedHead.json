@@ -4,7 +4,7 @@
     "isBossCore" : true,
     "attack": 30,
     "defense": 50,
-    "eva": 80,
+    "eva": 65,
     "lustResist" : 1.1,
     "drops": [
         {

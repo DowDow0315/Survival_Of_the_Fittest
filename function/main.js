@@ -1283,8 +1283,7 @@ const NPC_LUST_GROWTH_CONDITIONS = {
     ],
 
     nikolai: [
-        { key: "dominance", min: 20, amount: 1 },
-        { key: "affection", min: 60, amount: 1 }
+        { key: "affection", min: 80, amount: 1 }
     ],
 
     valen: [

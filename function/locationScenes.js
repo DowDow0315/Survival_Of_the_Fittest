@@ -1379,15 +1379,8 @@ function handleArenaVictory(player){
     const recovered = streak % 5 === 0;
     
     if (recovered){
-        changeHP(
-            player,
-            Math.floor(player.status.maxHp * 0.5)
-        );
-
-        changeStamina(
-            player,
-            Math.floor(player.status.maxStamina * 0.5)
-        );
+        changeHP(player, 60);
+        changeStamina(player, 60);
     }
     
     passTime(player, 5);

@@ -57,6 +57,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "valen_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -365,6 +366,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "deric_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -445,6 +447,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "akasia_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -842,6 +845,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "kain_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&

@@ -467,6 +467,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "luke_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -755,6 +756,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "sora_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -1268,6 +1270,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "matin_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -1644,6 +1647,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "nikolai_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&
@@ -1861,6 +1865,7 @@ window.EVENTS.push({
 window.EVENTS.push({
     id : "sion_afterAct3Collapse",
     once : true,
+    priority : true,
 
     condition : (player) =>
         player.justMoved &&

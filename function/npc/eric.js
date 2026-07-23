@@ -123,6 +123,18 @@ registerActions("eric", {
     },
     //talk
     giveFood : (player) => {
+        const affection = NPC_DATA["eric"].emotion.affection || 0;
+        
+        if (affection < 50){
+            showSingleTextScene(
+                pickRandom([
+                    "당신은 에릭에게 음식을 주려고 했지만, 에릭과 시선이 마주친 순간 음식을 줄 수 없었다.",
+                    "당신이 음식은 건네려 하자 에릭은 손을 들어 막았다. 아무 말도 하지 않았지만 그의 녹안은 명확한 거부 의사가 서려 있었다."
+                ]),
+                player
+            );
+            return;
+        }
         openGiveFoodMenu(player, "eric");
     },
 
@@ -285,6 +297,11 @@ registerActions("eric", {
     otherTalk : (player) => {
         const choices = [];
 
+        choices.push({
+            text: "음식을 건넨다",
+            action: "eric_giveFood"
+        });
+
         startScene([
             {
                 type : "text",
@@ -297,6 +314,8 @@ registerActions("eric", {
         ], player);
     }
 })
+
+registerGiftActions("eric");
 
 //처음 이벤트
 function startEricFirstMeeting(player){

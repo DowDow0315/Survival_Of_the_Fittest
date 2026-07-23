@@ -137,6 +137,10 @@ function normalizePlayer(player){
         ? player.lastWeeklyPaymentWeek
         : 0;
 
+    if (typeof resetAct3LocationChange === "function"){
+        resetAct3LocationChange();
+    }
+    
     if (
         player.flags.act3CollapseDone &&
         typeof applyAct3LocationChange === "function"

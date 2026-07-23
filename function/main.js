@@ -1270,7 +1270,7 @@ const NPC_LUST_GROWTH_CONDITIONS = {
     ],
 
     eric: [
-        { key: "affection", min: 80, amount: 1 }
+        { key: "affection", min: 100, amount: 1 }
     ],
 
     deric: [

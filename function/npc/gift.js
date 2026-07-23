@@ -3313,6 +3313,339 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    eric : {
+        reactions: {
+            ericFavorite: {
+                great: {
+                    affection: 7,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 5,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: 7,
+                    rage: -5,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            ericHate: {
+                great: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "에릭은 당신의 요리를 아무 말 없이 받아들이긴 했지만 먹지는 않았다. 단 것은 싫어하는 모양이다."
+                },
+            
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "에릭은 당신의 요리를 아무 말 없이 받아들이긴 했지만 먹지는 않았다. 당신은 이제야 그가 단 것을 먹는 걸 본 적이 없다는 걸 깨달았다."
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "에릭은 당신의 요리를 받기만 했다. 나중에라도 먹을 것 같지는 않다."
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: -1,
+                    rage: 3,
+                    lust : 0,
+                    line: "에릭은 당신을 말없이 쳐다보았다. 음식을 다시 가져가야 할 것만 같다...."
+                },
+
+                normal: {
+                    affection: -2,
+                    rage: 3,
+                    lust : 0,
+                    line: "에릭은 당신의 요리를 받긴 했지만 표정은 딱딱하게 굳어 있었다. 실수한 것 같다...."
+                },
+            
+                bad: {
+                    affection: -5,
+                    rage: 6,
+                    lust : 0,
+                    line: "에릭은 밀려오는 비린내에 자기도 모르게 인상을 썼다. 그는 음식을 받은 후 당신을 말없이 바라보았다. 시선이 무섭다...."
+                }
+            },
+            lustyHighAffection : {
+                great: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 2,
+                    line: "에릭은 말없이 당신을 바라보다가 그대로 당신을 제 무릎 위로 앉혔다. 그는 요리를 먹는 대신 당신을 안는 걸 택했다."
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 3,
+                    line: "에릭은 당신의 요리와 당신을 번갈아보다가 그대로 당신을 제 무릎 위로 앉혔다. 당신이 당황하자 그는 이런 걸 바란 게 아니었냐고 되물었다."
+                },
+            
+                bad: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 3,
+                    line: "에릭은 당신의 요리와 당신을 번갈아보다가 요리는 치우고 그대로 당신을 제 품으로 끌어안았다. <br><br>\"원하는 거면 그냥 말로 해도 된다.\""
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 요리를 먹으며 고개를 끄덕였다. 그는 가리는 게 없었지만 그렇다고 특히나 좋아하는 것도 별로 없었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 요리를 먹다가 고개를 들어 당신과 시선을 마주했다. <br><br>\"넌 먹었나.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 요리를 먹어주었다."
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 고기보다는 채소를 더 좋아하는 것 같다. <br><br>\"...너는.\"<br><br>그는 먹다가 당신은 식사를 했냐고 물었다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 요리를 먹었다. 그는 당신의 요리를 남기지 않고 다 먹어주었다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 맛없는 채소 요리에도 딱히 불평은 하지 않았다. 맛없어 하는 게 느껴지긴 했지만...."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "말없이 당신의 요리를 먹는 에릭에게 당신은 낚시를 해봤냐고 물었다. <br><br>\"...어렸을 때는.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 요리를 먹었다. 당신과 시선이 마주친 그는 말없이 당신을 응시했다. 그는 당신의 시선을 피하지 않았다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 요리를 먹었다. 당신이 눈치를 보는 기색이 보이자 에릭은 남김없이 당신의 요리를 먹어주었다."
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 요리를 먹었다. 그는 당신의 혼합 요리를 골고루 다 먹었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 요리를 먹었다. 당신이 멀뚱멀뚱 서있자 그는 당신에게는 견과류가 든 병을 던져주었다. 당신은 그의 옆에서 그의 견과류를 먹었다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "당신이 눈치를 보는 것이 느껴지자 에릭은 당신을 힐끗 보더니 말없이 당신의 요리를 다 해치워주었다."
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 빵을 먹었다. 이런 식빵을 많이 먹어봤냐고 묻자 에릭은 시간이 없을 때는 아무 맛도 없는 빵으로 때운다고 대꾸했다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "말없이 빵을 먹는 에릭에게 당신은 빵을 좋아하냐고 물었다. <br><br>\"간단하게 먹을 때 편하지.\"<br><br>맛에 대한 평가는 하지 않았다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 빵을 먹었다. 퍽퍽할 텐데도 그는 물 한 모금과 함께 끝까지 먹어주었다."
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아무 말 없이 고기빵을 먹는 에릭에게 당신은 어떤 종류의 빵을 좋아하냐고 물었다. <br><br\"...아무 맛도 없는 빵.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 당신의 고기빵을 먹다가 당신을 올려다보았다. <br><br>\"...빵 좋아하나.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 고기빵을 먹었다."
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "아무 말 없이 고기빵을 먹는 에릭에게 당신은 어떤 종류의 빵을 좋아하냐고 물었다. <br><br>\"...아무 맛도 없는 빵.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "빵과 밥 중에 뭐가 더 좋냐는 당신의 물음에 에릭은 쌀밥은 많이 안 먹어봤다고 말했다. 어렸을 때 뭘 제일 많이 먹었냐고 묻자 그는 고민없이 대답했다. <br><br>\"라면을 많이 먹었다.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "에릭은 말없이 당신의 야채빵을 먹었다."
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 당신의 야채밥에 잠시 가만히 있다가 밥은 먹어본 지 오래 됐다고 말했다. 그는 천천히 당신의 야채밥을 먹었다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 야채밥을 먹다가 당신은 식사를 했냐고 물었다. <br><br>\"...자기 몸은 스스로 챙기고 다녀라.\""
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 당신의 야채밥을 먹었다. 맛이 없는 게 분명했지만, 그는 당신을 힐끗 보더니 다 먹어주었다."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 당신의 고기밥에 잠시 가만히 있다가 밥은 먹어본 지 오래 됐다고 말했다. 그는 천천히 당신의 고기밥을 먹었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "고기밥을 먹는 그에게 당신은 언제 한번 마틴의 주점에 가서 밥을 같이 먹겠냐고 물었다. 에릭은 그 말에 긍정도 부정도 하지 않았다. <br><br>...고민하는 것 같다."
+                },
+
+                bad : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 고기의 탄 부분도 못 본 척 다 먹어주었다."
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -5,
+                    rage: 3,
+                    lust : 0,
+                    line: "에릭은 당신의 쓰레기를 보았다. 그는 당신을 바라보다가 건조한 목소리로 말했다. <br><br>\"불만이 있으면 말로 해.\""
+                }
+            }
+        }
     }
 };
 
@@ -3477,6 +3810,14 @@ function giveFoodToNpc(player, npcId, item){
             npcId === "deric" &&
             taste === "lusty" &&
             affection >= 60
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
+        if (
+            npcId === "eric" &&
+            taste === "lusty" &&
+            affection >= 100
         ){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }

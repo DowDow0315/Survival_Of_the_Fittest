@@ -1198,6 +1198,30 @@ const LOCATIONS ={
 }
 
 //ACT3 이후
+function resetAct3LocationChange(){
+
+    // 하류도시 길거리
+    delete LOCATIONS.townStreet.connections.townEntrance_act3;
+    LOCATIONS.townStreet.connections.townEntrance = 4;
+
+    // 막사
+    delete LOCATIONS.barracks.connections.townEntrance_act3;
+    LOCATIONS.barracks.connections.townEntrance = 2;
+
+    // Act3 전용 지역 연결 초기화
+    LOCATIONS.townEntrance_act3.connections = {};
+    LOCATIONS.forest_act3.connections = {};
+    LOCATIONS.deepForest_act3.connections = {};
+
+    // 폐야
+    delete LOCATIONS.wastedRuin.connections.deepForest_act3;
+    LOCATIONS.wastedRuin.connections.guardPost3 = 10;
+
+    // 하얀꽃무덤
+    delete LOCATIONS.whiteFlowerTomb.connections.deepForest_act3;
+    LOCATIONS.whiteFlowerTomb.connections.guardPost3 = 10;
+}
+
 function applyAct3LocationChange(){
 
     // 하류도시 길거리 → 기존 마을입구 제거

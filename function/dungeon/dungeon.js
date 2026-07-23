@@ -1041,6 +1041,8 @@ window.enterDungeon = function(player, dungeonId){
     const dungeon = DUNGEONS[dungeonId];
     if (!dungeon) return;
 
+    resetDungeonRandomChestFlags(player, dungeonId);
+
     player.location = dungeonId;
     player.dungeon = {
         active: true,
@@ -1560,6 +1562,8 @@ window.enter_goblinCave = function(player){
 
 window.enter_goblinCaveShortcut = function(player){
     const dungeon = DUNGEONS.goblinCave;
+
+    resetDungeonRandomChestFlags(player, dungeonId);
 
     player.location = "goblinCave";
 
@@ -5652,4 +5656,16 @@ function runGraveYardBottomSkeletonKnightRepeat(player){
             ]
         }
     ], player);
+}
+
+function resetDungeonRandomChestFlags(player, dungeonId){
+    if (!player.flags) return;
+
+    const prefix = `opened_${dungeonId}_`;
+
+    Object.keys(player.flags).forEach(flag => {
+        if (flag.startsWith(prefix)){
+            delete player.flags[flag];
+        }
+    });
 }

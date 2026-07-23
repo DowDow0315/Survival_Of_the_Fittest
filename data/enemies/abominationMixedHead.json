@@ -1,9 +1,9 @@
 {
     "name": "거대 융합 흉물 머리",
-    "hp": 250,
+    "hp": 300,
     "isBossCore" : true,
     "attack": 30,
-    "defense": 50,
+    "defense": 40,
     "eva": 65,
     "lustResist" : 1.1,
     "drops": [

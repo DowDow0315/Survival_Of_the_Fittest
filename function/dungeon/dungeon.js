@@ -1244,18 +1244,7 @@ function buildEncounterEnemyIds(encounter){
 
 function handleDungeonBossWin(player, dungeon, room){
 
-    if (dungeon.id === "slaverCampShelter" && room.boss === "trafficker4"){
-        handleSlaverCampShelterBossWin(player);
-        return;
-    }
-
-    if (dungeon.id === "slaverCamp" && room.boss === "trafficker4"){
-        handleSlaverCampBossWin(player);
-        return;
-    }
-
     if (dungeon.id === "whiteFlowerLabRepeated" && room.boss === "infectedSoldier"){
-        player.flags = player.flags || {};
         player.flags.whiteFlowerLab_cleanup_done = true;
 
         addQuestProgress(player);
@@ -1280,7 +1269,41 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (
+        dungeon.id === "abominationCaveRepeated" &&
+        room.boss === "abominations"
+    ){
+        player.flags.abominationCaveRepeated_boss_end = true;
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value: "당신은 흉물들을 쓰러뜨렸다. <br><br>당신은 내일의 사람들을 구한 것이다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
     addQuestProgress(player, room.boss);
+
+    if (dungeon.id === "slaverCampShelter" && room.boss === "trafficker4"){
+        handleSlaverCampShelterBossWin(player);
+        return;
+    }
+
+    if (dungeon.id === "slaverCamp" && room.boss === "trafficker4"){
+        handleSlaverCampBossWin(player);
+        return;
+    }
 
     if (dungeon.id === "goblinCave" && room.boss === "goblinKing"){
         if (isGoblinStoryActive(player)){
@@ -1321,6 +1344,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "survivalBandit" && room.boss === "advancedBanditBoss"){
         handleAdvancedBanditBossWin(player);
+        return;
+    }
+
+    if (dungeon.id === "abominationCave" && room.boss === "abominations"){
+        handleAbominationsWin(player);
         return;
     }
 
@@ -1583,11 +1611,15 @@ function leaveDungeon(player){
     } else if (dungeonId === "rebelsHideOut"){
         player.location = "richTownEntrance";
     } else if (dungeonId === "survivalBandit"){
-        player.location = "deepForest_act3";
+        player.location = "forest_act3";
     } else if (dungeonId === "survivalBanditRepeated"){
+        player.location = "forest_act3";
+    } else if (dungeonId === "abominationCave"){
         player.location = "deepForest_act3";
+    } else if (dungeonId === "abominationCaveRepeated"){
+        player.location = "wastedRuin";
     } else {
-        player.location = "townStreet";
+        player.location = "deepForest_act3";
     }
 
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -4776,6 +4808,30 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startRebelsHideOutStoryBossBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "abominations_intro"){
+        startScene([
+            {
+                type: "text",
+                value:
+                      "당신은 흉물소굴 가장 깊은 곳에 들어왔다. 주변을 둘러본 당신은 경악할 수밖에 없었다. 여기저기에 흉물의 알들이 한가득이었다. 바닥 여기저기에 놓여있는 것도 아니고, 붉은 살점으로 이루어진 관 같은 곳에 차곡차곡 안치되어 있었다." +
+                      "<br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>쿵</div>" +
+                      "<br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>쿵</div>" +
+                      "<br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>쿵</div>" +
+                      "<br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>쿵</div>" +
+                      "<br><br>마치 심장 박동처럼, 알들은 모두 그 안에서 숨을 쉬고 있었다. 당신을 발견한 흉물들이 당신을 적으로 인식하고-혹은 생식가축으로- 포위를 해오기 시작했다." +
+                      "<br>당신은 무기를 들었다. 관 같이 생긴 것은 흉물의 살점만으로 이루어진 게 아니었다. 기괴하게 뒤틀렸지만 인간의 골격을 가지고 있는 뼈들도 관을 이루고 있었다. 쿵, 하는 소리와 함께 뒤까지 포위당할 뻔한 당신을 시온이 지켜주었다. 그는 당신의 뒤를 지켜주겠다는 약속을 온몸으로 지키고 있었다." +
+                      "<br><br>흉물들이 당신에게 달려든다! 전투가 시작된다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startAbominationsBattle(player);
                     return true;
                 }
             }

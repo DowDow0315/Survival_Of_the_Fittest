@@ -1,3 +1,28 @@
+//에릭
+window.EVENTS.push({
+    id : "eric_hotelSleep",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        NPC_DATA["eric"].emotion.affection >= 20 &&
+        NPC_DATA["eric"].emotion.affection <= 50 &&
+        getTimePeriod(player) === "dawn"&&
+        !player.flags?.ericDie &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_hotelSleep,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
@@ -78,6 +103,31 @@ window.EVENTS.push({
                 onEnd : () => startScene(getLocationScene(player), player)
             }
         );
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_teaTime_01",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["valen"].emotion.affection >= 30 &&
+        (getTimePeriod(player) === "afternoon" ||
+         getTimePeriod(player) === "night") &&
+         player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
+         player.location === "heavenPalace" &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_teaTime_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_teaTime_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
     }
 });
 
@@ -242,7 +292,8 @@ window.EVENTS.push({
         (getTimePeriod(player) === "afternoon" ||
          getTimePeriod(player) === "night") &&
          player.flags?.deric_callMeDaddy_day !== getCurrentDay(player) &&
-         player.location === "theater",
+         player.location === "theater" &&
+         Math.random() < 0.08,
 
     action : (player) => {
         player.flags.deric_callMeDaddy_day = getCurrentDay(player);

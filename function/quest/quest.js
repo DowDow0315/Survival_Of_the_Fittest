@@ -180,14 +180,14 @@ const QUESTS = {
         repeatable: true,
         giver: "matin",
         
-        desc: "격변에서 살아남은 도적떼들은 여전히 자신들이 살아남기 위해 타인의 삶을 앗아가고 있다. 토벌하자.",
+        desc: "격변에서 살아남은 도적떼들은 여전히 자신들이 살아남기 위해 타인의 삶을 앗아가고 있다. 뒤틀린 숲에 있는 도적떼들을 토벌하자.",
         activeDesc: "생존자들의 왕을 죽이면 도적떼들은 알아서 흩어질 것이다. 그것이 임시방편이라 하더라도.",
         readyDesc: "생존자들의 왕이 죽고, 도적떼들은 흩어졌다. 주점에 돌아가서 보고하자.",
         
         targetBoss: "advancedBanditBoss",
         requiredKill: 1,
         
-        rewardGold: 8000,
+        rewardGold: 10000,
         
         require: {
             completedQuest: "act3_quest_01",
@@ -197,6 +197,32 @@ const QUESTS = {
         acceptText: "마틴은 당신에게 의뢰서를 내밀었다.<br><br>\"숲 근처에 있어. 마을입구에서 멀리 떨어진 곳은 아니야.\"",
         cancelText: "마틴은 의뢰서를 다시 받아갔다.",
         completeText: "마틴은 당신의 의뢰를 확인하고 고개를 끄덕였다. <br><br>\"...이제는 도적떼와 인신매매단을 구분할 수가 없어.<br>...고맙다.\""
+    },
+
+    abominationCaveRepeated_cleanup: {
+        id: "abominationCaveRepeated_cleanup",
+        title: "흉물소굴의 흉물 제거",
+        type: "investigate",
+        targetName : "흉물 소굴의 흉물 퇴치",
+        repeatable : true,
+        giver : "",
+        
+        desc : "마을을 습격해 사람들을 끌고 간 흉물을 퇴치하자. 뒤틀린 깊은숲에 있다.",        
+        activeDesc : "흉물은 여전히 사람들을 유린하고 있다.",
+        readyDesc : "흉물을 퇴치했다. 주점에 가서 보고하자.",
+        
+        targetFlag : "abominationCaveRepeated_boss_end",
+        requiredKill: 1,
+        rewardGold: 13000,
+        
+        require: {
+            completedQuest: "act3_quest_02",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신을 응시하다가 고개를 돌렸다. 그는 잔을 닦는 것에 집중하고 있다.",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.<br><br>\"...무리하지마.\"<br><br>들릴듯 말듯한 목소리에 당신은 잘못 들었나 했다. 당신이 고개를 들었지만 마틴은 이미 고개를 돌린 지 오래였다.",
+        completeText: "마틴은 당신에게서 의뢰서를 받았다. 당신에게 수당을 건네는 그의 시선은 당신의 몸 전체를 훑고 돌아갔다."
     },
 
     //스토리퀘스트
@@ -582,7 +608,7 @@ const QUESTS = {
         repeatable : false,
         giver : "",
         
-        desc : "그들은 절대로 없어지지 않는다. 오히려 힘든 상황이면 더더욱, 그들은 들끓는다. 도적떼를 해치우러 가자.",        
+        desc : "그들은 절대로 없어지지 않는다. 오히려 힘든 상황이면 더더욱, 그들은 들끓는다. 도적떼를 해치우러 뒤틀린 숲으로 가자.",        
         activeDesc : "그들은 아직 생존해 있다.",
         readyDesc : "도적떼의 보스를 죽였다. 주점에 가서 보고하자.",
         
@@ -599,8 +625,37 @@ const QUESTS = {
             player.flags.act3_quest_01_done_day = getCurrentDay(player);
         },
 
-        acceptText : "당신은 주점에서 의뢰를 떼어냈다. 마틴은 말없이 당신의 의뢰서에 체크를 했다.",
+        acceptText : "당신은 주점에서 의뢰를 떼어냈다. 도적떼는 뒤틀린 숲에 있다고 한다. 마틴은 말없이 당신의 의뢰서에 체크를 했다.",
         completeText : "당신이 의뢰를 보고하자 마틴은 고개를 끄덕였다. 그는 당신을 위아래로 훑어보았다."
+    },
+
+    act3_quest_02 : {
+        id : "act3_quest_02",
+        title : "흉물 퇴치",
+        type: "investigate",
+        targetName : "흉물 소굴의 흉물 퇴치",
+        repeatable : false,
+        giver : "",
+        
+        desc : "마을을 습격해 사람들을 끌고 간 흉물을 퇴치하자.",        
+        activeDesc : "흉물은 여전히 사람들을 유린하고 있다.",
+        readyDesc : "흉물을 퇴치했다. 주점에 가서 보고하자.",
+        
+        targetFlag : "act3_quest_02_boss_end",
+        requiredKill: 1,
+        rewardGold: 15000,
+
+        require : {
+            flag : "act3_quest_02_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_02_done = true;
+            player.flags.act3_quest_02_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "당신의 의뢰서에 적힌 흉물에 마틴은 인상을 썼다. <br><br>\"준비가 됐을 때 가. 흉물은... 잡히면 끝이니까.\"",
+        completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. <br><br>\"...수고했어.\""
     }
 };
 
@@ -918,6 +973,11 @@ function acceptQuest(player, questId){
         player.flags = player.flags || {};
         player.flags.survivalBanditRepeated_cleanup_done = false;
         delete player.flags.defeated_survivalBanditRepeated_advancedBanditBoss;
+    }
+
+    if (quest.id === "abominationCaveRepeated_cleanup"){
+        player.flags.abominationCaveRepeated_boss_end = false;
+        delete player.flags.defeated_abominationCaveRepeated_abominations;
     }
 
     player.quest.active = {

@@ -1294,6 +1294,37 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_firstConfession_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.act3CollapseDone &&
+        getTimePeriod(player) === "dawn" &&
+        player.flags?.matin_graveyard_04_after_seen &&
+        NPC_DATA["matin"].emotion.affection >= 90 &&
+        !hasNpcRelationship("matin", "lover") &&
+        !hasNpcRelationship("matin", "spouse") &&
+        !player.flags?.matin_firstConfession_event,
+
+    action : (player) => {
+        player.flags.matin_firstConfession_event = true;
+        addItem(player, ITEMS.consumable.greatSalmonSushi);
+        passTime(player, 15);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.matin_firstConfession_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",

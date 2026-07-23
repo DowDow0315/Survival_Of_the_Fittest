@@ -4,7 +4,7 @@ function processMatinText(text, player){
 }
 
 function getMatinTitle(player){
-    if (NPC_DATA["matin"].emotion.affection > 90) return "보석";
+    if (NPC_DATA["matin"].emotion.affection > 90) return "고양이";
     else if(NPC_DATA["matin"].emotion.affection > 70) return "바보";
     return "너";
 }
@@ -175,6 +175,13 @@ registerActions("matin",{
         ){
             startMatinGraveyardReturnEvent(player);
             return;
+        }
+
+        if (!player.flags?.matin_ask_about_pretty && (hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse"))){
+            choices.push({
+                text: "당신은 자신을 정말 예쁘다고 생각하냐고 물었다.",
+                scene: NPC_DATA.matin.scenes.matin_ask_about_pretty
+            });
         }
 
         startScene([

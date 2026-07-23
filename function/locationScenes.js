@@ -688,6 +688,25 @@ function buildForest_act3Scene(player, loc, randomDesc){
 function buildDeepForest_act3Scene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.quest?.active?.id === "act3_quest_02" &&
+        !player.flags?.act3_quest_02_boss_end
+    ){
+        choices.push({
+            text : "사람들을 끌고 간 흉물 소굴로 향한다",
+            action : "move_abominationCave"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "abominationCaveRepeated_cleanup"
+    ){
+        choices.push({
+            text : "흉물 소굴로 향한다",
+            action : "move_abominationCaveRepeated"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -1292,7 +1311,7 @@ window.arena_startRun = function(player){
             value:
                 "당신은 아레나 참가 신청서에 이름을 적었다. 접수원은 당신에게 한 번 경기장에 들어가면 패배하거나 스스로 물러날 때까지 연전이 이어진다고 설명했다." +
                 "<br><br>\"승리를 이어갈수록 상금도 커집니다. 하지만 물러나는 순간 연승 기록은 초기화됩니다.\"" +
-                "<br><br><br><br><span class='log-warning'>아레나에서는 저장할 수 없습니다. 5번 이길 시 체력 50/스테미너 50 회복됩니다.</span>"
+                "<br><br><br><br><span class='log-warning'>아레나에서는 저장할 수 없습니다. 5번 이길 시 체력 50/스테미너 50 회복됩니다. <br>그리고 아레나인데 도망을 왜 칩니까. 도망치면 그다음부터 아레나 나가도 저장 못합니다 아레나 원혼의 저주를 받아보시죠.</span>"
         },
         {
             type: "choice",
@@ -1379,11 +1398,12 @@ function handleArenaVictory(player){
     const recovered = streak % 5 === 0;
     
     if (recovered){
-        changeHP(player, 60);
-        changeStamina(player, 60);
+        changeHP(player, 50);
+        changeStamina(player, 50);
     }
     
-    passTime(player, 5);
+    changeStamina(player, -10)
+    passTime(player, 10);
     savePlayer(player);
 
     startScene([

@@ -5,7 +5,9 @@ function processValenText(text, player){
 
 function getValenTitle(player){
     if (NPC_DATA["valen"].emotion.rage > 60) return "방해꾼";
-    else if(NPC_DATA["valen"].emotion.affection > 80) return "창백한꽃";
+    else if(NPC_DATA["valen"].emotion.dominance > 50) return "퍼피";
+    else if(NPC_DATA["valen"].emotion.fear > 50) return "작은 꽃";
+    else if(NPC_DATA["valen"].emotion.affection > 80) return "창백한 꽃";
     else if(NPC_DATA["valen"].emotion.affection > 50) return "꽃";
     return "하류도시의 영웅";
 }

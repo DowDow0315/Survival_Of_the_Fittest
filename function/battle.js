@@ -2398,26 +2398,59 @@ function runAllyTurnSupport(){
     const support = battleState.options?.allyTurnSupport;
     if (!support) return;
 
-    const enemy = getSelectedEnemy();
-    const threshold = support.hpRate ?? 0.5;
+    const livingEnemies = battleState.enemies.filter(enemy => enemy.hp > 0);
+    if (livingEnemies.length === 0) return;
 
-    if (enemy.hp > enemy.maxHp * threshold) return;
+    const totalHp = battleState.enemies.reduce(
+        (sum, enemy) => sum + Math.max(0, enemy.hp),
+        0
+    );
 
-    const damage = support.damage || 15;
-    enemy.hp -= damage;
+    const totalMaxHp = battleState.enemies.reduce(
+        (sum, enemy) => sum + enemy.maxHp,
+        0
+    );
 
-    if (support.line){
-        log(support.line(), support.logType || "damage");
-    } else {
-        log(`${support.name || "아군"}의 지원공격! ${damage} 데미지!`, "damage");
-    }
+    const hpRate = support.hpRate ?? 0.5;
+
+    // 적 전체의 남은 체력이 지정 비율보다 높으면 시온은 아직 공격하지 않음
+    if (totalHp > totalMaxHp * hpRate) return;
+
+    // 참전 조건이 충족되면 살아 있는 적 중 랜덤 공격
+    const enemy =
+        livingEnemies[Math.floor(Math.random() * livingEnemies.length)];
+
+    const damage =
+        typeof support.damage === "function"
+            ? support.damage(enemy, battleState.player)
+            : support.damage ?? 15;
+
+    enemy.hp = Math.max(0, enemy.hp - damage);
+
+    const line =
+        typeof support.line === "function"
+            ? support.line(enemy, damage)
+            : support.line;
+
+    log(
+        line ||
+        `${support.name || "동료"}가 ${enemy.name}을 공격했다! ` +
+        `(${formatStatNumber(damage)} 데미지!)`,
+        "damage"
+    );
 
     if (enemy.hp <= 0){
         log(`${enemy.name}을 쓰러뜨렸다!`, "damage");
+
         if (areAllEnemiesDead()){
             endBattle("win");
             return;
         }
-        selectNextLivingEnemy();
+
+        if (getSelectedEnemy()?.hp <= 0){
+            selectNextLivingEnemy();
+        }
     }
+
+    updateBattleUI();
 }

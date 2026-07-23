@@ -12,15 +12,15 @@
         },
         {
             "item" : "wheat",
-            "chance" : 0.5
+            "chance" : 0.3
         },
         {
             "item" : "ironOre",
-            "chance" : 0.7
+            "chance" : 0.3
         },
         {
             "item" : "silverOre",
-            "chance" : 0.3
+            "chance" : 0.1
         }
     ],
     "teaseLines" : {

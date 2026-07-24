@@ -4449,7 +4449,7 @@ const MINE_ENEMY_POOL = [
 const MINE_ENEMY_POOL_AFTER_COLLAPSE = [
     { id: "abomination3", weight: 20 },
     { id: "abomination2", weight: 20 },
-    { id: "abomination", weight: 5 },
+    { id: "abomination1", weight: 5 },
     { id: "flower4", weight: 10 },
     { id: "flower5", weight: 10 }
 ];

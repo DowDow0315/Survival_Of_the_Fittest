@@ -1746,17 +1746,17 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
+        player.flags?.metNikolai &&
         player.location === "heavenPalace" &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
         ) &&
-        player.flags?.nikolai_upperOneNight_01_day !== getCurrentDay(player) &&
+        player.flags?.nikolai_upperOneNight_day !== getCurrentDay(player) &&
         Math.random() < 0.1,
 
     action : (player) => {
-        player.flags.nikolai_upperOneNight_01_seen = true;
-        player.flags.nikolai_upperOneNight_01_day = getCurrentDay(player);
+        player.flags.nikolai_upperOneNight_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(
@@ -3262,6 +3262,39 @@ window.EVENTS.push({
                 run : (player) => {
                     changeTrauma(player, -2);
                     addItem(player, ITEMS.consumable.greatMushroomSoup);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_hero_07",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        player.flags?.graveYardBottom_savingChild &&
+        Math.random() < 0.05,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님.\"<br><br>" +
+                    "뒤에서 어떤 아이가 당신의 옷자락을 잡았다. 당신은 아이의 얼굴을 기억해냈다. 당신이 공동묘지 지하 하층에서 구해줬던 그 아이다. 그는 주변의 눈치를 살피더니 당신의 소매에 뭔가를 집어넣었다." +
+                    "<br><br>\"그때 상처를 치료해주셔서 감사합니다. 치료를 받지 않았다면 저도 하류도시에 도착하기 전에 죽었을 거예요.\"<br><br>" +
+                    "아이는 몇 번이나 당신에게 감사의 인사를 전한 후 멀어져갔다. 당신은 볼록한 소매를 내려다보았다. 아이가 준 건 금광석이었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    addItem(player, ITEMS.misc.goldOre);
                     savePlayer(player);
                 }
             }

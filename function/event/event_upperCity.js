@@ -1465,6 +1465,48 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "uppercity_hero_05",
+    once : true, 
+    
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        !player.flags?.uppercity_hero_05_seen &&
+        player.flags?.graveYardBottom_savingUpper,
+
+    action : (player) => {
+        player.flags.uppercity_hero_05_seen = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"하류도시의 영웅.\"<br><br>"+
+                    "백색군인들 중 한 명이 당신에게 걸어왔다. 그는 당신에게 그때 목숨을 살려줘서 고맙다고 말했다. 당신은 그의 말끔한 얼굴을 찬찬히 살펴보았다. 당신으니 공동묘지 하층에서 봤던 사람이라는 걸 기억해냈다. 그는 고개를 숙이더니 당신에게 돈을 주려고 했다." +
+                    "<br><br>\"멈춰라.\"<br><br>" +
+                    "하늘색 머리카락의 금안, 백색군단의 수장인 에이든은 그를 멈춰 세우더니 그 대신 자신이 당신에게 고개를 숙여보였다. 에이든이 고개를 숙이자 많은 귀족들의 이목이 당신과 에이든에게 쏠렸다." +
+                    "<br><br>\"발렌님이 감사하고 계십니다. 상류도시를 위해 힘써주셔서 감사합니다.\"<br><br>" +
+                    "그는 당신에게 돈을 건넸다. 10000골드다! 그는 당신에게 고개를 한번 더 숙여보인 후 자신의 군대와 돌아갔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeGold(player, 10000);
+                    changeNPCEmotion("valen", "affection", 2);
+                    changeNPCEmotion("akasia", "affection", 2);
+                    changeNPCEmotion("aiden", "affection", 2);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "night_attack_01",
     condition : (player) =>
         player.justMoved &&

@@ -39,8 +39,8 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "survivalBandit_corpses", weight : 25 },
             { type : "event", id : "survivalBandit_trap", weight : 20 },
             { type : "event", id : "survivalBandit_child", weight : 8 },
-            { type : "battle", id : "advancedBandit1", minCount : 1, maxCount : 3, weight : 30 },
-            { type : "battle", id : "advancedBandit2", minCount : 1, maxCount : 2, weight : 25 },
+            { type : "battle", enemy : "advancedBandit1", minCount : 1, maxCount : 3, weight : 30 },
+            { type : "battle", enemy : "advancedBandit2", minCount : 1, maxCount : 2, weight : 25 },
             { type : "battle", enemies : ["advancedBandit1", "advancedBandit2"], weight : 30},
             { type : "battle", enemies : ["advancedBandit1", "advancedBandit1", "advancedBandit2"], weight : 25},
         ]

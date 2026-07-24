@@ -20,6 +20,7 @@ const LOCATION_SCENE_BUILDERS = {
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
     arena : buildArenaScene,
+    twinMansion : buildTwinMansionScene,
     heavenPalace : buildHeavenPalaceScene,
     heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
@@ -1616,6 +1617,56 @@ function getKainBackstageScene(player){
         NPC_DATA["kain"].scenes.kain_theaterRandom_AffectionLow
     );
 }
+
+function buildTwinMansionScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text:"데릭에게 다가간다", action:"deric_talk" },
+        { text:"에릭의 방으로 들어선다", action:"eric_talk" },
+        { text: "자기", action: "sleep_twinMansion" },
+        { text: "잠깐 쉬기", action: "rest_twinMansion" },
+        { text:"영광의 거리로 나간다", action:"move_gloryStreet" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
+        }
+    ];
+}
+
+window.sleep_twinMansion = function(player){
+    player.status.hp = player.status.maxHp;
+    player.status.stamina = player.status.maxStamina;
+
+    passTime(player, 50);
+    savePlayer(player);
+    showSingleTextScene(
+        "당신은 거실의 소파에서 잠을 청했다. 소파인데도 어지간한 침대보다 편안했다. 수면을 취한 후 다시 일어났을 때 몸의 피로는 말끔하게 풀려 있었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
+
+window.rest_twinMansion = function(player){
+    changeHP(player, 50);
+    changeStamina(player, 50);
+    passTime(player, 30);
+    savePlayer(player);
+
+    showSingleTextScene(
+        "당신은 거실의 소파에서 잠시 쉬었다.",
+        player,
+        {
+            onEnd: () => startScene(getLocationScene(player), player)
+        }
+    );
+};
 
 function buildHeavenPalaceScene(player, loc, randomDesc){
     const choices = [];

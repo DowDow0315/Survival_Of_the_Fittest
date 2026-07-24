@@ -477,6 +477,81 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_rewardKey",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        NPC_DATA["deric"].emotion.affection >= 70 &&
+        NPC_DATA["deric"].emotion.rage <= 50 &&
+        !player.flags?.deric_rewardKey &&
+        !player.flags?.dericTwinsMansionAdmission,
+
+    action : (player) => {
+        player.flags.dericTwinsMansionAdmission = true;
+        player.flags.deric_rewardKey = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_rewardKey,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_rewardKeyRepeated",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        NPC_DATA["deric"].emotion.affection >= 70 &&
+        NPC_DATA["deric"].emotion.rage <= 50 &&
+        player.flags?.deric_rewardKey &&
+        !player.flags?.dericTwinsMansionAdmission,
+
+    action : (player) => {
+        player.flags.dericTwinsMansionAdmission = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_rewardKeyRepeated,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_deleteKey",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "gloryStreet" || player.location === "richTownStreet" ||player.location === "heavenPalace" || player.location === "heavenRoad" ) &&
+        NPC_DATA["deric"].emotion.rage > 50 &&
+        player.flags?.dericTwinsMansionAdmission,
+
+    action : (player) => {
+        player.flags.dericTwinsMansionAdmission = false;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_deleteKey,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",

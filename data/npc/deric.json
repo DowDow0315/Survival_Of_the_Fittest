@@ -2089,6 +2089,88 @@
                     }
                 ]
             }
+        ],
+        "deric_dareToBreakWineGlass" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "쨍 소리와 함께 데릭이 마시고 있던 와인잔이 그대로 바닥에 떨어져서 산산조각났다. 데릭은 처음에는 자신의 눈을 믿지 못하겠다는 듯 두어 번 눈만 깜박였다. 느리게. 그리고 당신을 올려다보았다.",
+                    "<br>\"...아가, 이게 뭐하는 짓이지?\"<br>",
+                    "...그의 분노 게이지가 점점 올라가는 게 보인다."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 에릭에게 허락을 받았다고 말했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"...에릭?\"<br>",
+                                    "데릭은 화를 내려다가 말았다. 잠시 에릭의 얼굴이라도 떠올린 듯 그는 길게 한숨을 내쉬었다. 그는 깨진 잔을 치우지 않은 채 자리에서 일어나 다른 잔을 가져왔다.",
+                                    "<br>\"이번만큼은 봐주마, {dericTitle}. 하지만 다음은 없단다.\"<br>",
+                                    "그는 새로운 잔에 와인을 따르며 말했다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "deric_dareToBreakWineGlass", "value": true },
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": -3 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 일찍 죽고 싶지 않으면 술 좀 그만 처마시라고 말했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "데릭의 눈이 분노로 번뜩였다. 그는 당신의 손목을 잡더니 그대로 자신의 무릎에 당신의 몸을 올렸다. 당신은 위로 엉덩이만 쏙 내민 채 바둥거렸다.",
+                                    "<br><span class='log-deric'>짜악!</span><br>",
+                                    "데릭은 당신의 엉덩이를 가차없이 후려쳤다. 너무 아파서 당신의 허리가 본능적으로 튀어올랐다. 하지만 데릭은 당신을 봐주지 않았다. 짝, 짜악, 짝, 매질 소리가 계속 이어졌다.",
+                                    "<br>\"벌을 받고 싶은 거였다면 원하는 대로 해주마.\"<br>",
+                                    "당신은 그후로도 몇 분이나 그에게 엉덩이를 맞았다. 당신의 엉덩이에 시퍼런 멍이 들고 나서야 데릭은 당신을 놓아주었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "deric_dareToBreakWineGlass", "value": true },
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 2 },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": 5 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "데헷! 당신은 장난이었다고 말하며 필살 애교 윙크를 해보였다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "데릭은 당신의 애교에 잠시 멍하니 있다가 헛웃음을 지었다. 그는 당신의 손을 잡더니 그대로 당신을 자신의 무릎 위로 올렸다. 당신의 이마가 그의 가슴에 맞닿았다.",
+                                    "<br>\"그래, 오늘은... 우리 앙큼한 아가의 잘못을 눈 감아주도록 할까?\"<br>",
+                                    "그는 당신의 엉덩이를 주물럭거리며 한 번 실수는 넘어가주지만 두 번 실수는 이정도 애교로는 넘어가지 못할 거라고 장난스레 말했다. 그는 당신을 끌어안은 채 몇 번 당신의 엉덩이를 더 주물럭거리다가 마지막으로 아프게 꼬집은 후 당신을 놓아주었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "deric_dareToBreakWineGlass", "value": true },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 3 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 3 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     }
 }

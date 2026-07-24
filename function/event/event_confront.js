@@ -215,6 +215,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shop" &&
+        NPC_DATA["matin"].emotion.affection < 70 &&
         NPC_DATA["matin"].emotion.affection > 20 &&
         NPC_DATA["sora"].emotion.affection > 30 &&
         !player.flags?.soraDie &&
@@ -293,6 +294,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "tavern" &&
+        NPC_DATA["matin"].emotion.affection < 70 &&
         NPC_DATA["matin"].emotion.affection > 30 &&
         NPC_DATA["sora"].emotion.affection > 30 &&
         !player.flags?.soraDie &&
@@ -329,6 +331,7 @@ window.EVENTS.push({
                                 type : "effect",
                                 run : (player) => {
                                     changeNPCEmotion("sora", "affection", 5);
+                                    changeNPCEmotion("matin", "affection", -3);
                                     changeNPCEmotion("matin", "rage", 3);
                                     changeSensitivity(player, "mSensitivity", 5);
                                     changeArousal(
@@ -375,15 +378,196 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "soraAndMatin_03",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        !player.flags?.soraDie &&
+        !player.flags?.ericDie &&
+        player.flags?.soraAndMatin_day !== getCurrentDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.soraAndMatin_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상점에 들어온 당신은 소라와 마틴이 얘기를 나누고 있는 모습을 보았다. 마틴은 당신과 시선이 마주치자 고개만 살짝 까닥였다. 그런 마틴의 반응에 소라의 눈이 반달 모양으로 접혔다." +
+                    "<br><br>\"뭐야? 둘이 엄청 친해졌네?\"<br><br>" +
+                    "소라는 빙긋 웃으며 마틴에게 식자재가 담긴 상자를 내밀었다. 마틴은 상자의 크기를 보더니 양이 너무 작아진 것 아니냐고 물었다. 소라는 뺨을 부풀리며 요새 교역상들이 많이 죽어서, 수요보다 공급이 훨씬 부족한 상황이라고 말했다." +
+                    "<br><br>\"그건 소라도 어쩔 수 없어~\"<br><br>" +
+                    "소라는 당신을 보더니 하지만 당신이 마틴의 앞에서 자신에게 뽀뽀라도 해준다면, 편의를 조금은 봐줄 수도 있다고 말했다. 농담처럼 말하긴 했지만 '농담'이라는 말은 하지 않았다. 마틴의 표정이 굳었다." +
+                    "<br><br>\"필요없어.\"<br><br>" +
+                    "\"으응? 진짜? 에릭한테 내려면 좀 빡빡하지 않아?\"<br><br>" +
+                    "소라는 당신에게서 시선을 떼지 않고 있다...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 소라에게 가서 뽀뽀했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 소라에게 다가가자 소라의 미소가 미묘해졌다. 즐거워하는 것 같기도 했고, 화가 난 것 같기도 했다. 소라는 고개를 들더니 입을 벌렸다. 뽀뽀가 아니라 키스를 요구하고 있었다. 하지만 당신의 입술이 소라의 입술에 닿기 전에 마틴의 손이 당신의 입을 막았다." +
+                                    "<br><br>\"...하지 마.\"<br><br>" +
+                                    "마틴은 당신을 뒤로 밀어냈다. 그러더니 소라에게 돈을 지불한 후 상점을 나가버렸다. 소라는 팔랑팔랑 손을 흔들어 마틴을 보낸 뒤 당신을 쳐다보았다." +
+                                    "<br><br>\"네게 마틴이 소중해졌나봐... 소라, 약간 질투나려고 하는데.\"<br><br>" +
+                                    "소라는 미소를 지으며 꽃받침을 했다. 그리고 애교스러운 표정으로 당신을 올려다보았다." +
+                                    "<br><br>\"너무 질투나니까, 다음 번에는 조건 없이도 키스해줘야 해, 알겠지?\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("matin", "affection", -2);
+                                    changeNPCEmotion("matin", "rage", 10);
+                                    changeNPCEmotion("sora", "dominance", 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 마틴에게 돈이 필요하면 말하라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...안 필요해.\"<br><br>" +
+                                    "마틴은 단호하게 대답했다. 그러더니 소라의 앞으로 꽤나 많은 돈을 내놓았다. 소라는 돈의 액수를 대충 세보더니 조금 놀란 표정을 지었다." +
+                                    "<br><br>\"계산 잘못한 건... 아닌 것 같네?\"<br><br>" +
+                                    "\"얘로 그런 장난 치지 마.\"<br><br>" +
+                                    "마틴의 말에 소라는 눈을 동그랗게 떴다가도 파하하 웃어보였다. 아아, 부럽다, {soraTitle}, 다른 사람들한테도 사랑을 듬뿍 받고 있네." +
+                                    "<br><br>\"하지만 소라가 1위야. 마틴은 내가 봐줘서 2위로 하자.\"<br><br>" +
+                                    "마틴은 소라를 똑바로 응시했다." +
+                                    "<br><br>\"1위는 네가 정하는 게 아니야.\"<br><br>" +
+                                    "마틴은 당신을 힐끗 보더니 그대로 상점을 나가버렸다. 소라는 웃는 얼굴 그대로 마틴이 나간 상점 문을 응시하다가 당신을 돌아보았다." +
+                                    "<br><br>\"...마틴에게 우리 {soraTitle}가 많이 소중해졌나봐... 재밌네.\"<br><br>" +
+                                    "소라는 여전히 웃고 있었지만, 전혀 즐거워 보이지 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "dominance", -3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "soraAndMatin_04",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse") ) &&
+        !player.flags?.soraDie &&
+        player.flags?.soraAndMatin_day !== getCurrentDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.soraAndMatin_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마틴의 주점에서 밥을 먹고 있던 소라가 고개를 들었다. 그는 당신을 보더니 휘휘 손을 흔들어보였다." +
+                    "<br><br>\"여기 앉아!\"<br><br>" +
+                    "소라는 당신이 자신의 옆에 앉자 만족스러운 미소를 지으며 마틴에게 주문을 했다. 마틴은 소라의 주문을 듣더니 그 주문은 당신을 위한 주문이냐고 물었다. 소라는 까르르 웃으며 마틴은 눈치도 빠르다고 대꾸했다. 마틴은 소라에게 대꾸하지 않았다. 요리를 끝낸 그가 내민 건 소라가 주문한 음식이 아니었다." +
+                    "<br><br>\"걔는 그것보다 이거 좋아해.\"<br><br>" +
+                    "소라는 마틴이 내민 요리와 당신을 번갈아 보았다. 소라의 미소가 조금 희미해졌다." +
+                    "<br><br>\"둘이 많이 친해졌나 보네...? 무슨 사이야?\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 마틴과 연인 사이라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 소라의 표정이 굳었다. 더 이상 소라의 얼굴에서는 미소를 찾아볼 수가 없었다. 마틴은 소라를 힐끗 보더니 자기도 모르게 망치를 집어 들었다. 그가 긴장했을 때 나오는 습관이었다." +
+                                    "<br><br>\"...장난이지?\"<br><br>" +
+                                    "\"장난 아니야.\"<br><br>" +
+                                    "마틴은 당신에게 눈짓을 해보였다. 그는 당신이 자신에게 다가오자 곧바로 당신을 자신의 등 뒤로 숨겼다. 그의 목덜미에는 식은땀이 맺혀 있었다. 소라는 이제 무표정으로 당신과 마틴을 번갈아보았다." +
+                                    "<br><br>\"아닌데. <span class='log-pale'>소라가 1위여야 하는데.<br><br>소라에게 대체 뭐가 부족했던 거지.</span>\"<br><br>" +
+                                    "마틴의 뒤에 있는 당신을 똑바로 쳐다보며 중얼거리던 소라는 고개를 숙였다. 그러더니 그는 말없이 일어나서 주점을 나갔다. <br>...당신의 등뒤로 식은땀이 흘렀다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "rage", 10);
+                                    changeNPCEmotion("matin", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 마틴은 좋은 친구라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 마틴의 표정이 굳었다. 그는 딱딱한 얼굴로 당신을 쳐다보았다. 그의 검은 눈동자에 불신이 서렸다." +
+                                    "<br>하지만 결국 그는 아무 말도 하지 않았다. 당신의 앞에 요리를 내려놓은 후 그는 다른 요리를 하러 갔다. 당신을 쳐다보지도 않고." +
+                                    "<br>당신과 마틴을 번갈아 바라보던 소라는 만족스럽다는 듯이 웃었다." +
+                                    "<br><br>\"봐. 소라는 언제나 1위라니까. 그렇지?\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "affection", 3);
+                                    changeNPCEmotion("matin", "affection", -20);
+                                    changeNPCEmotion("matin", "rage", 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "dericAndKain_01",
     condition : (player) =>
         player.justMoved &&
         player.location === "nobleSquare" &&
+        player.flags?.dericAndKain_day !== getCurrentDay(player) &&
         NPC_DATA["kain"].emotion.affection > 10 &&
         NPC_DATA["deric"].emotion.affection > 10 &&
         Math.random() < 0.09,
 
     action : (player) => {
+        player.flags.dericAndKain_day = getCurrentDay(player);
+        savePlayer(player);
+
         startScene([
             {
                 type : "text",
@@ -507,12 +691,12 @@ window.EVENTS.push({
         player.location === "gloryStreet" &&
         !player.flags?.ericDie &&
         getTimePeriod(player) === "dawn" &&
-        player.flags?.dericAndEric_01_day !== getCurrentDay(player) &&
+        player.flags?.dericAndEric_day !== getCurrentDay(player) &&
         NPC_DATA["deric"].emotion.affection > 10 &&
         Math.random() < 0.07,
 
     action : (player) => {
-        player.flags.dericAndEric_01_day = getCurrentDay(player);
+        player.flags.dericAndEric_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene([
@@ -521,6 +705,290 @@ window.EVENTS.push({
                 value : [
                     "영광의 거리를 걷던 당신은 에릭이 데릭을 부축하며 걸어오는 모습을 보았다. 데릭은 에릭의 목에 팔을 두른 채로 무어라 떠벌떠벌 말하고 있었고 에릭의 표정은.... 읽을 수가 없었다." +
                     " 혼자 떠들어대던 데릭은 그대로 푹 고개를 숙였다. 데릭이 말을 멈추고 나서야 에릭은 데릭을 힐끗 내려다보았다. <br><br>...두 사람은 그대로 쌍둥이 저택으로 들어가버렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "sionAndMatin_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sionAndMatin_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.sionAndMatin_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님.\"<br><br>" +
+                    "당신이 주점에 들어서자마자 당신을 반긴 사람은 시온이었다. 그는 당신이 요새 주점에 많이 들르는 걸 알고 있다며 웃었다." +
+                    "<br><br>\"퀘스트 때문에 자주 들fmtlsms rjs dkfwlaks, 아무래도 영웅님이시다 보니까 다른 사람과 엮인 소문도 많이 들리더라고요.\"<br><br>" +
+                    "그는 힐끗 마틴 쪽을 보더니 다시 당신에게로 시선을 돌렸다. 그는 방긋 웃으며 자신도 요리를 해왔다고 말했다." +
+                    "<br><br>\"쉘터에서 만들었어요. 영웅님을 위해.... 여기서 먹어도 되죠?\"<br><br>" +
+                    "\"안돼.\"<br><br>" +
+                    "마틴과 시온의 시선이 부딪혔다." +
+                    "<br><br>\"남의 음식점에 자기 요리...\"<br><br>" +
+                    "\"아, 역시! 그럼 쉘터에 가서 같이 먹어요, 영웅님!\"" +
+                    "<br><br>마틴의 말이 끝나기도 전에 시온은 그의 말을 가로채며 당신을 반짝반짝거리는 눈으로 올려다보았다. 그의 요리는 정성스럽게 만들어진 것처럼 보이긴 했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 고개를 저었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 젓자 시온의 표정이 무너졌다. 그는 촉촉한 눈동자로 당신을 올려다보았다." +
+                                    "<br><br>\"저 정말 열심히 만들었는데....\"<br><br>" +
+                                    "그는 천천히 시선을 돌려 마틴을 보았다. 당신을 바라볼 때의 시선과는 다르다. 마틴을 바라보는 그의 눈에는 살기가 서려 있었다." +
+                                    "<br><br>\"그럼 다음번에는 먹어주세요. 알겠죠?\"<br><br>" +
+                                    "시온은 다시 당신에게로 고개를 돌렸다. 당신과 시선이 마주친 그는 금방이라도 울 것 같은 얼굴이 되어버리더니 그대로 급하게 주점을 나가버렸다." +
+                                    "<br><br>\"...미친 새끼.\"<br><br>" +
+                                    "마틴은 낮게 한숨을 쉬더니 당신에게 자신이 끓인 수프를 내밀었다. 방금 만든 요리인지 따듯하다...."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("matin", "affection", 2);
+                                    changeNPCEmotion("sion", "affection", -1);
+                                    changeNPCEmotion("sion", "rage", 5)
+                                    changeStamina(player, 15);
+                                    changeHP(player, 30);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 끄덕였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 끄덕이자 시온은 세상을 다 가진 듯한 표정을 지었다. 만약 그에게 강아지 꼬리가 있었다면 지금쯤 세차게 흔들리고 있었을 테다. 그는 당신의 팔을 붙잡더니 지금 바로 쉘터에 가자고 말했다." +
+                                    "<br><br>\"음식은 따듯할 때 먹어야 해요, 영웅님. 아마 그쪽도 아시겠지만.\"<br><br>" +
+                                    "의기양양한 얼굴로 마틴을 한번 쳐다본 후 시온은 당신을 이끌고 쉘터로 향했다. 당신이 주점을 나갈 때까지도 마틴은 아무 말도 하지 않았다." +
+                                    "<br>쉘터에 도착한 당신에게 시온은 쑥스러워하며 자신의 요리를 대접했다. 맛은 마틴의 요리에 미치지 못했지만, 정성을 들였다는 것만큼은 분명했다. 당신의 반응에 시온은 더 노력하겠다고 말하며 주먹을 불끈 쥐었다. 그의 요리에는 사랑이 넘쳤다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("matin", "affection", -5);
+                                    changeNPCEmotion("sion", "affection", 5);
+                                    changeStamina(player, 10);
+                                    changeHP(player, 20);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "sionAndMatin_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.sionAndMatin_day !== getCurrentDay(player) &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.sionAndMatin_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 마틴과 어두운 골목에서 만났다. 오늘도 그는 연어가 든 봉지를 들고 있었다. 마틴은 말없이 당신의 옆에서 걸아갔다. 그는 당신의 이야기를 들으며 몇 번 고개를 까닥였다." +
+                    "<br><br>\"영웅님!\"<br><br>" +
+                    "시온이다. 그는 당신과 마틴을 번갈아보더니 슬쩍 당신의 옆에 섰다." +
+                    "<br><br>\"영웅님, 이 골목은 너무 위험해요. 제가 옆에서 지켜드릴게요.\"<br><br>" +
+                    "시온의 살기 어린 시선에도 마틴은 물러나지 않고 묵묵히 당신의 옆을 지켰다. 당신은 두 사람 사이에 낀 채 걸어갔다. 분위기가 굉장히 불편해졌다...." +
+                    "<br><br>\"근데 마틴 형은 요새 주점 일 안 바빠요? 고양이 밥도 줘야 하고, 공동묘지에도 가야 하고, 영웅님 졸졸 쫓아다니기도 해야 하고.... 주점이 잘 안 되나 봐요?\"<br><br>" +
+                    "\"...얘는 입 바쁜 사람 안 좋아하는데.\"<br><br>" +
+                    "\"시끄러워\", \"닥쳐\" 같은 말이 아니었다.<br><br>...마틴은 시온의 시선을 피하지 않았다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 말 많은 사람은 별로 안 좋아한다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 시온이 우뚝 멈춰 섰다. 그는 조용히 당신과 마틴을 번갈아보았다. 당신은 순간 시온의 손이 대검의 손잡이에 닿았다가 떨어지는 것을 보았다." +
+                                    "<br><br>\"....\"<br><br>" +
+                                    "마틴은 당신을 자신의 뒤로 뺐다. 마틴의 행동에 시온은 기가 차다는 듯이 웃었다." +
+                                    "<br><br>\"당신이 지켜준 거라고 생각해요? 주제 파악도 못하네... 당신은 영웅님 때문에 몇 번이고 산 거야.\"<br><br>" +
+                                    "시온은 대검의 손잡이를 놓고 다른 방향으로 걸어갔다. 모퉁이를 도는 순간, 오늘도 그의 발걸음 소리는 들리지 않았다. 당신과 마틴이 다시 걷기 시작하고 나서야 일정한 거리를 둔 발소리가 뒤따라왔다. 아무리 걸어도 멀어지지 않는 소리였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeNPCEmotion("matin", "affection", 2);
+                                    changeNPCEmotion("sion", "affection", -3);
+                                    changeNPCEmotion("sion", "rage", 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 말 많은 사람을 안 좋아하지는 않는다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...내가 너에 대해 모르는 게 많았네, {playerName}.\"<br><br>" +
+                                    "짧은 정적 후에 마틴은 그 말을 씹어 뱉듯 내뱉었다. 그러더니 그는 발걸음을 멈추고 당신의 옆에서 떨어졌다. 당신과 시선이 마주치자 마틴은 고개를 돌려버렸다." +
+                                    "<br><br>\"네 기사님이랑 가.\"<br><br>" +
+                                    "\"안 그래도 영웅님은 제가 지켜드릴 거예요. 당신과 다르게 저는 영웅님을 보호해드릴 수 있거든요. 당신은 당신 몸이나 잘 챙기지 그래요?\"<br><br>" +
+                                    "시온은 당신의 팔짱을 끼며 웃었다. 당신이 다른 말을 하기도 전에 마틴은 그대로 골목길 너머로 사라져버렸다... 시온은 당신에게 팔짱을 낀 채 재잘재잘 떠들었다. 평소보다 기분이 더 좋아보인다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeNPCEmotion("matin", "affection", -8);
+                                    changeNPCEmotion("sion", "affection", 5);
+                                    changeNPCEmotion("matin", "rage", 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "sionAndKain_01",
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "richTownStreet" || player.location === "gloryStreet") &&
+        getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
+        player.flags?.sionAndKain_day !== getCurrentDay(player) &&
+        player.flags?.sion_uppercity &&
+        NPC_DATA["kain"].emotion.affection >= 50 &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.sionAndKain_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신을 발견한 카인이 당신에게 걸어왔다. 카인이 당신에게 말을 걸려는 순간, 누군가 불쑥 두 사람의 사이로 끼어들었다. 시온이다." +
+                    "<br><br>\"영웅님, 제가 요새 괜찮은 가수를 한 명 찾았는데요, 한 번 같이 가서 보실래요?\"<br><br>" +
+                    "\"...뭐?\"<br><br>" +
+                    "카인은 기가 차다는 듯이 시온을 바라보다가 그의 어깨를 옆으로 밀쳤다. 하지만 시온은 당신의 앞에서 물러나지 않았다. 그는 단단히 당신의 앞을 지켰다. 시온은 고개를 한쪽으로 기울이며 카인을 올려다보았다." +
+                    "<br><br>\"하실 말씀이라도?\"<br><br>" +
+                    "\"괜찮은 가수 이 지랄. 씨발, 여기에 나보다 나은 가수가 어딨어.\"<br><br>" +
+                    "\"어라, 본인도 알고 있잖아요? 요즘은 예전만큼 찾는 사람이 없던데. 거울도 못 보는 가수라니 마음이 아프네요.\"<br><br>" +
+                    "\"...이새끼가, 네가 뭘 안다고.\"<br><br>" +
+                    "...분위기가 점점 살벌해진다...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온에게 카인한테 사과하라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...제가요?\"<br><br>" +
+                                    "시온은 이해가 안 간다는 듯 당신과 카인을 번갈아보았다. 그러더니 그는 카인을 옆으로 밀치고 당신의 손을 붙잡았다." +
+                                    "<br><br>\"영웅님은 너무 착하셔서 못 보고 있는 거예요. 카인은.... 당신에게 도움이 될 수 없어요. 오히려 당신을 나락까지 떨어뜨린다면 모를까.<br><br>그는 언젠가 당신을 해칠 거예요. 저는 영웅님이 아파하는 모습을 보고 싶지 않아요.\"<br><br>" +
+                                    "탁. 이번엔 카인이 시온을 옆으로 밀쳤다. 시온은 몇 걸음 당신에게서 물러났다." +
+                                    "<br><br>\"뭐래, 씨발, 내 눈엔 네가 더 또라이로 보이거든?\"<br><br>" +
+                                    "\"영웅님, 잘 생각해보세요. 그에게 남은 게 뭐가 있죠? 그림자 명성? 데릭이 없으면 무너질 부와 지위? 그것도 아니면.... 반반한 얼굴? 하지만 그마저도 누구보다 뛰어나지는 못한...\"<br><br>" +
+                                    "카인의 손이 시온의 뺨을 향해 날아갔다. 당신이 막을 새도 없었다. 시온은 일부러 그에게 맞아준 후 고개를 돌린 채 당신을 바라보았다." +
+                                    "<br><br>\"봤죠. 이 폭력은 언젠가 영웅님에게도 쏟아질 거예요.\"<br><br>" +
+                                    "카인의 호흡이 순간 멎었다. 그의 눈은 흔들리고 있었다. 시온은 비릿한 미소를 짓더니 그대로 당신과 카인을 남기고 가버렸다. 시온이 사라진 후에도 카인은 한동안 아무 말도 하지 못했다." +
+                                    "<br>...당신은 말이 없어진 카인의 옆에 있어주었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeStamina(player, -15);
+                                    changeNPCEmotion("kain", "affection", 5);
+                                    changeNPCEmotion("kain", "rage", -5);
+                                    changeNPCEmotion("sion", "affection", -3);
+                                    changeNPCEmotion("sion", "rage", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 카인에게 너무 열내지는 말라고 했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"내가 잘못했다고? 이새끼가 먼저 시비 걸었는데?\"<br><br>" +
+                                    "오히려 카인의 화를 더 돋운 것 같다. 그는 당신의 어깨를 세게 잡으며 정말로 자신이 잘못한 거라 생각하냐고 물었다. 어깨가 아파서 당신이 인상을 찌푸리자 시온의 표정도 살벌해졌다. 그는 카인의 손을 쳐내더니 그대로 그를 밀쳤다." +
+                                    "<br><br>\"영웅님한테 뭐하는 짓이에요.\"<br><br>" +
+                                    "시온은 뒤로 넘어진 카인을 서늘한 표정으로 내려다보았다. 카인은 더 이상 참지 않았다. 그는 자신보다 시온이 세다는 걸 알면서도 그대로 달려들었다. 시온의 머리채가 그의 손에 잡혔다. 시온은 쌍욕을 내뱉더니 카인을 그대로 뒤로 밀쳐냈다. 카인은 또 넘어졌지만 달려드는 걸 멈추지 않았다. 이성을 잃은 것 같았다." +
+                                    "<br><br>\"광견병이라더니 진짜 광... 악!\"<br><br>" +
+                                    "카인에게 물린 시온의 팔에 피가 번졌다. 소란이 더 커지고, 결국 백색 군인들이 나타나서 그들의 싸움을 중재했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeStamina(player, -15);
+                                    changeNPCEmotion("kain", "affection", -5);
+                                    changeNPCEmotion("kain", "rage", 10);
+                                    changeNPCEmotion("sion", "dominance", 4);
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
                 ]
             }
         ], player, {

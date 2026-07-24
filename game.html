@@ -278,10 +278,22 @@
             const hourText = String(hour).padStart(2, "0");
             const minuteText = String(minute).padStart(2, "0");
             
+            const weatherDisplay = getWeatherDisplay(player.weather);
+
             document.getElementById("timeText").innerHTML =
-            `<div style="text-align:center;">
-                [${date.month}/${date.day}]<br><br>
-                ${day}일차 ${weekday} | ${hourText}:${minuteText}
+            `<div class="time-info">
+                <div class="calendar-date">
+                    [${date.month}/${date.day}]
+                    </div>
+                    
+                    <div class="current-time">
+                        ${day}일차 ${weekday} | ${hourText}:${minuteText}
+                    </div>
+                        
+                    <div class="weather-badge ${weatherDisplay.className}">
+                        <span class="weather-icon">${weatherDisplay.icon}</span>
+                        <span class="weather-name">${weatherDisplay.text}</span>
+                    </div>
             </div>`;
 
             //장소표시
@@ -1219,6 +1231,72 @@
         .status-box p{
             margin: 4px 0;
         }
+
+        .time-info{
+            text-align: center;
+            margin: 10px 0 14px;
+        }
+
+        .calendar-date{
+            color: #bbb;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .current-time{
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .weather-badge{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            
+            min-width: 80px;
+            padding: 6px 12px;
+            
+            border: 1px solid;
+            border-radius: 20px;
+            
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .weather-icon{
+            font-size: 18px;
+        }
+        
+        .weather-sunny{
+            color: #ffd966;
+            background-color: rgba(255, 217, 102, 0.12);
+            border-color: #ffd966;
+            box-shadow: 0 0 8px rgba(255, 217, 102, 0.2);
+        }
+        
+        .weather-rain{
+            color: #7db9ff;
+            background-color: rgba(70, 130, 180, 0.15);
+            border-color: #5b9bd5;
+            box-shadow: 0 0 8px rgba(91, 155, 213, 0.2);
+        }
+        
+        .weather-storm{
+            color: #d7b5ff;
+            background-color: rgba(120, 80, 160, 0.18);
+            border-color: #a678d1;
+            box-shadow: 0 0 10px rgba(166, 120, 209, 0.3);
+        }
+        
+        .weather-snow{
+            color: #eaf7ff;
+            background-color: rgba(210, 240, 255, 0.12);
+            border-color: #bde9ff;
+            box-shadow: 0 0 8px rgba(189, 233, 255, 0.25);
+        }
+
 
         .status-bar{
             margin: 16px 0;

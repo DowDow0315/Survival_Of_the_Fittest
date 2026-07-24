@@ -311,6 +311,13 @@ registerActions("deric", {
     otherTalk : (player) => {
         const choices = [];
 
+        if (player.flags?.eric_break_wineGlass && !player.flags?.deric_dareToBreakWineGlass){
+            choices.push({
+                text: "당신은 데릭의 잔을 깨뜨렸다.",
+                scene: NPC_DATA.deric.scenes.deric_dareToBreakWineGlass
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "deric_giveFood"

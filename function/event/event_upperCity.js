@@ -8,13 +8,45 @@ window.EVENTS.push({
         NPC_DATA["eric"].emotion.affection >= 20 &&
         NPC_DATA["eric"].emotion.affection <= 50 &&
         getTimePeriod(player) === "dawn"&&
+        player.flags?.eric_uppercity_day !== getCurrentDay(player) &&
         !player.flags?.ericDie &&
         Math.random() < 0.06,
 
     action : (player) => {
+        player.flags.eric_uppercity_day = getCurrentDay(player);
+        savePlayer(player);
 
         startScene(
             NPC_DATA["eric"].scenes.eric_hotelSleep,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_umbrella_event_01",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenRoad" &&
+        player.weather === "rain" &&
+        NPC_DATA["eric"].emotion.affection >= 10 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        hasItemOrEquipped(player, "umbrella") &&
+        player.flags?.eric_uppercity_day !== getCurrentDay(player) &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.eric_uppercity_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_umbrella_event_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -65,6 +97,8 @@ window.EVENTS.push({
         player.location === "heavenPalace" &&
         player.flags?.rebel_story_02_after_uppercity_promise_invitation &&
         isPlayerProperlyDressed(player) &&
+        player.weather === "sunny" &&
+        !player.flags?.valenDie &&
         !player.flags?.valen_invitation_01_seen,
 
     action : (player) => {
@@ -116,6 +150,7 @@ window.EVENTS.push({
         (getTimePeriod(player) === "afternoon" ||
          getTimePeriod(player) === "night") &&
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
+         !player.flags?.valenDie &&
          player.location === "heavenPalace" &&
          Math.random() < 0.08,
 
@@ -225,6 +260,7 @@ window.EVENTS.push({
         player.flags?.dericFirstMet &&
         player.flags?.uppercity_hero_event_seen &&
         isPlayerProperlyDressed(player) &&
+        player.weather === "sunny" &&
         getCurrentDay(player) > player.flags.dericFirstMetDay &&
         (player.location === "richTownStreet" ||
          player.location === "gloryStreet" ||
@@ -522,6 +558,56 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_luckyCoincidence_01",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["akasia"].emotion.affection >= 30 &&
+        ["rain", "snow"].includes(player.weather) &&
+         player.flags?.akasia_luckyCoincidence_day !== getCurrentDay(player) &&
+        ["gloryStreet", "richTownStreet", "heavenRoad"].includes(player.location) &&
+         Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.akasia_luckyCoincidence_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["akasia"].scenes.akasia_luckyCoincidence_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_luckyCoincidence_02",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["akasia"].emotion.affection >= 30 &&
+        player.weather === "sunny" &&
+        player.flags?.akasia_luckyCoincidence_day !== getCurrentDay(player) &&
+        ["gloryStreet", "richTownStreet", "heavenRoad"].includes(player.location) &&
+         Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.akasia_luckyCoincidence_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["akasia"].scenes.akasia_luckyCoincidence_02, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",
@@ -560,6 +646,7 @@ window.EVENTS.push({
         player.flags?.kain_firstMeeting_seen &&
         player.flags?.kain_noShow_01_day !== getCurrentDay(player) &&
         player.location === "gloryStreet" &&
+        ["sunny", "rain", "snow"].includes(player.weather) &&
         Math.random() < 0.07,
 
     action: (player) => {
@@ -583,6 +670,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.flags?.kain_firstMeeting_seen &&
         player.flags?.kain_noShow_02_day !== getCurrentDay(player) &&
+        player.weather === "sunny" &&
         ["richTownStreet", "gloryStreet", "theater"].includes(player.location) &&
         Math.random() < 0.08,
 
@@ -692,6 +780,7 @@ window.EVENTS.push({
         player.flags?.kain_umbrella_seen &&
         !player.flags?.kain_sing_01_seen &&
         getCurrentDay(player) >= player.flags.kain_umbrella_seen_day + 7 &&
+        player.weather === "sunny" &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -722,17 +811,46 @@ window.EVENTS.push({
         NPC_DATA["kain"].emotion.affection >= 30 &&
         NPC_DATA["kain"].emotion.rage <= 60 &&
         player.flags?.kain_sing_01_seen &&
+        player.weather === "sunny" &&
         !player.flags?.KainWillNotSingHisSong &&
-        player.flags?.kain_sing_02_day !== getCurrentDay(player) &&
+        player.flags?.kain_sing_day !== getCurrentDay(player) &&
         player.location === "theater" &&
         Math.random() < 0.08,
 
     action: (player) => {
-        player.flags.kain_sing_02_day = getCurrentDay(player);
+        player.flags.kain_sing_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(
             NPC_DATA["kain"].scenes.kain_sing_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_sing_03",
+
+    condition: (player) =>
+        player.justMoved &&
+        NPC_DATA["kain"].emotion.affection >= 30 &&
+        NPC_DATA["kain"].emotion.rage <= 60 &&
+        player.flags?.kain_sing_01_seen &&
+        ["rain", "snow", "storm"].includes(player.weather) &&
+        !player.flags?.KainWillNotSingHisSong &&
+        player.flags?.kain_sing_day !== getCurrentDay(player) &&
+        player.location === "theater" &&
+        Math.random() < 0.08,
+
+    action: (player) => {
+        player.flags.kain_sing_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_sing_03,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
@@ -1030,6 +1148,7 @@ window.EVENTS.push({
         player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
         (player.location === "richTownStreet" ||
          player.location === "gloryStreet" ) &&
+         player.weather === "sunny" &&
         Math.random() < 0.08,
 
     action : (player) => {

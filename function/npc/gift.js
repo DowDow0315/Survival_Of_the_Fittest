@@ -3501,21 +3501,21 @@ const NPC_GIFT_CONFIG = {
 
             mixed : {
                 great : {
-                    affection : 1,
+                    affection : 3,
                     rage : 0,
                     lust : 0,
                     line : "에릭은 당신의 요리를 먹었다. 그는 당신의 혼합 요리를 골고루 다 먹었다."
                 },
 
                 normal : {
-                    affection : 0,
+                    affection : 2,
                     rage : 0,
                     lust : 0,
                     line : "에릭은 말없이 당신의 요리를 먹었다. 당신이 멀뚱멀뚱 서있자 그는 당신에게는 견과류가 든 병을 던져주었다. 당신은 그의 옆에서 그의 견과류를 먹었다."
                 },
 
                 bad : {
-                    affection : -1,
+                    affection : 0,
                     rage : 0,
                     lust : 0,
                     line : "당신이 눈치를 보는 것이 느껴지자 에릭은 당신을 힐끗 보더니 말없이 당신의 요리를 다 해치워주었다."

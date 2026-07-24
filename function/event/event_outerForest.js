@@ -11,6 +11,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "morning" ||
             getTimePeriod(player) === "afternoon"
         ) &&
+        ["sunny", "rain", "snow"].includes(player.weather) &&
         !player.flags?.yuriDie &&
         Math.random() < 0.1,
 
@@ -37,6 +38,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "morning" ||
             getTimePeriod(player) === "afternoon"
         ) &&
+        player.weather === "sunny" &&
         !player.flags?.yuriDie &&
         Math.random() < 0.1,
 

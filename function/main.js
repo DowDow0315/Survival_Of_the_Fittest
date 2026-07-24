@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     player = normalizePlayer(player);
     player.flags = player.flags || {};
 
+    updateDailyWeather(player);
+
     await loadAllNPCData();
     await loadEnemies();
 
@@ -1223,6 +1225,7 @@ function passTime(player, amount){
     }
 
     updateNpcDaily(player);
+    updateDailyWeather(player);
 
     updateStatusUI(player);
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -1256,6 +1259,113 @@ function getCalendarDate(player){
     }
 
     return { month: 12, day: 31 };
+}
+
+const WEATHER = {
+    SUNNY: "sunny",
+    RAIN: "rain",
+    STORM: "storm",
+    SNOW: "snow"
+};
+
+const MONTHLY_WEATHER_CHANCE = {
+    1:  { sunny: 75, rain: 5,  storm: 0,  snow: 20 },
+    2:  { sunny: 80, rain: 5,  storm: 0,  snow: 15 },
+    3:  { sunny: 80, rain: 15, storm: 2,  snow: 3 },
+    4:  { sunny: 78, rain: 20, storm: 2,  snow: 0 },
+    5:  { sunny: 75, rain: 22, storm: 3,  snow: 0 },
+    6:  { sunny: 60, rain: 32, storm: 8,  snow: 0 },
+    7:  { sunny: 40, rain: 45, storm: 15, snow: 0 },
+    8:  { sunny: 45, rain: 40, storm: 15, snow: 0 },
+    9:  { sunny: 65, rain: 28, storm: 7,  snow: 0 },
+    10: { sunny: 82, rain: 16, storm: 2,  snow: 0 },
+    11: { sunny: 87, rain: 10, storm: 1,  snow: 2 },
+    12: { sunny: 78, rain: 5,  storm: 0,  snow: 17 }
+};
+
+function rollWeather(player){
+    const date = getCalendarDate(player);
+    const chances = MONTHLY_WEATHER_CHANCE[date.month];
+
+    // 혹시 월별 확률 데이터를 찾지 못하면 맑음 처리
+    if (!chances){
+        return WEATHER.SUNNY;
+    }
+
+    const roll = Math.random() * 100;
+
+    let accumulatedChance = 0;
+
+    for (const [weather, chance] of Object.entries(chances)){
+        accumulatedChance += chance;
+
+        if (roll < accumulatedChance){
+            return weather;
+        }
+    }
+    return WEATHER.SUNNY;
+}
+
+function getWeatherDisplay(weather){
+    const weatherData = {
+        [WEATHER.SUNNY]: {
+            icon: "☀️",
+            text: "맑음",
+            className: "weather-sunny"
+        },
+
+        [WEATHER.RAIN]: {
+            icon: "🌧️",
+            text: "비",
+            className: "weather-rain"
+        },
+
+        [WEATHER.STORM]: {
+            icon: "⛈️",
+            text: "폭풍",
+            className: "weather-storm"
+        },
+
+        [WEATHER.SNOW]: {
+            icon: "❄️",
+            text: "눈",
+            className: "weather-snow"
+        }
+    };
+
+    return weatherData[weather] || weatherData[WEATHER.SUNNY];
+}
+
+function updateDailyWeather(player){
+    const currentDay = getCurrentDay(player);
+
+    if (
+        player.weatherDay === currentDay &&
+        player.weather
+    ){
+        return;
+    }
+
+    player.weatherDay = currentDay;
+    player.weather = rollWeather(player);
+
+    savePlayer(player);
+}
+
+function isSunny(player){
+    return player.weather === WEATHER.SUNNY;
+}
+
+function isRaining(player){
+    return player.weather === WEATHER.RAIN;
+}
+
+function isStorming(player){
+    return player.weather === WEATHER.STORM;
+}
+
+function isSnowing(player){
+    return player.weather === WEATHER.SNOW;
 }
 
 const NPC_LUST_GROWTH_CONDITIONS = {
@@ -2345,9 +2455,11 @@ function moveTo(player,locationKey){
     const current = player.location;
     const connections = LOCATIONS[current].connections;
 
-    if (locationKey === "twinsMansion" && !player.flags?.twinMansionUnlocked){
+    const canEnterTwinsMansion = player.flags?.dericTwinsMansionAdmission || player.flags?.ericTwinsMansionAdmission;
+    
+    if (locationKey === "twinsMansion" && !canEnterTwinsMansion){
         showSingleTextScene(
-            "...데릭이나 에릭 없이는 들어갈 수 없을 거 같다.",
+            "...데릭이나 에릭의 허락 없이는 들어갈 수 없을 것 같다.",
             player
         );
         return;

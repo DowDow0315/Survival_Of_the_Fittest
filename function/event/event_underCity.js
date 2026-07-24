@@ -3,7 +3,7 @@ window.EVENTS.push({
     id : "eric_huntingMonster_event",
 
     condition : (player) =>
-        player.location === "townEntrance" &&
+        (player.location === "townEntrance" || player.location === "townEntrance_act3" ) &&
         player.flags?.uppercity_story_02_killErwin &&
         (
             getTimePeriod(player) === "night" ||
@@ -284,6 +284,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        ["sunny", "rain", "snow"].includes(player.weather) &&
         !player.flags?.luke_firstLove_seen,
 
     action : (player) => {
@@ -582,6 +583,7 @@ window.EVENTS.push({
         NPC_DATA["sora"].emotion.affection >= 20 &&
         !player.flags?.soraDie &&
         !player.flags?.sora_flowerDate_01_done &&
+        player.weather === "sunny" &&
         Math.random() < 0.15,
 
     action : (player) => {
@@ -606,7 +608,8 @@ window.EVENTS.push({
         player.location === "shop" &&
         NPC_DATA["sora"].emotion.affection >= 30 &&
         !player.flags?.soraDie &&
-        Math.random() < 0.07,
+        player.weather === "sunny" &&
+        Math.random() < 0.1,
 
     action : (player) => {
         startScene(
@@ -631,6 +634,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
         ) &&
+        player.weather === "sunny" &&
         !player.flags?.soraDie &&
         !player.flags?.sora_flowerDate_03_seen,
 
@@ -656,6 +660,7 @@ window.EVENTS.push({
         player.location === "shop" &&
         NPC_DATA["sora"].emotion.affection >= 50 &&
         !player.flags?.soraDie &&
+        player.weather === "sunny" &&
         Math.random() < 0.09,
 
     action : (player) => {
@@ -1060,6 +1065,7 @@ window.EVENTS.push({
         player.location === "darkStreet" &&
         player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
         NPC_DATA["matin"].emotion.affection >= 50 &&
+        player.weather === "sunny" &&
         NPC_DATA["matin"].emotion.affection < 70 &&
         Math.random() < 0.08,
 
@@ -1083,6 +1089,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "darkStreet" &&
+        player.weather === "sunny" &&
         player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
         NPC_DATA["matin"].emotion.affection >= 70 &&
         Math.random() < 0.08,
@@ -1133,6 +1140,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "townStreet" &&
+        player.weather === "sunny" &&
         player.flags?.matin_affection_event_day !== getCurrentDay(player) &&
         NPC_DATA["matin"].emotion.affection >= 50 &&
         Math.random() < 0.08,
@@ -1254,6 +1262,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "darkStreet" &&
+        player.weather === "sunny" &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -1302,6 +1311,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "darkStreet" &&
         player.flags?.act3CollapseDone &&
+        player.weather === "sunny" &&
         getTimePeriod(player) === "dawn" &&
         player.flags?.matin_graveyard_04_after_seen &&
         NPC_DATA["matin"].emotion.affection >= 90 &&
@@ -1576,12 +1586,12 @@ window.EVENTS.push({
             getTimePeriod(player) === "morning" ||
             getTimePeriod(player) === "afternoon"
         ) &&
-        player.flags?.yuri_protecting_children_01_day !== getCurrentDay(player) &&
+        player.flags?.yuri_protecting_children_day !== getCurrentDay(player) &&
         !player.flags?.yuriDie &&
         Math.random() < 0.08,
 
     action : (player) => {
-        player.flags.yuri_protecting_children_01_day = getCurrentDay(player);
+        player.flags.yuri_protecting_children_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(
@@ -1589,6 +1599,90 @@ window.EVENTS.push({
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_rainy_shelter_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "rain" &&
+        player.flags?.yuri_shelter_event_day !== getCurrentDay(player) &&
+        !player.flags?.yuriDie &&
+        !player.flags?.act3_uppercity_route &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.yuri_shelter_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rainy_shelter_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_rainy_shelter_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "rain" &&
+        player.flags?.yuri_shelter_event_day !== getCurrentDay(player) &&
+        !player.flags?.yuriDie &&
+        player.flags?.act3_uppercity_route &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.yuri_shelter_event_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rainy_shelter_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        !player.flags?.yuriDie &&
+        player.flags?.act3_rebel_route &&
+        NPC_DATA["yuri"].emotion.affection >= 70 &&
+        !player.flags?.yuri_training_01_seen,
+
+    action : (player) => {
+        player.flags.yuri_training_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
             }
         );
     }
@@ -1757,7 +1851,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
-        NPC_DATA["sion"].emotion.affection > 5 &&
+        NPC_DATA["sion"].emotion.affection >= 5 &&
         player.location === "townStreet" &&
         player.justMoved,
 
@@ -3168,6 +3262,149 @@ window.EVENTS.push({
                 run : (player) => {
                     changeTrauma(player, -2);
                     addItem(player, ITEMS.consumable.greatMushroomSoup);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "shelter_rain_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "rain" &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "몇몇 아이들이 비가 새는 지붕 아래에 양동이를 가져다 놓은 것이 보인다. 양동이로는 안 막아지는지 몇몇 아이들은 바닥에 깔아놓았던 걸레를 다른 걸레로 바꾼 후, 젖은 걸레를 짰다." +
+                    "<br><br>\"쉘터에 비가 와!\"<br><br>" +
+                    "어두웠던 분위기 속, 어린 아이가 양팔을 벌리며 말했다. 그는 새는 빗방울을 받아먹기 위해 혀를 날름거렸다. 걸레를 짜고 양동이의 물을 빼고 있던 아이들이 어린 아이를 바라보았다가 서로를 번갈아보았다. 누군가가 쿡 웃었고, 그걸 기점으로 쉘터에는 웃음 소리들이 터져나왔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "shelter_snow_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "snow" &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "눈이 오자 쉘터의 바깥에는 눈사람들이 가득했다. 정석적인 눈사람, 눈오리, 그리고 눈토끼들.... 모양은 제각각이었지만 전부 귀여웠다." +
+                    "<br><br>\"같이 만들자!\"<br><br>" +
+                    "꽁꽁 얼어붙어서 붉어진 팔로 쉘터의 아이가 당신을 잡아끌었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 쉘터의 아이들과 함께 눈사람을 만들었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "또 몇 개의 눈사람들이 쉘터의 앞에 오순도순 모였다. 쉘터의 아이들은 까르르 웃으며 빙글빙글 돌았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTruma(player, -5);
+                                    passTime(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 꽁꽁 얼어붙은 아이의 손을 당신의 체온으로 녹여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이는 눈을 동그랗게 뜨더니 금방 웃었다. 무엇이 그리 즐거운지 손이 간지럽다며 웃던 아이는 당신의 손을 꼬옥 잡았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTruma(player, -3);
+                                    passTime(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 바쁘다고 한 후 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이는 당신의 바쁘다는 말에 아쉬운 표정을 짓긴 했지만 고개를 끄덕이며 더 이상 재촉하지는 않았다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "shelter_storm_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "storm" &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "폭풍이 치자 어린 아이들은 그나마 조금 큰 아이들의 아래에 옹기종기 모여 있었다. 아이들이 아이들에게 책을 읽어주는 소리가 들린다. 개중에는 유리처럼 흥얼흥얼 노래를 불러주는 아이들도 있었다." +
+                    "<br><br>\"어떡해.... 날씨가 안 좋아서 돈을 많이 못 벌었어.\"<br><br>" +
+                    "몇몇 아이들은 폭풍우를 두려워하지 않았다. 폭풍우보다 더 무서운 것이 있다는 걸 알았기 때문이었다. 당신의 마음이 무거워졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
                     savePlayer(player);
                 }
             }

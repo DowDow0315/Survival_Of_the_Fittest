@@ -302,6 +302,8 @@ registerActions("eric", {
             action: "eric_giveFood"
         });
 
+        choices.push({ text: "돌아간다", action: "eric_talk" });
+
         startScene([
             {
                 type : "text",

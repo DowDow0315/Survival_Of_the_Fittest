@@ -323,6 +323,8 @@ registerActions("deric", {
             action: "deric_giveFood"
         });
 
+        choices.push({ text: "돌아간다", action: "deric_talk" });
+
         startScene([
             {
                 type : "text",

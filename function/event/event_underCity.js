@@ -1326,7 +1326,7 @@ window.EVENTS.push({
         savePlayer(player);
 
         startScene(
-            NPC_DATA["luke"].scenes.matin_firstConfession_event,
+            NPC_DATA["matin"].scenes.matin_firstConfession_event,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

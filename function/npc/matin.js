@@ -177,13 +177,6 @@ registerActions("matin",{
             return;
         }
 
-        if (!player.flags?.matin_ask_about_pretty && (hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse"))){
-            choices.push({
-                text: "당신은 자신을 정말 예쁘다고 생각하냐고 물었다.",
-                scene: NPC_DATA.matin.scenes.matin_ask_about_pretty
-            });
-        }
-
         startScene([
             {
                 type: "text",
@@ -323,6 +316,13 @@ registerActions("matin",{
             choices.push({
                 text: "바이스에 대해 묻는다",
                 scene: NPC_DATA.matin.scenes.matin_askAboutVice
+            });
+        }
+
+        if (!player.flags?.matin_ask_about_pretty && (hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse"))){
+            choices.push({
+                text: "당신은 자신을 정말 예쁘다고 생각하냐고 물었다.",
+                scene: NPC_DATA.matin.scenes.matin_ask_about_pretty
             });
         }
 

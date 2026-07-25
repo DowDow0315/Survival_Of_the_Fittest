@@ -1134,6 +1134,123 @@
                 ]
             }
         ],
+        "kain_sing_04" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "영광의 거리에서 당신은 데릭의 동상 앞에 서 있는 카인을 발견했다. 그는 당신을 발견하더니 씩 웃으면서 고개를 까닥였다. 당신이 그에게 다가가자 그는 당신의 손을 꽉 잡았다.",
+                    "<br>\"키스하자.\"<br>"
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 왜 하필 데릭의 동상 앞에서냐고 물었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"그야 저 늙은이가 널 보는 눈깔이 마음에 안 들어서 그렇지.\"<br>",
+                                    "그는 인상을 팍 찌푸리며 당신 쪽으로 고개를 기울였다. 그의 입술이 당신의 입술에 살짝 닿았다가 떨어졌다.",
+                                    "<br>\"...존나 예쁘네.\"<br>",
+                                    "그는 중얼거리듯이 말하더니 다시 당신에게 키스를 했다. 짧지 않은 입맞춤이 끝난 후 그는 당신의 이마에 자신의 이마를 기대며 킥킥 웃었다.",
+                                    "<br>\"나 요새 키스 노래 가사 쓰고 있어. 나중에 들려줄게.\""
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": 3 },
+                                    { "target": "npc", "npc": "kain", "key": "lust", "amount": -10 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 4 },
+                                    { "target": "time", "amount": 5 },
+                                    { "target" : "flag", "key" : "kain_kissSing", "value" : true}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 그에게 먼저 키스했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "카인은 당신이 먼저 키스를 해오자 놀라긴 했지만 곧 당신의 키스를 받으며 몸을 파르르 떨었다. 긴장하고 있는 모양이다. 그의 혀를 건드리자, 그의 혀가 화들짝 놀라서 말렸다가도 다시 복수하듯이 당신의 혀를 따라붙어왔다.",
+                                    "<br>\"....\"<br>",
+                                    "입술이 떼어진 후, 카인은 붉게 물든 얼굴로 당신을 내려다보다가 휙 고개를 돌렸다. 쑥스러운 모양이다.",
+                                    "<br>\"쓸 게 더 많아지네...\"<br>",
+                                    "당신이 뭘 쓰는 거냐고 묻자 카인의 얼굴은 더 붉어지더니 아직은 알 것 없다고 대꾸했다.",
+                                    "<br>\"아니, 그니까.... 서프라이즈... 젠장.\"<br>",
+                                    "그는 푹 고개를 숙이더니 그만 쳐다보라고 짜증을 냈다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": 5 },
+                                    { "target": "npc", "npc": "kain", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "kain", "key": "rage", "amount": -5 },
+                                    { "target": "npc", "npc": "kain", "key": "lust", "amount": -10 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 2 },
+                                    { "target": "time", "amount": 5 },
+                                    { "target" : "flag", "key" : "kain_kissSing", "value" : true}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 대답 대신 눈을 감았다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 눈을 감자 카인이 웃는 소리가 났다. 그는 기대하고 있냐며 속삭이며 당신의 입술 위로 제 입술을 묻었다. 평소보다 더 집요했고, 달콤했다. 그는 부드럽게 키스를 이어가며 은근슬쩍 당신의 허리를 감싸안았다.",
+                                    "<br>\"...얼굴 빨개진 것 봐.\"<br>",
+                                    "그는 당신의 뺨을 콕 찌르며 악동처럼 웃었다.",
+                                    "<br>\"나, 키스 노래 가사 쓰고 있어. 너 때문에 잘 써질 것 같아. <br>...네가 하도 야해서.\""
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": 3 },
+                                    { "target": "npc", "npc": "kain", "key": "dominance", "amount": 5 },
+                                    { "target": "npc", "npc": "kain", "key": "rage", "amount": -5 },
+                                    { "target": "npc", "npc": "kain", "key": "lust", "amount": -10 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 6 },
+                                    { "target": "time", "amount": 5 },
+                                    { "target" : "flag", "key" : "kain_kissSing", "value" : true}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 싫다고 말했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신의 거절에 카인은 인상을 찌푸리더니 바깥에서 키스를 못하는 이유라도 있냐고 물었다.",
+                                    "<br>\"부끄러워서 그러는 거야, 아니면 누군가한테 들키면 안 되어서 그러는 거야?\"<br>",
+                                    "그는 당신의 허리를 끌어안은 채 당신을 노려보았다.",
+                                    "<br>\"씨발... 나 존나 찌질하네.\"<br>",
+                                    "그는 괜히 욕만 중얼거리며 당신의 눈을 피했다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "kain", "key": "affection", "amount": -3 },
+                                    { "target": "npc", "npc": "kain", "key": "rage", "amount": 5 },
+                                    { "target": "time", "amount": 5 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
         "kain_about_yuri_01" : [
             {
                 "type" : "text",

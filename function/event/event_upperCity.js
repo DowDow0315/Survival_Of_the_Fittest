@@ -993,6 +993,38 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id: "kain_sing_04",
+
+    condition: (player) =>
+        player.justMoved &&
+        NPC_DATA["kain"].emotion.affection >= 30 &&
+        NPC_DATA["kain"].emotion.rage <= 60 &&
+        player.flags?.kain_sing_01_seen &&
+        ["sunny"].includes(player.weather) &&
+        !player.flags?.KainWillNotSingHisSong &&
+        (
+            hasNpcRelationship("kain", "lover") ||
+            hasNpcRelationship("kain", "spouse")
+        ) &&
+        player.flags?.kain_sing_day !== getCurrentDay(player) &&
+        player.location === "gloryStreet" &&
+        Math.random() < 0.08,
+
+    action: (player) => {
+        player.flags.kain_sing_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_sing_04,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id: "kain_about_yuri_01",
     once: true,
 

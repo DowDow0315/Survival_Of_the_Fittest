@@ -3370,7 +3370,7 @@ window.EVENTS.push({
                             {
                                 type : "effect",
                                 run : (player) => {
-                                    changeTruma(player, -5);
+                                    changeTrauma(player, -5);
                                     passTime(player, 10);
                                     savePlayer(player);
                                 }

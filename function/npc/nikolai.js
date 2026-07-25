@@ -167,6 +167,8 @@ registerActions("nikolai", {
             });
         }
 
+        choices.push({ text: "돌아간다", action: "nikolai_talk" });
+
         startScene([
             {
                 type : "text",

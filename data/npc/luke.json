@@ -2286,7 +2286,7 @@
                     {
                         "text" : "당신은 그에게 메롱을 한 후 도망갔다.",
                         "stat" : "dex",
-                        "diffuculty" : 17,
+                        "difficulty" : 17,
                         "success" : [
                             {
                                 "type" : "text",

@@ -20,7 +20,7 @@ const LOCATION_SCENE_BUILDERS = {
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
     arena : buildArenaScene,
-    twinMansion : buildTwinMansionScene,
+    twinsMansion : buildTwinsMansionScene,
     heavenPalace : buildHeavenPalaceScene,
     heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
@@ -1618,14 +1618,14 @@ function getKainBackstageScene(player){
     );
 }
 
-function buildTwinMansionScene(player, loc, randomDesc){
+function buildTwinsMansionScene(player, loc, randomDesc){
     const choices = [];
 
     choices.push(
         { text:"데릭에게 다가간다", action:"deric_talk" },
         { text:"에릭의 방으로 들어선다", action:"eric_talk" },
-        { text: "자기", action: "sleep_twinMansion" },
-        { text: "잠깐 쉬기", action: "rest_twinMansion" },
+        { text: "자기", action: "sleep_twinsMansion" },
+        { text: "잠깐 쉬기", action: "rest_twinsMansion" },
         { text:"영광의 거리로 나간다", action:"move_gloryStreet" }
     );
 
@@ -1638,7 +1638,7 @@ function buildTwinMansionScene(player, loc, randomDesc){
     ];
 }
 
-window.sleep_twinMansion = function(player){
+window.sleep_twinsMansion = function(player){
     player.status.hp = player.status.maxHp;
     player.status.stamina = player.status.maxStamina;
 
@@ -1653,7 +1653,7 @@ window.sleep_twinMansion = function(player){
     );
 };
 
-window.rest_twinMansion = function(player){
+window.rest_twinsMansion = function(player){
     changeHP(player, 50);
     changeStamina(player, 50);
     passTime(player, 30);

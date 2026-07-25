@@ -39,7 +39,7 @@ window.EVENTS.push({
         hasItemOrEquipped(player, "umbrella") &&
         player.flags?.eric_uppercity_day !== getCurrentDay(player) &&
         !player.flags?.ericDie &&
-        Math.random() < 0.09,
+        Math.random() < 0.07,
 
     action : (player) => {
         player.flags.eric_uppercity_day = getCurrentDay(player);
@@ -592,12 +592,70 @@ window.EVENTS.push({
         player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
         NPC_DATA["akasia"].emotion.affection > 30 &&
         isPlayerProperlyDressed(player) &&
+        player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "night" &&
         Math.random() < 0.07,
 
     action : (player) => {
+        player.flags.akasia_undercity_comeToSeeYou_day = getCurrentDay(player);
+        savePlayer(player);
+
         startScene(
             NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_undercity_comeToSeeYou_event_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
+        NPC_DATA["akasia"].emotion.affection >= 30 &&
+        player.weather === "sunny" &&
+        player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.akasia_undercity_comeToSeeYou_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_undercity_comeToSeeYou_event_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "townEntrance" || player.location === "townEntrance_act3" ) &&
+        player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
+        NPC_DATA["akasia"].emotion.affection >= 50 &&
+        player.weather === "rain" &&
+        player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.akasia_undercity_comeToSeeYou_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event_03,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

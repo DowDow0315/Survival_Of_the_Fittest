@@ -13,7 +13,7 @@ window.EVENTS.push({
         ) &&
         ["sunny", "rain", "snow"].includes(player.weather) &&
         !player.flags?.yuriDie &&
-        Math.random() < 0.1,
+        Math.random() < 0.08,
 
     action : (player) => {
 
@@ -40,7 +40,7 @@ window.EVENTS.push({
         ) &&
         player.weather === "sunny" &&
         !player.flags?.yuriDie &&
-        Math.random() < 0.1,
+        Math.random() < 0.08,
 
     action : (player) => {
 
@@ -63,7 +63,7 @@ window.EVENTS.push({
         (player.location === "deepForest" ||
          player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
-        player.flags?.eric_chasingSomething_event_01_day !== getCurrentDay(player) &&
+        player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -72,7 +72,7 @@ window.EVENTS.push({
         Math.random() < 0.07,
 
     action : (player) => {
-        player.flags.eric_chasingSomething_event_01_day = getCurrentDay(player);
+        player.flags.eric_chasingSomething_event_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene(
@@ -93,7 +93,7 @@ window.EVENTS.push({
         (player.location === "banditForest" ||
          player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
-        player.flags?.eric_chasingSomething_event_02_day !== getCurrentDay(player) &&
+        player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -102,7 +102,7 @@ window.EVENTS.push({
         Math.random() < 0.07,
 
     action : (player) => {
-        player.flags.eric_chasingSomething_event_02_day = getCurrentDay(player);
+        player.flags.eric_chasingSomething_event_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene(
@@ -123,7 +123,7 @@ window.EVENTS.push({
         (player.location === "guardPost3" ||
          player.location === "townEntrance_act3" ) &&
         player.flags?.uppercity_story_02_done &&
-        player.flags?.eric_chasingSomething_event_03_day !== getCurrentDay(player) &&
+        player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||
             getTimePeriod(player) === "dawn"
@@ -132,7 +132,7 @@ window.EVENTS.push({
         Math.random() < 0.07,
 
     action : (player) => {
-        player.flags.eric_chasingSomething_event_03_day = getCurrentDay(player);
+        player.flags.eric_chasingSomething_event_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene(
@@ -167,6 +167,34 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["eric"].scenes.eric_notStopFiring,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+//시온
+window.EVENTS.push({
+    id : "sion_hisOutTraining_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        (player.location === "forest_act3" || player.location === "deepForest_act3" ) &&
+        NPC_DATA["sion"].emotion.affection >= 20 &&
+        !player.flags?.yuriDie &&
+        player.flags?.sion_hisOutTraining_day !== getCurrentDay(player) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        changeHP(player, 50);
+        changeStamina(player, 20);
+        player.flags.sion_hisOutTraining_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisOutTraining_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

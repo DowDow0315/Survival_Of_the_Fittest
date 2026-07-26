@@ -1084,7 +1084,7 @@ Object.assign(DUNGEON_EVENTS, {
                                     addItem(player, ITEMS.consumable.fullPotion);
                                     player.flags.abominationCave_surviver_02 = true;
                                     player.flags.abominationCave_surviver_02_notKill = true;
-                                    changeNPCEmotion("sion", "affection", 1);
+                                    changeNPCEmotion("sion", "affection", -2);
                                     savePlayer(player);
                                 }
                             }
@@ -1108,6 +1108,7 @@ Object.assign(DUNGEON_EVENTS, {
                                     addItem(player, ITEMS.consumable.fullPotion);
                                     player.flags.abominationCave_surviver_02 = true;
                                     changeNPCEmotion("sion", "affection", 3);
+                                    changeNPCEmotion("sion", "dominance", 3);
                                     savePlayer(player);
                                 }
                             }

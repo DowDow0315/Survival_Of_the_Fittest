@@ -1688,6 +1688,33 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_act3_quest_02_done_after_affection_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.flags?.act3_quest_02_done &&
+        player.flags?.act3_rebel_route &&
+        !player.flags?.yuri_act3_quest_02_done_after_affection_event_seen,
+
+    action : (player) => {
+        player.flags.yuri_act3_quest_02_done_after_affection_event_seen = true;
+        player.flags.act3_quest_02_done_rebels_come_day = getCurrentDay(player);
+        addItem(player, ITEMS.weapon.rebelsSpear);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_act3_quest_02_done_after_affection_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //니콜라이
 window.EVENTS.push({
     id : "nikolai_feels_good_event",
@@ -2006,6 +2033,47 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["sion"].scenes.sion_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_lust_50",
+
+    condition : (player) =>
+        player.justMoved &&
+        NPC_DATA["sion"].emotion.lust >= 50 &&
+        NPC_DATA["sion"].emotion.lust < 90 &&
+        player.location === "shelter" &&
+        Math.random() < 0.15,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_lust_50,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_lust_90",
+
+    condition : (player) =>
+        player.justMoved &&
+        NPC_DATA["sion"].emotion.lust >= 90 &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        Math.random() < 0.15,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_lust_90,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -3438,6 +3506,40 @@ window.EVENTS.push({
                 type : "effect",
                 run : (player) => {
                     changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "main_abominationCave_surviver_02_notKill",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        player.flags?.abominationCave_surviver_02_notKill,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구로 돌아가던 당신은 경계병들이 흉물의 시체를 치우는 것을 보았다. 그냥 흉물의 시체가 아니었다. 본체는 사람이었다." +
+                    "<br><br><span class='log-danger'>아니. 심지어 당신이 아는 사람이었다. 흉물 소굴에서 당신이 살려줬던 그 사람이다.</span>" +
+                    "<br><br>\"젠장... 대체 이새끼 때문에 얼마나 많은 사람이 죽은 거야.\"<br><br>" +
+                    "...던전에서부터 이미 흉물에게 기생되었던 모양이다. 당신은 흉물의 시체 말고 다른 사람들의 시체도 보았다. 마음이 무거워졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
                     savePlayer(player);
                 }
             }

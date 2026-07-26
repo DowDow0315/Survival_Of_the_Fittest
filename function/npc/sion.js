@@ -229,6 +229,25 @@ registerActions("sion",{
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)
         });
+    },
+
+    sion_lust_50_shout: (player) => {
+        const sion = NPC_DATA["sion"].emotion;        
+        
+        if (sion.dominance >= 70) {
+            startScene(
+                NPC_DATA["sion"].scenes.sion_lust_50_shout_highDominance,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+
+        startScene(NPC_DATA["sion"].scenes.sion_lust_50_shout_lowDominance, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });       
     }
 })
 

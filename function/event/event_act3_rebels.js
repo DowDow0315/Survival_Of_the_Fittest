@@ -72,3 +72,40 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_rebelRequest_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_02_done_rebels_come_day + 3) &&
+        !player.flags?.rebel_route_rebelRequest_01,
+
+    action : (player) => {
+        player.flags.rebel_route_rebelRequest_01 = true;
+        player.flags.act3_quest_03_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 빈민가 거리로 나오자 누군가 휘파람을 불었다. 당신은 휘파람 소리가 들리는 쪽으로 걸어갔다. 반란군이다." +
+                    "<br><br>\"와줘서 감사합니다, 하류도시의 영웅. 당신이 있어서 우리가 얼마나 희망을 얻는지 모릅니다.\"<br><br>",
+                    "그들은 주변을 살피더니 당신의 힘을 믿고 부탁을 하나 해도 되겠냐고 물었다. 그들은 당신이 사라졌었던 일주일 동안, 백색 군단은 흉물 토벌보다 반란군 제압에 더 많은 힘을 쏟았다고 말했다." +
+                    "<br><br>\"하류도시의 사람들이 너무 많이 죽었습니다. 우리는 결코 그들을 용서할 수 없습니다. 그리고... 저희는 무슨 일이 있어도 그들이 제 가족들을 어디로 데려갔는지 알아내고 말 것입니다. 그러려면 하류도시의 영웅, 당신의 힘이 필요합니다.\"<br><br>" +
+                    "그들은 백색 군단 사람들 중에서는 당신의 얼굴을 모르는 사람들이 많다고 말했다. 그러니 가면을 쓰고 접근하면 당신의 정체를 들키지 않을 거라고 말했다. 그들은 당신에게 복면을 내밀었다." +
+                    "<br><br>\"당신이 백색 군단 세력을 치는 동안, 저희는 실험실의 위치를 찾을 것입니다.\"<br><br>" +
+                    "\"최근 제 가족이 끌려간 실험실 말입니다.\"<br><br>" +
+                    "당신이 아는 얼굴이 모습을 드러냈다. 저번 반란군 진압 때 당신이 살려줬던 그 남자다." +
+                    "<br><br>\"진실을 위해, 부탁드리겠습니다. 의뢰서는 주점에 올려놓겠습니다. 마틴에게 말해 당신에게만 보일 수 있게 하겠습니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

@@ -181,7 +181,7 @@
                 "effects" : [
                     { "target": "player", "key": "stamina", "amount": -30 },
                     { "target": "player", "key": "trauma", "amount": 5 },
-                    { "target": "npc", "npc": "sion", "key": "lust", "amount": 7 }
+                    { "target": "npc", "npc": "sion", "key": "lust", "amount": 3 }
                 ]
             }
         ],
@@ -693,6 +693,230 @@
                                 "type" : "effect",
                                 "effects" : [
                                     { "target": "npc", "npc": "sion", "key": "affection", "amount": 3 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "sion_lust_50" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "당신은 쉘터에 들어왔다. 당신의 방쪽에서 이상한 소리가 들린다. 꺼림칙한 기분에 당신은 조용히 걸음을 옮겼다.",
+                    "<br>\"아, 영웅님....\"<br>",
+                    "문틈 사이로 시온의 흐느끼는 듯한 목소리가 들려온다. 쿵, 쿵, 쿵, 당신의 심장이 불안정하게 뛰기 시작했다.",
+                    "문틈 사이로 보이는 것은 둥지처럼 모여있는 당신의 옷가지들과 그 위에 앉아있는 시온의 모습이었다. 시온은 거칠게 숨을 내뱉으며 자신의 남성기를 손으로 쥐었다. 그는 위아래로 제 남성기를 흔들며 한번 더 당신을 불렀다.",
+                    "<br><span class='log-sion'>\"영웅님... 영웅님... 사랑해요....\"</span><br>",
+                    "농도 높은 정액이 당신의 옷가지 위로 뿌려졌다."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 문을 벌컥 열고 시온에게 이게 대체 뭐하는 짓이냐고 물었다.",
+                        "action" : "sion_lust_50_shout"
+                    },
+                    {
+                        "text" : "당신은 문을 열고 들어가 시온의 옆에 앉았다. 그리고 그의 남성기를 어루만졌다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"여, 영웅님...!\"<br>",
+                                    "시온은 붉어진 얼굴로 당신을 바라보다가 곧 고개를 숙였다. 그는 당신의 손길을 온전히 느끼며 가프게 숨을 몰아쉬었다. 다시 그의 남성기가 단단하게 서기 시작했다.",
+                                    "<br>\"...! 영웅님...\"<br>",
+                                    "시온의 고개가 뒤로 젖혔다. 하지만 그것도 잠시, 그는 당신의 모습을 눈안에 담겠다는 듯 다시 고개를 바로 했다. 촉촉한 눈으로 당신을 바라보던 시온은 그대로 사정해버렸다.",
+                                    "<br>\"...혼자만 즐기는 건... 너무 이기적이잖아요. 기분 좋게 해드릴게요...\"<br>",
+                                    "당신이 일어나려고 하자 시온은 당신의 손을 잡아당겼다. 그리고 그는 당신을 자신의 품에 가두고 당신의 중심부를 손가락으로 침범해왔다. 그의 손가락이 당신의 성기를 간질이듯이 애태우다가 곧 과격하게 문질러댔다. 그의 품안에서 당신의 허리가 바르르 떨렸다.",
+                                    "<br>\"보답이에요... 영웅님, 자, 가세요.\"<br>",
+                                    "그의 말과 함께, 엄청난 자극이 당신의 전신을 강타했다. 당신은 그의 손안에서 절정했다. 시온은 바들바들 떨리는 당신의 몸을 끌어안으며 웃었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -50 },
+                                    { "target": "npc", "npc": "sion", "key": "dominance", "amount": 8 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 5 },
+                                    { "target": "player", "key": "lust", "amount": -100 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 조용히 문을 닫고 나갔다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "시온의 흐느끼는 소리가 계속 들린다. 그는 사정을 한번 더 하더니 곧 당신의 옷가지를 챙기며 중얼거렸다.",
+                                    "<br>\"깨끗하게 빨아서... 다시 드릴게요, 영웅님. 잠깐 빌리는 거예요....<br><span class='log-sion'>...딱 하나만 가져갈게요.</span>\"<br>",
+                                    "당신은 재빨리 자리를 피했다. <br>...불안정하게 뛰는 심장 박동 소리가 가라앉지를 않는다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -30 },
+                                    { "target": "player", "key": "trauma", "amount": 10 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "sion_lust_50_shout_highDominance" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "시온은 잠시 움직임을 멈췄다가도 미소를 지으며 고개를 저었다.",
+                    "<br>\"왜 그러세요, 영웅님...\"<br>",
+                    "그는 당신의 손을 잡더니 그대로 침대로 눕혔다. 당신이 일어나기도 전에 그는 당신의 위에 올라탔다. 자신의 아래에 있는 당신이 사랑스럽다는 듯이, 그는 당신의 뺨을 쓰다듬었다.",
+                    "<br>\"쑥스러워서 그러시는 거죠? 제 앞에서는 쑥스러워하지 않으셔도 돼요.\"<br>",
+                    "당신이 뭐라 말하기도 전에 그는 그대로 당신의 입술 위로 제 입술을 묻었다. 서툴렀다. 하지만 서투른 만큼 집요했다. 그는 당신의 입술을 몇 번이고 탐미하며 천천히 손을 당신의 아래로 내렸다. 그의 손가락이 당신의 구멍을 헤집는다. 내벽을 긁어내듯 살짝 손가락을 뺐다가도 곧바로 다시 깊숙이 밀어넣는다.",
+                    "<br>꿈틀거리던 저항은 어느새 쾌락에 잠식되었고, 당신의 속옷은 축축하게 젖었다. 시온은 당신을 애무하며 거칠게 숨을 토해냈다.",
+                    "<br>\"너무 야해요, 영웅님... 그래도 참고, 같이 갈게요.\"<br>",
+                    "그의 손가락이 움직이는 속도가 빨라졌다. 당신은 더 이상 참을 수 없어서 짐승이 낼 법한 소리와 함께 절정에 이르렀다. 시온이 웃었다.",
+                    "<br>\"아직이에요, 영웅님. 아직 다 안 끝났어요...\"<br>",
+                    "쾌락의 시간은 길었다. 시온은 당신을 당신의 의식이 흐려질 때까지 밀어붙였다. 몇 번을 같이 당신과 절정에 이르렀던 시온은 몸을 정돈하더니 당신을 가뿐하게 침대에 눕히고 이불을 덮어주었다. 당신의 이마에 그의 입술이 닿았다가 떨어졌다."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -50 },
+                    { "target": "sensitivity", "key": "mSensitivity", "amount": 5 },
+                    { "target": "sensitivity", "key": "aSensitivity", "amount": 5 },
+                    { "target": "sensitivity", "key": "cSensitivity", "amount": 5 },
+                    { "target": "sensitivity", "key": "bSensitivity", "amount": 5 }
+                ]
+            }
+        ],
+        "sion_lust_50_shout_lowDominance" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "시온은 당신이 화를 내자 침대에서 벌떡 일어났다. 그의 얼굴은 붉었다.",
+                    "<br>\"저, 저는...\"<br>",
+                    "그는 울먹거리며 당신의 속옷을 손으로 움켜잡았다.",
+                    "<br>\"...영웅님을 사랑해요... 절 미워하진 말아주세요.\"<br>",
+                    "그러더니 그는 그대로 당신을 스치고 방밖으로 나가버렸다.<br>...당신의 속옷 하나를 든 채로."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -10 },
+                    { "target": "player", "key": "trauma", "amount": 5 },
+                    { "target": "npc", "npc": "sion", "key": "affection", "amount": -2 },
+                    { "target": "npc", "npc": "sion", "key": "dominance", "amount": -1 }
+                ]
+            }
+        ],
+        "sion_lust_90" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "거리를 지나는 순간, 당신은 오싹함을 느꼈다."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 재빨리 몸을 피했다.",
+                        "stat" : "dex",
+                        "difficulty" : 25,
+                        "success" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "몸이 먼저 반응했다. 다행히도 당신은 뭔가를 피할 수 있었다. 당신은 주변을 둘러보았다. 하지만 아무 것도 발견할 수 없었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -25 },
+                                    { "target": "player", "key": "trauma", "amount": 5 }                             
+                                ]
+                            }
+                        ],
+                        "fail" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "따끔한 감각과 함께 당신의 시야가 천천히 어두워졌다. 흐려지는 시야 사이로 당신에게 누군가 다가오는 발걸음 소리가 들린다.",
+                                    "<br>몽롱함 속에서 당신은 당신의 허덕이는 숨소리를 들었다. 누군가 당신의 가슴을 주무르며 사랑한다고 속삭이고 있었다. 그는 당신의 입술을 깨물더니 딱 한번만 사랑한다고 말해달라고 애원했다. 당신의 입술이 달싹였다. 하지만 당신은 어떤 말도 할 수 없었다. 몸이 너무 뜨거웠다. 당신은 몸의 열기 때문에 정신을 차릴 수가 없었다. 당신은 누군가 당신의 몸을 제발 만져줬으면 좋겠다고 생각했다.",
+                                    "당신이 원하는 대로, 누군가의 손이 당신의 몸을 어루만졌다. \"왜 이렇게 야해요?\" 소리가 들렸던 것 같기도 하다. 한번도 아니고 반복적으로. 열기 속에서 당신은 무언가가 당신을 관통하는 것을 느꼈다. 하지만 그것은 고통보다는 쾌락에 가까웠다. 몸이 뜨거워서, 그리고 안이 너무 뜨거워서, 당신은 누군가 자신의 안을 채워주길 갈망했다.",
+                                    "<br><br>당신이 다시 눈을 떴을 때, 당신은 벽에 기대어 앉아있었다. 당신은 멍한 눈으로 주변을 둘러보았다.",
+                                    "<br>...아래가 축축하다. 당신은 일어나려다가 허리를 붙잡으며 비틀거렸다. 누군가의 그림자가 순간 튀어나오려는 듯 일렁였다. 하지만 결국 그 그림자의 주인은 모습을 드러내지 않았다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "player", "key": "trauma", "amount": 13 },
+                                    { "target": "npc", "npc": "sion", "key": "dominance", "amount": 3 },
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -100 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "bSensitivity", "amount": 8 },
+                                    { "target" : "fluid", "key" : "m", "amount" : 12},
+                                    { "target" : "fluid", "key" : "c", "amount" : 12},
+                                    { "target" : "fluid", "key" : "a", "amount" : 12} 
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 방향을 예측하고 몸을 틀었다.",
+                        "stat" : "int",
+                        "difficulty" : 22,
+                        "success" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "이상한 기척을 읽고 미리 몸을 틀었다. 다행히도 당신은 뭔가를 피할 수 있었다. 당신은 주변을 둘러보았다. 하지만 아무 것도 발견할 수 없었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -25 },
+                                    { "target": "player", "key": "trauma", "amount": 5 }
+                                ]
+                            }
+                        ],
+                        "fail" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "따끔한 감각과 함께 당신의 시야가 천천히 어두워졌다. 흐려지는 시야 사이로 당신에게 누군가 다가오는 발걸음 소리가 들린다.",
+                                    "<br>몽롱함 속에서 당신은 당신의 허덕이는 숨소리를 들었다. 누군가 당신의 가슴을 주무르며 사랑한다고 속삭이고 있었다. 그는 당신의 입술을 깨물더니 딱 한번만 사랑한다고 말해달라고 애원했다. 당신의 입술이 달싹였다. 하지만 당신은 어떤 말도 할 수 없었다. 몸이 너무 뜨거웠다. 당신은 몸의 열기 때문에 정신을 차릴 수가 없었다. 당신은 누군가 당신의 몸을 제발 만져줬으면 좋겠다고 생각했다.",
+                                    "당신이 원하는 대로, 누군가의 손이 당신의 몸을 어루만졌다. \"왜 이렇게 야해요?\" 소리가 들렸던 것 같기도 하다. 한번도 아니고 반복적으로. 열기 속에서 당신은 무언가가 당신을 관통하는 것을 느꼈다. 하지만 그것은 고통보다는 쾌락에 가까웠다. 몸이 뜨거워서, 그리고 안이 너무 뜨거워서, 당신은 누군가 자신의 안을 채워주길 갈망했다.",
+                                    "<br><br>당신이 다시 눈을 떴을 때, 당신은 벽에 기대어 앉아있었다. 당신은 멍한 눈으로 주변을 둘러보았다.",
+                                    "<br>...아래가 축축하다. 당신은 일어나려다가 허리를 붙잡으며 비틀거렸다. 누군가의 그림자가 순간 튀어나오려는 듯 일렁였다. 하지만 결국 그 그림자의 주인은 모습을 드러내지 않았다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "player", "key": "trauma", "amount": 13 },
+                                    { "target": "npc", "npc": "sion", "key": "dominance", "amount": 3 },
+                                    { "target": "npc", "npc": "sion", "key": "lust", "amount": -100 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 8 },
+                                    { "target": "sensitivity", "key": "bSensitivity", "amount": 8 },
+                                    { "target" : "fluid", "key" : "m", "amount" : 12},
+                                    { "target" : "fluid", "key" : "c", "amount" : 12},
+                                    { "target" : "fluid", "key" : "a", "amount" : 12} 
                                 ]
                             }
                         ]

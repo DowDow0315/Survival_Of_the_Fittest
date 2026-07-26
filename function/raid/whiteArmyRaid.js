@@ -21,7 +21,7 @@ window.startWhiteArmyRaid = function(player){
         {
             type : "text",
             value :
-                "당신은 백색 군단을 토벌하기 위해 나섰다. 상류도시 사람들이 당신에게 비난을 쏟아낸다고 해도, 몇몇의 하류도시 사람들은 당신에게서 희망을 보겠지."
+                "당신은 백색 군단을 토벌하기 위해 나섰다. 상류도시 사람들이 당신에게 비난을 쏟아낸다고 해도, 몇몇의 하류도시 사람들은 당신에게서 희망을 보겠지. 당신은 복면을 썼다."
         }
     ], player, {
         onEnd : () => {
@@ -224,7 +224,7 @@ function showWhiteArmyRaidChoice(player){
         {
             type: "text",
             value:
-                "백색 군단은 당신을 경계하고 있다."
+                "백색 군단은 당신을 경계하고 있다. 당신은 복면을 고쳐썼다."
         },
         {
             type: "choice",

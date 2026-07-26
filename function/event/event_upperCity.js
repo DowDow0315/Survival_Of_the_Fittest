@@ -769,6 +769,59 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasiaValenMedal_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        NPC_DATA["akasia"].emotion.affection >= 50 &&
+        NPC_DATA["valen"].emotion.affection >= 50 &&
+        !player.flags?.akasiaValenMedal_event_seen &&
+        isPlayerProperlyDressed(player),
+
+    action : (player) => {
+        player.flags.akasiaValenMedal_event_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasiaValenMedal_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_act3_quest_02_done_after_affection_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        player.flags?.act3_quest_02_done &&
+        player.flags?.akasia_teaPromise &&
+        !player.flags?.akasia_act3_quest_02_done_after_affection_event_seen &&
+        isPlayerProperlyDressed(player),
+
+    action : (player) => {
+        player.flags.akasia_act3_quest_02_done_after_affection_event_seen = true;
+        addItem(player, ITEMS.weapon.whiteArmyHerberd);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_act3_quest_02_done_after_affection_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",

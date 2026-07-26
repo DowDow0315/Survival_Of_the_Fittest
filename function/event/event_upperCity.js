@@ -147,18 +147,41 @@ window.EVENTS.push({
     condition : (player) =>
         isPlayerProperlyDressed(player) &&
         NPC_DATA["valen"].emotion.affection >= 30 &&
-        (getTimePeriod(player) === "afternoon" ||
-         getTimePeriod(player) === "night") &&
+        ["night", "afternoon"].includes(getTimePeriod(player)) &&
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
          !player.flags?.valenDie &&
          player.location === "heavenPalace" &&
-         Math.random() < 0.09,
+         Math.random() < 0.1,
 
     action : (player) => {
         player.flags.valen_teaTime_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene(NPC_DATA["valen"].scenes.valen_teaTime_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_teaTime_02",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["valen"].emotion.affection >= 30 &&
+         player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
+         !player.flags?.valenDie &&
+         player.location === "gloryStreet" &&
+         Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.valen_teaTime_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_teaTime_02, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }

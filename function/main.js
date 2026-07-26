@@ -3001,7 +3001,7 @@ function flashScreenMulti(times = 3, interval = 120){
 
 function passToNextMorning9(player){
     const currentDay = getCurrentDay(player);
-    const nextDay9 = (currentDay + 1) * 240 + 90; // 다음날 09:00
+    const nextDay9 = (currentDay) * 240 + 90; // 다음날 09:00
 
     player.time = nextDay9;
 

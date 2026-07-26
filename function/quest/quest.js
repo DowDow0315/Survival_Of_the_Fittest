@@ -225,6 +225,60 @@ const QUESTS = {
         completeText: "마틴은 당신에게서 의뢰서를 받았다. 당신에게 수당을 건네는 그의 시선은 당신의 몸 전체를 훑고 돌아갔다."
     },
 
+    rebelRaid_cleanup: {
+        id: "rebelRaid_cleanup",
+        title: "반란군 세력 숙청",
+        type: "boss",
+        bossName: "반란군 수장",
+        repeatable: true,
+        giver: "akasia",
+        
+        desc: "반란군은 여전히 백색 군단에 저항하고 있다. 그들을 토벌하자.",
+        activeDesc: "반란군이 있는 한, 백색 군단은 사람이 아닌 것들과의 전투에 온힘을 다할 수 없다. 반란군 세력을 숙청하자.",
+        readyDesc: "백색 군단은 당신이 있어서 든든하다. 주점에 가서 보고하자.",
+        
+        targetBoss: "rebelLeader3",
+        requiredKill: 1,
+        
+        rewardGold: 10000,
+        
+        require: {
+            completedQuest: "act3_quest_03_upper",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신에게 의뢰서를 내밀었다.<br><br>\"...왜곡된 깊은숲에 있어.\"",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신의 의뢰를 확인하더니 고개를 끄덕였다. <br><br>\"백색 군단은 이제 더 외부와의 전투에 힘을 쓸 거야.\""
+    },
+
+    whiteArmyRaid_cleanup: {
+        id: "whiteArmyRaid_cleanup",
+        title: "백색 군단 세력 약화",
+        type: "boss",
+        bossName: "백색 장군",
+        repeatable: true,
+        giver: "yuri",
+        
+        desc: "백색 군단은 여전히 도적떼보다는 반란군들 색출에 힘을 쓰고 있다. 반란군들을 위해 그들의 세력을 해산시키자.",
+        activeDesc: "조금이라도 힘을 약화하면 반란군들은 힘을 더 모을 수 있을 것이다. 반란군들을 위해 앞으로 전진하자.",
+        readyDesc: "당신은 반란군들에게 하류도시의 영웅이라 불리고 있다. 주점에 돌아가서 보고하자.",
+        
+        targetBoss: "whiteArmyLeader1",
+        requiredKill: 1,
+        
+        rewardGold: 10000,
+        
+        require: {
+            completedQuest: "act3_quest_03_rebels",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신에게 의뢰서를 내밀었다.<br><br>\"...왜곡된 깊은숲.\"<br><br>그의 목소리는 작았다.",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신의 의뢰를 확인하더니 재빨리 의뢰서를 가져갔다. 무표정이었지만, 긴장한 기색은 숨기지 못하고 있다."
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -656,6 +710,64 @@ const QUESTS = {
 
         acceptText : "당신의 의뢰서에 적힌 흉물에 마틴은 인상을 썼다. <br><br>\"준비가 됐을 때 가. 흉물은... 잡히면 끝이니까.\"",
         completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. <br><br>\"...수고했어.\""
+    },
+
+    act3_quest_03_upper : {
+        id : "act3_quest_03_upper",
+        title : "반란군 토벌",
+        type: "boss",
+        bossName : "반란군 수장",
+        repeatable : false,
+        giver : "valen",
+        
+        desc : "상류도시를 위해 당신은 반란군을 토벌해야 한다. 그들은 도시의 질서를 파괴하고 있다.",        
+        activeDesc : "반란군들은 여전히 질서를 파괴할 기회를 노리고 있다.",
+        readyDesc : "반란군 세력은 무너졌다. 주점에 보고하러 가자.",
+        
+        targetBoss: "rebelLeader3",
+        requiredKill: 1,
+        rewardGold: 10000,
+
+        require : {
+            flag : "act3_quest_03_upper_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_03_done = true;
+            player.flags.act3_quest_03_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 의뢰서와 당신을 번갈아보았다. <br><br>\"....\"<br><br>그는 무슨 말을 하려다가 말았다.",
+        completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. 그의 검은색 눈동자는 깊었다. 그는 말없이 당신의 의뢰서를 받아들였다."
+    },
+
+    act3_quest_03_rebels : {
+        id : "act3_quest_03_rebels",
+        title : "백색 군단 습격",
+        type: "boss",
+        bossName : "백색 장군",
+        repeatable : false,
+        giver : "rebels",
+        
+        desc : "상류도시만을 위해 존재하는 백색 군단을 반란군들을 위해 습격하자.",        
+        activeDesc : "백색 군단은 여전히, 반란군 세력을 토벌하기 위해 깊은 숲에 진지를 세우고 잔류하고 있다.",
+        readyDesc : "당신은 백색 군단의 힘을 약화시켰다. 주점에 가서 보고하자.",
+        
+        targetBoss: "whiteArmyLeader1",
+        requiredKill: 1,
+        rewardGold: 7000,
+
+        require : {
+            flag : "act3_quest_03_rebels_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_03_done = true;
+            player.flags.act3_quest_03_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 의뢰서와 당신을 번갈아보았다. <br><br>\"몸 조심해.\"<br><br>그는 당신에게 의뢰서를 주면서 말했다.",
+        completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. 그의 검은색 눈동자는 깊었다. <br><br>\"...다치지마.\""
     }
 };
 

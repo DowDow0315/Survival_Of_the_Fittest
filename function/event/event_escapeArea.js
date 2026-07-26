@@ -3535,7 +3535,7 @@ const ESCAPE_AREA_EVENTS = {
                                     type : "effect",
                                     run : (player) => {
                                         changeTrauma(player, 10);
-                                        addItme(ITEMS.consumable.mediumPotion);
+                                        addItem(ITEMS.consumable.mediumPotion);
                                         savePlayer(player);
                                     }
                                 }

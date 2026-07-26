@@ -594,6 +594,7 @@ window.EVENTS.push({
         isPlayerProperlyDressed(player) &&
         player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "night" &&
+        !player.flags?.akasiaDie &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -621,6 +622,7 @@ window.EVENTS.push({
         player.weather === "sunny" &&
         player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
         isPlayerProperlyDressed(player) &&
+        !player.flags?.akasiaDie &&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -646,6 +648,7 @@ window.EVENTS.push({
         player.flags?.akasia_uppercity_story_02_after_affection_event_seen &&
         NPC_DATA["akasia"].emotion.affection >= 50 &&
         player.weather === "rain" &&
+        !player.flags?.akasiaDie &&
         player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
         isPlayerProperlyDressed(player) &&
         Math.random() < 0.1,
@@ -700,6 +703,7 @@ window.EVENTS.push({
         isPlayerProperlyDressed(player) &&
         NPC_DATA["akasia"].emotion.affection >= 30 &&
         ["rain", "snow"].includes(player.weather) &&
+        !player.flags?.akasiaDie &&
          player.flags?.akasia_luckyCoincidence_day !== getCurrentDay(player) &&
         ["gloryStreet", "richTownStreet", "heavenRoad"].includes(player.location) &&
          Math.random() < 0.1,
@@ -725,6 +729,7 @@ window.EVENTS.push({
         isPlayerProperlyDressed(player) &&
         NPC_DATA["akasia"].emotion.affection >= 30 &&
         player.weather === "sunny" &&
+        !player.flags?.akasiaDie &&
         player.flags?.akasia_luckyCoincidence_day !== getCurrentDay(player) &&
         ["gloryStreet", "richTownStreet", "heavenRoad"].includes(player.location) &&
          Math.random() < 0.1,

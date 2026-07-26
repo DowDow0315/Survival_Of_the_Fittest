@@ -634,7 +634,7 @@
             },
             {
                 "type" : "choice",
-                "choies" : [
+                "choices" : [
                     {
                         "text" : "당신은 우연히 시온을 만나게 된 것이라고 말했다.",
                         "scene" : [

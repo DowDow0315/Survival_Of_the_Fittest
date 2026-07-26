@@ -962,6 +962,92 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "데미지 5.7배 공격"
         }
+    ],
+    "꺾이지 않는 창" : [
+        {
+            name : "꺾이지 않는 반골의 마음",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsSpear_buff",
+                atkMult : 2,
+            },
+            duration: 6,
+            unlock : 20,
+            desc : "6턴간 공격력 2배"
+        },
+        {
+            name : "뽁뽁이",
+            cost : 3,
+            type : "multiHit",
+            power : 1.7,
+            hits : 3,
+            unlock : 100,
+            desc : "데미지 1.7배로 3번 공격" 
+        },
+        {
+            name : "반골의 위상",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "enemyDebuff",
+                defMult : 0.5,
+                evaMult : 0.7
+            },
+            duration: 5,
+            unlock : 150,
+            desc : "5턴간 적 방어력 0.5배, 회피력 0.7배"
+        },
+        {
+            name : "반골강타",
+            cost : 3,
+            type : "damage",
+            power : 5,
+            unlock : 200,
+            desc : "데미지 5배 공격"
+        }
+    ],
+    "백색 할버드" : [
+        {
+            name : "백색군단의 위엄",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteArmyHerberd_buff",
+                atkMult : 1.5,
+                defMult : 1.5
+            },
+            duration: 5,
+            unlock : 20,
+            desc : "5턴간 공격력 1.5배, 방어력 1.5배"
+        },
+        {
+            name: "할버드 열상",
+            cost: 3,
+            type: "bleed",
+            id : "whiteArmyHerberd_bleed",
+            dot: 25,
+            duration: 4,
+            unlock: 100,
+            desc : "4턴간 상대방에게 출혈데미지(25)"
+        },
+        {
+            name : "장군의 진군",
+            cost : 3,
+            type : "multiHit",
+            power : 1.7,
+            hits : 3,
+            unlock : 150,
+            desc : "데미지 1.7배로 3번 공격" 
+        },
+        {
+            name : "관통",
+            cost : 3,
+            type : "damage",
+            power : 5,
+            unlock : 200,
+            desc : "데미지 5배 공격"
+        }
     ]
 };
 
@@ -1057,6 +1143,14 @@ const MASTER_SKILLS = {
     "흉물대검" : {
         requiredMastery : 300,
         skillName : "본능적인 두려움"
+    },
+    "꺾이지 않는 창" : {
+        requiredMastery : 300,
+        skillName : "뽁뽁이"
+    },
+    "백색 할버드" : {
+        requiredMastery : 300,
+        skillName : "백색군단의 위엄"
     }
 };
 
@@ -1324,6 +1418,30 @@ const ITEMS ={
                 dex : 3,
                 charm : -3
             }
+        },
+
+        rebelsSpear : {
+            name : "꺾이지 않는 창",
+            type : "weapon",
+            desc : "반골은 꺾이지 않을 것이다, 촛불을 실수로 꺼서 죽는다고 하더라도.",
+            price : 3100,
+            stats : {
+                str : 8,
+                dex : 6,
+                charm : 1
+            }
+        },
+
+        whiteArmyHerberd : {
+            name : "백색 할버드",
+            type : "weapon",
+            desc : "백색 군단의 뜻은 지지 않는다, 적어도 발렌이 사라지기 전까지는.",
+            price : 3100,
+            stats : {
+                str : 6,
+                dex : 6,
+                charm : 3
+            }
         }
     },
 
@@ -1443,6 +1561,19 @@ const ITEMS ={
                 str : 4,
                 dex : 7,
                 int : 1
+            }
+        },
+
+        featherTop : {
+            name : "니콜라이의 화려한 깃털 상의",
+            type : "top",
+            price : 3500,
+            desc : "화려한 깃털이다, 그의 진심까지도 숨겨버릴 정도로 화려한.",
+            stats : {
+                str : 1,
+                dex : 5,
+                int : 3,
+                charm : 5
             }
         }
     },
@@ -1631,13 +1762,26 @@ const ITEMS ={
 
         survivalBottom : {
             name : "생존한 도적 하의",
-            type : "top",
+            type : "bottom",
             price : 2800,
             stats : {
                 str : 5,
                 dex : 7,
                 int : 1,
                 charm : -2
+            }
+        },
+
+        featherBottom : {
+            name : "니콜라이의 화려한 깃털 바지",
+            type : "bottom",
+            price : 3500,
+            desc : "그의 미소는 깃털처럼 가볍다. 그의 마음과는 반대로.",
+            stats : {
+                str : 1,
+                dex : 5,
+                int : 3,
+                charm : 5
             }
         }
     },
@@ -2677,6 +2821,12 @@ const ITEMS ={
             type: "food",
             price: 300
         },
+        pepper : {
+            name : "고추",
+            type : "food",
+            price : 400
+        },
+        
         rustyRing: {
             name: "녹슨반지",
             type: "junk",

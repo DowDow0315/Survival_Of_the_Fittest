@@ -685,6 +685,119 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "dericAndKain_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        player.flags?.dericAndKain_day !== getCurrentDay(player) &&
+        (hasNpcRelationship("kain", "lover") ||
+        hasNpcRelationship("kain", "spouse") ) &&
+        !hasNpcRelationship("deric", "lover") &&
+        !hasNpcRelationship("deric", "spouse") &&
+        NPC_DATA["deric"].emotion.affection >= 50 &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.dericAndKain_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 극장에 들어서자마자 무대의상을 입고 마이크 확인 중이었던 카인은 성큼성큼 당신에게로 걸어왔다. 그러더니 그는 VIP 티켓을 내밀며 가장 앞좌석으로 자리 잡아놨으니 오늘은 공연을 보고 가라고 말했다." +
+                    "<br><br>\"이 기회 놓치지 마라? VIP석에서 보는 거 몇몇 상류도시 귀족들도 꿈도 못 꿀 일이야.\"<br><br>" +
+                    "그는 혹시라도 당신이 그냥 가버릴까 걱정이 됐는지 당신을 VIP석까지 직접 데려가서 앉혔다. 그는 무대를 기대하라고 말한 뒤 바로 무대 뒤로 사라져버렸다. 당신은 푹신한 VIP석에 앉아 공연이 시작되는 걸 기다렸다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "\"아가?\"<br><br>" +
+                    "익숙한 목소리에 당신은 옆을 올려다보았다. 데릭이다. 그는 당신이 여기 앉아있을 줄은 몰랐는지 눈을 깜박이더니 곧 웃으며 당신의 옆자리에 앉았다." +
+                    "<br><br>\"그 녀석과 많이 친해졌구나. 나쁜 물이 들면 안 될 텐데.\"<br><br>" +
+                    "그는 당신의 손등을 손가락으로 쓰다듬으며 말했다. 공연이 시작됐는데도 데릭은 당신의 손을 놓지 않았다. 당신이 조금이라도 손을 움직이면 그는 안 된다는 듯 더 세게 당신의 손을 잡았다." +
+                    "<br><br>그리고 드디어, 무대에 카인이 나왔다." +
+                    "<br><br><br>노래를 부르려던 카인의 주황색 눈동자가 당신과 마주쳤다. 그의 시선은 곧 데릭이 잡고 있는 당신의 손으로 미끄러져 내려갔다." +
+                    "<br><br>반주가 시작되었지만 카인은 노래를 부르지 않았다. 그는 데릭이 잡고 있는 당신의 손을 내려다보다가 마이크를 집어던지더니 그대로 무대 아래로 내려왔다." +
+                    "<br><br>\"그 손 놔.\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 데릭의 손을 뿌리쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 데릭의 손을 뿌리치자 카인은 그대로 당신의 손을 붙잡았다." +
+                                    "<br><br>\"얜 내 애인이야. 네가 함부로 할 사람이 아니라고.\"<br><br>" +
+                                    "카인의 말에 데릭의 얼굴에서 미소가 서늘하게 걷혔다. 그는 자기도 모르게 손을 올리려다가 주변 사람들의 시선을 의식하고 멈추었다." +
+                                    "<br><br>\"네 애인? 그래서 네가 할 수 있는 게 있나? 아니, 네가 지킬 수 있었던가?\"<br><br>" +
+                                    "\"얘는 지킬 거야.\"<br><br>" +
+                                    "카인은 당신의 손을 세게 잡았다. 데릭을 똑바로 노려보며 그는 한 번 더 말했다." +
+                                    "<br><br>\"무슨 일이 있어도 지킬 거야. 얘만큼은.<br><br>...가자.\"" +
+                                    "<br><br>당신은 카인과 함께 공연을 나갔다. 사람들이 뒤에서 카인을 욕하는 소리가 들렸지만 카인은 신경 쓰지 않았다." +
+                                    "<br><br>\"아까 한 말 진심이야. 내가 너는... 무슨 일이 있어도 지킬 거야.\"" +
+                                    "<br><br>카인은 당신을 바라보다가 시선을 돌렸다. 당신은 그와 조금 더 같이 있다가 헤어졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("deric", "affection", -5);
+                                    changeNPCEmotion("deric", "rage", 5);
+                                    changeNPCEmotion("deric", "dominance", -8);
+                                    changeNPCEmotion("kain", "affection", 2);
+                                    changeNPCEmotion("kain", "rage", -1);
+                                    changeNPCEmotion("kain", "dominance", 1);
+                                    passTime(player, 8);
+                                    savePlayer(player);
+                                }   
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 카인에게 무대 중간에 이러면 안 된다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그럼 네가 바로 앞에서 다른 사람 손을 잡고 있는데.\"<br><br>" +
+                                    "카인은 입술을 악물었다. 그는 울지 않았다. 어떻게든 눈물을 참아내고 있었다." +
+                                    "<br><br>\"내가 가만히 있어?\"<br><br>" +
+                                    "\"그야 아가는, 네가 아가를 못 지켜준다는 걸 아니까. 나랑은 다르게.\"<br><br>" +
+                                    "데릭은 당신과 맞잡은 손을 들어보이며 미소를 지었다." +
+                                    "<br><br>\"네가 돈이 있니, 명예가 있니, 아니면.... 가문이 있니.\"<br><br>" +
+                                    "카인은 데릭의 말에 아무 말도 하지 못했다. 그는 데릭의 말에도 상처를 입었지만, 그보다는 데릭의 손을 놓지 않는 당신의 행동에 상처를 입은 듯했다. 카인은 그대로 나가버렸고 무대는 조용해졌다." +
+                                    "<br>데릭은 아무렇지도 않게 지배인을 부르더니 다른 가수로 교체했다. 곧 다른 가수가 나와서 노래를 부르기 시작했다. 당신은 데릭과 함께 마지막까지 공연을 감상했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("kain", "affection", -10);
+                                    changeNPCEmotion("kain", "rage", 15);
+                                    changeNPCEmotion("deric", "dominance", 5);
+                                    changeNPCEmotion("deric", "affection", 2);
+                                    changeNPCEmotion("deric", "rage", -5);
+                                    passTime(player, 30);
+                                    savePlayer(player);
+                                }   
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "dericAndEric_01",
     condition : (player) =>
         player.justMoved &&

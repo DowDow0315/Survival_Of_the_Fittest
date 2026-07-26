@@ -1,7 +1,7 @@
 {
     "name": "거대 흉물",
     "hp": 380,
-    "attack": 50,
+    "attack": 48,
     "defense": 45,
     "eva": 40,
     "lustResist" : 1.1,

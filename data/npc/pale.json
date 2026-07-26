@@ -20,6 +20,12 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-pale'>이런 내가, 네게 닿아도 될까.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90}
             ],
             "text" : "<span class='log-pale'>그것은 자신이 죽게 된다고 하더라도 당신의 기억에 자신이 영원히 남기를 바란다.</span>"

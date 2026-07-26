@@ -152,7 +152,7 @@ window.EVENTS.push({
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
          !player.flags?.valenDie &&
          player.location === "heavenPalace" &&
-         Math.random() < 0.08,
+         Math.random() < 0.09,
 
     action : (player) => {
         player.flags.valen_teaTime_day = getCurrentDay(player);

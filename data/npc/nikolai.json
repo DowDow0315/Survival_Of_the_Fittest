@@ -24,6 +24,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-nikolai'>니콜라이는 평소보다 당신에게 조심스럽다. 그는 자기도 모르게 손가락을 꼬고 있다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "rage", "min": 80}
             ],
             "text" : "니콜라이는 당신과 대화를 하고 싶어하지 않는다."

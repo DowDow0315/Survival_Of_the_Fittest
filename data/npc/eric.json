@@ -25,6 +25,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 100}
+            ],
+            "text" : "<span class='log-eric'>오늘따라 에릭과 시선이 자주 마주치는 것 같다. 에릭이 바로 당신의 시선을 피해버리긴 하지만.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 80},
                 {"emotion" : "fear", "min": 90}
             ],

@@ -17,6 +17,12 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-akasia'>아카시아는 내일 아침, 당신과 한 침대에서 일어나고 싶어한다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90},
                 {"emotion" : "dominance", "min": 50}
             ],

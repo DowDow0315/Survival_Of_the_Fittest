@@ -22,6 +22,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-deric'>데릭은 당신을 마음껏 울리고 싶어한다. 밤이든, 낮이든, 자신의 밑에서라면 언제든.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90},
                 {"emotion": "dominance", "min":70}
             ],

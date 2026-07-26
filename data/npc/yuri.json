@@ -33,6 +33,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-yuri'>유리는 당신을 바라볼 때 두근거리는 마음을 진정시키려고 애쓴다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90},
                 {"emotion" : "dominance", "min": 70}
             ],

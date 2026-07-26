@@ -23,6 +23,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-matin'>오늘 밤, 마틴은 당신과 단둘이 있고 싶어한다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90},
                 {"emotion" : "rage", "min": 70}
             ],

@@ -17,6 +17,12 @@
     "statusLines" : [
         {
             "conditions" : [
+                {"emotion": "lust", "min": 70}
+            ],
+            "text" : "<span class='log-sion'>시온은 오늘도 당신을 생각하며 잠에 들지 못한다. 영웅님은 너무 야해요.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "dominance", "min": 70},
                 {"emotion" : "affection", "min": 90}
             ],

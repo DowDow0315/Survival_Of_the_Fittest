@@ -25,6 +25,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-valen'>발렌은 꽃들로 침대를 꾸며놨다. 오늘 밤 그의 침대는 향기로울 것이다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 90},
                 {"emotion" : "fear", "min": 50}
             ],

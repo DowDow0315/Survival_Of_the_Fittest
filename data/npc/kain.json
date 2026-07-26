@@ -26,6 +26,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 80}
+            ],
+            "text" : "<span class='log-kain'>카인은 당신의 온기를 그리워한다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "rage", "min": 60},
                 {"emotion" : "dominance", "min": 50},
                 {"emotion" : "affection", "min": 50}

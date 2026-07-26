@@ -31,6 +31,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 90}
+            ],
+            "text" : "<span class='log-sora'>소라는 더 이상 참을 수 없다. 소라의 것이니까 듬뿍 예뻐해줄래.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "affection", "min": 50},
                 {"emotion" : "rage", "min": 50}
             ],

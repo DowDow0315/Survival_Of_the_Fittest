@@ -23,6 +23,12 @@
         },
         {
             "conditions" : [
+                {"emotion": "lust", "min": 80}
+            ],
+            "text" : "<span class='log-luke'>루크는 당신의 몸에 자신의 흔적을 남기고 싶어한다.</span>"
+        },
+        {
+            "conditions" : [
                 {"emotion": "rage", "min": 50},
                 {"emotion" : "affection", "min": 80}
             ],

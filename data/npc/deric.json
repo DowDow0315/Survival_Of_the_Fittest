@@ -1480,6 +1480,7 @@
                                     { "target": "npc", "npc": "deric", "key": "affection", "amount": 5 },
                                     { "target": "npc", "npc": "deric", "key": "lust", "amount": -30 },
                                     { "target": "player", "key": "hp", "amount": 100 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
                                     { "target": "player", "key": "stamina", "amount": 100 },
                                     { "target": "gold", "amount": 3500 }
                                 ]

@@ -36,13 +36,12 @@ const abominationDefeat = [
                         addBodyFluid(player, "a", 60);
                         addBodyFluid(player, "c", 60);
                         addBodyFluid(player, "m", 60);
-                    }                        
+                    }          
+                    infectAbomination(player);
+                    savePlayer(player);              
                     return true;
                 }
-            },
-            {
-                type : "effect",
-                run : "infectAbomination"
+                
             }
         ]
     }

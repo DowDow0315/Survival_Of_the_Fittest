@@ -602,6 +602,11 @@ function isEricAvailable(player){
     if ([0, 2, 6].includes(day) && time !== "dawn"){
         return false;
     }
+    
+    // 화/목/금은 아예 없음
+    if ([1, 3, 4].includes(day)){
+        return false;
+    }
 
     // 토, 아침에만 있음
     if ([5].includes(day) && time !== "morning"){

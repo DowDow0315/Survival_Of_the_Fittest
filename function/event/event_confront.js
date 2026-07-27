@@ -93,7 +93,7 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
-    id : "soraAndLuke_01",
+    id : "soraAndLuke_02",
     condition : (player) =>
         player.justMoved &&
         ["townStreet", "darkStreet"].includes(player.location) &&
@@ -541,6 +541,188 @@ window.EVENTS.push({
                                     changeNPCEmotion("sora", "affection", 3);
                                     changeNPCEmotion("matin", "affection", -20);
                                     changeNPCEmotion("matin", "rage", 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "soraAndSion_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sion"].emotion.affection >= 20 &&
+        NPC_DATA["sora"].emotion.affection >= 60 &&
+        !player.flags?.soraDie,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님!\"<br><br>" +
+                    "소라에게 물건을 팔고 있던 시온이 당신의 발소리만 듣고도 당신인 걸 알아차리고 돌아보았다. 그는 여기서 만날 줄은 몰랐다며 순수하게 기뻐했다. 그는 쉘터에서 로맨스 소설을 읽은 적이 있는데 거기서도 주인공들은 운명처럼 생각지도 못한 곳에서 서로 만난다고 말했다.<br><br>" +
+                    "\"소라는 우연보다 필연이 더 좋은데.\"<br><br>" +
+                    "시온의 이야기를 듣고 있던 소라는 미소를 지으며 말했다." +
+                    "<br><br>\"우연은 언젠가 없어져도 찾지 못하지만, 필연은 누군가가 만나기 싫어해도 결국엔 만나게 되거든. 그럴 리는 없겠지만 우리 예쁜이가 나를 싫어한다고 해도 상점에 물건을 팔아야 해서 이곳에 올 수밖에 없을걸?\"<br><br>" +
+                    "어어, 그렇다고 해도 날 싫어하면 안돼? 그럴 리는 없지만. 소라는 당신의 눈을 똑바로 바라보며 재잘거렸다." +
+                    "<br><br>\"필연이라고 해도 한쪽에서 싫어하면 그건 이어질 수 없잖아요.\"<br><br>" +
+                    "\"아직 어리네. 한쪽이 싫어해도 이어질 수는 있어. 그럼 하나 물어볼까? 너는 언젠가 그가 널 싫어한다고 하면, 그대로 물러날 거야?\"<br><br>" +
+                    "시온의 움직임이 멈췄다. 그는 당신을 돌아보더니 금방이라도 울 것 같은 얼굴로 당신이 자신을 싫어하게 될 일은 없을 거라고 말했다. 소라는 그 말에 웃었다." +
+                    "<br><br>\"정말? 그럼, 우리 사랑둥이, 넌 시온을 지금 싫어하지 않아?\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온을 싫어하지 않는다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"봐요. 영웅님은 절 싫어하지 않으신다고요.\"<br><br>" +
+                                    "당신의 대답에 시온은 기세가 살았다. 소라는 시온의 말에 픽 웃더니 사랑은 언제든 변할 수 있는 거라고 말했다. 사랑이 변하지 않는다면 이 세상에 결별과 이별이 왜 있겠어?" +
+                                    "<br><br>\"내 사랑은 안 변하지만.\"<br><br>" +
+                                    "소라의 말에 시온은 인상을 찌푸렸다." +
+                                    "<br><br>\"...자기 위주로 생각하고 있네. 남들의 사랑이 변할 가능성이 있다면 네 사랑도 변할 가능성이 있는 거겠지.\"<br><br>" +
+                                    "\"아니. 소라의 사랑은 안 변해. 소라의 사랑은 네 사랑과는 다르거든.\"<br><br>" +
+                                    "시온은 얼토당토 없는 말은 그만 듣겠다고 말하며 당신에게로 몸을 돌렸다. 그의 손이 부드럽게 당신의 귀를 감쌌다." +
+                                    "<br><br>\"제 사랑은 영원히 변하지 않을 거예요, 영웅님. 제 세상엔 영웅님만 색깔이 칠해져 있거든요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 시온을 싫어한다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 시온의 눈에서 닭똥같은 눈물이 똑똑 떨어졌다. 그는 울면서 고개를 저었다." +
+                                    "<br><br>\"그럴 리가 없어요....\"<br><br>" +
+                                    "\"들었지? 그러면 이제 넌, 포기할 거야?\"<br><br>" +
+                                    "시온은 잠시 말이 없었다. 이내 고개를 저은 그는 당신을 똑바로 바라보며 입술을 일그러뜨리고 대꾸했다." +
+                                    "<br><br>\"아니요. 영웅님이 절 좋아하게 만들 거예요.\"<br><br>" +
+                                    "그는 더 이상 이 자리에 있기가 힘든지 그대로 상점을 나가버렸다. 소라는 시온의 뒷모습을 바라보다가 당신을 돌아보았다." +
+                                    "<br><br>\"...소라도 마찬가지야. 소라는 절대로 포기하지 않아. 네가 날 사랑하지 않을 리도 없지만.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "dominance", 3);
+                                    changeNPCEmotion("sion", "affection", -3);
+                                    changeNPCEmotion("sion", "rage", 10);
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "soraAndSion_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        NPC_DATA["sion"].emotion.affection >= 30 &&
+        NPC_DATA["sora"].emotion.affection >= 50 &&
+        !player.flags?.soraDie &&
+        player.flags?.soraAndSion_day !== getCurrentDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.soraAndSion_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상점 밖에서부터 두 사람의 목소리가 들린다. 당신이 상점에 들어서자 두 사람은 동시에 당신을 바라보았다." +
+                    "<br><br>\"영웅님. 영웅님은...!\"<br><br>" +
+                    "\"장미보다는 하얀꽃이 좋지?\"<br><br>" +
+                    "\"강요하지 마세요. 영웅님은 하얀꽃보다 장미를 더 좋아하신다고요!\"<br><br>" +
+                    "두 사람이 모두 당신을 바라보고 있다.... 분위기가 무겁다. 겨우 꽃 때문에."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀꽃보다 장미를 더 좋아한다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 대답에 소라는 아무 말도 하지 않았다. 그는 그저 금안으로 당신을 뚫어지게 바라볼 뿐이었다. 시선이 당신의 눈동자에서 떨어지지를 않아서 당신은 당신도 모르게 몸을 움츠렸다." +
+                                    "<br><br>\"영웅님을 불편하게 하지 마세요.\"<br><br>" +
+                                    "시온은 당신을 자신의 등뒤로 숨기며 말했다. 그는 소라의 고요한 금안에도 지지 않고 똑바로 그를 노려보았다." +
+                                    "<br>...당신의 주변에서 맴돌던 달콤한 향기가 무겁게 가라 앉았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    changeNPCEmotion("sion", "dominance", 1);
+                                    changeNPCEmotion("sora", "dominance", -3);
+                                    changeNPCEmotion("sora", "affection", -1);
+                                    changeNPCEmotion("sora", "rage", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 장미보다 하얀꽃을 더 좋아한다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"하얀 꽃을요? 안돼요, 영웅님. 하얀꽃은 가지고 있는 것만으로도 죄악이라고요.\"<br><br>" +
+                                    "시온은 너무 위험하다는 듯이 고개를 저었다." +
+                                    "<br><br>\"원래 위험한 것이 더 끌리는 법이야. 소라처럼. 그리고....\"<br><br>" +
+                                    "소라의 손이 당신의 뺨에 닿았다. 시온의 눈이 커지더니 곧바로 소라의 손목을 잡았다. 하지만 소라는 시온에게 손목을 잡혔는데도 웃으며 당신의 뺨을 쓰다듬었다. 힘을 줘서 막는데도 멈추지 않는 그의 손에 시온의 표정이 굳었다." +
+                                    "<br><br>\"안돼요, 영웅님.... 위험한 것에 가까워지면 다쳐요. 영웅님이 다치면 전...\"<br><br>" +
+                                    "\"너라고 해서 가시 없는 장미 같지는 않아, 꼬맹이.\"<br><br>" +
+                                    "소라는 가볍게 당신의 뺨을 두드려준 후 손을 뗐다. 달콤한 향이 기분 좋게 당신의 주변을 맴돌았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "affection", 3);
+                                    changeNPCEmotion("sora", "dominance", 3);
+                                    changeNPCEmotion("sion", "dominance", -3);
+                                    changeNPCEmotion("sion", "affection", -3);
+                                    changeNPCEmotion("sion", "rage", 3);
                                     savePlayer(player);
                                 }
                             }

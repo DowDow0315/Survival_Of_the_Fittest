@@ -150,3 +150,39 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_upperRequest_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownStreet" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_02_done_day + 3) &&
+        !player.flags?.upper_route_upperRequest_01,
+
+    action : (player) => {
+        player.flags.upper_route_upperRequest_01 = true;
+        player.flags.act3_quest_03_upper_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "부유한 거리를 가로지르는 백색 군단의 행렬은 흐트러짐 하나 없이 사람들 앞을 당당히 지나가고 있었다." +
+                    "<br><br>\"...강하지요?\"<br><br>" +
+                    "바로 옆에서 들려오는 목소리에 당신은 고개를 들었다. 발렌은 미소와 함께 자신의 백색 군단을 바라보고 있었다." +
+                    "<br><br>\"제가 기른 군단입니다. 누구보다도 강하게, 아름답게... 상류도시를 지킬 수 있게끔 만들어진 군단이지요.<br><br>당신이 없어졌던 시간 동안, 마물들은 우리들이 간신히 세워놓은 경계선을 뚫고 하류도시 마을 입구까지 내려왔습니다. 죽어가는 이들을 보며 저희는 끝까지 그들을 지키고자 했습니다.\"<br><br>" +
+                    "발렌이 잠시 숨을 멈췄다. 그의 표정이 단호해졌다." +
+                    "<br><br>\"전력을 쏟아도 모자랄 판에, 반란군은 이때다 싶어서 저희를 공격하더군요. 지금은 인간들끼리 싸울 때가 아닌데도.... 우매한 자들을 이해하는 데 시간을 낭비할 생각은 없습니다. 하류도시의 영웅, 저는 당신이 이들의 세력을 잠재워주시길 바랍니다. 그들은 깊은숲에 머무르고 있습니다.\"<br><br>" +
+                    "백색 군단이 멀어져간다. 상류도시 시민들의 박수 갈채가 쏟아진다. 발렌은 멀어져가는 백색 군단을 끝까지 바라보며 말을 이었다." +
+                    "<br><br>\"당신을 믿고 있겠습니다, 하류도시의 영웅. 언제나처럼.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

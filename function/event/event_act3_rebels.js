@@ -86,7 +86,7 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags.rebel_route_rebelRequest_01 = true;
-        player.flags.act3_quest_03_unlock = true;
+        player.flags.act3_quest_03_rebels_unlock = true;
         savePlayer(player);
 
         startScene([
@@ -101,7 +101,7 @@ window.EVENTS.push({
                     "<br><br>\"당신이 백색 군단 세력을 치는 동안, 저희는 실험실의 위치를 찾을 것입니다.\"<br><br>" +
                     "\"최근 제 가족이 끌려간 실험실 말입니다.\"<br><br>" +
                     "당신이 아는 얼굴이 모습을 드러냈다. 저번 반란군 진압 때 당신이 살려줬던 그 남자다." +
-                    "<br><br>\"진실을 위해, 부탁드리겠습니다. 의뢰서는 주점에 올려놓겠습니다. 마틴에게 말해 당신에게만 보일 수 있게 하겠습니다.\""
+                    "<br><br>\"진실을 위해, 부탁드리겠습니다. 그들의 근거지는 깊은숲에 있습니다. 의뢰서는 주점에 올려놓겠습니다. 마틴에게 말해 당신에게만 보일 수 있게 하겠습니다.\""
                 ]
             }
         ], player, {

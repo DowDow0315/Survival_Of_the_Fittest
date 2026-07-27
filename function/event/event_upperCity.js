@@ -189,6 +189,57 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_whiteArmyFuneral",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        NPC_DATA["valen"].emotion.affection >= 30 &&
+        player.flags?.upper_route_upperRequest_01 &&
+        !player.flags?.valen_whiteArmyFuneral,
+
+    action : (player) => {
+        player.flags.valen_whiteArmyFuneral = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["valen"].scenes.valen_whiteArmyFuneral,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_whiteArmyFuneralTogether_01",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["valen"].emotion.affection >= 40 &&
+         player.flags?.valen_whiteArmyFuneralTogether_day !== getCurrentDay(player) &&
+         !player.flags?.valenDie &&
+         ["dawn", "morning"].includes(getTimePeriod(player)) &&
+         player.flags?.valen_whiteArmyFuneralTogether &&
+         player.location === "gloryStreet" &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_whiteArmyFuneralTogether_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_whiteArmyFuneralTogether_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};

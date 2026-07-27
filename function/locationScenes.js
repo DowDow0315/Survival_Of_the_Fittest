@@ -708,6 +708,46 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "rebelRaid_cleanup" &&
+        !player.rebelRaid?.active
+    ){
+        choices.push({
+            text: "반란군 세력을 토벌하러 간다",
+            action: "start_rebelRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "ract3_quest_03_upper" &&
+        !player.rebelRaid?.active
+    ){
+        choices.push({
+            text: "발렌의 명을 받아, 반란군 세력을 토벌하러 간다",
+            action: "start_rebelRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "whiteArmyRaid_cleanup" &&
+        !player.whiteArmyRaid?.active
+    ){
+        choices.push({
+            text: "백색 군단의 세력을 약화시키러 간다",
+            action: "start_whiteArmyRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "act3_quest_03_rebels" &&
+        !player.whiteArmyRaid?.active
+    ){
+        choices.push({
+            text: "반란군이 말했던 백색 군단을 약화시키러 간다",
+            action: "start_whiteArmyRaid"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -724,6 +764,14 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         }
     ];
 }
+
+window.start_rebelRaid = function(player){
+    startRebelRaid(player);
+};
+
+window.start_whiteArmyRaid = function(player){
+    startWhiteArmyRaid(player);
+};
 
 
 function buildWastedRuinScene(player, loc, randomDesc){

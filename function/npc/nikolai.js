@@ -149,7 +149,7 @@ registerActions("nikolai", {
         if (!player.flags?.nikolai_ask_about_deric){
             choices.push({
                 text: "데릭에 대해 묻는다.",
-                scene: NPC_DATA.nikolai.scenes.nikoai_ask_about_deric
+                scene: NPC_DATA.nikolai.scenes.nikolai_ask_about_deric
             });
         }
 

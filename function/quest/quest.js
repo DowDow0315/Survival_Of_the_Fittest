@@ -714,7 +714,7 @@ const QUESTS = {
 
     act3_quest_03_upper : {
         id : "act3_quest_03_upper",
-        title : "반란군 토벌",
+        title : "대의를 위해",
         type: "boss",
         bossName : "반란군 수장",
         repeatable : false,
@@ -743,7 +743,7 @@ const QUESTS = {
 
     act3_quest_03_rebels : {
         id : "act3_quest_03_rebels",
-        title : "백색 군단 습격",
+        title : "하류도시의 영웅은 하류도시의 영웅",
         type: "boss",
         bossName : "백색 장군",
         repeatable : false,

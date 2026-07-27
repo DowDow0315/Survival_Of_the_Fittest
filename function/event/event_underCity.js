@@ -1697,6 +1697,7 @@ window.EVENTS.push({
         player.location === "shelter" &&
         player.flags?.act3_quest_02_done &&
         player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_02_done_day + 2) &&
         !player.flags?.yuri_act3_quest_02_done_after_affection_event_seen,
 
     action : (player) => {
@@ -1815,6 +1816,30 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_afterAct3Collapse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_hateHims",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        NPC_DATA["nikolai"].emotion.affection >= 40 &&
+        !player.flags?.nikolai_hateHims,
+
+    action : (player) => {
+        player.flags.nikolai_hateHims = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_hateHims,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -2068,6 +2093,8 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         NPC_DATA["sion"].emotion.lust >= 90 &&
+        !hasNpcRelationship("sion", "lover") &&
+        !hasNpcRelationship("sion", "spouse") &&
         ["townStreet", "darkStreet"].includes(player.location) &&
         Math.random() < 0.15,
 
@@ -2077,6 +2104,33 @@ window.EVENTS.push({
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_hisLittleConfession_03",
+    once : true,
+
+    condition : (player) =>
+        NPC_DATA["sion"].emotion.affection >= 50 &&
+        player.location === "townEntrance" &&
+        player.justMoved,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisLittleConfession_03,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -30);
+                    changeSensitivity(player, "aSensitivity", 5);
+                    passTime(player, 20);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
             }
         );
     }

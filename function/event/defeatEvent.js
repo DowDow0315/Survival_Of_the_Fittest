@@ -39,7 +39,6 @@ const abominationDefeat = [
                     }          
                     infectAbomination(player);
                     savePlayer(player);              
-                    return true;
                 }
                 
             }

@@ -1273,7 +1273,7 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (
         dungeon.id === "abominationCaveRepeated" &&
-        room.boss === "abominations"
+        room.bossId === "abominations"
     ){
         player.flags.abominationCaveRepeated_boss_end = true;
         addQuestProgress(player);
@@ -1349,7 +1349,7 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
-    if (dungeon.id === "abominationCave" && room.boss === "abominations"){
+    if (dungeon.id === "abominationCave" && room.bossId === "abominations"){
         handleAbominationsWin(player);
         return;
     }

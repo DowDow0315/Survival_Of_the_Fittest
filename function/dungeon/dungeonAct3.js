@@ -1408,6 +1408,7 @@ function handleAbominationsWin(player){
             type : "effect",
             run : (player) => {
                 leaveDungeon(player);
+                return true;
             }
         }
     ], player);
@@ -1442,6 +1443,7 @@ function startAbominationsLose(player){
             type : "effect",
             run : (player) => {
                 leaveDungeon(player);
+                return true;
             }
         }
     ], player);

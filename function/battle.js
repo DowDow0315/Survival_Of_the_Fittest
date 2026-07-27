@@ -798,6 +798,40 @@ function useSkill(index){
             log(`${skill.name}! 상대는 역한 기분이 들었다!`, "damage");
             break;
         }
+
+        case "drainHp": {
+            const damage = calculateDamage(
+                powerStat * (skill.power || 1),
+                getEnemyFinalDef(enemy)
+            );
+            
+            enemy.hp -= damage;
+            
+            const healRate = skill.healRate ?? 0.5;
+            const heal = Math.floor(damage * healRate);
+            const actualHeal = Math.min(
+                heal,
+                player.status.maxHp - player.status.hp
+            );
+            
+            player.status.hp = Math.min(
+                player.status.maxHp,
+                player.status.hp + heal
+            );
+            
+            log(
+                `${skill.name}! ${formatStatNumber(damage)} 데미지!`,
+                "damage"
+            );
+            
+            if (actualHeal > 0) {
+                log(
+                    `당신은 HP를 ${formatStatNumber(actualHeal)} 회복했다!`,
+                    "heal"
+                );
+            }
+           break;
+        }
     }
     
     if (enemy.hp <= 0){
@@ -968,8 +1002,6 @@ function updateBuffs(target){
                 );
                 log(`상대방의 상처가 천천히 아물었다. ${heal} 회복!`, "lust");
             }
-
-            log(`재생 효과! HP ${heal} 회복!`, "lust");
         }
 
         buff.remaining--;

@@ -101,7 +101,7 @@
             "chance" : 0.1,
             "duration" : 3,
             "effect" : {
-                "id" : "flower4_heal",
+                "id" : "flower5_heal",
                 "heal": 25
             },
             "lines" : [

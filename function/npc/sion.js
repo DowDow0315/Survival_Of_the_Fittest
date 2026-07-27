@@ -231,7 +231,7 @@ registerActions("sion",{
         });
     },
 
-    sion_lust_50_shout: (player) => {
+    lust_50_shout: (player) => {
         const sion = NPC_DATA["sion"].emotion;        
         
         if (sion.dominance >= 70) {

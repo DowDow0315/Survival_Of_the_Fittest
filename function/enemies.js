@@ -46,7 +46,7 @@ async function loadEnemies(){
     const list = [
         "deer", "bird", "abominatedBoar", "abominatedBird",
         "rapistM", "rapistF", "slime", "goblin",
-        "flower", "flower2", "flower3", "flower4", "flower5", "soraFather",
+        "flower", "flower2", "flower3", "flower4", "flower5", "soraFather", "flower6",
         "begger", "beggers", "goblinKing",
         "skeleton", "skeletonEnhanced", "skeletonWheel", "skeletonBig", "skeletonKnight",
         "bandit1", "bandit2", "banditBoss", "advancedBandit1", "advancedBandit2", "advancedBanditBoss",
@@ -55,7 +55,9 @@ async function loadEnemies(){
         "trafficker1", "trafficker2", "trafficker3", "trafficker4",
         "abomination1", "abomination2", "abomination3", "abomination4",
         "abominationMixedHead", "abominationMixedArms", "abominationMixedMiddle",
-        "whiteArmy1", "whiteArmy2", "whiteArmy3", "whiteArmy4", "whiteArmyLeader1", "nikolai_machete"
+        "whiteArmy1", "whiteArmy2", "whiteArmy3", "whiteArmy4", "whiteArmyLeader1", "nikolai_machete",
+        "scientist1",
+        "experimentAboFlower1"
     ];
 
     for (const name of list){

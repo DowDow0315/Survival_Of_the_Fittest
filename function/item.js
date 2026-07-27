@@ -1048,6 +1048,48 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "데미지 5배 공격"
         }
+    ],
+    "백화차크람" : [
+        {
+            name : "흡혈꽃",
+            cost : 2,
+            type : "drainHp",
+            power : 2.9,
+            healRate : 0.5,
+            unlock : 20,
+            desc : "데미지 2.9배 공격 및 데미지 기반 0.5 힐"
+        },
+        {
+            name : "차크람 꽃비",
+            cost : 4,
+            type : "multiHit",
+            power : 1.5,
+            hits : 4,
+            unlock : 100,
+            desc : "데미지 1.5배로 4번 공격" 
+        },
+        {
+            name : "회전하는 꽃잎들",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteFlowerChakram_buff",
+                atkMult : 1.4,
+                evaMult : 1.4
+            },
+            duration: 6,
+            unlock : 150,
+            desc : "6턴간 공격력 1.4배, 회피력 1.4배"
+        },
+        {
+            name : "차크람 장맛비",
+            cost : 7,
+            type : "multiHit",
+            power : 2.5,
+            hits : 4,
+            unlock : 200,
+            desc : "데미지 2.5배로 4번 공격" 
+        }
     ]
 };
 
@@ -1151,6 +1193,10 @@ const MASTER_SKILLS = {
     "백색 할버드" : {
         requiredMastery : 300,
         skillName : "백색군단의 위엄"
+    },
+    "백화차크람" : {
+        requiredMastery : 300,
+        skillName : "회전하는 꽃잎들"
     }
 };
 
@@ -1441,6 +1487,19 @@ const ITEMS ={
                 str : 6,
                 dex : 6,
                 charm : 3
+            }
+        },
+
+        whiteFlowerChakram : {
+            name : "백화차크람",
+            type : "weapon",
+            desc : "꽃비는 내리면서 슬픔을 남긴다.",
+            price : 3300,
+            stats : {
+                str : 1,
+                dex : 5,
+                int : 3,
+                charm : 6
             }
         }
     },

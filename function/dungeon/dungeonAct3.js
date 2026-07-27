@@ -924,7 +924,7 @@ Object.assign(DUNGEON_EVENTS, {
             {
                 type : "effect",
                 run : (player) => {
-                    changeTruma(player, 10);
+                    changeTrauma(player, 10);
                     savePlayer(player);
                 }
             }
@@ -1294,7 +1294,7 @@ Object.assign(DUNGEON_EVENTS, {
             {
                 type : "effect",
                 run : (player) => {
-                    changeTruma(player, 10);
+                    changeTrauma(player, 10);
                     savePlayer(player);
                 }
             }

@@ -404,7 +404,7 @@ registerActions("luke", {
         });
     },
 
-    luke_cooking_event_01_refuse: (player) => {
+    cooking_event_01_refuse: (player) => {
         const luke = NPC_DATA["luke"].emotion;        
         
         if (luke.dominance > 50) {

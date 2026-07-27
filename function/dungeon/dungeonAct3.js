@@ -1344,6 +1344,7 @@ function handleAdvancedBanditBossWin(player){
 
 //흉물소굴
 window.startAbominationsBattle = function(player){
+    let supportStarted = false;
     startBattle(["abomination1", "abomination3", "abomination4"] , player, {
         noEscape: true,
 

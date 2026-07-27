@@ -1689,6 +1689,42 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "yuri_training_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "deepForest_act3" &&
+        !player.flags?.yuriDie &&
+        player.flags?.act3_rebel_route &&
+        NPC_DATA["yuri"].emotion.affection >= 90 &&
+        (
+            hasNpcRelationship("yuri", "lover") ||
+            hasNpcRelationship("yuri", "spouse")
+        )  &&
+        !player.flags?.yuri_training_02_seen,
+
+    action : (player) => {
+        player.flags.yuri_training_02_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_training_02,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -30);
+                    passTime(player, 25);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "yuri_act3_quest_02_done_after_affection_event",
     once : true,
 
@@ -1726,6 +1762,7 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         player.flags?.dericDate02Accepted &&
         player.flags?.metNikolai &&
+        !player.flags?.nikolaiDie &&
         !player.flags?.nikolai_feels_good_event_seen,
 
     action : (player) => {
@@ -1753,6 +1790,7 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         NPC_DATA["sion"].emotion.affection >= 30 &&
         player.flags?.metNikolai &&
+        !player.flags?.nikolaiDie &&
         !player.flags?.sion_uppercity,
 
     action : (player) => {
@@ -1781,6 +1819,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "dawn"
         ) &&
         player.flags?.nikolai_upperOneNight_day !== getCurrentDay(player) &&
+        !player.flags?.nikolaiDie &&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -1808,6 +1847,7 @@ window.EVENTS.push({
         player.flags?.act3CollapseDone &&
         NPC_DATA["nikolai"].emotion.affection >= 30 &&
         !player.flags?.act3_quest_01_done &&
+        !player.flags?.nikolaiDie &&
         !player.flags?.nikolai_afterAct3Collapse,
 
     action : (player) => {
@@ -1832,6 +1872,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "richTownStreet" &&
         NPC_DATA["nikolai"].emotion.affection >= 40 &&
+        !player.flags?.nikolaiDie &&
         !player.flags?.nikolai_hateHims,
 
     action : (player) => {
@@ -1843,6 +1884,37 @@ window.EVENTS.push({
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        !player.flags?.nikolaiDie &&
+        NPC_DATA["nikolai"].emotion.affection >= 50 &&
+        !player.flags?.nikolai_training_01_seen,
+
+    action : (player) => {
+        player.flags.nikolai_training_01_seen = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -10);
+                    passTime(player, 20);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
             }
         );
     }

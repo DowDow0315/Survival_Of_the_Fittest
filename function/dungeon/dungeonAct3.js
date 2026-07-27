@@ -774,9 +774,9 @@ Object.assign(DUNGEON_EVENTS, {
                                 type : "effect",
                                 run : (player) => {
                                     addItem(player, ITEMS.misc.bigFish);
-                                    addItem(player, ITEMS.misc.mediumFishFish);
+                                    addItem(player, ITEMS.misc.mediumFish);
                                     addItem(player, ITEMS.misc.bigFish);
-                                    addItem(player, ITEMS.misc.mediumFishFish);
+                                    addItem(player, ITEMS.misc.mediumFish);
                                     passTime(player, 4);
                                     savePlayer(player);
                                 }

@@ -877,7 +877,7 @@
             {
                 "type" : "effect",
                 "effects" : [
-                    { "target": "npc", "npc": "eric", "key": "affection", "amount": 8 },
+                    { "target": "npc", "npc": "eric", "key": "affection", "amount": 2 },
                     { "target": "npc", "npc": "eric", "key": "dominance", "amount": -5 },
                     { "target": "npc", "npc": "eric", "key": "rage", "amount": -5 },
                     { "target": "time", "amount": 9 }

@@ -1,5 +1,5 @@
 function processAkasiaText(text, player){
-    return text.replaceAll("{akasiaTitle}", getValenTitle(player))
+    return text.replaceAll("{akasiaTitle}", getAkasiaTitle(player))
     .replaceAll("{playerName}", player.name || "당신");
 }
 

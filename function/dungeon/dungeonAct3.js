@@ -205,6 +205,78 @@ Object.assign(DUNGEONS, {
         ]
     },
 
+    madLab : {
+        id : "madLab",
+        name : "출입금지 병동",
+        startRoom : "r7c5",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2",     "", "r0c4", "r0c5"],
+            ["r1c0",     "", "r1c2",     "",     "", "r1c5"],
+            ["r2c0",     "",     "",     "", "r2c4", "r2c5"],
+            ["r3c0", "r3c1", "r3c2", "r3c3", "r3c4",     ""],
+            [    "",     "", "r4c2",     "", "r4c4",     ""],
+            ["r5c0", "r5c1", "r5c2",     "", "r5c4", "r5c5"],
+            ["r6c0",     "", "r6c2", "r6c3",     "",     ""],
+            ["r7c0",     "",     "", "r7c3",     "", "r7c5"],
+            ["r8c0", "r8c1",     "", "r8c3", "r8c4", "r8c5"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "기도실", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "약품실", exits : {left : "r0c0", right : "r0c2"}, safeZone: true, allowRest: true},
+            "r0c2" : {name : "복도의 작은 틈", exits : {left : "r0c1", down : "r1c2"}},
+            "r0c4" : {name : "소각소", exits : {right : "r0c5"}},
+            "r0c5" : {name : "가득 쌓인 시체들", exits : {left : "r0c4", down : "r1c5"}},
+            
+            "r1c0" : {name : "누군가의 초상화가 걸려있던 방", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "잔뜩 찢긴 소라의 초상화", exits : {up : "r0c2"}},
+            "r1c5" : {name : "세뇌?", exits : {up : "r0c5", down : "r2c5"}},
+
+            "r2c0" : {name : "달콤한 냄새가 나는 복도", exits : {up : "r1c0", down : "r3c0"}},
+            "r2c4" : {name : "고통의 시간", exits : {right : "r2c5", down : "r3c4"}},
+            "r2c5" : {name : "세뇌의 방", exits : {up : "r1c5", left : "r2c4"}},
+
+            "r3c0" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도5", exits : {up : "r2c0", right : "r3c1"}},
+            "r3c1" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도4", exits : {left : "r3c0", right : "r3c2"}},
+            "r3c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도3", exits : {left : "r3c1", right : "r3c3", down : "r4c2"}},
+            "r3c3" : {name : "가운을 입고 죽어있는 흉물들?", exits : {left : "r3c2", right : "r3c4"}},
+            "r3c4" : {name : "갈림길", exits : {up : "r2c4", left : "r3c3", down : "r4c4"}},
+
+            "r4c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도2", exits : {up : "r3c2", down : "r5c2"}},
+            "r4c4" : {name : "인내의 복도", exits : {up : "r3c4", down : "r5c4"}},
+
+            "r5c0" : {name : "기록실로 이어지는 복도", exits : {right : "r5c1", down : "r6c0"}},
+            "r5c1" : {name : "오래된 비디오들이 쌓여있는 방", exits : {left : "r5c0", right : "r5c2"}},
+            "r5c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도1", exits : {up : "r4c2", left : "r5c1", down : "r6c2"}},
+            "r5c4" : {name : "기쁨의 시간 앞", exits : {up : "r4c4", right : "r5c5"}},
+            "r5c5" : {name : "기쁨의 시간", exits : {left : "r5c4"}},
+
+            "r6c0" : {name : "영상방1", exits : {up : "r5c0", down : "r7c0"}},
+            "r6c2" : {name : "할퀴어져 있는 벽", exits : {up : "r5c2", right : "r6c3"}},
+            "r6c3" : {name : "엉성한 바리게이트", exits : {left : "r6c2", down : "r7c3"}},
+
+            "r7c0" : {name : "실험실1", exits : {up : "r6c0", down : "r8c0"}},
+            "r7c3" : {name : "끈적한 복도4", exits : {up : "r6c3", down : "r8c3"}},
+            "r7c5" : {name : "출입금지 표지판 앞",exits : {down : "r8c5"}},
+
+            "r8c0" : {name : "실험실2", exits : {up : "r7c0", right : "r8c1"}},
+            "r8c1" : {name : "영상방2", exits : {left : "r8c0"}},
+            "r8c3" : {name : "끈적한 복도3", exits : {up : "r7c3", right : "r8c4"}},
+            "r8c4" : {name : "끈적한 복도2", exits : {left : "r8c3", right : "r8c5"}},
+            "r8c5" : {name : "끈적한 복도", exits : {up : "r7c5", left : "r8c4"}}
+        },
+
+        encounters : [
+            { type : "battle", enemies : ["scientist1", "scientist2"], weight : 30},
+            { type : "battle", enemy : "scientist1", minCount : 1, maxCount : 3, weight : 10},
+            { type : "battle", enemy : "scientist2", minCount : 1, maxCount : 2, weight : 10},
+            { type : "battle", enemies : ["experimentAboFlower1", "experimentAboFlower2"], weight : 30 },
+            { type : "battle", enemy : "experimentAboFlower1", minCount : 1, maxCount : 2, weight : 10},
+            { type : "battle", enemy : "experimentAboFlower2", minCount : 1, maxCount : 2, weight : 10}
+        ]
+    },
+
     abominationRedCave : {
         id : "abominationRedCave",
         name : "붉은살점동굴",

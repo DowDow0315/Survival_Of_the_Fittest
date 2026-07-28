@@ -1621,7 +1621,7 @@ function leaveDungeon(player){
     } else if (dungeonId === "abominationCave"){
         player.location = "deepForest_act3";
     } else if (dungeonId === "abominationCaveRepeated"){
-        player.location = "wastedRuin";
+        player.location = "deepForest_act3";
     } else {
         player.location = "deepForest_act3";
     }

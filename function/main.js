@@ -992,6 +992,33 @@ function changeSensitivity(player, key, amount){
     updateStatusUI(player);
 }
 
+function isNpcPartner(npcId){
+    return (
+        hasNpcRelationship(npcId, "lover") ||
+        hasNpcRelationship(npcId, "spouse")
+    );
+}
+
+function getNpcEmotionMax(npcId, key){
+    if (
+        npcId === "nikolai" &&
+        key === "affection" &&
+        !isNpcPartner(npcId)
+    ) {
+        return 79;
+    }
+
+    if (
+        npcId === "eric" &&
+        key === "affection" &&
+        !player.flags?.EricQuestClear
+    ) {
+        return 79;
+    }
+
+    return 100;
+}
+
 function changeEmotion(npcId, key, amount){
     const npc = NPC_DATA[npcId];
     if (!npc) return;
@@ -1000,8 +1027,13 @@ function changeEmotion(npcId, key, amount){
     npc.emotion[key] = npc.emotion[key] ?? 0;
 
     const min = key === "lust" ? 0 : -100;
-    
-    npc.emotion[key] = clamp(npc.emotion[key] + amount, -100, 100);
+    const max = getNpcEmotionMax(npcId, key);
+
+    npc.emotion[key] = clamp(
+        npc.emotion[key] + amount,
+        min,
+        max
+    );
 
     if (typeof saveNpcProgressToLocalStorage === "function"){
         saveNpcProgressToLocalStorage();
@@ -1019,15 +1051,18 @@ function changeNPCEmotionWithCap(npcId, key, amount, max){
     if (!npc) return;
 
     npc.emotion = npc.emotion || {};
+
     const current = npc.emotion[key] ?? 0;
+    const relationshipMax = getNpcEmotionMax(npcId, key);
+    const finalMax = Math.min(max, relationshipMax);
 
-    if (current >= max) return;
+    if (amount > 0){
+        if (current >= finalMax) return;
 
-    changeNPCEmotion(
-        npcId,
-        key,
-        Math.min(amount, max - current)
-    );
+        amount = Math.min(amount, finalMax - current);
+    }
+
+    changeNPCEmotion(npcId, key, amount);
 }
 
 const NPC_RELATIONSHIP = {

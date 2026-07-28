@@ -55,7 +55,7 @@ function startWhiteArmyRaidRandomEvent(player){
         { id: "whiteArmyRaid_armies", weight: 30 },
         { id: "whiteArmyRaid_armies2", weight: 30 },
         { id: "whiteArmyRaid_armies3", weight: 25 },
-        { id: "whiteArmyRaid_pepper", weight: 15 },
+        { id: "whiteArmyRaid_pepper", weight: 10 },
         { id: "whiteArmyRaid_theirNameList", weight: 5 }
     ]);
 
@@ -106,12 +106,11 @@ function startWhiteArmyRaidRandomEvent(player){
             {
                 type: "text",
                 value:
-                    "당신은 백색 군단의 보급품 상자에서 고추를 발견했다. 당신은 고추들을 챙겼다."
+                    "당신은 백색 군단의 보급품 상자에서 고추를 발견했다. 당신은 고추를 챙겼다."
             },
             {
                 type: "effect",
                 run: (player) => {
-                    addItem(player, ITEMS.misc.pepper);
                     addItem(player, ITEMS.misc.pepper);
                     savePlayer(player);
                 }

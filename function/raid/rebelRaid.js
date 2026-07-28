@@ -55,7 +55,7 @@ function startRebelRaidRandomEvent(player){
         { id: "rebelRaid_rebels", weight: 30 },
         { id: "rebelRaid_rebels2", weight: 30 },
         { id: "rebelRaid_rebels3", weight: 25 },
-        { id: "rebelRaid_pepper", weight: 15 },
+        { id: "rebelRaid_pepper", weight: 10 },
         { id: "rebelRaid_yourName", weight: 5 }
     ]);
 
@@ -111,7 +111,6 @@ function startRebelRaidRandomEvent(player){
             {
                 type: "effect",
                 run: (player) => {
-                    addItem(player, ITEMS.misc.pepper);
                     addItem(player, ITEMS.misc.pepper);
                     savePlayer(player);
                 }

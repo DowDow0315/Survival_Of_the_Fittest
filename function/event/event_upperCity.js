@@ -35,6 +35,7 @@ window.EVENTS.push({
         player.location === "heavenRoad" &&
         player.weather === "rain" &&
         NPC_DATA["eric"].emotion.affection >= 10 &&
+        NPC_DATA["eric"].emotion.affection <= 50 &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         hasItemOrEquipped(player, "umbrella") &&
         player.flags?.eric_uppercity_day !== getCurrentDay(player) &&
@@ -618,6 +619,35 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["deric"].scenes.deric_deleteKey,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_notStopFiring",
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        NPC_DATA["deric"].emotion.affection >= 50 &&
+        (
+            getTimePeriod(player) === "dawn" ||
+            getTimePeriod(player) === "morning"
+        ) &&
+        player.flags?.eric_notStopFiring_seen &&
+        !player.flags?.dericEricBloodyBandage &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.dericEricBloodyBandage = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_notStopFiring,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

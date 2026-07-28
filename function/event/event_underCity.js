@@ -1920,6 +1920,27 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "nikolai_yourConfession",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryHole" &&
+        NPC_DATA["nikolai"].emotion.affection >= 50 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_yourConfession,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //창백
 window.EVENTS.push({
     id : "pale_afterFlowerDateDream_01",
@@ -2182,6 +2203,28 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "sion_lust_90_lover",
+
+    condition : (player) =>
+        player.justMoved &&
+        NPC_DATA["sion"].emotion.lust >= 90 &&
+        ( hasNpcRelationship("sion", "lover") ||
+         hasNpcRelationship("sion", "spouse") ) &&
+        player.location === "shelter" &&
+        Math.random() < 0.15,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_lust_90_lover,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "sion_hisLittleConfession_03",
     once : true,
 
@@ -2203,6 +2246,26 @@ window.EVENTS.push({
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_hisLittleConfession_04",
+    once : true,
+
+    condition : (player) =>
+        NPC_DATA["sion"].emotion.affection >= 70 &&
+        player.location === "townStreet" &&
+        player.justMoved,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisLittleConfession_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
             }
         );
     }

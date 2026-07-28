@@ -175,6 +175,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_bloodyBandage",
+    once : true,
+
+    condition : (player) =>
+        player.location === "deepForest_act3" &&
+        getTimePeriod(player) === "dawn" &&
+        player.flags?.eric_notStopFiring_seen &&
+        player.flags?.dericEricBloodyBandage &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["eric"].scenes.eric_bloodyBandage,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //시온
 window.EVENTS.push({
     id : "sion_hisOutTraining_01",

@@ -1054,10 +1054,10 @@ const WEAPON_SKILLS = {
             name : "흡혈꽃",
             cost : 2,
             type : "drainHp",
-            power : 2.9,
+            power : 3.1,
             healRate : 0.5,
             unlock : 20,
-            desc : "데미지 2.9배 공격 및 데미지 기반 0.5 힐"
+            desc : "데미지 3.1배 공격 및 데미지 기반 0.5 힐"
         },
         {
             name : "차크람 꽃비",
@@ -1089,6 +1089,53 @@ const WEAPON_SKILLS = {
             hits : 4,
             unlock : 200,
             desc : "데미지 2.5배로 4번 공격" 
+        }
+    ],
+    "백화궁" : [
+        {
+            name : "만개",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteFlowerBow_buff",
+                atkMult : 1.5,
+                evaMult : 1.4
+            },
+            duration: 6,
+            unlock : 20,
+            desc : "6턴간 공격력 1.5배, 회피력 1.4배"
+        },
+        {
+            name : "개화 연사",
+            cost : 5,
+            type : "multiHit",
+            power : 1.5,
+            hits : 5,
+            unlock : 100,
+            desc : "데미지 1.5배로 5번 공격" 
+        },
+        {
+            name : "피어나는 원망",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "enemyDebuff",
+                atkMult : 0.8,
+                evaMult : 0.8,
+                defMult : 0.8
+            },
+            duration: 5,
+            unlock : 150,
+            desc : "5턴간 적 공격력 0.8배, 회피력 0.8배, 방어력 0.8배"
+        },
+        {
+            name : "흡혈꽃",
+            cost : 3,
+            type : "drainHp",
+            power : 4.2,
+            healRate : 0.5,
+            unlock : 200,
+            desc : "데미지 4.2배 공격 및 데미지 기반 0.5 힐"
         }
     ]
 };
@@ -1197,6 +1244,10 @@ const MASTER_SKILLS = {
     "백화차크람" : {
         requiredMastery : 300,
         skillName : "회전하는 꽃잎들"
+    },
+    "백화궁" : {
+        requiredMastery : 300,
+        skillName : "흡혈꽃"
     }
 };
 
@@ -1499,6 +1550,20 @@ const ITEMS ={
                 str : 1,
                 dex : 5,
                 int : 3,
+                charm : 6
+            }
+        },
+
+        whiteFlowerBow : {
+            name : "백화궁",
+            type : "weapon",
+            desc : "꽃비는 내리면서 분노를 남긴다.",
+            price : 3300,
+            tags : ["magicStick"],
+            stats : {
+                str : 2,
+                dex : 1,
+                int : 6,
                 charm : 6
             }
         }
@@ -2829,6 +2894,28 @@ const ITEMS ={
             value : 20,
             tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
             price : 750
+        },
+
+        greatRamen : {
+            name : "훌륭한 라면",
+            type : "heal",
+            value : 150,
+            tags : ["gift", "ericFavorite", "spicy", "great"],
+            price : 1400
+        },
+        normalRamen : {
+            name : "라면",
+            type : "heal",
+            value : 90,
+            tags : ["gift", "ericFavorite", "spicy", "normal"],
+            price : 1000
+        },
+        badRamen : {
+            name : "맛없는 라면",
+            type : "heal",
+            value : 10,
+            tags : ["gift", "ericFavorite", "spicy", "bad"],
+            price : 500
         }
 
     
@@ -3897,6 +3984,24 @@ window.RECIPES = {
             great : "greatMacaron",
             normal : "normalMacaron",
             bad : "badMacaron",
+            disaster: "trash"
+        }
+    },
+
+    ramen : {
+        name : "라면",
+        desc : "밀가루, 고추 그리고 고기를 넣어 만든 매운 라면",
+
+        ingredients : {
+            wheat : 1,
+            pepper : 1,
+            animalMeat : 1
+        },
+
+        results : {
+            great : "greatRamen",
+            normal : "normalRamen",
+            bad : "badRamen",
             disaster: "trash"
         }
     }

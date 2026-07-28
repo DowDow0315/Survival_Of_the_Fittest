@@ -903,6 +903,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        NPC_DATA["akasia"].emotion.affection >= 50,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",

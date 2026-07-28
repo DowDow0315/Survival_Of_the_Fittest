@@ -313,7 +313,7 @@ Object.assign(DUNGEON_CHESTS, {
     },
 
     abominationCave_chest : {
-        name : "끈적거리는 상지",
+        name : "끈적거리는 상자",
         type : "random",
         pool : abominationCave_CHEST_POOL
     }

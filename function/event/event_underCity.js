@@ -1335,6 +1335,37 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_training_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (
+            hasNpcRelationship("matin", "lover") ||
+            hasNpcRelationship("matin", "spouse")
+        ) &&
+        NPC_DATA["matin"].emotion.affection >= 90,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_training_02,
+            player,
+            {
+                onEnd : () => {
+                    addItem(player, ITEMS.consumable.greatSalmonSushi);
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, 20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",

@@ -124,7 +124,6 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags.rebel_route_quest_04_intro = true;
-        player.flags.rebel_route_quest_04_intro_day = getCurrentDay(player);
         player.flags.act3_quest_04_unlock = true;
         savePlayer(player);
 
@@ -144,6 +143,133 @@ window.EVENTS.push({
                     "길거리다.<br><br>" +
                     "<br><br>\"하류도시의 지하에 만들었을 줄은 저희도 몰랐습니다.\"<br><br>\"하류도시를 대체 뭐라고 생각하는 거야.\"<br><br>\"가능하다면 그곳에 갇힌 사람들을 구해주십시오. 그리고 더는 이런 일이 벌어지지 않도록 연구소를 없애주십시오.\"" +
                     "그는 주점에 의뢰를 올려놓을 테니 준비가 됐을 때 의뢰를 받아 가달라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_04_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_03_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_03_done_day + 2) &&
+        !player.flags?.rebel_route_quest_04_intro,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_04_intro = true;
+        player.flags.act3_quest_04_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 옹기종기 모여있다. 처음 보는 몇몇의 사람들이 쉘터의 아이들과 놀아주고 있는 것이 보인다. 그들은 당신이 들어오는 것을 보자마자 자세를 바로 했다." +
+                    "<br><br>\"하류도시의 영웅, 당신이 그들의 세력을 약화시킨 덕분에 저희가 원하던 정보를 얻을 수 있었습니다.\"<br><br>" +
+                    "더 놀아달라는 아이들을 달랜 후 반란군들은 당신의 방으로 당신과 함께 들어갔다." +
+                    "<br><br>\"...최근 제 가족이 끌려간 곳을 찾아냈습니다. 비밀리에 계속 실험을 하고 있었던 모양인데 이유는 모르겠지만 지금 그 연구소는 폐쇄되었습니다.\"<br><br>" +
+                    "남자는 잠시 고개를 숙였다가 다시 들었다.<br><br>" +
+                    "\"하얀꽃 마물 중에 자신의 인격을 유지하는 개체도 있다고 들었습니다. 전 그들을 마물로 보지 않습니다. 그들은.... 고칠 수 있는 인간입니다. 잠깐 아픈 것뿐입니다.\"<br><br>" +
+                    "남자는 당신에게 여자의 사진을 내밀었다." +
+                    "<br><br>\"이름은 마리입니다. 제... 하나뿐인 딸이죠. 혹시라도 보시게 된다면, 어떤 모습이어도 괜찮으니까 아빠는 마리를 기다리고 있다고 전해주십시오.\"<br><br>" +
+                    "당신은 그래서 연구소는 어디에 있는지 물었다. 그들은 지도를 펴더니 한 곳을 가리켰다." +
+                    "길거리다.<br><br>" +
+                    "<br><br>\"하류도시의 지하에 만들었을 줄은 저희도 몰랐습니다.\"<br><br>\"하류도시를 대체 뭐라고 생각하는 거야.\"<br><br>\"가능하다면 그곳에 갇힌 사람들을 구해주십시오. 그리고 더는 이런 일이 벌어지지 않도록 연구소를 없애주십시오.\"" +
+                    "그는 주점에 의뢰를 올려놓을 테니 준비가 됐을 때 의뢰를 받아 가달라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_04_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_04_done &&
+        !player.flags?.rebel_route_quest_04_after,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_04_after = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"하류도시의 영웅.\"<br><br>",
+                    "당신이 연구소를 소각시키면서 길거리에까지 불이 붙은 모양이다. 하류도시 사람들은 여기저기서 불을 끄려고 노력하고 있었다. 반란군들은 골목 구석에 숨은 채 당신에게 무엇을 찾았냐고 물었다." +
+                    "<br><br>\"마리는 찾았습니까.\"<br><br>" +
+                    "\"지금은 그걸 물을 때가 아닙니다. 어떤 실험을 했는지가 중요합니다.\"<br><br>" +
+                    "다른 반란군의 재촉에 남자는 애원하듯 말했다.<br><br>" +
+                    "\"그냥 딱 한 마디면 되니까.\"<br><br>" +
+                    "그는 살아있기만 하면 된다고 중얼거리듯이 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 마리는 죽었다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "무거운 정적이 흘렀다.",
+                                    "<br><br>\"...그럴 수가.\"<br><br>" +
+                                    "그는 비틀거리더니 잠시 혼자만의 시간이 필요하다고 말하며 발걸음을 옮겼다. 다른 동료들이 안쓰러운 눈으로 그를 바라보았다." +
+                                    "<br><br>하지만 그들에게는 각자 찾아야만 하는 가족들이 있었다. 그들은 앞으로 나아가기로 했다. 당신이 하얀 꽃과 흉물을 인간에게 동시에 투입하고 있는 실험에 대해서 말하자 그들의 표정은 점점 일그러졌다. 사람에게 어떻게 그런 짓을 할 수 있냐며, 반란군들 중 한 명이 벽을 세게 쳤다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 마리가 연구소를 빠져나간 것 같다고 거짓말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "마리 아버지의 눈이 크게 뜨였다. 그는 몇 번이고 당신의 말을 되뇌더니, 마침내 환하게 웃었다.<br><br>" +
+                                    "\"우리가 뭐랬어. 딸아이는 살아있을 거라고 했잖아!\"<br><br>\"자, 그럼 이제 본론으로 들어가서...\"<br><br>" +
+                                    "주변이 불타고 있는데도 그들은 마치 전쟁에서 승전보를 울린 것처럼 굴었다. 당신은 그들에게 실험에 대해 말해주었다. 하얀 꽃과 흉물을 동시에 인간에게 투입하고 있다는 말에 그들의 눈이 분노로 타올랐다." +
+                                    "<br><br>\"...어떻게든 구해내야 해.\"<br><br>" +
+                                    "\"이 실험을 모두에게 알려야 해. 발렌의 가면을 벗겨내자.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.mariFatherHope = true;
+                                    savePlayer(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "<br><br>\"이봐요! 거기서 쑥덕거리지만 말고 불 좀 꺼줘요!\"<br><br>" +
+                    "거세지는 불길에 하류도시의 사람들이 도움을 청했다. 반란군들 중 몇 명은 불을 끄러 갔지만, 많은 사람들은 움직이지 않았다. 그들은 서로 시선을 교환하더니 당신은 정말로 하류도시의 영웅이라고 말했다." +
+                    "<br><br>\"앞으로도 연락드리겠습니다, 하류도시의 영웅.<br>정말 감사합니다.\"<br><br>" +
+                    "그들은 순식간에 어둠으로 숨어들었다. 불에 타던 거리가 아주 조금이나마 진정이 되었다. 하류도시 사람들 중 몇 명이 울음을 터뜨렸다." +
+                    "<br><br>...한순간의 불로 삶의 터전을 잃은 사람들이 너무 많다."
                 ]
             }
         ], player, {

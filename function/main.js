@@ -1245,6 +1245,17 @@ function passTime(player, amount){
 
             player.stats.str = (player.stats.str || 0) + 1;
             player.abomination.strGain = (player.abomination.strGain || 0) + 1;
+        }
+
+        if (player.abomination.traumaLastTick == null){
+            player.abomination.traumaLastTick =
+            player.abomination.infectedAt ?? player.time;
+        }
+        
+        while (
+            player.time - player.abomination.traumaLastTick >= 30
+        ){
+            player.abomination.traumaLastTick += 30;
             changeTrauma(player, 1);
         }
 
@@ -3854,6 +3865,7 @@ function infectAbomination(player){
         infectedAt: null,
         birthAt: null,
         lastTick: null,
+        traumaLastTick: null,
         bodyGrowLastTick: null,
         statLoss: { dex: 0, int: 0, charm: 0 },
         strGain: 0
@@ -3865,6 +3877,7 @@ function infectAbomination(player){
     player.abomination.infectedAt = player.time;
     player.abomination.birthAt = player.time + (60 * 240);
     player.abomination.lastTick = player.time;
+    player.abomination.traumaLastTick = player.time;
     player.abomination.bodyGrowLastTick = player.time;
 
     player.stats.charm = (player.stats.charm || 0) - 1;
@@ -3877,28 +3890,31 @@ function infectAbomination(player){
 
 function growAbominationBodyTrait(player){
     const sizeSteps = {
-        msize: ["작음", "평균", "큼"],
-        bsize: ["남자가슴", "절벽", "작음", "평균", "큼", "거대하고아름다움"],
-        csize: ["병뚜껑", "소추", "보통", "큼", "거대하고아름다움"],
-        asize: ["뼈말", "스키니", "보통", "동글동글", "풍성함"]
+        mSize: ["작음", "평균", "큼"],
+        bSize: ["남자가슴", "절벽", "작음", "평균", "큼", "거대하고아름다움"],
+        cSize: ["병뚜껑", "소추", "보통", "큼", "거대하고아름다움"],
+        aSize: ["뼈말", "스키니", "보통", "동글동글", "풍성함"]
     };
 
-    player.sexTraits = player.sexTraits || {};
+    player.sexualTraits = player.sexualTraits || {};
 
     const growable = Object.keys(sizeSteps).filter(key => {
         const steps = sizeSteps[key];
-        const current = player.sexTraits[key];
+        const current = player.sexualTraits[key];
         const index = steps.indexOf(current);
+
         return index >= 0 && index < steps.length - 1;
     });
 
     if (growable.length === 0) return null;
 
-    const key = growable[Math.floor(Math.random() * growable.length)];
-    const steps = sizeSteps[key];
-    const index = steps.indexOf(player.sexTraits[key]);
+    const key =
+        growable[Math.floor(Math.random() * growable.length)];
 
-    player.sexTraits[key] = steps[index + 1];
+    const steps = sizeSteps[key];
+    const index = steps.indexOf(player.sexualTraits[key]);
+
+    player.sexualTraits[key] = steps[index + 1];
 
     return key;
 }

@@ -201,7 +201,6 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags.upper_route_quest_04_intro = true;
-        player.flags.upper_route_quest_04_intro_day = getCurrentDay(player);
         player.flags.act3_quest_04_unlock = true;
         savePlayer(player);
 
@@ -219,6 +218,45 @@ window.EVENTS.push({
                     "<br><br>\"...하류도시 길거리에 위치한 연구소입니다. 비밀리에 실험을 진행 중이었습니다.<br>...지하로 내려가는 계단의 위치는 제가 적어놓겠습니다.\"<br><br>" +
                     "그는 준비를 한 후에 주점에서 의뢰를 받아서 가라고 말했다." +
                     "<br><br>\"소각하십시오. 이 세상에 증거 하나 안 남게.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_04_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_04_done &&
+        !player.flags?.upper_route_quest_04_after,
+
+    action : (player) => {
+        player.flags.upper_route_quest_04_after = true;
+        player.flags.upper_route_quest_04_after_invitation_day = getCurrentDay(player);
+        changeNPCEmotion("yuri", "rage", 20);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "사람들의 비명 소리가 들렸다. 당신이 연구소를 소각시키면서 길거리에까지 불이 붙은 모양이다. 하류도시의 사람들 중 몇몇은 당신에게 도와달라고 말하려다가 뒤로 물러섰다. 하류도시의 몇몇 사람들은 이미 당신을 자신과는 다른 사람이라고 인식하고 있는 모양이었다." +
+                    "<br><br>\"위험해요!\"<br><br>" +
+                    "익숙한 목소리, 유리다. 유리는 불 붙은 나무에 깔릴 뻔한 사람을 끌어당겼다. 그는 뒤를 돌더니 쉘터의 어린 아이들에게는 쉘터에 들어가있으라고 말했다." +
+                    "<br><br>\"하, 하지만...\"<br><br>" +
+                    "그제야 유리의 눈에 불이 붙은 쉘터의 모습이 들어왔다. 유리는 급하게 쉘터로 돌아갔다. 당신은 당신도 모르게 불타는 쉘터 쪽으로 발걸음을 돌렸지만 그 순간 누군가가 당신의 어깨를 잡았다." +
+                    "<br><br><span class='log-valen'>발렌이다.</span><br><br>" +
+                    "\"스테리...\"<br><br>" +
+                    "그는 유리 쪽을 보며 미소를 지었다. 그러더니 다시 당신에게로 시선을 돌렸다." +
+                    "<br><br>\"이번에 잘 해주셨으니.... 곧 초대장을 보내겠습니다. 그때까지 기다려주시길.\"<br><br>" +
+                    "발렌은 당신을 떠나갔다. 당신은 다시 쉘터로 시선을 돌렸다. 유리와 아이들이 힘을 합쳐 불길을 잡고 있었다. 쉘터는 아직 안전했다. 그곳에 당신의 도움을 청하는 사람은 없었다."
                 ]
             }
         ], player, {

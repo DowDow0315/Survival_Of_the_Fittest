@@ -89,18 +89,22 @@ const ENEMY_POOLS = {
     ],
 
     wastedRuin : [
-        { id : "abomination1", weight : 40 },
-        { id : "abomination3", weight : 30 },
-        { id : "abomination2", weight : 20 },
-        { id : "abomination4", weight : 10 }
+        { id : "abomination2", weight : 20},
+        { id : "abomination3", weight : 40 },
+        { id : "abomination4", weight : 30 },
+        { id : "experimentAboFlower1", weight : 10 },
+        { id : "experimentAboFlower2", weight : 10 }
     ],
 
     whiteFlowerTomb : [
         { id : "infectedSoldier", weight : 20 },
-        { id : "flower2", weight : 50 },
-        { id : "flower3", weight : 50 },
+        { id : "flower2", weight : 20 },
+        { id : "flower3", weight : 20 },
         { id : "flower4", weight : 30 },
-        { id : "flower5", weight : 10 },
+        { id : "flower5", weight : 30 },
+        { id : "experimentAboFlower1", weight : 10 },
+        { id : "experimentAboFlower2", weight : 10 },
+        { id : "experimentAboFlower3", weight : 5 }
     ]
 };
 

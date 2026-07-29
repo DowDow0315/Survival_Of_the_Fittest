@@ -559,6 +559,14 @@
             (player.sexBattleTraits || [])
             .map(getSexBattleTraitLabel)
             .join(", ") || "없음";
+
+            const abominationText = player.abomination?.active
+            ? `<p>흉물 잠식: ${
+                Math.floor(
+                    (player.time - player.abomination.infectedAt) / 240
+                ) + 1
+                }일째</p>`
+                : "";
             
             return `
             <div class="detail-card">

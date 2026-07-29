@@ -86,7 +86,12 @@ function buildTownStreetScene(player, loc, randomDesc){
     }
 
     choices.push(
-        { text: "마을 입구로 간다", action: "move_townEntrance" },
+        {
+            text: "마을 입구로 간다",
+            action: player.flags?.act3CollapseDone
+            ? "move_townEntrance_act3"
+            : "move_townEntrance"
+        },
         { text: "쉘터로 간다", action: "move_shelter" },
         { text: "상점으로 간다", action: "move_shop" },
         { text: "주점으로 간다", action: "move_tavern" },

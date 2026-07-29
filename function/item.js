@@ -1137,6 +1137,49 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "데미지 4.2배 공격 및 데미지 기반 0.5 힐"
         }
+    ],
+
+    "백화사탕" : [
+        {
+            name : "행복한 생각",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteFlowerCandyBar_buff",
+                heal : 30,
+                defMult : 1.3,
+                duration : 5
+            },
+            unlock : 20,
+            desc : "5턴 동안 방어력 1.3배 및 매 턴 HP 30 회복"
+        },
+        {
+            name: "달콤한 사탕",
+            cost: 3,
+            type: "bleed",
+            id : "whiteFlowerCandyBar_bleed",
+            dot: 20,
+            duration: 5,
+            unlock: 100,
+            desc : "5턴간 상대방에게 출혈데미지(20)"
+        },
+        {
+            name : "함께 걸어요",
+            cost : 1,
+            type : "damage",
+            power : 2,
+            unlock : 150,
+            desc : "데미지 2배 공격"
+        },
+        {
+            name : "하얀꽃 행진",
+            cost : 3,
+            type : "multiHit",
+            power : 1.5,
+            hits : 4,
+            unlock : 100,
+            desc : "데미지 1.5배로 4번 공격" 
+        }
     ]
 };
 
@@ -1248,6 +1291,10 @@ const MASTER_SKILLS = {
     "백화궁" : {
         requiredMastery : 300,
         skillName : "흡혈꽃"
+    },
+    "백화사탕" : {
+        requiredMastery : 300,
+        skillName : "달콤한 사탕"
     }
 };
 
@@ -1563,7 +1610,20 @@ const ITEMS ={
             stats : {
                 str : 2,
                 dex : 1,
-                int : 6,
+                int : 8,
+                charm : 4
+            }
+        },
+
+        whiteFlowerCandyBar : {
+            name : "백화사탕",
+            type : "weapon",
+            desc : "노래만 부르면 다 괜찮아진대요, 랄랄라~ 더 좋은 세상을 위해.",
+            price : 3300,
+            stats : {
+                str : 3,
+                dex : 3,
+                int : 3,
                 charm : 6
             }
         }

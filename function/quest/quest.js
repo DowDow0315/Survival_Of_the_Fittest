@@ -279,6 +279,32 @@ const QUESTS = {
         completeText: "마틴은 당신의 의뢰를 확인하더니 재빨리 의뢰서를 가져갔다. 무표정이었지만, 긴장한 기색은 숨기지 못하고 있다."
     },
 
+    madLabRepeated_cleanup: {
+        id: "madLabRepeated_cleanup",
+        title: "남아있는 광기 어린 연구소 소각(뒤틀린깊은숲)",
+        type: "investigate",
+        targetName : "연구소 소각",
+        repeatable : true,
+        giver : "",
+        
+        desc : "마을을 습격해 사람들을 끌고 간 흉물을 퇴치하자. 뒤틀린 깊은숲에 있다.",        
+        activeDesc : "흉물은 여전히 사람들을 유린하고 있다.",
+        readyDesc : "흉물을 퇴치했다. 주점에 가서 보고하자.",
+        
+        targetFlag : "madLabRepeated_boss_end",
+        requiredKill: 1,
+        rewardGold: 25000,
+        
+        require: {
+            completedQuest: "act3_quest_04",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신을 응시하다가 고개를 돌렸다. 그는 잔을 닦는 것에 집중하고 있다.",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.<br><br>\"...무리하지마.\"<br><br>들릴듯 말듯한 목소리에 당신은 잘못 들었나 했다. 당신이 고개를 들었지만 마틴은 이미 고개를 돌린 지 오래였다.",
+        completeText: "마틴은 당신에게서 의뢰서를 받았다. 당신에게 수당을 건네는 그의 시선은 당신의 몸 전체를 훑고 돌아갔다."
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -768,6 +794,35 @@ const QUESTS = {
 
         acceptText : "마틴은 의뢰서와 당신을 번갈아보았다. <br><br>\"몸 조심해.\"<br><br>그는 당신에게 의뢰서를 주면서 말했다.",
         completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. 그의 검은색 눈동자는 깊었다. <br><br>\"...다치지마.\""
+    },
+
+    act3_quest_04 : {
+        id : "act3_quest_04",
+        title : "인간의 오만",
+        type: "investigate",
+        targetName : "연구소를 소각하여 괴물들이 못 나오게 막자",
+        repeatable : false,
+        giver : "",
+        
+        desc : "연구소에서 그들이 기어나오면 수많은 인명 피해가 생길 것이다. 특히 하류도시에.",        
+        activeDesc : "연구소를 이 세상에서 없애야 한다.",
+        readyDesc : "연구소를 소각시켰다. 주점으로 돌아가 보고하자.",
+        
+        targetFlag : "act3_quest_04_boss_end",
+        requiredKill: 1,
+        rewardGold: 20000,
+
+        require : {
+            flag : "act3_quest_04_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_04_done = true;
+            player.flags.act3_quest_04_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "\"...어디에 있다고?\"<br><br>장소를 확인한 마틴의 표정이 굳었다. 그는 연구소에 길거리에 있다는 게 믿기지 않는 모양이다. <br><br>\"...미친 새끼들.\"",
+        completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. <br><br>\"...수고했어, 하류도시의 영웅.\""
     }
 };
 
@@ -1058,12 +1113,10 @@ function acceptQuest(player, questId){
     }
 
     if (quest.id === "goblin_cave_cleanup"){
-        player.flags = player.flags || {};
         delete player.flags.defeated_goblinCave_goblinKing;
     }
 
     if (quest.id === "whiteFlowerLab_cleanup"){
-        player.flags = player.flags || {};
         player.flags.whiteFlowerLab_cleanup_done = false;
         delete player.flags.defeated_whiteFlowerLabRepeated_infectedSoldier;
     }
@@ -1082,14 +1135,17 @@ function acceptQuest(player, questId){
     }
 
     if (quest.id === "survivalBanditRepeated_cleanup"){
-        player.flags = player.flags || {};
-        player.flags.survivalBanditRepeated_cleanup_done = false;
         delete player.flags.defeated_survivalBanditRepeated_advancedBanditBoss;
     }
 
     if (quest.id === "abominationCaveRepeated_cleanup"){
         player.flags.abominationCaveRepeated_boss_end = false;
-        delete player.flags.defeated_abominationCaveRepeated_abominations;
+        delete player.flags.defeated_abominationCaveRepeated_abominations2;
+    }
+
+    if (quest.id === "madLabRepeated_cleanup"){
+        player.flags.madLabRepeated_boss_end = false;
+        delete player.flags.defeated_madLabRepeated_teacherAndStudents;
     }
 
     player.quest.active = {

@@ -109,3 +109,45 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_04_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_03_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_03_done_day + 2) &&
+        !player.flags?.rebel_route_quest_04_intro,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_04_intro = true;
+        player.flags.rebel_route_quest_04_intro_day = getCurrentDay(player);
+        player.flags.act3_quest_04_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 옹기종기 모여있다. 처음 보는 몇몇의 사람들이 쉘터의 아이들과 놀아주고 있는 것이 보인다. 그들은 당신이 들어오는 것을 보자마자 자세를 바로 했다." +
+                    "<br><br>\"하류도시의 영웅, 당신이 그들의 세력을 약화시킨 덕분에 저희가 원하던 정보를 얻을 수 있었습니다.\"<br><br>" +
+                    "더 놀아달라는 아이들을 달랜 후 반란군들은 당신의 방으로 당신과 함께 들어갔다." +
+                    "<br><br>\"...최근 제 가족이 끌려간 곳을 찾아냈습니다. 비밀리에 계속 실험을 하고 있었던 모양인데 이유는 모르겠지만 지금 그 연구소는 폐쇄되었습니다.\"<br><br>" +
+                    "남자는 잠시 고개를 숙였다가 다시 들었다.<br><br>" +
+                    "\"하얀꽃 마물 중에 자신의 인격을 유지하는 개체도 있다고 들었습니다. 전 그들을 마물로 보지 않습니다. 그들은.... 고칠 수 있는 인간입니다. 잠깐 아픈 것뿐입니다.\"<br><br>" +
+                    "남자는 당신에게 여자의 사진을 내밀었다." +
+                    "<br><br>\"이름은 마리입니다. 제... 하나뿐인 딸이죠. 혹시라도 보시게 된다면, 어떤 모습이어도 괜찮으니까 아빠는 마리를 기다리고 있다고 전해주십시오.\"<br><br>" +
+                    "당신은 그래서 연구소는 어디에 있는지 물었다. 그들은 지도를 펴더니 한 곳을 가리켰다." +
+                    "길거리다.<br><br>" +
+                    "<br><br>\"하류도시의 지하에 만들었을 줄은 저희도 몰랐습니다.\"<br><br>\"하류도시를 대체 뭐라고 생각하는 거야.\"<br><br>\"가능하다면 그곳에 갇힌 사람들을 구해주십시오. 그리고 더는 이런 일이 벌어지지 않도록 연구소를 없애주십시오.\"" +
+                    "그는 주점에 의뢰를 올려놓을 테니 준비가 됐을 때 의뢰를 받아 가달라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

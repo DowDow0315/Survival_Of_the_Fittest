@@ -207,7 +207,7 @@ Object.assign(DUNGEONS, {
 
     madLab : {
         id : "madLab",
-        name : "출입금지 병동",
+        name : "폐쇄된 연구소",
         startRoom : "r7c5",
 
         layout : [
@@ -223,47 +223,47 @@ Object.assign(DUNGEONS, {
         ],
 
         rooms : {
-            "r0c0" : {name : "기도실", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c0" : {name : "기도실", exits : {right : "r0c1", down : "r1c0"}, chest : "madLab_chest"},
             "r0c1" : {name : "약품실", exits : {left : "r0c0", right : "r0c2"}, safeZone: true, allowRest: true},
             "r0c2" : {name : "복도의 작은 틈", exits : {left : "r0c1", down : "r1c2"}},
-            "r0c4" : {name : "소각소", exits : {right : "r0c5"}},
-            "r0c5" : {name : "가득 쌓인 시체들", exits : {left : "r0c4", down : "r1c5"}},
+            "r0c4" : {name : "소각소", exits : {right : "r0c5"}, chest : "madLab_chest"},
+            "r0c5" : {name : "가득 쌓인 시체들", exits : {left : "r0c4", down : "r1c5"}, event : "madLab_pain_03", seenFlag : "madLab_joy_03"},
             
-            "r1c0" : {name : "누군가의 초상화가 걸려있던 방", exits : {up : "r0c0", down : "r2c0"}},
-            "r1c2" : {name : "잔뜩 찢긴 소라의 초상화", exits : {up : "r0c2"}},
+            "r1c0" : {name : "누군가의 초상화가 걸려있던 방", exits : {up : "r0c0", down : "r2c0"}, event : "madLab_who", seenFlag : "madLab_who"},
+            "r1c2" : {name : "잔뜩 찢긴 소라의 초상화", exits : {up : "r0c2"}, bossId: "teacherAndStudents", boss : ["experimentTeacher", "experimentAboFlower3", "experimentAboFlower3"], bossIntro:"teacherAndStudents_intro"},
             "r1c5" : {name : "세뇌?", exits : {up : "r0c5", down : "r2c5"}},
 
             "r2c0" : {name : "달콤한 냄새가 나는 복도", exits : {up : "r1c0", down : "r3c0"}},
-            "r2c4" : {name : "고통의 시간", exits : {right : "r2c5", down : "r3c4"}},
-            "r2c5" : {name : "세뇌의 방", exits : {up : "r1c5", left : "r2c4"}},
+            "r2c4" : {name : "고통의 시간", exits : {right : "r2c5", down : "r3c4"}, event : "madLab_pain_01", seenFlag : "madLab_pain_01"},
+            "r2c5" : {name : "세뇌의 방", exits : {up : "r1c5", left : "r2c4"}, event : "madLab_pain_02", seenFlag : "madLab_pain_02"},
 
             "r3c0" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도5", exits : {up : "r2c0", right : "r3c1"}},
             "r3c1" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도4", exits : {left : "r3c0", right : "r3c2"}},
-            "r3c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도3", exits : {left : "r3c1", right : "r3c3", down : "r4c2"}},
-            "r3c3" : {name : "가운을 입고 죽어있는 흉물들?", exits : {left : "r3c2", right : "r3c4"}},
+            "r3c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도3", exits : {left : "r3c1", right : "r3c3", down : "r4c2"}, chest : "madLab_chest"},
+            "r3c3" : {name : "가운을 입고 죽어있는 흉물들?", exits : {left : "r3c2", right : "r3c4"}, event : "madLab_joy_01", seenFlag : "madLab_joy_01"},
             "r3c4" : {name : "갈림길", exits : {up : "r2c4", left : "r3c3", down : "r4c4"}},
 
             "r4c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도2", exits : {up : "r3c2", down : "r5c2"}},
-            "r4c4" : {name : "인내의 복도", exits : {up : "r3c4", down : "r5c4"}},
+            "r4c4" : {name : "인내의 복도", exits : {up : "r3c4", down : "r5c4"}, chest : "madLab_chest"},
 
             "r5c0" : {name : "기록실로 이어지는 복도", exits : {right : "r5c1", down : "r6c0"}},
-            "r5c1" : {name : "오래된 비디오들이 쌓여있는 방", exits : {left : "r5c0", right : "r5c2"}},
+            "r5c1" : {name : "오래된 비디오들이 쌓여있는 방", exits : {left : "r5c0", right : "r5c2"}, event : "madLab_video_01", seenFlag : "madLab_video_01"},
             "r5c2" : {name : "흉물 살점이 벽에 붙어 살아 숨쉬는 복도1", exits : {up : "r4c2", left : "r5c1", down : "r6c2"}},
             "r5c4" : {name : "기쁨의 시간 앞", exits : {up : "r4c4", right : "r5c5"}},
-            "r5c5" : {name : "기쁨의 시간", exits : {left : "r5c4"}},
+            "r5c5" : {name : "기쁨의 시간", exits : {left : "r5c4"}, event : "madLab_joy_02", seenFlag : "madLab_joy_02"},
 
-            "r6c0" : {name : "영상방1", exits : {up : "r5c0", down : "r7c0"}},
-            "r6c2" : {name : "할퀴어져 있는 벽", exits : {up : "r5c2", right : "r6c3"}},
+            "r6c0" : {name : "영상방1", exits : {up : "r5c0", down : "r7c0"}, event : "madLab_video_02", seenFlag : "madLab_video_02"},
+            "r6c2" : {name : "할퀴어져 있는 벽", exits : {up : "r5c2", right : "r6c3"}, chest : "madLab_chest"},
             "r6c3" : {name : "엉성한 바리게이트", exits : {left : "r6c2", down : "r7c3"}},
 
-            "r7c0" : {name : "실험실1", exits : {up : "r6c0", down : "r8c0"}},
+            "r7c0" : {name : "실험실1", exits : {up : "r6c0", down : "r8c0"}, event : "madLab_video_03", seenFlag : "madLab_video_03"},
             "r7c3" : {name : "끈적한 복도4", exits : {up : "r6c3", down : "r8c3"}},
             "r7c5" : {name : "출입금지 표지판 앞",exits : {down : "r8c5"}},
 
             "r8c0" : {name : "실험실2", exits : {up : "r7c0", right : "r8c1"}},
-            "r8c1" : {name : "영상방2", exits : {left : "r8c0"}},
+            "r8c1" : {name : "영상방2", exits : {left : "r8c0"}, event : "madLab_video_04", seenFlag : "madLab_video_04"},
             "r8c3" : {name : "끈적한 복도3", exits : {up : "r7c3", right : "r8c4"}},
-            "r8c4" : {name : "끈적한 복도2", exits : {left : "r8c3", right : "r8c5"}},
+            "r8c4" : {name : "끈적한 복도2", exits : {left : "r8c3", right : "r8c5"}, chest : "madLab_chest"},
             "r8c5" : {name : "끈적한 복도", exits : {up : "r7c5", left : "r8c4"}}
         },
 
@@ -273,7 +273,66 @@ Object.assign(DUNGEONS, {
             { type : "battle", enemy : "scientist2", minCount : 1, maxCount : 2, weight : 10},
             { type : "battle", enemies : ["experimentAboFlower1", "experimentAboFlower2"], weight : 30 },
             { type : "battle", enemy : "experimentAboFlower1", minCount : 1, maxCount : 2, weight : 10},
-            { type : "battle", enemy : "experimentAboFlower2", minCount : 1, maxCount : 2, weight : 10}
+            { type : "battle", enemy : "experimentAboFlower2", minCount : 1, maxCount : 2, weight : 10},
+            { type : "event", id : "madLab_haveMercy", weight : 10 },
+            { type : "event", id : "madLab_singASong", weight : 10 },
+            { type : "event", id : "madLab_callingPale", weight : 5 },
+            { type : "event", id : "madLab_hisFace", weight : 10 }
+        ]
+    },
+
+    madLabRepeated : {
+        id : "madLabRepeated",
+        name : "광기 어린 연구소",
+        startRoom : "r3c2",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2", "r0c3", "r0c4"],
+            ["r1c0",     "", "r1c2",     "", "r1c4"],
+            [    "",     "", "r2c2",     "", "r2c4"],
+            [    "",     "", "r3c2",     "", "r3c4"],
+            [    "", "r4c1",     "",     "", "r4c4"],
+            ["r5c0", "r5c1", "r5c2", "r5c3", "r5c4"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "", exits : {left : "r0c1", right : "r0c3", down : "r1c2"}},
+            "r0c3" : {name : "", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "", exits : {left : "r0c3", down : "r1c4"}},
+            
+            "r1c0" : {name : "", exits : {up : "r0c0"}, chest : "madLab_chest"},
+            "r1c2" : {name : "", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "", exits : {up : "r0c4", down : "r2c4"}, chest : "madLab_chest"},
+            
+            "r2c2" : {name : "", exits : {up : "r1c2", down : "r3c2"}},
+            "r2c4" : {name : "", exits : {up : "r1c4", down : "r3c4"}},
+
+            "r3c2" : {name : "", exits : {up : "r2c2"}},
+            "r3c4" : {name : "", exits : {up : "r2c4", down : "r4c4"}},
+
+            "r4c1" : {name : "", exits : {down : "r5c1"}, bossId: "teacherAndStudents", boss : ["experimentTeacher", "experimentAboFlower3", "experimentAboFlower3"]},
+            "r4c4" : {name : "", exits : {up : "r3c4", down : "r5c4"}},
+
+            "r5c0" : {name : "", exits : {right : "r5c1"},  chest : "madLab_chest"},
+            "r5c1" : {name : "", exits : {up : "r4c1", left : "r5c0", right : "r5c2"}, safeZone: true, allowRest: true},
+            "r5c2" : {name : "", exits : {left : "r5c1", right : "r5c3"}},
+            "r5c3" : {name : "", exits : {left : "r5c2", right : "r5c4"}},
+            "r5c4" : {name : "", exits : {up : "r4c4", left : "r5c3"}}
+        },
+
+        encounters : [
+            { type : "battle", enemies : ["scientist1", "scientist2"], weight : 30},
+            { type : "battle", enemy : "scientist1", minCount : 1, maxCount : 3, weight : 10},
+            { type : "battle", enemy : "scientist2", minCount : 1, maxCount : 2, weight : 10},
+            { type : "battle", enemies : ["experimentAboFlower1", "experimentAboFlower2"], weight : 30 },
+            { type : "battle", enemy : "experimentAboFlower1", minCount : 1, maxCount : 2, weight : 10},
+            { type : "battle", enemy : "experimentAboFlower2", minCount : 1, maxCount : 2, weight : 10},
+            { type : "event", id : "madLabRepeated_haveMercy", weight : 5 },
+            { type : "event", id : "madLabRepeated_singASong", weight : 5 },
+            { type : "event", id : "madLabRepeated_callingPale", weight : 2 },
+            { type : "event", id : "madLabRepeated_hisFace", weight : 5 }
         ]
     },
 
@@ -305,6 +364,16 @@ const abominationCave_CHEST_POOL = [
     { id: "ruby", weight: 1}
 ];
 
+const madLab_CHEST_POOL = [
+    { id: "medium_potion", weight: 25 },
+    { id: "high_potion", weight: 25 },
+    { id: "nothing", weight: 15 },
+    { id: "gold_1000", weight: 20 },
+    { id: "gold_1500", weight: 10 },
+    { id: "pepper", weight: 5 },
+    { id: "aquamarine", weight: 1}
+];
+
 Object.assign(DUNGEON_CHESTS, {
     survivalBandit_chest : {
         name : "낡은 상자",
@@ -316,6 +385,12 @@ Object.assign(DUNGEON_CHESTS, {
         name : "끈적거리는 상자",
         type : "random",
         pool : abominationCave_CHEST_POOL
+    },
+
+    madLab_chest : {
+        name : "하얀꽃과 흉물조각으로 점철된 상자",
+        type : "random",
+        pool : madLab_CHEST_POOL
     }
 })
 
@@ -1388,6 +1463,534 @@ Object.assign(DUNGEON_EVENTS, {
                 }
             }
         ]
+    },
+
+    madLab : {
+        madLab_haveMercy : [
+            {
+                type : "text",
+                value : [
+                    "어디선가 앓는 소리가 났다. 꽃인간이 점점 부풀어오르는 자신의 팔을 잡고 식은땀을 흘리며 앓고 있었다. 그는 당신을 보더니 처음에는 자신이 환상이라도 보는 것이라 생각했는지 눈만 깜박였다. 하지만 이내, 그는 당신이 과학자도 실험체도 아닌 사람이라는 걸 알아차리고 당신에게 기어왔다." +
+                    "<br><br>\"부탁이야... 죽여줘....\"<br><br>" +
+                    "그는 당신에게 애원하듯이 말했다." +
+                    "<br><br>\"이대로라면... 난... 그들처럼...\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그를 죽여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그에게 죽음을 선사해주었다. 그는 죽여달라고 말했으면서도 실제로 죽음이 가까워지자 두려워졌는지 몸을 떨긴 헀지만, 당신의 손길에 저항하지 않았다. 바르르 떨리던 몸에서 점점 생기가 사라진다." +
+                                    "<br><br>\"고마....ㅇ...\"<br><br>" +
+                                    "그가 의식을 잃는 것과 동시에 흉물의 살점이 끼르륵 소름끼치는 소리는 내며 그의 몸 전체에서 부풀어올랐다. 당신은 뒤로 물러났다." +
+                                    "<br><br><span class='log-danger'>흉물은 이미 죽은 그의 시체마저 이용하고 있다</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 죽이지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 아직 이성을 잃지 않은 그를 죽이지 않았다. 그는 괴로운 듯이 앓는 소리를 내더니 제발 자신 좀 죽여달라고 몸부림치기 시작했다. 하지만 당신은 그를 죽이지 않고 지나갔다." +
+                                    "<br><br>당신이 몇 걸음 옮기기도 전에 뒤에서 펑 소리가 났다. 앓는 소리가 더 이상 들려오지 않는다. 당신은 뒤를 돌았다." +
+                                    "<br><br><span class='log-danger'>당신의 뒤에는 아무도 없었다</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        madLab_singASong : [
+            {
+                type : "text",
+                value : [
+                    "어디선가에서 방송이 흘러나온다.<br><br><br>" +
+                    "<span class='log-warning'>안녕하세요? 좋은 아침이에요. 오늘도 다들 즐거운 하루 지내셨나요?<br><br>바깥 세상은 아직도 위험해요. 그래서 우리는 세상을 조금 더 포근하고 안전하게 만들 거예요. 우리 모두가 하류도시의 영웅이 되는 거죠.</span>" +
+                    "<br><br><span class='log-warning'>자, 서로의 얼굴을 보세요. 아름답죠? 하얀 꽃은 아름다워요. 흉물도 사실 아름다워요. 우리를 지켜주잖아요.</span><br><br>" +
+                    "<span class='log-warning'>우리가 이런 아름다운 존재로 계속 남을 수 있는 방법은 뭐라고 했죠? 스스로가 계속 존재해야 한다. 자, 숨을 내쉬어요. 창백은 없어요. 흉물도 없어요. 하얀 꽃과 흉물을 이용하는 건 당신이에요. 다른 누구도 아닌 당신이라고요.</span><br><br>" +
+                    "<span class='log-warning'>삼켜질 것 같나요? 그러면 노래를 불러요. 다같이 노래를 불러요. 라~라랄~ 라라라랄~</span><br><br>" +
+                    "<span class='log-warning'>힘들어질 때마다 이 세계가 얼마나 좋아질지 생각해봐요. 여러분들 덕분이에요. 여러분들이 스스로의 의지로 강해졌기 때문이에요.</span><br><br>" +
+                    "<span class='log-danger'>한명이라도 성공하면 우리 모두는 실패하지 않은 거예요.</span><br><br>" +
+                    "<span class='log-warning'>그러니 힘을 내요. 짜잔, 달콤한 사탕이 왔어요. 사탕~ 사탕~ 노래를 불러요.</span>" +
+                    "<br><br>위에서 사탕들이 우수수 떨어졌다. 하지만 빈껍질들이 대다수였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_callingPale : [
+            {
+                type : "text",
+                value : [
+                    "지나가던 당신은 흉물에 오염된 하얀꽃 실험체가 머리를 벽에다 박는 것을 보았다. 그는 당신이 가까이 오든 말든 신경쓰지 않고 <span class='log-pale'>창백</span>을 중얼거리며 계속 벽에 머리를 박았다." +
+                    "<br><br>\"내 머리에서 사라져... 사라져... 나는 스스로의 의지로 이 세상을 지킬 거야....\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그를 죽여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "그는 저항 하나 없이 당신의 손에 죽었다. 우수수, 검붉게 물든 하얀 꽃잎들이 바닥에 잔뜩 쌓인다." +
+                                    "<br><br>고맙다는 듯이, 달콤한 냄새가 당신의 주변을 맴돌다가 사라진다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeHP(player, 50);
+                                    changeStamina(player, 50);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 당신의 손에 더 이상 피를 묻히고 싶지 않았다, 그것이 자비라고 하더라도. 당신은 그를 지나쳐갔다. 그는 당신의 존재 자체도 인식하지 못했다, 끝까지."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        madLab_hisFace : [
+            {
+                type : "text",
+                value : [
+                    "당신은 지나가다가 실험체 기록이 적힌 파일을 보았다." +
+                    "<br><br>...당신이 구해냈지만 실종자 명단에 있었던 그 사람의 얼굴 아닌가?"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ],
+
+        madLab_video_01 : [
+            {
+                type : "text",
+                value : [
+                    "비디오가 가득 쌓여있는 방이다. 당신은 주변을 돌아보았다. 실험체A, 실험체B.... 실험체ZAWFQKFG...." +
+                    "<br>당신은 그중에 깨져있는 비디오 하나를 발견했다. 고장나서 비디오의 내용은 볼 수 없었지만 제목은 읽을 수 있었다." +
+                    "<br>[창백]<br>" +
+                    "그 순간 뒤에서 노래 소리가 들렸다. 당신은 뒤를 돌아보았다." +
+                    "<br><br>\"그 이름은 내 머리에서 없어져야 해...! 나는 내 스스로의 의지로... 도시를 지켜...!\"<br><br>" +
+                    "흉물에 감염된 꽃감염체가 당신을 향해 달려든다."
+                ]
+            },
+            {
+                type : "effect",
+                run: (player) => {
+                    player.flags.madLab_video_01 = true;
+
+                    const enemyId = "experimentAboFlower3";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("experimentAboFlower3", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        madLab_video_02 : [
+            {
+                type : "text",
+                value : [
+                    "영상이 하나 멈춰있다. 당신은 그 영상을 재생했다. 옛날 영상이라서 그런지 요새 보는 비디오와는 화질이 달랐다." +
+                    "<br><br>하지만 당신은 영상 속 사람을 바로 알아차렸다. 당신도 아는 사람이었다. 소라. 그리고... 유리관에 갇혀있는 창백. 창백은 눈을 깜박이더니 금방 제 눈 색깔을 금안으로 바꾸었다." +
+                    "소라는 창백의 앞에 쪼그리고 앉아서 이런저런 이야기를 해주었다. 창백은 눈을 깜박이며 소라의 말을 조용히 들었다." +
+                    "<br><br>\"사랑을, 많이, 받네?\"<br><br>" +
+                    "익숙한 목소리다. 하지만 지금보다 더 거친 목소리. 소라는 눈을 빠르게 깜박이더니 미소를 지었다. 그는 조금 더 목소리를 부드럽게 하며 대답했다." +
+                    "<br><br>\"나는 창백도 사랑을 많이 받을 수 있을 거라 생각해. 너는 사람 말도 잘 들어주고....\"<br><br>" +
+                    "\"난 내 이름 싫어.\"<br><br>" +
+                    "창백은 소라를 내려다보았다." +
+                    "<br><br>\"네 이름이 더 예뻐. 사랑받기 좋은 이름. 창백과는 다르게.\"<br><br>" +
+                    "\"아니야, 창백도 예...\"<br><br>" +
+                    "뒤에서 누군가가 들어오는 소리가 나자 소라는 급하게 자리를 정돈했다. \"나 다음 번에 다시 올 테니까!\", 급하게 손을 흔들고 나가는 소라의 모습을 창백은 뚫어지게 응시했다. 하얀꽃들이 으스러지더니 백발이 되었다. 그리고 백발 아래의 금안은, 정확히 당신을 응시했다." +
+                    "<br><br>...정확히 말하면 카메라겠지만."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_video_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_video_03 : [
+            {
+                type : "text",
+                value : [
+                    "[연구 일지]<br><br>" +
+                    "창백은 분명 특별했다. 그는 자신의 힘을 쓸 줄 알았고, 절대로 실험원들에게 제 능력의 한계를 보여주려고 하지 않았다." +
+                    "<br><br>창백을 대체할 존재를 만드는 실험은 틀렸다. 에르윈은 실패작이다. 창백은 마음만 먹으면 손쉽게 자신의 능력을 다시 빼앗아갈 수 있을 것이다." +
+                    "<br><br>그걸 보고드렸더니 그는 웃었다. 그는 그렇다면 왜 지금까지 제 능력을 회수하지 않는 걸까요, 라고 말했다. 무슨 말이지? 더 물어보고 싶었지만 물어볼 수가 없었다." +
+                    "<br><br>그래서 우리는, 흉물을 이용하기로 했다. 흉물의 알에서 태어난 새끼들을 이용해서 하얀꽃에 면역인 놈이 나올 때까지 실험했다." +
+                    "<br><br>몇 백 마리를 실험으로 죽인 건지 모르겠다. 하지만 점점 하얀 꽃에 면역이 되어버린 흉물들이 나오기 시작했다." +
+                    "<br><br>그래. 하얀 꽃이 아니라 검붉은 꽃이라면 창백과 연결이 안 될지도 몰라. 스스로의 의지로, 상류도시를 지키는 마물들. 완벽하다." +
+                    "<br><br>위에서 허가가 났다. 에르윈의 시체를 가져와야 한다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_video_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_video_04 : [
+            {
+                type : "text",
+                value : [
+                    "비디오들은 전부 필름이 엉망이 되어 있었다. 당신은 그들 중 그나마 상태가 좋아보이는 비디오를 찾았다." +
+                    "<br>당신은 영상을 틀었다.<br>" +
+                    "<br><br>\"나, 널 꺼내줄 거야.\"<br><br>" +
+                    "당신은 처음에 시험관에 있는 사람이 소라인 줄 알았다. 소라와 똑같은 모습을 하고 있는 창백은 금안을 깜박이다가 고개를 옆으로 기울였다.<br><br>" +
+                    "\"정말? 소라의 아버지가 싫어할 텐데?\"<br><br>" +
+                    "\"이건 옳지 않은 일이니까.\"<br><br>" +
+                    "그는 너뿐만 아니라 모든 실험체들을 풀어줄 거라고 말했다." +
+                    "<br><br>\"그 누구도 다른 사람에게 고통을 줄 권리는 없어.\"<br><br>" +
+                    "창백의 미소가 짙어졌다. 그는 소라의 말을 따라서 중얼거렸다." +
+                    "<br><br>\"소라가 소라의 아빠에게 고통을 줄 권리는 있고?\"<br><br>" +
+                    "\"그건 달라. 난 아빠를 사랑하지만.... 사랑하기에 더더욱 참을 수가 없어.\"<br><br>" +
+                    "\"소라는 사랑하기에... 더더욱 참을 수가 없어.\"<br><br>" +
+                    "창백이 소라의 말을 중얼거렸다. 뒤에서 인기척이 들리자 소라는 입술에 검지를 올리더니 금방 다녀올 테니 기다려달라고 말했다. 창백은 그의 뒷모습을 보며 웃었다." +
+                    "<br><br>\"기대된다, 소라...\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_video_04 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_pain_01 : [
+            {
+                type : "text",
+                value : [
+                    "방안에 핏자국들이 낭자하다. 찢어진 서류 사이로 이름들이 보인다. 전부 인간이었던 자들의 이름이다. 우등생/열등생으로 나누어져 있는 명단들을 보던 당신은 고개를 돌렸다." +
+                    "<br><br>지휘봉은 아파<br><br>" +
+                    "<br><br>말을 안 들으면 우리는 일그러진 영웅의 방으로 가게 돼<br><br>" +
+                    "휘갈겨쓴 낙서들. 그리고 그 낙서들의 밑에는 이 낙서를 쓴 사람은 누구냐는 문장이 써있었다. 당신은 고개를 들었다. 아주 작은 화면에서 영상이 계속해서 흘러나오고 있었다." +
+                    "<br><br>...319시간.<br><br>" +
+                    "당신은 시점을 이리저리 넘겨보았다. 마치 반복된 영상을 잘라붙인 것처럼 실험체들의 동작은 똑같았다. 그들은 입을 뻥긋뻥긋거리며 계속 똑같은 동작을 반복하고 있었다. 소리를 켜보려고 했지만 아쉽게도 소리는 나오지 않았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_pain_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_pain_02 : [
+            {
+                type : "text",
+                value : [
+                    "일그러진 영웅의 방. 당신은 문을 열고 일그러진 영웅의 방으로 들어갔다. 들어가자마자 밝은 사람의 얼굴이 영상에 나왔다. 그는 하얀꽃과 흉물이 귀엽게 그려진 티셔츠를 입고 있었다." +
+                    "<br><br>\"안녕하세요? 좋은 아침이에요. 오늘도 다들 즐거운 하루 지내셨나요? 바깥 세상은 아직도 위험해요. 그래서 우리는 세상을 조금 더 포근하고 안전하게 만들 거예요. 우리 모두가 하류도시의 영웅이 되는 거죠.\"<br><br>" +
+                    "그는 쉬지 않고 떠들어대기 시작했다." +
+                    "<br><br>\"한명이라도 성공하면 우리 모두는 실패하지 않은 거예요. 그러니 힘을 내요. 짜잔, 달콤한 사탕이 왔어요. 사탕~ 사탕~ 노래를 불러요.\"<br><br>" +
+                    "마지막 말을 마친 그는 거대한 막대 사탕 하나를 꺼내더니 깨물어 먹기 시작했다. 행복해요, 행복해요, 행복해요. 영상이 갑자기 일그러진다. 점차 타원형들로 겹쳐지더니 빙글빙글 돌기 시작한다." +
+                    "<br><br>\"불량학생들. 당신들에게 즐거움을 주는 사탕은 없어요. 여기서 벗어나고 싶으면 어서\"<br><br>" +
+                    "<div style='text-align:center;'><strong style='color:red; font-size:3rem'><br><br>노<br><br>래<br><br>해<br><br></strong></div>"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신은 돌아서 방을 나가려고 했지만 어느 쪽 문도 열리지 않았다. 당신은 어쩔 수 없이 그가 불렀던 노래를 불렀다. 목소리가 작아, 목소리가 즐겁지 않아, 별의별 이유로 당신을 통과시켜주지 않던 선생님은 당신이 제대로 부르고 나서야 합격이라는 말과 함께 팡파레를 울렸다." +
+                    "<br><br>...문이 다시 열렸다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_pain_02 = true;
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_pain_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신이 문을 열자 시체가 우두둑 소리와 함께 당신의 앞으로 떨어졌다. 그 소리에 가만히 시체들 사이에 앉아있었던 누군가가 당신을 돌아보았다." +
+                    "<br><br>\"내 동생은 나빴어... 그래서 죽은 거야....\"<br><br>" +
+                    "그는 사탕을 쪽쪽 빨고 있었다. 그는 누군가의 시체 옆에서 계속 사탕을 빨다가 웃는 얼굴로 벌떡 일어났다." +
+                    "<br><br>\"그렇지만 나는 나쁘지 않아! 그러니 나는 즐거워! 너도 즐거워지자!\"<br><br>" +
+                    "흉물에 감염된 꽃인간이 당신에게 달려든다!"
+                ]
+            },
+            {
+                type : "effect",
+                run: (player) => {
+                    player.flags.madLab_pain_03 = true;
+
+                    const enemyId = "experimentAboFlower3";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("experimentAboFlower3", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        madLab_joy_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 연구복을 입고 있는 흉물들의 시체를 보았다." +
+                    "<br><br>...시체가 맞긴 하겠지? 당신은 누군가가 간이로 만든 비석이 깨져있는 것을 보았다." +
+                    "<br><br>끝까지 함께하지 못한 동지들을 애도하며,<br><br>다음에는 더 좋은 세상에서 태어나. 이 세상은 우리가 지킬게."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_joy_01 = true;
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_joy_02 : [
+            {
+                type : "text",
+                value : [
+                    "누군가 방에 크게 <span class='log-danger'>즐거움의 시간</span>이라고 써놓았다. 방에 들어서자 작은 TV 화면에 영상이 하나 멈춰 있었다." +
+                    "<br>당신은 영상을 틀었다. 여러 화면들이 9개로 나뉘어져 나왔다." +
+                    "<br><br>한쪽 화면에서는 몇몇 실험체들이 감옥을 깨고 있는 것이 보인다. 다른 한쪽 화면에서는 과학자들이 흉물과 하얀 꽃에 취해서 자신의 능력을 시험해보고 있었다, 동료들 시체 옆에서. 다른 화면에서는 어떤 한 사람이 지휘봉을 휘두르고 있었고 다른 흉물에 감염된 꽃인간들이 지휘봉에 맞춰서 똑같은 행동을 반복하고 있었다." +
+                    "<br><br>감옥이 꺠졌다. 묶여있던 실험체들이 소리를 지르며, 혹은 울며 뛰쳐나가는 모습이 보인다. 연락을 받은 과학자들이 어딘가로 전화를 한다. 실험체들은 마구잡이로 과학자들을 죽였다. 과학자들은 실험체들과 맞서 싸우기 시작했다." +
+                    "<br><br>선생님은 사탕을 물고 있는 실험체들과 함께 자리를 옮겼다. 지직, 지지직, CCTV 화면이 하나씩 꺼진다." +
+                    "<br><br><br>...즐거움의 시간?"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_joy_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLab_who : [
+            {
+                type : "text",
+                value : [
+                    "당신은 텅 빈 벽을 보았다. 못이 박혀 있었던 흔적이 있는 걸 보아 사진이 하나 걸려있었던 걸지도 모르겠다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.madLab_who = true;
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+
+    madLabRepeated : {
+        madLabRepeated_haveMercy : [
+            {
+                type : "text",
+                value : [
+                    "어디선가 앓는 소리가 났다. 꽃인간이 점점 부풀어오르는 자신의 팔을 잡고 식은땀을 흘리며 앓고 있었다. 그는 당신을 보더니 처음에는 자신이 환상이라도 보는 것이라 생각했는지 눈만 깜박였다. 하지만 이내, 그는 당신이 과학자도 실험체도 아닌 사람이라는 걸 알아차리고 당신에게 기어왔다." +
+                    "<br><br>\"부탁이야... 죽여줘....\"<br><br>" +
+                    "그는 당신에게 애원하듯이 말했다." +
+                    "<br><br>\"이대로라면... 난... 그들처럼...\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그를 죽여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그에게 죽음을 선사해주었다. 그는 죽여달라고 말했으면서도 실제로 죽음이 가까워지자 두려워졌는지 몸을 떨긴 헀지만, 당신의 손길에 저항하지 않았다. 바르르 떨리던 몸에서 점점 생기가 사라진다." +
+                                    "<br><br>\"고마....ㅇ...\"<br><br>" +
+                                    "그가 의식을 잃는 것과 동시에 흉물의 살점이 끼르륵 소름끼치는 소리는 내며 그의 몸 전체에서 부풀어올랐다. 당신은 뒤로 물러났다." +
+                                    "<br><br><span class='log-danger'>흉물은 이미 죽은 그의 시체마저 이용하고 있다</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 죽이지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 아직 이성을 잃지 않은 그를 죽이지 않았다. 그는 괴로운 듯이 앓는 소리를 내더니 제발 자신 좀 죽여달라고 몸부림치기 시작했다. 하지만 당신은 그를 죽이지 않고 지나갔다." +
+                                    "<br><br>당신이 몇 걸음 옮기기도 전에 뒤에서 펑 소리가 났다. 앓는 소리가 더 이상 들려오지 않는다. 당신은 뒤를 돌았다." +
+                                    "<br><br><span class='log-danger'>당신의 뒤에는 아무도 없었다</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        madLabRepeated_singASong : [
+            {
+                type : "text",
+                value : [
+                    "어디선가에서 방송이 흘러나온다.<br><br><br>" +
+                    "<span class='log-warning'>안녕하세요? 좋은 아침이에요. 오늘도 다들 즐거운 하루 지내셨나요?<br><br>바깥 세상은 아직도 위험해요. 그래서 우리는 세상을 조금 더 포근하고 안전하게 만들 거예요. 우리 모두가 하류도시의 영웅이 되는 거죠.</span>" +
+                    "<br><br><span class='log-warning'>자, 서로의 얼굴을 보세요. 아름답죠? 하얀 꽃은 아름다워요. 흉물도 사실 아름다워요. 우리를 지켜주잖아요.</span><br><br>" +
+                    "<span class='log-warning'>우리가 이런 아름다운 존재로 계속 남을 수 있는 방법은 뭐라고 했죠? 스스로가 계속 존재해야 한다. 자, 숨을 내쉬어요. 창백은 없어요. 흉물도 없어요. 하얀 꽃과 흉물을 이용하는 건 당신이에요. 다른 누구도 아닌 당신이라고요.</span><br><br>" +
+                    "<span class='log-warning'>삼켜질 것 같나요? 그러면 노래를 불러요. 다같이 노래를 불러요. 라~라랄~ 라라라랄~</span><br><br>" +
+                    "<span class='log-warning'>힘들어질 때마다 이 세계가 얼마나 좋아질지 생각해봐요. 여러분들 덕분이에요. 여러분들이 스스로의 의지로 강해졌기 때문이에요.</span><br><br>" +
+                    "<span class='log-danger'>한명이라도 성공하면 우리 모두는 실패하지 않은 거예요.</span><br><br>" +
+                    "<span class='log-warning'>그러니 힘을 내요. 짜잔, 달콤한 사탕이 왔어요. 사탕~ 사탕~ 노래를 불러요.</span>" +
+                    "<br><br>위에서 사탕들이 우수수 떨어졌다. 하지만 빈껍질들이 대다수였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    addItem(player, ITEMS.consumable.normalCandyBar);
+                    savePlayer(player);
+                }
+            }
+        ],
+        madLabRepeated_callingPale : [
+            {
+                type : "text",
+                value : [
+                    "지나가던 당신은 흉물에 오염된 하얀꽃 실험체가 머리를 벽에다 박는 것을 보았다. 그는 당신이 가까이 오든 말든 신경쓰지 않고 <span class='log-pale'>창백</span>을 중얼거리며 계속 벽에 머리를 박았다." +
+                    "<br><br>\"내 머리에서 사라져... 사라져... 나는 스스로의 의지로 이 세상을 지킬 거야....\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그를 죽여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "그는 저항 하나 없이 당신의 손에 죽었다. 우수수, 검붉게 물든 하얀 꽃잎들이 바닥에 잔뜩 쌓인다." +
+                                    "<br><br>고맙다는 듯이, 달콤한 냄새가 당신의 주변을 맴돌다가 사라진다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    changeHP(player, 50);
+                                    changeStamina(player, 50);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 당신의 손에 더 이상 피를 묻히고 싶지 않았다, 그것이 자비라고 하더라도. 당신은 그를 지나쳐갔다. 그는 당신의 존재 자체도 인식하지 못했다, 끝까지."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        madLabRepeated_hisFace : [
+            {
+                type : "text",
+                value : [
+                    "당신은 지나가다가 실험체 기록이 적힌 파일을 보았다." +
+                    "<br><br>...당신이 구해냈지만 실종자 명단에 있었던 그 사람의 얼굴 아닌가?"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ] 
     }
 })
 
@@ -1519,4 +2122,100 @@ function startAbominationsLose(player){
             }
         }
     ], player);
+}
+
+//광기 어린 연구소
+window.startTeacherAndStudentsBattle = function(player){
+    startBattle( ["experimentTeacher", "experimentAboFlower3", "experimentAboFlower3"] , player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags.madLab_teacherAndStudents_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startAbominationsLose(player);
+        }
+    });
+};
+
+function handleTeacherAndStudentsWin(player){
+    player.flags.act3_quest_04_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 그들을 쓰러뜨린 후 소각 버튼과 연구소 자료를 찾았다. 연구소 자료를 보던 당신은 [마리]라는 이름을 보았다. ZZZXY, 실험 성공. 그 순간, 누군가 당신의 발목을 덥썩 잡았다." +
+                "<br><br>\"우리들의 즐거움을 방해하지 마...\"<br><br>" +
+                "그의 옷에는 [ZZZXY]라는 명찰이 걸려 있었다."
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 마리를 데리고 연구소 밖으로 나가려고 했다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 마리를 데리고 나가려고 했다. 하지만 마리는 오히려 당신의 손을 잡으며 여기서 나랑 함께 즐거운 시간을 보내자고 말했다. 그는 선생님의 지휘봉과 사탕은 즐거운 것이라고 말했다." +
+                                "<br>당신은 아버지에 대해 말했지만 마리는 알아듣지 못했다. 오히려 그는 \"아빠? 아빠?\"하다가 그걸로 노래를 부르기 시작했다. 아빠도 즐거워, 아빠랑도 함께 해, 라라랄랄라." +
+                                "<br>당신은 소각 버튼을 누른 후 마리를 데리고 나가려고 했지만 마리는 밑으로 뿌리를 내린 후 고개를 저었다." +
+                                "<br><br>\"나는 여기서 즐거워질 거야. 노래만 있으면 즐거워질 수 있다고 그랬어. 라랄라라~\"<br><br>" +
+                                "곧 있으면 터질 것 같다. 당신은 몇 번을 더 힘써보았지만 바닥에 뿌리를 내린 마리와 함께 나오는 것은 무리였다. 당신은 어쩔 수 없이 혼자 자리를 떴다. 쓰러져있던 꽃인간들이 노래를 불렀다, 계속, 계속, 웃는 얼굴로." +
+                                "<br><br>\"아빠아, 아빠아, 랄랄라라라랄, 아빠도 즐거워~\"" +
+                                "<br><br>...이 연구소는 곧 노래와 함께 이 세상에서 사라질 것이다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                leaveDungeon(player);
+                                return true;
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "마리는 이미 인격이 없다. 당신은 소각 버튼을 누른 후 혼자 나갔다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 소각 버튼을 눌렀다. 경고음이 떴지만 몇몇 꽃인간들은 여전히 누워서 웃고 있었다. 라라라, 라랄라라라~ 그들은 노래를 불렀다. 마리도 마찬가지였다." +
+                                "<br><br>...이 연구소는 곧 노래와 함께 이 세상에서 사라질 것이다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                leaveDungeon(player);
+                                return true;
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
+}
+
+function startTeacherAndStudentsLose(player){
+    gameOver(
+        player,
+        "그들은 당신의 주변으로 몰려들었다. 라라, 라라라라, 괴기한 노래가 당신의 귓가에 울려퍼진다. 그들은 당신에게 당신도 우리처럼 하나가 되면 된다고 말했다." +
+        "<br><br>\"우리는 다같이 즐거울 거야. 그렇죠, 선생님?\"<br><br>" +
+        "당신의 양팔에 주사기가 한번에 주입된다. 하나는 하얀색 액체였고 하나는 검붉은 액체였다. 둘 다 걸쭉했다. 액체가 주입되자마자 당신의 심장이 빠르게 뛰었다. 당신의 머릿속에 비명이 울렸다." +
+        "<br><br>\"ㅇ...ㄷ...! ㅇ..ㄷ....!\"<br><br>" +
+        "...하류도시의 영웅은, 이 세상에 더 이상 존재하지 않는다." +
+        "게임오버"
+    );
 }

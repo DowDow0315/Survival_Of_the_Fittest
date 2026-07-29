@@ -21,6 +21,10 @@
         {
             "item": "whiteFlowerBow",
             "chance": 0.05
+        },
+        {
+            "item": "abominationSmallEgg",
+            "chance": 0.3
         }
     ],
     "teaseLines" : {

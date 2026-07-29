@@ -1,4 +1,5 @@
 const LOCATION_SCENE_BUILDERS = {
+    townStreet : buildTownStreetScene,
     shop: buildShopScene,
     barracks : buildBarracksScene,
     darkStreet : buildDarkStreetScene,
@@ -67,6 +68,38 @@ function buildDefaultLocationScene(player, loc, randomDesc){
                 text: `${LOCATIONS[dest].name}(으)로 이동한다.`,
                 action: "move_" + dest
             }))
+        }
+    ];
+}
+
+function buildTownStreetScene(player, loc, randomDesc){
+    const choices = [];
+
+    if (
+        player.quest?.active?.id === "act3_quest_04" &&
+        !player.flags?.act3_quest_04_boss_end
+    ){
+        choices.push({
+            text : "폐쇄된 연구소를 향해 숨겨진 지하 계단으로 내려간다.",
+            action : "move_madLab"
+        });
+    }
+
+    choices.push(
+        { text: "마을 입구로 간다", action: "move_townEntrance" },
+        { text: "쉘터로 간다", action: "move_shelter" },
+        { text: "상점으로 간다", action: "move_shop" },
+        { text: "주점으로 간다", action: "move_tavern" },
+        { text: "빈민가 거리로 간다", action: "move_darkStreet" },
+        { text: "낡은 글로리홀로 간다", action: "move_gloryHole" },
+        { text: "지하철을 타러 간다", action: "move_subway" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
         }
     ];
 }
@@ -700,7 +733,8 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
     }
 
     if (
-        player.quest?.active?.id === "abominationCaveRepeated_cleanup"
+        player.quest?.active?.id === "abominationCaveRepeated_cleanup" &&
+        !player.flags?.abominationCaveRepeated_boss_end
     ){
         choices.push({
             text : "흉물 소굴로 향한다",
@@ -745,6 +779,16 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         choices.push({
             text: "반란군이 말했던 백색 군단을 약화시키러 간다",
             action: "start_whiteArmyRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "madLabRepeated_cleanup" &&
+        !player.flags?.madLabRepeated_boss_end
+    ){
+        choices.push({
+            text : "광기 어린 연구소로 향한다",
+            action : "move_madLabRepeated"
         });
     }
 

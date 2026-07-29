@@ -3286,7 +3286,58 @@ function collapse_luke(player){
         },
         {
             type: "text",
-            value: "눈을 뜨자 유리가 당신을 내려다보고 있었다.<br>\"괜찮아?\"<br>유리는 당신을 걱정스러운 표정으로 바라보았다. 그는 루크가 당신을 구해줬다고 말했다. <br>\"...장난감은 고장나면 안 되니까, 라고 말하던데...\" <br>유리는 찝찝한 표정을 지으면서도 당신의 손에 요구르트를 쥐어주었다. <br>\"하지만 그래도, 네가 구출되어서 다행이야. 많이 걱정했어.\"<br>쉬다가 몸이 좀 괜찮아지면 일어나라고 말하며 유리는 방을 나갔다."
+            value: "눈을 다시 떴을 때 당신은 쉘터에 있었다. 당신의 손에는 요구르트 하나가 들려 있었다. 쉘터의 아이가 고개를 빼꼼 내밀고 루크가 데려다주었다고 말했다. <br><br>\"루크, 엄청 화나보였어.\""
+        }
+    ], player);
+}
+
+function collapse_sion(player){
+    startScene([
+        {
+            type: "text",
+            value: "\"영웅님!\"<br><br>당신을 향해 누군가가 익숙한 목소리와 함께 달려온다. 싸우는 소리가 들린다... 그리고 온기가 느껴진다. 당신은 그대로 온기 속에서 의식을 잃었다."
+        },
+        {
+            type: "effect",
+            run: (player)=>{
+                clearSpecialStateAfterCollapse(player);
+                player.location = "shelter";
+
+                player.status.hp = player.status.maxHp * 1;
+                player.status.stamina = player.status.maxStamina * 1;
+
+                changeNPCEmotion("sion", "dominance", 5);
+                addItem(player, ITEMS.consumable.fullPotion);
+                passTime(player, 30);
+            }
+        },
+        {
+            type: "text",
+            value: "\"영웅님, 괜찮으세요?\"<br><br>당신이 눈을 뜨자마자 시온이 바로 당신의 옆으로 달라붙었다. 그는 당신에게 수혈팩을 쥐어주며 아무리 영웅님이어도 무리하면 안 된다고 말했다. <br><br>\"...영웅님이 없는 세상은... 있을 필요가 없단 말이에요.\"<br><br>그는 당신의 상태를 한번 더 확인한 후에야 당신이 침대에서 일어나는 것을 허락해주었다."
+        }
+    ], player);
+}
+
+function collapse_pale(player){
+    startScene([
+        {
+            type: "text",
+            value: "달콤한 냄새가 난다. 누군가 당신에게 죽으면 안 된다고 말하고 있는 것 같다... 당신은 그대로 의식을 잃었다."
+        },
+        {
+            type: "effect",
+            run: (player)=>{
+                clearSpecialStateAfterCollapse(player);
+                player.location = "townEntrance_act3";
+
+                player.status.hp = player.status.maxHp * 1;
+                player.status.stamina = player.status.maxStamina * 1;
+                passTime(player, 30);
+            }
+        },
+        {
+            type: "text",
+            value: "당신이 다시 눈을 떴을 때, 당신은 마을 입구에 서 있었다. 위화감이 든다. 당신은 주변을 둘러보았다. 하지만 당신은 아무 것도 찾을 수 없었다."
         }
     ], player);
 }
@@ -3341,6 +3392,41 @@ function handleDungeonCollapse(player){
             { fn: collapse_sora, weight: 50 },
             { fn: collapse_eric, weight: 40},
             { fn: collapse_luke, weight: getNpcAffection("luke") >= 40 ? 30 : 0 }
+        ])(player);
+        return;
+    }
+
+    if (dungeonId === "abominationCave"){
+        pickWeightedRescue([
+            { fn: collapse_sion, weight: 80 },
+            { fn: collapse_sora, weight: 30 },
+            { fn: collapse_eric, weight: 30}
+        ])(player);
+        return;
+    }
+
+    if (dungeonId === "abominationCaveRepeated"){
+        pickWeightedRescue([
+            { fn: collapse_sion, weight: 80 },
+            { fn: collapse_sora, weight: 30 },
+            { fn: collapse_eric, weight: 30}
+        ])(player);
+        return;
+    }
+
+    if (dungeonId === "madLab"){
+        pickWeightedRescue([
+            { fn: collapse_sion, weight: 70 },
+            { fn: collapse_pale, weight: 30 }
+        ])(player);
+        return;
+    }
+
+    if (dungeonId === "madLabRepeated"){
+        pickWeightedRescue([
+            { fn: collapse_sion, weight: 80 },
+            { fn: collapse_pale, weight: 30 },
+            { fn: collapse_eric, weight: 30}
         ])(player);
         return;
     }

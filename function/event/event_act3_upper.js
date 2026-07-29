@@ -186,3 +186,43 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_04_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_03_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_03_done_day + 2) &&
+        !player.flags?.upper_route_quest_04_intro,
+
+    action : (player) => {
+        player.flags.upper_route_quest_04_intro = true;
+        player.flags.upper_route_quest_04_intro_day = getCurrentDay(player);
+        player.flags.act3_quest_04_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "비명소리가 들렸다. 당신은 고개를 돌렸다. 하얀꽃 마물이 비틀거리면서 길거리를 돌아다니고 있었다. 하얀꽃 마물 어깨에서 솟아난 흉물은 벌써 몇 명의 사람들을 집어삼키며 꿈틀거리고 있었다." +
+                    "<br><br>\"아아아악!\"<br><br>" +
+                    "당신은 무기를 쥐었다. 하지만 그 순간 총성이 들렸다. 에릭이다. 오늘따라 그의 얼굴이 더 무섭다. 그는 가차없이 하얀꽃 마물을 쏘았고 하얀꽃 마물은 비명을 지르다가 갑자기 노래를 불렀다." +
+                    "<br><br>\"노래만 부르면 즐거워져~ 노래를~ 랄랄라라.....\"<br><br>" +
+                    "기괴한 노랫소리였다." +
+                    "<br><br>\"하류도시의 영웅. 그 괴물은 에릭에게 맡기십시오.\"<br><br>" +
+                    "에이든이다. 에이든은 당신을 부르더니 폐쇄한 연구소에서 마물이 새어나왔다고 말했다." +
+                    "<br><br>\"...하류도시 길거리에 위치한 연구소입니다. 비밀리에 실험을 진행 중이었습니다.<br>...지하로 내려가는 계단의 위치는 제가 적어놓겠습니다.\"<br><br>" +
+                    "그는 준비를 한 후에 주점에서 의뢰를 받아서 가라고 말했다." +
+                    "<br><br>\"소각하십시오. 이 세상에 증거 하나 안 남게.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

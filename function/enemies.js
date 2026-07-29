@@ -57,7 +57,7 @@ async function loadEnemies(){
         "abominationMixedHead", "abominationMixedArms", "abominationMixedMiddle",
         "whiteArmy1", "whiteArmy2", "whiteArmy3", "whiteArmy4", "whiteArmyLeader1", "nikolai_machete",
         "scientist1", "scientist2",
-        "experimentAboFlower1", "experimentAboFlower2"
+        "experimentAboFlower1", "experimentAboFlower2", "experimentAboFlower3"
     ];
 
     for (const name of list){

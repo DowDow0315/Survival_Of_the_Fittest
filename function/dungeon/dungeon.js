@@ -1003,6 +1003,11 @@ const CHEST_REWARDS = {
         showSingleTextScene("당신은 쌀을 발견했다.", player);
     },
 
+    pepper: (player) => {
+        addItem(player, ITEMS.misc.pepper);
+        showSingleTextScene("당신은 고추를 발견했다.", player);
+    },
+
     ruby : (player) => {
         addItem(player, ITEMS.misc.ruby);
         showSingleTextScene("당신은 루비를 발견했다!", player);
@@ -1273,7 +1278,7 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (
         dungeon.id === "abominationCaveRepeated" &&
-        room.bossId === "abominations"
+        room.bossId === "abominations2"
     ){
         player.flags.abominationCaveRepeated_boss_end = true;
         addQuestProgress(player);
@@ -1283,6 +1288,30 @@ function handleDungeonBossWin(player, dungeon, room){
             {
                 type: "text",
                 value: "당신은 흉물들을 쓰러뜨렸다. <br><br>당신은 내일의 사람들을 구한 것이다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (
+        dungeon.id === "madLabRepeated" &&
+        room.bossId === "teacherAndStudents"
+    ){
+        player.flags.madLabRepeated_boss_end = true;
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value: "당신은 소각 버튼을 눌렀다. 머지 않아 이 광기 어린 연구소는 이 세상에서 사라질 것이다."
             },
             {
                 type: "effect",
@@ -1351,6 +1380,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "abominationCave" && room.bossId === "abominations"){
         handleAbominationsWin(player);
+        return;
+    }
+
+    if (dungeon.id === "madLab" && room.bossId === "teacherAndStudents"){
+        handleTeacherAndStudentsWin(player);
         return;
     }
 
@@ -1622,8 +1656,12 @@ function leaveDungeon(player){
         player.location = "deepForest_act3";
     } else if (dungeonId === "abominationCaveRepeated"){
         player.location = "deepForest_act3";
-    } else {
+    } else if (dungeonId === "madLab"){
+        player.location = "townStreet";
+    } else if (dungeonId === "madLabRepeated"){
         player.location = "deepForest_act3";
+    } else {
+        player.location = "townStreet";
     }
 
     localStorage.setItem("playerData", JSON.stringify(player));
@@ -4836,6 +4874,31 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startAbominationsBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "teacherAndStudents_intro"){
+        startScene([
+            {
+                type: "text",
+                value:
+                      "당신은 방 앞의 바리케이드를 넘어서 방문을 열었다. 마치 기사들처럼 가운데에 있는 사람을 지키고 있던 흉물에 전염된 꽃인간들이 고개를 들었다. 그들은 모두 거대한 막대사탕을 들고 있었다. 지휘봉을 휘두르고 있던 사람이 천천히 뒤를 돌았다." +
+                      "<br><br>\"...학생?\"<br><br>" +
+                      "그는 당신을 바라보다가 비릿하게 웃었다." +
+                      "<br><br>\"같이 노래를 부르러 오신 건가요? 좋습니다~ 제가 하나하나 알려드리죠.\"<br><br>" +
+                      "당신은 시선을 내려 깨진 액자를 바라보았다. 백발의 머리, 금색 눈동자, 누구의 사진이었는지 당신은 단번에 알아보았다. 당신의 시선을 따라가던 그의 표정이 굳었다." +
+                      "<br><br>\"창백을 아는 건가.\"<br><br>" +
+                      "그는 지휘봉을 들었다." +
+                      "<br><br>\"더더욱 가만둘 수 없군요. 교정합시다, 랄라라~\"<br><br>" +
+                      "광기 어린 전투가 시작된다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startTeacherAndStudentsBattle(player);
                     return true;
                 }
             }

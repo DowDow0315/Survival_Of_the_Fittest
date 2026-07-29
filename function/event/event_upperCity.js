@@ -241,6 +241,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        NPC_DATA["valen"].emotion.affection >= 50,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["valen"].scenes.valen_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -25);
+                    passTime(player, 10);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};

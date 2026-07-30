@@ -1054,10 +1054,10 @@ const WEAPON_SKILLS = {
             name : "흡혈꽃",
             cost : 2,
             type : "drainHp",
-            power : 3.1,
+            power : 3.3,
             healRate : 0.5,
             unlock : 20,
-            desc : "데미지 3.1배 공격 및 데미지 기반 0.5 힐"
+            desc : "데미지 3.3배 공격 및 데미지 기반 0.5 힐"
         },
         {
             name : "차크람 꽃비",
@@ -1132,10 +1132,10 @@ const WEAPON_SKILLS = {
             name : "흡혈꽃",
             cost : 3,
             type : "drainHp",
-            power : 4.2,
+            power : 4.5,
             healRate : 0.5,
             unlock : 200,
-            desc : "데미지 4.2배 공격 및 데미지 기반 0.5 힐"
+            desc : "데미지 4.5배 공격 및 데미지 기반 0.5 힐"
         }
     ],
 
@@ -1146,12 +1146,12 @@ const WEAPON_SKILLS = {
             type : "buff",
             effect : {
                 id : "whiteFlowerCandyBar_buff",
-                heal : 30,
+                heal : 40,
                 defMult : 1.3,
                 duration : 5
             },
             unlock : 20,
-            desc : "5턴 동안 방어력 1.3배 및 매 턴 HP 30 회복"
+            desc : "5턴 동안 방어력 1.3배 및 매 턴 HP 40 회복"
         },
         {
             name: "달콤한 사탕",

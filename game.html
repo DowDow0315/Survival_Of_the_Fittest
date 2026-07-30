@@ -432,6 +432,11 @@
         }
 
         function getNpcSummary(npc){
+            if (key === "yuri" && player?.flags?.yuriDie){
+                return "유리는 이제 다시는 빛을 볼 수 없다.";
+            }
+
+
             if (!npc || !npc.emotion) return "아직 잘 모르는 사이";
 
             const emotion = npc.emotion || {};
@@ -735,7 +740,7 @@
                 ${renderHeartBar(e.affection)}
                 ${renderBar("lust", e.lust)}
                 ${renderBar("fear", e.fear)}
-                <p class="npc-line">${getNpcSummary(npc)}</p>
+                <p class="npc-line">${getNpcSummary(npc, key)}</p>
             </div>
             `;
         }

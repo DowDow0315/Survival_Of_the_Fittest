@@ -913,6 +913,7 @@ window.EVENTS.push({
         player.location === "tavern" &&
         NPC_DATA["akasia"].emotion.affection >= 50 &&
         NPC_DATA["valen"].emotion.affection >= 50 &&
+        !player.flags?.akasiaDie &&
         !player.flags?.akasiaValenMedal_event_seen &&
         isPlayerProperlyDressed(player),
 
@@ -964,6 +965,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "richTownStreet" &&
+        !player.flags?.akasiaDie &&
         NPC_DATA["akasia"].emotion.affection >= 50,
 
     action : (player) => {

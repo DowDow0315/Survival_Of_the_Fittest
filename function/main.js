@@ -1023,6 +1023,35 @@ function changeEmotion(npcId, key, amount){
     const npc = NPC_DATA[npcId];
     if (!npc) return;
 
+    //사망플래그 공식
+    if (npcId === "yuri" && player?.flags?.yuriDie){
+        return;
+    }
+
+    if (npcId === "nikolai" && player?.flags?.nikolaiDie){
+        return;
+    }
+
+    if (npcId === "eric" && player?.flags?.ericDie){
+        return;
+    }
+
+    if (npcId === "valen" && player?.flags?.valenDie){
+        return;
+    }
+
+    if (npcId === "akasia" && player?.flags?.akasiaDie){
+        return;
+    }
+
+    if (npcId === "pale" && player?.flags?.paleDie){
+        return;
+    }
+
+    if (npcId === "sora" && player?.flags?.soraDie){
+        return;
+    }
+
     npc.emotion = npc.emotion || {};
     npc.emotion[key] = npc.emotion[key] ?? 0;
 

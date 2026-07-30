@@ -303,3 +303,67 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_04_after_withValen_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_04_after_invitation_day + 3) &&
+        !player.flags?.upper_route_quest_04_after_withValen_01,
+
+    action : (player) => {
+        player.flags.upper_route_quest_04_after_withValen_01 = true;
+        player.flags.uppercityHero = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"발렌님께서 보낸 초대장입니다.\"<br><br>" +
+                    "걸어가고 있는 당신의 앞으로 백색 군인복을 입은 자가 무릎을 꿇더니 초대장을 내밀었다. 하류도시의 사람들이 가던 길을 멈추고 당신과 군인을 번갈아 쳐다보는 것이 느껴진다. 아니, 그들은 번갈아 쳐다보는 것도 아니었다. 그들은 당신만을 바라보고 있었다." +
+                    "<br>당신은 그에게서 초대장을 받았다. 백색 군인은 당신에게 예의를 갖추더니 앞으로 당신의 출신은 상류도시의 모두가 신경쓰지 않을 거라고 말했다." +
+                    "<br><br>\"당신은 하류도시의 영웅이기도 하지만, 상류도시의 영웅이기도 하니까요. 우리 백색 군단은 당신을 존중하고 있습니다.\"<br><br>" +
+                    "그들은 끝까지 예의바르게 당신에게서 물러났다. 당신은 초대장을 읽었다. 발렌의 우아한 글씨체가 눈에 띈다." +
+                    "<br><br>상류도시의 영웅, 상류도시의 모든 사람들에게 당신을 알리고자 합니다. 영광의 거리로 와주시면 감사하겠습니다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_04_after_withValen_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_04_after_withValen_01 &&
+        !player.flags?.upper_route_quest_04_after_withValen_02,
+
+    action : (player) => {
+        player.flags.upper_route_quest_04_after_withValen_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "천국의 성에 도착하자마자 보인 건 백색 군단의 행렬이었다. 그들은 나란히 두 열로 서서 당신을 맞이하고 있었다. 그리고 백색 군단의 대열 밖에 있는 상류도시의 귀족들은 당신을 보며 열렬히 박수를 쳤다. 그들은 당신의 곁에 발렌이 없는데도 당신을 바라보고 있었다." +
+                    "<br><br>\"하류도시의 영웅.\"<br><br>" +
+                    "그는 "
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

@@ -762,7 +762,7 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
     }
 
     if (
-        player.quest?.active?.id === "ract3_quest_03_upper" &&
+        player.quest?.active?.id === "act3_quest_03_upper" &&
         !player.rebelRaid?.active
     ){
         choices.push({

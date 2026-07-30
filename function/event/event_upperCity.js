@@ -1914,6 +1914,7 @@ window.EVENTS.push({
     id : "luke_pet_02",
     condition : (player) =>
         player.justMoved &&
+        !player.flags?.uppercityHero &&
         ["richTownStreet", "gloryStreet"].includes(player.location) &&
         (
             hasNpcRelationship("luke", "lover") ||
@@ -1943,6 +1944,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.flags?.uppercity_hero_event_seen &&
+        !player.flags?.uppercityHero &&
         ["richTownStreet", "gloryStreet"].includes(player.location) &&
         (
             hasNpcRelationship("luke", "lover") ||
@@ -2090,6 +2092,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.flags?.act3CollapseDone &&
+        !player.flags?.uppercityHero &&
         ["heavenPalace", "heavenRoad"].includes(player.location) &&
         Math.random() < 0.09,
 
@@ -2109,6 +2112,39 @@ window.EVENTS.push({
                 type : "effect",
                 run : (player) => {
                     changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "flower_head_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.act3CollapseDone &&
+        player.flags?.uppercityHero &&
+        ["heavenPalace", "heavenRoad"].includes(player.location) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시 귀족들 몇몇이 당신에게 다가왔다. 그들은 지금까지 당신이 해온 업적에 대해 들었다고 하며 다른 이야기도 들려달라고 말했다. 상류도시에서도 영웅의 이야기는 꽤 먹히는 모양이다." +
+                    "<br><br>예전과 다르게 그들은 당신이 말을 과장하고 있다고 생각하지 않는 모양이었다. 당신은 그들의 중심에서 이야기를 끌어나갔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -3);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
                     savePlayer(player);
                 }
             }

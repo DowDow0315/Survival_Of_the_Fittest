@@ -499,7 +499,6 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "darkStreet" &&
         player.flags.luke_cheek_day !== getCurrentDay(player) &&
-        player.flags.luke_cheek_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
         (
             hasNpcRelationship("luke", "lover") ||

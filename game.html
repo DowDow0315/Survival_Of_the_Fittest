@@ -431,7 +431,7 @@
                 .replace(/'/g, "&#39;");
         }
 
-        function getNpcSummary(npc){
+        function getNpcSummary(npc, key){
             if (key === "yuri" && player?.flags?.yuriDie){
                 return "유리는 이제 다시는 빛을 볼 수 없다.";
             }
@@ -750,7 +750,7 @@
             return `
             <div class="minor-npc-line">
                 <b>${escapeHtml(npc.name || key || "이름 없음")}${badge ? " " + badge : ""}</b>
-                <p>${escapeHtml(getNpcSummary(npc))}</p>
+                <p>${escapeHtml(getNpcSummary(npc, key))}</p>
             </div>
             `;
         }

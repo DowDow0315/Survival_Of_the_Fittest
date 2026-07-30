@@ -277,3 +277,76 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_04_findingMari",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_04_after &&
+        player.flags?.mariFatherHope &&
+        getCurrentDay(player) >= (player.flags.act3_quest_04_done_day + 30) &&
+        !player.flags?.rebel_route_quest_04_findingMari,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_04_findingMari = true;
+        addItem(player, ITEMS.consumable.fullPotion);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 마을 입구에서 마리의 아버지를 보았다. 그는 더 이상 반란군 제복을 입고 있지 않았다. 당신과 시선이 마주치자 그는 고개를 숙여보였다." +
+                    "<br><br>\"저는 이제, 마리를 찾는 데 전념하려고 합니다. 많은 생각을 해보았지만, 저는 우선 제 딸을 찾아야겠습니다.\"<br><br>" +
+                    "그는 마리를 찾고 나면 다시 반란군 세력으로 돌아올 거라고 말했다. 그는 당신의 손에 수혈팩 하나를 쥐어주며 다시 한번 감사하다고 말했다." +
+                    "<br><br>그리고 그는, 마을 입구를 나섰다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_04_after_paleDream",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_04_done_day + 3) &&
+        player.flags?.rebel_route_quest_04_after &&
+        !player.flags?.after_paleDream,
+
+    action : (player) => {
+        player.flags.after_paleDream = true;
+        player.flags.after_paleDream_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "발걸음을 내딛는 순간, 지면이 너무 부드러웠다. 당신은 아래를 내려다보았다. 하얀 꽃잎들이 바닥에 한가득이었다. 당신은 다시 고개를 들었다." +
+                    "<br><br>\"으아악! 이게 뭐야!\"<br><br>" +
+                    "...꿈이 아닌가? 바닥에 깔린 하얀 꽃잎들이 보이는 건 당신만이 아니었던 모양이다. 몇몇 사람들은 하얀 꽃잎들을 조금이라도 줍겠다며 달려들었고, 몇몇 사람들은 하얀 꽃잎을 피해 몸을 사렸다. 당신은 주변을 둘러보다가 본능적으로 정면을 보았다." +
+                    "<br><br>백발의 금안. 창백이다. 소라와 똑같이 생겼지만 가까스로 이루어진 형체가 끊임없이 하얀 꽃으로 부서져내리는, <span class='log-pale'>창백</span>.<br><br>" +
+                    "그것은 당신을 향해 말했다." +
+                    "<br><br>\"ㄴ... ㄱ...ㅎ...ㅈ...\"<br><br>" +
+                    "탕, 소리와 함께 에릭의 총알이 창백의 머리를 꿰뚫었다. 형체가 산산조각나면서 하얀 꽃들이 무너져내렸다. 수북하게 쌓인 하얀꽃 무덤을 밟으며 에릭은 당신을 응시했다." +
+                    "<br><br>\"...창백의 위치를 알고 있나.\"<br><br>" +
+                    "그는 무표정으로 당신의 표정을 읽은 후 다시 고개를 돌렸다. 그 순간, 하얀 꽃에서 피어난 창백한 촉수들이 에릭을 공격해왔다. 총성이 난다. 촉수들이 소리없는 비명을 지르며 스러져간다. 당신은 하얀 꽃잎들이 이어진 길을 내려다보았다." +
+                    "<br><br><span class='log-sora'>하얀 꽃들은 소라의 상점으로 이어져 있었다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

@@ -149,6 +149,13 @@ registerActions("sora",{
             });
         }
 
+        if (!player.flags?.sora_ask_about_sora && player.flags.act3_quest_04_done ){
+            choices.push({
+                text: "소라에게 네가 소라가 맞냐고 묻는다.",
+                scene: NPC_DATA.sora.scenes.sora_ask_about_sora
+            });
+        }
+
 
         choices.push({ text: "돌아간다", action: "sora_talk" });
 

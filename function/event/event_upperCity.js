@@ -682,6 +682,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        !hasNpcRelationship("deric", "lover") &&
+        !hasNpcRelationship("deric", "spouse") &&
+        NPC_DATA["deric"].emotion.affection >= 50,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["deric"].scenes.deric_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeAlcohol(player, 70);
+                    passTime(player, 20);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",

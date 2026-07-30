@@ -318,6 +318,13 @@ registerActions("deric", {
             });
         }
 
+        if (player.flags?.dericEricBloodyBandage && !player.flags?.deric_ericfirehistowel){
+            choices.push({
+                text: "당신은 에릭에게 수건을 가져다주었다고 말했다.",
+                scene: NPC_DATA.deric.scenes.deric_ericfirehistowel
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "deric_giveFood"

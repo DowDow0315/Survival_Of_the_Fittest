@@ -939,6 +939,21 @@ const CHEST_REWARDS = {
         showSingleTextScene("!! 상자 안에는 1500 골드가 들어 있었다.", player);
     },
 
+    gold_3000: (player) => {
+        changeGold(player, 3000);
+        showSingleTextScene("!! 상자 안에는 3000 골드가 들어 있었다.", player);
+    },
+
+    gold_5000: (player) => {
+        changeGold(player, 5000);
+        showSingleTextScene("!! 상자 안에는 5000 골드가 들어 있었다.", player);
+    },
+
+    gold_10000: (player) => {
+        changeGold(player, 10000);
+        showSingleTextScene("!! 상자 안에는 10000 골드가 들어 있었다.", player);
+    },
+
     small_potion: (player) => {
         addItem(player, ITEMS.consumable.smallPotion);
         showSingleTextScene("물약을 발견했다.", player);
@@ -1388,6 +1403,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "soraBasement" && room.boss === "soraFather2"){
+        handleSoraFather2Win(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1660,6 +1680,8 @@ function leaveDungeon(player){
         player.location = "townStreet";
     } else if (dungeonId === "madLabRepeated"){
         player.location = "deepForest_act3";
+    } else if (dungeonId === "soraBasement"){
+        player.location = "shop";
     } else {
         player.location = "townStreet";
     }
@@ -4904,6 +4926,28 @@ function runDungeonBossIntro(player, introId){
             }
         ], player);
     }
+
+    if (introId === "soraFather2_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      "당신은 소라의 아버지가 방에 앉아있는 것을 보았다. 그는 인형처럼 \"소라 사랑해\"를 중얼거리다가 뒤를 돌았다. 그는 꿈틀거리더니 마치 꼭두각시 인형처럼 삐걱삐걱 낫을 들었다." +
+                      "<br><br>\"아빠는 소라를 사랑해.\"<br><br>" +
+                      "공허한 눈동자. 그는 당신에게로 삐걱삐걱 걸어왔다." +
+                      "<br><br>\"소라가 어떤 모습이든, 아빠는 소라를 사랑해.\"<br><br>" +
+                      "소라의 아버지(?)와의 전투가 시작된다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startSoraFather2Battle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
 }
 
 function handleBanditBossWin(player){

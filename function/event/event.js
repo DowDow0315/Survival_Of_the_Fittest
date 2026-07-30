@@ -102,6 +102,7 @@ const ENEMY_POOLS = {
         { id : "flower3", weight : 20 },
         { id : "flower4", weight : 30 },
         { id : "flower5", weight : 30 },
+        { id : "flower6", weight : 25 },
         { id : "experimentAboFlower1", weight : 10 },
         { id : "experimentAboFlower2", weight : 10 },
         { id : "experimentAboFlower3", weight : 5 }

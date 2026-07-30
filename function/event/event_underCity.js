@@ -492,6 +492,35 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_his_cheek_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags.luke_cheek_day !== getCurrentDay(player) &&
+        player.flags.luke_cheek_day !== getCurrentDay(player) &&
+        getTimePeriod(player) === "morning" &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.luke_cheek_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_his_cheek_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라
 window.EVENTS.push({
     id : "sora_patience_limit_outside_event",

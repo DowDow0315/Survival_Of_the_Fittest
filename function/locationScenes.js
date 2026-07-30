@@ -110,6 +110,14 @@ function buildTownStreetScene(player, loc, randomDesc){
 }
 
 function buildShopScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text: "쇼핑", action: "open_soraShop" },
+        { text: "소라와 대화", action: "sora_talk" },
+        { text: "나가기", action: "move_townStreet" }
+    );
+
     return [
         {
             type: "text",
@@ -117,11 +125,7 @@ function buildShopScene(player, loc, randomDesc){
         },
         {
             type: "choice",
-            choices: [
-                { text: "쇼핑", action: "open_soraShop" },
-                { text: "소라와 대화", action: "sora_talk" },
-                { text: "나가기", action: "move_townStreet" }
-            ]
+            choices
         }
     ];
 }

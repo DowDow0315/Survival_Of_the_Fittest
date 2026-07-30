@@ -296,30 +296,30 @@ Object.assign(DUNGEONS, {
         ],
 
         rooms : {
-            "r0c0" : {name : "", exits : {right : "r0c1", down : "r1c0"}},
-            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
-            "r0c2" : {name : "", exits : {left : "r0c1", right : "r0c3", down : "r1c2"}},
-            "r0c3" : {name : "", exits : {left : "r0c2", right : "r0c4"}},
-            "r0c4" : {name : "", exits : {left : "r0c3", down : "r1c4"}},
+            "r0c0" : {name : "통로에서 꺾이는 길", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "연구소 또다른 통로", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "통로에서 갈라지는 길", exits : {left : "r0c1", right : "r0c3", down : "r1c2"}},
+            "r0c3" : {name : "입구 오른쪽 통로", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "긴 통로의 시작", exits : {left : "r0c3", down : "r1c4"}},
             
-            "r1c0" : {name : "", exits : {up : "r0c0"}, chest : "madLab_chest"},
-            "r1c2" : {name : "", exits : {up : "r0c2", down : "r2c2"}},
-            "r1c4" : {name : "", exits : {up : "r0c4", down : "r2c4"}, chest : "madLab_chest"},
+            "r1c0" : {name : "선물?", exits : {up : "r0c0"}, chest : "madLab_chest"},
+            "r1c2" : {name : "입구에서 이어지는 통로2", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "긴 통로1", exits : {up : "r0c4", down : "r2c4"}, chest : "madLab_chest"},
             
-            "r2c2" : {name : "", exits : {up : "r1c2", down : "r3c2"}},
-            "r2c4" : {name : "", exits : {up : "r1c4", down : "r3c4"}},
+            "r2c2" : {name : "입구에서 이어지는 통로1", exits : {up : "r1c2", down : "r3c2"}},
+            "r2c4" : {name : "긴 통로2", exits : {up : "r1c4", down : "r3c4"}},
 
-            "r3c2" : {name : "", exits : {up : "r2c2"}},
-            "r3c4" : {name : "", exits : {up : "r2c4", down : "r4c4"}},
+            "r3c2" : {name : "연구소 입구", exits : {up : "r2c2"}},
+            "r3c4" : {name : "긴 통로3", exits : {up : "r2c4", down : "r4c4"}},
 
-            "r4c1" : {name : "", exits : {down : "r5c1"}, bossId: "teacherAndStudents", boss : ["experimentTeacher", "experimentAboFlower3", "experimentAboFlower3"]},
-            "r4c4" : {name : "", exits : {up : "r3c4", down : "r5c4"}},
+            "r4c1" : {name : "세뇌자가 숨어있는 방", exits : {down : "r5c1"}, bossId: "teacherAndStudents", boss : ["experimentTeacher", "experimentAboFlower3", "experimentAboFlower3"]},
+            "r4c4" : {name : "긴 통로4", exits : {up : "r3c4", down : "r5c4"}},
 
-            "r5c0" : {name : "", exits : {right : "r5c1"},  chest : "madLab_chest"},
-            "r5c1" : {name : "", exits : {up : "r4c1", left : "r5c0", right : "r5c2"}, safeZone: true, allowRest: true},
-            "r5c2" : {name : "", exits : {left : "r5c1", right : "r5c3"}},
-            "r5c3" : {name : "", exits : {left : "r5c2", right : "r5c4"}},
-            "r5c4" : {name : "", exits : {up : "r4c4", left : "r5c3"}}
+            "r5c0" : {name : "구석", exits : {right : "r5c1"},  chest : "madLab_chest"},
+            "r5c1" : {name : "쉴 수 있는 작은 틈", exits : {up : "r4c1", left : "r5c0", right : "r5c2"}, safeZone: true, allowRest: true},
+            "r5c2" : {name : "긴 통로7", exits : {left : "r5c1", right : "r5c3"}},
+            "r5c3" : {name : "긴 통로6", exits : {left : "r5c2", right : "r5c4"}},
+            "r5c4" : {name : "긴 통로5", exits : {up : "r4c4", left : "r5c3"}}
         },
 
         encounters : [
@@ -333,6 +333,59 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "madLabRepeated_singASong", weight : 5 },
             { type : "event", id : "madLabRepeated_callingPale", weight : 2 },
             { type : "event", id : "madLabRepeated_hisFace", weight : 5 }
+        ]
+    },
+
+    soraBasement : {
+        id : "soraBasement",
+        name : "소라 상점 지하실",
+        startRoom : "r0c5",
+
+        layout : [
+            [    "", "r0c1",     "",     "", "r0c4", "r0c5"],
+            [    "", "r1c1", "r1c2",     "", "r1c4",     ""],
+            [    "",     "", "r2c2", "r2c3", "r2c4", "r2c5"],
+            ["r3c0", "r3c1",     "", "r3c3",     "", "r3c5"],
+            ["r4c0",     "",     "", "r4c3",     "", "r4c5"],
+            ["r5c0", "r5c1", "r5c2", "r5c3", "r5c4",     ""],
+        ],
+
+        rooms : {
+            "r0c1" : {name : "작업실", exits : { up : "r1c1", down : "r0c5", left : "r0c5", right : "r0c5"}, event : "soraBasement_sora_love_04", seenFlag : "soraBasement_sora_love_04" },
+            "r0c4" : {name : "반대?", exits : { up : "r1c4", down : "r0c5", left : "r0c5", right : "r0c5"}, event : "soraBasement_warning"},
+            "r0c5" : {name : "온통 거울로 이루어진 지하실 입구", exits : { up : "r0c5", down : "r0c5", left : "r0c5", right : "r0c4"} },
+            
+            "r1c1" : {name : "당신의 사진들로 가득한 방", exits : { up : "r0c5", down : "r0c1", left : "r1c2", right : "r0c5"}, event : "soraBasement_sora_love_03", seenFlag : "soraBasement_sora_love_03" },
+            "r1c2" : {name : "당신의 이름으로 가득한 종이들", exits : { up : "r2c2", down : "r0c5", left : "r0c5", right : "r1c1"}, event : "soraBasement_sora_love_02", seenFlag : "soraBasement_sora_love_02" },
+            "r1c4" : {name : "사방이 거울", exits : { up : "r2c4", down : "r0c4", left : "r0c5", right : "r0c5"} },
+            
+            "r2c2" : {name : "아빠, 아빠, 아빠", exits : { up : "r0c5", down : "r1c2", left : "r2c3", right : "r0c5"}, event : "soraBasement_sora_love_01", seenFlag : "soraBasement_sora_love_01" },
+            "r2c3" : {name : "거울 또 갈림길", exits : { up : "r3c3", down : "r0c5", left : "r2c4", right : "r2c2"} },
+            "r2c4" : {name : "거울 갈림길", exits : { up : "r0c5", down : "r1c4", left : "r2c5", right : "r2c3"}, chest : "soraBasement_chest" },
+            "r2c5" : {name : "소라, 소라, 소라", exits : { up : "r3c5", down : "r0c5", left : "r0c5", right : "r2c4"}, event : "soraBasement_sora_01", seenFlag : "soraBasement_sora_01" },
+            
+            "r3c0" : {name : "복도 틈새", exits : { up : "r4c0", down : "r0c5", left : "r3c1", right : "r0c5"},  safeZone: true, allowRest: true },
+            "r3c1" : {name : "진실의 방", exits : { up : "r0c5", down : "r0c5", left : "r0c5", right : "r3c0"}, boss : "soraFather2", bossIntro:"soraFather2_intro" },
+            "r3c3" : {name : "시든 하얀 꽃잎들", exits : { up : "r4c3", down : "r2c3", left : "r0c5", right : "r0c5"} },
+            "r3c5" : {name : "소라의 사진들로 가득한 방", exits : { up : "r4c5", down : "r2c5", left : "r0c5", right : "r0c5"}, event : "soraBasement_sora_02", seenFlag : "soraBasement_sora_02" },
+            
+            "r4c0" : {name : "소라의 상점", exits : { up : "r5c0", down : "r3c0", left : "r0c5", right : "r0c5"}, event : "soraBasement_sora_shop", seenFlag : "soraBasement_sora_shop" },
+            "r4c3" : {name : "시들지 않은 하얀 꽃잎들", exits : { up : "r5c3", down : "r3c3", left : "r0c5", right : "r0c5"} },
+            "r4c5" : {name : "찢어진 사진들로 가득한 방", exits : { up : "r0c5", down : "r3c5", left : "r0c5", right : "r0c5"}, event : "soraBasement_sora_03", seenFlag : "soraBasement_sora_03" },
+            
+            "r5c0" : {name : "하얀 꽃밭", exits : { up : "r0c5", down : "r4c0", left : "r5c1", right : "r0c5"} },
+            "r5c1" : {name : "하얀 꽃밭", exits : { up : "r0c5", down : "r0c5", left : "r5c2", right : "r5c0"}, chest : "soraBasement_chest" },
+            "r5c2" : {name : "하얀 꽃밭", exits : { up : "r0c5", down : "r0c5", left : "r5c3", right : "r5c1"} },
+            "r5c3" : {name : "큰 글씨로, 꽃밭 앞.", exits : { up : "r0c5", down : "r4c3", left : "r5c4", right : "r5c2"} },
+            "r5c4" : {name : "하얀 꽃밭", exits : { up : "r0c5", down : "r0c5", left : "r0c5", right : "r5c3"}, chest : "soraBasement_chest" }
+        },
+
+        encounters : [
+            { type : "battle", enemy : "flower4", minCount : 2, maxCount : 3, weight : 30},
+            { type : "battle", enemy : "flower5", minCount : 1, maxCount : 2, weight : 30},
+            { type : "battle", enemy : "flower6", minCount : 1, maxCount : 2, weight : 20},
+            { type : "battle", enemies : ["flower5", "flower6"], weight : 30 },
+            { type : "battle", enemies : ["flower4", "flower5", "flower6"], weight : 30 }
         ]
     },
 
@@ -374,6 +427,15 @@ const madLab_CHEST_POOL = [
     { id: "aquamarine", weight: 1}
 ];
 
+const soraBasement_CHEST_POOL = [
+    { id: "medium_potion", weight: 25 },
+    { id: "high_potion", weight: 25 },
+    { id: "nothing", weight: 15 },
+    { id: "gold_1500", weight: 20 },
+    { id: "gold_3000", weight: 10 },
+    { id: "pepper", weight: 5 }
+];
+
 Object.assign(DUNGEON_CHESTS, {
     survivalBandit_chest : {
         name : "낡은 상자",
@@ -391,6 +453,12 @@ Object.assign(DUNGEON_CHESTS, {
         name : "하얀꽃과 흉물조각으로 점철된 상자",
         type : "random",
         pool : madLab_CHEST_POOL
+    },
+
+    soraBasement_chest : {
+        name : "하얀 상자",
+        type : "random",
+        pool : soraBasement_CHEST_POOL
     }
 })
 
@@ -1991,6 +2059,261 @@ Object.assign(DUNGEON_EVENTS, {
                 }
             }
         ] 
+    },
+
+    soraBasement : {
+        soraBasement_warning : [
+            {
+                type : "text",
+                value : [
+                    "거울의 방이다. 어쩌면 당신의 방향 감각을 믿지 말아야 할지도 모르겠다."
+                ]
+            }
+        ],
+        soraBasement_sora_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 거울마다 온통 '소라'라는 글자가 적혀 있는 것을 보았다. 소라, 소라, 소라, 어딜 봐도 소라다." +
+                    "<br><br>소라는 많은 사람들에게 사랑을 받아.<br><br>" +
+                    "심지어 소라는 그 끔찍한 놈한테도 사랑을 받아.<br><br>" +
+                    "소라를 사랑하지 않는 사람은 이 세상에 없나봐.<br><br>" +
+                    "<span class='log-sora'>아니다. 방금 한 명 생겼다. 소라를 사랑하지 않는 사람.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        soraBasement_sora_02 : [
+            {
+                type : "text",
+                value : [
+                    "방에는 소라의 사진들로 가득했다. 가끔 사진들 속의 소라 옆에는 당신을 닮은 누군가가 엉성하게 그려져 있었다. 낙서 얼굴들 중에서는 위에 하트가 그려져 있는 것도 있었다." +
+                    "<br><br>언제부터인가 사랑하게 됐어. 이유는 이제 중요하지 않아. 소라의 마음에 들어왔다는 사실만 중요해.<br><br>" +
+                    "소라는 딱 한 명만 사랑할 거야." +
+                    "<br><br>당신은 사진을 꼼꼼히 보았다. 현재의 건물들이 배경으로 찍혀있는 소라의 사진이다. 그리고 그 사진에는 단 한번도 소라의 아버지가 등장하지 않았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        soraBasement_sora_03 : [
+            {
+                type : "text",
+                value : [
+                    "...방에는 찢겨진 소라의 사진들로 가득했다. 당신은 사진을 자세히 살폈다. 사진 속에는 당신이 본 적 없는 낯선 건물들만 한가득이었다. 그리고 가끔, 사진 속에서 소라의 아버지의 모습도 보였다. 그는 어린 소라의 손을 잡거나 어린 소라를 안아들고 있었다." +
+                    "<br><br>그 순간 당신은 뒤에서 흐느끼는 소리를 들었다. 당신은 천천히 뒤를 돌았다. 하얀 꽃잎들이 소용돌이처럼 공중을 빙빙 돌고 있었다. 그들은 모여서 사람의 형체를 갖추려다가도 그대로 사라졌다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그것에 손을 뻗었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그것에 손을 뻗었다. 하얀 꽃잎들이 당신의 손등을 할퀴었지만 당신은 꿋꿋하게 그것에 손을 뻗었다. 당신의 손 주변에서 무언가 형체가 생겨났다. 그것은 차가웠다. 그것은 창백했다. 그것은 조심스럽게 당신의 손을 잡았다." +
+                                    "<br><br>\"날... 구해줘...?\"<br><br>" +
+                                    "몇 번이고 들었지만 또렷하게는 들리지 않았던 그 목소리, 그리고 익숙하기도 한 목소리, 소라의 목소리였다. 그것의 손가락이 당신의 손바닥, 그리고 손등 위에서 꼼지락거린다. 그것의 금안이 당신을 바라본다. 그리고 금방 일그러진다." +
+                                    "<br><br>아빠, 아빠, 아빠, 소라의 목소리가 들린다. 아니, 창백의 목소리가 들린다. 그것은 도움을 요청하기 위해 마을로 내려갔다. 마을 사람들이 그것이 다가오자 비명을 지른다. 몇몇은 용기를 내어 돌을 던지기 시작한다. 마물은 꺼지라는 소리가 여기저기서 들려온다. 창백은 그들을 공격하지 않는다." +
+                                    "<br><br>때리지마, 때리지마, 난 그저 내 몸을 돌려달라고.... 하지만 목소리가 잘 나오지 않는다. 소리를 내려고 할 때마다 목이 하얀 꽃잎이 되어 부서진다. 모두가 그것을 적대한다. 모두가 그것에게 죽으라고 한다. 창백은 결국 마을 입구에는 들어오지도 못하고 뒤로 물러났다. 그것은 도망간다. 그것은 계속 도망간다." +
+                                    "<br><br>사람의 적의가 너무 아파서....<br><br>" +
+                                    "당신은 가슴 안에 가득 찬 비애 때문에 숨을 제대로 쉬지도 못했다. 그것의 감정이 당신을 압도한다. 당신이 괴로워하자 그것은 당신에게서 물러났다. 형태를 이루던 것들은 금방 스러져버린다. 당신은 고개를 들었다." +
+                                    "<br><br>당신의 앞에는 하얀 꽃 무덤만이 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.soraBasement_sora_03 = true;
+                                    changeTrauma(player, 10);
+                                    changeHP(player, -50);
+                                    changeNPCEmotion("pale", "affection", 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그것을 피해 한 걸음 물러났다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "하얀 꽃잎들은 공중에서 계속 돌다가 그대로 푹 떨어졌다. 무수한 하얀 꽃 무덤이 만들어지고 나서야 당신은 하얀 꽃잎들이 맴돌던 자리에 가까이 갔다." +
+                                    "<br><br>하지만 아무것도 느껴지지 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.soraBasement_sora_03 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        soraBasement_sora_love_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 거울마다 온통 '아빠'라는 글자가 적혀 있는 것을 보았다. 아빠, 아빠, 아빠, 어딜 봐도 아빠다." +
+                    "<br><br>아빠는 소라를 사랑해야 해" +
+                    "<br><br>아빠는 소라가 어떤 모습이든 사랑해주겠다고 했잖아?<br><br>" +
+                    "그런데 왜 이쪽 소라는 거절하고, 저쪽 소라는 총으로 쐈어?<br><br>" +
+                    "아빠의 사랑은 틀렸어. 소라의 사랑이 옳아." +
+                    "<br><br>소라는 그가 무슨 짓을 하든, 그를 사랑할 거거든."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_love_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        soraBasement_sora_love_02 : [
+            {
+                type : "text",
+                value : [
+                    "무수히 많은 종이들 위에는 당신의 이름만 계속 써 있었다. 가끔은 당신의 이름과 함께 마치 점을 치듯 '좋아한다 안 좋아한다' 글자가 번갈아서 써져 있었다. 마지막은 무조건 '좋아한다'로 끝났다." +
+                    "<br><br>내가 널 어떻게 좋아하게 됐는지는 중요하지 않아." +
+                    "<br><br>이 감정은 나의 것이고, 누구의 것도 아니야." +
+                    "<br><br>왜냐면 소라, 이 감정만은 누구의 것도 아니고 내 감정이라고 느끼는 걸."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_love_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        soraBasement_sora_love_03 : [
+            {
+                type : "text",
+                value : [
+                    "방안은 당신의 사진으로 가득 했다. 대체 언제 이렇게 많이 찍은 걸까? 당신은 사진을 보다가 위화감을 느꼈다." +
+                    "<br>당신이 2주 간의 기억을 잃고 마을 입구에 섰을 때, 사진은 전부 그 이후에 찍힌 것처럼 보였다." +
+                    "<br><br>...착각이겠지?" +
+                    "<br><br>사진에는 당신의 모습과, 당신이 누군가와 함께 있는 모습도 찍혀 있었다. 가끔씩 당신과 같이 있는 사람의 얼굴 위에는 엑스 표가 쳐져 있었다." +
+                    "<br><br>특히 루크의 얼굴 위에는 거대한 엑스 표가 쳐져 있었다. [소라는 루크 싫어. 뭘 안다는 듯이 으르렁거리는 게 같잖아. 아무 것도 모르면서.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_love_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        soraBasement_sora_love_04 : [
+            {
+                type : "text",
+                value : [
+                    "더 안으로 들어가자 작업실처럼 보이는 공간이 있었다. 거기엔 하얀 꽃들이 담긴 병들이 한가득이었다. 하얀 꽃잎이 들어간 마약도 한가득." +
+                    "<br>노트에는 의미를 알 수 없는 공식들이 나열되어 있었다. 당신은 동글동글한 알약을 하나 발견했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "알약을 먹는다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "알약을 입안에 넣는 것과 동시에 당신은 눈이 번쩍 뜨였다. 달콤한 냄새가 입안에 퍼지기도 전에 당신의 머리가 쿵쾅쿵쾅 뛰기 시작했다." +
+                                    "<br>당신은 순간적으로 모든 꽃인간들의 위치와 감정을 파악했다. 위치는 달랐지만 그들의 감정은 똑같았다, 그들은 당신을 보고 싶어한다." +
+                                    "<br><br>\"...!\"<br><br>"+
+                                    "그들은 이제 당신의 감정과 동기화되려는 것처럼 보였다. 토할 것 같아져서 당신은 곧바로 알약을 뱉었다. 그리고 그대로 기절했다."
+                                ]
+                            },
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다시 눈을 떴다. 당신은 바닥에 누워있었다. 기억도 없고, 이유도 모르겠지만 당신의 눈에서는 눈물이 흐르고 있었다. 당신은 바들바들 떨리는 몸을 간신히 일으켰다." +
+                                    "<br><br>당신은 연결되었던 꽃인간들 중에 흉물에 오염된 꽃인간들은 없었다는 걸 기억해냈다. 창백을 끊어내고자 했던 과학자들의 실험은 성공하긴 했다, 또 다른 비극을 일으키면서."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.soraBasement_sora_love_04 = true;
+                                    changeTrauma(player, 10);
+                                    changeStamina(player, -40);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "소라가 만든 알약이다. 먹지 않는다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 알약을 먹지 않았다. 대신 다른 기록들을 뒤졌다." +
+                                    "<br><br>약의 복용량을 늘려도, 그 아이의 장악력이 강해지고 있어. 하지만 소라는 다시 그 힘을 가져오지 않을 거야. 왜냐하면 창백은 창백이고, 소라는 소라니까." +
+                                    "<br><br>소라는 죽더라도 소라로 남을 거야." +
+                                    "<br><br>정 안 되면 그때처럼 루크에게 상류도시에서 하얀 꽃들을 가져오라고 시키면 돼. 짜증은 나지만, 제일 이용하기 쉬운 놈이니까."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.soraBasement_sora_love_04 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        soraBasement_sora_shop : [
+            {
+                type : "text",
+                value : [
+                    "소라의 상점이다. 아니, 당신이 알고 있는 소라의 상점은 아니었다. 푸른색 바탕에 하얀색 글자, [하얀꽃 상점]." +
+                    "<br>당신은 하얀꽃 상점에 들어섰다. 당신이 꿈속에서 봤던 그 상점과 똑같았다. 그 순간, 당신의 머릿속으로 기억이 강제로 들어왔다.",
+                    "<br><br>개판이 된 실험실 안에서 창백은 소라를 쫓아갔다. 소라는 자신의 아버지를 보자마자 \"아빠!\"하며 그의 품에 달려들었다. 소라의 아빠는 제 딸을 안았다." +
+                    "<br><br>\"ㅇ...ㅃ...!\"<br><br>" +
+                    "창백의 목이 하얀 꽃잎으로 흩어진다. 말이 제대로 나오지 않는다." +
+                    "<br><br>\"꺼져, 괴물!\"<br><br>" +
+                    "탕! 그것은 총이었다. 소라의 아버지는 소라를 보호하듯이 끌어안으며 창백에게 총을 쐈다. 절망감에 당신의 목을 졸라온다. 깨진 듯한 비명 소리, 아버지의 품에 안겨 숨죽여 키득거리는 소라의 웃음 소리...." +
+                    "<br><br>당신은 기억에서 벗어났다. 유일하게 그것에게 남은 하얀꽃 상점 추억은 소라의 상점 아래에 가둬져 있다." +
+                    "<br><br>당신이 찾지 못했다면 아마 영원히. 하얀꽃 상점이 먼지처럼 무너져내렸다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.soraBasement_sora_shop = true;
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ]
     }
 })
 
@@ -2218,4 +2541,89 @@ function startTeacherAndStudentsLose(player){
         "...하류도시의 영웅은, 이 세상에 더 이상 존재하지 않는다." +
         "게임오버"
     );
+}
+
+//소라의 지하실
+window.startSoraFather2Battle = function(player){
+    startBattle( "soraFather2" , player, {
+        noEscape: true,
+        onWin: () => {
+            player.flags.soraBasement_soraFather2_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startSoraFather2Lose(player);
+        }
+    });
+};
+
+function handleSoraFather2Win(player){
+    player.flags.act3_you_know_who_is_sora = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "소라의 아버지(?)는 쓰러졌다. 그는 당신의 앞으로 쓰러지더니 푹 고개가 꺼졌다." +
+                "<br><br>\"너는 소라가 아니야!\"<br><br>" +
+                "남자의 목소리가 들린다. 내 소라를 어떻게 한 거야, 남자가 소라의 어깨를 잡는다. 무너져내리는 실험실 속, 소라는 남자를 올려다보다가 낮게 한숨을 쉰다." +
+                "<br><br>\"소라는, 사랑받아야 하는데. 사랑받기가 힘드네.<br><br>소라를 사랑하지 않는 아빠는 필요없어.\"<br><br>" +
+                "소라의 창백한 촉수가 남자의 가슴을 꿰뚫는다." +
+                "<br><br>\"죽이지 않아. 소라를 사랑하지 않는 아빠에게 죽음은 너무 과분해.\"<br><br>" +
+                "당신은 눈을 느리게 깜박였다. 시야가 다시 돌아왔다.... 진실의 방에는 이제 당신밖에 남지 않았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+                return true;
+            }
+        }
+    ], player);
+}
+
+function startSoraFather2Lose(player){
+    if (!player.flags.soraFather2_firstLose){
+        player.flags.soraFather2_firstLose = true;
+
+        startScene([
+            {
+                type:"text",
+                value:
+                    "당신은 그를 이기지 못하고 쓰러졌다. 그가 당신에게 마지막 일격을 가하려는 순간, 하얀 꽃들이 당신의 앞을 가로막았다. 그러더니 창백한 촉수가 당신을 방밖으로 끌어당겼다." +
+                    "<br>창백한 촉수는 차가웠다. 하지만 당신을 안전한 곳으로 옮기는 움직임은 부드러웠다. 그것은 당신을 안전한 곳에 내려놓더니 칭찬해달라는 듯 고개를 들었다." +
+                    "<br>고개를 든 창백한 촉수가 당신의 손에 자기 머리를 부딪히더니 알아서 쓰담쓰담을 시전했다. 그리고 그는 당신의 체력을 회복해주더니 구석으로 사라져갔다. 당신은 촉수를 쫓던 시선을 내려 당신의 그림자를 보았다. 기괴할 정도로 길어져 있던 당신의 그림자는 천천히 원래의 크기로 돌아왔다." +
+                    "<br><br>ㅇ...빠를.... 모ㅇ...하...ㄱ.... ㄷ...ㅈ....마..."
+            },
+            {
+                type:"effect",
+                run:(player)=>{
+                    player.dungeon.room = "r3c0";
+                    changeHP(player, 100);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    player.dungeon.room = "r3c0";
+    changeHP(player, 100);
+
+    startScene([
+        {
+            type:"text",
+            value:
+                "당신은 또 그의 낫을 이기지 못하고 쓰러졌다. 하지만 이번에도 촉수는 방밖에서부터 당신을 끌어당겼다. 당신은 소라의 아버지(?)를 보았다. 그는 당신이 끌려가는 것을 보면서도 멍하니 아무것도 안 하고 있었다. 단지 자신은 소라를 사랑할 거라는 이야기만 반복적으로 중얼거릴 뿐, 고장난 인형처럼."
+        }
+    ], player);
 }

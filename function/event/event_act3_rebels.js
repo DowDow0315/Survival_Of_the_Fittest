@@ -204,6 +204,7 @@ window.EVENTS.push({
         !player.flags?.rebel_route_quest_04_after,
 
     action : (player) => {
+        player.flags.rebel_route_quest_04_after_day = getCurrentDay(player);
         player.flags.rebel_route_quest_04_after = true;
         savePlayer(player);
 
@@ -343,6 +344,44 @@ window.EVENTS.push({
                     "<br><br>\"...창백의 위치를 알고 있나.\"<br><br>" +
                     "그는 무표정으로 당신의 표정을 읽은 후 다시 고개를 돌렸다. 그 순간, 하얀 꽃에서 피어난 창백한 촉수들이 에릭을 공격해왔다. 총성이 난다. 촉수들이 소리없는 비명을 지르며 스러져간다. 당신은 하얀 꽃잎들이 이어진 길을 내려다보았다." +
                     "<br><br><span class='log-sora'>하얀 꽃들은 소라의 상점으로 이어져 있었다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_05_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.rebel_route_quest_04_after_day + 3),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_05_intro_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 도착하자 반란군들이 당신의 방에 모여있었다. 당신이 오자마자 그들은 당신에게 예의를 갖춰 고개를 숙였다." +
+                    "<br><br>\"하류도시의 영웅, 발렌은 실험을 멈출 생각이 없는 것 같습니다.\"<br><br>" +
+                    "\"상류도시 그 돌대가리들은 이번 길거리에서 일어난 실험이 발렌의 명령을 거역하고 상류도시 몇몇이 강행한 거라고 믿고 있어.\"<br><br>" +
+                    "그런 돌대가리들은 죽어도 된다며 반란군들 중 한 명이 과격하게 말했다. 문밖에서 엿듣고 있던 쉘터의 아이가 화들짝 놀라더니 굳은 얼굴로 상류도시에 사는 사람들이라고 다 죽이면 안 된다고 말했다." +
+                    "<br><br>\"우리 오빠도 거기에 있단 말이야. 니콜라이 오빠가 우리 오빠 거기서 잘 있다고 해줬어.\"<br><br>"+
+                    "\"잘 있다고? 그러면 네 오빠도 이미 상류도시에 물들어버린 괴물새끼인 거다.\"<br><br>" +
+                    "그런 괴물 새끼라면 죽어도 된다고 말하는 사람의 입을 다른 반란군이 막았다. 다른 반란군들이 아이를 달래려고 했지만 아이는 이미 눈물이 그렁그렁했다." +
+                    "<br><br>\"우리 오빠는 괴물이 아냐!\"<br><br>" +
+                    "아이는 힘껏 반란군을 노려보더니 그대로 달려나갔다. 반란군들 중 몇 명이 당신에게 고개 숙여 사과했다." +
+                    "<br><br>\"죄송합니다, 이새끼가 최근에 가족을 잃어서....\"<br><br>" +
+                    "그는 쉘터의 아이들이 주변에 있는지 살핀 후에 문을 닫았다. 그는 발렌이 에릭을 흉물 소굴들로 보내고 있다고 말했다. 에릭이 흉물 소굴 쪽으로 움직인 건 분명 무슨 이유가 있는 거라고 말하며, 그는 더 많은 정보가 모이면 당신에게 위치를 전달해주겠다고 말했다." +
+                    "<br><br>\"아, 그리고... 요새 쉘터 주변에 백색 군인들이 많은 것 같습니다. 조심하시는 게 좋을 것 같습니다, 하류도시의 영웅님.\""
                 ]
             }
         ], player, {

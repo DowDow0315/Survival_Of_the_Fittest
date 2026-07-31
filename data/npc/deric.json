@@ -2441,6 +2441,64 @@
                     }
                 ]
             }
+        ],
+        "deric_notAnswer" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...네가 뭔 상관이지?\"<br>",
+                    "데릭은 차갑게 쏘아붙인 후 그대로 당신에게서 고개를 돌렸다. 오히려 그의 기분을 불쾌하게 만든 것 같다..."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 민감한 이야기일 줄 몰랐다며 사과했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신의 말에 데릭은 눈을 가늘게 뜨더니 톡톡 자신의 무릎을 쳐보였다. 당신은 그의 무릎 위에 앉았다. 데릭은 낮게 한숨을 쉬며 당신의 어깨 위로 턱을 올렸다.",
+                                    "<br>\"그래.... 우리 아가는 아직 모르는 게 많으니까. 이 정도는 이해해주마.\"<br>",
+                                    "알코올향이 난다. 당신이 오기 전부터 계속 마시고 있었던 모양이다.",
+                                    "<br>\"너는 그녀석처럼 고집불통이 아니라서 좋아.\""
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": 3 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 5 },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": -3 },
+                                    { "target" : "flag", "key" : "deric_notAnswer", "value" : true}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 그럼 에릭에게 직접 물어보겠다고 말했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "데릭은 당신의 말에 어이없다는 듯이 웃었다. 그는 잔을 세게 내려놓더니 그대로 술을 따랐다.",
+                                    "<br>\"알아서 하렴. 에릭이 널 조금 특별하게 여긴다고 해서 입을 열지는 모르겠지만.<br><br>...그리고 난 화가 나려고 널 이 저택으로 부른 게 아니란다. 네가 날 기쁘게 해줬으면 좋겠어서 부른 거지. 내 경고 명심하렴.\""
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": -3 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": 10 },
+                                    { "target" : "flag", "key" : "deric_notAnswer", "value" : true}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     }
 }

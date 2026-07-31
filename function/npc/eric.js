@@ -297,6 +297,13 @@ registerActions("eric", {
     otherTalk : (player) => {
         const choices = [];
 
+        if (player.flags?.eric_deric_hisGoing && !player.flags?.eric_notAnswer){
+            choices.push({
+                text: "당신은 에릭에게 몸이 안 좋냐고 물었다.",
+                scene: NPC_DATA.eric.scenes.eric_notAnswer
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "eric_giveFood"

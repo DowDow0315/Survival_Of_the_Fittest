@@ -350,6 +350,7 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags.upper_route_quest_04_after_withValen_02 = true;
+        player.flags.upper_route_quest_04_after_withValen_02_day = getCurrentDay(player);
         savePlayer(player);
 
         startScene([
@@ -411,6 +412,35 @@ window.EVENTS.push({
                             }
                         ]
                     }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_05_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_04_after_withValen_02_day + 3),
+
+    action : (player) => {
+        player.flags.upper_route_quest_05_intro = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"상류도시의 영웅.\"<br><br>" +
+                    "백색 군단의 전령이다. 그는 당신에게 깍듯이 인사를 하더니 발렌 님께서 기다리고 있다고 말했다." +
+                    "<br><br>\"당신께 긴히 맡길 임무가 있다고 합니다.<br><br>그럼.\""
                 ]
             }
         ], player, {

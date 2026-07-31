@@ -2013,6 +2013,10 @@ function renderMap(player){
     ? "townEntrance_act3"
     : "townEntrance";
 
+    const shelterKey = player.flags?.yuriDie
+    ? "goldenShelter"
+    : "shelter";
+
     mapArea.innerHTML = `
         <div class="map-box">
             <h3>지도</h3>
@@ -2035,7 +2039,7 @@ function renderMap(player){
                     ${node("townStreet")}
 
                     <div class="branch-list">
-                        ${node("shelter")}
+                        ${node(shelterKey)}
                         ${node("shop")}
                         ${node("tavern")}
                         ${node("subway")}

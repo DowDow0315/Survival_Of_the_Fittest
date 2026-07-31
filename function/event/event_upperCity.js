@@ -56,6 +56,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_deric_hisGoing",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        NPC_DATA["eric"].emotion.affection >= 30 &&
+        NPC_DATA["deric"].emotion.affection >= 50 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.after_paleDream &&
+        !player.flags?.ericDie &&
+        !player.flags?.eric_deric_hisGoing,
+
+    action : (player) => {
+        player.flags.eric_deric_hisGoing = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_deric_hisGoing,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
@@ -262,6 +290,29 @@ window.EVENTS.push({
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_killYuri_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        player.flags?.upper_route_quest_04_after_withValen_02,
+
+    action : (player) => {
+        player.flags.valen_killYuri_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["valen"].scenes.valen_killYuri_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
             }
         );
     }

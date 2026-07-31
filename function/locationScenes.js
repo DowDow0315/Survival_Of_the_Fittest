@@ -5,6 +5,7 @@ const LOCATION_SCENE_BUILDERS = {
     darkStreet : buildDarkStreetScene,
     lukeHouse: buildLukeHouseScene,
     shelter: buildShelterScene,
+    goldenShelter : buildGoldenShelterScene,
     tavern : buildTavernScene,
     forest : buildForestScene,
     deepForest : buildDeepForestScene,
@@ -92,7 +93,15 @@ function buildTownStreetScene(player, loc, randomDesc){
             ? "move_townEntrance_act3"
             : "move_townEntrance"
         },
-        { text: "쉘터로 간다", action: "move_shelter" },
+        {
+            text: player.flags?.yuriDie
+            ? "황금 쉘터로 간다"
+            : "쉘터로 간다",
+            
+            action: player.flags?.yuriDie
+            ? "move_goldenShelter"
+            : "move_shelter"
+        },
         { text: "상점으로 간다", action: "move_shop" },
         { text: "주점으로 간다", action: "move_tavern" },
         { text: "빈민가 거리로 간다", action: "move_darkStreet" },
@@ -317,6 +326,38 @@ function buildShelterScene(player, loc, randomDesc){
         { text: "몸을 정비한다", action: "cleanseBodyFluid" },
         { text: "침착하게 정신을 다스린다", action: "calmDown" },
         { text: "유리와 대화", action: "yuri_talk" }
+    ];
+
+    if (player.flags?.sion_talk_unlocked) {
+        choices.push({
+            text: "시온과 대화",
+            action: "sion_talk"
+        });
+    }
+
+    choices.push({
+        text: "나가기",
+        action: "move_townStreet"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function buildGoldenShelterScene(player, loc, randomDesc){
+    const choices = [
+        { text: "자기", action: "sleep" },
+        { text: "잠깐 쉬기", action: "rest" },
+        { text: "몸을 정비한다", action: "cleanseBodyFluid" },
+        { text: "침착하게 정신을 다스린다", action: "calmDown" }
     ];
 
     if (player.flags?.sion_talk_unlocked) {

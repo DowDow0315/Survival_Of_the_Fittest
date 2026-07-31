@@ -537,6 +537,36 @@ const LOCATIONS ={
             townStreet: 4
         }
     },
+    goldenShelter : {
+        name: "황금 빛쉘터",
+        desc: {
+            dawn : [
+                "황금 쉘터다. <br>금빛 벽에 새벽빛이 비친다. 지나치게 화려한 내부는 쉘터라기보다 전시장을 닮았다.",
+                "황금 쉘터다. <br>아이들은 반짝이는 벽을 신기한 듯 만지고 있다. 하지만 쉘터 안은 예전보다 훨씬 조용하다."
+            ],
+
+            morning : [
+                "황금 쉘터다. <br>황금색으로 번쩍이는 건물 안에서 아이들이 하루를 준비하고 있다.",
+                "황금 쉘터다. <br>새 가구와 침구는 깨끗하지만, 이곳에 익숙해진 사람은 아직 많지 않은 것 같다."
+            ],
+            
+            afternoon : [
+                "황금 쉘터다. <br>화려한 장식 사이로 아이들이 뛰어다닌다. 웃음소리가 넓어진 내부에 메아리친다.",
+                "황금 쉘터다. <br>황금빛 벽은 눈이 부실 만큼 반짝인다. 누군가는 이곳을 선물이라 부르고, 누군가는 대가라고 부른다."
+            ],
+
+            night : [
+                "황금 쉘터다. <br>불이 꺼진 뒤에도 금빛 장식은 희미하게 빛난다. 쉘터 안은 이상할 정도로 고요하다.",
+                "황금 쉘터다. <br>아이들이 잠든 자리 사이로 조용한 숨소리만 들린다. 예전처럼 책을 읽어주는 목소리는 들리지 않는다."
+            ]
+        },
+        
+        sleepDanger: 0,        
+        collectorChance: 0.9,
+        connections: {
+            townStreet: 4
+        }
+    },
     tavern : {
         name: "주점",
         desc: {
@@ -1253,4 +1283,15 @@ function applyAct3LocationChange(){
     // 하얀꽃무덤의 기존 제3초소 연결 제거
     delete LOCATIONS.whiteFlowerTomb.connections.guardPost3;
     LOCATIONS.whiteFlowerTomb.connections.deepForest_act3 = 10;
+}
+
+//유리사망플래그 후 쉘터 바뀌기
+function resetGoldenShelterLocationChange(){
+    delete LOCATIONS.townStreet.connections.goldenShelter;
+    LOCATIONS.townStreet.connections.shelter = 4;
+}
+
+function applyGoldenShelterLocationChange(){
+    delete LOCATIONS.townStreet.connections.shelter;
+    LOCATIONS.townStreet.connections.goldenShelter = 4;
 }

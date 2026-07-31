@@ -392,8 +392,67 @@ Object.assign(DUNGEONS, {
     abominationRedCave : {
         id : "abominationRedCave",
         name : "붉은살점동굴",
-        startRoom : "",
+        startRoom : "r5c4",
 
+        layout : [
+            ["r0c0",     "", "r0c2", "r0c3", "r0c4", "r0c5", "r0c6", "r0c7"],
+            ["r1c0", "r1c1", "r1c2",     "",     "",     "", "r1c6",     ""],
+            [    "", "r2c1",     "",     "", "r2c4", "r2c5", "r2c6", "r2c7"],
+            [    "", "r3c1",     "",     "",     "", "r3c5",     "", "r3c7"],
+            [    "", "r4c1", "r4c2", "r4c3",     "", "r4c5",     "", "r4c7"],
+            ["r5c0", "r5c1",     "",     "", "r5c4", "r5c5", "r5c6",     ""],
+            ["r6c0",     "",     "", "r6c3",     "",     "", "r6c6",     ""],
+            ["r7c0", "r7c1", "r7c2", "r7c3",     "", "r7c5", "r7c6", "r7c7"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "", exits : {down : "r1c0"}},
+            "r0c2" : {name : "", exits : {right : "r0c3", down : "r1c2"}},
+            "r0c3" : {name : "", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "", exits : {left : "r0c4", right : "r0c6"}},
+            "r0c6" : {name : "", exits : {left : "r0c5", right : "r0c7", down : "r1c6"}},
+            "r0c7" : {name : "", exits : {left : "r0c6"}},
+            
+            "r1c0" : {name : "", exits : {up : "r0c0", right : "r1c1"}},
+            "r1c1" : {name : "", exits : {left : "r1c0", right : "r1c2", down : "r2c1"}},
+            "r1c2" : {name : "", exits : {up : "r0c2", left : "r1c1"}},
+            "r1c6" : {name : "", exits : {up : "r0c6", down : "r2c6"}},
+
+            "r2c1" : {name : "", exits : {up : "r1c1", down : "r3c1"}},
+            "r2c4" : {name : "", exits : {right : "r2c5"}},
+            "r2c5" : {name : "", exits : {left : "r2c4", right : "r2c6", down : "r3c5"}},
+            "r2c6" : {name : "", exits : {up : "r1c6", left : "r2c5", right : "r2c7"}},
+            "r2c7" : {name : "", exits : {left : "r2c6", down : "r3c7"}},
+
+            "r3c1" : {name : "", exits : {up : "r2c1", down : "r4c1"}},
+            "r3c5" : {name : "", exits : {up : "r2c5", down : "r4c5"}},
+            "r3c7" : {name : "", exits : {up : "r2c7", down : "r4c7"}},
+
+            "r4c1" : {name : "", exits : {up : "r3c1", right : "r4c2", down : "r5c1"}},
+            "r4c2" : {name : "", exits : {left : "r4c1", right : "r4c3"}},
+            "r4c3" : {name : "", exits : {left : "r4c2"}},
+            "r4c5" : {name : "", exits : {up : "r3c5", down : "r5c5"}},
+            "r4c7" : {name : "", exits : {up : "r3c7"}},
+
+            "r5c0" : {name : "", exits : {right : "r5c1", down : "r6c0"}},
+            "r5c1" : {name : "", exits : {up : "r4c1", left : "r5c0"}},
+            "r5c4" : {name : "붉은 살점 동굴 입구", exits : {right : "r5c5"}},
+            "r5c5" : {name : "붉은 갈림길", exits : {up : "r4c5", left : "r5c4", right : "r5c6"}},
+            "r5c6" : {name : "", exits : {left : "r5c5", down : "r6c6"}},
+            
+            "r6c0" : {name : "", exits : {up : "r5c0", down : "r7c0"}},
+            "r6c3" : {name : "", exits : {down : "r7c3"}},
+            "r6c6" : {name : "", exits : {up : "r5c6", down : "r7c6"}},
+            
+            "r7c0" : {name : "", exits : {up : "r6c0", right : "r7c1"}},
+            "r7c1" : {name : "", exits : {left : "r7c0", right : "r7c2"}},
+            "r7c2" : {name : "", exits : {left : "r7c1", right : "r7c3"}},
+            "r7c3" : {name : "", exits : {up : "r6c3", left : "r7c2"}},
+            "r7c5" : {name : "", exits : {right : "r7c6"}},
+            "r7c6" : {name : "", exits : {up : "r6c6", left : "r7c5", right : "r7c7"}},
+            "r7c7" : {name : "", exits : {left : "r7c6"}}
+        }
     }
 })
 
@@ -2508,7 +2567,7 @@ function handleTeacherAndStudentsWin(player){
                     ]
                 },
                 {
-                    text : "마리는 이미 인격이 없다. 당신은 소각 버튼을 누른 후 혼자 나갔다.",
+                    text : "당신은 소각 버튼을 누른 후 혼자 나갔다.",
                     scene : [
                         {
                             type : "text",

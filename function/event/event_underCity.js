@@ -816,6 +816,82 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sora_brainwashing_cannot",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        player.flags?.act3_you_know_who_is_sora &&
+        !player.flags?.sora_yourForever,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_brainwashing_cannot,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_brainwashing_accept",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        player.flags?.act3_you_know_who_is_sora &&
+        (
+            hasNpcRelationship("sora", "lover") ||
+            hasNpcRelationship("sora", "spouse")
+        ) &&
+        !hasItemOrEquipped(player, "soraFatherFlowerNecklace") &&
+        player.flags?.sora_yourForever,
+
+    action : (player) => {
+        player.flags.sora_brainwashing_accept = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sora"].scenes.sora_brainwashing_accept,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_brainwashing_refuse",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        player.flags?.act3_you_know_who_is_sora &&
+        (
+            hasNpcRelationship("sora", "lover") ||
+            hasNpcRelationship("sora", "spouse")
+        ) &&
+        hasItemOrEquipped(player, "soraFatherFlowerNecklace") &&
+        player.flags?.sora_yourForever,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_brainwashing_refuse,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라 개인퀘스트
 window.EVENTS.push({
     id : "sora_drug_02_unlock_event",
@@ -1394,6 +1470,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_afterTavernFire",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.act3CollapseDone &&
+        NPC_DATA["matin"].emotion.affection >= 70 &&
+        (player.flags?.upper_route_quest_04_after || player.flags?.rebel_route_quest_04_after ),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_afterTavernFire,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -1792,6 +1891,7 @@ window.EVENTS.push({
         player.location === "shelter" &&
         player.flags?.act3_quest_02_done &&
         player.flags?.act3_rebel_route &&
+        !player.flags?.yuriDie &&
         getCurrentDay(player) >= (player.flags.act3_quest_02_done_day + 2) &&
         !player.flags?.yuri_act3_quest_02_done_after_affection_event_seen,
 
@@ -1810,6 +1910,82 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "yuri_rebel_route_quest_05_intro_attack",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        (
+            hasNpcRelationship("yuri", "lover") ||
+            hasNpcRelationship("yuri", "spouse")
+        )  &&
+        !player.flags?.yuriDie &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_05_intro_day + 3),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_route_quest_05_intro_attack,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_valen_kill_yuri",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        !player.flags?.yuriDie &&
+        player.flags?.valen_will_kill_yuri,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_valen_will_kill_yuri,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_you_kill_yuri",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        !player.flags?.yuriDie &&
+        player.flags?.you_will_kill_yuri,
+
+    action : (player) => {
+        changeNPCEmotion("yuri", "rage", 100);
+        savePlayer(player);
+        
+        startScene(
+            {
+                type : "text",
+                value : [
+                    ""
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelStory02IntroBattle"
+            }
+        );
+    }
+});
+
 
 //니콜라이
 window.EVENTS.push({
@@ -3369,7 +3545,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.flags?.act3CollapseDone &&
-        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        ["townStreet", "darkStreet", "townEntrance", "townEntrance_act3"].includes(player.location) &&
         (
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
@@ -3529,7 +3705,7 @@ window.EVENTS.push({
     id : "undercity_hero_05",
     condition : (player) =>
         player.justMoved &&
-        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        ["townStreet", "darkStreet", "townEntrance", "townEntrance_act3"].includes(player.location) &&
         player.flags?.act3CollapseDone &&
         Math.random() < 0.09,
 
@@ -3558,7 +3734,7 @@ window.EVENTS.push({
     id : "undercity_hero_06",
     condition : (player) =>
         player.justMoved &&
-        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
         player.flags?.act3CollapseDone &&
         Math.random() < 0.08,
 
@@ -3591,7 +3767,7 @@ window.EVENTS.push({
     id : "undercity_hero_07",
     condition : (player) =>
         player.justMoved &&
-        ["townStreet", "darkStreet", "townEntrance"].includes(player.location) &&
+        ["townStreet", "darkStreet", "townEntrance", "townEntrance_act3"].includes(player.location) &&
         player.flags?.graveYardBottom_savingChild &&
         Math.random() < 0.05,
 
@@ -3621,13 +3797,192 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "undercity_hero_08",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "tavern"].includes(player.location) &&
+        player.flags?.matin_youGiveThemMoney &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신의 앞으로 노숙인들이 모여들었다. 그들은 당신을 올려다보며 각자의 사정을 쏟아내기 시작했다. 길거리에 불이 번지기 전까지는 자신들도 이런 신세가 아니었다. 집에 먹여 살려야 할 사람들이 있다. 몇 푼이라도 좋으니 자신들에게 조금이라도 돈을 달라...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그들에게서 한 걸음 물러났다.",
+                        stat : "dex",
+                        difficulty : 18,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 물러서자 그들은 당신에게 달려들었다." +
+                                    "<br><br>\"하류도시의 영웅이라면서!\"<br><br>" +
+                                    "\"저번에 주점에서는 주려고 했잖아!\"<br><br>" +
+                                    "그들은 화를 내며 당신에게 가까이 다가왔지만, 당신의 뒷걸음질치는 속도가 더 빨랐다. 그들은 당신에게 손을 뻗었지만 당신을 잡지는 못했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 물러나려고 했지만 그들에게 팔을 잡혀버렸다. 아프다! 당신은 인상을 찌푸리며 그들의 팔을 뿌려치려고 했지만 오히려 그들은 당신의 팔에 거머리처럼 더 달라붙었다. 그들은 하류도시의 영웅이면 하류도시의 사람들을 도와줘야 하는 거 아니냐고 소리치며 당신의 주머니를 뒤지기 시작했다." +
+                                    "<br>당신은 강제로 그들에게 돈을 뺏기고 말았다...."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    changeGold(player, -2000);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그들에게 돈을 주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 돈을 주자 그들은 허겁지겁 당신이 건넨 돈에 달려들었다. 서로 싸움이 붙기 시작했다. 당신은 당신 혼자만 책임지면 되는 거 아니냐, 내게는 자식이 있다...<br><br>...그들은 당신의 푼돈을 위해 목숨을 걸고 싸우고 있다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeGold(player, -500);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "afterFire_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        (player.flags?.upper_route_quest_04_after || player.flags?.rebel_route_quest_04_after ) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "불이 난 후 길거리에 나앉게 된 사람들이 많아서 그런 걸까, 당신은 오늘따라 노숙자들이 거리에 많다고 느꼈다. 몇 명은 자리 문제로 싸우다가 서로의 머리채까지 잡고 있었다. 갈 곳 잃은 사람들의 행동이 격해지자 그들을 대하는 경비병들의 태도도 더욱 더 억압적으로 변했다. 경비병들 중 한 명이 노숙자 한 사람의 머리를 벽에다 박으며 가만히 좀 있으라고 일갈했다." +
+                    "<br><br>\"씨발, 너 죽고 나 죽자!\"<br><br>" +
+                    "경비병에게 맞고 있던 노숙자 한 명이 몸을 벌떡 일으켰다. 갑작스러운 공격에 경비병은 뒤로 넘어졌고, 노숙자들은 그 기회를 놓치지 않고 경비병 한 명을 집단으로 밟기 시작했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 사람들을 막았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 사람들을 가로막았다. 하류도시의 영웅인 당신이 나서자 몇몇 사람들은 공격을 멈췄고, 몇몇 사람들은 오히려 당신에게 공격성을 드러냈다." +
+                                    "<br><br>\"하류도시의 영웅이라며!\"<br><br>" +
+                                    "그 틈을 타서 일어난 경비병은 가장 먼저 자신을 공격했던 노숙자를 그대로 바닥으로 짓눌렀다. 그는 당신을 돌아보며 고맙다고 말했다." +
+                                    "<br><br>\"사회의 쓰레기 새끼가, 어디서 하류도시의 영웅을 들먹여.\"<br><br>" +
+                                    "노숙자는 그대로 경비병에게 질질 끌려갔다... 개인의 힘으로 사회를 바꾸기는 힘들다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "자업자득이다. 당신은 그대로 경비병을 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그대로 경비병을 지나쳤다. 끅끅거리던 경비병의 신음 소리는 어느 순간부터 들리지 않았다. 당신이 그들에게서 멀어져서일까, 아니면... 당신은 더는 생각하지 않기로 했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("luke", "affection", -3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "afterFire_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        (player.flags?.upper_route_quest_04_after || player.flags?.rebel_route_quest_04_after ) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "입구로 나온 당신의 시야에 한 쌍의 연인이 서로 포옹하고 있는 모습이 보였다." +
+                    "<br><br>\"꼭 가야 해...?\"<br><br>" +
+                    "\"작은 집이라도 살려면 어쩔 수 없잖아... 적어도 우리 아이들은 지붕 아래에서 잘 수 있게 해줘야지.<br><br>꼭 돌아올 테니까.\"<br><br>" +
+                    "연인은 서로 키스를 한 후 헤어졌다. 마을 밖으로 처음 나서는 사람의 뒷모습은 긴장으로 딱딱하게 굳어있었고, 그를 배웅할 수밖에 없는 사람은 주먹을 쥔 채 두려움에 바르르 떨었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "shelter_rain_event_01",
 
     condition : (player) =>
         player.justMoved &&
         player.location === "shelter" &&
         player.weather === "rain" &&
-        Math.random() < 0.08,
+        Math.random() < 0.09,
 
     action : (player) => {
         startScene([
@@ -3643,6 +3998,40 @@ window.EVENTS.push({
                 type : "effect",
                 run : (player) => {
                     changeTrauma(player, -2);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "shelter_rain_event_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.weather === "rain" &&
+        (player.flags?.upper_route_quest_04_after || player.flags?.rebel_route_quest_04_after ) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 비가 새는 구멍을 올려다보며 울상을 짓는 것이 보인다." +
+                    "<br><br>\"불난 이후로 더 새는 것 같아....\"<br><br>" +
+                    "\"양동이 더 없나...?\"<br><br>" +
+                    "창고에서 양동이를 가져오던 한 아이가 넘어졌다. 아이들이 넘어진 아이 주변으로 모여들었다. 넘어진 아이는 눈물을 찔끔거리기는 했지만 괜찮냐는 아이들의 물음에는 씩씩하게 고개를 끄덕였다. 당신의 마음이 무거워졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 1);
                     savePlayer(player);
                 }
             }
@@ -3781,7 +4170,7 @@ window.EVENTS.push({
                     "마을 입구로 돌아가던 당신은 경계병들이 흉물의 시체를 치우는 것을 보았다. 그냥 흉물의 시체가 아니었다. 본체는 사람이었다." +
                     "<br><br><span class='log-danger'>아니. 심지어 당신이 아는 사람이었다. 흉물 소굴에서 당신이 살려줬던 그 사람이다.</span>" +
                     "<br><br>\"젠장... 대체 이새끼 때문에 얼마나 많은 사람이 죽은 거야.\"<br><br>" +
-                    "...던전에서부터 이미 흉물에게 기생되었던 모양이다. 당신은 흉물의 시체 말고 다른 사람들의 시체도 보았다. 마음이 무거워졌다."
+                    "...던전에서부터 이미 흉물에게 기생되었던 모양이다. 당신은 흉물의 시체 말고 다른 사람들의 시체도 보았다. 당신의 마음이 무거워졌다."
                 ]
             },
             {

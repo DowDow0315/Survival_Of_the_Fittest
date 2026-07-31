@@ -1180,6 +1180,94 @@ const WEAPON_SKILLS = {
             unlock : 100,
             desc : "데미지 1.5배로 4번 공격" 
         }
+    ],
+
+    "호박쌍검" : [
+        {
+            name : "보이지 않는 공격",
+            cost : 3,
+            type : "multiHit",
+            power : 1.5,
+            hits : 5,
+            unlock : 20,
+            desc : "데미지 1.5배로 5번 공격" 
+        },
+        {
+            name: "화려한 피의 춤",
+            cost: 3,
+            type: "bleed",
+            id : "yuriTwinDagger_bleed",
+            dot: 30,
+            duration: 5,
+            unlock: 100,
+            desc : "5턴간 상대방에게 출혈데미지(30)"
+        },
+        {
+            name: "화려한 독의 춤",
+            cost: 3,
+            type: "poison",
+            id : "yuriTwinDagger_poison",
+            dot: 30,
+            duration: 5,
+            unlock: 150,
+            desc : "5턴간 상대방에게 출혈데미지(30)"
+        },
+        {
+            name : "다정하지만 굳은 심지",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "yuriTwinDagger_buff",
+                heal : 50,
+                evaMult : 1.8,
+                atkMult : 1.3,
+                duration : 5
+            },
+            unlock : 200,
+            desc : "5턴 동안 회피/명중률 1.8배, 방어력 1.3배 및 매 턴 HP 50 회복"
+        }
+    ],
+    "가시권갑" : [
+        {
+            name : "펀치",
+            cost : 1,
+            type : "damage",
+            power : 2,
+            unlock : 20,
+            desc : "데미지 2배 공격"
+        },
+        {
+            name: "가시주먹",
+            cost: 3,
+            type: "bleed",
+            id : "lukeGauntlet_bleed",
+            dot: 35,
+            duration: 4,
+            unlock: 100,
+            desc : "4턴간 상대방에게 출혈데미지(35)"
+        },
+        {
+            name : "모래 뿌리기",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "enemyDebuff",
+                atkMult : 0.7,
+                defMult : 0.7,
+                evaMult : 0.6
+            },
+            duration: 6,
+            unlock : 150,
+            desc : "6턴간 적 공격력 0.7배, 방어력 0.7배, 명중/회피력 0.6배"
+        },
+        {
+            name : "원펀치",
+            cost : 5,
+            type : "damage",
+            power : 8,
+            unlock : 20,
+            desc : "데미지 8배 공격"
+        }
     ]
 };
 
@@ -1295,6 +1383,14 @@ const MASTER_SKILLS = {
     "백화사탕" : {
         requiredMastery : 300,
         skillName : "달콤한 사탕"
+    },
+    "호박쌍검" : {
+        requiredMastery : 300,
+        skillName : "화려한 피의 춤"
+    },
+    "가시권갑" : {
+        requiredMastery : 300,
+        skillName : "모래 뿌리기"
     }
 };
 
@@ -1625,6 +1721,32 @@ const ITEMS ={
                 dex : 3,
                 int : 3,
                 charm : 6
+            }
+        },
+
+        yuriTwinDagger : {
+            name : "호박쌍검",
+            type : "weapon",
+            desc : "처음 시작은 반란군이 아니었다, 그저 눈앞에 보이는 사람들을 지나치지 못했을 뿐.",
+            price : 30000,
+            stats : {
+                str : 1,
+                dex : 20,
+                int : 2,
+                charm : 7
+            }
+        },
+
+        lukeGauntlet : {
+            name : "가시권갑",
+            type : "weapon",
+            desc : "밑바닥에서 살아남으며 인간의 추악함을 누구보다 많이 보았지만, 끝내 인간을 미워하지는 못했던 남자의 삶.",
+            price : 30000,
+            stats : {
+                str : 20,
+                dex : 14,
+                int : 5,
+                charm : 1
             }
         }
     },

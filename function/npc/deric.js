@@ -325,6 +325,13 @@ registerActions("deric", {
             });
         }
 
+        if (player.flags?.eric_deric_hisGoing && !player.flags?.deric_notAnswer){
+            choices.push({
+                text: "당신은 상류도시 관문에서 있었던 일에 대해 물었다.",
+                scene: NPC_DATA.deric.scenes.deric_notAnswer
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "deric_giveFood"

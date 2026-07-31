@@ -146,6 +146,20 @@ registerActions("yuri",{
             });
         }
 
+        if (player.flags?.valen_killYuri_02 && !player.flags?.you_will_kill_yuri ){
+            choices.push({
+                text : "당신은 유리에게 빈민가 거리로 나오라고 말했다.",
+                scene : NPC_DATA.yuri.scenes.you_will_kill_yuri
+            });
+        }
+
+        if (player.flags?.valen_killYuri_03 && !player.flags?.valen_will_kill_yuri ){
+            choices.push({
+                text : "당신은 유리에게 발렌이 당신을 죽이려고 한다고 경고했다.",
+                scene : NPC_DATA.yuri.scenes.valen_will_kill_yuri
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "yuri_talk" });
 
         startScene([

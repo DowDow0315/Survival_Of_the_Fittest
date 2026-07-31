@@ -766,6 +766,64 @@
                     "<br><br>발렌과의 훈련 때문에 체력이 증진된 것 같다. (최대 HP +15)"
                 ]
             }
+        ],
+        "valen_killYuri_01" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...영광의 거리에 당신의 황금 동상을 세우시는 건 어떻습니까.\"<br>",
+                    "당신은 뒤를 돌았다. 발렌은 데릭의 황금 동상을 응시하며, 당신이 원한다면 당신의 황금 동상도 이 영광의 거리에 만들어줄 수 있다고 말했다.",
+                    "<br>\"...유리는 제가 계속 찾고 있었던 반란군의 씨앗입니다. 그를 죽이면, 반란군은 많은 것을 잃게 될 것입니다.\"<br>",
+                    "발렌은 잠시 말을 멈췄다.",
+                    "<br>\"아참, 소꿉친구셨죠. 특별히 죽이지는 않겠습니다. 유리를, 빈민가거리로 불러내십시오. 그 후는 제가 알아서 하겠습니다.<br><br>쉘터는 하류도시에 아주 화려하게 다시 세워드리죠. 황금색으로, 반짝반짝하게.\""
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 발렌의 제안을 받아들였다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 제안을 받아들이자 발렌은 미소를 지었다.",
+                                    "<br>\"당신이 제 편이라는 걸 믿고 있었습니다. 약속은 무슨 일이 있어도 지키겠습니다.<br>그럼, 잘 부탁드립니다, {valenTitle}.\""
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "valen", "key": "affection", "amount": 5 },
+                                    { "target": "npc", "npc": "valen", "key": "dominance", "amount": 5 },
+                                    { "target" : "flag", "key" : "valen_killYuri_02", "value" : true }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 발렌의 제안을 받아들이지 않았다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"...그렇습니까. 아쉽게 되었군요.\"<br>",
+                                    "발렌은 당신의 생각보다 순순히 물러났다. 당신의 등골에 불길한 예감이 스쳤다. 어쩌면 발렌은, 다른 방안을 뒤로 남겨둔 채 당신을 시험해본 걸지도 모른다. 발렌은 우아하게 당신에게 인사를 하더니 그대로 자리를 떴다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "valen", "key": "affection", "amount": -15 },
+                                    { "target": "npc", "npc": "valen", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "valen", "key": "fear", "amount": 10 },
+                                    { "target" : "flag", "key" : "valen_killYuri_03", "value" : true }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     }
 }

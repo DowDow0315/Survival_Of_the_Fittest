@@ -1036,6 +1036,33 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_confession_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        getCurrentDay(player) >= (player.flags.act3_quest_03_done_day + 4) &&
+        NPC_DATA["akasia"].emotion.affection >= 90 &&
+        !player.flags?.akasiaDie &&
+        !hasNpcRelationship("akasia", "lover") &&
+        !hasNpcRelationship("akasia", "spouse"),
+
+    action : (player) => {
+        addItem(player, ITEMS.weapon.akasiaSilverDagger);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_confession_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",

@@ -1937,6 +1937,59 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "yuri_rebel_route_quest_05_intro_attack",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        (
+            hasNpcRelationship("yuri", "lover") ||
+            hasNpcRelationship("yuri", "spouse")
+        )  &&
+        !player.flags?.yuriDie &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_05_intro_day + 3),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_route_quest_05_intro_attack,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_weapon_for_you",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        (
+            hasNpcRelationship("yuri", "lover") ||
+            hasNpcRelationship("yuri", "spouse")
+        )  &&
+        !player.flags?.yuriDie &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_05_intro_day + 5),
+
+    action : (player) => {
+        addItem(player, ITEMS.weapon.yuriTwinDagger);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_weapon_for_you,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "yuri_valen_kill_yuri",
     once : true,
 
@@ -1975,16 +2028,100 @@ window.EVENTS.push({
             {
                 type : "text",
                 value : [
-                    ""
+                    "\"...어디로 가는 거야?\"<br><br>" +
+                    "뭔가 이상하다는 걸 느꼈는지 유리의 발걸음이 뚝 멈췄다. 그는 경계심 어린 눈으로 주변을 둘러보더니 다시 당신을 보았다. 그의 호박색 눈동자가 흔들린다.<br><br>" +
+                    "\"...너 설마...\"<br><br>" +
+                    "주변에 백색 군단이 있다는 걸 알아차린 유리는 말없이 자신의 쌍검을 들어보였다. 그의 눈은 당신을 똑바로 응시하고 있었다." +
+                    "<br><br>\"너는 더 이상...\"<br><br>" +
+                    "그의 호박색 눈동자에서 눈물이 흘렀다. 그는 입술을 짓이겼다." +
+                    "<br><br>\"내가 알던 내 소꿉친구가 아니야.\""
                 ]
             },
             {
                 type : "effect",
-                run : "startRebelStory02IntroBattle"
+                run : "startBetrayalYuriBattle"
             }
         );
     }
 });
+
+window.startBetrayalYuriBattle = function(player){
+
+    startBattle("yuri", player, {
+        noEscape : true,
+        onWin : () => startYuriWinEvent(player),
+        onLose : () => startYuriLosingEvent(player)
+    });
+    return true;
+};
+
+window.startYuriWinEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 유리를 이겼다. 유리는 당신의 칼에 쓰러지면서도 마지막까지 자신의 쌍검을 놓지 않았다. 그는 쓰러지기 전에 마지막으로 당신을 쓰러뜨리기 위해 몸을 당신에게로 던졌다. 순식간의 일이라 당신의 방어 자세가 흐트러졌다." +
+                "<br><br><span class='log-yuri'>하지만 당신이 예상했던 고통은 느껴지지 않았다.</span>" +
+                "<br><br>당신은 천천히 유리를 내려다보았다. 유리의 쌍검날은 분명 당신의 심장을 향하고 있었다. 하지만 그는 차마, 이미 변해버렸다고 하더라도, 당신을 찌르지 못했다. 그저 피 한 방울만 톡, 당신의 옷을 적셨을 뿐. 유리는 당신을 올려다보았다. 그는 당신에게 무슨 말을 하려고 했지만 그 순간 올가미에 목이 조여져 고개가 뒤로 젖혀졌다. 컥, 하는 소리와 함께 그는 자신의 목을 쥐어잡았다. 당신의 품에 안겨있던 그의 몸은 그대로 뒤로 떨어져나갔다." +
+                "<br><br>\"...정말 잘해주셨습니다, 상류도시의 영웅.\"<br><br>" +
+                "언제부터 보고 있었던 걸까. 발렌은 미소를 지으며 유리의 쌍검을 걷어찬 후 그의 턱을 들어올렸다." +
+                "<br><br>\"스테리.<br><br> 상류도시의 영웅을 위해서 죽음만큼은 면하게 해드리겠습니다.\"<br><br>" +
+                "\"...차라리, 죽여.\"<br><br>" +
+                "\"그럴 리가요. 많은 사람들의 사랑을 받는 당신을 제가 그냥 죽일 리가 없지 않겠습니까.\"<br><br>" +
+                "발렌은 당신에게 우아하게 인사를 해보이더니 그대로 유리의 목줄을 끌고 헬리콥터에 올랐다. 유리는 저항을 하려고 했지만 여기저기서 쏟아지는 발길질에 그는 결국 짐승처럼 떨어져내렸다." +
+                "<br><br>\"아, 그 무기는... 소꿉친구인 당신이 가지는 게 좋겠지요.\"<br><br>" +
+                "당신의 옆에는 유리의 무기만이 남았다." +
+                "<br><br><span class='log-yuri'>앞으로 유리는 다시는, 빛을 보지 못할 것이다.</span>"
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.yuriDie = true;
+                changeTrauma(player, 20);
+                addItem(player, ITEMS.weapon.yuriTwinDagger);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startYuriLosingEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 유리를 이기지 못하고 쓰러졌다. 유리는 단번에 당신의 위로 올라타 호박쌍검을 높게 처들었다." +
+                "<br><br>\"너만큼은 괴물이 되지 않기를 바랐어.\"<br><br>" +
+                "그의 호박색 눈동자에 고인 눈물이 뚝뚝 당신의 위로 떨어졌다." +
+                "<br><br>\"네가 상류도시에 가는 걸 막았어야 했는데.\"<br><br>" +
+                "유리는 입술을 악물었다." +
+                "<br><br>\"...다음 번에는 더 좋은 곳에서 태어나.... 내 친구.\"<br><br>" +
+                "그가 쌍검을 당신의 심장 쪽으로 내려찍는 순간, 뒤에서 그의 몸을 창살이 꿰뚫었다. 옆구리, 팔, 다리, 그리고 배까지. 유리의 입술에서 피가 흘러나왔다." +
+                "<br><br>\"죽이지는 마십시오.\"<br><br>" +
+                "대체 언제부터 보고 있었던 걸까. 발렌은 유리의 턱을 잡아올렸다." +
+                "<br><br>\"상류도시의 영웅과 했던 약속은 지켜야 하니.\"<br><br>" +
+                "발렌은 당신에게 수고했다고 말했다. 그는 천천히 유리가 떨어뜨린 호박쌍검을 줍더니 당신에게 다시 내밀었다." +
+                "<br><br>\"이 무기는... 소꿉친구인 당신이 가져가는 게 좋겠지요.\"<br><br>" +
+                "당신은 발렌에게서 호박쌍검을 받았다. 유리의 목에 목줄이 걸렸다. 그가 질질 끌려가는 것이 보인다. 땅바닥에 피부가 긁히는데도 그 누구도 그를 신경쓰지 않았다. 발렌은 헬리콥터에서 당신을 내려다보았다. 그리고 웃었다." +
+                "<br><br><span class='log-yuri'>앞으로 유리는 다시는, 빛을 보지 못할 것이다.</span>"
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.yuriDie = true;
+                changeTrauma(player, 20);
+                addItem(player, ITEMS.weapon.yuriTwinDagger);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
 
 
 //니콜라이

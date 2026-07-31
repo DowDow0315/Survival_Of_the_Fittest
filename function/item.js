@@ -1147,9 +1147,9 @@ const WEAPON_SKILLS = {
             effect : {
                 id : "whiteFlowerCandyBar_buff",
                 heal : 40,
-                defMult : 1.3,
-                duration : 5
+                defMult : 1.3
             },
+            duration : 5,
             unlock : 20,
             desc : "5턴 동안 방어력 1.3배 및 매 턴 HP 40 회복"
         },
@@ -1220,9 +1220,9 @@ const WEAPON_SKILLS = {
                 id : "yuriTwinDagger_buff",
                 heal : 50,
                 evaMult : 1.8,
-                atkMult : 1.3,
-                duration : 5
+                atkMult : 1.3
             },
+            duration : 5,
             unlock : 200,
             desc : "5턴 동안 회피/명중률 1.8배, 방어력 1.3배 및 매 턴 HP 50 회복"
         }
@@ -1256,9 +1256,9 @@ const WEAPON_SKILLS = {
                 defMult : 0.7,
                 evaMult : 0.6
             },
-            duration: 6,
+            duration: 7,
             unlock : 150,
-            desc : "6턴간 적 공격력 0.7배, 방어력 0.7배, 명중/회피력 0.6배"
+            desc : "7턴간 적 공격력 0.7배, 방어력 0.7배, 명중/회피력 0.6배"
         },
         {
             name : "원펀치",
@@ -1267,6 +1267,51 @@ const WEAPON_SKILLS = {
             power : 8,
             unlock : 20,
             desc : "데미지 8배 공격"
+        }
+    ],
+    "아카시아향 은장도" : [
+        {
+            name : "은빛파고들기",
+            cost : 2,
+            type : "damage",
+            power : 4,
+            unlock : 20,
+            desc : "데미지 4배"
+        },
+        {
+            name : "달향의 시선",
+            cost : 3,
+            type : "enemyDebuff",
+            effect : {
+                id : "akasiaSilverDagger_eyetoeye",
+                defMult : 0.5,
+                evaMult : 0.5
+            },
+            duration : 8,
+            unlock : 100,
+            desc : "8턴간 상대방 방어력 0.5배, 명중률/회피율 0.5배"
+        },
+        {
+            name : "아카시아향 나선",
+            cost : 4,
+            type: "multiHit",
+            power: 2.6,
+            hits : 3,
+            unlock: 150,
+            desc : "데미지 2.6배로 3번 연속 공격"
+        },
+        {
+            name : "아카시아 향",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "akasiaSilverDagger_buff",
+                heal : 40,
+                evaMult : 2
+            },
+            duration : 6,
+            unlock : 200,
+            desc : "6턴간 hp 40 회복, 회피율/명중률 2배"
         }
     ]
 };
@@ -1391,6 +1436,10 @@ const MASTER_SKILLS = {
     "가시권갑" : {
         requiredMastery : 300,
         skillName : "모래 뿌리기"
+    },
+    "아카시아향 은장도" : {
+        requiredMastery : 300,
+        skillName : "달향의 시선"
     }
 };
 
@@ -1748,6 +1797,20 @@ const ITEMS ={
                 int : 5,
                 charm : 1
             }
+        },
+
+        akasiaSilverDagger : {
+            name : "아카시아향 은장도",
+            type : "weapon",
+            desc : "고독하게 자란 꽃은 당신을 만나기 전까지는 자신이 고독하다는 것조차 몰랐다.",
+            price : 30000,
+            tags : ["magicStick"],
+            stats : {
+                str : 2,
+                dex : 15,
+                int : 10,
+                charm : 15
+            } 
         }
     },
 

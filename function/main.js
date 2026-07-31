@@ -691,7 +691,7 @@ function getCharmArousalGain(player, base = 10){
 }
 
 window.cleanseBodyFluid = function(player){
-    if (player.location !== "shelter"){
+    if (!["shelter", "goldenShelter"].includes(player.location)) {
         showSingleTextScene("여기서는 몸을 정비할 수 없다.", player);
         return;
     }

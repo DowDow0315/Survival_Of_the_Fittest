@@ -121,6 +121,16 @@ function buildTownStreetScene(player, loc, randomDesc){
 function buildShopScene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.flags?.after_paleDream &&
+        !player.flags?.soraBasement_soraFather2_defeated
+    ){
+        choices.push({
+            text : "소라 몰래 지하계단으로 향한다.",
+            action : "move_soraBasement"
+        });
+    }
+
     choices.push(
         { text: "쇼핑", action: "open_soraShop" },
         { text: "소라와 대화", action: "sora_talk" },

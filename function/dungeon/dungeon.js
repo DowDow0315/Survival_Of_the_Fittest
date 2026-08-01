@@ -1688,6 +1688,9 @@ function leaveDungeon(player){
 
     localStorage.setItem("playerData", JSON.stringify(player));
     renderMap(player);
+    if (checkAllEvents(player)){
+        return;
+    }
     startScene(getLocationScene(player), player);
 }
 

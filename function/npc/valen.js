@@ -13,7 +13,7 @@ function getValenTitle(player){
 }
 
 registerActions("valen",{
-    //주점대화로그
+    //대화로그
     giveFood : (player) => {
         openGiveFoodMenu(player, "valen");
     },
@@ -153,7 +153,13 @@ registerActions("valen",{
 
     otherTalk : (player) => {
         const choices = [];
-        const today = getCurrentDay(player);
+
+        if (player.flags?.deric_about_nikolai_sister && !player.flags?.valen_about_nikolai_sister){
+            choices.push({
+                text: "당신은 니콜라이의 누나에 대해 물었다.",
+                scene: NPC_DATA.valen.scenes.valen_about_nikolai_sister
+            });
+        }
 
         choices.push({
             text: "음식을 건넨다",

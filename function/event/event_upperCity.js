@@ -276,6 +276,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "heavenPalace" &&
+        !player.flags?.valenDie &&
         NPC_DATA["valen"].emotion.affection >= 50,
 
     action : (player) => {
@@ -302,6 +303,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "gloryStreet" &&
+        !player.flags?.valenDie &&
         player.flags?.upper_route_quest_04_after_withValen_02,
 
     action : (player) => {
@@ -310,6 +312,32 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["valen"].scenes.valen_killYuri_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_killYuri_04",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        !player.flags?.valenDie &&
+        player.flags?.valen_killYuri_02 &&
+        player.location === "townStreet" &&
+        getCurrentDay(player) >= player.flags.valen_killYuri_01_day + 20 &&
+        !player.flags?.yuriDie,
+
+    action : (player) => {
+        player.flags.yuriDie = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["valen"].scenes.valen_killYuri_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1044,7 +1072,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "theater" &&
         getCurrentDay(player) >= (player.flags.act3_quest_03_done_day + 4) &&
-        NPC_DATA["akasia"].emotion.affection >= 90 &&
+        NPC_DATA["akasia"].emotion.affection >= 80 &&
         !player.flags?.akasiaDie &&
         !hasNpcRelationship("akasia", "lover") &&
         !hasNpcRelationship("akasia", "spouse"),

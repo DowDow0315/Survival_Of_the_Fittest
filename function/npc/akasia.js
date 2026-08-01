@@ -12,7 +12,6 @@ function getAkasiaTitle(player){
 }
 
 registerActions("akasia",{
-    //주점대화로그
     giveFood : (player) => {
         openGiveFoodMenu(player, "akasia");
     },
@@ -140,7 +139,6 @@ registerActions("akasia",{
 
     otherTalk : (player) => {
         const choices = [];
-        const today = getCurrentDay(player);
 
         choices.push({
             text: "음식을 건넨다",

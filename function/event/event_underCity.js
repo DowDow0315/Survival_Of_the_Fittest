@@ -1493,6 +1493,33 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_cooking_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags.matin_cooking_event_day !== getCurrentDay(player) &&
+        (
+            hasNpcRelationship("matin", "lover") ||
+            hasNpcRelationship("matin", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.matin_cooking_event_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["matin"].scenes.matin_cooking_event_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -2313,6 +2340,56 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "nikolai_hisSister",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        NPC_DATA["nikolai"].emotion.affection >= 60 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_hisSister = true;
+        player.flags.nikolai_hisSister_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_hisSister,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_hisSister_ask",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        player.flags?.nikolai_hisSister &&
+        getCurrentDay(player) >= (player.flags.nikolai_hisSister_day + 7) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_hisSister_ask = true;
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_hisSister_ask,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //창백
 window.EVENTS.push({
     id : "pale_afterFlowerDateDream_01",
@@ -2390,7 +2467,7 @@ window.EVENTS.push({
         player.justMoved &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_spying_01_day !== getCurrentDay(player) &&
-        player.location === "shelter" &&
+        (player.location === "shelter" || player.location === "goldenShelter" )&&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -2487,7 +2564,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.flags?.sion_spying_06_day !== getCurrentDay(player) &&
         NPC_DATA["sion"].emotion.affection > 50 &&
-        player.location === "shelter" &&
+        (player.location === "shelter" || player.location === "goldenShelter" ) &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -2538,7 +2615,7 @@ window.EVENTS.push({
         player.justMoved &&
         NPC_DATA["sion"].emotion.lust >= 50 &&
         NPC_DATA["sion"].emotion.lust < 90 &&
-        player.location === "shelter" &&
+        (player.location === "shelter" || player.location === "goldenShelter" ) &&
         Math.random() < 0.15,
 
     action : (player) => {
@@ -2582,7 +2659,7 @@ window.EVENTS.push({
         NPC_DATA["sion"].emotion.lust >= 90 &&
         ( hasNpcRelationship("sion", "lover") ||
          hasNpcRelationship("sion", "spouse") ) &&
-        player.location === "shelter" &&
+        (player.location === "shelter" || player.location === "goldenShelter" ) &&
         Math.random() < 0.15,
 
     action : (player) => {
@@ -2602,7 +2679,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         NPC_DATA["sion"].emotion.affection >= 50 &&
-        player.location === "townEntrance" &&
+        (player.location === "townEntrance" || player.location === "townEntrance_act3") &&
         player.justMoved,
 
     action : (player) => {

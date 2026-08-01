@@ -389,3 +389,33 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_05_start",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.rebel_route_quest_05_intro_day + 3),
+
+    action : (player) => {
+        player.flags.act3_quest_05_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 지나는 당신의 옆으로 반란군 한 명이 슬쩍 스쳐지나가며 말했다." +
+                    "<br><br>\"에릭이 현재 쫓고 있는 흉물 소굴의 둥지 몇 개를 알아냈습니다. 나머지는 저희 반란군들이 갈 테니, 하류도시의 영웅 님은 폐야에 있는 흉물 소굴에 가주시길 바랍니다.\"<br><br>" +
+                    "그는 정확한 위치는 주점의 퀘스트에 올려놓겠다고 말했다.<br><br>" +
+                    "\"...상류도시가 무엇을 찾고 있든, 절대로 그들에게는 넘겨주면 안 됩니다. 언제나처럼 믿고 있겠습니다, 하류도시의 영웅님.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

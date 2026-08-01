@@ -823,6 +823,35 @@ const QUESTS = {
 
         acceptText : "\"...어디에 있다고?\"<br><br>장소를 확인한 마틴의 표정이 굳었다. 그는 연구소에 길거리에 있다는 게 믿기지 않는 모양이다. <br><br>\"...미친 새끼들.\"",
         completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. <br><br>\"...수고했어, 하류도시의 영웅.\""
+    },
+
+    act3_quest_05 : {
+        id : "act3_quest_05",
+        title : "무지 속에서",
+        type: "investigate",
+        targetName : "무언가",
+        repeatable : false,
+        giver : "",
+        
+        desc : "당신은 앞으로 나아갈 수밖에 없다. 그들이 가리킨 흉물 소굴을 찾으러 가자.",        
+        activeDesc : "흉물 소굴 심부로 가면 당신이 찾고자 하는 걸 찾을 수 있을지도 모른다.",
+        readyDesc : "에르윈은 아직 끝나지 않았다. 보고하러 가자.",
+        
+        targetFlag : "act3_quest_05_boss_end",
+        requiredKill: 1,
+        rewardGold: 25000,
+
+        require : {
+            flag : "act3_quest_05_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_05_done = true;
+            player.flags.act3_quest_05_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 당신이 의뢰서를 가져오자 인상을 찌푸렸다. <br><br>\"...그들에게 이용당하지 마.\"<br><br>마틴은 낮게 읆조리며 시선을 돌렸다.",
+        completeText : "마틴은 당신의 표정을 살폈다. <br><br>\"...들어가서 조금이라도 쉬어.\""
     }
 };
 

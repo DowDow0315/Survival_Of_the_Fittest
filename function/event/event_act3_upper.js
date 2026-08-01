@@ -448,3 +448,37 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_05_start",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_05_intro,
+
+    action : (player) => {
+        player.flags.act3_quest_05_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 천국의 성을 들어가다가 천국의 성에서 나가고 있는 에릭을 보았다. 그의 안색은 평소보다 더 안 좋아보였다. 그는 당신을 힐끗 내려다보더니 그대로 당신을 지나쳐버렸다." +
+                    "<br><br>\"아, 오셨군요, 나의 상류도시의 영웅.\"<br><br>" +
+                    "발렌은 당신에게 다가오더니 하얀 꽃을 먹고 다니는 흉물을 찾고 있다고 말했다. 그는 하얀 꽃을 먹은 흉물들 중 이상하게 누군가를 공격하는 것보다는 하얀 꽃을 먹는 것에 집착하는 흉물이 있었다고 말했다." +
+                    "<br><br>\"그리고 그 흉물은 여전히 무언가를 찾아다니고 있습니다. 그 흉물이 원하는 걸 얻게 된다면 상류도시에 어떤 위협으로 돌아올지 상상하고 싶지도 않습니다. 생포해주십시오.\"<br><br>" +
+                    "생포 명령에 당신이 의아해하자 발렌은 미소를 지었다. <br><br>" +
+                    "\"물론 당신이 죽을 것 같으면 죽이셔도 됩니다. 그것을 생포하면 우리 쪽에서도 얻어낼 것이 많지만... 그보다는 당신이 더 중요하니까요.\"<br><br>" +
+                    "그는 어디 흉물 소굴에 갔는 지는 주점의 퀘스트에 정확한 위치를 올려놨다고 말했다.<br><br>" +
+                    "\"흉물 소굴은 폐야에 있습니다. 부디 몸 조심해주시길.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

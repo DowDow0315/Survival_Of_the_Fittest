@@ -332,6 +332,13 @@ registerActions("deric", {
             });
         }
 
+        if (player.flags?.nikolai_hisSister_ask && !player.flags?.deric_about_nikolai_sister){
+            choices.push({
+                text: "당신은 니콜라이의 누나에 대해 물었다.",
+                scene: NPC_DATA.deric.scenes.deric_about_nikolai_sister
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "deric_giveFood"

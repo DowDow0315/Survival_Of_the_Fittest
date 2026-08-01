@@ -68,6 +68,7 @@ window.EVENTS.push({
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         player.flags?.after_paleDream &&
         !player.flags?.ericDie &&
+        !player.flags?.act3_quest_05_boss_end &&
         !player.flags?.eric_deric_hisGoing,
 
     action : (player) => {

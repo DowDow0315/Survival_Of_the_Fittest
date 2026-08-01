@@ -1,6 +1,6 @@
 {
     "name": "거대 융합 흉물 머리",
-    "hp": 300,
+    "hp": 350,
     "isBossCore" : true,
     "attack": 30,
     "defense": 40,

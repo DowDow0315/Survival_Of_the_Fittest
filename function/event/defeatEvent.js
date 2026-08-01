@@ -96,6 +96,8 @@ const DEFEAT_EVENTS = {
     abomination2 : abominationDefeat,
     abomination3 : abominationDefeat,
     abomination4 : abominationDefeat,
+    abominatedWhiteArmy1 : abominationDefeat,
+    abominatedRebels1 : abominationDefeat,
     experimentAboFlower1 : aboFlowerDefeat,
     experimentAboFlower2 : aboFlowerDefeat,
     experimentAboFlower3 : aboFlowerDefeat,

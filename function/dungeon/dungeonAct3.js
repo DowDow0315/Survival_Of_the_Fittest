@@ -364,7 +364,7 @@ Object.assign(DUNGEONS, {
             "r2c4" : {name : "거울 갈림길", exits : { up : "r0c5", down : "r1c4", left : "r2c5", right : "r2c3"}, chest : "soraBasement_chest" },
             "r2c5" : {name : "소라, 소라, 소라", exits : { up : "r3c5", down : "r0c5", left : "r0c5", right : "r2c4"}, event : "soraBasement_sora_01", seenFlag : "soraBasement_sora_01" },
             
-            "r3c0" : {name : "복도 틈새", exits : { up : "r4c0", down : "r0c5", left : "r3c1", right : "r0c5"},  safeZone: true, allowRest: true },
+            "r3c0" : {name : "복도 틈새", exits : { up : "r4c0", down : "r0c5", left : "r3c1", right : "r0c5"}, safeZone: true, allowRest: true },
             "r3c1" : {name : "진실의 방", exits : { up : "r0c5", down : "r0c5", left : "r0c5", right : "r3c0"}, boss : "soraFather2", bossIntro:"soraFather2_intro" },
             "r3c3" : {name : "시든 하얀 꽃잎들", exits : { up : "r4c3", down : "r2c3", left : "r0c5", right : "r0c5"} },
             "r3c5" : {name : "소라의 사진들로 가득한 방", exits : { up : "r4c5", down : "r2c5", left : "r0c5", right : "r0c5"}, event : "soraBasement_sora_02", seenFlag : "soraBasement_sora_02" },
@@ -406,53 +406,66 @@ Object.assign(DUNGEONS, {
         ],
 
         rooms : {
-            "r0c0" : {name : "", exits : {down : "r1c0"}},
-            "r0c2" : {name : "", exits : {right : "r0c3", down : "r1c2"}},
-            "r0c3" : {name : "", exits : {left : "r0c2", right : "r0c4"}},
-            "r0c4" : {name : "", exits : {left : "r0c3", right : "r0c5"}},
-            "r0c5" : {name : "", exits : {left : "r0c4", right : "r0c6"}},
-            "r0c6" : {name : "", exits : {left : "r0c5", right : "r0c7", down : "r1c6"}},
-            "r0c7" : {name : "", exits : {left : "r0c6"}},
+            "r0c0" : {name : "살아있는 상반신", exits : {down : "r1c0"}, event : "abominationRedCave_alivingUpper", seenFlag : "abominationRedCave_alivingUpper"},
+            "r0c2" : {name : "붉은길10", exits : {right : "r0c3", down : "r1c2"}, chest : "abominationRedCave_chest"},
+            "r0c3" : {name : "붉은길9", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "붉은길8", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "붉은길7", exits : {left : "r0c4", right : "r0c6"}, chest : "abominationRedCave_chest"},
+            "r0c6" : {name : "붉은길6", exits : {left : "r0c5", right : "r0c7", down : "r1c6"}},
+            "r0c7" : {name : "신음 소리", exits : {left : "r0c6"}, event : "abominationRedCave_moan", seenFlag : "abominationRedCave_moan"},
             
-            "r1c0" : {name : "", exits : {up : "r0c0", right : "r1c1"}},
-            "r1c1" : {name : "", exits : {left : "r1c0", right : "r1c2", down : "r2c1"}},
-            "r1c2" : {name : "", exits : {up : "r0c2", left : "r1c1"}},
-            "r1c6" : {name : "", exits : {up : "r0c6", down : "r2c6"}},
+            "r1c0" : {name : "돌아가는 길", exits : {up : "r0c0", right : "r1c1"}},
+            "r1c1" : {name : "붉은길12", exits : {left : "r1c0", right : "r1c2", down : "r2c1"}},
+            "r1c2" : {name : "붉은길11", exits : {up : "r0c2", left : "r1c1"}},
+            "r1c6" : {name : "붉은길5", exits : {up : "r0c6", down : "r2c6"}},
 
-            "r2c1" : {name : "", exits : {up : "r1c1", down : "r3c1"}},
-            "r2c4" : {name : "", exits : {right : "r2c5"}},
-            "r2c5" : {name : "", exits : {left : "r2c4", right : "r2c6", down : "r3c5"}},
-            "r2c6" : {name : "", exits : {up : "r1c6", left : "r2c5", right : "r2c7"}},
-            "r2c7" : {name : "", exits : {left : "r2c6", down : "r3c7"}},
+            "r2c1" : {name : "붉은길13", exits : {up : "r1c1", down : "r3c1"}},
+            "r2c4" : {name : "백색군단의 일지", exits : {right : "r2c5"}, event : "abominationRedCave_whiteDiary", seenFlag : "abominationRedCave_whiteDiary"},
+            "r2c5" : {name : "붉은길3", exits : {left : "r2c4", right : "r2c6", down : "r3c5"}},
+            "r2c6" : {name : "붉은길4", exits : {up : "r1c6", left : "r2c5", right : "r2c7"}, chest : "abominationRedCave_chest"},
+            "r2c7" : {name : "하얀꽃을 먹다 죽은 누군가의 시체", exits : {left : "r2c6", down : "r3c7"}, event : "abominationRedCave_whiteFlowerCorpse", seenFlag : "abominationRedCave_whiteFlowerCorpse"},
 
-            "r3c1" : {name : "", exits : {up : "r2c1", down : "r4c1"}},
-            "r3c5" : {name : "", exits : {up : "r2c5", down : "r4c5"}},
-            "r3c7" : {name : "", exits : {up : "r2c7", down : "r4c7"}},
+            "r3c1" : {name : "붉은길14", exits : {up : "r2c1", down : "r4c1"}},
+            "r3c5" : {name : "붉은길2", exits : {up : "r2c5", down : "r4c5"}},
+            "r3c7" : {name : "흩어진 하얀꽃들", exits : {up : "r2c7", down : "r4c7"}},
 
-            "r4c1" : {name : "", exits : {up : "r3c1", right : "r4c2", down : "r5c1"}},
-            "r4c2" : {name : "", exits : {left : "r4c1", right : "r4c3"}},
-            "r4c3" : {name : "", exits : {left : "r4c2"}},
-            "r4c5" : {name : "", exits : {up : "r3c5", down : "r5c5"}},
-            "r4c7" : {name : "", exits : {up : "r3c7"}},
+            "r4c1" : {name : "붉은길15", exits : {up : "r3c1", right : "r4c2", down : "r5c1"}},
+            "r4c2" : {name : "살아있는 하반신", exits : {left : "r4c1", right : "r4c3"}, event : "abominationRedCave_alivingDown", seenFlag : "abominationRedCave_alivingDown"},
+            "r4c3" : {name : "구멍", exits : {left : "r4c2"}},
+            "r4c5" : {name : "붉은길1", exits : {up : "r3c5", down : "r5c5"}},
+            "r4c7" : {name : "구석", exits : {up : "r3c7"}},
 
-            "r5c0" : {name : "", exits : {right : "r5c1", down : "r6c0"}},
-            "r5c1" : {name : "", exits : {up : "r4c1", left : "r5c0"}},
+            "r5c0" : {name : "붉은길16", exits : {right : "r5c1", down : "r6c0"}, chest : "abominationRedCave_chest"},
+            "r5c1" : {name : "누군가의 쪽지", exits : {up : "r4c1", left : "r5c0"}, event : "abominationRedCave_somebodyMemo", seenFlag : "abominationRedCave_somebodyMemo"},
             "r5c4" : {name : "붉은 살점 동굴 입구", exits : {right : "r5c5"}},
             "r5c5" : {name : "붉은 갈림길", exits : {up : "r4c5", left : "r5c4", right : "r5c6"}},
-            "r5c6" : {name : "", exits : {left : "r5c5", down : "r6c6"}},
+            "r5c6" : {name : "하얀 꽃?", exits : {left : "r5c5", down : "r6c6"}},
             
-            "r6c0" : {name : "", exits : {up : "r5c0", down : "r7c0"}},
-            "r6c3" : {name : "", exits : {down : "r7c3"}},
-            "r6c6" : {name : "", exits : {up : "r5c6", down : "r7c6"}},
+            "r6c0" : {name : "붉은길17", exits : {up : "r5c0", down : "r7c0"}},
+            "r6c3" : {name : "거대 흉물의 방", exits : {down : "r7c3"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"], bossIntro:"mixedAbominations_intro"},
+            "r6c6" : {name : "뜯어진 하얀 꽃잎들이 가득한 길", exits : {up : "r5c6", down : "r7c6"}, event : "abominationRedCave_fallenWhiteFlowerLeaves", seenFlag : "abominationRedCave_fallenWhiteFlowerLeaves"},
             
-            "r7c0" : {name : "", exits : {up : "r6c0", right : "r7c1"}},
-            "r7c1" : {name : "", exits : {left : "r7c0", right : "r7c2"}},
-            "r7c2" : {name : "", exits : {left : "r7c1", right : "r7c3"}},
-            "r7c3" : {name : "", exits : {up : "r6c3", left : "r7c2"}},
-            "r7c5" : {name : "", exits : {right : "r7c6"}},
-            "r7c6" : {name : "", exits : {up : "r6c6", left : "r7c5", right : "r7c7"}},
-            "r7c7" : {name : "", exits : {left : "r7c6"}}
-        }
+            "r7c0" : {name : "붉은길18", exits : {up : "r6c0", right : "r7c1"}},
+            "r7c1" : {name : "붉은길19", exits : {left : "r7c0", right : "r7c2"}},
+            "r7c2" : {name : "붉은길20", exits : {left : "r7c1", right : "r7c3"}},
+            "r7c3" : {name : "길의 마지막 틈새", exits : {up : "r6c3", left : "r7c2"}, safeZone: true, allowRest: true },
+            "r7c5" : {name : "하얀 흉물?", exits : {right : "r7c6"}, event : "abominationRedCave_whiteAbomination", seenFlag : "abominationRedCave_whiteAbomination"},
+            "r7c6" : {name : "반란군들의 시체", exits : {up : "r6c6", left : "r7c5", right : "r7c7"}},
+            "r7c7" : {name : "검붉은 하얀꽃?", exits : {left : "r7c6"}, event : "abominationRedCave_blackRedFlower", seenFlag : "abominationRedCave_blackRedFlower"}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "whiteAbomination1", minCount : 2, maxCount : 4, weight : 20},
+            { type : "battle", enemies : ["abomination1", "abomination3", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination2", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination4", "whiteAbomination1", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination4", "abomination2" ], weight : 30 },
+            { type : "event", id : "abominationRedCave_abominatedWhiteArmy1", weight : 5 },
+            { type : "event", id : "abominationRedCave_abominatedRebels1", weight : 5 },
+            { type : "event", id : "abominationRedCave_rottenWhiteFlower", weight : 15 },
+            { type : "event", id : "abominationRedCave_bottomScream", weight : 15 },
+            { type : "event", id : "abominationRedCave_diamond", weight : 1 }
+        ]
     }
 })
 
@@ -495,6 +508,16 @@ const soraBasement_CHEST_POOL = [
     { id: "pepper", weight: 5 }
 ];
 
+const abominationRedCave_CHEST_POOL = [
+    { id: "medium_potion", weight: 25 },
+    { id: "high_potion", weight: 25 },
+    { id: "nothing", weight: 15 },
+    { id: "gold_1500", weight: 20 },
+    { id: "gold_3000", weight: 10 },
+    { id: "pepper", weight: 5 },
+    { id: "diamond", weight: 1 }
+];
+
 Object.assign(DUNGEON_CHESTS, {
     survivalBandit_chest : {
         name : "낡은 상자",
@@ -518,6 +541,12 @@ Object.assign(DUNGEON_CHESTS, {
         name : "하얀 상자",
         type : "random",
         pool : soraBasement_CHEST_POOL
+    },
+
+    abominationRedCave_chest : {
+        name : "꿈틀거리는 살점 상자",
+        type : "random",
+        pool : abominationRedCave_CHEST_POOL
     }
 })
 
@@ -2371,6 +2400,446 @@ Object.assign(DUNGEON_EVENTS, {
                     changeTrauma(player, 10);
                     savePlayer(player);
                 }
+            }
+        ]
+    },
+    abominationRedCave : {
+        abominationRedCave_abominatedWhiteArmy1 : [
+            {
+                type : "text",
+                value : [
+                    "붉은 살점 동굴 안에서 당신은 걸어오는 백색 군인을 보았다.<br><br>아니, 일반 백색 군인이 아니다. 당신은 그의 몸에서 꿈틀거리는 흉물을 보았다. 이성을 잃은 백색 군인이 당신에게 달려들었다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    const enemyId = "abominatedWhiteArmy1";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("abominatedWhiteArmy1", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        abominatedRedCave_aboiminatedRebels1 : [
+            {
+                type : "text",
+                value : [
+                    "붉은 살점 동굴 안에서 당신은 걸어오는 반란군을 보았다.<br><br>아니, 일반 반란군이 아니다. 당신은 그의 몸에서 꿈틀거리는 흉물을 보았다. 그는 몇 번 누군가의 이름을 중얼거리더니 곧 당신을 보았다. 이성을 잃은 오염된 반란군이 당신에게 달려들었다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    const enemyId = "abominatedRebels1";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("abominatedRebels1", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        abominationRedCave_rottenWhiteFlower : [
+            {
+                type : "text",
+                value : [
+                    "당신은 붉은 살점 사이에서 시들어 있는 하얀 꽃을 보았다. 당신이 그 하얀 꽃을 만지려고 하자 동굴을 뒤덮고 있는 붉은 살점들이 울렁거리더니 하얀 꽃을 다시 일으켰다. 하얀 꽃의 생명력이 붉은 살점에 흡수되어가는 것이 보인다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀 꽃을 뜯어냈다.",
+                        stat : "str",
+                        difficulty : 24,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀 꽃을 뜯어냈다. 붉은 살점은 비명을 지르듯이 울렁이더니 곧 당신을 공격해왔지만, 공격이 닿기도 전에 퍼석 메말라버렸다. 당신의 손 안에 있던 하얀 꽃은 마지막으로 당신을 치유해주고 다시 시들어버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, 40);
+                                    changeHP(player, 100);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀 꽃을 뜯어내려고 했지만, 그 순간 오히려 붉은 살점이 당신의 손을 뒤덮어버렸다. 그것은 당신을 자신의 안으로 흡수하려고 하고 있다. 당신은 재빨리 손을 떼냈지만, 당신의 손은 이미 검붉은색으로 부글부글 끓고 있었다. 당신은 독이 더 이상 퍼지지 않게 치료를 한 후 다시 움직였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, -20);
+                                    changeHP(player, -50);
+                                    passTime(player, 8);
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 신경 쓰지 않고 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 신경 쓰지 않고 지나쳤다. 붉은 살점의 맥동 소리가 점점 커진다...."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        abominationRedCave_bottomScream : [
+            {
+                type : "text",
+                value : [
+                    "동굴을 지나가는 당신의 발밑으로 무언가 물컹한 것이 밟혔다. 당신은 아래를 내려다보았다. 당신은 한 사람의 엉덩이를 밟고 있었다. 심지어 그 엉덩이는 살아있는지 당신의 발에 바르르 떨리기까지 했다. <br><br>...기괴한 신음소리를 내며.<br><br>당신은 이 엉덩이의 주인에게 무슨 일이 일어났는지 알고 싪지 않아졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_diamond : [
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신은 붉은 살점 사이에서 무언가 반짝반짝거리는 것을 보았다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 꿀렁거리는 붉은 살점이 틈을 보였을 때 반짝거리는 것을 낚아채 뒤로 뺐다.",
+                        stat : "dex",
+                        difficulty : 24,
+                        succes : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캤다! 다이아몬드를 놓친 붉은 살점을 한번 더 꿀렁이긴 했지만 다이아몬드에는 관심이 없는지 다시 잠잠해졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.misc.diamond);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캐려고 했지만 오히려 붉은 살점에 잡혀 버렸다. 그것은 당신을 삼키려고 들었다. 당신은 간신히 붉은 살점에서 벗어날 수 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 노래를 불러 붉은 살점들을 진정시킨 후 반짝거리는 것을 빼냈다.",
+                        stat : "charm",
+                        difficulty : 24,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캤다! 다이아몬드를 놓친 붉은 살점을 한번 더 꿀렁이긴 했지만 다이아몬드에는 관심이 없는지 다시 잠잠해졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.misc.diamond);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "붉은 살점은 오히려 당신의 노래에 흥분하여 당신을 잡아삼키려고 했다. 당신은 어떻게든 발버둥을 쳐서 붉은 살점에서 도망칠 수 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        abominationRedCave_alivingUpper : [
+            {
+                type : "text",
+                value : [
+                    "\"저기요!\"<br><br>" +
+                    "누군가의 목소리가 들린다. 당신은 고개를 돌렸다. 한 사람이 당신과 시선을 마주치더니 안도의 한숨을 쉬었다. 하반신이 흉물에 삼켜진 건지, 그는 상반신만 흉물 살점 밖으로 툭 튀어나와있었다." +
+                    "<br><br>\"제가 지금 하반신에 이상한 기분이 드는데.... 움직일 수가 없어서요. 혹시 절 좀 끄집어내주시겠어요?\"<br><br>" +
+                    "그는 당신에게 손을 내밀었다. 하지만 그의 손은 이미 검붉게 물들어 있었다. 그는 자신의 손을 내려다보더니 자신은 아직 살아남았고 이성도 있으니 괜찮다고 말했다.",
+                    "<br><br>\"제발 저를 살려.... 으웨에엑.\"<br><br>" +
+                    "그의 입에서부터 검붉은 것이 쏟아져나왔다. 액체가 아니라 살점이었다.... 그는 그대로 정신을 잃었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    player.flags.abominationRedCave_alivingUpper = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_alivingDown : [
+            {
+                type : "text",
+                value : [
+                    "걸어가던 당신은 누군가의 하반신이 위에 걸려있는 것을 보았다. 하반신에서는 흉물의 알들이 뚝뚝 떨어지고 있었다." +
+                    "<br><br><span class='log-danger'>...상반신이 없다.</span><br><br>" +
+                    "하반신만 그들에게 영양을 공급받으며 꿀렁꿀렁 살아있었다. 아니, 저걸 살아있는 거라고 부를 수 있는 건가? 알이 하나 떨어지더니 당신의 앞에서 쩍 소리와 함께 깨졌다. 너무 일찍 태어난 흉물이 몸을 말더니 당신에게로 튀어올랐다." +
+                    "<br>당신은 본능적으로 흉물을 쳐낼 수 있었다. 당신이 흉물을 쳐내는 동안 누군가의 하반신은 그대로 흉물 살점 벽에 삼켜졌다.... 온 구멍이 다 막힌 채로."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 10);
+                    player.flags.abominationRedCave_alivingDown = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_moan : [
+            {
+                type : "text",
+                value : [
+                    "\"발...발렌님.... 저는... 저는 지금까지 상류도시를 위해....\"<br><br>" +
+                    "나체가 된 백색 군인이 발버둥을 치며 발렌을 부르고 있었다. 그의 몸에 난 상처에는 이미 흉물 살점들이 피어오르고 있었다. 그는 계속 중얼거렸다." +
+                    "<br><br>\"상류도시에... 피해를 주는... 흉물이 되느니...\"<br><br>" +
+                    "그는 어떻게든 칼을 잡았다. 그러더니 망설임없이 자신의 목에 검을 꽂아넣었다. 죽었을 줄 알았다. 하지만 비참하게도 그의 목에서 검붉은 살점이 들끓기 시작했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그에게 자비를 베풀어 주었다(대신 죽여준다).",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 움직이지 못하는 그 대신 무기로 그를 난도질했다. 흉물의 재생력이 그를 살릴 수 없을 정도로 계속 그를 죽여야만 했다." +
+                                    "<br>몇 분이 지나고, 당신은 어떻게든 그의 목숨을 대신 끊어줄 수 있었다. 얼마나 그를 쑤셔댄 건지 팔이 다 저릴 정도였다. 당신은 그를 내려다보았다." +
+                                    "<br><br>...그의 시체는 이미 인간이라 볼 수 없었다, 넝마가 된 고깃덩어리라면 모를까."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 10);
+                                    passTime(player, 8);
+                                    changeStamina(player, -20);
+                                    player.flags.abominationRedCave_moan = true;
+                                    player.flags.abominationRedCave_moan_youKill = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그를 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그를 지나쳤다. 곧 뒤에서 흉물의 울음 소리가 들려왔다. 당신은 재빨리 자리를 피했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    player.flags.abominationRedCave_moan = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        abominationRedCave_whiteDiary : [
+            {
+                type : "text",
+                value : [
+                    "당신은 떨어져 있는 백색 군인이 쓴 일지를 하나 발견했다." +
+                    "<br><br>[발렌 님은 창백을 죽일 생각이 없다. 그는 오히려 창백을 이용한다면 상류도시의 사람들을 지킬 수 있을 거라고 생각하고 있다. 이해가 안 가서 발렌님에게 그게 무슨 뜻이냐고 한 번 더 물었더니 그는 미소를 지으며 창백만 설득시킨다면 꽃 마물로 흉물을 막을 수 있을 거라고 말씀하셨다. 만약 그렇게만 된다면 지금까지의 실험은 전부 폐기해도 된다고도 말씀하셨다.]" +
+                    "<br><br>[하지만 지금은 창백을 설득시킬 수 있다는 확실한 증거가 없으니 실험은 계속되어야 한다고, 그는 슬픈 표정으로 말씀하셨다. 나는 그의 슬픈 표정을 보고 싶지 않았다. 나는 그에게 발렌님을 위해 할 수 있는 일이라면 뭐든 하겠다고 말했다. 발렌님은 내게 고맙다고 말씀하셨다.]" +
+                    "<br><br>[...그런데 에릭은 그럼 어떻게 할 거냐고 나는 물었다. 발렌님은 차를 마시면서 에릭에게 사실을 바로 잡아주면 되는 거라고 말씀하셨다. 하지만 그러면 지금까지 에릭은 자신이 속은 걸 알게 될 텐데.... 그 말에 발렌은 말은 어떻게 포장하느냐에 따라 같은 내용이어도 달라지는 법이라고 말씀하셨다. 그리고 정말로 쓸모가 없어지면.... 그의 미소는 차가웠다. 발렌님은 에릭은 절대로 상류도시를 위하는 사람이 아니라고도 말씀하셨다. 그건 맞는 말이다. 나는 고개를 끄덕였다.]" +
+                    "<br><br>[발렌님의 명령대로 나는 흉물 소굴에 왔다. 발렌님이 실험을 멈출 수 있을 때가 올 때까지 이 실험은 계속되어야 한다....]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.abominationRedCave_whiteDiary = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_whiteFlowerCorpse : [
+            {
+                type : "text",
+                value : [
+                    "당신은 하얀 꽃을 입에 처넣은 채로 죽은 시체를 보았다.... 누군가가 억지로 넣은 게 아니다. 본인이 하얀 꽃을 먹으려고 한 거다. 흉물에 오염된 시체도 아니었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.abominationRedCave_whiteFlowerCorpse = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_somebodyMemo : [
+            {
+                type : "text",
+                value : [
+                    "메모 한 장이 당신의 앞에 떨어져 있다." +
+                    "<br><br>[에르윈의 시체를 봤다. 분명 에르윈의 시체였다. 흉물들이 에르윈의 시체를 끌고 가고 있었다. 젠장, 아렌을 위해서라도 에르윈이 이 이상 모욕당하는 건 막아야 해.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.abominationRedCave_somebodyMemo = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_fallenWhiteFlowerLeaves : [
+            {
+                type : "text",
+                value : [
+                    "당신이 들어오자마자 백색 흉물이 키익 소리와 함께 움직임을 멈췄다. 그것은 당신을 공격할 생각이 전혀 없는 것 같았다. 그것은 하얀 꽃잎들을 우적우적 씹으며 당신의 움직임을 살폈다. 당신이 한 발자국 다가오자 그는 보통 흉물들과 다르게 자신이 당신의 상대가 되지 않는다는 걸 알고 도망쳐버렸다, 당신이 쫒아올 수 없는 틈새로."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.abominationRedCave_fallenWhiteFlowerLeaves = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_whiteAbomination : [
+            {
+                type : "text",
+                value : [
+                    "당신은 백색 흉물 시체가 우글우글 모여있는 것을 보았다. 하얀 꽃에 적응을 하지 못한 건지 백색 흉물들은 모두 이상하게 뒤틀린 채 죽어 있었다. 당신은 백색 흉물 시체 사이에서 홀로 서 있는 하얀 꽃을 보았다. 당신은 당신도 모르게 하얀 꽃에 손을 뻗었다. 하얀 꽃은 마지막으로 당신을 치유해주더니 그대로 시들어버렸다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.abominationRedCave_whiteAbomination = true;
+                    changeHP(player, 100);
+                    changeStamina(player, 100);
+                    changeTrauma(player, -5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCave_blackRedFlower : [
+            {
+                type : "text",
+                value : [
+                    "당신은 검붉은 색으로 얼룩진 하얀 꽃들을 보았다." +
+                    "<br><br>ㅈ...ㅇ....ㅈ...."
+                ]
+            },
+            {
+                type : "choice",
+                choices  : [
+                    {
+                        text : "당신은 꽃들을 전부 베어주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 꽃들을 전부 베었다. 당신에게 저항하는 하얀 꽃들은 하나도 없었다. 그것들은 모가지가 잘린 것처럼 툭 떨어지더니 금방 시들어버렸다." +
+                                    "<br>당신이 잘한 건지, 아니면 잘못된 짓을 한 건지는 알 수 없었다. 다만 당신이 알 수 있는 건, 꽃들은 당신의 공격에 저항을 하지 않았다는 것이다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, -30);
+                                    player.flags.abominationRedCave_blackRedFlower = true;
+                                    passTime(player, 15);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그대로 뒤로 물러섰다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 꽃들을 베었다가 무슨 일이 생길지 알 수 없었기 때문에 뒤로 물러났다. 꽃들에게서는 더 이상 어떤 목소리도 들리지 않았다..."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.abominationRedCave_blackRedFlower = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }

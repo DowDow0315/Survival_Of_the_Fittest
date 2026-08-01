@@ -821,7 +821,7 @@ const QUESTS = {
             player.flags.act3_quest_04_done_day = getCurrentDay(player);
         },
 
-        acceptText : "\"...어디에 있다고?\"<br><br>장소를 확인한 마틴의 표정이 굳었다. 그는 연구소에 길거리에 있다는 게 믿기지 않는 모양이다. <br><br>\"...미친 새끼들.\"",
+        acceptText : "\"...어디에 있다고?\"<br><br>장소를 확인한 마틴의 표정이 굳었다. 그는 연구소가 길거리에 있다는 게 믿기지 않는 모양이다. <br><br>\"...미친 새끼들.\"",
         completeText : "당신이 의뢰를 보고하자 마틴은 잠시 당신을 바라보았다. <br><br>\"...수고했어, 하류도시의 영웅.\""
     },
 

@@ -741,7 +741,10 @@ function useSkill(index){
         }
         
         case "buff":
-            applyBuff(player, skill.effect);
+            applyBuff(player, {
+                ...skill.effect,
+                duration: skill.duration
+            });
             log(`${skill.name}! 버프 성공!`);
             break;
 

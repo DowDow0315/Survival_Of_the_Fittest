@@ -2990,7 +2990,7 @@ window.startTeacherAndStudentsBattle = function(player){
             );
         },
         onSkipDefeat : () => {
-            startAbominationsLose(player);
+            startTeacherAndStudentsLose(player);
         }
     });
 };

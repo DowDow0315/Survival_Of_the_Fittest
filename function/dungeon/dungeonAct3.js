@@ -442,7 +442,7 @@ Object.assign(DUNGEONS, {
             "r5c6" : {name : "하얀 꽃?", exits : {left : "r5c5", down : "r6c6"}},
             
             "r6c0" : {name : "붉은길17", exits : {up : "r5c0", down : "r7c0"}},
-            "r6c3" : {name : "거대 흉물의 방", exits : {down : "r7c3"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"], bossIntro:"mixedAbominations_intro"},
+            "r6c3" : {name : "거대 흉물의 방", exits : {down : "r7c3"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixedHead", "abominationMixedMiddle", "abominationMixedArms"], bossIntro:"mixedAbominations_intro"},
             "r6c6" : {name : "뜯어진 하얀 꽃잎들이 가득한 길", exits : {up : "r5c6", down : "r7c6"}, event : "abominationRedCave_fallenWhiteFlowerLeaves", seenFlag : "abominationRedCave_fallenWhiteFlowerLeaves"},
             
             "r7c0" : {name : "붉은길18", exits : {up : "r6c0", right : "r7c1"}},
@@ -503,7 +503,7 @@ Object.assign(DUNGEONS, {
             "r4c3" : {name : "허물어진 벽", exits : {left : "r4c2"}},
 
             "r5c0" : {name : "살아있는 벽", exits : {up : "r4c0"}},
-            "r5c2" : {name : "붉은살점동굴 중심부", exits : {up : "r4c2"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"]}
+            "r5c2" : {name : "붉은살점동굴 중심부", exits : {up : "r4c2"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixeddHead", "abominationMixedMiddle", "abominationMixedArms"]}
         },
 
         encounters : [
@@ -3416,7 +3416,7 @@ function startSoraFather2Lose(player){
 //붉은살점동굴
 window.startMixedAbominationsBattle = function(player){
     let supportStarted = false;
-    startBattle( ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"] , player, {
+    startBattle( ["abominationMixedArms", "abominationMixedHead", "abominationMixedMiddle", "abominationMixedArms"] , player, {
         noEscape: true,
 
         allyTurnSupport : {

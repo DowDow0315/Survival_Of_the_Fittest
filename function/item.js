@@ -1793,8 +1793,8 @@ const ITEMS ={
             price : 30000,
             stats : {
                 str : 20,
-                dex : 14,
-                int : 5,
+                dex : 7,
+                int : 2,
                 charm : 1
             }
         },
@@ -1806,10 +1806,10 @@ const ITEMS ={
             price : 30000,
             tags : ["magicStick"],
             stats : {
-                str : 2,
-                dex : 15,
+                str : 1,
+                dex : 9,
                 int : 10,
-                charm : 15
+                charm : 10
             } 
         }
     },

@@ -521,6 +521,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
+        player.flags?.act3CollapseDone &&
         player.location === "darkStreet" &&
         player.flags.luke_cheek_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
@@ -536,6 +537,33 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["luke"].scenes.luke_his_cheek_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_weapon_for_you",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.act3CollapseDone &&
+        player.location === "darkStreet" &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ),
+
+    action : (player) => {
+        addItem(player, ITEMS.weapon.lukeGauntlet);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_weapon_for_you,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

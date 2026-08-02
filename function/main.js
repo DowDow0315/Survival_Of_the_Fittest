@@ -1583,7 +1583,7 @@ function doSleep(player){
 
     player.status.stamina = player.status.maxStamina;
     player.status.hp = player.status.maxHp;
-    changeTrauma(player, -10);
+    changeTrauma(player, -4);
     passTime(player, 80);
 
     startScene(getLocationScene(player), player);

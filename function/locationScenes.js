@@ -282,6 +282,7 @@ window.sleep_lukeHouse = function(player){
     player.status.hp = player.status.maxHp;
     player.status.stamina = player.status.maxStamina;
 
+    changeTrauma(player, -4);
     passTime(player, 60);
     savePlayer(player);
     showSingleTextScene(
@@ -296,6 +297,7 @@ window.sleep_lukeHouse = function(player){
 window.rest_lukeHouse = function(player){
     changeHP(player, 50);
     changeStamina(player, 50);
+    changeTrauma(player, -2);
 
     passTime(player, 30);
     savePlayer(player);
@@ -1378,6 +1380,7 @@ window.sleep_royalHotel = function(player){
     player.status.stamina = player.status.maxStamina;
     player.status.hp = player.status.maxHp;
     passTime(player, 80);
+    changeTrauma(player, -4);
 
     savePlayer(player);
 
@@ -1814,6 +1817,7 @@ window.sleep_twinsMansion = function(player){
     player.status.hp = player.status.maxHp;
     player.status.stamina = player.status.maxStamina;
 
+    changeTrauma(player, -4);
     passTime(player, 50);
     savePlayer(player);
     showSingleTextScene(
@@ -1826,6 +1830,7 @@ window.sleep_twinsMansion = function(player){
 };
 
 window.rest_twinsMansion = function(player){
+    changeTrauma(player, -2);
     changeHP(player, 50);
     changeStamina(player, 50);
     passTime(player, 30);
@@ -1898,7 +1903,7 @@ function buildHeavenValenRoomScene(player, loc, randomDesc){
 window.sleep_valenRoom = function(player){
     player.status.hp = player.status.maxHp;
     player.status.stamina = player.status.maxStamina;
-
+    changeTrauma(player, -6);
     passTime(player, 40);
     savePlayer(player);
     showSingleTextScene(
@@ -1913,6 +1918,7 @@ window.sleep_valenRoom = function(player){
 window.rest_valenRoom = function(player){
     changeHP(player, 50);
     changeStamina(player, 50);
+    changeTrauma(player, -3);
     passTime(player, 20);
     savePlayer(player);
 

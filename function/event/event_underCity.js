@@ -2075,7 +2075,7 @@ window.EVENTS.push({
         changeNPCEmotion("yuri", "rage", 100);
         savePlayer(player);
         
-        startScene(
+        startScene([
             {
                 type : "text",
                 value : [
@@ -2092,7 +2092,7 @@ window.EVENTS.push({
                 type : "effect",
                 run : "startBetrayalYuriBattle"
             }
-        );
+        ], player);
     }
 });
 

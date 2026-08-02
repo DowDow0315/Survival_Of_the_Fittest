@@ -538,7 +538,7 @@ const LOCATIONS ={
         }
     },
     goldenShelter : {
-        name: "황금 빛쉘터",
+        name: "황금 쉘터",
         desc: {
             dawn : [
                 "황금 쉘터다. <br>금빛 벽에 새벽빛이 비친다. 지나치게 화려한 내부는 쉘터라기보다 전시장을 닮았다.",

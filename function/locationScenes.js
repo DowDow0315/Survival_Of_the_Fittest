@@ -1954,7 +1954,10 @@ function getGloryHoleScene(player){
 
 function initGloryHoleState(player){
     player.flags = player.flags || {};
-    player.flags.ghWorkedMinutes = player.flags.ghWorkedMinutes || 0;
+    player.flags.ghWorkedMinutes =
+        player.flags.ghWorkedMinutes || 0;
+    player.flags.gloryHoleTotalEarn =
+        player.flags.gloryHoleTotalEarn || 0;
 }
 
 function runGloryHoleEvent(player, event){
@@ -1980,7 +1983,10 @@ function runGloryHoleEvent(player, event){
 
 function applyGloryHoleEffects(player, event){
     if (event.gold){
-        addGold(player, getGloryHoleGoldReward(player, event.gold));
+        const earnedGold =
+        getGloryHoleGoldReward(player, event.gold);
+        addGold(player, earnedGold);
+        player.flags.gloryHoleTotalEarn += earnedGold;
     }
 
     if (event.arousal) {

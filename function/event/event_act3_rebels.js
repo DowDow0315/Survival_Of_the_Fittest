@@ -360,7 +360,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "shelter" &&
         player.flags?.act3_rebel_route &&
-        getCurrentDay(player) >= (player.rebel_route_quest_04_after_day + 3),
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_04_after_day + 3),
 
     action : (player) => {
         player.flags.rebel_route_quest_05_intro_day = getCurrentDay(player);
@@ -398,7 +398,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "townStreet" &&
         player.flags?.act3_rebel_route &&
-        getCurrentDay(player) >= (player.rebel_route_quest_05_intro_day + 3),
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_05_intro_day + 3),
 
     action : (player) => {
         player.flags.act3_quest_05_unlock = true;

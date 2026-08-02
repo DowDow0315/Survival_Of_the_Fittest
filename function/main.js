@@ -1965,6 +1965,8 @@ function renderMap(player){
     const mapArea = document.getElementById("mapArea");
     if (!mapArea || !player) return;
 
+    updateGoldenShelterLocation(player);
+
     if (player.dungeon?.active){
     if (typeof window.renderDungeonMap === "function"){
         window.renderDungeonMap(player);

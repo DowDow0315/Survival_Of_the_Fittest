@@ -1295,3 +1295,11 @@ function applyGoldenShelterLocationChange(){
     delete LOCATIONS.townStreet.connections.shelter;
     LOCATIONS.townStreet.connections.goldenShelter = 4;
 }
+
+function updateGoldenShelterLocation(player){
+    if (player.flags?.yuriDie){
+        applyGoldenShelterLocationChange();
+    } else {
+        resetGoldenShelterLocationChange();
+    }
+}

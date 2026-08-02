@@ -224,8 +224,8 @@ Object.assign(DUNGEONS, {
 
         rooms : {
             "r0c0" : {name : "기도실", exits : {right : "r0c1", down : "r1c0"}, chest : "madLab_chest"},
-            "r0c1" : {name : "약품실", exits : {left : "r0c0", right : "r0c2"}, safeZone: true, allowRest: true},
-            "r0c2" : {name : "복도의 작은 틈", exits : {left : "r0c1", down : "r1c2"}},
+            "r0c1" : {name : "약품실", exits : {left : "r0c0", right : "r0c2"} },
+            "r0c2" : {name : "복도의 작은 틈", exits : {left : "r0c1", down : "r1c2"}, safeZone: true, allowRest: true},
             "r0c4" : {name : "소각소", exits : {right : "r0c5"}, chest : "madLab_chest"},
             "r0c5" : {name : "가득 쌓인 시체들", exits : {left : "r0c4", down : "r1c5"}, event : "madLab_pain_03", seenFlag : "madLab_joy_03"},
             
@@ -465,6 +465,58 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "abominationRedCave_rottenWhiteFlower", weight : 15 },
             { type : "event", id : "abominationRedCave_bottomScream", weight : 15 },
             { type : "event", id : "abominationRedCave_diamond", weight : 1 }
+        ]
+    },
+
+    abominationRedCaveRepeated : {
+        id : "abominationRedCaveRepeated",
+        name : "붉은살점동굴(반복)",
+        startRoom : "r0c2",
+
+        layout : [
+            [    "",     "", "r0c2",     "", "r0c4"],
+            [    "",     "", "r1c2",     "", "r1c4"],
+            [    "",     "", "r2c2", "r2c3", "r2c4"],
+            ["r3c0", "r3c1", "r3c2",     "", "r3c4"],
+            ["r4c0",     "", "r4c2", "r4c3",     ""],
+            ["r5c0",     "", "r5c2",     "",     ""]
+        ],
+
+        rooms : {
+            "r0c2" : {name : "붉은살점동굴 입구", exits : {down : "r1c2"}},
+            "r0c4" : {name : "동굴 구석", exits : {down : "r1c4"}},
+
+            "r1c2" : {name : "붉은살점길1", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "끈적끈적한 길", exits : {up : "r0c4", down : "r2c4"}},
+
+            "r2c2" : {name : "붉은살점길2", exits : {up : "r1c2", right : "r2c3", down : "r3c2"}},
+            "r2c3" : {name : "옆으로 꺾어지는 길", exits : {left : "r2c2", right : "r2c4"}},
+            "r2c4" : {name : "흩어져있는 하얀 꽃잎들", exits : {up : "r1c4", left : "r2c3", down : "r3c4"}},
+
+            "r3c0" : {name : "끈적끈적한 바닥", exits : {right : "r3c1", down : "r4c0"}},
+            "r3c1" : {name : "꺾이는 길", exits : {left : "r3c0", right : "r3c2"}},
+            "r3c2" : {name : "붉은살점길3", exits : {up : "r2c2", left : "r3c1", down : "r4c2"}},
+            "r3c4" : {name : "누군가 나가려고 했던 흔적", exits : {up : "r2c4"}},
+
+            "r4c0" : {name : "숨을 쉬는 듯한 통로", exits : {up : "r3c0", down : "r5c0"}},
+            "r4c2" : {name : "살점 틈새", exits : {up : "r3c2", right : "r4c3", down : "r5c2"}, safeZone: true, allowRest: true},
+            "r4c3" : {name : "허물어진 벽", exits : {left : "r4c2"}},
+
+            "r5c0" : {name : "살아있는 벽", exits : {up : "r4c0"}},
+            "r5c2" : {name : "붉은살점동굴 중심부", exits : {up : "r4c2"}, bossId: "mixedAbominations", boss : ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"]}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "whiteAbomination1", minCount : 2, maxCount : 4, weight : 20},
+            { type : "battle", enemies : ["abomination1", "abomination3", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination2", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination4", "whiteAbomination1", "whiteAbomination1"], weight : 30 },
+            { type : "battle", enemies : ["abomination4", "abomination2" ], weight : 30 },
+            { type : "event", id : "abominationRedCaveRepeated_abominatedWhiteArmy1", weight : 5 },
+            { type : "event", id : "abominationRedCaveRepeated_abominatedRebels1", weight : 5 },
+            { type : "event", id : "abominationRedCaveRepeated_rottenWhiteFlower", weight : 15 },
+            { type : "event", id : "abominationRedCaveRepeated_bottomScream", weight : 15 },
+            { type : "event", id : "abominationRedCaveRepeated_diamond", weight : 1 }
         ]
     }
 })
@@ -2842,6 +2894,211 @@ Object.assign(DUNGEON_EVENTS, {
                 ]
             }
         ]
+    },
+    abominationRedCaveRepeated : {
+        abominationRedCaveRepeated_abominatedWhiteArmy1 : [
+            {
+                type : "text",
+                value : [
+                    "붉은 살점 동굴 안에서 당신은 걸어오는 백색 군인을 보았다.<br><br>아니, 일반 백색 군인이 아니다. 당신은 그의 몸에서 꿈틀거리는 흉물을 보았다. 이성을 잃은 백색 군인이 당신에게 달려들었다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    const enemyId = "abominatedWhiteArmy1";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("abominatedWhiteArmy1", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        abominatedRedCaveRepeated_aboiminatedRebels1 : [
+            {
+                type : "text",
+                value : [
+                    "붉은 살점 동굴 안에서 당신은 걸어오는 반란군을 보았다.<br><br>아니, 일반 반란군이 아니다. 당신은 그의 몸에서 꿈틀거리는 흉물을 보았다. 그는 몇 번 누군가의 이름을 중얼거리더니 곧 당신을 보았다. 이성을 잃은 오염된 반란군이 당신에게 달려들었다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    const enemyId = "abominatedRebels1";
+                    const enemy = ENEMIES[enemyId]();
+                    startBattle("abominatedRebels1", player, {
+                        onWin: () => startScene(buildDungeonScene(player), player),
+                        onEscape: () => startScene(buildDungeonScene(player), player),
+                        onLose: () => {runDefeatEvent(player, enemy);}
+                    });
+                    return true;
+                }
+            }
+        ],
+        abominationRedCaveRepeated_rottenWhiteFlower : [
+            {
+                type : "text",
+                value : [
+                    "당신은 붉은 살점 사이에서 시들어 있는 하얀 꽃을 보았다. 당신이 그 하얀 꽃을 만지려고 하자 동굴을 뒤덮고 있는 붉은 살점들이 울렁거리더니 하얀 꽃을 다시 일으켰다. 하얀 꽃의 생명력이 붉은 살점에 흡수되어가는 것이 보인다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀 꽃을 뜯어냈다.",
+                        stat : "str",
+                        difficulty : 24,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀 꽃을 뜯어냈다. 붉은 살점은 비명을 지르듯이 울렁이더니 곧 당신을 공격해왔지만, 공격이 닿기도 전에 퍼석 메말라버렸다. 당신의 손 안에 있던 하얀 꽃은 마지막으로 당신을 치유해주고 다시 시들어버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, 40);
+                                    changeHP(player, 100);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀 꽃을 뜯어내려고 했지만, 그 순간 오히려 붉은 살점이 당신의 손을 뒤덮어버렸다. 그것은 당신을 자신의 안으로 흡수하려고 하고 있다. 당신은 재빨리 손을 떼냈지만, 당신의 손은 이미 검붉은색으로 부글부글 끓고 있었다. 당신은 독이 더 이상 퍼지지 않게 치료를 한 후 다시 움직였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, -20);
+                                    changeHP(player, -50);
+                                    passTime(player, 8);
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 신경 쓰지 않고 지나쳤다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 신경 쓰지 않고 지나쳤다. 붉은 살점의 맥동 소리가 점점 커진다...."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        abominationRedCaveRepeated_bottomScream : [
+            {
+                type : "text",
+                value : [
+                    "동굴을 지나가는 당신의 발밑으로 무언가 물컹한 것이 밟혔다. 당신은 아래를 내려다보았다. 당신은 한 사람의 엉덩이를 밟고 있었다. 심지어 그 엉덩이는 살아있는지 당신의 발에 바르르 떨리기까지 했다. <br><br>...기괴한 신음소리를 내며.<br><br>당신은 이 엉덩이의 주인에게 무슨 일이 일어났는지 알고 싪지 않아졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ],
+        abominationRedCaveRepeated_diamond : [
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신은 붉은 살점 사이에서 무언가 반짝반짝거리는 것을 보았다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 꿀렁거리는 붉은 살점이 틈을 보였을 때 반짝거리는 것을 낚아채 뒤로 뺐다.",
+                        stat : "dex",
+                        difficulty : 24,
+                        succes : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캤다! 다이아몬드를 놓친 붉은 살점을 한번 더 꿀렁이긴 했지만 다이아몬드에는 관심이 없는지 다시 잠잠해졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.misc.diamond);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캐려고 했지만 오히려 붉은 살점에 잡혀 버렸다. 그것은 당신을 삼키려고 들었다. 당신은 간신히 붉은 살점에서 벗어날 수 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 노래를 불러 붉은 살점들을 진정시킨 후 반짝거리는 것을 빼냈다.",
+                        stat : "charm",
+                        difficulty : 24,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 다이아몬드를 캤다! 다이아몬드를 놓친 붉은 살점을 한번 더 꿀렁이긴 했지만 다이아몬드에는 관심이 없는지 다시 잠잠해졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.misc.diamond);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "붉은 살점은 오히려 당신의 노래에 흥분하여 당신을 잡아삼키려고 했다. 당신은 어떻게든 발버둥을 쳐서 붉은 살점에서 도망칠 수 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 })
 
@@ -3152,6 +3409,151 @@ function startSoraFather2Lose(player){
             type:"text",
             value:
                 "당신은 또 그의 낫을 이기지 못하고 쓰러졌다. 하지만 이번에도 촉수는 방밖에서부터 당신을 끌어당겼다. 당신은 소라의 아버지(?)를 보았다. 그는 당신이 끌려가는 것을 보면서도 멍하니 아무것도 안 하고 있었다. 단지 자신은 소라를 사랑할 거라는 이야기만 반복적으로 중얼거릴 뿐, 고장난 인형처럼."
+        }
+    ], player);
+}
+
+//붉은살점동굴
+window.startMixedAbominationsBattle = function(player){
+    let supportStarted = false;
+    startBattle( ["abominationMixedArms", "abominationMixdHead", "abominationMixedMiddle", "abominationMixedArms"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "에릭",
+            hpRate : 0.5,
+            damage : 100,
+            logType : "eric",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "당신이 흉물에게 압박당하는 순간, 총성이 울렸다. 당신을 짓누르던 흉물이 툭 떨어지더니 그대로 말라 비틀어졌다. <strong>100 데미지!</strong>";
+                }
+
+                const lines = [
+                    "흉물이 에릭을 공격했지만 에릭의 총이 더 빨랐다. <strong>100 데미지!</strong>",
+                    "흉물은 에릭을 근거리에서 노렸지만, 가까이 붙는 순간 권총집에 얻어맞았다. <strong>100 데미지!</strong>",
+                    "당신이 놓친 공격을 에릭이 대신 마무리해준다. <strong>100 데미지!</strong>",
+                    "창백한 촉수를 마주할 때와 다르게 에릭의 녹안은 살의가 짙지는 않았다. 총알이 발포된다. <strong>100 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => {
+            player.flags.abominationRedCave_mixedAbominations_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startMixedAbominationsLose(player);
+        }
+    });
+};
+
+function handleMixedAbominationsWin(player){
+    player.flags.act3_quest_05_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "거대 융합 흉물이 쓰러지자 에르윈의 시체를 뜯어먹던 백색 흉물이 귀가 찢어질 듯한 비명 소리와 함께 에르윈을 끌고 가려고 했다. 밑에서 솟아난 촉수들이 에르윈의 남은 하얀 꽃잎들을 감싸안고 어딘가로 옮겨가려고 한다." +
+                "<br>그 순간, 에르윈의 주변에서 하얀 꽃들이 일어났다." +
+                "<br><br>\"ㄱ...ㅁ....\"<br><br>" +
+                "부서져내리는 얼굴, 창백은 에르윈의 하얀 꽃무덤을 끌어안았다. 촉수들이 기이한 움직임을 보이며 창백을 공격했지만 공격이 닿기도 전에 창백의 하얀 꽃잎들이 촉수들을 산산조각내버렸다. 에르윈의 하얀 꽃잎들을 먹고 있던 백색 흉물은 끼르륵 소리를 내더니 그대로 틈으로 도망가버렸다. <br><br>창백의 금안이 당신에게 닿았다. 그것은 당신에게 무언가를 말하려는 듯 입을 벌렸다." +
+                "<br><br>에릭이 총을 들었다."
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 에릭의 총을 막았다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 에릭의 총을 막았다. 비틀린 총알의 궤적이 창백의 귀를 스치고 지나간다. 창백의 몸이 조금 더 부서지긴 했지만, 그의 부서져내린 귀는 다시 꽃잎들로 형태를 이루었다." +
+                                "<br><br>\"ㄲ...에...ㅅ... 마...ㄴ...\"<br><br>" +
+                                "그것을 말을 하다가 기침을 하며 괴로워했다. 금안에서 하얀 꽃잎들이 비처럼 내린다. 그것은 당신을 마지막으로 한번 더 바라보더니 그대로 사라져버렸다. 에르윈의 하얀 꽃잎들과 함께." +
+                                "<br><br>\"...뭐하는 짓이지.\"<br><br>" +
+                                "쿵, 하는 소리와 함께 당신은 에릭에 의해 벽으로 밀어 붙여졌다. 당신은 어떻게든 발버둥을 쳤지만 에릭의 총구는 이미 당신의 관자놀이를 누르고 있었다." +
+                                "<br><br>\"창백에 대해서 뭘 알고 있지.\"<br><br>" +
+                                "그 순간, 에릭의 총이 하얀 꽃잎 바람에 튕겼다. 에릭은 날아갈 뻔한 자신의 총을 잡았다. 그는 당신에게서 시선을 떼고 도망가는 것처럼 보이는 하얀 꽃잎들의 흔적을 보았다. 그는 마지막으로 한 번 당신을 노려본 후 그대로 하얀 꽃잎들을 쫓아갔다." +
+                                "<br>간신히 에릭에게서 풀려난 당신은 고개를 들었다.... 에릭은 방금 분명 당신을 죽이려고 했다.<br><br><br>...어떻게든 살아남은 것 같다. 당신은 던전을 나섰다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                player.flags.promisePaleDream = true;
+                                changeNPCEmotion("eric", "affection", -10);
+                                leaveDungeon(player);
+                                return true;
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 에릭을 내버려두었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "창백의 머리에 한 번 더 총알이 박혔다. 창백은 괴로워하며 자신의 머리를 잡았다. 하얀 꽃잎들로 흩어졌다가 그것은 다시 형체를 이루었다. 에릭은 더 이상 창백을 봐주지 않았다. 그의 총알이 창백의 머리에 계속 박힌다. 창백은 괴로워하다가 끔찍한 비명을 지르며 사라져버렸다." +
+                                "<br><br>...에르윈의 하얀 꽃잎들은 두고. 에릭이 창백을 쫓는 동안, 흉물의 촉수들은 에르윈의 남은 조각들을 그대로 바닥으로 끌어당겨 흡수해버렸다. 당신은 뒤늦게 달려갔지만 에르윈의 남은 조각들의 행방을 알 수 없었다." +
+                                "<br><br><br>당신은 고개를 들었다.... 당신이 이제 여기서 할 수 있는 일은 없다. 당신은 던전을 나섰다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                player.flags.abominatedErwin = true;
+                                changeNPCEmotion("eric", "affection", 5);
+                                leaveDungeon(player);
+                                return true;
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
+}
+
+function startMixedAbominationsLose(player){
+    player.flags.act3_quest_05_boss_end = true;
+    addQuestProgress(player);
+    changeHP(player, 100);
+    changeNPCEmotion("eric", "dominance", 15);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 결국 흉물의 공격을 버티지 못하고 쓰러졌다. 총성과 흉물들의 꿈틀거리는 소리가 났지만, 당신의 의식은 점점 멀어져만 갔다. 당신이 느낄 수 있는 건 누군가 당신의 몸을 끌어안았다는 것뿐이었다." +
+                "<br><br>다시 눈을 떴을 때 당신의 몸은 어느 정도 치료되어 있었다. 에릭은 당신을 바라보았다. 그는 당신이 괜찮은지 눈대중으로 확인한 후 자리에서 일어났다. 에르윈의 하얀 꽃잎 조각들은 어디 갔는지 보이지 않았다." +
+                "<br><br>\"에르윈의 시체를 먹던 백색 흉물은 지성을 가지고 있다. 그리고 그것은 전투가 끝나기도 전에 도망갔다.\"<br><br>" +
+                "에릭은 담담하게 사실만을 전한 후 먼저 동굴 밖으로 나갔다. 당신은 망설이다가 그를 따라 동굴 밖으로 나왔다. 하지만 이미 에릭은 어디로 사라진 건지 없었다." +
+                "<br><br>...어쨌든 주점에 의뢰를 보고하러 가자."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.abominatedErwin = true;
+                leaveDungeon(player);
+                return true;
+            }
         }
     ], player);
 }

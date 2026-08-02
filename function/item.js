@@ -1944,6 +1944,19 @@ const ITEMS ={
                 int : 3,
                 charm : 5
             }
+        },
+
+        whiteFlowerTop : {
+            name : "하얀 꽃송이 상의",
+            type : "top",
+            price : 4000,
+            desc : "하얀 꽃잎들로 이루어진 예쁜 옷. 우리의 약속처럼, 부서져 내렸다가도 다시 피어오른다.",
+            stats : {
+                str : 3,
+                dex : 3,
+                int : 7,
+                charm : 7
+            }
         }
     },
 
@@ -2151,6 +2164,19 @@ const ITEMS ={
                 dex : 5,
                 int : 3,
                 charm : 5
+            }
+        },
+
+        whiteFlowerBottom : {
+            name : "하얀 꽃송이 하의",
+            type : "bottom",
+            price : 4500,
+            desc : "하얀 꽃잎들로 이루어진 예쁜 옷. 우리들의 꿈처럼 꽃잎들이 부서져 내렸다가도 다시 피어오른다.",
+            stats : {
+                str : 7,
+                dex : 7,
+                int : 3,
+                charm : 3
             }
         }
     },
@@ -2426,21 +2452,21 @@ const ITEMS ={
 
         //음식들
         greatFruitStirFry : {
-            name : "훌륭한 과일볶음",
+            name : "훌륭한 과일볶음(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "sweet", "great"],
             price : 200         
         },
         normalFruitStirFry : {
-            name : "과일볶음",
+            name : "과일볶음(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "normal"],
             price : 150       
         },
         badFruitStirFry : {
-            name : "맛없는 과일볶음",
+            name : "맛없는 과일볶음(5)",
             type : "heal",
             value : 5,
             tags : ["gift", "sweet", "bad"],
@@ -2455,21 +2481,21 @@ const ITEMS ={
         },
 
         greatFruitberryberry : {
-            name : "훌륭한 고급과일볶음",
+            name : "훌륭한 고급과일볶음(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "sweet", "great"],
             price : 300       
         },
         normalFruitberryberry : {
-            name : "고급과일볶음",
+            name : "고급과일볶음(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "sweet", "normal"],
             price : 200       
         },
         badFruitberryberry : {
-            name : "맛없는 고급과일볶음",
+            name : "맛없는 고급과일볶음(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "bad"],
@@ -2477,21 +2503,21 @@ const ITEMS ={
         },
 
         greatFruitNectar : {
-            name : "훌륭한 꿀과일볶음",
+            name : "훌륭한 꿀과일볶음(50)",
             type : "heal",
             value : 50,
             tags : ["gift", "sweet", "great"],
             price : 600      
         },
         normalFruitNectar : {
-            name : "꿀과일볶음",
+            name : "꿀과일볶음(40)",
             type : "heal",
             value : 40,
             tags : ["gift", "sweet", "normal"],
             price : 500 
         },
         badFruitNectar : {
-            name : "맛없는 꿀과일볶음",
+            name : "맛없는 꿀과일볶음(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "sweet", "bad"],
@@ -2499,21 +2525,21 @@ const ITEMS ={
         },
 
         greatSmoothJelly : {
-            name : "훌륭한 미끄덩젤리",
+            name : "훌륭한 미끄덩젤리(15)",
             type : "heal",
             value : 15,
             tags : ["gift", "sweet", "great"],
             price : 200 
         },
         normalSmoothJelly : {
-            name : "미끄덩젤리",
+            name : "미끄덩젤리(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "sweet", "normal"],
             price : 150 
         },
         badSmoothJelly : {
-            name : "맛없는 미끄덩젤리",
+            name : "맛없는 미끄덩젤리(5)",
             type : "heal",
             value : 5,
             tags : ["gift", "sweet", "bad"],
@@ -2521,21 +2547,21 @@ const ITEMS ={
         },
 
         greatCandyBar : {
-            name : "훌륭한 막대사탕",
+            name : "훌륭한 막대사탕(45)",
             type : "heal",
             value : 45,
             tags : ["gift", "lukeFavorite", "sweet", "great"],
             price : 750 
         },
         normalCandyBar : {
-            name : "막대사탕",
+            name : "막대사탕(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "lukeFavorite", "sweet", "normal"],
             price : 700 
         },
         badCandyBar : {
-            name : "맛없는 막대사탕",
+            name : "맛없는 막대사탕(15)",
             type : "heal",
             value : 15,
             tags : ["gift", "lukeFavorite", "sweet", "bad"],
@@ -2587,21 +2613,21 @@ const ITEMS ={
         },
 
         greatGrilledMeat : {
-            name : "훌륭한 구운 고기 요리",
+            name : "훌륭한 구운 고기 요리(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "meat", "great"],
             price : 60     
         },
         normalGrilledMeat : {
-            name : "구운 고기 요리",
+            name : "구운 고기 요리(7)",
             type : "heal",
             value : 7,
             tags : ["gift", "meat", "normal"],
             price : 50    
         },
         badGrilledMeat : {
-            name : "맛없는 구운 고기 요리",
+            name : "맛없는 구운 고기 요리(5)",
             type : "heal",
             value : 5,
             tags : ["gift", "meat", "bad"],
@@ -2609,21 +2635,21 @@ const ITEMS ={
         },
 
         greatMeatSkewer : {
-            name : "훌륭한 고기 꼬치",
+            name : "훌륭한 고기 꼬치(25)",
             type : "heal",
             value : 25,
             tags : ["gift", "meat", "great"],
             price : 240
         },
         normalMeatSkewer : {
-            name : "고기 꼬치",
+            name : "고기 꼬치(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "meat", "normal"],
             price : 220
         },
         badMeatSkewer : {
-            name : "맛없는 고기 꼬치",
+            name : "맛없는 고기 꼬치(15)",
             type : "heal",
             value : 15,
             tags : ["gift", "meat", "bad"],
@@ -2631,21 +2657,21 @@ const ITEMS ={
         },
 
         greatMeatVegetableSkewer : {
-            name : "훌륭한 고기야채꼬치",
+            name : "훌륭한 고기야채꼬치(50)",
             type : "heal",
             value : 50,
             tags : ["gift", "mixed", "great"],
             price : 450
         },
         normalMeatVegetableSkewer : {
-            name : "고기야채꼬치",
+            name : "고기야채꼬치(40)",
             type : "heal",
             value : 40,
             tags : ["gift", "mixed", "normal"],
             price : 420
         },
         badMeatVegetableSkewer : {
-            name : "맛없는 고기야채꼬치",
+            name : "맛없는 고기야채꼬치(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "mixed", "bad"],
@@ -2653,21 +2679,21 @@ const ITEMS ={
         },
         
         greatVegetableSkewer : {
-            name : "훌륭한 야채꼬치",
+            name : "훌륭한 야채꼬치(70)",
             type : "heal",
             value : 70,
             tags : ["gift", "vegetable", "great"],
             price : 550
         },
         normalVegetableSkewer : {
-            name : "야채꼬치",
+            name : "야채꼬치(60)",
             type : "heal",
             value : 60,
             tags : ["gift", "vegetable", "normal"],
             price : 520
         },
         badVegetableSkewer : {
-            name : "맛없는 야채꼬치",
+            name : "맛없는 야채꼬치(40)",
             type : "heal",
             value : 40,
             tags : ["gift", "vegetable", "bad"],
@@ -2675,21 +2701,21 @@ const ITEMS ={
         },
 
         greatMushroomSoup : {
-            name : "훌륭한 버섯수프",
+            name : "훌륭한 버섯수프(55)",
             type : "heal",
             value : 55,
             tags : ["gift", "vegetable", "great"],
             price : 520
         },
         normalMushroomSoup : {
-            name : "버섯수프",
+            name : "버섯수프(45)",
             type : "heal",
             value : 45,
             tags : ["gift", "vegetable", "normal"],
             price : 510
         },
         badMushroomSoup : {
-            name : "맛없는 버섯수프",
+            name : "맛없는 버섯수프(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "vegetable", "bad"],
@@ -2697,21 +2723,21 @@ const ITEMS ={
         },
 
         greatPotatoSmash : {
-            name : "훌륭한 감자 스매시",
+            name : "훌륭한 감자 스매시(55)",
             type : "heal",
             value : 55,
             tags : ["gift", "vegetable", "great"],
             price : 520
         },
         normalPotatoSmash : {
-            name : "감자 스매시",
+            name : "감자 스매시(45)",
             type : "heal",
             value : 45,
             tags : ["gift", "vegetable", "normal"],
             price : 510
         },
         badPotatoSmash : {
-            name : "맛없는 감자 스매시",
+            name : "맛없는 감자 스매시(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "vegetable", "bad"],
@@ -2719,21 +2745,21 @@ const ITEMS ={
         },
 
         greatCabbageSoup : {
-            name : "훌륭한 배추 수프",
+            name : "훌륭한 배추 수프(55)",
             type : "heal",
             value : 55,
             tags : ["gift", "vegetable", "great"],
             price : 520
         },
         normalCabbageSoup : {
-            name : "배추 수프",
+            name : "배추 수프(45)",
             type : "heal",
             value : 45,
             tags : ["gift", "vegetable", "normal"],
             price : 510
         },
         badCabbageSoup : {
-            name : "맛없는 배추 수프",
+            name : "맛없는 배추 수프(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "vegetable", "bad"],
@@ -2741,21 +2767,21 @@ const ITEMS ={
         },
 
         greatMeatVegetableShoot : {
-            name : "훌륭한 고기야채볶음",
+            name : "훌륭한 고기야채볶음(70)",
             type : "heal",
             value : 70,
             tags : ["gift", "mixed", "great"],
             price : 460
         },
         normalMeatVegetableShoot : {
-            name : "고기야채볶음",
+            name : "고기야채볶음(50)",
             type : "heal",
             value : 50,
             tags : ["gift", "mixed", "normal"],
             price : 430
         },
         badMeatVegetableShoot : {
-            name : "맛없는 고기야채볶음",
+            name : "맛없는 고기야채볶음(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "mixed", "bad"],
@@ -2763,21 +2789,21 @@ const ITEMS ={
         },
 
         greatVegetableMix : {
-            name : "훌륭한 야채볶음",
+            name : "훌륭한 야채볶음(75)",
             type : "heal",
             value : 75,
             tags : ["gift", "vegetable", "great"],
             price : 580
         },
         normalVegetableMix : {
-            name : "야채볶음",
+            name : "야채볶음(65)",
             type : "heal",
             value : 65,
             tags : ["gift", "vegetable", "normal"],
             price : 550
         },
         badVegetableMix : {
-            name : "맛없는 야채볶음",
+            name : "맛없는 야채볶음(45)",
             type : "heal",
             value : 45,
             tags : ["gift", "vegetable", "bad"],
@@ -2785,21 +2811,21 @@ const ITEMS ={
         },
 
         greatBread : {
-            name : "훌륭한 빵",
+            name : "훌륭한 빵(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "bread", "great"],
             price : 620
         },
         normalBread : {
-            name : "빵",
+            name : "빵(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "bread", "normal"],
             price : 600
         },
         badBread : {
-            name : "맛없는 빵",
+            name : "맛없는 빵(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "bread", "bad"],
@@ -2807,21 +2833,21 @@ const ITEMS ={
         },
 
         greatMeatBread : {
-            name : "훌륭한 고기빵",
+            name : "훌륭한 고기빵(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "meatBread", "great"],
             price : 380
         },
         normalMeatBread : {
-            name : "고기빵",
+            name : "고기빵(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "meatBread", "normal"],
             price : 340
         },
         badMeatBread : {
-            name : "맛없는 고기빵",
+            name : "맛없는 고기빵(10)",
             type : "heal",
             value : 10,
             tags : ["gift", "meatBread", "bad"],
@@ -2829,21 +2855,21 @@ const ITEMS ={
         },
 
         greatVegetableBread : {
-            name : "훌륭한 야채빵",
+            name : "훌륭한 야채빵(40)",
             type : "heal",
             value : 40,
             tags : ["gift", "vegetableBread", "great"],
             price : 600
         },
         normalVegetableBread : {
-            name : "야채빵",
+            name : "야채빵(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "vegetableBread", "normal"],
             price : 560
         },
         badVegetableBread : {
-            name : "맛없는 야채빵",
+            name : "맛없는 야채빵(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "vegetableBread", "bad"],
@@ -2851,21 +2877,21 @@ const ITEMS ={
         },
 
         greatMeatRice : {
-            name : "훌륭한 고기주먹밥",
+            name : "훌륭한 고기주먹밥(75)",
             type : "heal",
             value : 75,
             tags : ["gift", "meatRice", "great"],
             price : 480
         },
         normalMeatRice : {
-            name : "고기주먹밥",
+            name : "고기주먹밥(65)",
             type : "heal",
             value : 65,
             tags : ["gift", "meatRice", "normal"],
             price : 440
         },
         badMeatRice : {
-            name : "맛없는 고기주먹밥",
+            name : "맛없는 고기주먹밥(50)",
             type : "heal",
             value : 50,
             tags : ["gift", "meatRice", "bad"],
@@ -2873,21 +2899,21 @@ const ITEMS ={
         },
 
         greatVegetableRice : {
-            name : "훌륭한 야채주먹밥",
+            name : "훌륭한 야채주먹밥(90)",
             type : "heal",
             value : 90,
             tags : ["gift", "vegetableRice", "great"],
             price : 700
         },
         normalVegetableRice : {
-            name : "야채주먹밥",
+            name : "야채주먹밥(80)",
             type : "heal",
             value : 80,
             tags : ["gift", "vegetableRice", "normal"],
             price : 660
         },
         badVegetableRice : {
-            name : "맛없는 야채주먹밥",
+            name : "맛없는 야채주먹밥(60)",
             type : "heal",
             value : 60,
             tags : ["gift", "vegetableRice", "bad"],
@@ -2895,21 +2921,21 @@ const ITEMS ={
         },
 
         greatGoblinGoblinMeat : {
-            name : "훌륭한 고블린고기볶음",
+            name : "훌륭한 고블린고기볶음(40)",
             type : "heal",
             value : 40,
             tags : ["gift", "meat", "great"],
             price : 400
         },
         normalGoblinGoblinMeat : {
-            name : "고블린고기볶음",
+            name : "고블린고기볶음(30)",
             type : "heal",
             value : 30,
             tags : ["gift", "meat", "normal"],
             price : 340
         },
         badGoblinGoblinMeat : {
-            name : "맛없는 고블린고기볶음",
+            name : "맛없는 고블린고기볶음(20)",
             type : "heal",
             value : 20,
             tags : ["gift", "meat", "bad"],
@@ -3142,25 +3168,47 @@ const ITEMS ={
         },
 
         greatRamen : {
-            name : "훌륭한 라면",
+            name : "훌륭한 라면(180)",
             type : "heal",
-            value : 150,
+            value : 180,
             tags : ["gift", "ericFavorite", "spicy", "great"],
             price : 1400
         },
         normalRamen : {
-            name : "라면",
+            name : "라면(150)",
             type : "heal",
-            value : 90,
+            value : 150,
             tags : ["gift", "ericFavorite", "spicy", "normal"],
             price : 1000
         },
         badRamen : {
-            name : "맛없는 라면",
+            name : "맛없는 라면(40)",
             type : "heal",
-            value : 10,
+            value : 40,
             tags : ["gift", "ericFavorite", "spicy", "bad"],
             price : 500
+        },
+
+        greatPepperPepper : {
+            name : "훌륭한 고추튀김(200)",
+            type : "heal",
+            value : 200,
+            tags : ["gift", "spicy", "great"],
+            price : 1200
+        },
+        normalPepperPepper : {
+            name : "고추튀김(170)",
+            type : "heal",
+            value : 170,
+            tags : ["gift", "spicy", "normal"],
+            price : 1000
+        },
+        badPepperPepper : {
+            name : "맛없는 고추튀김(70)",
+            type : "heal",
+            value : 70,
+            tags : ["gift", "spicy", "bad"],
+            price : 300
         }
 
     
@@ -4249,7 +4297,21 @@ window.RECIPES = {
             bad : "badRamen",
             disaster: "trash"
         }
+    },
+
+    pepperPepper : {
+        name : "고추튀김",
+        desc : "고추 3개를 넣어 튀긴 고추튀기미",
+
+        ingredients : {
+            pepper : 3
+        },
+
+        results : {
+            great : "greatPepperPepper",
+            normal : "normalPepperPepper",
+            bad : "badPepperPepper",
+            disaster: "trash"
+        }
     }
-
-
 };

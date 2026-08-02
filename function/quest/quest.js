@@ -305,6 +305,32 @@ const QUESTS = {
         completeText: "마틴은 당신에게서 의뢰서를 받았다. 당신에게 수당을 건네는 그의 시선은 당신의 몸 전체를 훑고 돌아갔다."
     },
 
+    abominationRedCaveRepeated_cleanup: {
+        id: "abominationRedCaveRepeated_cleanup",
+        title: "붉은살점동굴의 거대 흉물 제거",
+        type: "investigate",
+        targetName : "붉은살점동굴의 거대 흉물 제거",
+        repeatable : true,
+        giver : "",
+        
+        desc : "붉은살점동굴의 거대 흉물을 제거하자. 폐야에 있다.",        
+        activeDesc : "이대로 두면 거대 융합 흉물이 언제 마을에 내려와 습격할 지 모른다.",
+        readyDesc : "흉물을 퇴치했다. 주점에 가서 보고하자.",
+        
+        targetFlag : "abominationRedCaveRepeated_boss_end",
+        requiredKill: 1,
+        rewardGold: 30000,
+        
+        require: {
+            completedQuest: "act3_quest_05",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신을 응시하다가 고개를 돌렸다. 그는 잔을 닦는 것에 집중하고 있다... 아마도.",
+        cancelText: "마틴은 당신에게서 의뢰서를 다시 받아갔다. 그는 아무 말도 하지 않았지만 오늘따라 손동작이 덜 섬세했다.",
+        completeText: "마틴은 당신에게서 의뢰서를 받았다. <br><br>\"...다친 곳은 잘 치료해둬.\""
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -839,7 +865,7 @@ const QUESTS = {
         
         targetFlag : "act3_quest_05_boss_end",
         requiredKill: 1,
-        rewardGold: 25000,
+        rewardGold: 35000,
 
         require : {
             flag : "act3_quest_05_unlock"
@@ -1175,6 +1201,11 @@ function acceptQuest(player, questId){
     if (quest.id === "madLabRepeated_cleanup"){
         player.flags.madLabRepeated_boss_end = false;
         delete player.flags.defeated_madLabRepeated_teacherAndStudents;
+    }
+
+    if (quest.id === "abominationRedCaveRepeated_cleanup"){
+        player.flags.abominationRedCaveRepeated_boss_end = false;
+        delete player.flags.defeated_abominationRedCaveRepeated_mixedAbominations;
     }
 
     player.quest.active = {

@@ -24,6 +24,30 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_afterYouHelpPale_event",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3"  &&
+        player.flags?.promisePaleDream &&
+        player.flags?.act3_you_know_who_is_sora &&
+        NPC_DATA["eric"].emotion.affection >= 20 &&
+        !player.flags?.act3_quest_05_done &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["eric"].scenes.eric_afterYouHelpPale_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //루크
 window.EVENTS.push({
     id : "luke_guard_punishment_event",
@@ -2430,6 +2454,31 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["pale"].scenes.pale_uppercity_story_02_after_affection_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_promisePaleDream",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ( player.location === "shelter" || player.location === "goldenShelter" ) &&
+        player.flags?.promisePaleDream,
+
+    action : (player) => {
+        addItem(player, ITEMS.top.whiteFlowerTop);
+        addItem(player, ITEMS.bottom.whiteFlowerBottom);
+        changeEmotion("pale", "affection", 10);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_promisePaleDream,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

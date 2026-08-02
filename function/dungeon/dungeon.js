@@ -1339,6 +1339,30 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (
+        dungeon.id === "abominationRedCaveRepeated" &&
+        room.bossId === "mixedAbominations"
+    ){
+        player.flags.abominationRedCaveRepeated_boss_end = true;
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value: "당신은 융합된 거대 흉물을 쓰러뜨렸다.<br><br>하얀 꽃잎들에 면역인 흉물들이 점점 늘어나는 것 같다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
     addQuestProgress(player, room.boss);
 
     if (dungeon.id === "slaverCampShelter" && room.boss === "trafficker4"){
@@ -1405,6 +1429,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "soraBasement" && room.boss === "soraFather2"){
         handleSoraFather2Win(player);
+        return;
+    }
+
+    if (dungeon.id === "abominationRedCave" && room.bossId === "mixedAbominations"){
+        handleMixedAbominationsWin(player);
         return;
     }
 
@@ -1682,7 +1711,11 @@ function leaveDungeon(player){
         player.location = "deepForest_act3";
     } else if (dungeonId === "soraBasement"){
         player.location = "shop";
-    } else {
+    } else if (dungeonId === "abominationRedCave"){
+        player.location = "wastedRuin";
+    } else if (dungeonId === "abominationRedCaveRepeated"){
+        player.location = "wastedRuin";
+    }else {
         player.location = "townStreet";
     }
 
@@ -4945,6 +4978,26 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startSoraFather2Battle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "mixedAbominations_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      "심부에 들어간 당신은 흉물들이 융합된 거대한 흉물을 맞닥뜨렸다. 그리고 그 흉물 뒤에는 하얀 꽃잎을 여전히 우걱우걱 먹고 있는 백색 흉물이 있었다." +
+                      "<br><br>...에르윈의 시체와 함께." +
+                      "당신은 그 시체가 에르윈의 시체라는 것도 간신히 알아보았다. 에르윈의 시체는 중간중간 꽃잎들로 부서져 있었다- 아니, 부서진 하얀 꽃잎들 사이에 에르윈의 몸으로 보이는 것이 중간중간 보였다. 당신은 에르윈의 시체 옆의 백색 군단 시체들을 보았다. 에르윈의 시체를 옮기려다가 흉물한테 당한 걸까. 백색 흉물은 그르렁거리는 소리를 내더니 곧 에르윈의 시체 쪽으로 향했다. 동굴 바닥에서 솟아오른 흉물의 촉수들이 에르윈을 끌어안았다. 백색 흉물은 부서져내린 에르윈의 하얀 꽃잎들을 먹었다. 당신이 에르윈에게 다가가자 거대 융합 흉물이 큰 소리와 함께 당신의 앞을 막아섰다." +
+                      "백색 흉물이 계속 에르윈을 뜯어먹는다. 당신과 거대 융합 흉물의 전투가 시작된다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startMixedAbominationsBattle(player);
                     return true;
                 }
             }

@@ -881,6 +881,26 @@ window.start_whiteArmyRaid = function(player){
 function buildWastedRuinScene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.quest?.active?.id === "act3_quest_05" &&
+        !player.flags?.act3_quest_05_boss_end
+    ){
+        choices.push({
+            text : "붉은살점동굴로 향한다.",
+            action : "move_abominationRedCave"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "abominationRedCaveRepeated_cleanup" &&
+        !player.flags?.abominationRedCaveRepeated_boss_end
+    ){
+        choices.push({
+            text : "붉은살점동굴로 향한다.",
+            action : "move_abominationRedCaveRepeated"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },

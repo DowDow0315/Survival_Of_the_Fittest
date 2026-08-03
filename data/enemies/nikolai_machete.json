@@ -1,7 +1,7 @@
 {
     "name": "니콜라이(마체테)",
     "hp": 350,
-    "attack": 42,
+    "attack": 44,
     "defense": 45,
     "eva": 48,
     "lustResist" : 1.2,
@@ -80,7 +80,7 @@
             "name" : "마체테 찍어누르기",
             "power" : 1.4,
             "type" : "damage",
-            "chance" : 0.6,
+            "chance" : 0.8,
             "lines" : [
                 "니콜라이는 마체테를 높이 치켜든 뒤 당신을 향해 거칠게 내리찍었다. 날을 깊게 박기보다는 그대로 당신을 찍어누르려는 듯하다.",
                 "니콜라이는 한숨을 내쉰 뒤 마체테를 힘껏 내리쳤다. 충격과 함께 당신의 몸이 크게 흔들렸다."
@@ -101,7 +101,7 @@
             "name" : "니콜라이의 슬픈미소",
             "type" : "selfBuff",
             "chance" : 0.4,
-            "duration" : 3,
+            "duration" : 5,
             "effect" : {
                 "id" : "nikolai_machete_selfBuff",
                 "evaMult" : 1.6,
@@ -116,8 +116,8 @@
             "name": "마체테 출혈",
             "type": "bleed",
             "id" : "nikolai_machete_Bleed",
-            "dot": 22,
-            "duration": 4,
+            "dot": 25,
+            "duration": 5,
             "chance" : 0.8,
             "lines": [
                 "마체테가 피부를 길게 갈랐다. 상처에서 피가 멈추지 않는다.",

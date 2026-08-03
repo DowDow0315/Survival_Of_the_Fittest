@@ -57,6 +57,36 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "eric_umbrella_event_02",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenRoad" &&
+        player.weather === "rain" &&
+        NPC_DATA["eric"].emotion.affection >= 50 &&
+        NPC_DATA["eric"].emotion.affection < 80 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        hasItemOrEquipped(player, "umbrella") &&
+        player.flags?.eric_uppercity_day !== getCurrentDay(player) &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.eric_uppercity_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_umbrella_event_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "eric_deric_hisGoing",
     priority : true,
     once : true,
@@ -347,6 +377,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_myKnight_event",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        !player.flags?.valenDie &&
+        player.location === "heavenPalace"  &&
+        player.flags?.uppercityHero &&
+        player.flags?.you_will_kill_yuri &&
+        player.flags?.yuriDie &&
+        NPC_DATA["valen"].emotion.affection >= 90 &&
+        !hasNpcRelationship("valen", "lover") &&
+        !hasNpcRelationship("valen", "spouse"),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["valen"].scenes.valen_myKnight_event,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};
@@ -517,6 +573,32 @@ window.EVENTS.push({
         savePlayer(player);
 
         startScene(NPC_DATA["deric"].scenes.deric_callMeDaddy_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_callMeDaddy_02",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        (getTimePeriod(player) === "night" ||
+         getTimePeriod(player) === "dawn") &&
+        NPC_DATA["deric"].emotion.affection >= 90 &&
+        ["storm", "rain"].includes(player.weather) &&
+         player.flags?.deric_callMeDaddy_day !== getCurrentDay(player) &&
+         player.location === "twinsMansion" &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.deric_callMeDaddy_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["deric"].scenes.deric_callMeDaddy_02, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }

@@ -980,6 +980,98 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "dericAndKain_03",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "twinsMansion" &&
+        player.flags?.dericAndKain_day !== getCurrentDay(player) &&
+        (hasNpcRelationship("kain", "lover") ||
+        hasNpcRelationship("kain", "spouse") ) &&
+        NPC_DATA["deric"].emotion.affection >= 80 &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        player.flags.dericAndKain_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 쌍둥이 저택에 들어오는 순간, 당신은 카인을 보았다. 똑같이 당신과 시선이 마주친 카인이 움찔했다. 그러더니 그는 무서운 얼굴로 당신에게 걸어왔다." +
+                    "<br><br>\"네가 왜 여기에 있어?\"<br><br>" +
+                    "그는 당신의 손목을 잡더니 여기에 있지 말라고 말했다. 그는 자기도 모르게 당신을 위아래로 훑어보며 혹시나 남아 있을지 모를 흔적을 찾다가 입술을 악물었다." +
+                    "<br><br>\"왜 여기에 있냐니. 내 특별한 손님이니까 여기에 있지.\"<br><br>" +
+                    "카인보다 늦게 나온 데릭이 잔을 흔들며 카인과 당신을 번갈아보았다. 그의 녹안은 카인이 붙잡고 있는 당신의 손목에 고정되어 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 카인에게 무슨 상관이냐고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 카인의 주황색 눈이 흔들렸다. 그는 당신과 데릭을 번갈아보았다. 그는 입술을 씹더니 데릭에게 협박이라도 당하고 있는 거냐고 물었다." +
+                                    "<br><br>\"...아니면 내가 아직 집이 없어서...\"<br><br>" +
+                                    "카인은 당신의 손목을 더 세게 잡았다." +
+                                    "<br><br>\"그리고 무슨 상관이냐니, 나는 네...\"<br><br>" +
+                                    "\"착각이지.\"<br><br>" +
+                                    "데릭은 매끄럽게 카인의 말을 자른 후 당신의 손목을 가로챘다. 그는 붉어진 당신의 손목을 바라보다가 보란 듯이 카인의 앞에서 당신의 손목을 쓰다듬었다. 카인은 당신과 데릭의 앞에서 더 이상 아무 말도 하지 않았다. 배신감이 역력한 얼굴로 당신을 바라보던 카인은 그래도 쌍둥이 저택을 나가버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("kain", "affection", -20);
+                                    changeNPCEmotion("deric", "affection", 3);
+                                    changeNPCEmotion("kain", "rage", 15);
+                                    changeNPCEmotion("deric", "rage", -3);
+                                    changeNPCEmotion("deric", "dominance", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 카인에게 그저 잘 곳이 없어서 들른 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"잘 곳이 없어서 들르는 거라고? 마치 나의 저택을 하숙집처럼 말하는 구나, 아가?\"<br><br>" +
+                                    "데릭은 여전히 입가에 미소를 짓고 있었지만 눈만은 서늘했다." +
+                                    "<br><br>\"가끔 보면 우리 아가는 호의와 권리를 분간을 못하는 것 같아. 아직 배워야 할 게 너무 많구나...\"<br><br>" +
+                                    "\"아니, 얜 너한테 배워야 할 것 없어.\"<br><br>" +
+                                    "카인은 데릭을 노려보며 말했다. 그는 당신의 손을 꽈악, 그러나 아프지는 않게 잡은 채 데릭에게 가운데 손가락을 올려보인 후 그대로 쌍둥이 저택을 나갔다. 그는 저택에서 나오자마자 당신을 힐끗 보았다." +
+                                    "<br><br>\"...나중에 그냥, 내가 억지로 끌고 나온 거라고 해.\"<br><br>" +
+                                    "카인은 잠시 말을 끊었다." +
+                                    "<br><br>\"그리고 저새끼랑 너무 가까이 있지 마. 질 안 좋아.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("kain", "affection", 5);
+                                    changeNPCEmotion("deric", "affection", -5);
+                                    changeNPCEmotion("deric", "rage", 10);
+                                    player.location = "gloryStreet";
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "dericAndEric_01",
     condition : (player) =>
         player.justMoved &&
@@ -1200,7 +1292,7 @@ window.EVENTS.push({
         player.flags?.sionAndKain_day !== getCurrentDay(player) &&
         player.flags?.sion_uppercity &&
         NPC_DATA["kain"].emotion.affection >= 50 &&
-        Math.random() < 0.09,
+        Math.random() < 0.07,
 
     action : (player) => {
         player.flags.sionAndKain_day = getCurrentDay(player);
@@ -1279,6 +1371,213 @@ window.EVENTS.push({
                                     changeNPCEmotion("kain", "rage", 10);
                                     changeNPCEmotion("sion", "dominance", 4);
                                     changeNPCEmotion("sion", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "yuriAndSion_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
+        NPC_DATA["yuri"].emotion.affection >= 50 &&
+        NPC_DATA["sion"].emotion.affection >= 40 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.yuriAndSion_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 쉘터에 들어왔을 때, 유리는 아이들에게 책을 읽어주고 있었다. 그는 책을 읽어주다가 당신을 보더니 미소를 지으며 너무 늦게 온 거 아니냐고 물었다." +
+                    "<br><br>\"영웅님은 괜찮아요.\"<br><br>" +
+                    "시온은 벽에 비딱하게 기대어 선 채로 말했다. 유리는 시온 쪽으로 고개를 돌렸다." +
+                    "<br><br>\"...혹시 내가 네 마음을 상하게 한 적이 있니? 저번부터 좀 더 날카로운 것 같...\"<br><br>" +
+                    "\"아뇨. 그런 건 없는데요.\"<br><br>" +
+                    "시온은 당신과 유리 사이를 몸으로 가로막으며 그의 말이 끝나기도 전에 싹둑 잘라버렸다. 유리는 말없이 시온을 바라보다가 한숨을 쉬더니 그럼 됐다고 말했다." +
+                    "<br><br>\"그런 점이 마음에 안 들어요.\"<br><br>" +
+                    "\"...뭐?\"<br><br>" +
+                    "\"그렇게 쉽게 포기하는 점이 마음에 안 든다고요. 유리 형은 쉽게 포기하는 것에 비해 너무 많은 걸 떠안고 있어요. 그래서 영웅님이 더 부담되는 거잖아요.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 유리는 자신에게 부담이 되지 않는다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "시온이 당신의 말에 반박하려고 하자 유리가 먼저 나서서 말을 잘랐다." +
+                                    "<br><br>\"정말 내가 부담이 된다고 하더라도, 그 말은 네가 해야 하는 말이 아니야. 너는 얘에 대해 다 아는 게 아니잖...\"<br><br>" +
+                                    "\"영웅님은 너무 착하셔서 그래요.\"<br><br>" +
+                                    "시온은 눈을 꽉 감았다가 떴다." +
+                                    "<br><br>\"그래서 제가 지켜드릴 거예요.\"<br><br>" +
+                                    "그 말을 마치고 시온은 그대로 가버렸다. 당신의 옆에서 시온의 뒷모습을 바라보던 유리는 낮게 한숨을 쉬며 고개를 저었다." +
+                                    "<br><br>\"사춘기가 늦게 왔나봐.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 1);
+                                    changeNPCEmotion("sion", "rage", 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 끄덕이며 유리가 무리하지 않았으면 좋겠다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...내가 네게 부담이 돼?\"<br><br>" +
+                                    "유리는 당신을 물끄러미 바라보다가 고개를 숙였다." +
+                                    "<br><br>\"부담을 안 주려고 했는데... 미안해. 앞으로는 더 조심할게.\"<br><br>" +
+                                    "별다른 변명도 하지 않고 사과하는 유리를 보며 시온은 마음에 안 든다는 표정을 짓긴 했지만 더는 말하지 않았다. 그는 아이들을 다시 달래러 가는 유리의 뒷모습을 바라보다가 당신 쪽으로 고개를 들었다. 그는 유리 형이 착한 것은 알고 있다고 말했다." +
+                                    "<br><br>\"하지만 착하다고 해서 영웅님한테 부담을 줄 수 있는 건 아니에요. 영웅님은 지금 영웅님의 일로도 벅차잖아요.<br> 영웅님은 좀 쉬셔야 해요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -3);
+                                    changeNPCEmotion("sion", "affection", 3);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "yuriAndSion_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
+        (hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        NPC_DATA["sion"].emotion.affection >= 40 &&
+        ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.yuriAndSion_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"여기서 다 만나네.\"<br><br>" +
+                    "전리품들을 다 팔고 온 건지 유리의 가방은 가벼워보였다. 그는 자연스럽게 당신의 옆에 서더니 오늘은 어땠냐고 물었다. 어디 다치지는 않았고? 유리는 당신의 몸을 위아래로 살피더니 어디 다친 곳이 있으면 숨기지 말고 말해야 한다고 말했다." +
+                    "<br><br>\"어, 잠깐만...\"<br><br>" +
+                    "유리의 손이 당신의 목에 닿았다. 벌레에라도 물린 걸까? 아니면 당신도 모르는 사이에 얕게 다친 걸까? 유리의 손이 닿은 곳에는 좁쌀만한 붉은 반점이 있었다. 유리는 쉘터에 돌아가면 바로 약을 발라야겠다고 말하며 손가락으로 당신의 붉은 반점을 쓸었다." +
+                    "<br><br>짜악<br><br>" +
+                    "유리의 손등이 당신의 목보다 더 붉어졌다. 당신은 고개를 들었다. 시온이다. 그는 굳은 얼굴로 당신과 유리를 번갈아서 바라보고 있었다." +
+                    "<br><br>\"설마 유리 형이랑 사귀는 거 아니죠?\"<br><br>" +
+                    "\"...사귀는데?\"<br><br>" +
+                    "유리는 시온에게서 물러나지 않았다. 그는 시온을 똑바로 쳐다보며 손을 가볍게 털었다.<br><br>" +
+                    "\"안돼요, 영웅님. 유리 형의 주변에는 아무도 남지 않았단 말이에요. 전 영웅님을 잃지 않을 거예요.\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 끝까지 유리의 곁에서 살아남을 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신의 말에 미소를 지었다." +
+                                    "<br><br>\"너의 영웅님을 너무 약하게 보지 마. 미안하지만 내 애인은 네 생각보다 강하거든.\"<br><br>" +
+                                    "내 애인이라는 유리의 발언에 시온의 표정이 딱딱하게 굳었다. 그는 믿기 힘들다는 듯이 당신과 유리를 번갈아 보았다. 유리는 당신의 손등을 의도적으로 제 손등으로 톡 쳤다." +
+                                    "<br><br>\"그리고 이제 우리 사이에 신경쓰지 않았으면 좋겠고.\"<br><br>" +
+                                    "시온은 입술을 악물더니 그대로 가버렸다. 시온이 가는 모습을 바라보던 유리는 낮게 한숨을 쉬었다. <br><br>"+
+                                    "\"유치하게 굴고 싶지는 않았는데.\"<br><br>" +
+                                    "그는 당신의 손등을 한 번 더 톡 쳤다." +
+                                    "<br><br>\"...자꾸 유치하게 굴게 되네, 네 일에는.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 4);
+                                    changeNPCEmotion("yuri", "dominance", -5);
+                                    changeNPCEmotion("sion", "affection", -5);
+                                    changeNPCEmotion("sion", "dominance", -5);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 두 사람에게서 한 걸음 물러났다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 한 걸음 물러서자 시온이 한 걸음 다가왔다. 그는 유리에게 더 바짝 다가오며 영웅님을 해치는 사람은 자신이 가만두지 않을 거라고 말했다." +
+                                    "<br><br>\"...가만두지 마.\"<br><br>" +
+                                    "유리는 똑바로 시온의 시선을 마주하며 말했다. 그는 자신에게서도 한 걸음 물러난 당신을 흘낏 보더니 작게 한숨을 쉬었다." +
+                                    "<br><br>\"하지만 지금은 너 때문에 불편해진 것 같은데, 아니야?\"<br><br>" +
+                                    "시온은 당신을 보더니 눈꼬리가 내려갔다. 그는 영웅님을 불편하게 만들었다면 죄송하다고 사과했다. 사과하는 시온을 바라보던 유리는 먼저 발걸음을 돌렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -3);
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 유리가 자신을 지켜줄 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"아니요. 영웅님을 지킬 사람은 유리 형이 아니라 저예요.\"<br><br>" +
+                                    "시온은 당신의 말을 부정했다. 그는 이번만큼은 영웅님이 완전히 틀렸다고 말하며 유리를 노려보았다. 하지만 유리도 물러서지 않았다." +
+                                    "<br><br>\"아니. 내가 지킬 거야. 무슨 일이 있어도 내게 가장 소중한 사람을 지킬 거라고 별에 맹세했거든.\"<br><br>" +
+                                    "유리는 당신의 손을 잡았다.<br><br>" +
+                                    "\"그러니까 넌 우리 사이에 신경쓰지 않아도 돼.\"<br><br>" +
+                                    "분위기가 무겁다. 시온은 마지막까지 유리를 노려보다가 돌아가버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) =>{ 
+                                    changeNPCEmotion("yuri", "affection", 3);
+                                    changeNPCEmotion("yuri", "dominance", 3);
+                                    changeNPCEmotion("sion", "dominance", 3);
                                     savePlayer(player);
                                 }
                             }

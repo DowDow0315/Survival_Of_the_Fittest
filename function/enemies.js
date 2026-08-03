@@ -50,7 +50,7 @@ async function loadEnemies(){
         "begger", "beggers", "goblinKing",
         "skeleton", "skeletonEnhanced", "skeletonWheel", "skeletonBig", "skeletonKnight",
         "bandit1", "bandit2", "banditBoss", "advancedBandit1", "advancedBandit2", "advancedBanditBoss",
-        "rebelLeader", "erwin", "rebels1", "rebels2", "rebels3", "rebelLeader2", "rebels4", "rebels5", "rebels6", "rebelLeader3",
+        "rebelLeader", "erwin", "rebels1", "rebels2", "rebels3", "rebelLeader2", "rebels4", "rebels5", "rebels6", "rebelLeader3", "erwin2",
         "infectedSmall", "infected", "infectedSoldier", "infectedSmalls",
         "trafficker1", "trafficker2", "trafficker3", "trafficker4",
         "abomination1", "abomination2", "abomination3", "abomination4",
@@ -58,8 +58,8 @@ async function loadEnemies(){
         "whiteArmy1", "whiteArmy2", "whiteArmy3", "whiteArmy4", "whiteArmyLeader1", "nikolai_machete",
         "scientist1", "scientist2",
         "experimentAboFlower1", "experimentAboFlower2", "experimentAboFlower3", "experimentTeacher",
-        "whiteAbomination1",
-        "abominatedWhiteArmy1", "abominatedRebels1"
+        "whiteAbomination1", "whiteAbomination2", "whiteAbomination3", "whiteAbomination4",
+        "abominatedWhiteArmy1", "abominatedRebels1", "abominatedWhiteArmy2", "abominatedRebels2"
     ];
 
     for (const name of list){

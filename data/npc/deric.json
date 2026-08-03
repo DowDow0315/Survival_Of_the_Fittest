@@ -2013,6 +2013,121 @@
                 ]
             }
         ],
+        "deric_callMeDaddy_02" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "저택에 들어온 당신에게 데릭은 혹시 비가 무서워서 집에 바로 들어온 거냐고 물었다. 방금 샤워하고 나왔는지 그는 물기에 젖은 머리카락을 탈탈 털고 있었다. 그는 흰색 가운을 입은 채 거실 의자에 앉더니 자신의 무릎을 톡톡 두드렸다. 당신이 다가오자 그는 당신을 허리부터 끌어안은 후 당신의 어깨 위로 입술을 묻었다. 물기 젖은 그의 입술이 당신의 어깨 위로 붉은 흔적들을 남긴다.",
+                    "<br>\"역시 우리 공주님은 붉은 살결이 더 잘 어울리는 구나.\"<br>",
+                    "그의 손이 당신의 아래를 파고든다. 당신이 움찔거리자 그는 재밌다는 듯이 당신의 두 허벅지 사이로 손을 더 깊숙이 들이밀었다.",
+                    "<br>\"아빠라고 부르며 애원하면 조금 봐주마.\""
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 허벅지를 오므렸다.",
+                        "stat" : "str",
+                        "difficulty" : 20,
+                        "success" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 허벅지를 오므리자 그는 어이없다는 듯이 웃으며 당신의 허벅지를 다시 벌리려고 했다. 하지만 데릭은 당신의 힘을 이길 수 없었다. 몇 번을 당신의 허벅지를 벌리려던 데릭은 짜증이 역력한 얼굴로 고개를 들었다. 그가 뭐라고 하기도 전에 당신은 그대로 그를 밀치고 도망가버렸다.",
+                                    "다시 돌아봤을 때 데릭은 짜증을 내며 잔에 술을 따르고 있었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": -3 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": 10 }
+                                ]
+                            }
+                        ],
+                        "fail" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 허벅지를 오므리자 그는 어이없다는 듯이 웃으며 당신의 허벅지를 쫘악 벌려버렸다. 배려없는 손동작에 당신은 비명을 지를 뻔했다. 그는 당신의 허벅지를 붉어질 때까지 꽉 잡아서 누르더니 그대로 머리를 당신의 허벅지 사이로 들이밀었다. 그는 자신을 아빠라고 부를 때까지는 안 놓아줄 거라고 말한 후 그대로 당신의 비밀스러운 공간을 핥기 시작했다. 당신이 다리를 파닥거렸지만 그는 정말로 당신의 입에서 아빠라는 단어가 나올 때까지는 놓아주지 않았다.",
+                                    "<br>결국 당신이 그를 아빠라고 불렀지만, 돌아오는 대답은 당신이 원한 대답이 아니었다.",
+                                    "<br>\"안 들리는 구나, 내 {dericTitle}. 조금 더 큰 소리로 말해보렴.\"<br>",
+                                    "결국 당신은 그가 만족할 때까지 리밍을 당해야만 했다...."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": 1 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 10 },
+                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -50 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 7 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 7 },
+                                    { "target": "time", "amount": 30 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 애교스럽게 아빠라고 부르며 애원했다.",
+                        "stat" : "charm",
+                        "difficulty" : 27,
+                        "success" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신이 도발적으로 아빠라 부르며 오히려 그를 더 압박해오자 순간 데릭의 숨이 멎었다.",
+                                    "<br>\"...아빠를 노리는 구나, 우리 공주님.\"<br>",
+                                    "그는 당신을 안아든 채로 그대로 소파 위로 쓰러졌다. 당신은 데릭의 품에 갇혔다. 무릎 위로 그의 성난 성기가 느껴져서 당신은 당신도 모르게 웃었다.",
+                                    "<br>\"...앙큼하긴.\"<br>",
+                                    "당신의 미소를 본 데릭의 미소는 굳었다가 금방 부드럽게 휘어졌다. 그의 입술이 당신의 목에 닿는다. 평소보다 급하게 그는 당신의 몸을 탐했다. 그는 허벅지 안쪽의 당신의 여린 살결을 어루만지며 어디 밑은 얼마나 잘하나 볼까, 라고 속삭였다.",
+                                    "<br>여유로운 척하고 있었지만, 그의 숨소리는 이미 흐트러져 있었다. 당신은 그가 지칠 때까지 어울려주었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": 5 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": -5 },
+                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -70 },
+                                    { "target": "sensitivity", "key": "bSensitivity", "amount": 4 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 4 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 4 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 4 },
+                                    { "target": "time", "amount": 40 }
+                                ]
+                            }
+                        ],
+                        "fail" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "당신의 도발적인 애교에 데릭은 웃더니 그대로 당신을 끌어안고 소파로 눕혀버렸다. 그는 당신을 자신의 두 팔 안에 가둔 채 입술로 당신의 목을 문질렀다. 그의 타액이 목에서부터 가슴까지 줄을 긋는다. 가슴골까지 내려온 그의 혀는 유두를 핥다가 이내 손가락으로 당신의 유두를 돌리기 시작했다. 당신의 몸이 자극에 차츰 떨려오기 시작했다.",
+                                    "그는 두 번째 손가락을 세워 도돌도돌 작게 일어난 부분을 부드럽게 문질렀다. 당신의 유두가 자극에 경련했다. 그리고 그 경련은 그의 첫번째 손가락에 고스란이 전해졌다. 데릭의 낮은 웃음 소리가 당신의 가슴을 타고 흐른다. 그는 당신의 경련을 이제 막 길들여지기 시작한 동물의 사랑스러운 몸짓이라도 되는 것처럼 흡족해했다.",
+                                    "<br>\"아직 안 끝났어, {dericTitle}.\"<br>",
+                                    "당신은 그가 만족할 때까지 소파에서 벗어날 수 없었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": 2 },
+                                    { "target": "npc", "npc": "deric", "key": "dominance", "amount": 5 },
+                                    { "target": "npc", "npc": "deric", "key": "lust", "amount": -50 },
+                                    { "target": "sensitivity", "key": "cSensitivity", "amount": 7 },
+                                    { "target": "sensitivity", "key": "bSensitivity", "amount": 7 },
+                                    { "target": "sensitivity", "key": "aSensitivity", "amount": 7 },
+                                    { "target": "sensitivity", "key": "mSensitivity", "amount": 7 },
+                                    { "target": "time", "amount": 45 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
         "deric_afterAct3Collapse" : [
             {
                 "type" : "text",

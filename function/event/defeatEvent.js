@@ -92,6 +92,52 @@ const aboFlowerDefeat = [
     }
 ]
 
+const whiteAbominationDefeat = [
+    {
+        id : "whiteAbomination_defeat",
+        weight : 100,
+        scene : [
+            {
+                type : "text",
+                value : [
+                    "백색 흉물은 당신의 힘을 흡수하려는 듯이 당신의 살을 뜯어먹으려고 했다. 아작, 하는 소리와 함께 당신의 살이 씹혔다. 질겅질겅 당신의 살을 씹던 백색 흉물은 당신의 몸에서 입을 뗐다. 그러더니 당신의 살을 핥기 시작했다. 백색 흉물의 촉수들이 당신의 온 구멍을 침범한다. 역겨우면서도 달콤한 냄새가 당신의 정신을 흐릿하게 만든다." +
+                    "끈적끈적한 애액이 당신의 몸에 한가득이었다. 어느새 당신의 뱃속에는 흉물의 생명이 싹트고 있었다. 당신의 몸에 숙주하는 기생체까지 넣었으니 이제 볼 일이 없다고 생각했는지 당신을 버려두고 백색 흉물은 다시 힘을 찾으러 꿈틀꿈틀 움직였다." +
+                    "<br><br><br>당신은 어떻게든 살아남을 수 있었다. 어떻게든 구석으로 기어간 당신은 그대로 정신을 잃었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.status.trauma = Math.min(                        
+                    player.status.maxTrauma,
+                    player.status.trauma + 30
+                );
+                passTime(player, 10);
+                if (player.gender === "male"){
+                        changeSensitivity(player, "aSensitivity", 10);
+                        changeSensitivity(player, "mSensitivity", 10);
+                        changeSensitivity(player, "cSensitivity", 10);
+                        changeSensitivity(player, "bSensitivity", 10);
+                        addBodyFluid(player, "a", 150);
+                        addBodyFluid(player, "m", 80);
+                    } else {
+                        changeSensitivity(player, "aSensitivity", 10);
+                        changeSensitivity(player, "mSensitivity", 10);
+                        changeSensitivity(player, "cSensitivity", 10);
+                        changeSensitivity(player, "bSensitivity", 10);
+                        addBodyFluid(player, "a", 100);
+                        addBodyFluid(player, "c", 100);
+                        addBodyFluid(player, "m", 100);
+                    }          
+                    infectAbomination(player);
+                    savePlayer(player);              
+                }
+                
+            }
+        ]
+    }
+]
+
 const DEFEAT_EVENTS = {
     abomination2 : abominationDefeat,
     abomination3 : abominationDefeat,
@@ -101,6 +147,7 @@ const DEFEAT_EVENTS = {
     experimentAboFlower1 : aboFlowerDefeat,
     experimentAboFlower2 : aboFlowerDefeat,
     experimentAboFlower3 : aboFlowerDefeat,
+    whiteAbomination1 : whiteAbominationDefeat,
 
     rapistM : [
         {

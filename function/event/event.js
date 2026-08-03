@@ -70,7 +70,8 @@ const ENEMY_POOLS = {
 
     townEntrance_act3 : [
         { id : "abominatedBird", weight : 40 },
-        { id : "abominatedBoar", weight : 60 }
+        { id : "abominatedBoar", weight : 60 },
+        { id : "abomination1", weight : 30 }
     ],
 
     forest_act3 : [
@@ -89,11 +90,12 @@ const ENEMY_POOLS = {
     ],
 
     wastedRuin : [
-        { id : "abomination2", weight : 20},
-        { id : "abomination3", weight : 40 },
+        { id : "abomination2", weight : 25},
+        { id : "abomination3", weight : 30 },
         { id : "abomination4", weight : 30 },
-        { id : "experimentAboFlower1", weight : 10 },
-        { id : "experimentAboFlower2", weight : 10 }
+        { id : "whiteAbomination1", weight : 10 },
+        { id : "whiteAbomination2", weight : 10 },
+        { id : "whiteAbomination3", weight : 5 }
     ],
 
     whiteFlowerTomb : [

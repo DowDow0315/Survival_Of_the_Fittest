@@ -780,6 +780,7 @@ window.EVENTS.push({
 
     action : (player) => {
         player.flags.dericTwinsMansionAdmission = true;
+        changeNPCEmotion("deric", "dominance", 10);
         savePlayer(player);
 
         startScene(
@@ -867,6 +868,32 @@ window.EVENTS.push({
                     savePlayer(player);
                     startScene(getLocationScene(player), player);
                 }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_confession_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !hasNpcRelationship("deric", "lover") &&
+        !hasNpcRelationship("deric", "spouse") &&
+        NPC_DATA["deric"].emotion.affection >= 90 &&
+        NPC_DATA["deric"].emotion.dominance <= 40,
+
+    action : (player) => {
+        player.flags.deric_confession_01 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_confession_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
             }
         );
     }
@@ -1636,6 +1663,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "kain_suspicion_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        getNpcSuspicion("kain") >= 50 &&
+        getNpcSuspicion("kain") < 70 &&
+        ( player.flags?.kain_suspicion_01_day == null || getCurrentDay(player) >= player.flags.kain_suspicion_01_day + 7 ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.kain_suspicion_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_suspicion_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //줄리앙
 window.EVENTS.push({
     id: "juliang_firstMeeting",
@@ -1810,6 +1863,25 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "aiden_hisSight_02",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.uppercityHero &&
+        player.location === "richTownEntrance",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["aiden"].scenes.aiden_hisSight_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //랜덤이벤트
 window.EVENTS.push({

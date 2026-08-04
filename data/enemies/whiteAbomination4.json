@@ -1,7 +1,7 @@
 {
     "name": "모방의 백흉물",
     "hp": 550,
-    "attack": 50,
+    "attack": 51,
     "defense": 49,
     "eva": 57,
     "lustResist" : 1,

@@ -78,6 +78,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("sora", "affection", -10);
                                     changeNPCEmotion("luke", "affection", 10);
                                     changeNPCEmotion("sora", "rage", 10);
+                                    changeNpcSuspicion("luke", 3);
                                     passTime(player, 10);
                                     savePlayer(player);
                                 }
@@ -173,6 +174,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("sora", "affection", 5);
                                     changeNPCEmotion("luke", "affection", -8);
                                     changeNPCEmotion("sora", "rage", -3);
+                                    changeNpcSuspicion("luke", 3);
                                     passTime(player, 10);
                                     savePlayer(player);
                                 }
@@ -541,6 +543,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("sora", "affection", 3);
                                     changeNPCEmotion("matin", "affection", -20);
                                     changeNPCEmotion("matin", "rage", 10);
+                                    changeNpcSuspicion("matin", 3);
                                     savePlayer(player);
                                 }
                             }
@@ -965,6 +968,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("deric", "dominance", 5);
                                     changeNPCEmotion("deric", "affection", 2);
                                     changeNPCEmotion("deric", "rage", -5);
+                                    changeNpcSuspicion("kain", 4);
                                     passTime(player, 30);
                                     savePlayer(player);
                                 }   
@@ -1030,6 +1034,8 @@ window.EVENTS.push({
                                     changeNPCEmotion("kain", "rage", 15);
                                     changeNPCEmotion("deric", "rage", -3);
                                     changeNPCEmotion("deric", "dominance", 3);
+                                    changeNpcSuspicion("kain", 10);
+                                    changeNpcSuspicion("deric", -5);
                                     savePlayer(player);
                                 }
                             }
@@ -1057,6 +1063,8 @@ window.EVENTS.push({
                                     changeNPCEmotion("kain", "affection", 5);
                                     changeNPCEmotion("deric", "affection", -5);
                                     changeNPCEmotion("deric", "rage", 10);
+                                    changeNpcSuspicion("kain", -10);
+                                    changeNpcSuspicion("deric", 3);
                                     player.location = "gloryStreet";
                                     savePlayer(player);
                                 }

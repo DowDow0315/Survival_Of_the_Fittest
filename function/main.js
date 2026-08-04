@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     player = normalizePlayer(player);
     player.flags = player.flags || {};
 
+    updateSuspicionToggleButton();
+
     updateDailyWeather(player);
 
     await loadAllNPCData();
@@ -999,6 +1001,84 @@ function isNpcPartner(npcId){
     );
 }
 
+//의심도 함수
+function getNpcSuspicion(npcId){
+    if (!isSuspicionSystemEnabled()){
+        return 0;
+    }
+
+    const npc = NPC_DATA[npcId];
+
+    if (!npc || !isNpcPartner(npcId)){
+        return 0;
+    }
+
+    return Number(npc.relationship?.suspicion) || 0;
+}
+
+function changeNpcSuspicion(npcId, amount){
+    if (!isSuspicionSystemEnabled()){
+        return false;
+    }
+
+    const npc = NPC_DATA[npcId];
+
+    // lover 또는 spouse일 때만 변화
+    if (!npc || !isNpcPartner(npcId)){
+        return false;
+    }
+
+    npc.relationship.suspicion = clamp(
+        getNpcSuspicion(npcId) + amount,
+        0,
+        100
+    );
+
+    saveNpcProgressToLocalStorage();
+    updateStatusUI(player);
+
+    return true;
+}
+
+window.changeNpcSuspicion = changeNpcSuspicion;
+
+//의심도 토글
+function isSuspicionSystemEnabled(){
+    return player?.settings?.suspicionSystemEnabled !== false;
+}
+
+function setSuspicionSystemEnabled(enabled){
+    player.settings = player.settings || {};
+    player.settings.suspicionSystemEnabled = Boolean(enabled);
+
+    savePlayer(player);
+    updateSuspicionToggleButton();
+}
+
+function toggleSuspicionSystem(){
+    setSuspicionSystemEnabled(
+        !isSuspicionSystemEnabled()
+    );
+}
+
+function updateSuspicionToggleButton(){
+    const button = document.getElementById("suspicionToggleBtn");
+    if (!button) return;
+
+    const enabled = isSuspicionSystemEnabled();
+
+    button.textContent = enabled
+        ? "의심도 시스템: ON"
+        : "의심도 시스템: OFF";
+
+    button.style.color = enabled
+        ? "greenyellow"
+        : "#aaa";
+}
+
+window.setSuspicionSystemEnabled = setSuspicionSystemEnabled;
+window.toggleSuspicionSystem = toggleSuspicionSystem;
+
 function getNpcEmotionMax(npcId, key){
     if (
         npcId === "nikolai" &&
@@ -1124,9 +1204,19 @@ function setNpcRelationship(npcId, type){
     if (!type){
         npc.relationship = null;
     } else {
-        npc.relationship = { type };
+        const previousType = npc.relationship?.type;
+        let suspicion = Number(npc.relationship?.suspicion) || 0;
+        if (
+            previousType === "broken" &&
+            (type === "lover" || type === "spouse")
+        ){
+            suspicion = 0;
+        }
+        npc.relationship = {
+            type,
+            suspicion
+        };
     }
-
     saveNpcProgressToLocalStorage();
 }
 

@@ -944,6 +944,26 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "sora_eagers_you",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.abominationsTownStreetAttackSora &&
+        player.location === "darkStreet",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_eagers_you,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라 개인퀘스트
 window.EVENTS.push({
     id : "sora_drug_02_unlock_event",

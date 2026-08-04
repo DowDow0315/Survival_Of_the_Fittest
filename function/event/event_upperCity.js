@@ -1788,6 +1788,29 @@ window.EVENTS.push({
     }
 });
 
+//에이든
+window.EVENTS.push({
+    id: "aiden_hisSight_01",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.yuriDie &&
+        player.flags?.abominationsTownStreetAttackAiden &&
+        player.location === "darkStreet",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["aiden"].scenes.aiden_hisSight_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+
 //랜덤이벤트
 window.EVENTS.push({
     id : "uppercity_hero_01",

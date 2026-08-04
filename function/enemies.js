@@ -45,7 +45,7 @@ function getLine(enemy, type){
 async function loadEnemies(){
     const list = [
         "deer", "bird", "abominatedBoar", "abominatedBird",
-        "rapistM", "rapistF", "slime", "goblin",
+        "rapistM", "rapistF", "slime", "goblin", "abominatedGoblin", "abominatedGoblinKing",
         "flower", "flower2", "flower3", "flower4", "flower5", "soraFather", "flower6", "soraFather2",
         "begger", "beggers", "goblinKing",
         "skeleton", "skeletonEnhanced", "skeletonWheel", "skeletonBig", "skeletonKnight",
@@ -59,7 +59,7 @@ async function loadEnemies(){
         "scientist1", "scientist2",
         "experimentAboFlower1", "experimentAboFlower2", "experimentAboFlower3", "experimentTeacher",
         "whiteAbomination1", "whiteAbomination2", "whiteAbomination3", "whiteAbomination4",
-        "abominatedWhiteArmy1", "abominatedRebels1", "abominatedWhiteArmy2", "abominatedRebels2"
+        "abominatedSoldier1", "abominatedSoldier2", "abominatedWhiteArmy1", "abominatedRebels1", "abominatedWhiteArmy2", "abominatedRebels2"
     ];
 
     for (const name of list){

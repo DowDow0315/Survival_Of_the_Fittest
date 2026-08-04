@@ -407,6 +407,7 @@ window.EVENTS.push({
                                 type : "effect",
                                 run : (player) => {
                                     changeNPCEmotion("valen", "affection", -10);
+                                    changeNPCEmotion("aiden", "affection", -10);
                                     savePlayer(player);
                                 }
                             }
@@ -482,3 +483,167 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_05_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        ["shelter", "goldenShelter"].includes(player.location) &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_05_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_05_done_day + 1),
+
+    action : (player) => {
+        player.flags.upper_route_quest_05_after = true;
+        player.flags.upper_route_quest_05_after_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 쉘터에 들어가서 몸을 눕히려는 순간, 멀리서 땅을 뒤흔드는 광음이 터졌다. 당신은 자리에서 벌떡 일어났다. 쉘터의 어린아이들이 비명을 지르면서 주저앉았다. 당신은 급하게 밖으로 뛰쳐나왔다." +
+                    "<br>길거리에 나왔지만 보이는 것은 아무것도 없었다. 그저 하얀 꽃잎 한 장이 길바닥 위로 천천히 떨어졌을 뿐이었다. 광음 때문에 놀라서 나온 길거리의 사람들도 어안이 벙벙한 얼굴로 주변을 둘러보았다." +
+                    "<br><br>\"...실험실 하나가 폭발했습니다.\"<br><br>" +
+                    "에이든이다. 그는 당신과 시선이 마주치자 예의를 갖춰 한 번 더 인사를 올렸다. 어떤 실험실이냐고 묻자 에이든은 목소리를 낮췄다. 저번 연구소와 마찬가지로 흉물과 하얀 꽃을 결합해, 스스로 판단하고 싸울 수 있는 존재를 만들던 곳이라고 했다.<br><br>" +
+                    "\"...연구소가 안에서부터 터졌습니다. 남긴 기록을 보면, 백색 흉물 하나가 연구소로 들어왔다고 합니다. 그리고 소식이 끊겨버렸습니다.\"<br><br>" +
+                    "에이든은 해당 연구소에 이미 백색 군단이 투입되었다고 말했다." +
+                    "<br><br>\"발렌님께서 언제 당신의 힘이 필요할지 모릅니다. 준비를 해두고 계십시오.\"<br><br>" +
+                    "그리고 에이든은 다시 어둠 속으로 사라졌다. 그의 눈만이 어둠 속에서 순간적으로 반짝였을 뿐이었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_05_after_abominationAttack",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_05_after &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_05_after_day + 4),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"비켜, 비켜!\"<br><br>" +
+                    "경계병 한 명이 경비병을 부축하고 걸어가고 있었다. 마을 입구에서부터 걸어온 건가? 대체 어디로 가고 있는 거지? 백색 군단은 경계병이 걸어오자 기다렸다는 듯이 그를 맞이했다. 경계병이 경비병을 그들에게 넘기려는 순간, 경비병의 몸이 기괴하게 비틀렸다." +
+                    "<br><br>\"이게 대체 뭐....\"<br><br>" +
+                    "그가 말을 제대로 끝맺기도 전에, 경비병의 입에서 튀어나온 흉물이 그대로 경계병의 얼굴을 먹어버렸다. 뒤늦게 정신을 차린 백색 군단이 무기를 들었다. 그들은 당신을 보더니 위험하니까 가까이 가지 말라고 말했다." +
+                    "<br><br>\"가까이 갔다가는...\"<br><br>" +
+                    "\"뭐야, 무슨 일이야!\"<br><br>" +
+                    "경계병과 경비병들이 합세하여 흉물에게 얼굴이 삼켜진 경계병을 돕기 위해 흉물을 공격했다. 루크는 그들의 가장 앞에 있었다. 그는 아무렇지도 않게 권갑을 흉물의 옆구리에 박아넣었고, 흉물은 그르륵거리는 소리와 함께 다시 수그러들었다. 그동안 경계병들과 경비병들은 흉물에 먹혔던 경계병을 구해낼 수 있었다." +
+                    "<br><br>\"그럼 내가 막사에 갈 테니까...\"<br><br>" +
+                    "\"위험합니다!\"<br><br>" +
+                    "백색 군단이 당신의 팔을 뒤로 낚아챘다. 그 순간, 얼굴이 먹혔던 경계병의 입에서 똑같이 흉물이 튀어나오더니 옆의 경비병들의 얼굴을 삼키기 시작했다. 비명 소리가 울린다. 당신은 백색 군단과 함께 무기를 쥐었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : "startUpperQuest05AfterBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startUpperQuest05AfterBattle = function(player){
+
+    startBattle(["abominatedSoldier1", "abominatedSoldier1"], player, {
+        noEscape : true,
+        onWin : () => startUpperQuest05AfterBattle1Event(player),
+        onLose : () => startUpperQuest05AfterBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startUpperQuest05AfterBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신은 흉물을 쓰러뜨렸지만, 금세 다른 오염된 사람들에게 둘러싸였다. 당신은 당신의 무기를 다시금 쥐었다. 옆에서 반란군으로 보이는 사람들이 사람들을 지키기 위해 싸우는 모습이 보인다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle(["abominatedSoldier1", "abominatedSoldier1", "abominatedSoldier2"], player, {
+                    noEscape: true,
+                    onWin: () => startUpperQuest05AfterBattle2Event(player),
+                    onLose: () => startUpperQuest05AfterBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startUpperQuest05AfterBattle2Event = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...다치지는 않으셨습니까?\"<br><br>" +
+                "에이든이다. 그는 당신에게 다가와 상태를 살피더니 낮게 한숨을 쉬었다. 그는 흉물로 오염된 개체에는 가까이 가면 안 된다고 말했다." +
+                "<br><br>\"백색 흉물이 실험실에서 탈출한 이후로 흉물들이 점점 기생체의 행동을 따라하고 있다고 합니다. 조심하셔야 합니다.\"<br><br>" +
+                "에이든의 손이 당신의 옷깃에 닿았다. 그는 아무렇지도 않게 당신의 옷에 묻은 검붉은 것을 털어내더니 자신의 흰색 장갑을 바닥에 버렸다." +
+                "<br><br>\"저새끼도 위험한 거 아냐?\"<br><br>" +
+                "살아남은 하류도시 사람들은 이제 루크마저 위험 대상으로 몰고 있었다. 마을 밖으로 쫓아내야 한다는 말에 몇 명이 동조했다. 몇몇 경비병들이 그 말에 항의했다. 루크의 상처는 오래 됐지만 아직까지 별다른 반응을 보이지 않았다, 루크가 없었으면 우리들은 더 죽었을 것이다.... 에이든은 그들을 무표정으로 응시했다." +
+                "<br><br>\"...루크는 아직 쓸모가 있습니다. 이쯤에서 상황을 정리해야겠습니다.\"<br><br>" +
+                "에이든의 손짓이 떨어지자, 백색 군단은 능숙하게 질서를 정리하기 시작했다. 사람들이 다시 흩어진다. 루크에 대한 비난은 멈췄지만 그래도 어수선한 분위기는 계속 남아있었다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.abominationsTownStreetAttack = true;
+            player.flags.abominationsTownStreetAttack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.startUpperQuest05AfterBattleLosingEvent = function(player){
+    startScene([      
+        {
+            type : "text",
+            value : [
+                "당신은 흉물의 공격을 버티지 못하고 쓰러졌다. 하지만 그 순간, 백색 군단이 당신의 주변을 둘러싸며 당신을 지켜주었다." +
+                "<br><br>\"괜찮습니까?\"<br><br>" +
+                "한 번의 실수로 죽어나가는 사람들과는 다르게, 당신은 그들에게 보호를 받고 있다. 흉물에 감염된 개체를 쓰러뜨린 에이든은 당신을 힐끗 보더니 영웅님을 최우선으로 보호하라고 말했다. 에이든의 명령을 마지막으로 당신은 정신을 잃었다...."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "다시 일어났을 때 에이든이 당신의 목에 물수건을 대고 있었다. 그는 당신이 눈을 뜨자마자 더 불편한 곳은 없냐고 물었다." +
+                "<br><br>\"당신은 아직은 쓰러지시면 안 됩니다.\"<br><br>" +
+                "그는 당신에게서 손을 뗐다. 그리고 당신이 걸어갈 수 있는지 확인한 후에야 비로소 자리를 떴다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.abominationsTownStreetAttack = true;
+            player.flags.abominationsTownStreetAttackAiden = true;
+            player.flags.abominationsTownStreetAttack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};

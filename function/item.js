@@ -1182,6 +1182,50 @@ const WEAPON_SKILLS = {
         }
     ],
 
+    "몰락한 고블린왕의 검" : [
+        {
+            name : "몰락한 왕의 위엄",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "fallenGoblinKingSword_buff",
+                atkMult : 1.5,
+                defMult : 1.5
+            },
+            duration : 5,
+            unlock : 20,
+            desc : "5턴 동안 공격력 1.5배, 방어력 1.5배"
+        },
+        {
+            name : "연화참",
+            cost : 3,
+            type : "multiHit",
+            power : 1.6,
+            hits : 4,
+            unlock : 100,
+            desc : "데미지 1.6배로 4번 공격" 
+        },
+        {
+            name: "꽃피는 검상",
+            cost: 3,
+            type: "bleed",
+            id : "fallenGoblinKingSword_bleed",
+            dot: 25,
+            duration: 4,
+            unlock: 150,
+            desc : "4턴간 상대방에게 출혈데미지(25)"
+        },
+        {
+            name : "검꽃폭발",
+            cost : 3,
+            type : "drainHp",
+            power : 4,
+            healRate : 0.5,
+            unlock : 200,
+            desc : "데미지 4배 공격 및 데미지 기반 0.5 힐"
+        }
+    ],
+
     "호박쌍검" : [
         {
             name : "보이지 않는 공격",
@@ -1232,9 +1276,9 @@ const WEAPON_SKILLS = {
             name : "펀치",
             cost : 1,
             type : "damage",
-            power : 2,
+            power : 1.5,
             unlock : 20,
-            desc : "데미지 2배 공격"
+            desc : "데미지 1.5배 공격"
         },
         {
             name: "가시주먹",
@@ -1429,6 +1473,12 @@ const MASTER_SKILLS = {
         requiredMastery : 300,
         skillName : "달콤한 사탕"
     },
+    "몰락한 고블린왕의 검" : {
+        requiredMastery : 300,
+        skillName : "연화참"
+    },
+
+
     "호박쌍검" : {
         requiredMastery : 300,
         skillName : "화려한 피의 춤"
@@ -1770,6 +1820,19 @@ const ITEMS ={
                 dex : 3,
                 int : 3,
                 charm : 6
+            }
+        },
+
+        fallenGoblingKingSword : {
+            name : "몰락한 고블린왕의 검",
+            type : "weapon",
+            desc : "한때는 정점에 섰으나 결국에는 몰락하여 시체마저 쓰이고 있는 왕",
+            price : 3500,
+            stats : {
+                str : 10,
+                dex : 4,
+                int : 1,
+                charm : 1
             }
         },
 

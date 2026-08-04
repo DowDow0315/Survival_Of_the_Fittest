@@ -419,3 +419,172 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_05_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_05_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_05_done_day + 1),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_05_after = true;
+        player.flags.rebel_route_quest_05_after_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 도착한 당신을 반란군들이 맞이했다. 그들은 그 안에서 무엇을 봤냐고 물었고, 당신은 그들에게 동굴에서 봤던 것들에 대해 얘기했다. 특히 에르윈의 얘기가 나왔을 때 그들의 표정이 굳었다. 그들은 아렌에게는 더 이상 남은 가족이 없다고 말하며, 무슨 일이 있어도 에르윈은 더 이상 누구에게도 뺏길 수 없다고 말했다." +
+                    "<br><br>\"...그나저나 하얀 꽃잎을 먹는 백색 흉물이라.... 하얀 꽃 마물의 특성을 이어받게 될까봐 두렵습니다.\"<br><br>" +
+                    "\"애초에 흉물에 대적하기 위해 흉물을 이용하자는 생각은 어떤 똥통 대가리에서 나온 거야?\"<br><br>" +
+                    "그들은 이 이상의 실험은 계속되면 안 된다고 말했다." +
+                    "<br><br>\"그러려면 발렌을....\"<br><br>" +
+                    "그 순간 멀리서 땅을 뒤흔드는 광음이 터졌다. 쉘터의 벽이 낮게 떨리고 천장에서 먼지가 우수수 떨어졌다. 갑작스러운 소리에 쉘터의 어린아이들이 비명을 질렀고, 반란군들과 당신은 황급히 길거리로 뛰쳐나갔다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "길거리로 나왔지만 눈에 띄는 것은 아무것도 없었다. 사람들은 어안이 벙벙한 얼굴로 주변을 둘러보았다. 다만 어디선가 날아온 것인지, 하얀 꽃잎 하나가 길바닥 위로 천천히 떨어졌다." +
+                    "<br><br>\"...이 광음이 아무 것도 아닐 리가 없어.\"<br><br>" +
+                    "반란군들이 당신을 바라보았다." +
+                    "<br><br>\"저희는 앞으로 이 광음에 대해서 알아보겠습니다. 하류도시의 영웅님도 뭔가 찾게 된다면 저희에게 알려주시길 바랍니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_05_after_abominationAttack",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_05_after &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_05_after_day + 4),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 지나던 당신은 경계병이 경비병을 부축하고 가는 것을 보았다. 경비병은 흉물에 오염된 듯 정신을 못 차리고 있었다. 경계병은 쌍욕을 하며 흉물 녀석들은 가만두지 않을 거라고 으르렁거렸다. 그 순간, 당신은 부축당하고 있던 경비병의 몸이 기괴하게 꺾이는 것을 보았다." +
+                    "<br><br>\"대체 뭐...\"<br><br>" +
+                    "말이 끝나기도 전에 경비병의 입에서 나온 흉물이 경계병의 얼굴을 꿀꺽 삼켜버렸다. 길거리 여기저기에서 비명 소리가 들린다. 경비병은 삐걱거리며 경계병의 머리를 흉물로 먹은 채 주변을 둘러보았다. 흉물 촉수가 여기저기로 뻗어나간다." +
+                    "<br><br>\"이런, 씨발, 지금 뭐 하는 거야? 포위해!\"<br><br>" +
+                    "순찰을 돌고 오는 길이었는지 루크가 명령하는 소리가 들렸다. 그는 언제나처럼 그들의 가장 앞에 있었다. 경비병들과 경계병들은 힘을 합쳐서 공격했고 흉물은 결국 경계병을 뱉어냈다. 경계병의 얼굴은 검붉게 들끓고 있었다. 다른 경계병 한 명이 그를 부축하며 먼저 막사로 돌아가겠다고 말했다." +
+                    "<br><br>경계병의 얼굴에서 솟아오른 촉수가 그를 삼키기 전까지.<br><br>" +
+                    "비명소리가 더 커진다. 경비병과 경계병이 흉물을 죽이기도 전에 흉물은 금방 다른 숙주들을 찾아서 삼켜버렸다. 당신은 무기를 쥐었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelQuest05AfterBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startRebelQuest05AfterBattle = function(player){
+
+    startBattle(["abominatedSoldier1", "abominatedSoldier1"], player, {
+        noEscape : true,
+        onWin : () => startRebelQuest05AfterBattle1Event(player),
+        onLose : () => startRebelQuest05AfterBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startRebelQuest05AfterBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신은 흉물을 쓰러뜨렸지만, 금세 다른 오염된 사람들에게 둘러싸였다. 당신은 당신의 무기를 다시금 쥐었다. 옆에서 백색 군단이 대열을 유지하며 오염된 개체들을 제압하는 것이 보인다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle(["abominatedSoldier1", "abominatedSoldier1", "abominatedSoldier2"], player, {
+                    noEscape: true,
+                    onWin: () => startRebelQuest05AfterBattle2Event(player),
+                    onLose: () => startRebelQuest05AfterBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startRebelQuest05AfterBattle2Event = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "흉물들을 이기고 돌아보니, 길거리에는 시체들만 가득했다. 백색 군단은 당신을 보긴 했지만, 아무런 인사도 없이 그대로 자신의 대열로 돌아갔다. 루크는 오염되지 않은 부상병들을 살피며 욕을 내뱉었다." +
+                "<br><br>\"그 상처!\"<br><br>" +
+                "마을 사람들 중 누군가가 루크의 상처를 가리켰다. 많은 사람들이 루크의 밴드로 가려지지 않은 검붉은 자국을 보았다.<br><br>" +
+                "\"저새끼도 변하는 거 아냐?\"<br><br>\"마을에서 내쫓아야 하는 거 아냐?\"<br><br>" +
+                "여기저기서 웅성거리는 소리가 들린다. 경비병들 중 몇 명이 부상 입은 몸을 이끌고 루크의 앞에 서서 말도 안 되는 소리 하지 말라고 말했다. 그들은 루크는 이 상처를 입은 뒤로도 오랫동안 아무런 변화를 보이지 않았고, 여기서 마을밖으로 내쫓는 것은 죽으라는 소리나 다름없다는 말을 했다. 분위기가 점점 사나워진다." +
+                "<br><br>\"씨발, 날 여기서 쫓아낸다고? 어디 한 번 해보든가.\"<br><br>" +
+                "어디 한 번 힘으로 날 끌어낼 수 있으면 끌어내봐라. 루크의 당당한 태도에 웅성거리는 소리들이 조금 수그러들었다. 백색 군단은 루크의 태도에 혀를 차긴 했지만 별 말은 하지 않았다. 그들은 루크의 통솔력이 그나마 하류도시 체제를 유지하고 있다는 걸 알고 있었다. 상황은 일단락되었지만 어수선한 분위기는 쉽사리 가라앉지 않았다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.abominationsTownStreetAttack = true;
+            player.flags.abominationsTownStreetAttack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.startRebelQuest05AfterBattleLosingEvent = function(player){
+    startScene([      
+        {
+            type : "text",
+            value : [
+                "당신은 흉물의 공격을 버티지 못했다. 당신이 쓰러지자 흉물들은 당신을 좋은 숙주라고 생각했는지 한번에 당신에게 달려들었다." +
+                "<br><br>그 순간, 누군가 당신을 끌어안았다.<br><br>" +
+                "...소라." +
+                "<br><br>일순간 흉물들은 소라에게 다가오지 못했다. 무언가를 감지한 듯 그들은 서로를 바라보았고 소라는 그 틈을 타서 당신을 질질 구석으로 끌고 갔다. 뒤에서 사람들의 비명 소리가 들린다. 하지만 소라는 당신의 귀를 막으며, 당신에게만 들릴 목소리로 속삭였다." +
+                "<br><br>\"괜찮아. 내가 너를 지켜줄 테니까.\""
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신은 의식을 잃었다가 다시 눈을 떴다. 길거리의 분위기가 어수선하다. 사람들은 흉물에 오염되었던 시체를 건드리는 것도 두려워했다. 불태워버려! 어딘가에서 사나운 목소리가 울렸고, 사나운 목소리에 맞서서 울음 소리가 울렸다." +
+                "<br><br>\"내 가족이야! 내 가족이라고! 적어도 장례식 정도는...\"<br><br>" +
+                "사람들끼리 싸우기 시작한다. 당신은 비틀거리면서 자리에서 일어났다. 하류도시에 잔류한 백색 군인들은 상류도시에 남은 병력보다 훨씬 적었다. 그들 중 몇몇은 당장 상류도시로 돌아가고 싶다며 인상을 찌푸렸다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.abominationsTownStreetAttack = true;
+            player.flags.abominationsTownStreetAttackSora = true;
+            player.flags.abominationsTownStreetAttack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};

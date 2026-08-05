@@ -496,6 +496,7 @@ window.EVENTS.push({
         getCurrentDay(player) >= (player.flags.act3_quest_05_done_day + 1),
 
     action : (player) => {
+        player.location = "townStreet";
         player.flags.upper_route_quest_05_after = true;
         player.flags.upper_route_quest_05_after_day = getCurrentDay(player);
         savePlayer(player);

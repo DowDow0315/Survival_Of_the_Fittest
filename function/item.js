@@ -3227,21 +3227,21 @@ const ITEMS ={
             name : "훌륭한 마카롱",
             type : "stamina",
             value : 60,
-            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            tags : ["gift", "sweet", "nikolaiFavorite", "normal"],
             price : 1200
         },
         normalMacaron : {
             name : "마카롱",
             type : "stamina",
             value : 40,
-            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            tags : ["gift", "sweet", "nikolaiFavorite", "normal"],
             price : 1000
         },
         badMacaron : {
             name : "맛없는 마카롱",
             type : "stamina",
             value : 20,
-            tags : ["gift", "sweat", "nikolaiFavorite", "normal"],
+            tags : ["gift", "sweet", "nikolaiFavorite", "normal"],
             price : 750
         },
 

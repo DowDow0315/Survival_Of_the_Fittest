@@ -3963,6 +3963,7 @@ function getGiftTaste(item, npcId){
     if (tags.includes("meatBread")) return "meatBread";
     if (tags.includes("vegetableRice")) return "vegetableRice";
     if (tags.includes("meatRice")) return "meatRice";
+    if (tags.includes("spicy")) return "spicy";
 
     return "default";
 }

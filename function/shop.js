@@ -89,7 +89,7 @@ const SHOPS = {
             ITEMS.misc.fisherRod,
             
             ITEMS.consumable.beer,
-            ITEMS.consumable.whiskey,
+            ITEMS.consumable.wine,
             ITEMS.consumable.soju
         ]
     },

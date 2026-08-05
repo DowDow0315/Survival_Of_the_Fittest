@@ -866,6 +866,24 @@
                 ]
             }
         ],
+        "valen_about_missingPeople" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "발렌은 미소를 지으며 당신을 바라보았다.",
+                    "<br>\"...나약한 자들이나 이미 없어진 자들의 목소리에 끌리는 것입니다. 저희가 그런 자들까지 지켜줘야 할까요?\"<br>",
+                    "발렌은 당신이 착한 사람이라는 건 알지만, 아무리 당신이라고 해도 모두를 지켜낼 수는 없다고 말했다.",
+                    "<br>\"제 소중한 사람들은 나약하지 않아서 다행입니다.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "npc", "npc": "valen", "key": "affection", "amount": 1 },
+                    { "target" : "flag", "key" : "valen_about_missingPeople", "value" : true }
+                ]
+            }
+        ],
         "valen_myKnight_event" : [
             {
                 "type" : "text",

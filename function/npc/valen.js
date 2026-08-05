@@ -161,6 +161,13 @@ registerActions("valen",{
             });
         }
 
+        if (player.flags?.common_route_quest_06_mimicAbominationRumor_03 && !player.flags?.valen_about_missingPeople){
+            choices.push({
+                text: "당신은 발렌에게 목소리를 듣고 사라진 실종자들에 대해 뭔가를 알고 있냐고 물었다.",
+                scene: NPC_DATA.valen.scenes.valen_about_missingPeople
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "valen_giveFood"

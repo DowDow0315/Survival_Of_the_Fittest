@@ -854,6 +854,26 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_06" &&
+        !player.abominatedGoblinRaid?.active
+    ){
+        choices.push({
+            text: "실종자의 흔적을 쫓아서 간다.",
+            action: "start_abominatedGoblinRaid"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "abominatedGoblinRaid_cleanup" &&
+        !player.abominatedGoblinRaid?.active
+    ){
+        choices.push({
+            text: "흉물에 오염된 고블린들을 토벌하러 간다",
+            action: "start_abominatedGolbinRaid"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -877,6 +897,10 @@ window.start_rebelRaid = function(player){
 
 window.start_whiteArmyRaid = function(player){
     startWhiteArmyRaid(player);
+};
+
+window.start_abominatedGoblinRaid = function(player){
+    startAbominatedGoblinRaid(player);
 };
 
 

@@ -245,6 +245,13 @@ registerActions("luke", {
             });
         }
 
+        if (player.flags?.common_route_quest_06_mimicAbominationRumor_03 && !player.flags?.luke_ask_about_hisCheek){
+            choices.push({
+                text: "루크에게 뺨은 괜찮냐고 묻는다.",
+                scene: NPC_DATA.luke.scenes.luke_ask_about_hisCheek
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "luke_talk" });
 
         startScene([

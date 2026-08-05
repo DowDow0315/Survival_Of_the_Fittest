@@ -331,6 +331,33 @@ const QUESTS = {
         completeText: "마틴은 당신에게서 의뢰서를 받았다. <br><br>\"...다친 곳은 잘 치료해둬.\""
     },
 
+    abominatedGoblinRaid_cleanup: {
+        id: "abominatedGoblinRaid_cleanup",
+        title: "흉물에 오염된 고블린들 제거",
+        type: "boss",
+        bossName: "오염된 고블린 킹",
+        repeatable: true,
+        giver: "",
+        
+        desc: "가만히 두면 흉물에 오염된 고블린들은 계속 사람들의 삶을 파괴할 것이다.",
+        activeDesc: "흉물에 오염된 고블린들을 토벌하자.",
+        readyDesc: "당신은 미래의 하류도시 사람들의 인생을 조금이라도 구했다.",
+        
+        targetBoss: "abominatedGoblinKing",
+        requiredKill: 1,
+        
+        rewardGold: 31000,
+        
+        require: {
+            completedQuest: "act3_quest_06",
+            count: 1
+        },
+        
+        acceptText: "\"...고블린들은 오염이 되어도.\"<br><br>당신에게 의뢰서를 건네며 마틴은 인상을 썼다.<br><br>\"인간들을 가만히 내버려두지를 않는군.\"",
+        cancelText: "마틴은 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신의 의뢰서를 확인한 후 고개를 끄덕여보였다."
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -878,6 +905,35 @@ const QUESTS = {
 
         acceptText : "마틴은 당신이 의뢰서를 가져오자 인상을 찌푸렸다. <br><br>\"...그들에게 이용당하지 마.\"<br><br>마틴은 낮게 읆조리며 시선을 돌렸다.",
         completeText : "마틴은 당신의 표정을 살폈다. <br><br>\"...들어가서 조금이라도 쉬어.\""
+    },
+
+    act3_quest_06 : {
+        id : "act3_quest_06",
+        title : "깊은 숲에서 끊긴 흔적",
+        type: "boss",
+        bossName : "실종자 수색",
+        repeatable : false,
+        giver : "",
+        
+        desc : "흔적은 깊은 숲에서 끊겼다.",        
+        activeDesc : "깊은 숲에서부터 흔적을 따라가자.",
+        readyDesc : "당신이 구할 수 있는 사람은 없었다. 주점에 보고하러 가자.",
+        
+        targetBoss: "abominatedGoblinKing",
+        requiredKill: 1,
+        rewardGold: 33000,
+
+        require : {
+            flag : "act3_quest_06_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_06_done = true;
+            player.flags.act3_quest_06_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 당신이 의뢰서를 가져오자 고개를 끄덕였다. <br><br>\"요새 흉물들의 활동이 더 활발해지고 있어. 너도 조심해.\"",
+        completeText : "마틴은 생존자는 찾을 수 없었다는 당신의 말에 말없이 당신을 바라보다가 고개를 끄덕였다. <br><br>\"...소식은 내가 대신 전해줄 테니 넌 들어가서 쉬어.\""
     }
 };
 

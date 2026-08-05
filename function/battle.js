@@ -860,6 +860,9 @@ function getFinalAtk(player){
         });
     }
 
+    //취기패널티
+    atk *= getAlcoholStatMultiplier(player);
+
     //기력0패널티
     if (player.status.stamina === 0){
         atk *= 0.5;
@@ -880,6 +883,9 @@ function getFinalDef(player){
         });
     }
 
+    //취기패널티
+    def *= getAlcoholStatMultiplier(player);
+
     //기력0패널티
     if (player.status.stamina === 0){
         def *= 0.7;
@@ -898,6 +904,9 @@ function getFinalMag(player){
             }
         });
     }
+
+    //취기패널티
+    def *= getAlcoholStatMultiplier(player);
 
     if (player.status.stamina === 0){
         mag *= 0.5;
@@ -932,6 +941,15 @@ function getEnemyFinalDef(enemy){
     }
 
     return Math.floor(def);
+}
+
+function getFinalEva(player){
+    let eva = player.derivedStats?.eva || 0;
+
+    // 취기 페널티
+    eva *= getAlcoholStatMultiplier(player);
+
+    return Math.floor(eva);
 }
 
 function applyBuff(target, effect, type = "buff"){
@@ -1188,7 +1206,7 @@ function enemyTurn(){
             log(getRandom(skill.lines));
         }
         
-        const playerEva = player.derivedStats?.eva || 0;
+        const playerEva = getFinalEva(player);
         const enemyEva = enemy.eva || enemy.derivedStats?.eva || 0;
         
         let resistChance = 0.5 + (playerEva - enemyEva) * 0.005;
@@ -1691,7 +1709,10 @@ function getRandom(arr){
 }
 
 function tryEvade(target, attacker){
-    let targetEva = target.derivedStats?.eva || target.eva || 0;
+    let targetEva =
+    target === battleState.player
+        ? getFinalEva(target)
+        : target.derivedStats?.eva || target.eva || 0;
     let attackerEva = attacker?.derivedStats?.eva || attacker?.eva || 0;
 
     if (target.buffs){
@@ -2043,7 +2064,7 @@ function runAway(){
         return;
     }
 
-    let chance = 0.3 + (player.derivedStats.eva / 200);
+    let chance = 0.3 + (getFinalEva(player) / 200);
     chance = Math.min(0.7, chance);
 
     if (Math.random() < chance){

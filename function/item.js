@@ -2459,26 +2459,41 @@ const ITEMS ={
             price : 2000
         },
         beer : {
-            name : "맥주",
+            name : "맥주(취기 10, 트라우마 -5)",
             type : "alcohol",
             price : 800,
             alcohol: 10,
             trauma : -5
         },
-        whiskey : {
-            name : "위스키",
+        wine : {
+            name : "와인(취기 15, 트라우마 -10)",
             type : "alcohol",
             price : 1800,
             alcohol : 15,
             trauma : -10
         },
+        whiskey : {
+            name : "위스키(취기 30, 트라우마 -20)",
+            type : "alcohol",
+            price : 3000,
+            alcohol : 30,
+            trauma : -20
+        },
         soju : {
-            name : "소주",
+            name : "소주(취기 30, 트라우마 -15)",
             type : "alcohol",
             price : 1200,
             alcohol : 30,
-            trauma : -10
+            trauma : -15
         },
+        vodka : {
+            name : "보드카(취기 40, 트라우마 -35)",
+            type : "alcohol",
+            price : 3500,
+            alcohol : 40,
+            trauma : -35
+        },
+
         sensitivityADownPotion: {
             key: "sensitivityADownPotion",
             name: "A둔감제",

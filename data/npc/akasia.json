@@ -993,6 +993,24 @@
                 "run" : "becomeLover",
                 "args" : ["akasia"]
             }
+        ],
+        "akasia_about_missingPeople" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "당신의 말에 아카시아는 눈을 느리게 깜박였다.",
+                    "<br>\"...하얀 꽃 마물들이 서로 교감을 하던 것을 기억하시나요. 하얀 꽃잎을 먹은 흉물이 하얀 꽃 마물을 닮아가는 것 같습니다. 어떻게 보면 진화라고 할 수 있겠죠.\"<br>",
+                    "그는 잠시 밖을 바라보았다가 다시 당신을 보았다.",
+                    "<br>\"이미 지나간 사람들의 목소리에 홀리지 마세요, {akasiaTitle}. 저는 그대가 다치지 않길 바랍니다.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "npc", "npc": "akasia", "key": "affection", "amount": 1 },
+                    { "target" : "flag", "key" : "akasia_about_missingPeople", "value" : true }
+                ]
+            }
         ]
     }
 }

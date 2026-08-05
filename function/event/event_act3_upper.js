@@ -647,3 +647,34 @@ window.startUpperQuest05AfterBattleLosingEvent = function(player){
         }
     });
 };
+
+window.EVENTS.push({
+    id : "upper_route_quest_06_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.abominationsTownStreetAttack &&
+        getCurrentDay(player) >= (player.flags.abominationsTownStreetAttack_day + 4),
+
+    action : (player) => {
+        player.flags.act3_quest_06_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 경계병들이 수군수군 떠들고 있는 모습을 보았다. 그들은 당신을 보더니 머뭇거리다가 다가왔다." +
+                    "<br><br>\"하류... 상류도시의 영웅, 부탁할 것이 있습니다.\"<br><br>" +
+                    "그들은 요 근래에 실종자들이 더 많아져서 경비병들을 풀고 있는데, 그 경비병들마저 실종되었다고 말했다." +
+                    "<br><br>\"그들은 깊은 숲에서 수색하다가 사라졌습니다. 혹시, 도와주실 생각이 있다면 주점에 의뢰를 올려놓을 테니 한 번 봐주시길 바랍니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

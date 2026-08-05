@@ -965,6 +965,16 @@ function getAlcoholLabel(player){
     return "멀쩡함";
 }
 
+function getAlcoholStatMultiplier(player){
+    const level = getAlcoholLevel(player);
+
+    if (level === 3) return 0.5;  // 만취: 50% 감소
+    if (level === 2) return 0.8; // 취함: 20% 감소
+    if (level === 1) return 0.95; // 살짝 취함: 5% 감소
+
+    return 1;
+}
+
 function changeAlcohol(player, amount){
     player.status = player.status || {};
     player.status.alcohol = Number(player.status.alcohol) || 0;
@@ -3091,6 +3101,7 @@ function rollCheck(player, stat, difficulty){
         value = player.derivedStats?.[stat] || player.stats?.[stat] || 0;
     }
 
+    value *= getAlcoholStatMultiplier(player);
     let chance = value / (value + difficulty);
 
     if (player.status.stamina <= 0){

@@ -2439,3 +2439,72 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "uppercity_afterAbominationAttack",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownEntrance" &&
+        player.flags?.abominationsTownStreetAttack &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시 귀족이 경비병을 몰아붙이는 목소리가 들렸다. 그는 하류도시에 흉물에 오염된 사람이 많다는데, 그렇다면 하류도시 사람들의 출입증을 지금보다 철저하게 검사해야 하는 것 아니냐고 물었다." +
+                    "<br><br>\"더러우니까 흉물에 오염되지...\"<br><br>" +
+                    "몇몇 귀족들이 아무런 근거도 없는 말을 중얼거렸다. 그들은 이제 하류도시 사람들을 상류도시에 들이지 말아야 하는 것 아니냐며 목소리를 높였다." +
+                    "<br><br>\"노예가 부족하다면 지금 상류도시에 있는 노예들을 임신시키면 되는 것 아닌가?\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "uppercity_afterAbominationAttack_02",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.abominationsTownStreetAttack &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...임신했는데 낳아야 할까요?\"<br><br>" +
+                    "어디선가 낮은 목소리가 들렸다. 한 노예가 자신의 배를 감싸 안은 채 다른 노예에게 조심스럽게 물었다." +
+                    "<br><br>\"태어날 때부터 노예가 되고 싶은 사람이 어딨겠어요...\"<br><br>" +
+                    "\"...그래도 낳아야지. 멋대로 유산시키면 어떤 일이 벌어질지 알잖아.\"<br><br>" +
+                    "자신의 배를 감싸안고 있던 노예가 눈물을 참으며 고개를 숙였다. 그들은 다른 사람들이 자신들의 이야기를 듣기 전에 입을 꾹 닫고 아무 일도 없었던 것처럼 다시 청소를 했다. 발바닥에 보석이 박힌 채로."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

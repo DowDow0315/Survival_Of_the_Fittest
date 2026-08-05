@@ -1,5 +1,5 @@
 {
-    "name": "오염된 고블린",
+    "name": "오염된 고블린킹",
     "hp": 390,
     "attack": 46,
     "defense": 43,
@@ -7,7 +7,7 @@
     "lustResist" : 1.5,
     "drops": [
         {
-            "item": "lumpOfFlesh",
+            "item": "goblinMeat",
             "chance": 0.9
         },
         {

@@ -4496,3 +4496,101 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "undercity_afterAbominationAttack",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        player.flags?.abominationsTownStreetAttack &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 누군가가 거리 바깥으로 꽃겨나는 모습을 보았다. 사람들은 그에게 흉물에 오염됐으면 피해 끼치지 말고 꺼지라고 말하며 두려움과 분노를 같이 쏟아냈다." +
+                    "<br><br>\"나가서 죽으라는 거야?!\"<br><br>" +
+                    "그는 울분에 차서 항의했지만 섣불리 그의 편을 들어주는 사람은 없었다. 결국 그는 아무도 자신의 편을 들어주지 않는다는 것을 깨닫고 거리를 벗어났다. 떠나기 직전 그는 뒤를 돌아보았다." +
+                    "<br><br>\"내가 정말 흉물이 되면... 반드시 여기로 돌아올 거야.\"<br><br>" +
+                    "...원한에 찬 목소리가 한동안 거리 위에 남았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_afterAbominationAttack_02",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        player.flags?.abominationsTownStreetAttack &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"나가.\"<br><br>" +
+                    "당신은 경계병과 경비병들이 사람 한 명을 마을 입구 밖으로 몰아내는 모습을 보았다. 그 사람은 자신이 밖으로 나가면 죽을 거라며 경계병과 경비병들에게 매달렸지만 그들은 가차없이 그를 밖으로 내쫓았다.<br><br>" +
+                    "\"마을 사람을 지키는 것이 너의 역할이잖아!\"<br><br>" +
+                    "\"흉물에게서 마을 사람들을 지키는 것이 우리의 역할이지.\"<br><br>" +
+                    "남자의 어깨는 검붉은색으로 변색되어 있었다. 그는 흉물이 스친 것뿐이라고 말하며 한 번 더 매달렸지만 경계병과 경비병은 가차없이 그를 밀어냈다. 결국 그 사람은 마을에 들어오지 못했다." +
+                    "<br><br>...그가 살아남을 수 있을지는, 모두가 잘 알고 있을 것이다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "undercity_afterAbominationAttack_03",
+    once : false,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.abominationsTownStreetAttack &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "경비병들과 경계병들이 주점 구석에서 술을 마시고 있는 게 보인다. 사이가 안 좋았다가도 계속 같이 싸우다보니 정이라도 들은 모양이다.",
+                    "<br>\"우리는 상류도시 출신들이 많았는데... 이상하게 하나씩 백색 군단에 불려가더라고. 다시 상류도시로 돌아간 걸까?\"<br>",
+                    "경계병들 중 한 명이 잠시 생각에 잠기더니 다시 고개를 털면서 웃었다.<br>",
+                    "\"맨날 언젠가는 다시 고향에 돌아갈 거라고 노래 부르던 녀석이야. 지금 잘 살고 있겠지, 뭐. 언젠가 다시 나랑 술 마시기로 했었어. 그놈이 약속을 잊지만 않는다면 언젠가 이 주점에서 만날 수 있겠지.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

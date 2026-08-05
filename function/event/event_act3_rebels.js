@@ -588,3 +588,133 @@ window.startRebelQuest05AfterBattleLosingEvent = function(player){
         }
     });
 };
+
+window.EVENTS.push({
+    id : "common_route_quest_06_mimicAbominationRumor",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.abominationsTownStreetAttack &&
+        getCurrentDay(player) >= (player.flags.abominationsTownStreetAttack_day + 7),
+
+    action : (player) => {
+        player.flags.common_route_quest_06_mimicAbominationRumor = true;
+        player.flags.common_route_quest_06_mimicAbominationRumor_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...그 소식 들었어? 사라진 아들 목소리가 들린다면서 나간 사람, 아직도 안 들어왔대.\"<br><br>" +
+                    "\"저번에 죽은 아내 목소리 들린다면서 나간 사람도 못 돌아오지 않았어?\"<br><br>" +
+                    "웅성거리던 사람들 사이로 한 명이 정처 없이 마을 입구 밖으로 나서는 모습이 보인다. 마을 입구를 지키고 있던 경계병이 그 사람을 막아섰다. 경계병이 어디로 가는 거냐고 묻자, 그는 딸이 자신을 불렀다고 대답했다." +
+                    "<br><br>\"네 딸은 저번에 죽었잖아! 우리 모두가 봤다고!\"<br><br>" +
+                    "\"아니야, 분명 들렸어!\"<br><br>" +
+                    "말다툼 끝에 경계병은 욕설을 내뱉으며 무기를 챙겼다. 그는 딸의 목소리가 들렸다는 곳까지만 함께 가주겠다며 남자의 뒤를 따라 마을 밖으로 나섰다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_06_mimicAbominationRumor_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.common_route_quest_06_mimicAbominationRumor &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_06_mimicAbominationRumor_day + 7),
+
+    action : (player) => {
+        player.flags.common_route_quest_06_mimicAbominationRumor_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...그자식 아직도 안 돌아왔어.\"<br><br>" +
+                    "\"안 돌아온 게 아니라 못 돌아온 거지.\"<br><br>" +
+                    "그들은 딸의 목소리가 들린다고 했던 사람을 따라갔던 경계병에 대해 이야기를 나누고 있는 듯했다. 그들은 막사로 향하고 있다." +
+                    "<br><br>\"...요새 저절로 사라지는 사람들이 많은 것 같아.\"<br><br>" +
+                    "\"씨발, 그때도 그러지 않았었냐? 고블린동굴 포로 수색하러 갔을 때, 자발적으로 하얀 꽃 마물을 쫓아갔던 흔적이....\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_06_mimicAbominationRumor_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "barracks" &&
+        player.flags?.common_route_quest_06_mimicAbominationRumor_02,
+
+    action : (player) => {
+        player.flags.common_route_quest_06_mimicAbominationRumor_03 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "막사에 들어오자 경비병들 몇 명이 루크의 주변에 모여있는 것이 보였다. 그들은 루크의 검붉은 상처를 살피며 정말로 괜찮은 거냐고 물었다. \"이상하게 줄어들었다가 다시 늘어난단 말이야...\", 그들 중 한 명이 루크의 뺨을 만지러 하자 루크는 그의 손을 쳐냈다." +
+                    "<br><br>\"미쳤냐.\"<br><br>" +
+                    "루크는 욕설을 내뱉더니 그래서 경계병 수색은 어떻게 됐냐고 물었다. 경비병들은 고개를 저었다." +
+                    "<br><br>\"씨발...\"<br><br>" +
+                    "루크는 막대사탕을 씹으며 생각에 잠겼다. 그는 짜증 섞인 목소리로 백색 군단은 아무 말도 하지 않냐고 물었다." +
+                    "<br><br>\"스스로 없어진 걸 어떻게 실종으로 보냐고 하던데...\"<br><br>" +
+                    "\"하.... 씨발. 그새끼들 뭔가 아는 것 같은데.\"<br><br>" +
+                    "당신을 눈치챈 경비병이 재빨리 문을 닫았다. 닫힌 문 너머로 웅얼거리는 소리들만 들려온다...." 
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_06_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.abominationsTownStreetAttack &&
+        getCurrentDay(player) >= (player.flags.abominationsTownStreetAttack_day + 4),
+
+    action : (player) => {
+        player.flags.act3_quest_06_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 어린 아이가 당신을 불렀다. 그는 우물쭈물하더니 당신에게 제 형을 찾아줄 수 있겠냐고 물었다." +
+                    "<br><br>\"금방 돌아오겠다고 했는데 지금 일주일째 안 돌아오고 있어....\"<br><br>" +
+                    "그는 형은 깊은 숲 너머까지 나가지 않았을 거라고 말했다. 그는 주점에 퀘스트를 올려놓을 테니 최대한 빨리 찾아달라고 말했다." +
+                    "<br><br>\"...마음은 이해하지만, 그런 사소한 것까지 영웅님이 짊어지다가는 금방 지치실 거예요.\"<br><br>" +
+                    "아이를 달래고 나오는 길에, 시온이 문에 기대어 서있었다. 그는 차가운 눈으로 아이의 뒷모습을 바라보다가 다시 당신을 보았다. 그의 장밋빛 눈동자에는 걱정이 서려 있었다." +
+                    "<br><br>\"무리하지 마세요, 영웅님. 아무리 영웅님이라 하더라도 모두를 구할 수는 없는 법이니까요.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

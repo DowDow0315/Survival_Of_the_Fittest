@@ -167,6 +167,13 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_ask_about_breakUp_01 && player.flags.nikolai_breakUp_01 ){
+            choices.push({
+                text: "상류도시에서 무슨 일을 하고 있냐고 묻는다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_ask_about_breakUp_01
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 
         startScene([

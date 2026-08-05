@@ -2462,6 +2462,99 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        player.flags?.nikolai_hisSister_ask &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation = true;
+        player.flags.nikolai_heavenPalace_hisLocation_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_breakUp_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.nikolai_prepareToBreakUp_01 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_day + 7) &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_breakUp_01 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_breakUp_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        getTimePeriod(player) === "dawn" &&
+        player.flags?.nikolai_heavenPalace_hisLocation &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_day + 4) &&
+        !player.flags?.nikolai_prepareToBreakUp_01 &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_02 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_02_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //창백
 window.EVENTS.push({
     id : "pale_afterFlowerDateDream_01",

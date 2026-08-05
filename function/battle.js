@@ -906,7 +906,7 @@ function getFinalMag(player){
     }
 
     //취기패널티
-    def *= getAlcoholStatMultiplier(player);
+    mag *= getAlcoholStatMultiplier(player);
 
     if (player.status.stamina === 0){
         mag *= 0.5;

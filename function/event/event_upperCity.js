@@ -1201,6 +1201,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_training_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        !player.flags?.akasiaDie &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        NPC_DATA["akasia"].emotion.affection >= 90,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_training_02,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
 //카인
 window.EVENTS.push({
     id: "kain_firstMeeting",

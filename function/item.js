@@ -3199,7 +3199,7 @@ const ITEMS ={
                 heal : 40,
                 duration : 3
             },
-            tags : ["gift", "valenFavorite", "sweat", "great"],
+            tags : ["gift", "valenFavorite", "sweet", "great"],
             price : 1000
         },
         normalWhiteFlowerTea : {
@@ -3209,7 +3209,7 @@ const ITEMS ={
                 heal : 20,
                 duration : 3
             },
-            tags : ["gift", "valenFavorite", "sweat", "normal"],
+            tags : ["gift", "valenFavorite", "sweet", "normal"],
             price : 800
         },
         badWhiteFlowerTea : {
@@ -3219,7 +3219,7 @@ const ITEMS ={
                 heal : 10,
                 duration : 3
             },
-            tags : ["gift", "valenFavorite", "sweat", "bad"],
+            tags : ["gift", "valenFavorite", "sweet", "bad"],
             price : 600
         },
 

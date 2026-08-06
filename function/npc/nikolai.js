@@ -169,8 +169,22 @@ registerActions("nikolai", {
 
         if (!player.flags?.nikolai_ask_about_breakUp_01 && player.flags.nikolai_breakUp_01 ){
             choices.push({
-                text: "상류도시에서 무슨 일을 하고 있냐고 묻는다.",
+                text: "정말로 우리가 헤어진 거냐고 묻는다.",
                 scene: NPC_DATA.nikolai.scenes.nikolai_ask_about_breakUp_01
+            });
+        }
+
+        if (!player.flags?.nikolai_notAnswerMercy && player.flags.act3QuestNikolaiMercy ){
+            choices.push({
+                text: "당신은 니콜라이에게 그날 왜 자신을 공격했냐고 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_notAnswerMercy
+            });
+        }
+
+        if (!player.flags?.nikolai_notAnswerMercy2 && player.flags.act3QuestNikolaisMercy ){
+            choices.push({
+                text: "당신은 니콜라이에게 왜 자신을 살려줬냐고 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_notAnswerMercy2
             });
         }
 

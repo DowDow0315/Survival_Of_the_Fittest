@@ -1635,6 +1635,38 @@
                 ]
             }
         ],
+        "nikolai_notAnswerMercy" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...일이니까.\"<br>",
+                    "니콜라이의 답은 간단했다. 그는 이미 끝난 일이니 복잡하게 생각하지 말자고 말하며 당신의 입에 마카롱 하나를 넣어주었다. 니콜라이는 더 이상 이 일에 관해 이야기할 생각이 없어 보였다."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "nikolai_notAnswerMercy", "value": true }
+                ]
+            }
+        ],
+        "nikolai_notAnswerMercy2" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...글쎄.\"<br>",
+                    "니콜라이는 턱을 괴며 미소를 지었다.<br>",
+                    "\"내가 이렇게 예쁜 당신을 어떻게 죽이겠어, {nikolaiTitle}~ 이유가 어쨌든 우리 둘 다 살았으니까 된 거 아닐까?\"<br>",
+                    "니콜라이는 끝까지 그것이 진짜 이유인지는 말해주지 않았다."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "nikolai_notAnswerMercy2", "value": true }
+                ]
+            }
+        ],
         "nikolai_heavenPalace_hisLocation_02" : [
             {
                 "type" : "text",

@@ -930,4 +930,5 @@ window.startAct3QuestAfterNikolaiLosingEvent = function(player){
         onEnd : () => startScene(getLocationScene(player), player)
     });
 };
+
 //에르윈

@@ -1133,17 +1133,33 @@ function enemyTurn(){
 
     log("적의 턴!");
 
-    //플레이어 회피 체크
-    if (tryEvade(player, enemy)){
-        log("당신은 공격을 회피했다!", "evade");
+    let skill = chooseEnemySkill(enemy);
 
+    //플레이어 회피 체크
+    const evadableTypes = [
+        "damage",
+        "multiHit",
+        "drainHp",
+        "disarm",
+        "grapple",
+        "lust",
+        "poison",
+        "bleed",
+        "stun",
+        "debuff"
+    ];
+    
+    if (
+        evadableTypes.includes(skill.type) &&
+        tryEvade(player, enemy)
+    ){
+        log("당신은 공격을 회피했다!", "evade");
+        
         battleState.counter = false;
         updateBattleUI();
         endEnemyTurn();
         return;
     }
-
-    let skill = chooseEnemySkill(enemy);
     
     const blockedByAttack = 
     battleState.usedNormalAttack &&
@@ -1334,6 +1350,61 @@ function enemyTurn(){
             log("상대의 기세가 날카로워졌다.", "damage");
         }
         
+        endEnemyTurn();
+        return;
+    }
+
+    //적 아군 전체 회복
+    if (skill.type === "allyHealAll"){
+        const livingEnemies = battleState.enemies.filter(target => target.hp > 0);
+        const healAmount = skill.heal || 30;
+        
+        if (skill.lines){
+            log(getRandom(skill.lines), "lust");
+        }
+        
+        livingEnemies.forEach(target => {
+            const actualHeal = Math.min(
+                healAmount,
+                target.maxHp - target.hp
+            );
+            
+            target.hp = Math.min(
+                target.maxHp,
+                target.hp + healAmount
+            );
+            
+            if (actualHeal > 0){
+                log(
+                    `${target.name}의 HP가 ${formatStatNumber(actualHeal)} 회복됐다!`,
+                    "lust"
+                );
+            }
+        });
+        
+        updateBattleUI();
+        endEnemyTurn();
+        return;
+    }
+
+    //적 아군 전체 버프
+    if (skill.type === "allyBuffAll"){
+        const livingEnemies = battleState.enemies.filter(target => target.hp > 0);
+        
+        livingEnemies.forEach(target => {
+            applyBuff(target, {
+                ...skill.effect,
+                duration : skill.duration
+            }, "selfBuff");
+        });
+        
+        if (skill.lines){
+            log(getRandom(skill.lines), "damage")
+        } else {
+            log("적들의 기세가 한층 강해졌다!", "damage");
+        }
+        
+        updateBattleUI();
         endEnemyTurn();
         return;
     }

@@ -2398,6 +2398,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "gloryHole" &&
+        player.flags?.uppercity_hero_event_seen &&
         NPC_DATA["nikolai"].emotion.affection >= 50 &&
         !player.flags?.nikolaiDie,
 

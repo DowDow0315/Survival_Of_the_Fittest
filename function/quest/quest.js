@@ -267,7 +267,7 @@ const QUESTS = {
         targetBoss: "whiteArmyLeader1",
         requiredKill: 1,
         
-        rewardGold: 10000,
+        rewardGold: 5000,
         
         require: {
             completedQuest: "act3_quest_03_rebels",
@@ -934,6 +934,64 @@ const QUESTS = {
 
         acceptText : "마틴은 당신이 의뢰서를 가져오자 고개를 끄덕였다. <br><br>\"요새 흉물들의 활동이 더 활발해지고 있어. 너도 조심해.\"",
         completeText : "마틴은 생존자는 찾을 수 없었다는 당신의 말에 말없이 당신을 바라보다가 고개를 끄덕였다. <br><br>\"...소식은 내가 대신 전해줄 테니 넌 들어가서 쉬어.\""
+    },
+
+    act3_rebel_quest_07 : {
+        id : "act3_rebel_quest_07",
+        title : "반란의 씨앗",
+        type: "investigate",
+        targetName : "연구자료 빼내기",
+        repeatable : false,
+        giver : "rebels",
+        
+        desc : "최근의 연구자료를 보관해놓은 곳은 상류도시 입구 근처에 있다고 한다.",        
+        activeDesc : "상류도시가 무슨 짓을 꾸미고 있는지 알아보러 가자.",
+        readyDesc : "상류도시의 실험은 하류도시를 위험하게 만들고 있다. 주점에 보고하러 가자.",
+        
+        targetFlag : "act3_quest_07_rebel_boss_end",
+        requiredKill: 1,
+        rewardGold: 25000,
+
+        require : {
+            flag : "act3_rebel_quest_07_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_07_done = true;
+            player.flags.act3_quest_07_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 남들에게는 보여주지 않은 의뢰를 당신에게 보여주며 위치는 상류도시 입구 근처라고 말했다.<br><br>\"...그들의 뜻에 휘둘리지 마.\"",
+        completeText : "마틴은 의뢰서를 확인한 후 고개를 끄덕였다.<br><br>\"...\"<br><br>당신을 바라보는 그의 검은색 눈동자는 어두웠다."
+    },
+
+    act3_upper_quest_07 : {
+        id : "act3_upper_quest_07",
+        title : "흉물보다 더 중요한 것",
+        type: "investigate",
+        targetName : "반란군 토벌",
+        repeatable : false,
+        giver : "valen",
+        
+        desc : "그들의 근거지는 하류도시 마을 입구에 있다.",        
+        activeDesc : "흉물 토벌 전에 반란군을 먼저 해치워야 한다. 반란군이 있으면 흉물 토벌에 집중할 수가 없다.",
+        readyDesc : "반란군들을 토벌했다. 앞으로는 흉물 토벌에 더 집중할 수 있을 것이다. 주점에 보고하러 가자.",
+        
+        targetFlag : "act3_quest_07_upper_boss_end",
+        requiredKill: 1,
+        rewardGold: 35000,
+
+        require : {
+            flag : "act3_upper_quest_07_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_07_done = true;
+            player.flags.act3_quest_07_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 당신이 의뢰서를 가져오자 잠시 말이 없었다.<br><br>\"네가 지금 뭘 하고 있는 지는 네가 더 잘 알 거라 믿어.\"<br><br>그의 목소리는 평소보다 차가웠다.",
+        completeText : "당신이 의뢰를 보고하자 마틴은 고개를 끄덕였다. <br><br>\"상류도시에 소식은 전해놓을게.\"<br><br>그의 검은색 눈동자는 평소보다 더 채도가 낮았다."
     }
 };
 

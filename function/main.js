@@ -2646,6 +2646,14 @@ function moveTo(player,locationKey){
         return;
     }
 
+    if (locationKey === "gloryHole" && player.flags?.nikolaiDie ){
+        showSingleTextScene(
+            "니콜라이는 더 이상 없다. 글로리홀은 결국 다른 사람이 운영하고 있고 당신은 입장을 허락받지 못했다.",
+            player
+        );
+        return;
+    }
+
     if (!connections[locationKey] && !window.DUNGEONS?.[locationKey]){
         addLog("여기서는 갈 수 없는 곳이다.");
         return;
@@ -3406,7 +3414,7 @@ function collapse_eric(player){
         },
         {
             type: "text",
-            value: "눈을 뜨자 주점이었다. 당신의 이마 위에 수건을 올려주고 있던 마틴이 움찔하더니 뒤로 물러났다. 그는 차가운 표정으로 당신을 내려다보았다.<br> \"에릭이 널 구해줬어.\"<br>마틴이 인상을 찌푸리며 말했다. <br>\"믿기지 않는 눈치인데, 에릭이 아니면 누가 너같이 멍청한 놈을 구해주겠어.\"<br>그는 그대로 돌아 다시 주점의 카운터로 향했다."
+            value: "눈을 뜨자 주점이었다. 당신의 이마 위에 수건을 올려주고 있던 마틴이 움찔하더니 뒤로 물러났다. <br>\"에릭이 널 구해줬어.\"<br>마틴이 인상을 찌푸리며 말했다. 그는 그대로 돌아 다시 주점의 카운터로 향했다."
         }
     ], player);
 }
@@ -3640,12 +3648,8 @@ function gameOver(player, reason = "당신은 죽었다.") {
                         {
                             type : "effect",
                             run : () => {
-                                const loaded = loadPlayer();
-                                if (!loaded) return;
-
-                                const loadedPlayer = normalizePlayer(loaded);
-                                if (!loadedPlayer) return;
-                                startScene(getLocationScene(loadedPlayer), loadedPlayer);
+                                loadLatestManualSave();
+                                return true;
                             }
                         }
                     ]

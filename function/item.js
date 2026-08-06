@@ -1167,9 +1167,9 @@ const WEAPON_SKILLS = {
             name : "함께 걸어요",
             cost : 1,
             type : "damage",
-            power : 2,
+            power : 1.3,
             unlock : 150,
-            desc : "데미지 2배 공격"
+            desc : "데미지 1.3배 공격"
         },
         {
             name : "하얀꽃 행진",
@@ -1226,10 +1226,99 @@ const WEAPON_SKILLS = {
         }
     ],
 
+    "반란의 쌍단검" : [
+        {
+            name : "교차베기",
+            cost : 3,
+            type : "multiHit",
+            power : 2.4,
+            hits : 2,
+            unlock : 20,
+            desc : "데미지 2.4배로 2번 공격" 
+        },
+        {
+            name: "상처벌리기",
+            cost: 4,
+            type: "bleed",
+            id : "rebelsTwinDagger_bleed",
+            dot: 30,
+            duration: 5,
+            unlock: 100,
+            desc : "5턴간 상대방에게 출혈데미지(30)"
+        },
+        {
+            name : "연막탄",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "rebelsTwinDagger_buff_01",
+                evaMult : 1.8
+            },
+            duration : 5,
+            unlock : 150,
+            desc : "5턴 동안 회피력 1.8배"
+        },
+        {
+            name : "목숨을 건 추격",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "rebelsTwinDagger_buff_02",
+                atkMult : 2.5,
+                defMult : 0.7
+            },
+            duration : 6,
+            unlock : 200,
+            desc : "6턴 동안 공격력 2.5배, 방어력 0.7배"
+        }
+    ],
+
+    "대의의 메이스방패" : [
+        {
+            name : "뚜다다",
+            cost : 3,
+            type : "multiHit",
+            power : 1.6,
+            hits : 3,
+            unlock : 20,
+            desc : "데미지 1.6배로 3번 공격" 
+        },
+        {
+            name : "메이스 강타",
+            cost : 2,
+            type : "damage",
+            power : 2.5,
+            unlock : 100,
+            desc : "데미지 2.5배 공격"
+        },
+        {
+            name : "방패 밀치기",
+            cost : 1,
+            type : "damage",
+            power : 1.2,
+            unlock : 150,
+            desc : "데미지 1.2배 공격"
+        },
+        {
+            name : "방패병의 의무",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "whiteArmyShieldMace_buff",
+                atkMult : 1.5,
+                defMult : 2.3,
+                evaMult : 0.5
+            },
+            duration : 6,
+            unlock : 200,
+            desc : "6턴 동안 공격력 1.5배, 방어력 2.3배, 회피력/명중률 0.5배"
+        }
+    ],
+
     "호박쌍검" : [
         {
             name : "보이지 않는 공격",
-            cost : 3,
+            cost : 4,
             type : "multiHit",
             power : 1.5,
             hits : 5,
@@ -1476,6 +1565,14 @@ const MASTER_SKILLS = {
     "몰락한 고블린왕의 검" : {
         requiredMastery : 300,
         skillName : "연화참"
+    },
+    "반란의 쌍단검" : {
+        requiredMastery : 300,
+        skillName : "목숨을 건 추격"
+    },
+    "대의의 메이스방패" : {
+        requiredMastery : 300,
+        skillName : "방패병의 의무"
     },
 
 
@@ -1836,6 +1933,32 @@ const ITEMS ={
             }
         },
 
+        rebelsTwinDagger : {
+            name : "반란의 쌍단검",
+            type : "weapon",
+            desc : "그의 칼날은 대체 어디를 향하고 있을까.",
+            price : 3500,
+            stats : {
+                str : 4,
+                dex : 10,
+                int : 1,
+                charm : 1
+            }
+        },
+
+        whiteArmyShieldMace : {
+            name : "대의의 메이스방패",
+            type : "weapon",
+            desc : "그의 메이스는 대체 누구를 위한 걸까.",
+            price : 3500,
+            stats : {
+                str : 10,
+                dex : 4,
+                int : 1,
+                charm : 1
+            }
+        },
+
         yuriTwinDagger : {
             name : "호박쌍검",
             type : "weapon",
@@ -1963,6 +2086,18 @@ const ITEMS ={
                 dex : 2
             }
         },
+
+        whiteUppercityTop2 : {
+            name : "대의를 품은 상의",
+            type : "top",
+            price : 3000,
+            stats : {
+                str : 1,
+                dex : 1,
+                int : 9,
+                charm : 5
+            }
+        },
         
         whiteRebelsTop : {
             name : "갈망의 꽃 상의",
@@ -1982,6 +2117,18 @@ const ITEMS ={
             stats : {
                 str : 6,
                 dex : 4
+            }
+        },
+
+        rebelsTop2 : {
+            name : "반란을 품은 상의",
+            type : "top",
+            price : 3000,
+            stats : {
+                str : 9,
+                dex : 5,
+                int : 1,
+                charm : 1
             }
         },
 
@@ -2183,6 +2330,18 @@ const ITEMS ={
             }
         },
 
+        whiteUppercityBottom2 : {
+            name : "대의를 품은 하의",
+            type : "bottom",
+            price : 3000,
+            stats : {
+                str : 1,
+                dex : 1,
+                int : 5,
+                charm : 9
+            }
+        },
+
         whiteRebelsBottom : {
             name : "갈망의 꽃 하의",
             type : "bottom",
@@ -2202,6 +2361,18 @@ const ITEMS ={
             stats : {
                 dex : 5,
                 str : 5
+            }
+        },
+
+        rebelsBottom2 : {
+            name : "반란을 품은 하의",
+            type : "bottom",
+            price : 3000,
+            stats : {
+                str : 5,
+                dex : 9,
+                int : 1,
+                charm : 1
             }
         },
 

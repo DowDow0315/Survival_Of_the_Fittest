@@ -720,4 +720,214 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "rebel_route_quest_06_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_06_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_06_done_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_06_after = true;
+        player.location = "richTownEntrance";
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "<span class='log-danger'>쿵</span><br><br>" +
+                    "일순간 천국으로 가는 길 쪽에서 큰소리가 났다. 상류도시의 거리를 거닐던 사람들이 어안이 벙벙한 표정으로 주변을 둘러보다가 천국으로 가는 길 쪽으로 시선을 돌렸다. 당신은 천국으로 가는 길로 향하려고 했지만 백색 군인들이 당신을 막았다. 당신이 백색 군인의 제압에 밀려 뒤로 휘청이는 순간, 누군가 당신의 허리를 잡아주었다.<br><br>" +
+                    "...누구?"+
+                    "<br><br>그는 당신을 이끌고 상류도시 관문으로 향했다. 상류도시 입구를 벗어난 후에야 그는 당신을 똑바로 바라보았다. 완전히 다른 머리색이지만 당신은 호박색 눈동자만큼은 알아차릴 수 있었다." +
+                    "<br><br>유리.<br><br>" +
+                    "그는 평소 입는 옷과 다르게 상당히 귀족적인 옷을 입고 있었다. 검지를 제 입가에 올리더니 유리는 쉘터에 오면 더 설명해주겠다고 말했다." +
+                    "<br><br>\"...너무 급했어.\"<br><br>" +
+                    "그는 중얼거리더니 자신은 먼저 쉘터에 가있겠다고 말했다. 그리고 그는 지하철로 향했다. 당신은 그의 뒷모습을 바라보았다." +
+                    "<br><br>...그는 마치 상류도시의 귀족 같았다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_06_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_06_after,
+
+    action : (player) => {
+        player.flags.act3_rebel_quest_07_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 도착한 당신은 유리의 방으로 향했다. 유리의 방에는 이미 반란군들이 모여 있었다." +
+                    "<br><br>\"...상류도시를 직접적으로 건드렸으니 그들은 분명 움직일 거야.\"<br><br>" +
+                    "유리는 관자놀이를 꾹꾹 누르며 말했다. 그는 반란군 세력에 들어갈 생각은 여전히 없지만, 당신이 휘말려서 위험에 처하는 것을 가만히 두고 볼 수는 없다고 말했다. 유리의 따스한 눈동자가 당신의 얼굴에 닿았다가 떨어진다.<br><br>" +
+                    "\"전면전은 안 돼. 우리의 세력이 그들의 세력을 이길 수 있을 리가 없잖아.\"<br><br>" +
+                    "\"그렇지만...!\"<br><br>" +
+                    "\"...다같이 한날 한시에 죽고 싶은 거라면 그렇게 해도 돼.\"<br><br>" +
+                    "유리의 목소리는 단호했다. 그의 시선이 다시 당신에게 닿았다가 떨어졌다.<br><br>" +
+                    "\"...또 소중한 사람을 잃게 되는 건 사양이야.\"<br><br>" +
+                    "\"수장... 아니, 유리, 하나만 알아줘. 우리가 벌인 짓이 아니야. 우리들의 세력은 많고, 우리보다 과격한 세력들도 많아. 나는 그들이 직접적인 테러 방식을 사용할 줄은 정말 몰랐어.\"<br><br>" +
+                    "유리는 고개를 끄덕였다. 그는 백색 군단은 분명 정확히 목표를 노려서 올 것이라고 말했다. 이번에 테러를 일으킨 반란군 세력이 목적일 것이다. 유리는 자신이 그쪽으로 가겠다고 말했다." +
+                    "<br><br>\"도망치는 거라서 누구보다도 자신이 있으니까. 최대한 많은 사람들을 구해볼게. 어차피 너네는 이 틈을 이용해서 상류도시에서 연구자료를 빼올 생각인 거잖아. 아마 원래는 하류도시의 영웅을 내가 가려는 곳에 보낼 생각이었겠지. 그러면 시선이 다 그쪽으로 쏠릴 테니까.\"<br><br>" +
+                    "정곡을 찔렸는지 반란군 세력은 잠시 말이 없었다. 유리는 당신을 바라보았다." +
+                    "<br><br>\"...너는 연구자료를 빼오도록 해. 네가 하려고 했던 일은 내가 할 테니까.\"<br><br>" +
+                    "유리는 당신의 표정을 살피더니 웃었다." +
+                    "<br><br>\"걱정하지 마. 난... 지금까지도 안 잡힌 사람이니까.\"<br><br>" +
+                    "반란군 세력은 연구자료를 빼올 정확한 위치는 마틴에게 따로 말해서 의뢰로 올려놓겠다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "act3_quest_07_nikolai",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_rebel_route &&
+        !player.flags?.nikolaiDie &&
+        player.flags?.act3_quest_07_rebel_boss_end,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시 입구로 향하며 당신은 길게 숨을 내쉬었다. 이제 알아낸 것을 토대로 주점으로 돌아가 보고만 하면 될 것 같다. 당신이 홀로 걸음을 옮기려는 순간, 익숙한 웃음소리가 들렸다." +
+                    "<br><br>\"안녕, 자기.\"<br><br>" +
+                    "니콜라이다. 당신은 주변을 둘러보았다. 사람들의 시야에서 가려진 곳이다." +
+                    "<br><br>\"나도 이러고 싶지는 않은데... 미안해?\"<br><br>" +
+                    "니콜라이는 평소처럼 웃고 있었지만 그의 손에는 채찍이 아니라 마체테가 들려 있었다." +
+                    "<br><br>\"대신 자기가 날 죽이게 된다고 하더라도, 자기를 원망하지는 않을게.\"<br><br>" +
+                    "니콜라이의 분홍색 눈동자가 가늘게 휘었다. 그와의 싸움을 피할 수는 없을 것 같다!" 
+                ]
+            },
+            {
+                type : "effect",
+                run : "startAct3QuestAfterNikolaiBattle"
+            }
+        ], player);
+    }
+});
+
+window.startAct3QuestAfterNikolaiBattle = function(player){
+
+    startBattle("nikolai_machete", player, {
+        noEscape : true,
+        onWin : () => startAct3QuestAfterNikolaiWinEvent(player),
+        onSkipDefeat : () => startAct3QuestAfterNikolaiLosingEvent(player)
+    });
+    return true;
+};
+
+window.startAct3QuestAfterNikolaiWinEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 니콜라이를 이겼다. 니콜라이의 마체테가 바닥으로 툭 떨어졌다. 니콜라이는 바닥에 누운 채 멍하니 하늘을 바라보다가 미소를 지었다. 무기를 쥔 당신이 다가오는데도 그의 미소는 그치지 않았다. 그는 당신의 얼굴을 보기보다는 하늘을 올려다보았다." +
+                "<br><br>\"...약속대로 원망하지는 않을게, 자기.\"<br><br>"
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "니콜라이를 죽인다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 니콜라이의 심장에 당신의 무기를 찔러넣었다. 니콜라이는 마지막까지 미소를 잃지 않았다. 그는 하늘을 바라보며 그저 웃었다." +
+                                "<br><br>\"그래도 마지막까지... 열심히 했으니까....<br><br> 건강해야 해, 타티아나.\"<br><br>" +
+                                "그는 죽을 때까지 단 한 번도 당신에게 시선을 두지 않았다. 당신은 차갑게 식어가는 그의 시체를 뒤로 하고 걸어갔다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                changeTrauma(player, 10);
+                                player.flags.nikolaiDie = true;
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "니콜라이를 죽이지 않는다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 니콜라이를 죽이지 않았다. 니콜라이는 당신에게 죄책감 느낄 필요 없다고 말했다." +
+                                "<br><br>\"자기, 나는 차라리 죽는 게 낫거든, 임무 실패하는 것보다는.\"<br><br>" +
+                                "그럼에도 당신이 움직이지 않자 니콜라이는 작게 한숨을 쉬었다. 그는 벌떡 일어나더니 다시 미소를 지으며 당신은 정말 사랑스럽고도 착한 사람이라고 말했다." +
+                                "<br><br>\"자, 그럼 난... 변명을 준비해서 가야겠는걸.\"<br><br>" +
+                                "그는 당신에게 윙크를 하더니 팔랑팔랑 상류도시 쪽으로 걸어가버렸다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                player.flags.act3QuestNikolaiMercy = true;
+                                changeNPCEmotion("nikolai", "affection", 1);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+window.startAct3QuestAfterNikolaiLosingEvent = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "니콜라이가 당신의 가슴을 발로 밟았다. 그의 마체테가 당신의 목 위까지 내려온다. 니콜라이의 분홍색 눈동자가 당신을 내려다본다. 여전히 웃음기 가득한 얼굴로 그는 당신을 내려다보고 있었다." +
+                "<br><br>\"....\"<br><br>" +
+                "그는 마체테를 높이 들어 올렸다. 그러나 잠시 후, 웃으며 고개를 저었다." +
+                "<br><br>\"못하겠다.\"<br><br>" +
+                "그는 변명이나 생각해야겠다고 말하며 당신의 가슴에서 발을 다시 뗐다. 그리고 당신이 뭐라 하기도 전에 팔랑팔랑 손인사와 함께 상류도시 쪽으로 멀어져갔다." +
+                "<br><br>니콜라이는 당신을 죽이지 않았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                player.flags.act3QuestNikolaisMercy = true;
+                changeTrauma(player, 3);
+                savePlayer(player);
+            }
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
 //에르윈

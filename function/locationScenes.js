@@ -28,7 +28,8 @@ const LOCATION_SCENE_BUILDERS = {
     theater : buildTheaterScene,
     gloryHole: getGloryHoleScene,
     forest_act3 : buildForest_act3Scene,
-    deepForest_act3 : buildDeepForest_act3Scene
+    deepForest_act3 : buildDeepForest_act3Scene,
+    townEntrance_act3 : buildTownEntrance_act3Scene
 };
 
 function getLocationScene(player){
@@ -743,6 +744,34 @@ window.start_erwinRaid = function(player){
     startErwinRaid(player);
 };
 
+function buildTownEntrance_act3Scene(player, loc, randomDesc){
+    const choices = [];
+
+    if (
+        player.quest?.active?.id === "act3_upper_quest_07" &&
+        !player.flags?.act3_quest_07_upper_boss_end
+    ){
+        choices.push({
+            text : "천국으로 가는 길을 폭파하려고 한 반란군을 토벌하러 간다.",
+            action : "move_rebelsState"
+        });
+    }
+
+    choices.push(
+        { text:"길거리로 향한다.", action:"move_townStreet" },
+        { text:"막사로 향한다.", action:"move_barracks" },
+        { text:"왜곡된 숲으로 떠난다.", action:"move_forest_act3" }
+    );
+
+    return [
+        { type:"text", value:`${randomDesc}<br><br>무엇을 할까?` },
+        {
+            type:"choice",
+            choices
+        }
+    ];
+}
+
 function buildForest_act3Scene(player, loc, randomDesc){
     const choices = [];
 
@@ -1204,6 +1233,23 @@ function getSubwayScene(player, loc, randomDesc){
 }
 
 function buildRichTownEntranceScene(player, loc, randomDesc){
+    const choices = [];
+
+    if (
+        player.quest?.active?.id === "act3_rebel_quest_07" &&
+        !player.flags?.act3_quest_07_rebel_boss_end
+    ){
+        choices.push({
+            text : "연구자료를 빼내러 간다.",
+            action : "move_whiteArmyState"
+        });
+    }
+
+    choices.push(
+        { text: "경비병에게 간다", action: "approach_richGateGuard" },
+        { text: "지하철로 향한다", action: "move_subway" }
+    );
+    
     return [
         {
             type: "text",
@@ -1211,10 +1257,7 @@ function buildRichTownEntranceScene(player, loc, randomDesc){
         },
         {
             type: "choice",
-            choices: [
-                { text: "경비병에게 간다", action: "approach_richGateGuard" },
-                { text: "지하철로 향한다", action: "move_subway" }
-            ]
+            choices
         }
     ];
 }

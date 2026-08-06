@@ -679,3 +679,44 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_06_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_06_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_06_done_day + 2),
+
+    action : (player) => {
+        player.flags.upper_route_quest_06_after = true;
+        player.flags.act3_upper_quest_07_unlock = true;
+        player.location = "heavenRoad";
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "<span class='log-danger'>쿵</span><br><br>" +
+                    "일순간 천국으로 가는 길 쪽에서 큰소리가 났다. 상류도시의 거리를 거닐던 사람들이 어안이 벙벙한 표정으로 주변을 둘러보다가 천국으로 가는 길 쪽으로 시선을 돌렸다. 사람들이 천국으로 가는 길로 향하려고 하자 백색 군인들이 막았다. 하지만 백색 군인들은 당신만큼은 막지 않았다." +
+                    "<br><br>천국으로 가는 길은 붉은색으로 물들어 있었다. 큰 소리가 났던 것에 비해 다리는 무너지지 않았다, 금이 가 있었을 뿐. 그리고 그 금 앞에서는 발렌이 서 있었다. 당신은 그의 뒷모습만으로도 살기를 느꼈다." +
+                    "<br>당신은 주변을 둘러보았다." +
+                    "<br><br><span class='log-danger'>반란군과 백색 군인들의 시체가 널려 있었다.</span>" +
+                    "<br><br>\"상류도시의 영웅.\"<br><br>" +
+                    "당신은 뒤를 돌았다. 아카시아의 손에는 핏빛으로 물든 은장도가 들려 있었다. 그는 아무렇지도 않게 피를 털어내더니 당신이 해줘야 할 일이 있다고 말했다." +
+                    "<br><br>\"백색 흉물보다는 반란군 처리가 먼저인 것 같습니다. 저희가 계속 없앤다고 해도 그들의 씨를 완전히 말릴 수는 없겠지만 적어도...\"<br><br>" +
+                    "아카시아는 당신을 똑바로 바라보았다. 그의 입가에는 차가운 미소가 그려져 있었다.<br><br>" +
+                    "\"<strong>백색 도시</strong>를 이렇게 만든 자들은 죽여야 하지 않겠습니까. 제대로 된 위치는 주점에 올려놓겠습니다.\"<br><br>" +
+                    "벌써 그들의 위치 파악이 끝났냐며 의아해하자 아카시아는 한번 더 미소를 지었다." +
+                    "<br><br>\"아마 곧 끝날 겁니다. 저희에게는 고문 기술자가 있으니까요.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

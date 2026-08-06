@@ -518,6 +518,136 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "abominationRedCaveRepeated_bottomScream", weight : 15 },
             { type : "event", id : "abominationRedCaveRepeated_diamond", weight : 1 }
         ]
+    },
+
+    whiteArmyState : {
+        id : "whiteArmyState",
+        name : "백색 군단 군사 기지",
+        startRoom : "r6c0",
+
+        layout : [
+            [    "",     "",     "", "r0c3", "r0c4", "r0c5", "r0c6"],
+            [    "",     "", "r1c2", "r1c3",     "", "r1c5",     ""],
+            ["r2c0", "r2c1",     "",     "", "r2c4", "r2c5", "r2c6"],
+            [    "", "r3c1", "r3c2", "r3c3", "r3c4",     "", "r3c6"],
+            ["r4c0", "r4c1",     "", "r4c3",     "", "r4c5",     ""],
+            [    "", "r5c1",     "", "r5c3", "r5c4", "r5c5", "r5c6"],
+            ["r6c0", "r6c1",     "", "r6c3",     "",     "", "r6c6"]
+        ],
+
+        rooms : {
+            "r0c3" : {name : "서재실", exits : {right : "r0c4", down : "r1c3"}, event : "whiteArmyState_book", seenFlag : "whiteArmyState_book"},
+            "r0c4" : {name : "지도 복도", exits : {left : "r0c3", right : "r0c5"}, event : "whiteArmyState_map", seenFlag : "whiteArmyState_map"},
+            "r0c5" : {name : "하얀 복도", exits : {left : "r0c4", right : "r0c6", down : "r1c5"}},
+            "r0c6" : {name : "고문실", exits : {left : "r0c5"}, event : "whiteArmyState_prisoner", seenFlag : "whiteArmyState_prisoner"},
+            
+            "r1c2" : {name : "심층실", exits : {right : "r1c3"}, bossId: "whiteArmies_01", boss : ["whiteArmy4", "whiteArmy5", "whiteArmy6", "whiteArmyLeader2"], bossIntro:"whiteArmies_01_intro"},
+            "r1c3" : {name : "하얀 틈", exits : {up : "r0c3", left : "r1c2"}, safeZone: true, allowRest: true},
+            "r1c5" : {name : "우아한 복도4", exits : {up : "r0c5", down : "r2c5"}},
+            
+            "r2c0" : {name : "위쪽 화장실", exits : {right : "r2c1"}, event : "whiteArmyState_toilet_01" },
+            "r2c1" : {name : "세면대", exits : {left : "r2c0", down : "r3c1"}},
+            "r2c4" : {name : "우아한 복도2", exits : {right : "r2c5", down : "r3c4"}},
+            "r2c5" : {name : "우아한 복도3", exits : {up : "r1c5", left : "r2c4", right : "r2c6"}},
+            "r2c6" : {name : "식당", exits : {left : "r2c5", down : "r3c6"}},
+            
+            "r3c1" : {name : "화장실 통로", exits : {up : "r2c1", right : "r3c2", down : "r4c1"}},
+            "r3c2" : {name : "길게 뻗은 통로", exits : {left : "r3c1", right : "r3c3"}},
+            "r3c3" : {name : "금색 조각상들", exits : {left : "r3c2", right : "r3c4", down : "r4c3"}, event : "whiteArmyState_goldenStatue", seenFlag : "whiteArmyState_goldenStatue"},
+            "r3c4" : {name : "우아한 복도", exits : {up : "r2c4", left : "r3c3"}},
+            "r3c6" : {name : "조리실", exits : {up : "r2c6"}, event : "whiteArmyState_whiteFlower", seenFlag : "whiteArmyState_whiteFlower"},
+            
+            "r4c0" : {name : "중간 화장실", exits : {right : "r4c1"}, event : "whiteArmyState_toilet_02"},
+            "r4c1" : {name : "화장실 통로", exits : {up : "r3c1", left : "r4c0", down : "r5c1"}},
+            "r4c3" : {name : "백색 조각상들2", exits : {up : "r3c3", down : "r5c3"}},
+            "r4c5" : {name : "탈의실", exits : {down : "r5c5"}, chest : "gem_chest"},
+            
+            "r5c1" : {name : "화장실 통로", exits : {up : "r4c1", down : "r6c1"}},
+            "r5c3" : {name : "백색 조각상들1", exits : {up : "r4c3", right : "r5c4", down : "r6c3"}},
+            "r5c4" : {name : "훈련장 입구", exits : {left : "r5c3", right : "r5c5"}},
+            "r5c5" : {name : "훈련장 복도", exits : {up : "r4c5", left : "r5c4", right : "r5c6"}},
+            "r5c6" : {name : "훈련장", exits : {left : "r5c5", down : "r6c6"}},
+
+            "r6c0" : {name : "아래쪽 화장실", exits : {right : "r6c1"}},
+            "r6c1" : {name : "화장실 통로", exits : {up : "r5c1", left : "r6c0"}},
+            "r6c3" : {name : "굳게 닫힌 현관 앞", exits : {up : "r5c3"}, event : "whiteArmyState_door", seenFlag : "whiteArmyState_door"},
+            "r6c6" : {name : "훈련장 무대", exits : {up : "r5c6"}, event : "whiteArmyState_valen", seenFlag : "whiteArmyState_valen"}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "whiteArmy4", minCount : 2, maxCount : 4, weight : 30},
+            { type : "battle", enemies : ["whiteArmy4", "whiteArmy5", "whiteArmy6"], weight : 20 },
+            { type : "battle", enemies : ["whiteArmy5", "whiteArmy6"], weight : 30 },
+            { type : "battle", enemies : ["whiteArmy4", "whiteArmy4", "whiteArmy5"], weight : 30 },
+            { type : "event", id : "whiteArmyState_pepper", weight : 5 },
+            { type : "event", id : "whiteArmyState_sneak", weight : 15 },
+            { type : "event", id : "whiteArmyState_aboutYou", weight : 15 }
+        ]
+    },
+
+    rebelsState : {
+        id : "rebelsState",
+        name : "과격한 반란군 기지",
+        startRoom : "r6c0",
+
+        layout : [
+            [    "",     "",     "", "r0c3", "r0c4", "r0c5", "r0c6"],
+            [    "",     "", "r1c2", "r1c3",     "", "r1c5",     ""],
+            ["r2c0", "r2c1",     "",     "", "r2c4", "r2c5", "r2c6"],
+            [    "", "r3c1", "r3c2", "r3c3", "r3c4",     "", "r3c6"],
+            ["r4c0", "r4c1",     "", "r4c3",     "", "r4c5",     ""],
+            [    "", "r5c1",     "", "r5c3", "r5c4", "r5c5", "r5c6"],
+            ["r6c0", "r6c1",     "", "r6c3",     "",     "", "r6c6"]
+        ],
+
+        rooms : {
+            "r0c3" : {name : "화약 폭탄", exits : {right : "r0c4", down : "r1c3"}, event : "rebelsState_bomb_04", seenFlag : "rebelsState_bomb_04"},
+            "r0c4" : {name : "마르지 않은 흙길", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "의무실 앞", exits : {left : "r0c4", right : "r0c6", down : "r1c5"}},
+            "r0c6" : {name : "의무실", exits : {left : "r0c5"}, chest : "gem_chest"},
+            
+            "r1c2" : {name : "반란군 심부", exits : {right : "r1c3"}, bossId: "rebelsArmies_01", boss : ["rebels6", "rebels7", "rebels8", "rebelLeader4"], bossIntro:"rebelsArmies_01_intro"},
+            "r1c3" : {name : "자재들 틈", exits : {up : "r0c3", left : "r1c2"}, safeZone: true, allowRest: true},
+            "r1c5" : {name : "자기들끼리의 훈장", exits : {up : "r0c5", down : "r2c5"}, event : "rebelsState_medal", seenFlag : "rebelsState_medal"},
+            
+            "r2c0" : {name : "위쪽 화장실", exits : {right : "r2c1"}, event : "rebelsState_toilet_01"},
+            "r2c1" : {name : "화장실 통로", exits : {left : "r2c0", down : "r3c1"}},
+            "r2c4" : {name : "꺾어지는 길", exits : {right : "r2c5", down : "r3c4"}},
+            "r2c5" : {name : "이름 없는 묘지들", exits : {up : "r1c5", left : "r2c4", right : "r2c6"}},
+            "r2c6" : {name : "성호", exits : {left : "r2c5", down : "r3c6"}},
+            
+            "r3c1" : {name : "세면대", exits : {up : "r2c1", right : "r3c2", down : "r4c1"}},
+            "r3c2" : {name : "낡은 복도", exits : {left : "r3c1", right : "r3c3"}},
+            "r3c3" : {name : "흙이 드러난 복도", exits : {left : "r3c2", right : "r3c4", down : "r4c3"}},
+            "r3c4" : {name : "나뭇가지 묘지", exits : {up : "r2c4", left : "r3c3"}},
+            "r3c6" : {name : "실험체들", exits : {up : "r2c6"}, event : "rebelsState_tomb", seenFlag : "rebelsState_tomb"},
+            
+            "r4c0" : {name : "중간 화장실", exits : {right : "r4c1"}, event : "rebelsState_toilet_02"},
+            "r4c1" : {name : "화장실 통로", exits : {up : "r3c1", left : "r4c0", down : "r5c1"}},
+            "r4c3" : {name : "흙길", exits : {up : "r3c3", down : "r5c3"}},
+            "r4c5" : {name : "화약 창고", exits : {down : "r5c5"}, event : "rebelsState_bomb_01", seenFlag : "rebelsState_bomb_01"},
+            
+            "r5c1" : {name : "화장실 통로", exits : {up : "r4c1", down : "r6c1"}},
+            "r5c3" : {name : "피 묻은 흙길", exits : {up : "r4c3", right : "r5c4", down : "r6c3"}},
+            "r5c4" : {name : "화약냄새 나는 길", exits : {left : "r5c3", right : "r5c5"}},
+            "r5c5" : {name : "화약 창고 앞", exits : {up : "r4c5", left : "r5c4", right : "r5c6"}},
+            "r5c6" : {name : "화약 실험실", exits : {left : "r5c5", down : "r6c6"}, event : "rebelsState_bomb_02", seenFlag : "rebelsState_bomb_02"},
+
+            "r6c0" : {name : "아래쪽 화장실", exits : {right : "r6c1"}},
+            "r6c1" : {name : "화장실 통로", exits : {up : "r5c1", left : "r6c0"}},
+            "r6c3" : {name : "경계선 앞", exits : {up : "r5c3"}, event : "rebelsState_door"},
+            "r6c6" : {name : "실험결과 보관소", exits : {up : "r5c6"}, event : "rebelsState_bomb_03", seenFlag : "rebelsState_bomb_03"}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "rebels6", minCount : 2, maxCount : 4, weight : 30},
+            { type : "battle", enemies : ["rebels6", "rebels7", "rebels8"], weight : 20 },
+            { type : "battle", enemies : ["rebels7", "rebels8"], weight : 30 },
+            { type : "battle", enemies : ["rebels6", "rebels6", "rebels8"], weight : 30 },
+            { type : "event", id : "rebelsState_pepper", weight : 5 },
+            { type : "event", id : "rebelsState_sneak", weight : 15 },
+            { type : "event", id : "rebelsState_aboutYou", weight : 15 }
+        ]
     }
 })
 
@@ -570,6 +700,15 @@ const abominationRedCave_CHEST_POOL = [
     { id: "diamond", weight: 1 }
 ];
 
+const gem_CHEST_POOL = [
+    { id: "sapphire", weight : 10},
+    { id: "diamond", weight: 10 },
+    { id: "ruby", weight: 10},
+    { id: "aquamarine", weight: 10},
+    { id: "gold_10000", weight: 60 }
+];
+
+
 Object.assign(DUNGEON_CHESTS, {
     survivalBandit_chest : {
         name : "낡은 상자",
@@ -599,6 +738,12 @@ Object.assign(DUNGEON_CHESTS, {
         name : "꿈틀거리는 살점 상자",
         type : "random",
         pool : abominationRedCave_CHEST_POOL
+    },
+
+    gem_chest : {
+        name : "희귀한 상자",
+        type : "random",
+        pool : gem_CHEST_POOL
     }
 })
 
@@ -3099,6 +3244,520 @@ Object.assign(DUNGEON_EVENTS, {
                 ]
             }
         ]
+    },
+    whiteArmyState : {
+        whiteArmyState_pepper : [
+            {
+                type : "text",
+                value : [
+                    "당신은 고추를 발견했다. 하류도시 사람들은 인생에 고추를 한 번도 못 먹어본 사람들이 대다수일 것이다. 당신은 고추를 챙겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.pepper);
+                    addItem(player, ITEMS.misc.pepper);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_sneak : [
+            {
+                type : "text",
+                value : [
+                    "당신은 숨을 멈췄다. 백색 군인들이 순찰을 돌고 있었다. 밖에서는 언제나 경직된 표정을 짓고 있었던 사람들인데, 자기네들끼리 있으니까 그래도 조금은 사람다운 표정을 짓고 있었다. 그들은 시시콜콜한 얘기를 하며 당신 쪽으로 걸어오고 있다."
+                ]
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 25,
+                success : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 재빨리 몸을 구석으로 숨겨 그들에게 걸리지 않을 수 있었다. 그들은 지나가면서 이번 급식은 맛이 좀 별로였지 않냐는 말을 했다. 그들은 식단표에서 항상 이름만 바뀌지 내용물은 언제나 똑같지 않냐며 투덜거렸다. <br><br>\"그놈의 빨간 고기 좀 그만 먹고 싶네.\""
+                        ]
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 재빨리 몸을 숨기려고 했지만, 당신이 몸을 숨기기 전에 그들의 눈이 먼저 당신을 포착했다." +
+                            "<br><br>\"놓치지 마!\"<br><br>" +
+                            "싸움은 불가피한 것 같다...! 당신은 무기를 들었다."
+                        ]
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            const enemyId = ["whiteArmy5", "whiteArmy6", "whiteArmyLeader1"];
+                            const defeatEnemy = ENEMIES["whiteArmy5"]();
+                            startBattle(enemyId, player, {
+                                onWin: () => startScene(buildDungeonScene(player), player),    
+                                onEscape: () => startScene(buildDungeonScene(player), player),
+                                onLose: () => {runDefeatEvent(player, defeatEnemy);}
+                            });
+                            return true;
+                        }
+                    }
+                ]
+            }
+        ],
+        whiteArmyState_aboutYou : [
+            {
+                type : "text",
+                value : [
+                    "백색 군인들이 지나간다. 당신은 벽에 바짝 붙어섰다. 그들은 당신을 이름으로 부르기보다는 하류도시의 영웅이라 부르고 있었다. 그들은 지금까지 하류도시의 영웅은 살아남은 적이 없었다고 말하며 웃었다.<br><br><strong>그 자리는 죽은 명예의 자리지.</strong>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_toilet_01 : [
+            {
+                type : "text",
+                value : [
+                    "누군가 벽에 글씨를 써놨다..." +
+                    "<br><br>[젠장. 똥 좀 싸자.]<br><br>[물을 처마셔.]"
+                ]
+            }
+        ],
+        whiteArmyState_toilet_02 : [
+            {
+                type : "text",
+                value : [
+                    "누군가 벽에 글씨를 써놨다..." +
+                    "<br><br>[토할 것 같다. 그놈이 원래 그리 실실 웃는 놈이라는 건 알았지만, 그런 고문을 하면서 웃는 놈일 줄은 꿈에도 상상하지 못했다. 어쩌면 그래서 발렌님이 하류도시 출신인데도 가까이 두고 있는 걸지도 모르겠다.]<br><br>" +
+                    "[결국 토했다. 젠장. 그새끼가 고문하는 날에는 절대로 고문실 가지 말아야겠어.]"
+                ]
+            }
+        ],
+        whiteArmyState_goldenStatue : [
+            {
+                type : "text",
+                value : [
+                    "복도에 나오자마자 당신은 황금석상들을 보았다. 영광의 거리에 있던 데릭 얼굴 동상보다는 작았지만, 어쨌든 똑같이 생긴 데릭의 얼굴 황금 동상도 또 있었다. 당신은 주변을 둘러보았다." +
+                    "<br><br><span class='log-valen'>에드먼드 시더</span><br><br>" +
+                    "그리고 그의 앞에는 하얀색으로 꽃이 하나 조각되어 있었다. 황금 성배와 함께."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_goldenStatue = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_door : [
+            {
+                type : "text",
+                value : [
+                    "당신은 거대한 문앞에서 걸음을 멈췄다. 문은 온통 유리로 세공된 하얀색 꽃잎조각들로 가득했다. 당신은 당신도 모르게 하얀색 꽃잎조각들에 손을 뻗었다." +
+                    "<br><br>...! 마법이다. 당신은 재빨리 손을 뗐다. 하얀색 꽃잎조각들은 흐물거리다가 곧 아카시아 꽃잎들로 변해서 팔랑팔랑 밑으로 떨어졌다. 어차피 나가는 문이긴 하지만, 이쪽 문은 누군가의 허락 없이는 열리지 않을 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_door = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_valen : [
+            {
+                type : "text",
+                value : [
+                    "넓은 훈련장 끝에는 무대가 있었다. 넓은 훈련장에 비해서는 작았지만 마이크와 방송 장치는 다 설치되어 있었다. 당신은 주변을 둘러보다가 무대 뒤 커튼을 걷었다." +
+                    "<br><br>...에릭과 데릭?<br><br>" +
+                    "에릭과 데릭을 닮은 남녀 한 쌍, 아카시아를 닮은 또 다른 남녀 한 쌍, 그리고 발렌을 닮은 남자―에드먼드 시더가 함께 찍은 사진이었다. 당신은 이들 중 대다수가 다 죽었다는 사실을 눈치챘다. 에드먼드 시더가 죽고 발렌 시더가 그 자리를 물려받았으며, 에릭과 데릭을 닮은 한쌍의 남녀가 그들의 부모님이라면 두 사람은 모두 죽었다. 아카시아를 닮은 남자와 여자는 당신이 생사를 모른다. 당신은 그들의 사진을 다시 한번 살펴보았다." +
+                    "<br><br>에릭과 데릭의 부모님으로 보이는 사람들은 한 손에 책을 들고 있었고, 아카시아를 닮은 사람들은 우아하게 하얀꽃 차를 마시고 있었다. 그리고 에드먼드 시더는 검을 차고 있었다.<br><br>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_valen = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_whiteFlower : [
+            {
+                type : "text",
+                value : [
+                    "당신은 조리실에서 누군가 남긴 메모를 보았다." +
+                    "<br><br>[하얀 꽃은 적당량 넣어야 한다. 그것은 마음을 진정시켜주고 사람의 생명력을 회복시켜주는 효과가 있지만, 다량 섭취하면 조상들처럼 정신을 놓아버리는 사람들도 생기고 만다.]<br><br>" +
+                    "[저번에 그걸 제대로 해내지 못한 어린 요리사는 행방불명됐다. 발렌님은 하얀 꽃에 대해서는 사소한 실수 하나도 용납하지 않는다. 물론 나도 부모님한테도 안 말하고 있다. 부모님은 아마 내가 하얀 꽃을 만지고 있다는 사실도 모르겠지.]<br><br>" +
+                    "[...그 아이가 대체 어디에 갔는지 했더니, 경계병 제3초소로 보냈단다. 정말로? 그 아이는 칼 하나 쥘 줄 모르는데?]<br><br>" +
+                    "[아무리 생각해도 경계병 제3초소로 보내진 않았을 것 같다.... 어쨌든 그 아이의 장례식이 치러졌다. 경계병 제3초소에서 죽은 것이기 때문에 시체도 못 찾는다고 한다. 나는 절대로 실수하지 말아야지.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_whiteFlower = true;
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_prisoner : [
+            {
+                type : "text",
+                value : [
+                    "고문실, 아까까지와는 다르게 시체가 썩는 냄새라고 해도 믿을 만큼 퀴퀴한 냄새가 당신의 코를 찔렀다. 당신은 주변을 살펴보다가 반란군 의상을 입고 의자에 묶여 앉아있는 남자에게 다가갔다. 당신이 다가왔는데도 그는 전혀 움직이지 않았다." +
+                    "<br><br>당신은 그의 몸 상태를 살폈다. 지금까지 살아있는 게 기적일 정도로 그의 모든 신경과 근육은 끊어져 있었다. 당신은 옆에 있는 주사기를 보았다. 하얀꽃 마물에게서 나오는 하얀 즙이랑 똑같이 생긴 액체가 주사기 안에 들어 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그의 팔에 약을 주사해보았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그의 팔에 주사를 놓았다. 그러자 끊어져 있던 팔의 근육이 마치 새 생명이 솟아나는 것처럼 다시 이어지기 시작했다. 남자는 손을 꿈틀거렸다. 당신은 남자의 표정을 살폈다. 그는 여전히 의식이 없었다." +
+                                    "<br><br><span class='log-danger'>그럼 이 팔은 대체 누가 움직이고 있는 거지?</span><br><br>" +
+                                    "당신은 꿈틀거리는 남자의 손이 점점 이상한 색으로 물드는 것을 보았다. 검붉은 색.... 그의 피부가 흉물의 색과 똑같이 변하고 있었다. 당신은 뒤로 물러났다. 그 순간, 당신은 찢어질 듯한 비명 소리를 들었다. 당신은 남자에게서 시선을 돌렸다. 바닥에 있는 문 너머에서 들렸던 것 같다. 당신은 그 문을 열어보려고 했지만 열리지 않았다." +
+                                    "<br><br><span class='log-danger'>상류도시의 실험은 끊임없이 계속되고 있다.</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.whiteArmyState_prisoner = true;
+                                    changeTrauma(player, 15);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "불길하다. 당신은 그의 팔에 주사하지 않고 그대로 물러났다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 뒤로 물러났다. 주사기가 무슨 용도인지는 모르겠지만 이 남자에게 좋지 않을 거라는 건 확실했다. 당신은 고문실을 둘러보았다. 지하로 내려가는 지하 문도 있었다. 당신은 바닥에 붙은 문을 열어보려고 했지만 열리지 않았다. 그리고 당신은...." +
+                                    "<br><br><span class='log-danger'>누군가의 찢어질 듯한 비명을 들었다.<br><br>상류도시의 고문은 지금도 계속되고 있다.</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.whiteArmyState_prisoner = true;
+                                    changeTrauma(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        whiteArmyState_map : [
+            {
+                type : "text",
+                value : [
+                    "당신이 방에 들어서자, 모든 면이 지도로 감싸 있었다. 하류도시가 상류도시를 감싸안고 있는 모양마저 세세하게 그려져 있었다. 당신은 동그라미가 쳐져 있는 부분을 유심히 살폈다.<br>...당신은 당신이 아는 연구소의 위치들이 전부 동그라미에 위치해있다는 것을 깨달았다. 동그라미들이 너무 많다. 당신은 다시 지도를 둘러보았다." +
+                    "<br><br>...하류도시에 있는 연구소는 하나가 아니었다.<br><br>" +
+                    "그리고 동그라미들 중 하나에는 M&C라고 적혀 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_map = true;
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteArmyState_book : [
+            {
+                type : "text",
+                value : [
+                    "당신은 서재에서 보고서 요약 자료 하나를 읽었다." +
+                    "<br><br>[백색 흉물이 하얀꽃 마물의 정서 이전 능력을 가져간 것이 분명. 그들은 이제 서로에게 명령을 내리고 체계를 형성할 수 있는 지능이 생겼음.]<br><br>" +
+                    "[어쩌면 그들과 대화가 가능할 수도 있겠다는 생각에 희생자들을 데리고 가봤지만, 발렌님의 예상대로 아까운 희생자들만 낭비되었음.]<br><br>" +
+                    "[그들 중 에르윈에 집착한 백색 흉물들이 있다고 들었음. 창백의 능력 일부분이 그들에게 넘어갔을까봐 걱정됨. 창백과 다르게 흉물들은 적극적으로 인간을 공격하기 때문에, 일의 시급성을 발렌님께 알렸음.]<br><br>" +
+                    "[발렌님은 흉물과 하얀꽃의 융합 실험은 성공적이었다며, 그 실험을 계속할 것을 명령함. 그 실험만 성공한다면 상류도시는 백색 흉물에게도 맞설 수 있을 것임. 우리 백색 군단은, 괴물이 되더라도 발렌님의 명령에 따라 스스로의 의지로 상류도시를 지킬 거니까.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteArmyState_book = true;
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+    rebelsState : {
+        rebelsState_pepper : [
+            {
+                type : "text",
+                value : [
+                    "당신은 고추를 발견했다. 그들은 대체 어떻게 고추를 얻은 걸까? 상류도시에 와서 직접 털어갔을까, 아니면 상류도시 사람들 중에서도 그들을 도와주는 사람이 있는 걸까.... 당신은 고추를 챙겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.pepper);
+                    addItem(player, ITEMS.misc.pepper);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_sneak : [
+            {
+                type : "text",
+                value : [
+                    "당신은 숨을 멈췄다. 반란군들이 순찰을 돌고 있었다. 그들은 군사들을 먹일 식량이 부족하다며 근심 어린 표정을 짓고 있었다. 한 명이 너는 밥이 중요하냐고 물었다. 그는 자신은 밥이 없어도 백색 군인 한 명의 머리를 꺾을 수 있다면 살아갈 수 있다고 말했다. 나머지들이 공감하며 고개를 끄덕이며 당신 쪽으로 걸어왔다..."
+                ]
+            },
+            {
+                type : "check",
+                stat : "dex",
+                difficulty : 25,
+                success : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 재빨리 몸을 구석으로 숨겨 그들에게 걸리지 않을 수 있었다. 그들은 지나가면서 언젠가는 하류도시 사람들도 상류도시에 반기를 들게 될 것이라 말했다. 그들은 상류도시의 실험 피해자는 우리들로 끝나지는 않을 거라고 말했다."
+                        ]
+                    }
+                ],
+                fail : [
+                    {
+                        type : "text",
+                        value : [
+                            "당신은 재빨리 몸을 숨기려고 했지만, 당신이 몸을 숨기기 전에 그들의 눈이 먼저 당신을 포착했다." +
+                            "<br><br>\"놓치지 마!\"<br><br>" +
+                            "싸움은 불가피한 것 같다...! 당신은 무기를 들었다."
+                        ]
+                    },
+                    {
+                        type : "effect",
+                        run : (player) => {
+                            const enemyId = ["rebels7", "rebels8", "rebelLeader3"];
+                            const defeatEnemy = ENEMIES["rebels7"]();
+                            startBattle(enemyId, player, {
+                                onWin: () => startScene(buildDungeonScene(player), player),    
+                                onEscape: () => startScene(buildDungeonScene(player), player),
+                                onLose: () => {runDefeatEvent(player, defeatEnemy);}
+                            });
+                            return true;
+                        }
+                    }
+                ]
+            }
+        ],
+        rebelsState_aboutYou : [
+            {
+                type : "text",
+                value : [
+                    "반란군들이 당신에 대해 얘기하는 것이 들린다. 그들은 당신은 상류도시의 개이자 하류도시의 배신자라고 말했다. 그들은 같은 하류도시 출신이면서 하류도시 사람들을 외면하는 게 사람이 할 짓이냐고 물었다.<br><br>\"하긴, 이 세상에 그런 놈들은 많지. 상류도시랑 같이 다 태워버리고 싶다.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_toilet_01 : [
+            {
+                type : "text",
+                value : [
+                    "누군가 화장실 벽면에 낙서를 해놓았다." +
+                    "<br><br>[똥 마려. 나도야. 똥 마려. 나도야. 우리 모두 똥 마려.]"
+                ]
+            }
+        ],
+        rebelsState_toilet_02 : [
+            {
+                type : "text",
+                value : [
+                    "화장실 벽면에 낙서가 되어 있다.<br><br>" +
+                    "[요새 들어 스테리가 보고 싶다. 그는 언제나 자신의 얘기는 거의 안 했지만, 남의 얘기는 잘 들어주고는 했다. 내가 그의 얘기를 더 들어줬다면, 그가 계속 반란군에 남아 있었을까?]<br><br>" +
+                    "[스테리가 상징하는 바는 우리에게 너무 크다. 스테리랑 비교하기에도 실례지만, 어쩌면 그의 동생을 상징으로 써먹을 수 있지 않을까? 어차피 둘은 비슷하게 생겼잖아.]"
+                ]
+            }
+        ],
+        rebelsState_door : [
+            {
+                type : "text",
+                value : [
+                    "당신은 조용히 출입구 쪽을 살폈다. 반란군들이 지키고 있긴 했지만 너무 열악했다. 당신이 없었더라도 발렌이 백색 군단을 보낸다면 이들은 속수무책으로 당할 것이다."
+                ]
+            }
+        ],
+        rebelsState_bomb_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 화약창고의 문을 열었다." +
+                    "<br><br>...당신의 생각보다 화약 양이 적었다. 당신은 바닥을 살폈다. 뭔가 질질 끌은 흔적이 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.rebelsState_bomb_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_bomb_02 : [
+            {
+                type : "text",
+                value : [
+                    "책상 위에는 화학식들이 가득했다. 책상 위의 화학실을 살피는데, 누군가 당신의 뒤통수에 칼을 겨누었다." +
+                    "<br><br>\"네놈....\"<br><br>" +
+                    "당신의 뒤통수에 칼은 겨누고 있었지만, 팔이 바들바들 떨리고 있는 것을 보아 실전 경험은 없는 것처럼 보였다. 당신은 뒤를 돌아(심지어 당신이 뒤를 도는 동안에도 그는 당신을 제대로 공격하지 못했다. 그저 칼날만 당신을 향하고 있었을 뿐) 그를 응시했다." +
+                    "<br><br>\"....\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "그를 죽인다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 그를 죽였다. 그는 그럴 줄 알았다는 듯이 당신을 마지막까지 노려보다가 그대로 고꾸라져서 죽었다." +
+                                    "<br><br>...어쩌면 싸울 줄은 모르고 폭탄만 만질 줄 아는 놈이었을지도 모르곘다. 당신은 반란군의 전력 중 하나를 방금 제거했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.rebelsState_bomb_02 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "그를 살려준다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...왜 날 공격하지 않는 거지? 너는 상류도시의 개고, 나는 반란군일 텐데.\"<br><br>" +
+                                    "그는 당신이 공격하지 않자 이해가 안 간다는 듯 고개를 기울이긴 했지만, 눈동자 한쪽 구석에서는 희미한 기대감이 일렁이고 있었다. 그는 용기를 내어 당신에게 한 걸음 더 다가왔다." +
+                                    "<br><br>\"...누구나 실수는 하는 법이지. 네가 정말로 실수를 했다고 생각한다면.\"<br><br>" +
+                                    "그는 당신에게 손을 내밀려다가 말았다. 용기를 내도 아직은 당신이 무서운 모양이다." +
+                                    "<br><br>\"나중에 내가 다시 널 찾아갔을 때, 내 손을 잡아주도록 해.\"<br><br>" +
+                                    "그는 잠시 망설였다.<br><br>" +
+                                    "\"내가 정말로 널 찾아갈지는 모르겠지만.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.rebelsState_bomb_02 = true;
+                                    player.flags.upper_prepareToBetray = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        rebelsState_bomb_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 메모 한 장을 발견했다.<br><br>" +
+                    "[메모에는 천국으로 가는 길과 천국의 성 설계도가 그려져 있다. 세세하다. 직접 보면서 그렸거나, 천국으로 가는 길과 천국의 성 설계도를 얻지 못했으면 그릴 수 없는 그림이다.]" +
+                    "<br><br>[금이 가있던 부분에 동그라미가 쳐져 있다. 내용을 읽어보니 그들은 원래 다리를 아예 무너뜨릴 생각이었던 것 같다. 화력만 부족하지 않았더라면 그들은 성공했을지도 모르겠다.]" +
+                    "<br><br>[반대한 놈들이 많았던 건 알고 있어. 하지만 우리는 상류도시가 아예 없어져야 한다고 생각해.]" +
+                    "<br><br>[...아이들이 죽는 건 싫다. 하지만 지금의 상류도시가 살아있는 한 더 많은 아이들이 죽는다.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.rebelsState_bomb_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_tomb : [
+            {
+                type : "text",
+                value : [
+                    "나뭇가지로 만든 무덤을 지나고, 이름 없는 묘비들이 많은 공간을 지나고, 성호를 지나, 당신은 마지막으로 실험체들이 가지런히 누워있는 곳에 도달했다. 상류도시의 실험을 당한 건지 몇 명의 몸은 이미 괴기하게 일그러져 있었다. 실험체들의 몸 위에는 하얀 천이 덮어져 있었다." +
+                    "<br><br>다음 번에는 더 좋은 곳에서 태어나<br><br>" +
+                    "당신은 가장 크게 써있는 글씨를 보다가 삐죽 튀어나와있는 메모를 보았다. 당신은 메모를 주워 읽었다." +
+                    "<br><br>[그들에게 대적하기 위해서는 우리도 힘을 얻어야 할지도 몰라.<br><br>실험 결과를 보는 것만으로는 부족해. 우리도 어쩌면, 결과를 직접 봐야할지도 몰라. 찬성하지 않는 사람들이 많다는 건 알아. 하지만...<br><br><span class='log-danger'>우리도 이겨야하잖아</span>]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.rebelsState_tomb = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_bomb_04 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 아주 큰 화약폭탄을 보았다.<br><br>[실패작]<br><br>[불발]<br><br>원래 이걸 천국으로 가는 길에 설치하려고 했던 걸까? 이정도로 큰 폭탄이 폭발했으면 일반 상류도시 사람들도 많이 죽었을 것이다. 당신의 등골이 오싹해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.rebelsState_bomb_04 = true;
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        rebelsState_medal : [
+            {
+                type : "text",
+                value : [
+                    "당신은 훈장 메달 몇 개가 낡은 케이스 안에 들어있는 것을 보았다. 액자들도 몇 개 걸려 있었다. 다들 훈장 메달을 목에 걸고 하하 웃고 있었다." +
+                    "<br><br>우리가 우리에게<br><br>" +
+                    "훈장 메달은 정교한 기술 하나 없이 조악하기만 했다. 그들이 직접 만든 걸까? 대의를 위하여 상. 발렌 좆까라 상. 하류도시를 위해서 상...." +
+                    "<br><br>언젠가 찾을 가족을 위해서 상." +
+                    "반란군은 처음부터 반란군이었던 게 아니다. 그들은 그저 잃어버린 가족들을 찾고 싶었거나, 눈앞의 사람들을 지나칠 수 없었거나, 진실을 알게 되고 도저히 눈을 감을 수 없었거나... 그리고 그들에게 당신은 지금 상류도시의 개이자 하류도시의 역적이라 불리고 있다. 당신은 그들의 사진에서 시선을 뗐다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.rebelsState_medal = true;
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ]
     }
 })
 
@@ -3324,7 +3983,7 @@ function startTeacherAndStudentsLose(player){
         "당신의 양팔에 주사기가 한번에 주입된다. 하나는 하얀색 액체였고 하나는 검붉은 액체였다. 둘 다 걸쭉했다. 액체가 주입되자마자 당신의 심장이 빠르게 뛰었다. 당신의 머릿속에 비명이 울렸다." +
         "<br><br>\"ㅇ...ㄷ...! ㅇ..ㄷ....!\"<br><br>" +
         "...하류도시의 영웅은, 이 세상에 더 이상 존재하지 않는다." +
-        "게임오버"
+        "<br>게임오버"
     );
 }
 
@@ -3556,4 +4215,207 @@ function startMixedAbominationsLose(player){
             }
         }
     ], player);
+}
+
+//act07 각기 루트
+window.startWhiteArmies01Battle = function(player){
+    let supportStarted = false;
+    startBattle( ["whiteArmy4", "whiteArmy5", "whiteArmy6", "whiteArmyLeader2"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "시온",
+            hpRate : 0.5,
+            damage : 50,
+            logType : "sion",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "혼자 싸울 줄 알았던 당신의 뒤로 묵직한 대검이 하나 날아들었다. 시온이다. 그는 당신의 앞을 가로막으며 당신의 적을 공격했다.<strong>50 데미지!</strong>";
+                }
+
+                const lines = [
+                    "\"영웅님은, 한시도 눈을 못 떼겠어요.\"<br><br>시온은 중얼거리며 당신의 앞으로 쏟아지던 공격을 막고 적을 공격했다. <strong>50 데미지!</strong>",
+                    "시온이 대검을 들고 날아올랐다. 전보다 속도가 더 빨라진 것 같다. <strong>50 데미지!</strong>",
+                    "시온은 당신이 공격하기 전에 먼저 그 적을 공격했다. 그의 시선이 당신의 손등에 닿았다가 떨어진다. <strong>50 데미지!</strong>",
+                    "\"...오늘은 더 반해주시나요?\"<br><br>적의 몸을 벤 후 시온은 당신을 바라보며 얼굴을 붉게 물들였다. <strong>50 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => {
+            player.flags.whiteArmyState_whiteArmies_01_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startWhiteArmies01Lose(player);
+        }
+    });
+};
+
+function handleWhiteArmies01Win(player){
+    player.flags.act3_quest_07_rebel_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...그들이 당신에게 또 위험한 일을 시킨 거죠? 저는 예전에는 반란군이 되고 싶다고 생각한 적도 있었는데, 지금 와서는 싫어졌어요. 자꾸 영웅님만 시키잖아요.\"<br><br>" +
+                "시온은 대검에 묻은 피를 아무렇지도 않게 털며 새침한 목소리로 말했다." +
+                "<br><br>\"결국 영웅님의 가장 옆에서 지켜주는 사람은, 저밖에 없어요. 그래서 제가 더 영웅님한테서 시선을 못 떼는 걸지도 몰라요. 영웅님이... 저를 사랑하지 않는다고 하더라도, 저는 영웅님한테서 시선을 뗄 수가 없어요.\"<br><br>" +
+                "그는 예전에는 책에 나오는 사랑 이야기를 하나도 믿지 않았었다고 말했다. 전부 사랑에 대해 거짓말을 하고 있다고, 저렇게까지 사랑하는 사람이 어딨냐고 속으로 불평하고는 했다고 했다." +
+                "<br><br>\"하지만 지금은 알 것 같아요. 왜 그들이 그렇게까지 사랑을 했는지.... 사랑은 이성으로는 안 되는 일이에요.\"<br><br>" +
+                "시온은 붉어진 얼굴로 미소를 지었다. 그는 당신을 지키기 위해 더 강해지겠다고 말을 하며, 당신을 먼저 보냈다." +
+                "<br><br>\"저는 더 단련하다가 갈게요, 영웅님.\"<br><br>" +
+                "...시온의 장밋빛 눈동자에 더 확고한 의지가 서린 것 같다." +
+                "<br>비록 연구자료는 얻을 수 없었지만, 반란군들에게 말해줄 것은 있다. 당신은 자리를 떠났다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("yuri", "affection", 3);
+                changeNPCEmotion("sion", "affection", 3);
+                changeNPCEmotion("sion", "dominance", 5);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+function startWhiteArmies01Lose(player){
+    gameOver(
+        player,
+        "\"안돼요, 영웅님!\"<br><br>" +
+        "시온의 비명 소리가 들렸다. 그는 당신에게로 손을 뻗었지만, 그 틈을 놓치지 않은 백색 군인은 당신을 돕는 시온의 가슴에도 그대로 무기를 찔러넣었다. 그들은 시온에게 언제까지 자신들이 너를 봐줄 줄 알았냐고 물었다." +
+        "<br><br>\"너는 지금 발렌님에게 쓸모가 없어.\"<br><br>" +
+        "당신이 그게 무슨 말이냐고 묻기도 전에, 당신의 목위로도 칼날이 떨어졌다. 당신의 시야가 뒤집혔다.<br><br>" +
+        "<span class='log-danger'>하류도시의 영웅은, 명예롭게 죽었다.</span>"
+    );
+}
+
+window.startRebelsArmies01Battle = function(player){
+    let supportStarted = false;
+    startBattle( ["rebels6", "rebels7", "rebels8", "rebelLeader4"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "니콜라이",
+            hpRate : 0.5,
+            damage : 40,
+            logType : "nikolai",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "\"안녕, 자기, 여기서 만나볼 줄은 몰랐네.\"<br><br>당신의 뒤로 익숙한 목소리가 들렸다. 니콜라이는 채찍이 아니라 마체테를 들고 있었다. 그는 아무렇지도 않게 마체테를 반란군에게 쑤셔박으며 미소를 지었다.<strong>40 데미지!</strong>";
+                }
+
+                const lines = [
+                    "니콜라이는 유연하게 공격을 피한 후 적에게 공격을 가했다. <strong>40 데미지!</strong>",
+                    "니콜라이의 뺨에 피가 튀었다. 그는 미소를 지으며 뺨에 묻은 피를 닦더니 다시 마체테로 적을 공격했다. <strong>40 데미지!</strong>",
+                    "\"어머, 자기, 위험해~\"<br><br>니콜라이는 당신이 다칠 뻔하자 부드럽게 당신에게로 온 공격을 막은 후 자신이 대신 공격해주었다. <strong>40 데미지!</strong>",
+                    "\"마카롱 타임이나 가지고 싶은 걸.\"<br><br>빨리 끝내고 싶다는 듯 니콜라이는 웃음과 함께 중얼거리더니 그대로 마체테로 적의 목을 그었다. <strong>40 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => {
+            player.flags.rebelsState_rebelsArmies_01_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startRebelsArmies01Lose(player);
+        }
+    });
+};
+
+function handleRebelsArmies01Win(player){
+    player.flags.act3_quest_07_upper_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "니콜라이는 마체테에 묻은 피를 털었다. 그리고 당신을 돌아보더니 손수건을 꺼내 당신의 뺨에 묻은 피를 닦아주었다." +
+                "<br><br>\"예쁜 얼굴에 피가 묻어있으니까 기분이 안 좋네.\"<br><br>" +
+                "그는 높은 목소리로 흥얼거리듯이 말한 후 손수건을 다시 소매에 집어넣었다. 그는 이곳 처리는 자신이 할 테니 당신은 돌아가라고 말했다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 니콜라이에게 언제부터 발렌의 밑에서 일하고 있었냐고 물었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "\"상류도시에 있는 하류도시 출신들 중에서 발렌의 밑에서 일하지 않는 사람들도 있어?\"<br><br>" +
+                                "니콜라이는 당신의 질문에 귀엽다는 듯이 웃었다. 그는 당신의 뺨을 아프지 않게 꼬집더니 아무도 믿지 말라고 말했다." +
+                                "<br><br>\"나조차도 말이야.\"<br><br>" +
+                                "그리고 그는 반란군 뒷처리를 하러 팔랑팔랑 가버렸다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                changeNPCEmotion("nikolai", "affection", 1);
+                                leaveDungeon(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 니콜라이의 뺨에 묻은 피를 손등으로 닦아주었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신의 행동에 놀랐는지 니콜라이는 분홍색 눈을 깜박이다가 까르르 웃었다. 그는 이런 건 정말 사랑하는 사람한테 해야 한다고 속삭이다가 문득 멈췄다." +
+                                "<br><br>\"...아니면 정말 나를 사랑하나?\"<br><br>" +
+                                "그는 놀리듯이 말하더니 당신에게서 한걸음 물러났다. 그는 당신에게 팔랑팔랑 손인사를 하며 주점으로 잘 돌아가라고 말했다." +
+                                "<br><br>\"혹시 모르잖아? 네가 혼자가 되기를 기다렸다가 달려드는 사람들이 있을지도? 자기 얼굴 못 본다고 생각하면 벌써부터 마음 아파지니까, 내 앞에서 사라지지 말아줘.\""
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                changeNPCEmotion("nikolai", "affection", 3);
+                                leaveDungeon(player);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
+}
+
+function startRebelArmies01Lose(player){
+    gameOver(
+        player,
+        "당신은 반란군의 칼날을 이겨낼 수 없었다. 가족들을 잃은 그들의 힘은 당신이 살고자 하는 힘보다 더 필사적이었다. 그들은 어떻게든 당신의 빈틈을 파고들어서 그대로 당신의 심장에 칼을 찔러 넣었다. 당신의 입가에서 피가 주르륵 흘렀다. 싸우고 있던 니콜라이가 놀란 얼굴로 당신을 돌아보는 것이 보인다. 그는 움찔하긴 했지만 그것도 잠시, 다시 웃는 얼굴로 아직 서 있는 적들을 상대했다." +
+        "<br><br>당신의 시야가 어두워진다." +
+        "<br><br>상류도시의 영웅이자 하류도시의 역적은 결국, 그렇게 숨을 거두었다. 혼자서 외롭게."
+    );
 }

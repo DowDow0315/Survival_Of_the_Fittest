@@ -1007,6 +1007,40 @@
             }
         }
 
+        function getLatestManualSaveSlot(){
+            let latestSlot = null;
+            let latestSavedAt = -Infinity;
+            
+            for (let slot = 1; slot <= SAVE_SLOT_COUNT; slot++){
+                const save = getSaveSlotData(slot);
+                
+                if (!save || save.broken || !save.playerData){
+                    continue;
+                }
+                
+                const savedAt = Date.parse(save.savedAt);
+                const savedAtValue = Number.isNaN(savedAt) ? 0 : savedAt;
+                
+                if (savedAtValue > latestSavedAt){
+                    latestSlot = slot;
+                    latestSavedAt = savedAtValue;
+                }
+            }            
+            return latestSlot;
+        }
+        
+        function loadLatestManualSave(){
+            const latestSlot = getLatestManualSaveSlot();
+            
+            if (!latestSlot){
+                alert("불러올 수동 세이브가 없습니다.");
+                return false;
+            }
+            
+            loadGame(latestSlot);
+            return true;
+        }
+
         function refreshAfterLoad(){
             player.inBattle = false;
             

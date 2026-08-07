@@ -805,6 +805,7 @@ window.EVENTS.push({
     once : true,
 
     condition : (player) =>
+        player.justMoved &&
         player.location === "richTownEntrance" &&
         player.flags?.act3_rebel_route &&
         !player.flags?.nikolaiDie &&

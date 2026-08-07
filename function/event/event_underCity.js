@@ -3111,6 +3111,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sion_withSion_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        player.flags?.sion_withSion_day !== getCurrentDay(player) &&
+        player.weather === "sunny" &&
+        ["morning", "afternoon"].includes(getTimePeriod(player))
+        ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.sion_withSion_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_withSion_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //스토리이벤트
 window.EVENTS.push({
     id : "undercity_story_07_rebel_leader_head_event",

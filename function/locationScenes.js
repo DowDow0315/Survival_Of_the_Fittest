@@ -760,7 +760,7 @@ function buildTownEntrance_act3Scene(player, loc, randomDesc){
     choices.push(
         { text:"길거리로 향한다.", action:"move_townStreet" },
         { text:"막사로 향한다.", action:"move_barracks" },
-        { text:"왜곡된 숲으로 떠난다.", action:"move_forest_act3" }
+        { text:"뒤틀린 숲으로 떠난다.", action:"move_forest_act3" }
     );
 
     return [

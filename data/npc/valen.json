@@ -1,9 +1,9 @@
 {
     "name" : "발렌",
     "hp" : 600,
-    "attack" : 50,
-    "defense" : 50,
-    "eva" : 50,
+    "attack" : 60,
+    "defense" : 60,
+    "eva" : 55,
     "lustResist" : 3,
 
     "emotion": {

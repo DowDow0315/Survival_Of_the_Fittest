@@ -1,8 +1,8 @@
 {
     "name" : "아카시아",
     "hp" : 450,
-    "attack" : 44,
-    "defense" : 42,
+    "attack" : 53,
+    "defense" : 48,
     "eva" : 59,
     "lustResist" : 3,
 
@@ -103,7 +103,7 @@
             "name" : "은빛 파고들기",
             "type" : "damage",
             "chance" : 0.2,
-            "power" : 2.2,
+            "power" : 2.5,
             "lines" : [
                 "아카시아는 정확히 당신의 빈틈을 찾아냈다. 그의 은장도가 당신의 약점을 제대로 파고든다.",
                 "아카시아의 은빛 눈동자는 당신의 빈틈을 정확히 찾아냈다. 틈을 찾아내자마자 그의 몸은 재빠르고 유연하게 기회를 놓치지 않고 당신을 찔러왔다."
@@ -127,7 +127,7 @@
         {
             "name" : "아카시아향 나선",
             "type" : "multiHit",
-            "power" : 0.9,
+            "power" : 1.2,
             "hits" : 3,
             "chance" : 0.6,
             "lines" : [
@@ -140,7 +140,7 @@
             "chance" : 0.6,
             "duration" : 6,
             "effect" : {
-                "id" : "akasai_buff",
+                "id" : "akasia_buff",
                 "heal" : 40,
                 "evaMult" : 1.5
             },

@@ -188,6 +188,13 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_about_valen_01 && player.flags.act3_quest_07_upper_boss_end ){
+            choices.push({
+                text: "당신은 니콜라이에게 발렌의 밑에서 일하는 거냐고 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_about_valen_01
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 
         startScene([

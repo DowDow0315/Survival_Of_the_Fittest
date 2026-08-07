@@ -57,6 +57,7 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         player.flags?.bandit_luke_event_done &&
         NPC_DATA["luke"].emotion.affection > 50 &&
+        !player.flags?.collapseLuke &&
         !player.flags?.luke_guard_punishment_event_seen,
 
     action : (player) => {
@@ -81,6 +82,7 @@ window.EVENTS.push({
         NPC_DATA["luke"].emotion.affection > 80 &&
         ["townEntrance", "townStreet", "darkStreet", "barracks"].includes(player.location) &&
         player.flags?.luke_missing_player_ready &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.8,
 
     action : (player) => {
@@ -133,6 +135,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.location === "barracks" &&
         player.flags?.whiteFlowerLab_lukeSoldier &&
+        !player.flags?.collapseLuke &&
         player.inventory.some(item => item.key === "lukeWFLSoldier") &&
         !player.flags?.luke_whiteFlowerLab_soldier_event_seen,
 
@@ -158,6 +161,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "townEntrance" &&
+        !player.flags?.collapseLuke &&
         NPC_DATA["luke"].emotion.affection > 80 &&
         NPC_DATA["luke"].emotion.rage < 50 &&
         NPC_DATA["luke"].emotion.fear < 60 &&
@@ -183,6 +187,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
+        !player.flags?.collapseLuke &&
         (player.location === "townEntrance" ||
          player.location === "townStreet" ||
          player.location === "darkStreet") &&
@@ -210,6 +215,7 @@ window.EVENTS.push({
         player.justMoved &&
         (player.location === "townEntrance" ||
          player.location === "townStreet" ) &&
+         !player.flags?.collapseLuke &&
          player.flags?.uppercity_hero_event_seen &&
          player.flags?.bandit_luke_event_done &&
         NPC_DATA["luke"].emotion.affection >= 90 &&
@@ -238,6 +244,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "darkStreet" &&
         player.flags?.bandit_luke_event_done &&
+        !player.flags?.collapseLuke &&
         NPC_DATA["luke"].emotion.affection >= 80,
 
     action : (player) => {
@@ -271,6 +278,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         !player.flags?.luke_training_02_seen,
 
     action : (player) => {
@@ -309,6 +317,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "spouse")
         ) &&
         ["sunny", "rain", "snow"].includes(player.weather) &&
+        !player.flags?.collapseLuke &&
         !player.flags?.luke_firstLove_seen,
 
     action : (player) => {
@@ -337,6 +346,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.08,
 
     action : (player) => {
@@ -362,6 +372,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.08,
 
     action : (player) => {
@@ -386,6 +397,7 @@ window.EVENTS.push({
         player.sexualTraits.bSize === "큼" ||
         player.sexualTraits.bSize === "거대하고아름다움"
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.08,
 
     action : (player) => {
@@ -414,6 +426,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.06,
 
     action : (player) => {
@@ -439,6 +452,7 @@ window.EVENTS.push({
         player.flags.luke_cooking_event_01_day !== getCurrentDay(player) &&
         player.flags.luke_cooking_event_02_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
+        !player.flags?.collapseLuke &&
         (
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
@@ -469,6 +483,7 @@ window.EVENTS.push({
         player.flags.luke_cooking_event_01_day !== getCurrentDay(player) &&
         player.flags.luke_cooking_event_02_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
+        !player.flags?.collapseLuke &&
         (
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
@@ -500,6 +515,7 @@ window.EVENTS.push({
         player.flags?.act3CollapseDone &&
         NPC_DATA["luke"].emotion.affection >= 80 &&
         !player.flags?.act3_quest_01_done &&
+        !player.flags?.collapseLuke &&
         !player.flags?.luke_afterAct3Collapse,
 
     action : (player) => {
@@ -523,6 +539,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.flags?.act3CollapseDone &&
         player.location === "darkStreet" &&
+        !player.flags?.collapseLuke &&
         player.flags.luke_cheek_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
         (
@@ -546,12 +563,43 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "luke_his_cheek_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.flags?.act3_quest_07_done &&
+        player.location === "shop" &&
+        !player.flags?.collapseLuke &&
+        !player.flags?.soraDie &&
+        player.flags.luke_cheek_day !== getCurrentDay(player) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.luke_cheek_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["luke"].scenes.luke_his_cheek_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "luke_weapon_for_you",
     once : true,
 
     condition : (player) =>
         player.justMoved &&
         player.flags?.act3CollapseDone &&
+        !player.flags?.collapseLuke &&
         player.location === "darkStreet" &&
         (
             hasNpcRelationship("luke", "lover") ||
@@ -746,6 +794,29 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["sora"].scenes.sora_flowerDate_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sora_flowerDate_05",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        NPC_DATA["sora"].emotion.affection >= 50 &&
+        !player.flags?.soraDie &&
+        ["storm", "rain", "snow"].includes(player.weather) &&
+        player.flags?.act3_you_know_who_is_sora &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_flowerDate_05,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1453,6 +1524,30 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "matin_darkStreetWishing_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        (
+            hasNpcRelationship("matin", "lover") ||
+            hasNpcRelationship("matin", "spouse")
+        ) &&
+        ["storm", "rain"].includes(player.weather) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_darkStreetWishing_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "matin_afterAct3Collapse",
     once : true,
     priority : true,
@@ -1584,6 +1679,31 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["matin"].scenes.matin_cooking_event_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "matin_lust100",
+
+    condition : (player) =>
+        player.justMoved &&
+        ( player.location === "shelter" || player.location === "goldenShelter" ) &&
+        (
+            hasNpcRelationship("matin", "lover") ||
+            hasNpcRelationship("matin", "spouse")
+        ) &&
+        NPC_DATA["matin"].emotion.lust >= 100 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_lust100,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -2222,6 +2342,32 @@ window.startYuriLosingEvent = function(player){
     });
 };
 
+window.EVENTS.push({
+    id : "yuri_withYuri_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        player.flags?.yuri_withYuri_day !== getCurrentDay(player) &&
+        !player.flags?.yuriDie &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") )  &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.yuri_withYuri_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_withYuri_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //니콜라이
 window.EVENTS.push({
@@ -2548,6 +2694,60 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_withNikolai_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryHole" &&
+        player.flags?.nikolai_withNikolai_day !== getCurrentDay(player) &&
+        !player.flags?.nikolaiDie &&
+        !player.flags?.nikolaiOpenHisMind &&
+        ( hasNpcRelationship("nikolai", "lover") || hasNpcRelationship("nikolai", "spouse") )  &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.nikolai_withNikolai_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_withNikolai_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_breakUp_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.nikolai_ask_about_breakUp_02 &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_breakUp_02 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_breakUp_02,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -2910,7 +3110,6 @@ window.EVENTS.push({
         );
     }
 });
-
 
 //스토리이벤트
 window.EVENTS.push({
@@ -3923,6 +4122,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -3955,6 +4155,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "lover") ||
             hasNpcRelationship("luke", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.09,
 
     action : (player) => {

@@ -219,6 +219,7 @@ const EVENTS = [
             player.justMoved &&
             player.location === "townStreet" &&
             player.flags.metLuke &&
+            !player.flags?.collapseLuke &&
             !player.flags.luke_softRoute &&
             !hasNpcRelationship("luke", "lover") &&
             !hasNpcRelationship("luke", "spouse") &&
@@ -234,6 +235,7 @@ const EVENTS = [
             player.justMoved &&
             player.location === "townEntrance" &&
             player.flags.metLuke &&
+            !player.flags?.collapseLuke &&
             !player.flags.luke_softRoute &&
             !hasNpcRelationship("luke", "lover") &&
             !hasNpcRelationship("luke", "spouse") &&
@@ -247,6 +249,7 @@ const EVENTS = [
         id: "luke_patrol_event",
         condition : (player) =>
             player.justMoved &&
+        !player.flags?.collapseLuke &&
             player.flags?.undercity_story_04_done &&
             (player.location === "townEntrance" ||
             player.location === "townStreet" ||

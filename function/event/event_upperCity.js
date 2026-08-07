@@ -115,6 +115,34 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_deric_hisGoing_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.act3_quest_07_done_day + 2) &&
+        !player.flags?.ericDie &&
+        player.flags?.act3_quest_07_done &&
+        player.flags?.eric_youTellTruth &&
+        !player.flags?.eric_deric_hisGoing_02,
+
+    action : (player) => {
+        player.flags.eric_deric_hisGoing_02 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_deric_hisGoing_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
@@ -211,7 +239,7 @@ window.EVENTS.push({
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
          !player.flags?.valenDie &&
          player.location === "heavenPalace" &&
-         Math.random() < 0.1,
+         Math.random() < 0.09,
 
     action : (player) => {
         player.flags.valen_teaTime_day = getCurrentDay(player);
@@ -235,7 +263,7 @@ window.EVENTS.push({
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
          !player.flags?.valenDie &&
          player.location === "gloryStreet" &&
-         Math.random() < 0.1,
+         Math.random() < 0.07,
 
     action : (player) => {
         player.flags.valen_teaTime_day = getCurrentDay(player);
@@ -286,7 +314,7 @@ window.EVENTS.push({
          ["dawn", "morning"].includes(getTimePeriod(player)) &&
          player.flags?.valen_whiteArmyFuneralTogether &&
          player.location === "gloryStreet" &&
-         Math.random() < 0.08,
+         Math.random() < 0.07,
 
     action : (player) => {
         player.flags.valen_whiteArmyFuneralTogether_day = getCurrentDay(player);
@@ -400,6 +428,32 @@ window.EVENTS.push({
                 onEnd : () => startScene(getLocationScene(player), player)
             }
         );
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_hisKnight_01",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["valen"].emotion.affection >= 90 &&
+         player.flags?.valen_hisKnight_day !== getCurrentDay(player) &&
+         !player.flags?.valenDie &&
+         ["dawn", "night"].includes(getTimePeriod(player)) &&
+         player.location === "heavenPalace" &&
+         ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_hisKnight_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_hisKnight_01, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
     }
 });
 
@@ -613,17 +667,49 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "nobleSquare" &&
         NPC_DATA["deric"].emotion.affection > 30 &&
+        NPC_DATA["deric"].emotion.dominance > 50 &&
         getTimePeriod(player) === "night" &&
-        player.flags?.deric_nobleSquare_dance_01_day !== getCurrentDay(player) &&
+        player.flags?.deric_nobleSquare_dance_day !== getCurrentDay(player) &&
         isPlayerProperlyDressed(player) &&
         Math.random() < 0.1,
 
     action: (player) => {
-        player.flags.deric_nobleSquare_dance_01_day = getCurrentDay(player);
+        player.flags.deric_nobleSquare_dance_day = getCurrentDay(player);
         savePlayer(player);
         
         startScene(
             NPC_DATA["deric"].scenes.deric_nobleSquare_dance_01,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "deric_nobleSquare_dance_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "nobleSquare" &&
+        NPC_DATA["deric"].emotion.affection >= 80 &&
+        NPC_DATA["deric"].emotion.dominance <= 30 &&
+        (
+            hasNpcRelationship("deric", "lover") ||
+            hasNpcRelationship("deric", "spouse")
+        ) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.deric_nobleSquare_dance_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action: (player) => {
+        player.flags.deric_nobleSquare_dance_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_nobleSquare_dance_02,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
@@ -899,6 +985,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_afterHisGoing_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "twinsMansion" &&
+        getTimePeriod(player) === "morning" &&
+        player.flags?.eric_deric_hisGoing_02 &&
+        NPC_DATA["deric"].emotion.affection >= 80,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["deric"].scenes.deric_afterHisGoing_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -1006,6 +1114,35 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_undercity_comeToSeeYou_event_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        (
+            hasNpcRelationship("akasia", "lover") ||
+            hasNpcRelationship("akasia", "spouse")
+        ) &&
+        !player.flags?.akasiaDie &&
+        player.flags?.akasia_undercity_comeToSeeYou_day !== getCurrentDay(player) &&
+        isPlayerProperlyDressed(player) &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        player.flags.akasia_undercity_comeToSeeYou_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_undercity_comeToSeeYou_event_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -1228,6 +1365,7 @@ window.EVENTS.push({
         );
     }
 });
+
 
 //카인
 window.EVENTS.push({
@@ -1485,7 +1623,7 @@ window.EVENTS.push({
 
     condition: (player) =>
         player.justMoved &&
-        NPC_DATA["kain"].emotion.affection >= 30 &&
+        NPC_DATA["kain"].emotion.affection >= 80 &&
         NPC_DATA["kain"].emotion.rage <= 60 &&
         player.flags?.kain_sing_01_seen &&
         ["sunny"].includes(player.weather) &&
@@ -1504,6 +1642,38 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["kain"].scenes.kain_sing_04,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_sing_05",
+
+    condition: (player) =>
+        player.justMoved &&
+        NPC_DATA["kain"].emotion.affection >= 90 &&
+        NPC_DATA["kain"].emotion.rage <= 60 &&
+        player.flags?.kain_sing_01_seen &&
+        ["storm", "rain"].includes(player.weather) &&
+        player.flags?.kain_kissSing &&
+        (
+            hasNpcRelationship("kain", "lover") ||
+            hasNpcRelationship("kain", "spouse")
+        ) &&
+        player.flags?.kain_sing_day !== getCurrentDay(player) &&
+        player.location === "theater" &&
+        Math.random() < 0.08,
+
+    action: (player) => {
+        player.flags.kain_sing_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_sing_05,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
@@ -1903,6 +2073,27 @@ window.EVENTS.push({
     action: (player) => {
         startScene(
             NPC_DATA["aiden"].scenes.aiden_hisSight_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "aiden_hisSight_03",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.uppercityHero &&
+        player.location === "heavenRoad",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["aiden"].scenes.aiden_hisSight_03,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)
@@ -2528,6 +2719,80 @@ window.EVENTS.push({
                 type : "effect",
                 run : (player) => {
                     changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_fan_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("kain", "lover") ||
+            hasNpcRelationship("kain", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...그럴 리가 없어...\"<br><br>" +
+                    "당신은 뒤를 돌았다. 누군가가 당신을 노려보며 숨을 씨익씨익 쉬고 있었다. 아무리 생각해봐도 당신의 기억에 없는 얼굴이다." +
+                    "<br><br>\"카인이... 쟤를 사랑할 리가 없어!\"<br><br>" +
+                    "그는 그렇게 외치더니 갑자기 당신에게 달려들었다. 당신은 피할 새도 없이 그에게 음료수 세례를 맞아버렸다....<br><br>" +
+                    "\"카인은 내 거야... 내 거라고...\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_fan_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("kain", "lover") ||
+            hasNpcRelationship("kain", "spouse")
+        ) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"저기...!\"<br><br>" +
+                    "고개를 돌리니 당신의 기억 속에 없는 얼굴들이 서 있었다. 그들은 당신에게 수제로 만든 듯한 귀여운 쿠키를 내밀며 항상 카인의 옆에 있어줘서 감사하다고 말했다.<br><br>" +
+                    "\"요새 카인 노래 미친 것 같아요... 당신 때문이죠?\"<br><br>" +
+                    "그들은 카인의 노래에 대해 덕후처럼 떠들다가 당신에게 인사를 하고 멀어져갔다. 당신은 그들이 만든 수제 쿠키를 먹었다." +
+                    "<br><br>달콤했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -3);
+                    changeStamina(player, 20);
+                    changeHP(player, 30);
                     savePlayer(player);
                 }
             }

@@ -8,6 +8,7 @@ window.EVENTS.push({
             hasNpcRelationship("luke", "spouse")
         ) &&
         !player.flags?.soraDie &&
+        !player.flags?.collapseLuke &&
         Math.random() < 0.06,
 
     action : (player) => {
@@ -106,6 +107,7 @@ window.EVENTS.push({
             hasNpcRelationship("sora", "lover") ||
             hasNpcRelationship("sora", "spouse")
         ) &&
+        !player.flags?.collapseLuke &&
         !player.flags?.soraDie &&
         Math.random() < 0.08,
 
@@ -430,6 +432,7 @@ window.EVENTS.push({
                                 run : (player) => {
                                     changeNPCEmotion("matin", "affection", -2);
                                     changeNPCEmotion("matin", "rage", 10);
+                                    changeNpcSuspicion("matin", 3);
                                     changeNPCEmotion("sora", "dominance", 5);
                                     savePlayer(player);
                                 }
@@ -543,7 +546,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("sora", "affection", 3);
                                     changeNPCEmotion("matin", "affection", -20);
                                     changeNPCEmotion("matin", "rage", 10);
-                                    changeNpcSuspicion("matin", 3);
+                                    changeNpcSuspicion("matin", 5);
                                     savePlayer(player);
                                 }
                             }
@@ -1539,6 +1542,8 @@ window.EVENTS.push({
                                     changeNPCEmotion("yuri", "dominance", -5);
                                     changeNPCEmotion("sion", "affection", -5);
                                     changeNPCEmotion("sion", "dominance", -5);
+                                    changeNpcSuspicion("sion", 10);
+                                    savePlayer(player);
                                 }
                             }
                         ]
@@ -1561,6 +1566,7 @@ window.EVENTS.push({
                                 run : (player) => {
                                     changeNPCEmotion("yuri", "affection", -3);
                                     changeNPCEmotion("sion", "affection", 3);
+                                    changeNpcSuspicion("yuri", 3);
                                     savePlayer(player);
                                 }
                             }
@@ -1586,6 +1592,7 @@ window.EVENTS.push({
                                     changeNPCEmotion("yuri", "affection", 3);
                                     changeNPCEmotion("yuri", "dominance", 3);
                                     changeNPCEmotion("sion", "dominance", 3);
+                                    changeNpcSuspicion("sion", 3);
                                     savePlayer(player);
                                 }
                             }

@@ -2368,6 +2368,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_rebel_route_quest_07_after",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        !player.flags?.yuriDie &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_07_done &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_rebel_route_quest_07_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //니콜라이
 window.EVENTS.push({
@@ -2694,6 +2717,62 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.act3_quest_07_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_07_done_day + 2) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_03 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+     startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_04",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.nikolai_heavenPalace_hisLocation_03 &&
+        player.flags?.nikolai_heavenPalace_hisLocation_01 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_03_day + 7) &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_04 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_04_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -4912,6 +4991,97 @@ window.EVENTS.push({
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+//쉘터 음식 수납 이벤
+window.EVENTS.push({
+    id : "rebel_shelter_food_supply_success",
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.shelter_food_supply_active &&
+        player.shelterFoodSupply?.completed &&
+        getCurrentDay(player) >
+            player.shelterFoodSupply.deadlineDay,
+
+    action : (player) => {
+        createShelterFoodRequest(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "식량 상자 위에 붙어 있던 종이가 새것으로 바뀌어 있었다. 지난달 식량은 아이들에게 무사히 전달된 모양이다." +
+                    "<br><br>유리는 새로운 기한과 필요한 식량을 종이에 적어놓았다." +
+                    "<br><br><span class='log-warning'>새로운 식량 목록이 등록되었습니다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () =>
+                startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_shelter_food_supply_failed",
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.shelter_food_supply_active &&
+        player.shelterFoodSupply &&
+        !player.shelterFoodSupply.completed &&
+        getCurrentDay(player) >
+            player.shelterFoodSupply.deadlineDay,
+
+    action : (player) => {
+        const deathScenes = [
+            [
+                "쉘터에 들어서자 평소보다 내부가 조용했다. 아이들은 서로의 눈치를 살피며 한쪽에 모여 있었다." +
+                "<br><br>\"먹을 걸 구해오겠다고 나갔는데…… 아직도 돌아오지 않았어.\"<br><br>" +
+                "당신은 아이들이 알려준 장소로 향했다. 아이는 하류도시의 구석진 골목에 쓰러져 있었다. 품에는 곰팡이가 핀 빵 한 조각이 꼭 안겨 있었다." +
+                "<br><br>아이는 먹을 것을 찾아 쉘터를 나갔다가 돌아오지 못했다."
+            ],
+            [
+                "쉘터에 들어서자 유리가 아이 하나를 품에 안고 있었다. 그는 몇 번이고 아이의 이름을 불렀지만 아이는 대답하지 않았다." +
+                "<br><br>며칠 동안 자신의 몫을 더 어린아이들에게 나눠줬다고 했다. 아무도 아이가 제대로 먹지 못하고 있다는 사실을 알아차리지 못했다." +
+                "<br><br>유리는 창백해진 아이의 손을 놓지 못했다."
+            ]
+        ];
+
+        const selectedScene =
+            deathScenes[Math.floor(Math.random() * deathScenes.length)];
+
+        player.flags.shelter_food_supply_failure_count =
+            (player.flags.shelter_food_supply_failure_count || 0) + 1;
+
+        // 실패한 달이 끝났으므로 다음 달 목록 생성
+        createShelterFoodRequest(player);
+
+        changeTrauma(player, 20);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : selectedScene
+            },
+            {
+                type : "text",
+                value : [
+                    "<span class='log-danger'>아이들은 무덤을 만들어주고 있다...</span>" +
+                    "<br><br><span class='log-warning'>트라우마가 20 증가했다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () =>
+                startScene(getLocationScene(player), player)
         });
     }
 });

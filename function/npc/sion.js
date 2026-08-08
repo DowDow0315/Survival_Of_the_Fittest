@@ -162,6 +162,13 @@ registerActions("sion",{
         const choices = [];
         const today = getCurrentDay(player);
 
+        if (player.flags?.rebel_route_quest_07_sided_with_sion && !player.flags?.quest_07_sidedWithSion ){
+            choices.push({
+                text : "당신은 시온에게 여전히 유리가 틀렸다고 생각하냐고 물었다.",
+                scene : NPC_DATA.sion.scenes.quest_07_sidedWithSion
+            });
+        }
+
         if (player.flags.sion_daily_item_day !== today){
             choices.push({
                 text: "자신을 위해 준비한 것이 있는지 묻는다",

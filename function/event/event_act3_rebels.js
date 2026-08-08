@@ -932,5 +932,330 @@ window.startAct3QuestAfterNikolaiLosingEvent = function(player){
     });
 };
 
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_07_done,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_07_after_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 돌아오자 분위기가 어수선했다. 쉘터의 아이들 중 몇 명은 호기심이 어린 얼굴을 하고 있었고 몇 명은 당신이 오자마자 당신에게 달려들며 두려움을 호소했다. 쉘터에는 다친 사람들이 앓는 소리를 내며 누워 있었다. 다친 사람들 중에서는 당신보다 어린 사람들도 있었고, 당신보다 훨씬 나이가 많은 사람들도 있었다." +
+                    "<br><br>\"무사해서 다행이야.\"<br><br>" +
+                    "유리다. 그는 다친 사람의 상처에 약을 발라주며 당신을 믿고 있었다고 말했다. 그가 테러를 일으킨 반란군들을 몇 명 구해온 모양이다. 시온은 마음에 안 든다는 얼굴로 쉘터의 벽에 기대어 서있었다." +
+                    "<br><br>\"반란군들을 쉘터에 데려와서 치료해도 돼요?\"<br><br>" +
+                    "\"...시온.\"<br><br>" +
+                    "\"쉘터가 위험해지면 어쩌려고요? 이러다가 영웅님이 쉴 수 있는 곳까지 무너져버리면 어떡하실 건데요?<br> 유리 형이 착한 사람이라는 건 알아요. 하지만 누구도 내버려두지 못하는 유리 형의 그 상냥함 때문에, 정작 지켜야 할 사람들이 다치게 된다면...\"<br><br>" +
+                    "시온은 당신을 바라보았다." +
+                    "<br><br>\"제가 사랑하는 사람이 다치게 된다면, 저는 유리 형을 가만두지 않을 거예요.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온에게 그만하라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...지금은 그만할게요. 하지만, 저는 정말 당신이 유리 형 때문에 다치게 된다면.\"<br><br>" +
+                                    "시온은 유리를 노려보았다. 그러더니 그대로 쉘터 밖으로 나가버렸다." +
+                                    "<br><br>\"절대로 유리 형을 용서하지 않을 거예요.\"<br><br>" +
+                                    "시온이 나가자 유리는 한숨을 쉬었다. 그는 시온의 말에도 일리가 있다고 말했다." +
+                                    "<br><br>\"하지만 살릴 수 있는 사람을 저버리는 건... 인간의 도리가 아니잖아.\"<br><br>" +
+                                    "시온의 말을 인정하면서도 그는 자신의 의견을 굽힐 생각은 없는 것 같았다. 그는 부상자 치료를 계속했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", -5);
+                                    changeNPCEmotion("yuri", "affection", 3);
+                                    changeNPCEmotion("sion", "dominance", 5);
+                                    player.flags.rebel_route_quest_07_sided_with_yuri = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 유리에게 쉘터의 아이들 생각은 한 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...안 했을 리가 없잖아.\"<br><br>" +
+                                    "유리의 목소리는 단호하면서도 잔잔했다. 그는 부상자 한 명을 치료한 후 바로 다음 부상자로 넘어갔다." +
+                                    "<br><br>\"하지만 우리에게 목숨을 저울질할 수 있는 권리가 있을까? 물론 난 쉘터의 아이들과 너는 무슨 일이 있어도 지킬 거야. 하지만 그들을 지키기 위해 구할 수 있는 목숨을 저버리는 건.... <br> 스스로가 용납할 수가 없어.\""+
+                                    "<br><br>시온은 어이가 없다는 듯 팔짱을 꼈다." +
+                                    "<br><br>\"모두를 구할 수는 없어요, 유리 형. 이 세상이 형이 읽는 책처럼 동화같은 세상일 리가 없잖아요.\"<br><br>" +
+                                    "\"...네가 그걸 나보다 더 잘 안다고 생각하니?\"<br><br>" +
+                                    "유리는 시온을 쳐다보지도 않고 말했다." +
+                                    "<br><br>\"너는 그저 나보다 포기가 빠른 것뿐이야, 시온.\"<br><br>" +
+                                    "분위기가 무겁다... 유리는 부상자 치료를 계속했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 5);
+                                    changeNPCEmotion("yuri", "affection", -2);
+                                    player.flags.rebel_route_quest_07_sided_with_sion = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after_shelter_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_07_after_day + 7),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_07_after_shelter_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리에 벽보 하나가 크게 붙어 있다. 사람들이 벽보 주변에 웅성웅성 모여 있었다. 그들은 당신을 보자 더 수군거리기 시작했다. 당신은 벽보를 보았다." +
+                    "<br><br>[반란군 동조자 색출]<br><br>" +
+                    "[하류도시에 반란군을 치료해준 자들은 반란군과 동일하여 취급한다.]<br>[그리고 반란군을 치료해준 자들을 돕는 자들도 처벌을 피할 수는 없을 것이다]" +
+                    "<br><br>[만약 하류도시 전체가 이 사상에 동조하게 된다면, 상류도시는 더 이상 백색 군단을 보내지 않을 것이다.]<br><br>"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "<span class='log-danger'>\"쉘터에서 반란군을 치료해주지 않았어?\"</span><br><br>" +
+                    "쉘터의 아이에게 돈을 받고 음식을 나눠주던 상인이 그 말에 흠칫하더니 다시 아이에게 돈을 돌려주었다. 아이는 당황하여 상인을 올려다보았다. 먹을 것을 달라는 아이에게 상인은 다른 상인에게 가서 사라고 말했다. 아이는 주변을 둘러보았다. 상인들은 서로의 눈치를 살피더니 모두 아이의 시선을 피해버렸다." +
+                    "<br><br>\"잠깐, 어딜 가는 거야!\"<br><br>" +
+                    "당신은 외침이 들려온 쪽으로 시선을 돌렸다. 백색 군단들 중 몇 부대가 철수하고 있었다. 하류도시 사람들은 이대로 자신들을 두고 가면 어떡하냐고 매달렸지만 백색 군단은 상부의 명령이라는 말만 반복하며 가차없이 떠나버렸다." +
+                    "<br><br>\"하류도시가 계속 반란군들을 숨겨준다면, 모든 백색 군단이 퇴각할 겁니다.\"<br><br>" +
+                    "에이든의 서늘한 목소리에 하류도시 사람들의 소란이 더 커졌다. 몇몇은 그놈의 쉘터가 문제라며 쉘터에 공격성을 드러냈다. 거리에 있던 쉘터의 몇몇 아이들이 위협을 느끼고 쉘터에 도망치듯이 들어가버렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after_shelter_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "tavern" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_07_after_shelter_01,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "주점에 들어서자 성난 사람들이 마틴에게 왜 쉘터의 아이들에게 밥을 주냐고 따지고 있었다. 마틴은 무표정으로 그들을 바라보더니 자신은 그저 돈을 낸 사람에게 밥을 주는 것이라고 말했다." +
+                    "<br><br>\"젠장, 이거 상류도시가 알기 전에 우리가 먼저 고발해야 하는 거 아냐?\"<br><br>" +
+                    "고발이라는 말에 마틴은 인상을 찌푸리긴 했지만 쉘터의 아이들을 쫓아내지는 않았다. 쉘터의 아이들은 고개를 푹 숙이고 눈치를 보며 마틴의 요리를 먹었다.",
+                    "<br><br>\"젠장, 그만 처먹어!\"<br><br>",
+                    "다른 놈이 쉘터의 아이를 쫓아내려고 다가오자 마틴은 들고 있던 프라이팬으로 그들의 앞을 가로막았다. 뜨겁게 달구어진 프라이팬에 열을 내던 사람들이 몸을 움츠렸다." +
+                    "<br><br>\"여긴 내 주점이야. 주점 규칙에 날 엿먹이지 말라는 것이 있었을 텐데? <br><br> 신고는 알아서 해. 하지만 내 손님을 쫓아내는 건 나뿐이야.\"<br><br>" +
+                    "사람들의 기세가 수그러들자 마틴은 후라이팬을 내려놓았다. 당신은 그의 목을 감싸고 있는 옷깃이 흐트러져 있는 것을 보았다. 그리고 목 주변에 남은 붉은 손자국.... 마틴은 당신을 보더니 다른 사람들은 신경 쓰지 말고 앉으라는 듯 고개를 까닥였다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after_shelter_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_07_after_shelter_01,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"우리 어떻게 되는 거야...?\"<br><br>" +
+                    "쉘터에 들어서자 한 아이가 울음을 터뜨렸다. 그는 돈을 내고 뭐라도 사려고 했지만 아무도 우리에게는 물건을 팔지 않는다고 울먹였다. 당신이 쉘터에 들어오자 아이들이 당신의 주변으로 몰려들었다." +
+                    "<br><br>\"우리 괜찮은 거야...?\"<br><br>\"우린 이제 어떻게 해야 해?\"<br><br>" +
+                    "그들은 당신의 대답을 기다리고 있다...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 사람들이 겁을 먹어서 그러니 괜찮을 거라고 대답해주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"겁을 먹어서...? 겁을 먹어서 우리를 공격하는 거야?\"<br><br>" +
+                                    "당신의 말을 이해한 아이들도 있지만, 당신의 말을 이해하지 못한 아이들도 있는 모양이었다. 아이들의 웅성거림이 더 커졌다..."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 당신이 어떻게든 해주겠다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"정말...?\"<br><br>" +
+                                    "아이들은 그나마 당신의 말에 위안을 얻은 모양이었다. 하지만 몇몇 아이들은 당신에게 너무 의지하면 시온 형이 화낼 거라고 말하며 불안해했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 이제부터 정신 똑바로 차려야 한다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이들은 당신의 말에 더 불안해졌다. 몇몇 아이들이 자기보다 어린 아이들을 달래며 당신을 곱지 않은 시선으로 노려보았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after_shelter_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_07_after_shelter_01_day + 14),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_07_after_shelter_04 = true;
+        player.flags.rebel_route_quest_07_after_shelter_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 들어서자 유리가 식량을 체크하고 있는 모습이 보였다. 당신이 유리에게 다가서자 유리는 신경 쓰지 않아도 괜찮다는 듯 고개를 저어 보였다." +
+                    "<br><br>\"내가 벌인 일이니까 내가 어떻게든 할게.\"<br><br>" +
+                    "굳이 그가 쓰던 수첩을 확인하지 않아도, 당신은 눈대중으로도 쉘터에 식량이 부족하다는 건 알 수 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 유리에게 당신도 식량 모으는 것을 도와주겠다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신의 말에 놀란 듯 눈을 깜박였다. 그는 당신의 말에도 주저하며, 이건 자신이 벌인 일이고 당신에게는 부담을 주고 싶지 않다고 말했다. 당신이 물러서지 않자, 유리는 어쩔 수 없다는 듯이 미소를 지으며 고개를 저었다." +
+                                    "<br><br>\"넌 정말 고집불통이구나.... 고마워. 쉘터를 위해서, 그리고 날 위해서 이렇게까지 해줘서.\"<br><br>" +
+                                    "유리는 필요한 식량의 개수를 쉘터의 박스에 적어놓겠다고 말했다. 당신은 고개를 끄덕였다." +
+                                    "<br><br><span class='log-warning'>앞으로 당신은 한 달을 주기로 지정된 식량을 채워넣어야 합니다.</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startShelterFoodSupply(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 끄덕였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"응. 피곤할 텐데 들어가서 쉬어.\"<br><br>" +
+                                    "유리가 구출한 반란군들을 쉘터에서 치료하는 바람에 생긴 일이다. 당신은 당신 먹고 살기에도 바쁘다. 당신은 유리에게서 등을 돌렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.rebel_route_quest_07_after_shelter_04_refuse = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
 
 //에르윈

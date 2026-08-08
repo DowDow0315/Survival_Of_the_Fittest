@@ -720,3 +720,33 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_07_after",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_07_done_day + 2) &&
+        player.flags?.act3_quest_07_done,
+
+    action : (player) => {
+        player.flags.upper_route_quest_07_after_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "영광의 거리를 지나던 당신은 반란군들이 끌려나가는 것을 보았다. 그들은 모두 목에 개목걸이 같은 것을 차고 있었다. 안쪽은 칼날로 되어 있어 움직일 때마다 그들의 살을 깎아먹었다. 당신을 본 반란군들 중 한 명이 당신을 하류도시의 역적이라 부르며 달려들었다. 당신을 발견한 반란군 하나가 당신을 하류도시의 역적이라 부르며 달려들었다. 그러나 그들의 목줄은 한 줄로 연결되어 있었다. 그가 튀어나가는 순간 뒤따르던 반란군들의 몸이 거칠게 끌려왔고, 목걸이 안쪽의 칼날이 살을 파고들었다. 여러 사람의 입에서 동시에 피가 터져 나왔다. 그들을 끌고 가고 있던 백색 군인은 인상을 찌푸리더니 반란군놈들은 마지막까지 쓸모가 없다고 중얼거렸다." +
+                    "<br><br>\"이들은 모두 전선 가장 앞에 서게 될 것입니다.\"<br><br>" +
+                    "지금까지 상류도시에 피해를 줬으니, 마지막은 고기방패가 되어서라도 상류도시를 지켜야지요. 백색 군인들 중 한 명이 당신에게 반란군을 토벌해줘서 감사하다고 말하며 경례를 했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

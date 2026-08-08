@@ -348,6 +348,16 @@ function buildShelterScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.flags?.shelter_food_supply_active &&
+        player.shelterFoodSupply
+    ){
+        choices.push({
+            text : "식량 상자를 확인한다",
+            action : "openShelterFoodBox"
+        });
+    }
+
     choices.push({
         text: "나가기",
         action: "move_townStreet"
@@ -364,6 +374,225 @@ function buildShelterScene(player, loc, randomDesc){
         }
     ];
 }
+
+//식량 30일 수납 이벤트 함수
+const SHELTER_FOOD_POOL = [
+    { key : "animalMeat",       name : "고기(동물)" },
+    { key : "animalMeatPieces", name : "고기조각(동물)" },
+    { key : "potato",           name : "감자" },
+    { key : "cabbage",          name : "배추" },
+    { key : "mushroom",         name : "버섯" },
+    { key : "wheat",            name : "밀" },
+    { key : "rice",             name : "쌀" }
+];
+
+function createShelterFoodRequest(player){
+    const shuffled = [...SHELTER_FOOD_POOL];
+
+    // 중복 없이 무작위로 섞기
+    for (let i = shuffled.length - 1; i > 0; i--){
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+
+        [shuffled[i], shuffled[randomIndex]] =
+            [shuffled[randomIndex], shuffled[i]];
+    }
+
+    const selected = shuffled.slice(0, 4);
+
+    player.shelterFoodSupply = {
+        deadlineDay : getCurrentDay(player) + 30,
+        completed : false,
+
+        items : selected.map(item => ({
+            key : item.key,
+            name : item.name,
+            required : Math.floor(Math.random() * 11) + 5,
+            donated : 0
+        }))
+    };
+
+    savePlayer(player);
+}
+
+function startShelterFoodSupply(player){
+    player.flags.shelter_food_supply_active = true;
+    createShelterFoodRequest(player);
+}
+
+function getShelterFoodDeadlineText(deadlineDay){
+    const deadlinePlayer = {
+        time : (deadlineDay - 1) * 240
+    };
+
+    const date = getCalendarDate(deadlinePlayer);
+
+    return `${date.month}월 ${date.day}일 (${deadlineDay}일 차)`;
+}
+
+window.openShelterFoodBox = function(player){
+    const supply = player.shelterFoodSupply;
+
+    if (!supply){
+        showSingleTextScene(
+            "식량 상자는 비어 있다.",
+            player,
+            {
+                onEnd : () =>
+                    startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    const labels = ["A", "B", "C", "D"];
+
+    const itemStatusText = supply.items
+        .map((item, index) => {
+            return (
+                `${labels[index]}. ${item.name} ` +
+                `(${item.donated}/${item.required})`
+            );
+        })
+        .join("<br>");
+
+    const completedText = supply.completed
+        ? "<br><br><span class='log-warning'>이번 달에 필요한 식량을 모두 채웠다.</span>"
+        : "";
+
+    const choices = [];
+
+    if (!supply.completed){
+        supply.items.forEach(item => {
+            const remaining = item.required - item.donated;
+            const owned = countItem(player, item.key);
+
+            if (remaining <= 0) return;
+
+            choices.push({
+                text :
+                    `${item.name}을(를) 넣는다 ` +
+                    `(보유 ${owned}개 / 남은 수량 ${remaining}개)`,
+                action : `shelterFood_put_${item.key}`
+            });
+        });
+    }
+
+    choices.push({
+        text : "상자에서 물러난다",
+        action : "closeShelterFoodBox"
+    });
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "쉘터 한쪽에 커다란 식량 상자가 놓여 있다. 상자 위에는 유리의 글씨로 필요한 식량과 기한이 적혀 있었다." +
+                `<br><br><strong>[기한: ${getShelterFoodDeadlineText(supply.deadlineDay)}]</strong><br><br>` +
+                itemStatusText +
+                completedText
+            ]
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ], player);
+};
+
+function donateShelterFood(player, itemKey){
+    const supply = player.shelterFoodSupply;
+
+    if (!supply || supply.completed){
+        startScene(getLocationScene(player), player);
+        return;
+    }
+
+    const requestItem = supply.items.find(
+        item => item.key === itemKey
+    );
+
+    if (!requestItem){
+        openShelterFoodBox(player);
+        return;
+    }
+
+    const owned = countItem(player, itemKey);
+    const remaining =
+        requestItem.required - requestItem.donated;
+
+    const donateAmount = Math.min(owned, remaining);
+
+    if (donateAmount <= 0){
+        showSingleTextScene(
+            `${requestItem.name}을(를) 가지고 있지 않다.`,
+            player,
+            {
+                onEnd : () => openShelterFoodBox(player)
+            }
+        );
+        return;
+    }
+
+    removeItem(player, itemKey, donateAmount);
+    requestItem.donated += donateAmount;
+
+    const allCompleted = supply.items.every(
+        item => item.donated >= item.required
+    );
+
+    if (allCompleted){
+        supply.completed = true;
+    }
+
+    savePlayer(player);
+
+    const resultText = allCompleted
+        ? (
+            `${requestItem.name} ${donateAmount}개를 상자에 넣었다.` +
+            "<br><br><span class='log-positive'>이번 달에 필요한 식량을 모두 채웠다!</span>"
+        )
+        : `${requestItem.name} ${donateAmount}개를 상자에 넣었다.`;
+
+    showSingleTextScene(
+        resultText,
+        player,
+        {
+            onEnd : () => openShelterFoodBox(player)
+        }
+    );
+}
+
+window.shelterFood_put_animalMeat = function(player){
+    donateShelterFood(player, "animalMeat");
+};
+
+window.shelterFood_put_animalMeatPieces = function(player){
+    donateShelterFood(player, "animalMeatPieces");
+};
+
+window.shelterFood_put_potato = function(player){
+    donateShelterFood(player, "potato");
+};
+
+window.shelterFood_put_cabbage = function(player){
+    donateShelterFood(player, "cabbage");
+};
+
+window.shelterFood_put_mushroom = function(player){
+    donateShelterFood(player, "mushroom");
+};
+
+window.shelterFood_put_wheat = function(player){
+    donateShelterFood(player, "wheat");
+};
+
+window.shelterFood_put_rice = function(player){
+    donateShelterFood(player, "rice");
+};
+
+window.closeShelterFoodBox = function(player){
+    startScene(getLocationScene(player), player);
+};
 
 function buildGoldenShelterScene(player, loc, randomDesc){
     const choices = [

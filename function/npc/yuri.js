@@ -160,6 +160,13 @@ registerActions("yuri",{
             });
         }
 
+        if (player.flags?.rebel_route_quest_07_sided_with_yuri && !player.flags?.quest_07_sidedWithYuri ){
+            choices.push({
+                text : "당신은 유리에게 반란군들을 쉘터에 데려온 것을 정말 후회하지 않냐고 물었다.",
+                scene : NPC_DATA.yuri.scenes.quest_07_sidedWithYuri
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "yuri_talk" });
 
         startScene([

@@ -1819,9 +1819,9 @@ const SEARCH_CONFIG = {
         itemPool : [
             { item: () => ITEMS.misc.wildFruit, weight: 30 },
             { item: () => ITEMS.misc.rareFruit, weight: 40 },
-            { item: () => ITEMS.misc.potato, weight: 20 },
-            { item: () => ITEMS.misc.cabbage, weight: 20 },
-            { item: () => ITEMS.misc.mushroom, weight: 20 }
+            { item: () => ITEMS.misc.potato, weight: 10 },
+            { item: () => ITEMS.misc.cabbage, weight: 10 },
+            { item: () => ITEMS.misc.mushroom, weight: 10 }
         ]
     },
 
@@ -1833,8 +1833,7 @@ const SEARCH_CONFIG = {
             { item: () => ITEMS.misc.rareFruit, weight: 40 },
             { item: () => ITEMS.misc.potato, weight: 20 },
             { item: () => ITEMS.misc.mushroom, weight: 20 },
-            { item: () => ITEMS.misc.rice, weight: 5 },
-            { item: () => ITEMS.misc.wheat, weight: 5 }
+            { item: () => ITEMS.misc.cabbage, weight: 20 }
         ]
     },
 

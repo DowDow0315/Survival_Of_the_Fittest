@@ -3198,7 +3198,7 @@ window.EVENTS.push({
         player.location === "townStreet" &&
         player.flags?.sion_withSion_day !== getCurrentDay(player) &&
         player.weather === "sunny" &&
-        ["morning", "afternoon"].includes(getTimePeriod(player))
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
         Math.random() < 0.08,
 

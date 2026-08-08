@@ -2801,3 +2801,90 @@ window.EVENTS.push({
         });
     }
 });
+
+//음식 수납 이벤트
+//쉘터 음식 수납 이벤
+window.EVENTS.push({
+    id : "upper_food_supply_success",
+    priority : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_food_supply_active &&
+        player.upperFoodSupply?.completed &&
+        getCurrentDay(player) >
+            player.upperFoodSupply.deadlineDay,
+
+    action : (player) => {
+        createUpperFoodRequest(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "식량 상자 위에 붙어 있던 종이가 새것으로 바뀌어 있었다. 당신 때문에 백색 군인들이 굶지는 않았을 것이다." +
+                    "<br><br>새로운 기한과 필요한 식량이 종이 위에 적혀 있었다." +
+                    "<br><br><span class='log-warning'>새로운 식량 목록이 등록되었습니다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () =>
+                startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_food_supply_failed",
+    priority : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_food_supply_active &&
+        player.upperFoodSupply &&
+        !player.upperFoodSupply.completed &&
+        getCurrentDay(player) >
+            player.upperFoodSupply.deadlineDay,
+
+    action : (player) => {
+        const deathScenes = [
+            [
+                "굶주린 백색 군인들 중 몇 명이 흉물의 힘을 이기지 못하고 전사했다고 한다. 백색 군인들이 무너지면서 마을 입구에 있던 하류도시 사람들 몇 명도 목숨을 잃은 모양이다."
+            ],
+            [
+                "상류도시 귀족들이 수군거리는 소리가 들린다. <br><br>\"식량이 부족했다고요?\"<br><br>\"하류도시 식충들이 다 먹어치운 거 아니에요?\"<br><br>하류도시에 대한 혐오감이 더 조성된 것 같다. 그들은 백색 군인들을 당장 상류도시로 복귀시켜야 하는 거 아니냐며 웅성거렸다."
+            ]
+        ];
+
+        const selectedScene =
+            deathScenes[Math.floor(Math.random() * deathScenes.length)];
+
+        player.flags.upper_food_supply_failure_count =
+            (player.flags.upper_food_supply_failure_count || 0) + 1;
+
+        // 실패한 달이 끝났으므로 다음 달 목록 생성
+        createUpperFoodRequest(player);
+
+        changeTrauma(player, 10);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : selectedScene
+            },
+            {
+                type : "text",
+                value : [
+                    "<span class='log-danger'>경계선이 무너져 하류도시의 민간인들이 몇 명 죽은 모양이다.</span>" +
+                    "<br><br><span class='log-warning'>트라우마가 10 증가했다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () =>
+                startScene(getLocationScene(player), player)
+        });
+    }
+});

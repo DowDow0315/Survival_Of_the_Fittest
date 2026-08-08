@@ -3143,6 +3143,51 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 거대한 버섯맨을 보았다. 거대한 버섯맨도 느릿하게 고개를 돌리더니(사실 앞과 뒤가 어딘지도 얼굴만 봐서는 헷갈렸다) 당신을 보았다." +
+                        "<br><br>당신과 버섯맨의 운명적인 만남이 시작되었다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "뭐가 운명적인 만남이냐. 당신은 튀었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 튀었다. 버섯맨은 너무 느려서 당신을 쫓아올 수 없었다. 아니, 애초에 당신을 쫓아갈 마음은 있었을까? 당신이 뒤를 돌았을 때 버섯맨은 그저 멍하니 제자리에 서 있었다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 버섯맨과 운명적인 대결을 펼치기로 했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "두둥. 당신과 버섯맨은 서로를 마주 보았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        startBattle("mushroomMan", player, { noEscape: false });
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -3344,6 +3389,51 @@ const ESCAPE_AREA_EVENTS = {
                     ]
                 }
             ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 거대한 버섯맨을 보았다. 거대한 버섯맨도 느릿하게 고개를 돌리더니(사실 앞과 뒤가 어딘지도 얼굴만 봐서는 헷갈렸다) 당신을 보았다." +
+                        "<br><br>당신과 버섯맨의 운명적인 만남이 시작되었다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "뭐가 운명적인 만남이냐. 당신은 튀었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 튀었다. 버섯맨은 너무 느려서 당신을 쫓아올 수 없었다. 아니, 애초에 당신을 쫓아갈 마음은 있었을까? 당신이 뒤를 돌았을 때 버섯맨은 그저 멍하니 제자리에 서 있었다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 버섯맨과 운명적인 대결을 펼치기로 했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "두둥. 당신과 버섯맨은 서로를 마주 보았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        startBattle("mushroomMan", player, { noEscape: false });
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
@@ -3537,6 +3627,51 @@ const ESCAPE_AREA_EVENTS = {
                                         changeTrauma(player, 10);
                                         addItem(ITEMS.consumable.mediumPotion);
                                         savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            weight : 9,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 거대한 버섯맨을 보았다. 거대한 버섯맨도 느릿하게 고개를 돌리더니(사실 앞과 뒤가 어딘지도 얼굴만 봐서는 헷갈렸다) 당신을 보았다." +
+                        "<br><br>당신과 버섯맨의 운명적인 만남이 시작되었다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "뭐가 운명적인 만남이냐. 당신은 튀었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 튀었다. 버섯맨은 너무 느려서 당신을 쫓아올 수 없었다. 아니, 애초에 당신을 쫓아갈 마음은 있었을까? 당신이 뒤를 돌았을 때 버섯맨은 그저 멍하니 제자리에 서 있었다."
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 버섯맨과 운명적인 대결을 펼치기로 했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "두둥. 당신과 버섯맨은 서로를 마주 보았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        startBattle("mushroomMan", player, { noEscape: false });
                                     }
                                 }
                             ]

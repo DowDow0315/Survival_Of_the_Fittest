@@ -733,6 +733,7 @@ window.EVENTS.push({
         player.flags?.act3_quest_07_done,
 
     action : (player) => {
+        player.flags.upper_route_quest_07_after = true;
         player.flags.upper_route_quest_07_after_day = getCurrentDay(player);
         savePlayer(player);
 
@@ -744,6 +745,41 @@ window.EVENTS.push({
                     "<br><br>\"이들은 모두 전선 가장 앞에 서게 될 것입니다.\"<br><br>" +
                     "지금까지 상류도시에 피해를 줬으니, 마지막은 고기방패가 되어서라도 상류도시를 지켜야지요. 백색 군인들 중 한 명이 당신에게 반란군을 토벌해줘서 감사하다고 말하며 경례를 했다."
                 ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_07_after_food_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_07_after,
+
+    action : (player) => {
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"상류도시의 영웅.\"<br><br>" +
+                    "에이든이다. 그는 당신에게 다가오더니 흉물이 날뛰는 것이 심해져서 당장 백색 군단이 먹을 식량도 부족하다고 목소리를 낮춰 말했다." +
+                    "<br><br>\"지금까지 많이 해주셨다는 걸 압니다. 하지만.... 무리가 되지 않는 선에서 식량건도 도와주셨으면 합니다. <br> 영웅님은 한 달에 한 번씩만 식량을 채워주시면 됩니다. 상류도시 관문에 물품 상자를 놓겠습니다.\"<br><br>" +
+                    "<br><br><span class='log-warning'>앞으로 당신은 한 달을 주기로 지정된 식량을 채워넣어야 합니다.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startUpperFoodSupply(player);
+                }
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)

@@ -1,0 +1,105 @@
+{
+    "name": "버섯맨",
+    "hp": 300,
+    "attack": 40,
+    "defense": 40,
+    "eva": 10,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "mushroom",
+            "chance": 1
+        },
+        {
+            "item": "mushroom",
+            "chance": 1
+        },
+        {
+            "item": "mushroom",
+            "chance": 1
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "버섯맨은 멍하니 당신을 바라보다가 펀치를 날렸다. 원.펀.맨."
+        ],
+        "hit": [
+            "버섯맨은 맞았지만 날아가지 않았다. 왜냐, 버섯맨이니까. 그는 단단하다."
+        ],
+        "evade": [
+            "버섯맨은 엄청 느린데.... 당신의 공격을 피해버렸다... 당신의 운에 감탄을 보낸다."
+        ],
+        "defeat": [
+            "버섯...! 버섯맨은 단말마의 버섯과 함께 쓰러지고 말았다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "몸통박치기",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "버섯맨은 당신 쪽으로 팔을 휘둘렀다. 휘적, 휘적."
+            ]
+        },
+        {
+            "name": "버섯맨 펀치",
+            "power": 2.5,
+            "type": "damage",
+            "chance": 0.5,
+            "lines": [
+                "버섯맨의 원펀치! 버섯맨은 언제 어디서나 펀치만큼은 강했다고!?"
+            ]
+        }
+    ],
+    "exp" : 100
+}

@@ -406,7 +406,7 @@ function createShelterFoodRequest(player){
         items : selected.map(item => ({
             key : item.key,
             name : item.name,
-            required : Math.floor(Math.random() * 11) + 5,
+            required : Math.floor(Math.random() * 6) + 5,
             donated : 0
         }))
     };
@@ -1465,6 +1465,16 @@ function buildRichTownEntranceScene(player, loc, randomDesc){
     const choices = [];
 
     if (
+        player.flags?.upper_food_supply_active &&
+        player.upperFoodSupply
+    ){
+        choices.push({
+            text : "식량 보급 상자를 확인한다",
+            action : "openUpperFoodBox"
+        });
+    }
+
+    if (
         player.quest?.active?.id === "act3_rebel_quest_07" &&
         !player.flags?.act3_quest_07_rebel_boss_end
     ){
@@ -1593,6 +1603,225 @@ function enterLocation(player, location, time = 0){
 
     startScene(getLocationScene(player), player);
 }
+
+//식량 30일 수납 이벤트 함수
+const UPPER_FOOD_POOL = [
+    { key : "animalMeat",       name : "고기(동물)" },
+    { key : "animalMeatPieces", name : "고기조각(동물)" },
+    { key : "potato",           name : "감자" },
+    { key : "cabbage",          name : "배추" },
+    { key : "mushroom",         name : "버섯" },
+    { key : "wheat",            name : "밀" },
+    { key : "rice",             name : "쌀" }
+];
+
+function createUpperFoodRequest(player){
+    const shuffled = [...UPPER_FOOD_POOL];
+
+    // 중복 없이 무작위로 섞기
+    for (let i = shuffled.length - 1; i > 0; i--){
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+
+        [shuffled[i], shuffled[randomIndex]] =
+            [shuffled[randomIndex], shuffled[i]];
+    }
+
+    const selected = shuffled.slice(0, 4);
+
+    player.upperFoodSupply = {
+        deadlineDay : getCurrentDay(player) + 30,
+        completed : false,
+
+        items : selected.map(item => ({
+            key : item.key,
+            name : item.name,
+            required : Math.floor(Math.random() * 6) + 5,
+            donated : 0
+        }))
+    };
+
+    savePlayer(player);
+}
+
+function startUpperFoodSupply(player){
+    player.flags.upper_food_supply_active = true;
+    createUpperFoodRequest(player);
+}
+
+function getUpperFoodDeadlineText(deadlineDay){
+    const deadlinePlayer = {
+        time : (deadlineDay - 1) * 240
+    };
+
+    const date = getCalendarDate(deadlinePlayer);
+
+    return `${date.month}월 ${date.day}일 (${deadlineDay}일 차)`;
+}
+
+window.openUpperFoodBox = function(player){
+    const supply = player.upperFoodSupply;
+
+    if (!supply){
+        showSingleTextScene(
+            "식량 상자는 비어 있다.",
+            player,
+            {
+                onEnd : () =>
+                    startScene(getLocationScene(player), player)
+            }
+        );
+        return;
+    }
+
+    const labels = ["A", "B", "C", "D"];
+
+    const itemStatusText = supply.items
+        .map((item, index) => {
+            return (
+                `${labels[index]}. ${item.name} ` +
+                `(${item.donated}/${item.required})`
+            );
+        })
+        .join("<br>");
+
+    const completedText = supply.completed
+        ? "<br><br><span class='log-warning'>이번 달에 필요한 식량을 모두 채웠다.</span>"
+        : "";
+
+    const choices = [];
+
+    if (!supply.completed){
+        supply.items.forEach(item => {
+            const remaining = item.required - item.donated;
+            const owned = countItem(player, item.key);
+
+            if (remaining <= 0) return;
+
+            choices.push({
+                text :
+                    `${item.name}을(를) 넣는다 ` +
+                    `(보유 ${owned}개 / 남은 수량 ${remaining}개)`,
+                action : `upperFood_put_${item.key}`
+            });
+        });
+    }
+
+    choices.push({
+        text : "상자에서 물러난다",
+        action : "closeUpperFoodBox"
+    });
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "상류도시 마을 입구 한쪽에 커다란 식량 상자가 놓여 있다. 상자 위에는 깔끔한 글씨로 필요한 식량과 기한이 적혀 있었다." +
+                `<br><br><strong>[기한: ${getUpperFoodDeadlineText(supply.deadlineDay)}]</strong><br><br>` +
+                itemStatusText +
+                completedText
+            ]
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ], player);
+};
+
+function donateUpperFood(player, itemKey){
+    const supply = player.upperFoodSupply;
+
+    if (!supply || supply.completed){
+        startScene(getLocationScene(player), player);
+        return;
+    }
+
+    const requestItem = supply.items.find(
+        item => item.key === itemKey
+    );
+
+    if (!requestItem){
+        openUpperFoodBox(player);
+        return;
+    }
+
+    const owned = countItem(player, itemKey);
+    const remaining =
+        requestItem.required - requestItem.donated;
+
+    const donateAmount = Math.min(owned, remaining);
+
+    if (donateAmount <= 0){
+        showSingleTextScene(
+            `${requestItem.name}을(를) 가지고 있지 않다.`,
+            player,
+            {
+                onEnd : () => openUpperFoodBox(player)
+            }
+        );
+        return;
+    }
+
+    removeItem(player, itemKey, donateAmount);
+    requestItem.donated += donateAmount;
+
+    const allCompleted = supply.items.every(
+        item => item.donated >= item.required
+    );
+
+    if (allCompleted){
+        supply.completed = true;
+    }
+
+    savePlayer(player);
+
+    const resultText = allCompleted
+        ? (
+            `${requestItem.name} ${donateAmount}개를 상자에 넣었다.` +
+            "<br><br><span class='log-positive'>이번 달에 필요한 식량을 모두 채웠다!</span>"
+        )
+        : `${requestItem.name} ${donateAmount}개를 상자에 넣었다.`;
+
+    showSingleTextScene(
+        resultText,
+        player,
+        {
+            onEnd : () => openUpperFoodBox(player)
+        }
+    );
+}
+
+window.upperFood_put_animalMeat = function(player){
+    donateUpperFood(player, "animalMeat");
+};
+
+window.upperFood_put_animalMeatPieces = function(player){
+    donateUpperFood(player, "animalMeatPieces");
+};
+
+window.upperFood_put_potato = function(player){
+    donateUpperFood(player, "potato");
+};
+
+window.upperFood_put_cabbage = function(player){
+    donateUpperFood(player, "cabbage");
+};
+
+window.upperFood_put_mushroom = function(player){
+    donateUpperFood(player, "mushroom");
+};
+
+window.upperFood_put_wheat = function(player){
+    donateUpperFood(player, "wheat");
+};
+
+window.upperFood_put_rice = function(player){
+    donateUpperFood(player, "rice");
+};
+
+window.closeUpperFoodBox = function(player){
+    startScene(getLocationScene(player), player);
+};
 
 function buildRoyalForgeScene(player, loc, randomDesc){
     return [

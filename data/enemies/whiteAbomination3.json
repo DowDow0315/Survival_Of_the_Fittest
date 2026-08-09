@@ -140,18 +140,18 @@
         },
         {
             "name" : "백야의 포효",
-            "type" : "selfBuff",
-            "chance" : 0.3,
+            "type" : "allyBuffAll",
+            "chance" : 0.5,
             "duration" : 5,
             "effect" : {
-                "id" : "whiteAbomination3_buff",
-                "atkMult" : 1.4,
-                "defMult" : 1.4,
-                "evaMult" : 1.4
+                "id" : "whiteAbomination3_allyBuff",
+                "atkMult" : 1.8,
+                "defMult" : 1.1,
+                "evaMult" : 1.8
             },
             "lines" : [
-                "백늑대흉물이 하늘을 향해 길게 울부짖었다. 하얀 꽃잎이 몸을 감싸며 움직임이 더욱 거칠어졌다.",
-                "백늑대흉물이 하늘을 향해 길게 포효하자 주변에서 울음 소리들이 들려왔다. 그것은 다른 백늑대흉물들의 울음 소리를 듣고 능력이 더 강화됐다."
+                "백늑대흉물이 하늘을 향해 길게 울부짖었다. 하얀 꽃잎이 몸을 감싸며 그들의 움직임이 더욱 거칠어졌다.",
+                "백늑대흉물이 하늘을 향해 길게 포효하자 주변에서 울음 소리들이 들려왔다. 그들의 능력이 더 강화됐다."
             ]
         },
         {

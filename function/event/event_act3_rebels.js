@@ -1258,4 +1258,162 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "rebel_route_quest_07_after_shelter_05",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_07_after_shelter_04_day + 1),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 길거리에서 시온과 다른 사람이 시비가 붙은 것을 보았다. 시온은 금방이라도 대검을 뽑아들 것처럼 손을 대검 손잡이에 두고 있었다." +
+                    "<br><br>\"당신들 때문에 쉘터의 상황이 힘들어졌어요. 그러면 조금이라도 보태줘야 하는 거 아닌가요?\"<br><br>" +
+                    "\"우리는 지금 우리 챙기기에도 바쁘다니까, 꼬마야. 네가 아직 잘 몰라서 그러는데...\"<br><br>" +
+                    "\"하. 반란군이라고 해봤자 저희에게는 도적떼와 다름이 없네요. 일만 벌여놓고 책임을 안 지는 걸 어른이라 할 수 있나요? 하긴, 하류도시에는 그런 어른들 따위 한 명도 본 적 없지만.\"<br><br>" +
+                    "시온은 더 이상 상대할 가치도 없다는 듯이 고개를 돌렸다." +
+                    "<br><br>\"그래요. 우리는 또 우리가 해결해야 하겠죠. 언제나 그래왔던 것처럼.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_08_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_07_after_shelter_01_day + 5),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...저게 뭐지?\"<br><br>" +
+                    "보초를 서고 있었던 경계병이 무언가 보이는지 인상을 찌푸리면서 고개를 더 앞으로 내뺐다. 뭔가 땅이 울리는 것 같은 느낌이 든다. 당신은 고개를 들었다." +
+                    "<br>흙먼지들이 높게 솟아올랐다가 다시 가라앉았다. 그리고 그 흙먼지들 사이로 당신은 흉물들을 보았다. 그들은 군대처럼 체계적으로 무리 지어 있었다. 경계병은 흉물들의 대열을 보고서도 못 믿겠는지 눈을 깜박이다가 다시 고개를 저었다." +
+                    "<br><br>\"습격이다, 습격!!\"<br><br>" +
+                    "당신은 그저 동그랬던 흉물들이 점점 모습을 변화시키는 것을 보았다. 몇 놈들은 늑대로 변했고, 몇 놈들은 사슴으로 변했다. 그리고 그들은 전부 하류도시의 마을 입구를 향해 달려왔다. 흉물을 막아서려고 했던 백색 군단이 멈칫했다." +
+                    "<br><br>\"...네? 후퇴 말입니까? 하지만...\"<br><br>" +
+                    "에이든은 주저했지만 결국 상부의 명령에 따라 나머지 백색 군인들에게도 후퇴를 지시했다. 지하철로 사라져가는 백색 군인들을 보며 하류도시 사람들은 절망에 빠져 소리를 질렀다. \"우리를 버리는 거냐\"부터 시작해서 그들은 반란군들 때문에 우리가 버림을 받은 거라고 울부짖었다. 당신은 유리를 보았다. 유리는 쉘터의 아이들은 전부 쉘터에 피신시킨 후 무기를 들고 하류도시 마을 입구로 걸어가고 있었다." +
+                    "<br><br>그는 아이들을 위해, 그리고 당신을 위해 마을 입구에서 물러날 생각이 없다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "도망치는 경비병들도 많았지만, 루크는 도망치지 않는 경비병들을 모아 하류도시 마을 입구를 사수했다. 하류도시의 몇몇 민간인들도 어떻게든 무기를 들고 마을 입구에 섰다. 그들은 뒤에 남은 가족들을 지켜야 한다는 결의로 가득했다." +
+                    "<br><br><strong>으아아악</strong>" +
+                    "<br><br>거대 융합 흉물에 사람들이 추풍낙엽으로 쓰러져 갔다. 거대 융합 흉물이 당신을 향해 뻗어온다. 당신은 무기를 쥐었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : "startRebelQuest08IntroBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startRebelQuest08IntroBattle = function(player){
+
+    startBattle(["abominationMixedArms", "abominationMixedArms", "abominationMixedMiddle", "abominationMixedHead"], player, {
+        noEscape : true,
+        onWin : () => startRebelQuest08IntroBattle1Event(player),
+        onLose : () => startRebelQuest08IntroBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startRebelQuest08IntroBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신이 융합 흉물을 쓰러뜨리자마자, 기다렸다는 듯이 다른 흉물들이 지친 당신에게 달려들었다. 그들은 당신이 지쳐서 보이는 틈을 노리고 덤벼들었다. 더 많은 흉물들이 당신에게 달려들려고 했지만, 그 순간 총성이 들렸다. 당신은 총성만 듣고서도 그 사람이 누군지 알 수 있었다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle(["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"], player, {
+                    noEscape: true,
+                    onWin: () => startRebelQuest08IntroBattle2Event(player),
+                    onLose: () => startRebelQuest08IntroBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startRebelQuest08IntroBattle2Event = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 간신히 흉물들을 해치웠으나, 흉물들은 싸우는 사람들만 노리지 않았다. 그것들은 틈을 노리고 비집고 들어가 하류도시 관문을 통과해 싸우지도 못하는 사람들에게 달려들었다. 당신은 고개를 돌렸다. 다행히 쉘터의 앞은 시온이 막아서고 있었다. 흉물들은 고개를 처들더니 명령이라도 받은 듯 곧바로 쉘터가 아닌 다른 민간 집에 쳐들어가기 시작했다. 여기저기서 비명 소리가 울려퍼진다." +
+                "<br><br>흉물들 중 몇몇이 울타리처럼 둘러져 있는 백색 성벽에 몸을 부딪혔다가 곧 몸을 다시 돌려 하류도시 사람들을 낚아챘다. 하지만 백색 흉물 중 몇몇은 백색 성벽에도 관심을 보였다. 그것들은 아주 조심스럽게 백색 성벽에 머리를 기댔다. 그러더니 갉아먹으려는 듯 이를 드러내고 성벽을 긁기 시작했다." +
+                "<br><br><strong>키이이이익!</strong><br><br>" +
+                "그것들은 성벽을 긁어먹다가 극심한 괴로움에 시달리며 길바닥에서 파닥거리다가 말라 죽어버렸다. 나머지 백색 흉물들이 백색 성벽을 응시했다. 마치 누군가에게 보여주듯이 그들은 성벽을 천천히 훑어보았다. 그리고 흉물들은 명령이라도 받은 것처럼, 다같이 관문 밖으로 후퇴했다." +
+                "<br><br>흉물들을 쫓던 에릭은 순간 멈칫했다. 그리고 그는 고개를 돌렸다." +
+                "<br>...고개를 돌려 성벽 관문 밖을 바라보는 그의 녹색 시선은 답지 않게 순간 흔들렸었다. 하지만 그것도 잠시, 그는 무표정으로 총을 쐈다. 도망가려던 흉물들 몇몇이 비명 소리와 함께 죽어갔다." +
+                "<br><br>당신은 주변을 둘러보았다. 하류도시는 엉망이었다. 누군가는 자식을 찾고, 누군가는 부모를 찾고, 누군가는 연인을 찾았다. 그들은 상류도시의 백색 군단을 욕하다가도, 백색 군단을 물러나게 한 반란군들을 욕했다. 몇몇 이들은 화풀이하듯이 쉘터의 벽을 차기도 했다." +
+                "<br><br>그리고 당신은 살아남았다, 오늘도."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.rebel_route_quest_08_intro_attack = true;
+            player.flags.rebel_route_quest_08_intro_attack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.startRebelQuest08IntroBattleLosingEvent = function(player){
+    startScene([      
+        {
+            type : "text",
+            value : [
+                "당신은 흉물의 공격을 버티지 못하고 쓰러졌다. 쓰러지는 당신의 위로 흉물들이 달려든다. 하지만 당신에게 올라타기도 전에 그것들은 몸통에 구멍이 뚫린 채로 풀썩 떨어졌다. 에릭이다. 당신의 시야가 점점 어두워진다. 당신은 그대로 정신을 잃었다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 일어났을 때 하류도시는 엉망이었다. 길바닥이 깨진 것도 모자라서 몇몇 민가들은 이미 무너진 지 오래였다. 누군가는 자식을 찾고, 누군가는 부모를 찾고, 누군가는 연인을 찾았다. 그들은 상류도시의 백색 군단을 욕하다가도, 백색 군단을 물러나게 한 반란군들을 욕했다. 몇몇 이들은 화풀이하듯이 쉘터의 벽을 차기도 했다. 당신은 비틀거리면서 자리에서 일어났다." +
+                "<br><br>다행히, 당신이 기절해있는 동안 흉물들은 당신의 몸을 건드리지 않았다. 당신은 에릭을 보았다. 에릭은 이미 하류도시 관문 밖으로 향하고 있었다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.rebel_route_quest_08_intro_attack = true;
+            player.flags.rebel_route_quest_08_intro_attack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
 //에르윈

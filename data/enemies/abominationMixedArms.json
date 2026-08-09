@@ -114,7 +114,7 @@
         {
             "name": "잡기",
             "type": "grapple",
-            "chance": 0.5
+            "chance": 0.2
         }
     ],
     "grappleSkills": [

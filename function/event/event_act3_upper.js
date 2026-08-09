@@ -741,7 +741,7 @@ window.EVENTS.push({
             {
                 type : "text",
                 value : [
-                    "영광의 거리를 지나던 당신은 반란군들이 끌려나가는 것을 보았다. 그들은 모두 목에 개목걸이 같은 것을 차고 있었다. 안쪽은 칼날로 되어 있어 움직일 때마다 그들의 살을 깎아먹었다. 당신을 본 반란군들 중 한 명이 당신을 하류도시의 역적이라 부르며 달려들었다. 당신을 발견한 반란군 하나가 당신을 하류도시의 역적이라 부르며 달려들었다. 그러나 그들의 목줄은 한 줄로 연결되어 있었다. 그가 튀어나가는 순간 뒤따르던 반란군들의 몸이 거칠게 끌려왔고, 목걸이 안쪽의 칼날이 살을 파고들었다. 여러 사람의 입에서 동시에 피가 터져 나왔다. 그들을 끌고 가고 있던 백색 군인은 인상을 찌푸리더니 반란군놈들은 마지막까지 쓸모가 없다고 중얼거렸다." +
+                    "영광의 거리를 지나던 당신은 반란군들이 끌려나가는 것을 보았다. 그들은 모두 목에 개목걸이 같은 것을 차고 있었다. 안쪽은 칼날로 되어 있어 움직일 때마다 그들의 살을 깎아먹었다. 당신을 본 반란군들 중 한 명이 당신을 하류도시의 역적이라 부르며 달려들었다. 그러나 그들의 목줄은 한 줄로 연결되어 있었다. 그가 튀어나가는 순간 뒤따르던 반란군들의 몸이 거칠게 끌려왔고, 목걸이 안쪽의 칼날이 살을 파고들었다. 여러 사람의 입에서 동시에 피가 터져 나왔다. 그들을 끌고 가고 있던 백색 군인은 인상을 찌푸리더니 반란군놈들은 마지막까지 쓸모가 없다고 중얼거렸다." +
                     "<br><br>\"이들은 모두 전선 가장 앞에 서게 될 것입니다.\"<br><br>" +
                     "지금까지 상류도시에 피해를 줬으니, 마지막은 고기방패가 되어서라도 상류도시를 지켜야지요. 백색 군인들 중 한 명이 당신에게 반란군을 토벌해줘서 감사하다고 말하며 경례를 했다."
                 ]
@@ -753,25 +753,53 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
-    id : "upper_route_quest_07_after_food_intro",
+    id : "upper_route_quest_07_after_food_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_07_after_day + 5) &&
+        player.flags?.upper_route_quest_07_after,
+
+    action : (player) => {
+        player.flags.upper_route_quest_07_after_food_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "하류도시 마을 입구에 도착한 당신은 경계병들이 식량 상자의 식량을 세보더니 불만을 터뜨리는 모습을 보았다. 그들은 흉물과 꽃 마물들을 경계하는 것도 벅찬데, 반란군들 때문에 상황이 더 힘들어졌다고 말했다. 반란군을 바라보는 그들의 시선은 전보다 훨씬 싸늘해져 있었다." +
+                    "<br><br>\"요새 흉물 때문에 자원 수송도 거의 안 되고 있다고.\"<br><br>" +
+                    "\"백색 군단도 난리더라.\"<br><br>" +
+                    "당신은 시선을 돌려 백색 군단을 보았다. 그들은 언제나처럼 완벽해보였다. 하지만 그 완벽함 뒤에 어떤 모습이 있을지는 아무도 모르는 법이다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_07_after_food_intro_02",
     priority : true,
     once : true,
 
     condition : (player) =>
         player.location === "richTownEntrance" &&
         player.flags?.act3_uppercity_route &&
-        player.flags?.upper_route_quest_07_after,
+        getCurrentDay(player) >= (player.flags.upper_route_quest_07_after_food_intro_01_day + 3),
 
     action : (player) => {
-        savePlayer(player);
-
         startScene([
             {
                 type : "text",
                 value : [
                     "\"상류도시의 영웅.\"<br><br>" +
                     "에이든이다. 그는 당신에게 다가오더니 흉물이 날뛰는 것이 심해져서 당장 백색 군단이 먹을 식량도 부족하다고 목소리를 낮춰 말했다." +
-                    "<br><br>\"지금까지 많이 해주셨다는 걸 압니다. 하지만.... 무리가 되지 않는 선에서 식량건도 도와주셨으면 합니다. <br> 영웅님은 한 달에 한 번씩만 식량을 채워주시면 됩니다. 상류도시 관문에 물품 상자를 놓겠습니다.\"<br><br>" +
+                    "<br><br>\"지금까지 많이 해주셨다는 걸 압니다. 하지만…… 무리가 되지 않는 선에서 식량 건도 도와주셨으면 합니다. 영웅님께서는 한 달에 한 번씩만 식량을 채워주시면 됩니다. 상류도시 관문에 물품 상자를 놓겠습니다.\"<br><br>" +
                     "<br><br><span class='log-warning'>앞으로 당신은 한 달을 주기로 지정된 식량을 채워넣어야 합니다.</span>"
                 ]
             },
@@ -786,3 +814,129 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_08_intro",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_07_after_day + 5),
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"저게 뭐야?\"<br><br>" +
+                    "쿵, 쿵, 당신은 땅이 울리는 것 같은 느낌에 고개를 들고 경계병이 보고 있는 방향으로 시선을 틀었다. 자욱하게 인 흙먼지 사이로 무리들이 보였다." +
+                    "<br><br>흉물들이다.<br><br>" +
+                    "그들은 마치 군대처럼 무리를 지어 하류도시 관문으로 오고 있었다. 경계병은 처음에는 자신이 본 것을 제대로 인식하지 못하고 눈만 느리게 끔벅였다. 땅이 울리는 소리에 나온 경계병들 중 한 명이 욕설을 내뱉으며 흉물이 습격해온다고 소리를 질렀다. 흉물이 습격해온다는 소리를 들은 백색 군단이 마을 입구에 섰다." +
+                    "<br><br>\"...이번에도 잘 부탁드립니다, 상류도시의 영웅.\"<br><br>" +
+                    "에이든은 당신의 옆에 서서 낮은 목소리로 말했다. 그의 금색 눈동자는 체계적인 대열을 이루어 다가오는 흉물들에 고정되어 있었다. 그들은 나무 십자가 형틀에 묶인 반란군들을 가장 앞에 세웠다. 경비병들은 반인륜적인 행동에 인상을 찌푸리긴 했지만 어쨌든 백색 군단의 옆에 서서 흉물들에게 맞설 준비를 했다. 루크도 반란군들의 꼴을 보며 인상을 찌푸렸지만 별 말은 하지 않았다. 그저 낮게 쌍욕만 내뱉었을 뿐." +
+                    "<br><br>당신은 그저 동그랬던 흉물들이 점점 모습을 변화시키는 것을 보았다. 몇 놈들은 늑대로 변했고, 몇 놈들은 사슴으로 변했다. 그리고 그들은 전부 하류도시의 마을 입구를 향해 달려왔다. 몇몇 흉물들은 형틀에 묶인 반란군들에게 흥미를 보이긴 했다. 하지만 그것도 잠시, 몇몇을 제외한 흉물들은 고개를 들더니 반란군에게서 관심을 거두고 맞서 싸우려는 사람들에게 달려들기 시작했다. 거대 융합 흉물의 팔이 군인들과 경비병, 경계병들을 쓸었다. 거대한 팔은 곧 당신에게도 날아들었다. 당신은 무기를 단단히 쥐고 융합 흉물의 팔을 쳐냈다. 거대 융합 흉물과의 전투가 시작된다."
+                ]
+            },
+            {
+                type : "effect",
+                run : "startUpperQuest08IntroBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startUpperQuest08IntroBattle = function(player){
+
+    startBattle(["abominationMixedArms", "abominationMixedArms", "abominationMixedMiddle", "abominationMixedHead"], player, {
+        noEscape : true,
+        onWin : () => startUpperQuest08IntroBattle1Event(player),
+        onLose : () => startUpperQuest08IntroBattleLosingEvent(player)
+    });
+
+    return true;
+};
+
+window.startUpperQuest08IntroBattle1Event = function(player){
+    startScene([
+        {
+            type: "text",
+            value: [
+                "당신이 융합 흉물을 쓰러뜨리자마자, 기다렸다는 듯이 다른 흉물들이 지친 당신에게 달려들었다. 그들은 당신이 지쳐서 보이는 틈을 노리고 덤벼들었다. 더 많은 흉물들이 당신에게 달려들려고 했지만, 그 순간 총성이 들렸다. 당신은 총성만 듣고서도 그 사람이 누군지 알 수 있었다."
+            ]
+        },
+        {
+            type: "effect",
+            run: (player) => {
+                startBattle(["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"], player, {
+                    noEscape: true,
+                    onWin: () => startUpperQuest08IntroBattle2Event(player),
+                    onLose: () => startUpperQuest08IntroBattleLosingEvent(player)
+                });
+
+                return true;
+            }
+        }
+    ], player);
+};
+
+window.startUpperQuest08IntroBattle2Event = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 간신히 흉물들을 쓰러뜨렸지만 흉물들은 공격에 대비한 사람들만 노리지 않았다. 그것들은 어떻게든 당신들의 틈을 비집고 들어가 민간인들을 공격했다. 하류도시 사람들의 비명 소리가 울려 퍼졌다. 쉘터 쪽에서 아이들의 비명 소리가 들려와 당신은 고개를 돌렸다. 시온이 흉물들을 막아내주고 있긴 했지만 혼자서 쉘터의 모든 아이들을 지키기에는 무리였다. 에이든은 당신을 힐끗 보더니 백색 군인들 중 몇 명을 쉘터로 보냈다." +
+                "<br><br>\"당신이 지키고자 하는 건, 저도 지키겠습니다.\"<br><br>" +
+                "백색 군인들은 명령에 따라 쉘터의 아이들을 지켜주었다. 당신은 흉물들에게 끌려가는 민간인들을 보았다. 백색 군단이 있는데도 지키지 못하는 사람들이 있다. 당신의 예상보다 흉물들은 더욱 더 빠르고 악랄하게 진화하고 있었다." +
+                "<br>당신은 흉물들이 울타리처럼 둘러진 백색 성벽을 건드리지 않는 것을 보았다. 하지만 백색 흉물들은 그 성벽에 관심을 보였다. 그것들은 성벽에 머리를 기대더니 곧 이빨을 드러내고 성벽을 갉아먹기 시작했다. 아가가가각, 성벽을 갉아먹던 백색 흉물들이 움직임을 멈췄다. 곧이어 그들은 끔찍한 비명을 지르더니 이리저리 몸을 파닥거리다가 그대로 메말라 죽어버렸다." +
+                "<br><br>\"상류도시의 성벽은 선조들이 남긴 유산입니다. 아무리 진화했다고 해도, 흉물의 세포 조직이 있는 한 그들은 백색 성벽을 건드릴 수 없습니다.\"<br><br>" +
+                "에이든이 흉물의 공격을 막으며 당신에게 작게 말해주었다. 당신은 나머지 백색 흉물들이 백색 성벽을 응시하는 것을 보았다. 마치 누군가에게 보여주듯이 그들은 성벽을 천천히 훑어보았다. 그리고 흉물들은 명령이라도 받은 것처럼, 다 같이 관문 밖으로 후퇴했다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "전투에 이긴 걸까. 흉물들은 물러나긴 했지만 결과는 처참했다. 누군가는 자신의 엄마를, 누군가는 자신의 아빠를, 누군가는 자신의 아들을, 그리고 또 누군가는 자신의 딸을 찾았다. 잃은 것이 너무 많았다." +
+                "<br><br>당신은 총알을 장전하던 에릭이 멈칫하는 것을 보았다. 그는 고개를 들더니 마을 입구 바깥을 응시했다. 당신은 그의 눈동자가 희미하게 흔들리는 것을 보았다. 마을 입구 바깥을 응시하던 녹안은 곧 평정심을 되찾았다. 그는 도망가는 흉물들에게 총을 쐈다. 도망가던 흉물들은 괴기한 소리와 함께 도망치지 못하고 땅바닥에 널브러졌다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.upper_route_quest_08_intro_attack = true;
+            player.flags.upper_route_quest_08_intro_attack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};
+
+window.startUpperQuest08IntroBattleLosingEvent = function(player){
+    startScene([      
+        {
+            type : "text",
+            value : [
+                "당신은 흉물의 공격을 버티지 못하고 쓰러졌다. 쓰러지는 당신의 위로 흉물들이 달려든다. 하지만 당신에게 올라타기도 전에 그것들은 몸통에 구멍이 뚫린 채로 풀썩 떨어졌다. 에릭이다. 당신의 시야가 점점 어두워진다. 당신은 누군가가 당신을 방패 안으로 숨겨주는 것을 느꼈다. <br>...에이든이다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 일어났을 때 하류도시는 엉망이었다. 길바닥이 깨진 것도 모자라서 몇몇 민가는 이미 무너진 지 오래였다. 누군가는 자식을 찾고, 누군가는 부모를 찾고, 누군가는 연인을 찾았다. 그래도 몇몇은 백색 군인 때문에 그나마 살아남았다는 소리를 했다. 당신은 에이든의 품에서 일어났다. 방패를 높이 쳐들고 경계하고 있던 에이든이 당신을 내려다보았다." +
+                "<br><br>\"괜찮습니까?\"<br><br>" +
+                "당신은 고개를 끄덕였다. 당신은 쓰러져 있는 동안 백색 군단의 보호를 받았다. 당신은 에릭을 보았다. 에릭은 이미 하류도시 관문 밖으로 향하고 있었다."
+            ]
+        }
+    ], player, {
+        onEnd : () => 
+        {
+            player.flags.upper_route_quest_08_intro_attack = true;
+            player.flags.upper_route_quest_08_intro_attack_day = getCurrentDay(player);
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
+};

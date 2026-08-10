@@ -1,8 +1,8 @@
 {
     "name": "모방의 백흉물",
-    "hp": 550,
-    "attack": 51,
-    "defense": 49,
+    "hp": 580,
+    "attack": 53,
+    "defense": 50,
     "eva": 59,
     "lustResist" : 1,
     "drops": [
@@ -169,7 +169,7 @@
         {
             "name" : "꽃잎 폭우",
             "type" : "multiHit",
-            "power" : 0.8,
+            "power" : 0.9,
             "hits" : 6,
             "chance" : 0.2,
             "lines" : [

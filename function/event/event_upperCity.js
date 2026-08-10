@@ -457,6 +457,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_praise_personally",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        !player.flags?.valenDie &&
+        player.location === "heavenRoad"  &&
+        player.flags?.uppercityHero &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.upper_route_quest_08_intro_03,
+
+    action : (player) => {
+        player.flags.valen_praise_personally = true;
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["valen"].scenes.valen_praise_personally,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};
@@ -1658,6 +1684,7 @@ window.EVENTS.push({
         NPC_DATA["kain"].emotion.affection >= 90 &&
         NPC_DATA["kain"].emotion.rage <= 60 &&
         player.flags?.kain_sing_01_seen &&
+        !player.flags?.KainWillNotSingHisSong
         ["storm", "rain"].includes(player.weather) &&
         player.flags?.kain_kissSing &&
         (
@@ -1879,6 +1906,52 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["kain"].scenes.kain_suspicion_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_upper_route_quest_08_intro_attack_after",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        player.flags?.upper_route_quest_08_intro_attack &&
+        getCurrentDay() <= player.flags.upper_route_quest_08_intro_attack_day + 14 &&
+        NPC_DATA["kain"].emotion.affection >= 30,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_upper_route_quest_08_intro_attack_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_rebel_route_quest_08_intro_attack_after",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        player.flags?.rebel_route_quest_08_intro_attack &&
+        getCurrentDay() <= player.flags.rebel_route_quest_08_intro_attack_day + 14 &&
+        NPC_DATA["kain"].emotion.affection >= 30,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_rebel_route_quest_08_intro_attack_after,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

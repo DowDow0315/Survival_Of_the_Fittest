@@ -1712,6 +1712,27 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_after_quest_08_intro_attack",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        ( player.flags?.rebel_route_quest_08_intro_attack || player.flags?.upper_route_quest_08_intro_attack ),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["matin"].scenes.matin_after_quest_08_intro_attack,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",
@@ -2900,6 +2921,90 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["pale"].scenes.pale_promisePaleDream,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_promisePaleDream_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        ( player.location === "shelter" || player.location === "goldenShelter" ) &&
+        player.flags?.promisePaleDream &&
+        !player.flags?.paleDie &&
+        !player.flags?.paleFindsHerPlace &&
+        player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
+        player.flags?.paleGivesYouPower &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.pale_promisePale_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_promisePaleDream_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_promisePaleDream_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        ( player.location === "shelter" || player.location === "goldenShelter" ) &&
+        player.flags?.promisePaleDream &&
+        !player.flags?.paleDie &&
+        !player.flags?.paleFindsHerPlace &&
+        NPC_DATA["pale"].emotion.affection >= 30 &&
+        player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
+        player.flags?.paleGivesYouPower &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.pale_promisePale_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_promisePaleDream_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_promisePaleDream_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "deepForest_act3" &&
+        player.flags?.promisePaleDream &&
+        !player.flags?.paleDie &&
+        !player.flags?.paleFindsHerPlace &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        NPC_DATA["pale"].emotion.affection >= 40 &&
+        player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
+        player.flags?.paleGivesYouPower &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        player.flags.pale_promisePale_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_promisePaleDream_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

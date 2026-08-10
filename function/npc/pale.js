@@ -4,8 +4,11 @@ function processPaleText(text, player){
 }
 
 function getPaleTitle(player){
-    if (NPC_DATA["pale"].emotion.affection > 90) return "연약한자";
-    return "배신자";
+    if (NPC_DATA["pale"].emotion.affection > 90) return "꿈";
+    else if(NPC_DATA["pale"].emotion.affection >= 70) return "소중한 사람";
+    else if(NPC_DATA["pale"].emotion.affection >= 50) return "친구";
+    else if(NPC_DATA["pale"].emotion.affection >= 10) return "구원자";
+    return "....";
 }
 
 //첫만남

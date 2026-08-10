@@ -50,6 +50,31 @@ registerActions("kain", {
         
     },
 
+    upper_route_quest_08_intro_attack_after_yuri : (player) => {
+        const kain = NPC_DATA["kain"].emotion;
+        const brokeUpCondition = kain.affection < 90
+
+        if (brokeUpCondition) {
+            startScene(
+                NPC_DATA["kain"].scenes.kain_upper_route_quest_08_intro_attack_after_yuri_breakUp,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_upper_route_quest_08_intro_attack_after_yuri_cant_breakUp,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+
+    },
+
     talk: (player) => {
         if (!isKainAvailable(player)){
             showSingleTextScene(
@@ -253,4 +278,11 @@ window.kain_nobleSquare_dance_01_refused = function(player){
             onEnd : () => startScene(getLocationScene(player), player)
         }
     );
+};
+
+window.kainYuriDeathBreakUp = function(player) {
+    breakUp("kain");
+    player.flags.KainWillNotSingHisSong = true;
+    changeNPCEmotion("kain", "affection", -50);
+    changeNPCEmotion("kain", "rage", 100);
 };

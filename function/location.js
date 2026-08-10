@@ -1215,6 +1215,46 @@ const LOCATIONS ={
             { id : "flower3", weight : 20}
         ],
         connections : {}
+    },
+
+    underHouse : {
+        name : "당신의 집(하류도시)",
+        desc : {
+            dawn : [
+                "당신의 집이다. <br>새벽이다."
+            ],
+            morning: [
+                "당신의 집이다. <br>아침이 밝아온다."
+            ],
+            afternoon : [
+                "당신의 집이다. <br>벌써 오후다."
+            ],
+            night : [
+                "당신의 집이다. <br>어두워지고 있다."
+            ]
+        },
+        collectorChance: 0,
+        sleepDanger: 0
+    },
+
+    upperHouse : {
+        name : "당신의 집(상류도시)",
+        desc : {
+            dawn : [
+                "당신의 집이다. <br>새벽이다."
+            ],
+            morning: [
+                "당신의 집이다. <br>아침이 밝아온다."
+            ],
+            afternoon : [
+                "당신의 집이다. <br>벌써 오후다."
+            ],
+            night : [
+                "당신의 집이다. <br>어두워지고 있다."
+            ]
+        },
+        collectorChance: 0,
+        sleepDanger: 0
     }
 }
 

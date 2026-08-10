@@ -29,7 +29,9 @@ const LOCATION_SCENE_BUILDERS = {
     gloryHole: getGloryHoleScene,
     forest_act3 : buildForest_act3Scene,
     deepForest_act3 : buildDeepForest_act3Scene,
-    townEntrance_act3 : buildTownEntrance_act3Scene
+    townEntrance_act3 : buildTownEntrance_act3Scene,
+    underHouse : buildUnderHouseScene,
+    upperHouse : buildUpperHouseScene
 };
 
 function getLocationScene(player){
@@ -2879,4 +2881,66 @@ const GH_ROOM2_EVENTS = [
 //hp 단련 함수
 function getHpTrainingPrice(basePrice, count){
     return Math.floor(basePrice * Math.pow(1.8, count));
+}
+
+//집 함수
+function buildUnderHouseScene(player, loc, randomDesc){
+    return [
+        {
+            type : "text",
+            value : `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "침대에서 쉬어간다",
+                    action : "houseRest"
+                },
+                {
+                    text : "잠을 잔다",
+                    action : "houseSleep"
+                },
+                {
+                    text : "가구를 살펴본다",
+                    action : "openHouseFurniture"
+                },
+                {
+                    text : "집을 나간다",
+                    action : "leaveHouse"
+                }
+            ]
+        }
+    ];
+}
+
+
+function buildUpperHouseScene(player, loc, randomDesc){
+    return [
+        {
+            type : "text",
+            value : `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "침대에서 쉬어간다",
+                    action : "houseRest"
+                },
+                {
+                    text : "잠을 잔다",
+                    action : "houseSleep"
+                },
+                {
+                    text : "가구를 살펴본다",
+                    action : "openHouseFurniture"
+                },
+                {
+                    text : "집을 나간다",
+                    action : "leaveHouse"
+                }
+            ]
+        }
+    ];
 }

@@ -1,0 +1,158 @@
+{
+    "name": "꽃피는 백흉물",
+    "hp": 400,
+    "attack": 42,
+    "defense": 50,
+    "eva": 55,
+    "lustResist" : 1,
+    "drops": [
+        {
+            "item": "lumpOfFlesh",
+            "chance": 0.9
+        },
+        {
+            "item" : "animalMeat",
+            "chance": 0.4
+        },
+        {
+            "item": "blackBlood",
+            "chance": 0.5
+        },
+        {
+            "item": "flowerNectar",
+            "chance": 0.3
+        },
+        {
+            "item": "pieceofwhiteflower",
+            "chance": 0.9
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            "..."
+        ],
+        "weak" : [
+            "...?"
+        ],
+        "success" : [
+            "...!"
+        ]
+    },
+    "lines": {
+        "attack": [
+            "꽃피는 백흉물은 흔들흔들거리며 당신을 공격해왔다.."
+        ],
+        "hit": [
+            "\"아파. 나. 여기에. 있어. 응. 이리. 와.\"<br><br>그것은 녹음기처럼 누군가들의 목소리를 뱉어냈다."
+        ],
+        "evade": [
+            "꽃피는 백흉물은 당신의 공격을 피하며 목소리를 바꾸었다. 계속 당신이 아는 목소리로."
+        ],
+        "defeat": [
+            "꽃피는 백흉물은 크게 꽃을 피웠다가 결국 회복하지 못하고 가라앉았다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            "꽃피는 백흉물은 그저 하늘하늘 흔들리고 있다."
+        ],
+        "orgasm": [
+            "꽃피는 백흉물은 그저 하늘하늘 흔들리고 있다."
+        ],
+        "escapeFail": [
+            "꽃피는 백흉물은 뿌리를 끝까지 뻗어왔다. 당신은 그것의 뿌리에서 벗어날 수 없다."
+        ],
+        "escapeSuccess": [
+            "당신은 도망치는 것에 성공했다."
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "무장해제",
+            "type": "disarm",
+            "chance": 0.2,
+            "lines": [
+                "아래에서부터 꽃피는 백흉물의 뿌리가 공격해왔다. 당신의 무기를 떨어뜨리려고 하고 있다."
+            ]
+        },
+        {
+            "name": "흔들흔들",
+            "power": 1,
+            "type": "damage",
+            "chance": 0.7,
+            "lines": [
+                "꽃피는 백흉물이 당신을 공격해온다. 하늘, 하늘."
+            ]
+        },
+        {
+            "name" : "개화",
+            "type" : "selfBuff",
+            "chance" : 0.2,
+            "duration" : 1,
+            "effect" : {
+                "id" : "whiteAbomination5_healbuff",
+                "heal" : 60
+            },
+            "lines" : [
+                "꽃피는 백흉물은 스스로 재생했다. 꽃이 흐드러지게 피면서 검붉은 꽃잎들을 흩날린다. 변색되지 않은 하얀 꽃잎들은 여전히 그것의 몸에 붙어 흔들리고 있다."
+            ]
+        },
+        {
+            "name" : "정신 충격",
+            "type" : "stun",
+            "power" : 0.8,
+            "chance" : 0.3,
+            "duration" : 2,
+            "lines" : [
+                "순간 꽃들 중에 하나가 당신이 아는 얼굴로 변했다. 당신이 아는 얼굴은 비명을 지르며 끔찍하게 죽어가고 있었다. 당신의 정신이 순간 충격으로 멍해졌다(스턴)."
+            ]
+        },
+        {
+            "name" : "꽃가루",
+            "type" : "allyBuffAll",
+            "chance" : 0.5,
+            "duration" : 4,
+            "effect" : {
+                "id" : "whiteAbomination5_allyBuff",
+                "evaMult" : 1.5,
+                "defMult" : 1.5
+            },
+            "lines" : [
+                "하얀 꽃과 검붉은 꽃들 사이에서 꽃가루가 흩날렸다. 꽃가루를 맞은 적들의 능력이 더 강화된 것 같다."
+            ]
+        },
+        {
+            "name" : "뿌리깊은나무",
+            "type" : "allyHealAll",
+            "heal" : 80,
+            "chance" : 0.4,
+            "lines" : [
+                "꿀럭하는 소리와 함께 꽃피는 백흉물은 지면에 있던 뿌리를 움직였다. 뿌리에 닿은 적들이 생명력을 회복한다!"
+            ]
+        }
+    ],
+    "exp": 250
+}

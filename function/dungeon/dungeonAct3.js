@@ -648,6 +648,118 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "rebelsState_sneak", weight : 15 },
             { type : "event", id : "rebelsState_aboutYou", weight : 15 }
         ]
+    },
+
+    whiteAbominationArmy : {
+        id : "whiteAbominationArmy",
+        name : "백흉물 군단",
+        startRoom : "r8c4",
+
+        layout : [
+            ["r0c0", "r0c1",     "", "r0c3",     "", "r0c5"],
+            ["r1c0",     "", "r1c2", "r1c3",     "", "r1c5"],
+            ["r2c0",     "", "r2c2",     "",     "", "r2c5"],
+            ["r3c0", "r3c1", "r3c2", "r3c3", "r3c4", "r3c5"],
+            ["r4c0",     "",     "",     "", "r4c4",     ""],
+            [    "",     "", "r5c2",     "", "r5c4",     ""],
+            [    "",     "", "r6c2", "r6c3", "r6c4", "r6c5"],
+            ["r7c0", "r7c1", "r7c2",     "",     "", "r7c5"],
+            ["r8c0",     "", "r8c2",     "", "r8c4", "r8c5"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "군단의 눈이 닿지 않는 틈", exits : {right : "r0c1", down : "r1c0"}, safeZone: true, allowRest: true},
+            "r0c1" : {name : "군단의 중추", exits : {left : "r0c0"}, bossId: "mimicTeacher", boss : ["experimentTeacher", "experimentTeacherMimic", "whiteAbomination3", "whiteAbomination3"], bossIntro:"mimicTeacher_intro"},
+            "r0c3" : {name : "교육실?", exits : {down : "r1c3"}, event : "whiteAbominationArmy_educate", seenFlag : "whiteAbominationArmy_educate"},
+            "r0c5" : {name : "누군가가 남긴 쪽지", exits : {down : "r1c5"}, event : "whiteAbominationArmy_memo", seenFlag : "whiteAbominationArmy_memo"},
+            
+            "r1c0" : {name : "역겨운 냄새가 나는 길", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "끼륵끼륵 소리가 나는 곳", exits : {right : "r1c3", down : "r2c2"}, event : "whiteAbominationArmy_whiteArmy", seenFlag : "whiteAbominationArmy_whiteArmy"},
+            "r1c3" : {name : "어디선가 소리가 계속 나는 통로", exits : {up : "r0c3", left : "r1c2"}},
+            "r1c5" : {name : "덜 울렁거리는 붉은 살점바닥", exits : {up : "r0c5", down : "r2c5"}},
+            
+            "r2c0" : {name : "숨어서 들어가는 길", exits : {up : "r1c0", down : "r3c0"}},
+            "r2c2" : {name : "살점 덩어리들", exits : {up : "r1c2", down : "r3c2"}},
+            "r2c5" : {name : "울렁거리는 붉은 살점바닥", exits : {up : "r1c5", down : "r3c5"}, event : "whiteAbominationArmy_twisted_03", seenFlag : "whiteAbominationArmy_twisted_03"},
+            
+            "r3c0" : {name : "붉은 살점 아래로 드러나는 흙길", exits : {up : "r2c0", right : "r3c1", down : "r4c0"}},
+            "r3c1" : {name : "쭉 뻗어가는 길", exits : {left : "r3c0", right : "r3c2"}},
+            "r3c2" : {name : "검붉은 세가지 방향 길", exits : {up : "r2c2", left : "r3c1", right : "r3c3"}},
+            "r3c3" : {name : "검붉은 통로", exits : {left : "r3c2", right : "r3c4"}},
+            "r3c4" : {name : "살점이 밟히는 갈림길", exits : {left : "r3c3", right : "r3c5", down : "r4c4"}},
+            "r3c5" : {name : "꿈틀거리는 붉은 살점 바닥", exits : {up : "r2c5", left : "r3c4"}},
+            
+            "r4c0" : {name : "소란스러운 구석", exits : {up : "r3c0"}, event : "whiteAbominationArmy_fightingSounds", seenFlag : "whiteAbominationArmy_fightingSounds"},
+            "r4c4" : {name : "살점이 밟히는 길3", exits : {up : "r3c4", down : "r5c4"}},
+            
+            "r5c2" : {name : "구멍이 뚫린 꿈틀거리는 살점들", exits : {down : "r6c2"}, event : "whiteAbominationArmy_twisted_02", seenFlag : "whiteAbominationArmy_twisted_02"},
+            "r5c4" : {name : "살점이 밟히는 길2", exits : {up : "r4c4", down : "r6c4"}},
+
+            "r6c2" : {name : "꿈틀거리는 살점들", exits : {up : "r5c2", right : "r6c3", down : "r7c2"}},
+            "r6c3" : {name : "기괴하게 뒤틀린 살점", exits : {left : "r6c2", right : "r6c4"}, event : "whiteAbominationArmy_twisted_01", seenFlag : "whiteAbominationArmy_twisted_01"},
+            "r6c4" : {name : "살점이 밟히는 길", exits : {up : "r5c4", left : "r6c3", right : "r6c5"}},
+            "r6c5" : {name : "검붉은 흙길3", exits : {left : "r6c4", down : "r7c5"}},
+            
+            "r7c0" : {name : "이어지는 발자국", exits : {right : "r7c1", down : "r8c0"}},
+            "r7c1" : {name : "붉은 살점 사이로 찍힌 발자국", exits : {left : "r7c0", right : "r7c2"}},
+            "r7c2" : {name : "뼈부스러기", exits : {up : "r6c2", left : "r7c1", down : "r8c2"}},
+            "r7c5" : {name : "검붉은 흙길2", exits : {up : "r6c5", down : "r8c5"}},
+            
+            "r8c0" : {name : "아직 살아있는 사람?", exits : {up : "r7c0"}, event : "whiteAbominationArmy_surviver", seenFlag : "whiteAbominationArmy_surviver"},
+            "r8c2" : {name : "구석", exits : {up : "r7c2"}, chest : "gem_chest"},
+            "r8c4" : {name : "군단 뒤꽁무니", exits : {right : "r8c5"}},
+            "r8c5" : {name : "검붉은 흙길", exits : {up : "r7c5", left : "r8c4"}}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "whiteAbomination3", minCount : 2, maxCount : 4, weight : 30},
+            { type : "battle", enemies : ["whiteAbomination2", "whiteAbomination3", "whiteAbomination3"], weight : 20 },
+            { type : "battle", enemies : ["abomination4", "whiteAbomination3", "whiteAbomination3"], weight : 30 },
+            { type : "battle", enemies : ["whiteAbomination2", "whiteAbomination3", "whiteAbomination1"], weight : 30 },
+            { type : "event", id : "whiteAbominationArmy_sneak", weight : 15 },
+            { type : "event", id : "whiteAbominationArmy_chunk", weight : 15 }
+        ]
+    },
+
+    whiteAbominationArmyRepeated : {
+        id : "whiteAbominationArmyRepeated",
+        name : "백흉물 군단 진지",
+        startRoom : "r0c0",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2", "r0c3", "r0c4", "r0c5"],
+            [    "",     "",     "",     "",     "", "r1c5"],
+            ["r2c0", "r2c1", "r2c2", "r2c3", "r2c4", "r2c5"],
+            ["r3c0",     "",     "",     "",     "",     ""],
+            ["r4c0", "r4c1", "r4c2", "r4c3", "r4c4", "r4c5"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "백흉물 군단 진지 입구", exits : {right : "r0c1"}},
+            "r0c1" : {name : "앞으로 나아가는 길", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "끝없이 이어질 것만 같이 보이는 길", exits : {left : "r0c1", right : "r0c3"}},
+            "r0c3" : {name : "전진", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "계속 전진", exits : {left : "r0c3", right : "r0c5"}},
+            "r0c5" : {name : "몸을 돌려야 할 시간", exits : {left : "r0c4", down : "r1c5"}},
+            
+            "r1c5" : {name : "잠깐의 짧은 통로", exits : {up : "r0c5", down : "r2c5"}},
+            
+            "r2c0" : {name : "또 회전", exits : {right : "r2c1", down : "r3c0"}},
+            "r2c1" : {name : "살점덩어리를 피해", exits : {left : "r2c0", right : "r2c2"}},
+            "r2c2" : {name : "고뇌의 길", exits : {left : "r2c1", right : "r2c3"}},
+            "r2c3" : {name : "끝날 것 같지가 않은 길", exits : {left : "r2c2", right : "r2c4"}},
+            "r2c4" : {name : "길게 이어진 길", exits : {left : "r2c3", right : "r2c5"}},
+            "r2c5" : {name : "또 전진", exits : {up : "r1c5", left : "r2c4"}},
+            
+            "r3c0" : {name : "마지막으로 짧게 이어진 통로", exits : {up : "r2c0", down : "r4c0"}},
+            
+            "r4c0" : {name : "얼마 안 남았다는 희망", exits : {up : "r3c0", right : "r4c1"}},
+            "r4c1" : {name : "희망?", exits : {left : "r4c0", right : "r4c2"}},
+            "r4c2" : {name : "어쩄든 걸어가기", exits : {left : "r4c1", right : "r4c3"}},
+            "r4c3" : {name : "드디어 도달한 마지막 직전", exits : {left : "r4c2", right : "r4c4"}},
+            "r4c4" : {name : "잘 보이지 않는 구석", exits : {left : "r4c3", right : "r4c5"}, safeZone: true, allowRest: true},
+            "r4c5" : {name : "군단의 지휘부", exits : {left : "r4c4"}, bossId: "mimicTeacher2", boss : ["whiteAbomination2", "whiteAbomination2", "experimentTeacherMimic", "whiteAbomination3", "whiteAbomination3"]}
+        }
     }
 })
 
@@ -3754,6 +3866,355 @@ Object.assign(DUNGEON_EVENTS, {
                 run : (player) => {
                     player.flags.rebelsState_medal = true;
                     changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+
+    whiteAbominationArmy : {
+        whiteAbominationArmy_twisted_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 길바닥에 널려 있는 뒤틀린 살점들을 보았다. 사람이었을까, 아니면 동물이었을까, 그것도 아니면 고블린이었을까. 너무 기괴하게 뒤틀려 있어서 당신은 생전에 그것이 무엇이었는지조차 짐작할 수 없었다. 당신은 발걸음을 옮겼다." +
+                    "<br><br>\"ㅅ, 살...\"<br><br>" +
+                    "당신은 밑을 내려다보았다. 꿈틀거리는 살점이었다. 하지만 그것은 분명 살아서 당신에게 살려달라고 말을 하고 있었다." +
+                    "<br><br>\"부, 분명, 여기, 여기로 오라고.... 왜, 나, 날, 속...\"<br><br>" +
+                    "...끊어서 말하던 그것은 곧 잠잠해졌다." +
+                    "<br>이걸 살아있는 것이라 불러도 되는 걸까."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_twisted_01 = true;
+                    changeTrauma(player, 8);
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_twisted_02 : [
+        {
+            type : "text",
+            value : [
+                "꿈틀거리는 살점들이었지만, 지금까지의 살점들과는 다르게 살점들에는 구멍이 하나씩, 아니면 2개씩 뚫려 있었다. 그것은 움찔거리더니 안에서 무언가를 뱉어냈다." +
+                "<br><br><span class='log-danger'>...흉물의 알들이었다.</span>" +
+                "<br><br>당신은 살점들 위로 연결된 호스를 보았다. 생명력을 주입하고 있기라도 한 건지, 호스들은 꾸물거리며 계속 살점에 무언가를 주입하고 있었다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 호스를 다 끊어버렸다.",
+                    stat : "str",
+                    difficulty : 30,
+                    success : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 호스를 전부 끊어버렸다. 당신이 힘껏 검붉은 호스를 잡아당기자 호스는 마치 살아있는 듯이 박동을 하더니 끼긱거리는 소리와 함께 끊어져 버렸다. 구멍 뚫린 살점들이 하나 둘 바닥으로 떨어졌다. 그것들은 바닥 위에서 몇 번 맥동하다가 그대로 말라 비틀어져 죽어버렸다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                player.flags.whiteAbominationArmy_twisted_02 = true;
+                                changeTrauma(player, 4);
+                                savePlayer(player);
+                            }
+                        }
+                    ],
+                    fail : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 호스를 전부 끊어내려고 했지만 그것들은 살아있는 것처럼 꿈틀거리며 당신의 힘을 이겨냈다. 결국 당신이 얻은 건 검붉어진 손뿐이었다. 당신은 여전히 숨을 쉬고 있는 살점들을 응시했다. 당신의 그것들은 이제 인간이 아니었다." +
+                                "<br>당신의 손에 묻은 검붉은색 액체가 부글부글 끓었다. 당신은 급하게 손을 털어냈다."
+                            ]
+                        },
+                        {
+                            type : "effct",
+                            run : (player) => {
+                                player.flags.whiteAbominationArmy_twisted_02 = true;
+                                changeTrauma(player, 8);
+                                changeHP(player, -50);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 불로 전부 태워버렸다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 그것들에 가까이 가지도 않았다. 당신은 뒤로 물러난 후 옆에 있던 부싯돌로 불을 내서 그대로 호스에 던져버렸다. 끼에에에엑! 사방에 비명 소리가 울렸다. 당신은 흉물들의 발자국 소리를 들었다. 불덩이가 당신에게로도 떨어진다. 당신은 마지막으로 불에 타는 살점들과 호스를 바라보았다. 이 끔찍한 참상은 전부 재로 돌아갈 것이다. 당신은 백흉물들이 몰려오기 전에 재빨리 자리를 피했다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                changeTrauma(player, 4);
+                                changeHP(player, -30);
+                                player.flags.whiteAbominationArmy_twisted_02 = true;
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        ],
+        whiteAbominationArmy_surviver : [
+            {
+                type : "text",
+                value : [
+                    "당신은 생존자를 발견했다. 아니, 과연 생존자라고 볼 수 있을까? 그의 사지는 전부 잘려 있었다. 당신을 발견한 그는 신이시여, 라는 말을 내뱉으며 고개로 성호를 그었다." +
+                    "<br><br>\"제발, 변형되기 전에 제발 날 죽여줘요. 나는 흉물의 알 낳는 기계로 만들어지고 싶지 않....\"<br><br>" +
+                    "그 순간 남자의 몸이 바닥으로 가라앉기 시작했다. 마치 바닥에 깔린 붉은 살점이 남자의 몸과 융합하려는 것 같다. 남자는 몸뚱아리만 남은 상태로 바둥거리면서 제발 지금 당장 죽여달라고 소리쳤다." +
+                    "<br><br>\"이대로 먹히면 나도 그들처럼 살점 덩어리가 되어버립니다! 제발 날 죽여주세요!\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 남자를 죽여주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 지체없이 남자의 몸을 찔렀다. 분명 급소를 찔렀고, 남자는 목숨을 잃었다. 하지만 그의 육신은 썩지 않았다. 그것들은 남자의 몸을 바닥으로 집어삼키더니 꿈틀거리며 살점 덩어리로 만들기 시작했다. 살점덩어리의 가운데에서 남자의 얼굴 형태가 만들어졌다." +
+                                    "<br>그는 멍한 얼굴로 당신을 바라보았다. 그러더니 아까와 똑같은 표정과 똑같은 목소리로 소리치기 시작했다." +
+                                    "<br><br>\"이대로 먹히면 나도 그들처럼 살점 덩어리가 되어버립니다! 제발 날 죽여주세요!\"<br><br>" +
+                                    "그러더니 뚝 표정을 멈췄다. 그리고 누군가의 이름을 부르며 아들이라고 말했다. 살점덩어리가 마치 웃는 것처럼 들썩였다. "
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 5);
+                                    player.flags.whiteAbominationArmy_surviver = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 남자에게 왜 여기에 왔는지 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"지금 그게 중요한 게 아니...\"<br><br>" +
+                                    "남자는 비명과 함께 바닥에 삼켜졌다. 곧이어 바닥에서 살점덩어리 하나가 큰 게 데굴데굴 굴러나왔다." +
+                                    "<br><br>\"부인, 내가 분명 아들의 목소리를 들었소. 내가 찾아오겠소.\"<br><br>" +
+                                    "분명 남자의 목소리다. 꿈틀이는 살점덩어리는 멈추더니 마치 웃듯이 들썩였다. 그리고 똑같은 목소리와 똑같은 톤으로 말했다." +
+                                    "<br><br>\"부인, 내가 아들을 찾았소. 그곳으로 데려다주겠소.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 8);
+                                    player.flags.whiteAbominationArmy_surviver = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        whiteAbominationArmy_twisted_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 바닥이 꿈틀거리는 것을 참고 앞으로 나아가고 있었다. 그 순간, 마치 바닥이 살아있는 것처럼 박동을 하기 시작했다. 바닥이 꿈틀거리면서 당신은 중심을 잃었다. 시야가 뒤집힌다. 당신은 그대로 바닥으로 넘어질 뻔했지만 어떻게든 손을 뻗어 벽을 짚을 수 있었다." +
+                    "<br><br>그 벽도 물렁거리는 게 문제였지만.<br><br>" +
+                    "당신의 손이 벽에 푹 꽂혔다. 당신은 어떻게든 손을 빼냈다. 당신의 손에 검붉은 것이 타올랐다. 아프다. 점점 정신이 희미해진다. 그 순간, 당신의 앞에 누군가가 보였다." +
+                    "<br><br>그것은 형체가 흐트러지더니 그대로 하얀꽃으로 변했다. 당신은 정신을 잃기 전에 급하게 하얀 꽃을 잡았다. 하얀 꽃이 검붉은 것에 닿자 상처가 잦아들고 울렁거렸던 시야도 다시 돌아왔다. 당신은 멍하니 하얀 꽃을 바라보았다." +
+                    "<br><br>...이 하얀 꽃은 지금까지 당신이 봐왔던 하얀 꽃과는 달랐다. 하얗게 빛나고 있었다." +
+                    "<br><br><span class='log-akasia'>...마치 빛을 받은 상류도시의 성벽과 도로처럼.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_twisted_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_memo : [
+            {
+                type : "text",
+                value : [
+                    "군단 진영 밖이 보이는 작은 틈이다. 이 정도로 틈이 작으면 어린 아이도 나가지 못할 것 같다. 당신은 틈 바로 앞에 있는 누군가의 메모를 주웠다." +
+                    "<br><br>[젠장, 젠장, 젠장, 나는 곧 죽을 거다. 그새끼, 하얀 꽃을 훔쳐간 그 새끼만 아니었어도 내가 경계병으로 쫓겨나지 않았을 텐데. 지금까지 10년 넘는 세월 동안 경계병으로 살았다. 언젠가 발렌님이 불러주시겠지, 불러주시겠지 하면서.... 하지만 발렌님은 끝까지 나를 용서해주시지 않았다.]" +
+                    "<br><br>[난 그때 발렌님의 표정을 기억한다. 그 시선을 마주하며 난 그날 죽을 거라고 생각했었다. 하지만 그는, 나를 살려주었지. 난 그게 용서인 줄 알았다. 젠장, 근데 이게 내 끝일 줄은 몰랐지. 아아 젠장, 젠장, 젠장, 죽고 싶지 않아. 나는 상류도시로 다시 돌아가고 싶어.]" +
+                    "<br><br>[시든 그 하얀 꽃들은 전부 어떻게 됐을까. 발렌님, 발렌님, 제가 다시 키워볼게요. 제가 다시 시들지 않게 해볼게요. 제발 저를 살려주세요, 젠장, 이 피도 눈물도 없는 자식아.]<br><br>" +
+                    "...누군가가 죽기 전에 고해를 한 모양이다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_memo = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_whiteArmy : [
+            {
+                type : "text",
+                value : [
+                    "당신은 백흉물들이 모여있는 것을 보았다. 그것들은 그륵그륵거리면서 서로 뭔가 대화를 하고 있었다. 그들이 무슨 대화를 하고 있는지 당신은 알아들을 수 없다." +
+                    "<br><br>\"제발, 살...려줘... 내겐 딸이 있...\"<br><br>" +
+                    "바닥에 삼켜지는 사람이 그들에게 손을 뻗었다. 흉물들과 백흉물들이 그를 돌아보았다. 그러더니 키륵키륵 이상한 소리를 내며 자기들끼리 대화를 했다." +
+                    "<br><br>...그들은 분명 인간의 언어를 알아듣고 있다. 하지만 당신은 그들의 언어를 알아들을 수 없다." +
+                    "<br><br>흉물들 중 한 놈이 인간에게 손을 뻗었다가 인간이 자신의 손을 잡으려고 하자 이상한 소리를 내며 그대로 뒤로 물러났다. 인간의 절망적인 표정에 흉물들은 서로 시선 교환을 하며 무어라 또 얘기를 했다. 더 있으면 들킬 것 같다. 당신은 그 자리를 조용히 벗어났다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_whiteArmy = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_educate : [
+            {
+                type : "text",
+                value : [
+                    "인간의 목소리가 들린다. 당신은 벽에 붙어서 상황을 살폈다. 백흉물 하나가 축 늘어져 있는 인간을 빤히 응시하고 있었다." +
+                    "<br><br>\"엄마.\"<br><br>" +
+                    "백흉물이 어린 여자 아이의 목소리로 말하자 축 늘어져 있던 인간이 번쩍 눈을 떴다. 그는 제 딸아이의 이름을 부르며 역시 살아있었냐고 물었다. 백흉물은 그런 인간을 빤히 응시했다. 마치 모든 반응을 기록하듯이 빤히. 여자가 다시 의식을 잃고 쓰러지자 백흉물은 또다른 말을 하기 시작했다." +
+                    "<br><br>\"엄마는 왜 내 손을 놓쳤어?\"<br><br>" +
+                    "...사람의 정신을 흔드는 더 잔인한 말들을."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_educate = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_fightingSounds : [
+            {
+                type : "text",
+                value : [
+                    "구석으로 들어가자 당신은 백흉물 군단 안이 아니라 군단 밖에 들려오는 소리를 들을 수 있었다. 당신은 귀를 기울였다. 분명 누군가가 싸우는 소리였다. 계획대로 밖에서 백흉물과 싸우는 소리인 걸까. 당신은 더 귀를 기울였다." +
+                    "<br><br><span class='log-danger'>...아니다. 이건 인간들끼리 싸우는 소리다.</span>" +
+                    "<br><br>싸움의 승패는 알 수 없었다. 계속 이어질 뿐. 당신은 그만 듣기로 했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.whiteAbominationArmy_fightingSounds = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        whiteAbominationArmy_sneak : [
+            {
+                type : "text",
+                value : [
+                    "당신은 백흉물 몇 마리가 당신 쪽으로 다가오는 소리를 들었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 민첩하게 몸을 숨겼다.",
+                        stat : "dex",
+                        difficulty : 32,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 민첩하게 몸을 움직여 그들이 당신을 눈치채기 전에 어둠 속으로 숨어들 수 있었다."
+                                ]
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 민첩하게 몸을 숨기려고 했지만 백흉물의 감지력이 더 빨랐다. 그것은 무리와 함께 당신을 공격했다!"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    const enemyId = ["whiteAbominaton1", "whiteAbominaton2", "whiteAbominaton3"];
+                                    const defeatEnemy = ENEMIES["whiteAbominaton1"]();
+                                    startBattle(enemyId, player, {
+                                        onWin: () => startScene(buildDungeonScene(player), player),    
+                                        onEscape: () => startScene(buildDungeonScene(player), player),
+                                        onLose: () => {runDefeatEvent(player, defeatEnemy);}
+                                    });
+                                    return true;
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 잡혀온 포로인 척 연기를 했다.",
+                        stat : "charm",
+                        difficulty : 20,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "백흉물은 당신을 보긴 했지만 당신의 연기에 넘어갔다. 이럴 수가, 백흉물을 속이다니, 정말 ㅎㅈㅇ 뺨치는 연기력이었다."
+                                ]
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 잡혀온 포로인 척 연기를 하려고 했지만 아쉽게도 100점 만점에 10점이었다. 하필 심판이 백흉물이었다. 백흉물이 무리를 지어 당신에게 달려든다!"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    const enemyId = ["whiteAbominaton1", "whiteAbominaton2", "whiteAbominaton3"];
+                                    const defeatEnemy = ENEMIES["whiteAbominaton1"]();
+                                    startBattle(enemyId, player, {
+                                        onWin: () => startScene(buildDungeonScene(player), player),    
+                                        onEscape: () => startScene(buildDungeonScene(player), player),
+                                        onLose: () => {runDefeatEvent(player, defeatEnemy);}
+                                    });
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        whiteAbominationArmy_chunk : [
+            {
+                type : "text",
+                value : [
+                    "...당신은 되다만 살덩이를 보고 말았다. 붉은 살점인지, 검붉은 살점인지, 아니면 정말 사람의 피부인지.... 모든 것이 다 뒤섞여 있어서 구분이 가지 않았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 15);
                     savePlayer(player);
                 }
             }

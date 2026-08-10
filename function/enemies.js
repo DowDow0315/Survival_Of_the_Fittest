@@ -57,8 +57,8 @@ async function loadEnemies(){
         "abominationMixedHead", "abominationMixedArms", "abominationMixedMiddle",
         "whiteArmy1", "whiteArmy2", "whiteArmy3", "whiteArmy4", "whiteArmyLeader1", "nikolai_machete", "whiteArmy5", "whiteArmy6", "whiteArmyLeader2",
         "scientist1", "scientist2",
-        "experimentAboFlower1", "experimentAboFlower2", "experimentAboFlower3", "experimentTeacher",
-        "whiteAbomination1", "whiteAbomination2", "whiteAbomination3", "whiteAbomination4",
+        "experimentAboFlower1", "experimentAboFlower2", "experimentAboFlower3", "experimentTeacher", "experimentTeacherMimic",
+        "whiteAbomination1", "whiteAbomination2", "whiteAbomination3", "whiteAbomination4", "whiteAbomiantion5", "whiteAbomination6",
         "abominatedSoldier1", "abominatedSoldier2", "abominatedWhiteArmy1", "abominatedRebels1", "abominatedWhiteArmy2", "abominatedRebels2"
     ];
 

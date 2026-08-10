@@ -992,6 +992,35 @@ const QUESTS = {
 
         acceptText : "마틴은 당신이 의뢰서를 가져오자 잠시 말이 없었다.<br><br>\"네가 지금 뭘 하고 있는 지는 네가 더 잘 알 거라 믿어.\"<br><br>그의 목소리는 평소보다 차가웠다.",
         completeText : "당신이 의뢰를 보고하자 마틴은 고개를 끄덕였다. <br><br>\"상류도시에 소식은 전해놓을게.\"<br><br>그의 검은색 눈동자는 평소보다 더 채도가 낮았다."
+    },
+
+    act3_quest_08 : {
+        id : "act3_quest_08",
+        title : "불길한 전조",
+        type: "investigate",
+        targetName : "백흉물 저지",
+        repeatable : false,
+        giver : "valen",
+        
+        desc : "그들은 뒤틀린 깊은숲에 진을 치고 있다.",        
+        activeDesc : "그들은 폐야에서 내려와 뒤틀린 깊은숲에 진을 치고 도시를 공격할 준비를 하고 있다.",
+        readyDesc : "...그들은 분명, 인간의 감정을 흉내내고 있었다. 아마 꽃마물과 다른 목적으로.<br>주점에 보고하러 가자.",
+        
+        targetFlag : "act3_quest_08_boss_end",
+        requiredKill: 1,
+        rewardGold: 38000,
+
+        require : {
+            flag : "act3_quest_08_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_08_done = true;
+            player.flags.act3_quest_08_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "\"뒤틀린 깊은숲.\"<br><br>마틴은 장소를 말해주며 당신에게 의뢰서를 내밀었다. 그의 얼굴은 평소보다 창백했다.<br><br>\"그것들은 폐야에서 내려오고 있어.\"",
+        completeText : "마틴은 당신의 얼굴을 힐끗 보더니 괜찮냐고 물었다. <br><br>\"...보고는 내가 할 테니 들어가서 쉬어.\"<br><br>그는 주저하다가 마지막 말을 덧붙였다. <br><br>\"...네 몸은 네가 챙겨야 해.\""
     }
 };
 

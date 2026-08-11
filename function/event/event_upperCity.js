@@ -1684,7 +1684,7 @@ window.EVENTS.push({
         NPC_DATA["kain"].emotion.affection >= 90 &&
         NPC_DATA["kain"].emotion.rage <= 60 &&
         player.flags?.kain_sing_01_seen &&
-        !player.flags?.KainWillNotSingHisSong
+        !player.flags?.KainWillNotSingHisSong &&
         ["storm", "rain"].includes(player.weather) &&
         player.flags?.kain_kissSing &&
         (

@@ -2024,6 +2024,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "matin_rubyEarring_02",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge" &&
+        getCurrentDay(player) >= (player.flags.matin_rubyEarring_01_day + 5) &&
+        ["dawn", "morning"].includes(getTimePeriod(player)),
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_02 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.matin_rubyEarring_02,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //라파엘
 window.EVENTS.push({
     id: "raphael_firstMeeting",

@@ -326,6 +326,13 @@ registerActions("matin",{
             });
         }
 
+        if (!player.flags?.matin_rubyEarring_03 && player.flags.matin_rubyEarring_02 ){
+            choices.push({
+                text: "미누이에 대해 묻는다.",
+                scene: NPC_DATA.matin.scenes.matin_rubyEarring_03
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "matin_talk" });
 
         startScene([

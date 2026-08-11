@@ -693,29 +693,81 @@ function getCharmArousalGain(player, base = 10){
 }
 
 window.cleanseBodyFluid = function(player){
-    if (!["shelter", "goldenShelter"].includes(player.location)) {
-        showSingleTextScene("여기서는 몸을 정비할 수 없다.", player);
+    const allowedLocations = [
+        "shelter",
+        "goldenShelter",
+        "underHouse",
+        "upperHouse"
+    ];
+    if (!allowedLocations.includes(player.location)){
+        showSingleTextScene(
+            "여기서는 몸을 정비할 수 없다.",
+            player
+        );
         return;
     }
-
     const total = getBodyFluidTotal(player);
     if (total <= 0){
-        showSingleTextScene("이미 몸 상태는 깨끗하다.", player);
+        showSingleTextScene(
+            "이미 몸 상태는 깨끗하다.",
+            player
+        );
         return;
     }
-
+    
     const stamina = player.status.stamina || 0;
-    const base = 10 + Math.floor(stamina / 10);
-    const amount = base + Math.floor(Math.random() * 6); // +0~5
+    const base =
+        10 +
+        Math.floor(stamina / 10) +
+        Math.floor(Math.random() * 6);
 
+
+    // 집 욕조 보너스
+    const houseType =
+        typeof getCurrentHouseType === "function"
+            ? getCurrentHouseType(player)
+            : null;
+    let amount = base;
+    let time = 5;
+    let bathName = null;
+    if (houseType){
+        const house = getCurrentHouse(player);
+        const bathId = house?.furniture?.bath;
+        if (bathId){
+            const bath = FURNITURE_DATA[bathId];
+            if (bath?.cleanse){
+                amount = Math.floor(
+                    base * bath.cleanse.multiplier
+                );
+                time = bath.cleanse.time || 5;
+                bathName = bath.name;
+            }
+        }
+    }
     reduceBodyFluid(player, amount);
-    passTime(player, 5);
-
+    passTime(player, time);
+    if (houseType){
+        if (bathName){
+            showSingleTextScene(
+                `${bathName}에 몸을 담그고 천천히 몸을 정비했다.` +
+                `<br>한결 개운해진 기분이 든다. (-${amount})`,
+                player
+            );
+        } else {
+            showSingleTextScene(
+                `당신은 집에서 몸을 간단히 정비했다.` +
+                `<br>조금은 나아진 기분이 든다. (-${amount})`,
+                player
+            );
+        }
+        return;
+    }
     showSingleTextScene(
-        `당신은 쉘터의 화장실에서 정액을 빼냈다.<br>조금은 나아진 기분이 든다. (-${amount})`,
+        `당신은 쉘터의 화장실에서 몸을 정비했다.` +
+        `<br>조금은 나아진 기분이 든다. (-${amount})`,
         player
     );
-}
+};
 
 function changeGold(player, amount){
     player.gold += amount;
@@ -2140,6 +2192,7 @@ function renderMap(player){
                     ${node("townStreet")}
 
                     <div class="branch-list">
+                        ${hasHouse(player, "under") ? node("underHouse") : ""}
                         ${node(shelterKey)}
                         ${node("shop")}
                         ${node("tavern")}
@@ -2178,7 +2231,8 @@ function isRichTownLocation(locationKey){
         "twinsMansion",
         "heavenRoad",
         "heavenPalace",
-        "heavenValenRoom"
+        "heavenValenRoom",
+        "upperHouse"
     ].includes(locationKey);
 }
 
@@ -2242,6 +2296,7 @@ function renderRichTownMap(player){
                     ${node("richTownStreet")}
 
                     <div class="branch-list">
+                        ${hasHouse(player, "upper") ? node("upperHouse") : ""}
                         ${node("royalHospital")}
                         ${node("royalForge")}
                         ${node("royalHotel")}

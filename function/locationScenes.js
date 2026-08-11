@@ -18,6 +18,7 @@ const LOCATION_SCENE_BUILDERS = {
     graveyard : buildGraveyardScene,
     goblinCave : buildGoblinCaveScene,
     richTownEntrance : buildRichTownEntranceScene,
+    richTownStreet : buildRichTownStreetScene,
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
@@ -78,6 +79,19 @@ function buildDefaultLocationScene(player, loc, randomDesc){
 
 function buildTownStreetScene(player, loc, randomDesc){
     const choices = [];
+
+    if (hasHouse(player, "under")){
+        choices.push({
+            text : "당신의 집으로 간다",
+            action : "enter_underHouse"
+        });
+    
+    } else {
+        choices.push({
+            text : "매물로 나온 집을 살펴본다",
+            action : "check_underHouse"
+        });
+    }
 
     if (
         player.quest?.active?.id === "act3_quest_04" &&
@@ -1134,6 +1148,16 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_08" &&
+        !player.flags?.act3_quest_08_boss_end
+    ){
+        choices.push({
+            text : "백색 흉물 왼쪽부대를 토벌하러 간다",
+            action : "move_whiteAbominationArmy"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -1184,6 +1208,16 @@ function buildWastedRuinScene(player, loc, randomDesc){
         choices.push({
             text : "붉은살점동굴로 향한다.",
             action : "move_abominationRedCaveRepeated"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "whiteAbominationArmyRepeated_cleanup" &&
+        !player.flags?.whiteAbominationArmyRepeated_boss_end
+    ){
+        choices.push({
+            text : "백흉물 군단을 토벌하러 떠난다",
+            action : "move_whiteAbominationArmyRepeated"
         });
     }
 
@@ -1824,6 +1858,36 @@ window.upperFood_put_rice = function(player){
 window.closeUpperFoodBox = function(player){
     startScene(getLocationScene(player), player);
 };
+
+function buildRichTownStreetScene(player, loc, randomDesc){
+    const choices =
+        Object.keys(loc.connections).map(dest => ({
+            text : `${LOCATIONS[dest].name}(으)로 이동한다.`,
+            action : "move_" + dest
+        }));
+    if (hasHouse(player, "upper")){
+
+        choices.push({
+            text : "당신의 집으로 간다",
+            action : "enter_upperHouse"
+        });
+    } else {
+        choices.push({
+            text : "매물로 나온 집을 살펴본다",
+            action : "check_upperHouse"
+        });
+    }
+    return [
+        {
+            type : "text",
+            value : `${randomDesc}<br><br>어디로 갈까?`
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ];
+}
 
 function buildRoyalForgeScene(player, loc, randomDesc){
     return [
@@ -2902,8 +2966,24 @@ function buildUnderHouseScene(player, loc, randomDesc){
                     action : "houseSleep"
                 },
                 {
+                    text : "몸을 정비한다",
+                    action : "cleanseBodyFluid"
+                },
+                {
+                    text : "정신을 다스린다",
+                    action : "calmDown"
+                },
+                {
                     text : "가구를 살펴본다",
                     action : "openHouseFurniture"
+                },
+                {
+                    text : "텃밭을 살펴본다",
+                    action : "openHouseFarm"
+                },
+                {
+                    text : "요리를 한다",
+                    action : "open_cookingMenu"
                 },
                 {
                     text : "집을 나간다",
@@ -2933,8 +3013,24 @@ function buildUpperHouseScene(player, loc, randomDesc){
                     action : "houseSleep"
                 },
                 {
+                    text : "몸을 정비한다",
+                    action : "cleanseBodyFluid"
+                },
+                {
+                    text : "정신을 다스린다",
+                    action : "calmDown"
+                },
+                {
                     text : "가구를 살펴본다",
                     action : "openHouseFurniture"
+                },
+                {
+                    text : "텃밭을 살펴본다",
+                    action : "openHouseFarm"
+                },
+                {
+                    text : "요리를 한다",
+                    action : "open_cookingMenu"
                 },
                 {
                     text : "집을 나간다",

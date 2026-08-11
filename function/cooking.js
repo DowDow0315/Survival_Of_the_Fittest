@@ -2,6 +2,11 @@ window.open_cookingMenu = function(player){
     player.cooking = player.cooking || {};
     player.cooking.selected = [];
 
+    player.cooking.returnLocation =
+        ["underHouse", "upperHouse"].includes(player.location)
+            ? player.location
+            : "tavern";
+
     startScene([
         {
             type: "text",
@@ -12,7 +17,7 @@ window.open_cookingMenu = function(player){
             choices: [
                 { text: "재료를 고른다", action: "open_cookingIngredientSelect" },
                 { text: "알고 있는 레시피를 본다", action: "open_knownRecipes" },
-                { text: "돌아간다", action: "return_tavern" }
+                { text: "돌아간다", action: "return_cookingLocation" }
             ]
         }
     ], player);
@@ -307,7 +312,7 @@ function finishCooking(player, recipeId, grade){
             type: "choice",
             choices: [
                 { text: "계속 요리한다", action: "open_cookingMenu" },
-                { text: "돌아간다", action: "return_tavern" }
+                { text: "돌아간다", action: "return_cookingLocation" }
             ]
         }
     ], player);
@@ -358,4 +363,14 @@ window.open_knownRecipes = function(player){
             ]
         }
     ], player);
+};
+
+window.return_cookingLocation = function(player){
+    const location =
+        player.cooking?.returnLocation || "tavern";
+    player.location = location;
+    startScene(
+        getLocationScene(player),
+        player
+    );
 };

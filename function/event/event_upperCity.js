@@ -2001,6 +2001,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "juliang_rubyEarring_event",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge" &&
+        player.flags?.juliang_recognizeingMatin_event_seen &&
+        ( player.flags?.rebel_route_quest_08_intro_attack || player.flags?.upper_route_quest_08_intro_attack ),
+        
+    action: (player) => {
+        player.flags.juliang_rubyEarring = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.juliang_rubyEarring_event,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //라파엘
 window.EVENTS.push({
     id: "raphael_firstMeeting",

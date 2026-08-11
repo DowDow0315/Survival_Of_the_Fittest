@@ -1,4 +1,5 @@
 let shopTab = "buy";
+let juliangBuyTab = "items";
 
 function getSellPrice(item){
     if (!item) return 0;
@@ -101,6 +102,18 @@ const SHOPS = {
             ITEMS.misc.aquamarine,
             ITEMS.misc.diamond,
             ITEMS.misc.pickaxe
+        ],
+
+        furniture : [
+            "softBed",
+            "luxuryBed",
+
+            "basicBath",
+            "luxuryBath",
+
+            "bearDoll",
+
+            "luxuryTeaSet"
         ]
     },
     merchantVillageShop : {
@@ -134,6 +147,11 @@ let afterShopClose = null;
 
 function openShop(shopId, player, options = {}){
     shopTab = "buy";
+
+    if (shopId === "juliangShop"){
+        juliangBuyTab = "items";
+    }
+
     afterShopClose = options.onClose || null;
 
     if (shopId === "merchantVillageShop"){
@@ -202,58 +220,96 @@ function renderShopModal(shopId, player){
     listWrap.className = "shop-list";
 
     if (shopTab === "buy"){
+        if (shopId === "juliangShop"){
+            const subTabWrap = document.createElement("div");
+            subTabWrap.className = "shop-tabs";
+            
+            const itemTab = document.createElement("button");
+            itemTab.innerText = "보석 관련";
+            
+            itemTab.className =
+            juliangBuyTab === "items"
+             ? "active-tab"
+             : "";
+             
+            itemTab.onclick = () => {
+                juliangBuyTab = "items";
+                renderShopModal(shopId, player);
+            };
+            
+            const furnitureTab = document.createElement("button");
+            furnitureTab.innerText = "가구";
+            
+            furnitureTab.className =
+            juliangBuyTab === "furniture"
+             ? "active-tab"
+             : "";
+             
+             furnitureTab.onclick = () => {
+                juliangBuyTab = "furniture";
+                renderShopModal(shopId, player);
+            };
+            
+            subTabWrap.appendChild(itemTab);
+            subTabWrap.appendChild(furnitureTab);
+            listWrap.appendChild(subTabWrap);
+        }
+        
+        if (
+            shopId !== "juliangShop" ||
+            juliangBuyTab === "items"
+        ) {
+            const buyItems =
+            shopId === "merchantVillageShop"
+             ? (player.tempMerchantVillageItems || [])
+             : shop.items;
+             
+            buyItems.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "shop-item";
 
-        const buyItems =
-        shopId === "merchantVillageShop"
-            ? (player.tempMerchantVillageItems || [])
-            : shop.items;
-
-        buyItems.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "shop-item";
-
-            const info = document.createElement("div");
-            info.className = "shop-item-info";
-
-            const name = document.createElement("strong");
-            name.innerText = item.name;
-            info.appendChild(name);
-
-            const price = document.createElement("p");
-            price.innerText = `${item.price}G`;
-            info.appendChild(price);
-
-            if (item.type === "heal"){
-                const desc = document.createElement("p");
-                desc.innerText = `회복량: ${item.value}`;
-                info.appendChild(desc);
-            } else if (item.stats){
-                const statText = Object.entries(item.stats)
+                const info = document.createElement("div");
+                info.className = "shop-item-info";
+                
+                const name = document.createElement("strong");
+                name.innerText = item.name;
+                info.appendChild(name);
+                
+                const price = document.createElement("p");
+                price.innerText = `${item.price}G`;
+                info.appendChild(price);
+                
+                if (item.type === "heal"){
+                    const desc = document.createElement("p");
+                    desc.innerText = `회복량: ${item.value}`;
+                    info.appendChild(desc);
+                } else if (item.stats){
+                    const statText = Object.entries(item.stats)
                     .map(([key, value]) => `${key} +${value}`)
                     .join(", ");
-
-                const desc = document.createElement("p");
-                desc.innerText = statText || "능력치 변화 없음";
-                info.appendChild(desc);
-            }
-
-            div.appendChild(info);
-
-            const buyBtn = document.createElement("button");
-            const key = item.key || item.name;
-            
-            const bought = shopId === "merchantVillageShop" &&
-            (player.tempMerchantVillageBoughtKeys || []).includes(key);
-            
-            buyBtn.innerText = bought ? "품절" : "구매";
-            buyBtn.disabled = bought;
-
-            buyBtn.onclick = () => {
-                if (shopId === "merchantVillageShop"){
-                    const key = item.key || item.name;
-
-                    player.tempMerchantVillageBoughtKeys =
-                    player.tempMerchantVillageBoughtKeys || [];
+                    
+                    const desc = document.createElement("p");
+                    desc.innerText = statText || "능력치 변화 없음";
+                    info.appendChild(desc);
+                }
+                
+                div.appendChild(info);
+                
+                const buyBtn = document.createElement("button");
+                const key = item.key || item.name;
+        
+                const bought = shopId === "merchantVillageShop" &&
+                (player.tempMerchantVillageBoughtKeys || []).includes(key);
+        
+                buyBtn.innerText = bought ? "품절" : "구매";
+                buyBtn.disabled = bought;
+                
+                buyBtn.onclick = () => {
+                    if (shopId === "merchantVillageShop"){
+                        const key = item.key || item.name;
+                        
+                        player.tempMerchantVillageBoughtKeys =
+                        player.tempMerchantVillageBoughtKeys || [];
                     
                     if (player.tempMerchantVillageBoughtKeys.includes(key)){
                         addLog("이미 품절된 물건이다.");
@@ -278,6 +334,74 @@ function renderShopModal(shopId, player){
             div.appendChild(buyBtn);
             listWrap.appendChild(div);
         });
+    }
+
+    if (
+        shopId === "juliangShop" &&
+        juliangBuyTab === "furniture"
+    ){
+        
+        const furnitureIds = shop.furniture || [];
+        furnitureIds.forEach(furnitureId => {
+            
+            const furniture = FURNITURE_DATA[furnitureId];
+            
+            if (!furniture){
+                return;
+            }
+            
+            const div = document.createElement("div");
+            div.className = "shop-item";
+            
+            const info = document.createElement("div");
+            info.className = "shop-item-info";
+            
+            const name = document.createElement("strong");
+            
+            name.innerText = furniture.name;
+            info.appendChild(name);
+            
+            const price = document.createElement("p");
+            
+            price.innerText = `${furniture.price}G`;
+            info.appendChild(price);
+            
+            const desc = document.createElement("p");
+            
+            if (furniture.type === "bed"){
+                desc.innerText = "집에 배치할 수 있는 침대다.";
+            
+            } else if (furniture.type === "bath"){
+                desc.innerText = "집에 배치할 수 있는 욕조다.";
+            
+            } else if (furniture.type === "doll"){
+                desc.innerText = "집에 배치할 수 있는 인형이다.";
+            
+            } else {
+                desc.innerText = "집에 배치할 수 있는 장식품이다.";
+            }
+            
+            info.appendChild(desc);
+            div.appendChild(info);
+            
+            const buyBtn = document.createElement("button");
+            buyBtn.innerText = "구매";
+            buyBtn.onclick = () => {
+                buyFurniture(
+                    player,
+                    furnitureId
+                );
+                
+                renderShopModal(
+                    shopId,
+                    player
+                );
+            };
+            
+            div.appendChild(buyBtn);
+            listWrap.appendChild(div);
+        });
+    }
 
     } else {
         const sellableItems = player.inventory.filter(canSellItem);

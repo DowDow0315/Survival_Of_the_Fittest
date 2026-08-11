@@ -3514,6 +3514,36 @@ const ITEMS ={
             type : "food",
             price : 400
         },
+        potatoSeed: {
+            name: "감자 씨앗",
+            type: "misc",
+            price: 500
+        },
+        cabbageSeed: {
+            name: "배추 씨앗",
+            type: "misc",
+            price: 500
+        },
+        mushroomSeed: {
+            name: "버섯 종균",
+            type: "misc",
+            price: 500
+        },
+        wheatSeed: {
+            name: "밀 씨앗",
+            type: "misc",
+            price: 500
+        },
+        riceSeed: {
+            name: "볍씨",
+            type: "misc",
+            price: 800
+        },
+        pepperSeed : {
+            name : "고추 씨앗",
+            type : "misc",
+            price : 1100
+        },
         
         rustyRing: {
             name: "녹슨반지",

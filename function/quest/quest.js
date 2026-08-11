@@ -358,6 +358,32 @@ const QUESTS = {
         completeText: "마틴은 당신의 의뢰서를 확인한 후 고개를 끄덕여보였다."
     },
 
+    whiteAbominationArmyRepeated_cleanup: {
+        id: "whiteAbominationArmyRepeated_cleanup",
+        title: "백색 흉물 군단 약화",
+        type: "investigate",
+        targetName : "백색 흉물 군단 약화",
+        repeatable : true,
+        giver : "",
+        
+        desc : "폐야로 물러나서 준비 중인 백색 흉물 군단을 타파하러 가자",        
+        activeDesc : "이대로 두면 백색 흉물 군단이 언제 마을에 내려와 습격할 지 모른다.",
+        readyDesc : "백색 흉물 군단을 퇴치했다. 주점으로 가서 보고 하자.",
+        
+        targetFlag : "whiteAbominationArmyRepeated_boss_end",
+        requiredKill: 1,
+        rewardGold: 50000,
+        
+        require: {
+            completedQuest: "act3_quest_08",
+            count: 1
+        },
+        
+        acceptText: "마틴은 백색 흉물 군단이 폐야로 물러나있다고 말했다.<br><br>\"...너 때문에 많은 사람들이 고마워하고 있어.\"<br><br>그는 당신의 의뢰서를 확인하며 지나가듯이 말했다.",
+        cancelText: "마틴은 당신에게서 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신에게서 의뢰서를 받았다. <br><br>\"...다친 곳은 잘 치료해둬.\""
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -1349,6 +1375,11 @@ function acceptQuest(player, questId){
     if (quest.id === "abominationRedCaveRepeated_cleanup"){
         player.flags.abominationRedCaveRepeated_boss_end = false;
         delete player.flags.defeated_abominationRedCaveRepeated_mixedAbominations;
+    }
+
+    if (quest.id === "whiteAbominationArmyRepeated_cleanup"){
+        player.flags.whiteAbominationArmyRepeated_boss_end = false;
+        delete player.flags.defeated_whiteAbominationArmyRepeated_mimicTeacher2;
     }
 
     player.quest.active = {

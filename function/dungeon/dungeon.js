@@ -1363,6 +1363,30 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (
+        dungeon.id === "whiteAbominationArmyRepeated" &&
+        room.bossId === "mimicTeacher2"
+    ){
+        player.flags.whiteAbominationArmyRepeated_boss_end = true;
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value: "당신은 백흉물을 지휘하던 지휘자를 쓰러뜨렸다. 마치 군대의 우두머리가 쓰러진 것처럼 백흉물 군단의 세력이 많이 약화되었다. 당신 덕분에 하류도시는 적어도 하루는 더 버틸 수 있게 되었다."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
     addQuestProgress(player, room.boss);
 
     if (dungeon.id === "slaverCampShelter" && room.boss === "trafficker4"){
@@ -1444,6 +1468,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "rebelsState" && room.bossId === "rebelsArmies_01"){
         handleRebelsArmies01Win(player);
+        return;
+    }
+
+    if (dungeon.id === "whiteAbominationArmy" && room.bossId === "mimicTeacher"){
+        handleMimicTeacherWin(player);
         return;
     }
 
@@ -1729,6 +1758,10 @@ function leaveDungeon(player){
         player.location = "richTownEntrance";
     } else if (dungeonId === "rebelsState"){
         player.location = "townEntrance_act3";
+    } else if (dungeonId === "whiteAbominationArmy"){
+        player.location = "deepForest_act3";
+    } else if (dungeonId === "whiteAbominationArmyRepeated"){
+        player.location = "wastedRuin";
     } else {
         player.location = "townStreet";
     }
@@ -5061,6 +5094,27 @@ function runDungeonBossIntro(player, introId){
         ], player);
     }
 
+    if (introId === "mimicTeacher_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      "...당신은 폐쇄된 연구소에서 봤던 선생 역할을 하던 사람과 똑같은 옷을 입고 있는 사람을 보았다. 그는 검붉은 살점덩어리들 사이에서 으어어 하는 소리만 내고 있었다. 그러다가 당신과 시선을 마주치자 번쩍 고개를 들었다. 그는 마치 학생이 선생님에게 고자질하듯이, 제대로 된 목소리로 저기에 침입자가 있다고 말했다. 그의 목소리에 가장 안쪽에 있던 백흉물이 천천히 당신을 돌아보았다. 누구를 흉내낸 건지, 백흉물의 몸에는 가운이 걸쳐져 있었다." +
+                      "<br><br>\"...영웅.\"<br><br>" +
+                      "당신은 그 백흉물을 본 적이 없다. 하지만 그것은 당신의 존재를 알고 있었다. 그것은 손짓 한번으로 당신의 존재를 알린 인간을 풀어주었다. 백흉물에서 풀려난 그는 안도의 한숨을 쉬며 일어났다." +
+                      "<br><br>\"노, 래해~ 랄라라~\"<br><br>" +
+                      "목소리는 밝았지만 그것은 무표정이었다. 그것의 노래에 주변에 있던 백흉물들이 꿈틀거리며 몰려들었다. 그것은 제 옆에 있는 인간을 쳐다보았다. 그는 움찔하더니 살아남기 위해 백흉물의 명령에 따라 자신의 지휘봉을 들고 일어났다. 전투가 시작된다!"
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startMimicTeacherBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
 }
 
 function handleBanditBossWin(player){
@@ -5197,10 +5251,7 @@ function handleInfectedSmallsWin(player){
 }
 
 function startInfectedSmallsLose(player){
-    player.flags = player.flags || {};
-
     if (!player.flags.InfectedSmalls_firstLose){
-
         player.flags.InfectedSmalls_firstLose = true;
 
         startScene([

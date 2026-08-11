@@ -1733,6 +1733,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "matin_rubyEarring_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        player.flags?.juliang_rubyEarring,
+
+    action : (player) => {
+        player.flags.matin_rubyEarring_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_rubyEarring_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",

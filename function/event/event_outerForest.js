@@ -205,7 +205,6 @@ window.EVENTS.push({
         player.justMoved &&
         (player.location === "forest_act3" || player.location === "deepForest_act3" ) &&
         NPC_DATA["sion"].emotion.affection >= 20 &&
-        !player.flags?.yuriDie &&
         player.flags?.sion_hisOutTraining_day !== getCurrentDay(player) &&
         Math.random() < 0.1,
 

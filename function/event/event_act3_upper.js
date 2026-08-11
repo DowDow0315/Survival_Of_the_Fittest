@@ -1092,3 +1092,34 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_08_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_08_boss_end,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 마을 입구에서 발렌을 보았다. 발렌의 백색 제복은 평소와 다르게 한쪽이 검붉은색으로 물들어 있었다. 발렌은 당신을 보더니 미소를 지었다. 남들에게는 안 보일지 몰라도 당신에게는 보였다. 그의 미소는 날카로웠다." +
+                    "<br><br>\"왼쪽 부대를 완벽하게 처리해주셨다고 들었습니다. 당신이 제 옆에 있어주셔서 다행입니다.\"<br><br>" +
+                    "당신은 백색 군인들의 옷과 무기에 단순히 흉물의 애액이 묻어 있는 게 아니라는 걸 인지했다. 발렌은 당신의 시선을 쫓더니 고개를 까닥였다." +
+                    "<br><br>\"반란군입니다. 저희가 백흉물 군단을 치는 동안 뒤에서 습격했습니다.\"<br><br>" +
+                    "발렌은 잠시 말을 멈췄다." +
+                    "<br><br>\"몇 명이 목숨을 잃었습니다. <span class='log-valen'>물론 그들은 전멸했지만.</span>\"<br><br>" +
+                    "그는 목숨을 버리면서까지 잘못된 신념을 고집하는 자들을 이해해줄 여유는 없다고 말했다. 그는 당신의 몸 상태를 살피듯 위아래로 훑어보았다." +
+                    "<br><br>\"그럼 쉬십시오, 상류도시의 영웅. 오늘의 영광은 그대의 것이니, 부디 마음껏 누리시길.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

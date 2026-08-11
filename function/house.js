@@ -240,7 +240,15 @@ window.check_underHouse = function(player){
                     },
                     {
                         text : "그만둔다",
-                        action : "move_townStreet"
+                        scene : [
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.location = "townStreet";
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -279,7 +287,15 @@ window.check_upperHouse = function(player){
                     },
                     {
                         text : "그만둔다",
-                        action : "move_richTownStreet"
+                        scene : [
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.location = "richTownStreet";
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
                     }
                 ]
             }

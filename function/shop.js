@@ -77,7 +77,14 @@ const SHOPS = {
             ITEMS.consumable.mediumStaminaPotion,
             ITEMS.consumable.largeStaminaPotion,
 
-            ITEMS.consumable.calmPotion
+            ITEMS.consumable.calmPotion,
+
+            ITEMS.misc.potatoSeed,
+            ITEMS.misc.cabbageSeed,
+            ITEMS.misc.mushroomSeed,
+            ITEMS.misc.wheatSeed,
+            ITEMS.misc.riceSeed,
+            ITEMS.misc.pepperSeed
         ]
     },
     matinShop : {

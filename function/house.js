@@ -1604,7 +1604,7 @@ window.installFurniture = function(
             {
                 type : "text",
                 value :
-                    `${furniture.name}을 집에 배치했다.`
+                    `${furniture.name}을/를 집에 배치했다.`
             }
         ],
         player,
@@ -1719,7 +1719,7 @@ window.openHouseDecorationFurniture = function(player){
             ).length;
         choices.push({
             text :
-                `${furniture.name}을 배치한다` +
+                `${furniture.name}을/를 배치한다` +
                 `${count > 1 ? ` ×${count}` : ""}`,
 
             action :

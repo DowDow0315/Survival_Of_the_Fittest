@@ -1315,6 +1315,93 @@ const WEAPON_SKILLS = {
         }
     ],
 
+    "뒤늦은 후회" : [
+        {
+            name : "참격",
+            cost : 1,
+            type : "damage",
+            power : 1.2,
+            unlock : 20,
+            desc : "데미지 1.2배 공격" 
+        },
+        {
+            name : "후회의 무게",
+            cost : 2,
+            type : "damage",
+            power : 3.3,
+            unlock : 100,
+            desc : "데미지 3.3배 공격"
+        },
+        {
+            name : "뒤늦은 마음",
+            cost : 4,
+            type : "buff",
+            effect : {
+                id : "cassandra_buff",
+                heal : 40,
+                atkMult : 1.5,
+                defMult : 1.5,
+                evaMult : 1.5
+            },
+            duration : 6,
+            unlock : 150,
+            desc : "6턴 동안 공격력 1.5배, 방어력 1.5배, 회피력/명중률 1.5배, 40 회복"
+        },
+        {
+            name : "이미 늦어버린",
+            cost : 4,
+            type : "multiHit",
+            power : 1.8,
+            hits : 4,
+            unlock : 200,
+            desc : "데미지 1.8배로 4번 공격"
+        }
+    ],
+
+    "때늦은 깨달음" : [
+        {
+            name : "개머리판",
+            cost : 2,
+            type : "damage",
+            power : 3.3,
+            unlock : 20,
+            desc : "데미지 3.3배 공격" 
+        },
+        {
+            name: "후회는 독처럼",
+            cost: 4,
+            type: "poison",
+            id : "magnus_poison",
+            dot: 15,
+            duration: 10,
+            unlock: 100,
+            desc : "10턴간 상대방에게 독데미지(15)"
+        },
+        {
+            name : "때늦은 자각",
+            cost : 4,
+            type : "drainHp",
+            power : 5.3,
+            healRate : 0.8,
+            unlock : 150,
+            desc : "데미지 5.3배 공격 및 데미지 기반 0.8 힐"
+        },
+        {
+            name : "이미 늦었다",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "enemyDebuff",
+                atkMult : 0.6,
+                defMult : 0.6,
+                evaMult : 0.6
+            },
+            duration: 7,
+            unlock : 200,
+            desc : "7턴간 적 공격력 0.6배, 방어력 0.6배, 명중/회피력 0.6배"
+        }
+    ],
+
     "호박쌍검" : [
         {
             name : "보이지 않는 공격",
@@ -1573,6 +1660,14 @@ const MASTER_SKILLS = {
     "대의의 메이스방패" : {
         requiredMastery : 300,
         skillName : "방패병의 의무"
+    },
+    "뒤늦은 후회" : {
+        requiredMastery : 300,
+        skillName : "뒤늦은 마음"
+    },
+    "때늦은 깨달음" : {
+        requiredMastery : 300,
+        skillName : "때늦은 자각"
     },
 
 
@@ -1956,6 +2051,33 @@ const ITEMS ={
                 dex : 4,
                 int : 1,
                 charm : 1
+            }
+        },
+
+        cassandraBigSword : {
+            name : "뒤늦은 후회",
+            type : "weapon",
+            desc : "돌이킬 수 있었다면, 그것을 후회라 부르지는 않았을 것이다.",
+            price : 10000,
+            stats : {
+                str : 10,
+                dex : 10,
+                int : 3,
+                charm : 2
+            }
+        },
+
+        magnusGun : {
+            name : "때늦은 깨달음",
+            type : "weapon",
+            desc : "깨달음은 언제나 한발 늦었고, 그의 총알은 언제나 한발 빨랐다.",
+            tags : ["magicStick"],
+            price : 10000,
+            stats : {
+                str : 2,
+                dex : 3,
+                int : 10,
+                charm : 10
             }
         },
 

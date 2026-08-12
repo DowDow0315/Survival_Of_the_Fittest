@@ -770,6 +770,70 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "whiteAbominationArmyRepeated_chunk", weight : 15 },
             { type : "event", id : "whiteAbominationArmyRepeated_cabbage", weight : 15 }
         ]
+    },
+    lateLab : {
+        id : "lateLab",
+        name : "끝나지 않은 장례",
+        startRoom : "r7c7",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2",     "", "r0c4", "r0c5", "r0c6", "r0c7"],
+            ["r1c0",     "", "r1c2",     "", "r1c4",     "",     "", "r1c7"],
+            ["r2c0",     "", "r2c2", "r2c3", "r2c4", "r2c5",     "", "r2c7"],
+            ["r3c0", "r3c1",     "", "r3c3",     "",     "",     "", "r3c7"],
+            [    "",     "", "r4c2", "r4c3", "r4c4",     "", "r4c6", "r4c7"],
+            [    "", "r5c1", "r5c2",     "", "r5c4", "r5c5",     "", "r5c7"],
+            ["r6c0", "r6c1",     "",     "",     "", "r6c5", "r6c6",     ""],
+            ["r7c0",     "",     "",     "",     "",     "", "r7c6", "r7c7"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "", exits : {left : "r0c1", down : "r1c2"}},
+            "r0c4" : {name : "", exits : {right : "r0c5", down : "r1c4"}},
+            "r0c5" : {name : "", exits : {left : "r0c4", right : "r0c6"}},
+            "r0c6" : {name : "", exits : {left : "r0c5", right : "r0c7"}},
+            "r0c7" : {name : "", exits : {left : "r0c6", down : "r1c7"}},
+            
+            "r1c0" : {name : "", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "", exits : {up : "r0c4", down : "r2c4"}},
+            "r1c7" : {name : "", exits : {up : "r0c7", down : "r2c7"}},
+            
+            "r2c0" : {name : "", exits : {up : "r1c0", down : "r3c0"}},
+            "r2c2" : {name : "", exits : {up : "r1c2", right : "r2c3"}},
+            "r2c3" : {name : "", exits : {left : "r2c2", right : "r2c4", down : "r3c3"}},
+            "r2c4" : {name : "", exits : {up : "r1c4", left : "r2c3", right : "r2c5"}},
+            "r2c5" : {name : "", exits : {left : "r2c4"}},
+            "r2c7" : {name : "", exits : {up : "r1c7", down : "r3c7"}},
+            
+            "r3c0" : {name : "", exits : {up : "r2c0", right : "r3c1"}},
+            "r3c1" : {name : "", exits : {left : "r3c0"}},
+            "r3c3" : {name : "", exits : {up : "r2c3", down : "r4c3"}},
+            "r3c7" : {name : "", exits : {up : "r2c7", down : "r4c7"}},
+            
+            "r4c2" : {name : "마당으로 가는 길", exits : {right : "r4c3", down : "r5c2"}},
+            "r4c3" : {name : "중앙 톱니바퀴", exits : {up : "r3c3", left : "r4c2", right : "r4c4"}},
+            "r4c4" : {name : "가족 사진", exits : {left : "r4c3", down : "r5c4"}, event : "lateLab_memo_02", seenFlag : "lateLab_memo_02"},
+            "r4c6" : {name : "", exits : {right : "r4c7"}},
+            "r4c7" : {name : "", exits : {up : "r3c7", left : "r4c6", down : "r5c7"}},
+            
+            "r5c1" : {name : "하얀 꽃이 피어있는 연못", exits : {right : "r5c2", down : "r6c1"}},
+            "r5c2" : {name : "마당", exits : {up : "r4c2", left : "r5c1"}, event : "lateLab_memo_03", seenFlag : "lateLab_memo_03"},
+            "r5c4" : {name : "화단의 끝", exits : {up : "r4c4", right : "r5c5"}},
+            "r5c5" : {name : "쭉 이어지는 화단", exits : {left : "r5c4", down : "r6c5"}},
+            "r5c7" : {name : "", exits : {up : "r4c7"}, bossId: "ashParents", boss : ["cassandra", "magnus"], bossIntro:"ashParents_intro"},
+            
+            "r6c0" : {name : "연못 정자", exits : {right : "r6c1", down : "r7c0"}, event : "lateLab_memo_04", seenFlag : "lateLab_memo_04"},
+            "r6c1" : {name : "연못 다리", exits : {up : "r5c1", left : "r6c0"}},
+            "r6c5" : {name : "한쪽이 깨진 하얀꽃 화단", exits : {up : "r5c5", right : "r6c6"}, event : "lateLab_memo_01", seenFlag : "lateLab_memo_01"},
+            "r6c6" : {name : "하얀꽃 화단", exits : {left : "r6c5", down : "r7c6"}},
+
+            "r7c0" : {name : "비밀 공간", exits : {up : "r6c0"}, event : "lateLab_memo_05", seenFlag : "lateLab_memo_05"},
+            "r7c6" : {name : "불", exits : {up : "r6c6", right : "r7c7"}, event : "lateLab_lightUp", seenFlag : "lateLab_lightUp"},
+            "r7c7" : {name : "연구소 입구", exits : {left : "r7c6"}}
+        }
     }
 })
 
@@ -4338,6 +4402,116 @@ Object.assign(DUNGEON_EVENTS, {
                 type : "effect",
                 run : (player) => {
                     addItem(player, ITEMS.misc.cabbage);
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+    lateLab : {
+        lateLab_lightUp : [
+            {
+                type : "text",
+                value : [
+                    "불은 전부 꺼져 있었지만 뭔가가 작동되고 있는 소리는 들렸다. 당신은 주변을 둘러보다가 불을 켰다. 딱, 딱, 딱, 복도에 하나하나 불이 들어오기 시작했다. 갑작스러운 눈부신 빛에 당신은 인상을 찌푸렸다가 다시 눈을 떴다. 당신의 시야에 가장 먼저 들어온 건 톱니바퀴들로 이루어진 복도의 벽이었다. 그것들은 한치의 흐트러짐도 없이 계속 굴러가고 있었다.",
+                    "<br><br>그리고 그 순간, 상류도시의 애국가가 복도에 널리 퍼졌다. 하지만 당신이 알고 있는 가사와는 조금 달랐다." +
+                    "<br><br>우리의 꿈, 희망, 그리고 <br><br>하얀 꽃<br><br>" +
+                    "...당신이 알고 있는 애국가는 '하얀 꽃'으로 끝나지 않는다. '용기'로 끝나지."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_lightUp = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 깨진 화단 위로 변색된 쪽지 한 장을 보았다. 당신은 그 쪽지를 읽었다." +
+                    "<br><br>[자기야. 오늘 데릭이랑 에릭이 공놀이하다가 또 화단 깼어.]<br><br>" +
+                    "[실험실에서 공놀이하면 안 된다니까. 또 데릭이 꼬셨겠지. 내가 단단히 말해놓을게. 어휴.]<br><br>" +
+                    "쪽지 밑에 우아하려고 노력했지만 삐뚤삐뚤한 글씨로 한 문장이 써져 있었다.<br><br>" +
+                    "[에릭이 꼬셨음]" +
+                    "<br><br>[내가 언제]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_02 : [
+            {
+                type : "text",
+                value : [
+                    "누군가의 가족이 변색된 종이 위에 그려져 있었다. 3명은 갈색 머리에 녹안을 가지고 있었고, 여자만이 금발에 푸른색 눈을 가지고 있었다. 그림 옆에는 낡은 포스트잇 한 장이 붙어 있었다." +
+                    "<br><br>[어머? 왜 날 이 색으로 그린 거야?]<br><br>" +
+                    "[난 당신의 금발도 사랑하니까.]<br><br>" +
+                    "마지막에는 글자보다 더 큰 하트가 그려져 있다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_03 : [
+            {
+                type : "text",
+                value : [
+                    "어린이들이 놀 법한 작은 마당이다. 마당 한쪽 구석에는 카세트가 있었다. 당신은 카세트의 버튼을 눌렀다. 하지만 오래 되어서 그런지 버튼을 눌러도 지지직거리기만 할 뿐 제대로 된 노래가 나오지는 않았다." +
+                    "<br>당신은 버튼을 눌러서 카세트에 있는 테이프를 꺼냈다. 테이프에는 [아이들의 정신 건강을 위한 101가지의 곡]이라고 적혀 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_04 : [
+            {
+                type : "text",
+                value : [
+                    "낡은 백색 정자에 도착한 당신은 한바퀴를 빙 둘러보았다. 정자 구석구석에 낙서가 있었다." +
+                    "<br><br>[오늘의 술래 : 발렌]<br><br>" +
+                    "[오늘 가장 아름다운 사람 : 데릭]<br><br>" +
+                    "[이거 데릭이 쓴 거지?]<br><br>" +
+                    "다른 글씨체 4개가 뒤죽박죽 얽혀 있다. 낙서들을 하나하나 읽던 당신은 화살표 하나를 보았다. 그 화살표는 다른 글씨들에 비해 희미했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_04 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_05 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 희미한 화살표를 따라갔다. 화살표를 따라가다가 길이 보이지 않아서 중간에 길이 끊긴 줄 알았지만 수풀을 헤치니 아늑한 공간이 하나 나왔다. 마치 책상처럼 잘린 나무 밑동 하나가 중앙에 놓여 있었다." +
+                    "<br><br>오늘의 사고뭉치 : 발렌<br><br>" +
+                    "이유 : 엄마, 아빠가 가지 말란 곳을 또 다녀옴"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_05 = true;
                     savePlayer(player);
                 }
             }

@@ -1104,6 +1104,9 @@ window.EVENTS.push({
         player.flags?.act3_quest_08_boss_end,
 
     action : (player) => {
+        player.flags.upper_route_quest_08_after_01 = true;
+        savePlayer(player);
+
         startScene([
             {
                 type : "text",
@@ -1116,6 +1119,97 @@ window.EVENTS.push({
                     "<br><br>\"몇 명이 목숨을 잃었습니다. <span class='log-valen'>물론 그들은 전멸했지만.</span>\"<br><br>" +
                     "그는 목숨을 버리면서까지 잘못된 신념을 고집하는 자들을 이해해줄 여유는 없다고 말했다. 그는 당신의 몸 상태를 살피듯 위아래로 훑어보았다." +
                     "<br><br>\"그럼 쉬십시오, 상류도시의 영웅. 오늘의 영광은 그대의 것이니, 부디 마음껏 누리시길.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_08_after_betray",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_prepareToBetray &&
+        player.flags?.upper_route_quest_08_after_01 &&
+        player.flags?.act3_quest_08_done,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 길을 걷는데, 누군가가 갑자기 당신의 팔을 잡아당겼다. 당신은 본능적으로 반격 태세를 취했지만 상대방은 당신을 공격할 생각이 없다는 듯 당신의 팔을 놓고 두 손을 들어보였다. 그제야 당신은 상대방의 얼굴을 확인할 수 있었다." +
+                    "<br><br><span class='log-danger'>반란군 기지에서 당신이 살려줬던 그 남자다.</span><br><br>" +
+                    "\"...아직 너를 믿는 건 아니지만 우리는 도박을 하기로 했어.\"<br><br>" +
+                    "그는 당신을 올려다보았다." +
+                    "<br><br>\"그때 내가 했던 제안 기억하나? <br><br> ...상류도시가 아니라 하류도시를 위해 우리와 함께 일하겠어?\"<br><br>" +
+                    "<span class='log-danger'>돌이킬 수 없는 선택입니다.</span>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그의 제안을 받아들였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 제안을 받아들이자 그는 놀란 듯했다. 제안을 하면서도 속으로는 당신이 이 제안을 받아들이지 않을 거라고 생각했었던 모양이다. 그는 고개를 끄덕이더니 네가 박쥐만은 아니길 바란다고 말했다." +
+                                    "<br><br>\"다음 번에 다시 연락을 할 테니 기다리고 있어.\"<br><br>" +
+                                    "당신을 바라보는 그의 시선은 동료를 바라보는 시선은 아니었다. 그는 어둠 속으로 사라졌다. 그리고 그 순간 당신은 누군가의 집요한 시선을 느꼈다. 당신은 고개를 돌렸다." +
+                                    "<br><br><span class='log-valen'>에이든이다.<br><br>" +
+                                    "\"...당신의 선택은 잘 알겠습니다.\"<br><br>" +
+                                    "그 말을 마지막으로 그는 당신의 시야에서 신기루처럼 사라졌다. 기척을 숨기는 데 능한 사람이다. 또 어디서 당신을 보고 있을지 모른다. 그리고 당신은 한 가지 사실은 확신할 수 있었다." +
+                                    "<br><br>당신의 배신은 곧 발렌의 귀에 들어갈 것이다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.act3_uppercity_route = false;
+                                    player.flags.uppercityHero = false;
+                                    player.flags.neutral_route = true;
+                                    player.flags.upper_route_quest_08_after_betray_day = getCurrentDay(player);
+                                    changeNPCEmotion("valen", "affection", -100);
+                                    changeNPCEmotion("akasia", "affection", -100);
+                                    changeNPCEmotion("akasia", "rage", 40);
+                                    changeNPCEmotion("aiden", "affection", -100);
+                                    changeNPCEmotion("aiden", "rage", 40);
+                                    savePlayer(player);                                    
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 저었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 젓는 순간과 함께 반란군의 입에서 피가 주르륵 흘러내렸다. 그는 믿을 수 없다는 듯이 아래를 내려다보았다. 뾰족한 랜스의 끝이 그의 심장을 관통해서 나와 있었다." +
+                                    "<br><br>\"...쥐새끼를 처리하지 않으셨다는 건 안타까운 일이지만, 그래도 감언이설에 넘어가지는 않으셔서 다행입니다.\"<br><br>" +
+                                    "에이든이 랜스를 뽑자, 반란군은 마지막으로 피를 토하더니 그대로 바닥으로 쓰러졌다. 그의 금색 눈이 반란군의 시체를 감정없이 내려다 보았다." +
+                                    "<br><br>\"당신과 적이 되지 않아서 기쁩니다.\"<br><br>" +
+                                    "그는 고개를 숙이더니 아무렇지도 않게 반란군의 시체를 들고 어둠 속으로 걸어가버렸다. 시체까지 들었으면서, 그의 인기척은 한순간에 사라져 버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("valen", "affection", -15);
+                                    changeNPCEmotion("akasia", "affection", -10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
                 ]
             }
         ], player, {

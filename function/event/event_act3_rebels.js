@@ -1581,4 +1581,180 @@ window.EVENTS.push({
         });
     }
 });
+
 //에르윈
+window.EVENTS.push({
+    id : "common_route_quest_08_after_abominated_erwin",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.abominatedErwin &&
+        player.flags?.act3_quest_08_done,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리로 나오는 순간, 당신은 비명 소리를 들었다. 당신은 고개를 들었다. 백흉물은 전부 물러났다고 생각했는데, 흉물 하나가 마을 입구에서부터 길거리까지 기어오고 있었다. 경계병, 경비병, 백색 군인들이 흉물을 막으려고 했지만 그 흉물은 찔려서 피부가 찢어져도 검붉은 꽃잎들로 흩어졌다가 다시 원상태로 돌아왔다." +
+                    "<br>그것은 누군가를 부르고 있었다. 웃으면서, 혹은 울면서." +
+                    "<br><br>아렌.<br><br>" +
+                    "그것은 당신을 알아보지 못하고 있다. 흉물에 잠식된 에르윈이 당신을 공격해온다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : "startAbominatedErwinBattle"
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.startAbominatedErwinBattle = function(player){
+    startBattle("erwin2", player, {
+        noEscape : true,
+        onWin : () => startAbominatedErwinWinEvent(player),
+        onLose : () => startAbomniantedErwinLosingEvent(player)
+    });
+    return true;
+};
+
+window.startAbominatedErwinWinEvent = function(player){
+    startScene([      
+        {
+            type : "text",
+            value : [
+                "당신은 흉물에 오염된 에르윈을 쓰러뜨렸다. 흉물에 오염된 에르윈은 마지막까지 당신을 쳐다보지 않았다. 그것은 누군가를 찾듯이 쓰러지는 순간까지도 시선을 이리저리 돌렸다. 흉물이 쓰러졌다. 갑자기 찾아온 정적 속에서 누군가가 환호를 질렀다. 쓰러뜨렸어, 우리는 죽지 않았어, 누군가의 환호가 울리자 다른 사람들도 전염된 것처럼 환호성을 지르기 시작했다." +
+                "<br>안도 속에서 경계병들과 경비병들은 흉물로 오염된 에르윈의 시체를 치웠다. 그를 알아본 존재들만이 어둠 속에서 눈물을 삼켰을 뿐이다."
+            ]
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+};
+
+function startAbomniantedErwinLosingEvent(player){
+    gameOver(
+        player,
+        "당신은 흉물에 오염된 에르윈의 공격을 이겨내지 못했다. 진짜 에르윈과 다르게, 그것은 당신을 진심으로 죽이려고 들었다. 지친 당신이 틈을 보이는 순간, 검붉은색 촉수가 당신의 심장을 꿰뚫었다. 마지막 숨결이 목에 걸렸다. 거칠게, 느리게, 그리고... 영원히 오지 않는." +
+        "<br><br>...당신의 눈앞이 흐려졌다. 흉물에 오염된 에르윈에 몰살당하는 하류도시 마을 사람들을 마지막으로 당신의 시야는 감겼다. 영원히."
+    );
+}
+
+window.EVENTS.push({
+    id : "common_route_quest_08_after_luke_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkTownStreet" &&
+        player.flags?.act3_quest_08_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_08_done_day + 2),
+
+    action : (player) => {
+        player.flags.common_route_quest_08_after_luke_01 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "빈민가 거리를 지나던 당신은 루크의 목소리에 걸음을 멈추었다." +
+                    "<br><br>\"들끓는 상처가 더 번지지는 않고 있지만... 지금 너한테 달라 붙어있는 흉물이 죽은 건 아니라니까. 네가 말하는 방안이 뭔지는 몰라도 해결책이 아니라는 건 확실해.\"<br><br>" +
+                    "\"씨발.\"<br><br>" +
+                    "당장 퍼지면 흉물에 먹힐 텐데 씨발, 그럼 내가 어떻게 할까? 루크는 낮은 목소리로 짜증을 내며 돌부리를 툭 걷어찼다. 루크와 친해보이는 약 상인은 낮게 한숨을 쉬었다." +
+                    "<br><br>\"네가 생각이 많은 건 알겠다. 네 그 달콤한 담배 냄새가 아주 몸에 배었네.\"<br><br>" +
+                    "\"...신경 꺼.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+//다시 반란군 루트로 돌아오기
+window.EVENTS.push({
+    id : "rebel_route_quest_08_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.act3_quest_08_done_day + 4),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_08_after_03 = true;
+        player.flags.rebel_route_quest_08_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "반란군들은 익숙하게 쉘터에 모여 있었다. 그들 중에서는 과격한 반란군들도 많았다. 몇몇은 아예 상류도시가 없어져버렸으면 좋겠다는 말을 했다." +
+                    "<br><br>\"그것보다는 상류도시의 성벽이 더 중요한 것 같습니다. 이상할 정도로 흉물들이 그 성벽은 건드리지 않던데 만약에 그 성벽을 하류도시 주변에 두를 수 있다면... 지금보다는 하류도시가 피해를 덜 입을 수도 있습니다.\"<br><br>" +
+                    "\"아니. 아예 그들도 똑같이 당해봐야 해. 하류도시 사람들이 상류도시로 들어가고, 상류도시 사람들이 하류도시 사람들처럼 나와서 사는 거지.\"<br><br>" +
+                    "지금까지 우리가 당해왔으니 상류도시 사람들도 당해야 한다면서 몇몇이 목소리를 높였다. 그 의견에 찬성하는 사람들은 꽤 많았다." +
+                    "<br><br>\"난 내 딸만 찾을 수 있으면 됐어.\"<br><br>" +
+                    "\"우리 모두의 가족들만 다시 돌아올 수 있으면 돼...\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 다 됐고, 쉘터에서 반란군들이 모이는 건 자제하는 게 좋을 것 같다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 그들은 불편한 표정을 지었다. 그들도 자신들이 쉘터에 악영향을 끼치고 있다는 건 알고 있었다." +
+                                    "<br><br>\"죄송합니다. 하지만 안전하게 모일 곳은 여기밖에 없어서...\"<br><br>" +
+                                    "\"쉘터의 아이들을 위해서라도 상류도시를 빨리 무너뜨려야 합니다.\"<br><br>" +
+                                    "당신의 머릿속에 반란군과 백색 군단의 화력 차이가 스쳐 지나갔다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 상류도시 사람들도 위협을 느껴보아야 한다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 많은 사람들이 동조했다. 그들은 상류도시 사람들의 머리에는 똥밖에 안 들어가있다고 말하면서 현실을 보게 만들어야 한다고 주장했다." +
+                                    "<br><br>\"그리고 우리가 지금까지 당한 게 있는데....\"<br><br>" +
+                                    "\"우리가 당하는 동안 그들은 뭐했지? 조롱이나 하고 있지 않았나?\"<br><br>" +
+                                    "분위기가 점점 험악해진다. 반란군들 중 몇 명이 우리는 그들과 똑같은 사람이 되면 안 된다고, 우리는 복수가 주목적이 아니라 진실을 밝혀내고 싶은 거라고 반박하긴 했지만 그들의 반박은 들끓는 증오에 묻혀 버렸다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그러면 우리도 상류도시 사람들과 똑같은 사람이 되는 거 아니냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"우리가 상류도시 사람들과 똑같은 사람이 되는 거라뇨.\"<br><br>" +
+                                    "반란군이 당신에게 차갑게 쏘아붙였다. 그는 우리는 인간을 대상으로 하는 실험은 하지 않았다고 말했다." +
+                                    "<br><br>\"애초에 그들이 그런 실험만 안 했어도....\"<br><br>" +
+                                    "\"어떻게 내 오빠를 끌고 간 사람들과 내가 같다고 말할 수 있어요...!\"<br><br>" +
+                                    "일렁이는 분노 속, 반란군들 중 몇 명이 분위기를 가라앉히기 위해 노력했다. 그들은 다시는 자신들과 상류도시 사람들을 비교하지 말라고 부탁했다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

@@ -63,6 +63,7 @@ window.EVENTS.push({
         (player.location === "deepForest" ||
          player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
+        !player.flags?.eric_youTellTruth &&
         player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||
@@ -93,6 +94,7 @@ window.EVENTS.push({
         (player.location === "banditForest" ||
          player.location === "deepForest_act3" ) &&
         player.flags?.uppercity_story_02_done &&
+        !player.flags?.eric_youTellTruth &&
         player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||
@@ -123,6 +125,7 @@ window.EVENTS.push({
         (player.location === "guardPost3" ||
          player.location === "townEntrance_act3" ) &&
         player.flags?.uppercity_story_02_done &&
+        !player.flags?.eric_youTellTruth &&
         player.flags?.eric_chasingSomething_event_day !== getCurrentDay(player) &&
         (
             getTimePeriod(player) === "night" ||

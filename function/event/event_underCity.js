@@ -10,6 +10,7 @@ window.EVENTS.push({
             getTimePeriod(player) === "dawn"
         ) &&
         !player.flags?.ericDie &&
+        !player.flags?.eric_youTellTruth &&
         Math.random() < 0.07,
 
     action : (player) => {

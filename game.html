@@ -445,6 +445,10 @@
                 return "유리는 이제 다시는 빛을 볼 수 없다.";
             }
 
+            if (key === "eric" && player?.flags?.ericDie){
+                return "에릭은 드디어 깊은 잠에 들었다.";
+            }
+
 
             if (!npc || !npc.emotion) return "아직 잘 모르는 사이";
 

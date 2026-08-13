@@ -1,8 +1,8 @@
 {
     "name": "매그너스(하얀꽃마물화)",
-    "hp": 600,
-    "attack": 53,
-    "defense": 55,
+    "hp": 700,
+    "attack": 55,
+    "defense": 58,
     "eva": 65,
     "lustResist" : 999,
     "drops": [

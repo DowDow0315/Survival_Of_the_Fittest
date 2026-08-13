@@ -788,42 +788,42 @@ Object.assign(DUNGEONS, {
         ],
 
         rooms : {
-            "r0c0" : {name : "", exits : {right : "r0c1", down : "r1c0"}},
-            "r0c1" : {name : "", exits : {left : "r0c0", right : "r0c2"}},
-            "r0c2" : {name : "", exits : {left : "r0c1", down : "r1c2"}},
-            "r0c4" : {name : "", exits : {right : "r0c5", down : "r1c4"}},
-            "r0c5" : {name : "", exits : {left : "r0c4", right : "r0c6"}},
-            "r0c6" : {name : "", exits : {left : "r0c5", right : "r0c7"}},
-            "r0c7" : {name : "", exits : {left : "r0c6", down : "r1c7"}},
+            "r0c0" : {name : "나선형 계단", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "나선형 계단", exits : {left : "r0c0", right : "r0c2"}},
+            "r0c2" : {name : "위로 올라가는 길?", exits : {left : "r0c1", down : "r1c2"}},
+            "r0c4" : {name : "계속 이어지는 하얀꽃 무덤", exits : {right : "r0c5", down : "r1c4"}},
+            "r0c5" : {name : "계속 이어지는 하얀 꽃잎들로 가득한 복도", exits : {left : "r0c4", right : "r0c6"}},
+            "r0c6" : {name : "계속 이어지는 실패", exits : {left : "r0c5", right : "r0c7"}, event : "lateLab_fail", seenFlag : "lateLab_fail"},
+            "r0c7" : {name : "결국 아직까지 끝나지 않은 실패", exits : {left : "r0c6", down : "r1c7"}},
             
-            "r1c0" : {name : "", exits : {up : "r0c0", down : "r2c0"}},
-            "r1c2" : {name : "", exits : {up : "r0c2", down : "r2c2"}},
-            "r1c4" : {name : "", exits : {up : "r0c4", down : "r2c4"}},
-            "r1c7" : {name : "", exits : {up : "r0c7", down : "r2c7"}},
+            "r1c0" : {name : "나선형 계단", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "나열된 관들2", exits : {up : "r0c2", down : "r2c2"}},
+            "r1c4" : {name : "하얀꽃 무덤", exits : {up : "r0c4", down : "r2c4"}},
+            "r1c7" : {name : "여전히 돌아가고 있는 톱니바퀴", exits : {up : "r0c7", down : "r2c7"}},
             
-            "r2c0" : {name : "", exits : {up : "r1c0", down : "r3c0"}},
-            "r2c2" : {name : "", exits : {up : "r1c2", right : "r2c3"}},
-            "r2c3" : {name : "", exits : {left : "r2c2", right : "r2c4", down : "r3c3"}},
-            "r2c4" : {name : "", exits : {up : "r1c4", left : "r2c3", right : "r2c5"}},
-            "r2c5" : {name : "", exits : {left : "r2c4"}},
-            "r2c7" : {name : "", exits : {up : "r1c7", down : "r3c7"}},
+            "r2c0" : {name : "옥상 출입문", exits : {up : "r1c0", down : "r3c0"}},
+            "r2c2" : {name : "나열된 관들", exits : {up : "r1c2", right : "r2c3"}},
+            "r2c3" : {name : "제한구역", exits : {left : "r2c2", right : "r2c4", down : "r3c3"}, event : "lateLab_memo_06", seenFlag : "lateLab_memo_06"},
+            "r2c4" : {name : "오싹한 분위기의 복도", exits : {up : "r1c4", left : "r2c3", right : "r2c5"}},
+            "r2c5" : {name : "연구방", exits : {left : "r2c4"}, event : "lateLab_research", seenFlag : "lateLab_research"},
+            "r2c7" : {name : "비석", exits : {up : "r1c7", down : "r3c7"}, event : "lateLab_stone", seenFlag : "lateLab_stone"},
             
-            "r3c0" : {name : "", exits : {up : "r2c0", right : "r3c1"}},
-            "r3c1" : {name : "", exits : {left : "r3c0"}},
-            "r3c3" : {name : "", exits : {up : "r2c3", down : "r4c3"}},
-            "r3c7" : {name : "", exits : {up : "r2c7", down : "r4c7"}},
+            "r3c0" : {name : "하얀 꽃 옥상", exits : {up : "r2c0", right : "r3c1"}, event : "lateLab_whiteFlower_01", seenFlag : "lateLab_whiteFlower_01"},
+            "r3c1" : {name : "하얀 꽃밭", exits : {left : "r3c0"}, event : "lateLab_whiteFlower_02", seenFlag : "lateLab_whiteFlower_02"},
+            "r3c3" : {name : "톱니바퀴가 이어지는 길", exits : {up : "r2c3", down : "r4c3"}},
+            "r3c7" : {name : "장례식 행차길", exits : {up : "r2c7", down : "r4c7"}},
             
             "r4c2" : {name : "마당으로 가는 길", exits : {right : "r4c3", down : "r5c2"}},
             "r4c3" : {name : "중앙 톱니바퀴", exits : {up : "r3c3", left : "r4c2", right : "r4c4"}},
             "r4c4" : {name : "가족 사진", exits : {left : "r4c3", down : "r5c4"}, event : "lateLab_memo_02", seenFlag : "lateLab_memo_02"},
-            "r4c6" : {name : "", exits : {right : "r4c7"}},
-            "r4c7" : {name : "", exits : {up : "r3c7", left : "r4c6", down : "r5c7"}},
+            "r4c6" : {name : "뒤늦은 호흡", exits : {right : "r4c7"}, event : "lateLab_late", seenFlag : "lateLab_late"},
+            "r4c7" : {name : "죽기 직전 마지막 숨결", exits : {up : "r3c7", left : "r4c6", down : "r5c7"}, safeZone: true, allowRest: true},
             
             "r5c1" : {name : "하얀 꽃이 피어있는 연못", exits : {right : "r5c2", down : "r6c1"}},
             "r5c2" : {name : "마당", exits : {up : "r4c2", left : "r5c1"}, event : "lateLab_memo_03", seenFlag : "lateLab_memo_03"},
             "r5c4" : {name : "화단의 끝", exits : {up : "r4c4", right : "r5c5"}},
             "r5c5" : {name : "쭉 이어지는 화단", exits : {left : "r5c4", down : "r6c5"}},
-            "r5c7" : {name : "", exits : {up : "r4c7"}, bossId: "ashParents", boss : ["cassandra", "magnus"], bossIntro:"ashParents_intro"},
+            "r5c7" : {name : "장례식", exits : {up : "r4c7"}, bossId: "ashParents", boss : ["cassandra", "magnus"], bossIntro:"ashParents_intro"},
             
             "r6c0" : {name : "연못 정자", exits : {right : "r6c1", down : "r7c0"}, event : "lateLab_memo_04", seenFlag : "lateLab_memo_04"},
             "r6c1" : {name : "연못 다리", exits : {up : "r5c1", left : "r6c0"}},
@@ -4505,13 +4505,192 @@ Object.assign(DUNGEON_EVENTS, {
                 value : [
                     "당신은 희미한 화살표를 따라갔다. 화살표를 따라가다가 길이 보이지 않아서 중간에 길이 끊긴 줄 알았지만 수풀을 헤치니 아늑한 공간이 하나 나왔다. 마치 책상처럼 잘린 나무 밑동 하나가 중앙에 놓여 있었다." +
                     "<br><br>오늘의 사고뭉치 : 발렌<br><br>" +
-                    "이유 : 엄마, 아빠가 가지 말란 곳을 또 다녀옴"
+                    "이유 : 엄마, 아빠가 가지 말란 곳을 또 다녀옴<br><br>" +
+                    "당신은 나무 밑동 주변으로 의자처럼 보이는 네 개의 나무 그루터기를 보았다. 하나의 위에는 푹신한 방석마저 놓여 있었다, 오래된 것으로 보이지만." +
+                    "<br><br>발렌 또 흑기사 당첨 축하<br><br>" +
+                    "내가 아카시아는 돌림판에서 빼자고 했잖아" +
+                    "<br><br>:p<br><br>" +
+                    "다음 번에는 아카시아 대신 내가 할게<br><br>" +
+                    "나 오늘은 괜찮아. 오늘은 내가 할게."
                 ]
             },
             {
                 type : "effect",
                 run : (player) => {
                     player.flags.lateLab_memo_05 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_memo_06 : [
+            {
+                type : "text",
+                value : [
+                    "톱니바퀴는 출입 제한 구역 뒤로 더 이어져 있다. 방음벽이라도 설치되어 있는 건지, 출입 제한 구역 문 뒤로는 어떤 소리도 나지 않았다. 당신은 문고리를 돌리려고 했다. 하지만 잠금 장치 때문인지 문고리는 쉽게 돌아가지 않았다." +
+                    "<br><br>당신은 결국 강제로 문을 열었다. 자물쇠를 땄든, 그냥 힘으로 열었든, 어쨌든 문은 열렸다. 문이 열리자 지금까지는 들리지 않았던 소리들이 들리기 시작했다. 꿀렁꿀렁, 수없이 늘어져 있는 관들 안에 사람들이 마치 혼수상태에 빠진 것처럼 눈을 감고 있었다. 당신은 이 사람들이 옛날 사람들이 아니라는 걸 눈치챘다. 누군가가 계속 이 실험실을 들르고 있었던 모양이다...." +
+                    "<br><br>당신은 관 안에 있는 사람들과 소통을 해보려고 했지만, 관을 아무리 두드려도 그들은 눈을 뜨지 않았다. 당신은 관 밑에 써있는 숫자들을 보았다. 잔량 : 20%. 잔량 : 55%. 잔량 : 10%." +
+                    "<br><br>끼기긱 소리와 함께 관 위에 있는 톱니바퀴는 계속 돌아가고 있었다. 관을 유심히 보던 당신은 관 밑에 끌린 자국을 보았다." +
+                    "<br><br>어쩌면, 원래는 관이 아니라 다른 장치가 놓여 있었던 걸지도 모르겠다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_memo_06 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_whiteFlower_01 : [
+            {
+                type : "text",
+                value : [
+                    "옥상 문을 열자마자 보이는 것은 하얀 꽃들이었다. 흐드러지게 피어 있는 하얀 꽃들은 당신이 시중에서 볼 수 있는 하얀 꽃들과는 달랐다. 그것들은 빛을 받아 빛나고 있었다, 마치 상류도시의 성벽마냥. 하얀 꽃들은 구역 별로 나누어져 있었고, 구역당 알 수 없는 숫자들이 써진 메모지가 붙어 있었다." +
+                    "<br><br>[불가능]<br><br>" +
+                    "우아한 글씨체." +
+                    "<br><br>[답은 역시 군대에 있다]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_whiteFlower_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_whiteFlower_02 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 거대한 하얀 꽃밭을 보았다. 그 하얀 꽃들도 시중에서 볼 수 있는 하얀 꽃들과는 다르게 빛을 받아 빛나고 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀 꽃들 중 하나를 만져보았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 빛나는 하얀 꽃을 만지는 순간, 하얀 꽃은 바르르 떨더니 당신에게 생명력을 전하고 푹, 시들어서 고개가 꺾어져 버렸다. 하나의 고개가 꺾이자 나머지 하얀 꽃들도 푹푹 고개가 꺾였다." +
+                                    "<br><br>정신을 차렸을 때, 당신이 만진 하얀 꽃 주변의 하얀 꽃들은 전부 시들어 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeHP(player, 150);
+                                    changeStamina(player, 100);
+                                    player.flags.lateLab_whiteFlower_02 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 하얀 꽃들을 건드리지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 하얀 꽃을 건드리지 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lateLab_whiteFlower_02 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        lateLab_research : [
+            {
+                type : "text",
+                value : [
+                    "당신은 책상 위에 있는 연구자료를 읽었다." +
+                    "[우리는 옳은 일을 하고 있다. 우리는 예로부터 하얀 꽃의 축복을 받았고 지금도 하얀 꽃의 축복 속에서 상류도시를 번영시키고 있다. 하지만 결국, 인간의 탐욕 때문에 하얀 꽃의 개체 수는 적어지고 말았다. 우리는 후세대를 위해서라도 창백하지 않은 하얀 꽃을 이용할 방법을 찾아야 한다. 아니면 창백한 하얀 꽃을 늘릴 방법을 찾거나.]<br><br>" +
+                    "[...후자가 전자보다 압도적으로 좋은 선택이긴 하지만 불가능하다. 창백한 꽃들은 흉물들에게는 강하지만 다른 것들에는 민감해서 조금만 조건이 바뀌어도 시들어버린다. 조상들이 돌연변이 꽃들을 만든 것은 다 이유가 있었다. 하지만 역시 돌연변이라 그런지 흉물들을 아예 막지는 못한다.]<br><br>" +
+                    "[하지만 조금은 막을 수 있으니, 우리는 조상들의 길을 따라 창백하지 않은 하얀 꽃들을 이용해야만 한다. 100년 전의 그 실험을 다시 이어가야 한다. 그건 잘못된 길이 아니었다. 창백 때문에 실패한 거였다.]<br><br>" +
+                    "[인간이 아닌 존재 때문에 실패한 거라면 인간을 하얀 꽃 마물 구심점으로 만들면 되는 거 아닌가?]"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "[실패. 또 실패. 왜 계속 실패하는 거지. 출신이 하류도시 출신이라서 그러는 건가?]<br><br>" +
+                    "[분명 그들은 자신이 인간이었을 때의 기억에 집착하고 있는데, 그러면서도 다른 한 편으로는 창백의 감정에 자꾸 먹혀간다. 100년이나 흘렀다. 그런데도 창백은 여전히 우리의 연구를 방해하고 있다.]<br><br>"+
+                    "[그 멍청한 하류도시 출신이 인위적으로 구심점을 만들어버린 탓이다. 구심점을 해제할 방법을 만들어놓지도 않고 무턱대고 만들어버리면 실패했을 때 어떻게 감당할 생각이었던 거야? 아. 그래서 이 꼴이 났던 거지.]"+
+                    "[자기야. 애들 방학에 여기 데려오면 안 되겠어. 자꾸만 여기 들어오려고 하는 것 같아.]<br><br>" +
+                    "[알겠어, 자기.]<br><br>" +
+                    "[:)]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_research = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_fail : [
+            {
+                type : "text",
+                value : [
+                    "당신의 시선은 명찰 하나에서 멈췄다. 하얀 꽃잎들에 파묻혀 있는 그 명찰에는 '1'이라고 써있었다. 어떤 알파벳도 없이 그저 '1'." +
+                    "<br><br>당신은 지금까지 당신이 밟고 걸어온 하얀 꽃잎들이 전부 실패의 부산물이라는 걸 깨달았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_fail = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_stone : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎들이 이어지는 길의 끝에 비석 하나가 서 있었다. 당신은 비석에 새겨져 있는 글자를 읽었다." +
+                    "<br><br>카산드라와 매그너스<br><br>" +
+                    "당신들은 마지막에 틀렸습니다." +
+                    "<br><br>하지만 마지막에 틀렸다고 해서, 제가 당신들을 존경하지 않을 이유는 없습니다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_stone = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lateLab_late : [
+            {
+                type : "text",
+                value : [
+                    "낡은 일기장 하나가 놓여 있다. 당신은 일기장을 들었다. 다른 쪽수들은 전부 찢어져 있었다." +
+                    "[그 사람은 아들 두 명이 있다고 했다. 제발 자신을 집에 돌려보내달라고 말했다. 이 실험만 성공하면 더 많은 사람들이 살 수 있으니까, 그래, 우리는 그 믿음 하나로 여기까지 달려왔다.]<br><br>" +
+                    "[그 사람은 지금까지 죽은 사람들과 별반 다를 게 없는 사람이다. 그런데 왜 계속 잘 때마다 그 사람의 마지막 말이 떠오를까. 마지막 목소리, 마지막 표정.... 그리고 두 아들.]" +
+                    "<br><br>[어쩌면, 어쩌면 우리가 틀린 걸지도 모르겠다는 생각이 들었다. 나는 내게 질문을 딱 하나 던져보았다. 내 아들들에게 내가 한 일을 자랑스럽게 말할 수 있는가?]<br><br>" +
+                    "<span class='log-danger'>[답은 '아니'다.]</span><br><br>" +
+                    "우리는 결정을 내렸다. 이 미친 실험을 멈춰야 한다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lateLab_late = true;
                     savePlayer(player);
                 }
             }
@@ -5180,7 +5359,6 @@ function startRebelsArmies01Lose(player){
 
 //act8 quest
 window.startMimicTeacherBattle = function(player){
-    let supportStarted = false;
     startBattle( ["experimentTeacher", "experimentTeacherMimic", "whiteAbomination3", "whiteAbomination3"] , player, {
         noEscape: true,
         onWin: () => {
@@ -5267,9 +5445,6 @@ function startMimicTeacherLose(player){
         return;
     }
 
-    player.dungeon.room = "r0c0";
-    changeHP(player, 10);
-
     gameOver(
         player,
         "당신은 또 지휘봉을 든 백 흉물에게 졌다. 백 흉물은 이번에는 방심하지 않았다. 그것은 다른 것이 당신을 도우러 오기 전에 그대로 지휘봉으로 당신의 심장을 꿰뚫었다. 쿵, 쿵, 쿵, 당신의 심장 박동 소리가 점점 멀어진다. 그것은 고개를 기울이더니 당신이랑 똑같은 목소리로 말했다." +
@@ -5277,4 +5452,112 @@ function startMimicTeacherLose(player){
         "...당신이 지금 제일 사랑하는 사람의 이름을, 말했다." +
         "<span class='log-danger'>하지만 당신은 아무 것도 할 수 없었다. 당신은 죽었다.</span>"
     );
+}
+
+//스페셜 에릭 던전
+window.startAshParentsBattle = function(player){
+    let supportStarted = false;
+    startBattle( ["cassandra", "magnus"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "에릭",
+            hpRate : 0.5,
+            damage : 150,
+            logType : "eric",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "총성이 울렸다. 드디어 에릭이 움직인다. 그는 여전히 무표정이었고, 그의 녹안에는 여전히 그의 부모님이 맺혀 있었다. 하지만 이제 그는 멈추지 않는다.<strong>150 데미지!</strong>";
+                }
+
+                const lines = [
+                    "에릭은 자신의 부모님을 쐈다. 그는 더 이상 망설이지 않는다. <strong>150 데미지!</strong>",
+                    "당신은 에릭의 옆구리로 카산드라의 참격이 스쳐지나가는 것을 보았다. 하지만 에릭은 그 공격을 피하지 않고 그대로 전부 받으며 총을 쐈다. <strong>150 데미지!</strong>",
+                    "당신은 에릭이 매그너스의 총에 맞은 걸 보았다. 하지만 에릭의 공격은 멈추지 않았다. 방아쇠를 당기는 그의 손에는 흔들림이 없었다, 마치 고통을 느끼지 못하는 사람처럼. <strong>150 데미지!</strong>",
+                    "당신은 에릭을 몇 번 스치듯 바라보았지만 에릭과 시선이 마주친 적은 없었다. <strong>150 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => {
+            player.flags.lateLab_ashParents_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startAshParentsLose(player);
+        }
+    });
+};
+
+function handleAshParentsWin(player){
+    player.flags.endAshParents = true;
+    player.flags.openLateLab = false;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "카산드라와 매그너스는 하얀 꽃잎조각들로 흩어져갔다. 에릭은 바로 앞에 생긴 하얀꽃 무덤을 응시하며 침묵을 지켰다. 그는 고개를 들더니 비디오 테이프 하나를 주웠다. 그리고 아무 말 없이 그 테이프를 틀었다." +
+                "<br><br>지직거리는 소리와 함께 모니터 영상이 나온다. 당신도 아는 익숙한 거리다. 영광의 거리, 카산드라와 매그너스는 쌍둥이 저택으로 들어서고 있었다. 그들이 쌍둥이 저택에 다다르자 아이 한 명이 문을 열고 툭 튀어나왔다. 아이는 카산드라의 품에 안긴다. 매그너스는 카산드라의 품에 안긴 아이를 쓰다듬다가 고개를 들고 집안의 누군가를 본다. 그의 눈동자가 부드럽게 휘어진다. 그들은 저택에 들어갔다."+
+                "<br><br>그들이 저택에 들어간 지 얼마 되지 않아 누군가 걸어온다. 당신도 아는 얼굴이다. 길게 늘어뜨린 백발, 그리고 너무 사뿐사뿐해서 인간 같지 않은 발걸음, 그는 문앞에서 고개를 기울이더니 그대로 툭, 문에 자신의 얼굴을 기댔다. 그의 귀는 문에서 몇 분 동안 떨어지지 않았다." +
+                "<br><br>그림자가 일렁인다. 창백한 촉수가 솟구친다. 그리고 그는 저택의 문을 촉수를 뜯으며 저택 안으로 들어섰다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "영상은 거기서 지직거리며 멈췄다. 무언가 날아온 것을 보아 정상적으로 작동을 멈춘 것 같지는 않다. 에릭은 여전히 말이 없었다. 그는 더 이상 나오지 않는 영상을 보고 있다가 등을 돌렸다." +
+                "<br><br>그리고 그는 혼자 걸어갔다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+function startAshParentsLose(player){
+    player.flags.ericDie = true;
+    player.flags.openLateLab = false;
+    player.flags.lateLab_ashParents_defeated = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 그들의 공격을 버티지 못하고 쓰러졌다. 에릭은 그제야 당신을 보았다. 그들은 쓰러진 당신의 목숨을 정확히 노렸고, 에릭은 그들의 목숨을 정확히 노렸다. 푹, 하는 소리와 함께 하얀 즙과 붉은색 피가 떨어져 내렸다." +
+                "<br><br>아니. 검붉은 피다.<br><br>" +
+                "에릭의 피색깔은 보통 인간의 피색깔과 달랐다. 그의 피색깔은, 손수건에 묻어있었던 피색깔과 같았다. 검붉은 흉물의 색. 에릭은 카산드라의 검에 깊숙이 찔린 채 카산드라의 입에 총구를 들이밀었다. 탕, 하는 소리와 함께 카산드라가 쓰러졌다. 당신은 에릭의 총구가 매그너스의 관자놀이에 향하는 것을 보았다. 그리고 매그너스의 총구도 에릭을 향하는 것도." +
+                "<br><br>그 모습을 마지막으로 당신의 의식은 끊겼다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 눈을 떴을 때, 당신은 하얀 꽃 무덤에 있었다. 누군가의 품 안이었다. 당신은 천천히 고개를 들었다. 에릭이다. 지독할 정도로 무표정한 얼굴. 하지만 그의 눈은 뜨이지 않았다." +
+                "<br>...당신은 죽은 에릭의 품에 안겨 있었다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeHP(player, 30);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
 }

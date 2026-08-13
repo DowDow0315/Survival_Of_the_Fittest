@@ -2387,9 +2387,24 @@ function getKainBackstageScene(player){
 function buildTwinsMansionScene(player, loc, randomDesc){
     const choices = [];
 
+    // 데릭
     choices.push(
-        { text:"데릭에게 다가간다", action:"deric_talk" },
-        { text:"에릭의 방으로 들어선다", action:"eric_talk" },
+        { text:"데릭에게 다가간다", action:"deric_talk" }
+    );
+
+    // 에릭 생존 / 사망에 따라 선택지 변경
+    if (!player.flags?.ericDie){
+        choices.push(
+            { text:"에릭의 방으로 들어선다", action:"eric_talk" }
+        );
+    } else {
+        choices.push(
+            { text:"에릭의 방을 바라본다", action:"eric_room_after_death" }
+        );
+    }
+
+    // 나머지 선택지
+    choices.push(
         { text: "자기", action: "sleep_twinsMansion" },
         { text: "잠깐 쉬기", action: "rest_twinsMansion" },
         { text:"영광의 거리로 나간다", action:"move_gloryStreet" }

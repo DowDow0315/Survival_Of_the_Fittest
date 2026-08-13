@@ -1,9 +1,9 @@
 {
     "name": "버섯맨",
     "hp": 300,
-    "attack": 45,
-    "defense": 35,
-    "eva": 10,
+    "attack": 65,
+    "defense": 40,
+    "eva": 40,
     "lustResist" : 2,
     "drops": [
         {

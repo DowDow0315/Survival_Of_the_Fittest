@@ -138,6 +138,20 @@ registerActions("eric", {
         openGiveFoodMenu(player, "eric");
     },
 
+    room_after_death : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 에릭의 방문을 바라보았다. 문은 굳게 닫혀 있었다." +
+                    "<br><br>이제 문을 열어도, 그 안에서 당신을 기다리는 사람은 없다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    },
+    
     talk: (player) => {
         if (!isEricAvailable(player)){
             showSingleTextScene(

@@ -223,3 +223,30 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "sion_training",
+    once : true,
+
+    condition : (player) =>
+        ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
+        ( player.location === "forest_act3" || player.location === "deepForest_act3" ) &&
+        player.justMoved,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sion"].scenes.sion_training,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -30);
+                    changeSensitivity(player, "aSensitivity", 5);
+                    passTime(player, 20);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});

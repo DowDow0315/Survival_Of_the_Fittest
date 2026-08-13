@@ -161,8 +161,99 @@ function triggerEricWeeklyPayment(player){
     player.inEvent = true;
     player.lastWeeklyPaymentWeek = getCurrentWeek(player);
     localStorage.setItem("playerData", JSON.stringify(player));
-    weeklyPayment(player);
+    if (player.flags?.ericDie){
+        weeklyPaymentAfterEricDeath(player);
+    } else {
+        weeklyPayment(player);
+    }
     return true;
+}
+
+function weeklyPaymentAfterEricDeath(player){
+    const cost = 15000;
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "무리들이 당신에게 다가왔다. 무리의 중앙에 서 있던 남자가 당신에게 손을 내밀었다." +
+                "<br><br>\"돈.\"<br><br>" +
+                "에릭 대신 하류도시의 세금을 받는 사람들이다... 그들은 당신에게 15000골드를 요구하고 있다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "15000G를 지불한다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : (player) => {
+                                const taken = Math.min(player.gold, cost);
+
+                                if (player.gold >= cost){
+                                    return "당신은 15000G를 건넸다. 그는 돈을 받아 세어보더니 아무 말 없이 돌아갔다.";
+                                }
+
+                                return `당신은 가지고 있던 ${taken}G를 전부 건넸다. 그는 돈을 세어보더니 인상을 찌푸렸다.` +
+                                    `<br><br>"${cost - taken}G 부족하군."` +
+                                    `<br><br>"다음에는 제대로 준비해둬."`;
+                            }
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                const taken = Math.min(player.gold, cost);
+                                changeGold(player, -taken);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 고개를 저었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : (player) => {
+                                const taken = Math.min(player.gold, refusalCost);
+
+                                if (player.gold >= refusalCost){
+                                    return "당신은 돈을 내지 않겠다고 말했다. 수금책은 잠시 당신을 바라보다가 피식 웃었다." +
+                                        "<br><br>\"그래? 그럼 20000G다.\"" +
+                                        "<br><br>당신이 뭐라고 대꾸하기도 전에 그는 강제로 20000G를 가져갔다.";
+                                }
+
+                                if (player.gold > 0){
+                                    return "당신은 돈을 내지 않겠다고 말했다. 수금책은 잠시 당신을 바라보다가 피식 웃었다." +
+                                        "<br><br>\"네가 정하는 게 아닌데.\"" +
+                                        `<br><br>그는 당신이 가지고 있던 ${taken}G를 전부 가져갔다.`;
+                                }
+
+                                return "당신은 돈을 내지 않겠다고 말했다. 수금책은 당신의 주머니까지 뒤졌지만 가져갈 만한 것은 나오지 않았다." +
+                                    "<br><br>\"다음 주에도 이러면 그때는 돈으로 안 끝난다.\"";
+                            }
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                const taken = Math.min(player.gold, refusalCost);
+                                changeGold(player, -taken);
+                                savePlayer(player);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player, {
+        onEnd : () => {
+            player.inEvent = false;
+            savePlayer(player);
+            startScene(getLocationScene(player), player);
+        }
+    });
 }
 
 const EVENTS = [
@@ -175,6 +266,7 @@ const EVENTS = [
         condition : (player) =>
             player.justMoved &&
             player.location === "townStreet" &&
+            !player.flags?.ericDie &&
             player.flags?.eric_victim_collect_event01_unlocked &&
             !player.flags?.eric_victim_collect_event01_seen,
             
@@ -927,6 +1019,7 @@ const EVENTS = [
         id : "streets_whiteflower_event02",
         condition: (player) =>
             player.justMoved &&
+            !player.flags?.ericDie &&
             (player.location === "darkStreet" ||
             player.location === "townStreet") &&
             Math.random() < 0.1,
@@ -950,6 +1043,7 @@ const EVENTS = [
         id: "shelter_money_event_01",
         condition: (player) =>
             player.justMoved &&
+            !player.flags?.ericDie &&
             player.location === "shelter" &&
             Math.random() < 0.1,
 

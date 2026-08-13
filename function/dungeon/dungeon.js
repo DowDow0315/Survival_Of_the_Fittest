@@ -1476,6 +1476,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "lateLab" && room.bossId === "ashParents"){
+        handleAshParentsWin(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1762,6 +1767,8 @@ function leaveDungeon(player){
         player.location = "deepForest_act3";
     } else if (dungeonId === "whiteAbominationArmyRepeated"){
         player.location = "wastedRuin";
+    } else if (dungeonId === "lateLab"){
+        player.location = "whiteFlowerTomb";
     } else {
         player.location = "townStreet";
     }
@@ -5109,6 +5116,34 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startMimicTeacherBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "ashParents_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      "마지막 방에 들어서자, 여자와 남자가 서로를 안고 있었다. 그들의 한쪽 어깨죽지에서 자라난 하얀 꽃잎 날개는 처음에는 천사의 날개처럼 보였지만, 보면 볼수록 괴기하게 일그러져 있었다. 그들은 고개를 들고 당신을 보았다." +
+                      "<br><br>\"이미. 늦었. 어.\"<br><br>" +
+                      "...공허한 눈동자. 그리고 삐걱삐걱거리는 움직임. 그들은 마치 꼭두각시 인형처럼 움직이고 있었다. 흩날리는 꽃잎들 사이로 당신은 그들의 얼굴을 보았다. 당신도 몇 번 본 얼굴이다, 실제로 본 적은 없지만." +
+                      "<br><br>등뒤에서 인기척이 들렸다. 당신은 본능적으로 경계하며 고개를 돌렸다." +
+                      "<br><br><span class='log-eric'>당신의 뒤에는 에릭이 서 있었다.</span>"
+            },
+            {
+                type : "text",
+                value : 
+                     "에릭은 지독할 정도로 무표정했다. 그의 시선은 아무런 색채도 띠고 있지 않았다. 그의 녹안은 깊이를 알 수 없는 호수처럼 고요하기만 했다. 분명 그의 녹안에는 두 사람의 모습이 선명하게 맺혀 있었지만 눈동자는 조금도 움직이지 않았다." +
+                     "<br><br>마치 눈앞의 광경을 이해하는 것조차 포기한 사람처럼." +
+                     "<br><br><strong>그들은 자신의 아들을 알아보지 못했다.</strong><br><br>카산드라가 검을 들어 올렸다. 그 궤도에는 당신뿐만 아니라 에릭도 걸쳐 있었다."
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startAshParentsBattle(player);
                     return true;
                 }
             }

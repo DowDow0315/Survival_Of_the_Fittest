@@ -1664,11 +1664,43 @@ window.EVENTS.push({
                 type : "text",
                 value : [
                     "빈민가 거리를 지나던 당신은 루크의 목소리에 걸음을 멈추었다." +
-                    "<br><br>\"들끓는 상처가 더 번지지는 않고 있지만... 지금 너한테 달라 붙어있는 흉물이 죽은 건 아니라니까. 네가 말하는 방안이 뭔지는 몰라도 해결책이 아니라는 건 확실해.\"<br><br>" +
+                    "<br><br>\"들끓는 상처가 더 번지지는 않고 있지만... 지금 너한테 달라붙어 있는 흉물이 죽은 건 아니라니까. 네가 말하는 방안이 뭔지는 몰라도 해결책이 아니라는 건 확실해.\"<br><br>" +
                     "\"씨발.\"<br><br>" +
                     "당장 퍼지면 흉물에 먹힐 텐데 씨발, 그럼 내가 어떻게 할까? 루크는 낮은 목소리로 짜증을 내며 돌부리를 툭 걷어찼다. 루크와 친해보이는 약 상인은 낮게 한숨을 쉬었다." +
                     "<br><br>\"네가 생각이 많은 건 알겠다. 네 그 달콤한 담배 냄새가 아주 몸에 배었네.\"<br><br>" +
                     "\"...신경 꺼.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_08_after_luke_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        player.flags?.common_route_quest_08_after_luke_01,
+
+    action : (player) => {
+        player.flags.common_route_quest_08_after_luke_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상점에 들어왔을 때 소라는 백색 군인 중 한 명과 이야기를 나누고 있었다. 그는 당신이 상점에 들어오자마자 이야기를 나누던 중에도 활짝 웃으며 손을 흔들었다. 백색 군인은 당신을 보더니 그대로 상점에서 나갔다. 소라는 당신에게 달려와 상점까지는 무슨 일이냐고 물었다. 역시 내가 보고 싶어서 온 거지? 소라는 까르르 웃으며 당신의 손에 손깍지를 꼈다." +
+                    "<br><br>\"...소라는 {soraTitle}랑 함께 있는 시간이 좋아.\"<br><br>" +
+                    "그는 웃었다." +
+                    "<br><br>\"너와 함께 있는 이 순간이 영원했으면 좋겠어....\"<br><br>" +
+                    "소라의 손이 다정하게 당신의 머리카락을 어루만졌다." +
+                    "<br><br><span class='log-sora'>\"...너무 사랑해서, 두렵기도 해.\"</span><br><br>" +
+                    "당신이 그를 올려다보자 소라는 마치 자기는 아무 말도 안 했다는 듯이 평소처럼 웃어보였다. 그는 당신에게 너무 예쁘게 웃지 말라고 하며, 그러다가 자신에게 납치당한다고 키득거리며 말했다."
                 ]
             }
         ], player, {
@@ -1751,6 +1783,78 @@ window.EVENTS.push({
                             }
                         ]
                     }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_09_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        player.flags?.common_route_quest_08_after_luke_02 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_08_after_03_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_09_intro_01 = true;
+        player.flags.rebel_route_quest_09_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 걷는 당신의 귀로 쑥덕이는 소리가 들렸다." +
+                    "<br><br>\"이번에 대군단이 하얀 꽃무덤으로 향한다는데.\"<br><br>" +
+                    "\"폐야가 아니라?\"<br><br>" +
+                    "\"백색 군단이 움직이는 거니까 뭔가 이유가 있겠지.\"<br><br>" +
+                    "하류도시 사람들 중 몇몇은 꽃 마물보다는 흉물을 처리해줬으면 좋겠다고 쑥덕거렸다. 그래도 꽃들은 마을까지 들어와서 우리를 죽이려 한 적은 없잖아. 야, 흉물이나 꽃 마물이나 똑같은 놈들이지. 여기저기서 계속 수군거리는 소리가 들려온다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_09_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        ( player.location === "shelter" || player.location === "goldenShelter" ) &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_09_intro_01_day + 3),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_09_intro_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 잠에 들었다가 가슴 위로 느껴지는 무게감에 눈을 떴다. 누군가 당신의 위에 앉아있었다." +
+                    "<br>백발에 금안.... 꽃잎으로 부서지지 않는 미소, 소라.<br>" +
+                    "당신은 멍하니 소라를 올려다보았다. 무슨 행동을 하려고 해도, 무슨 말을 하려고 해도, 당신은 아무것도 할 수 없었다. 마치 가위에 눌린 것처럼 당신은 새끼 손가락 하나조차 움직일 수 없다. 소라는 그대로 당신에게 키스를 했다." +
+                    "<br><br>\"소라를, 어떤 소라라도 사랑해줄래? <span class='log-sora'>아니, 사랑할 거야.</span>\"<br><br>" +
+                    "소라의 손가락이 당신의 입술을 꾹 누른다." +
+                    "<br><br><span class='log-sora'>\"소라는 언제나 소라니까. 특히 너를 향한 마음은, 언제나 똑같으니까.\"</span>"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "시야가 어두워졌다가 다시 밝아졌다. 방금 그건 꿈이었을까?" +
+                    "...불길한 예감이 든다."
                 ]
             }
         ], player, {

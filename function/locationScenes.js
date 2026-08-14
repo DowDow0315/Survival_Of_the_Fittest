@@ -1239,6 +1239,16 @@ function buildWastedRuinScene(player, loc, randomDesc){
 function buildWhiteFlowerTombScene(player, loc, randomDesc){
     const choices = [];
 
+    if (
+        player.flags?.openLateLab &&
+        !player.flags?.act3_quest_09_unlock
+    ){
+        choices.push({
+            text : "데릭의 지도에 표시된 연구소로 향한다.",
+            action : "move_lateLab"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },

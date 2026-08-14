@@ -49,6 +49,61 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_aboutHisParents_01",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "shop"  &&
+        getCurrentDay(player) >= (player.flags.act3_quest_07_done_day + 2) &&
+        player.flags?.act3_you_know_who_is_sora &&
+        player.flags?.eric_youTellTruth &&
+        NPC_DATA["eric"].emotion.affection >= 50 &&
+        !player.flags?.soraDie &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_aboutHisParents_01 = true;
+        player.flags.eric_aboutHisParents_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_aboutHisParents_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_day_01",
+
+    condition : (player) =>
+        player.location === "darkStreet"  &&
+        player.flags?.endAshParents &&
+        player.flags.eric_day !== getCurrentDay(player) &&
+        NPC_DATA["eric"].emotion.affection >= 50 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.7,
+
+    action : (player) => {
+        player.flags.eric_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_day_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //루크
 window.EVENTS.push({
     id : "luke_guard_punishment_event",
@@ -3337,6 +3392,30 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["sion"].scenes.sion_withSion_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_hisLittleConfession_05",
+    once : true,
+
+    condition : (player) =>
+        NPC_DATA["sion"].emotion.affection >= 90 &&
+        ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
+        player.location === "townStreet" &&
+        player.justMoved,
+
+    action : (player) => {
+        addItem(player, ITEMS.weapon.sionGreatSword);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_hisLittleConfession_05,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

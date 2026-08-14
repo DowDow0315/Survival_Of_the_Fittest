@@ -1175,7 +1175,7 @@ window.EVENTS.push({
                                 run : (player) => {
                                     player.flags.act3_uppercity_route = false;
                                     player.flags.uppercityHero = false;
-                                    player.flags.neutral_route = true;
+                                    player.flags.act3_neutral_route = true;
                                     player.flags.upper_route_quest_08_after_betray_day = getCurrentDay(player);
                                     changeNPCEmotion("valen", "affection", -100);
                                     changeNPCEmotion("akasia", "affection", -100);
@@ -1210,6 +1210,81 @@ window.EVENTS.push({
                             }
                         ]
                     }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_08_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_08_after_01,
+
+    action : (player) => {
+        player.flags.upper_route_quest_08_after_03 = true;
+        player.flags.upper_route_quest_08_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"상류도시의 영웅이다!\"<br><br>" +
+                    "어디선가 환호성이 들려왔다. 당신은 고개를 돌렸다. 상류도시 사람들 중 몇몇이 당신을 보며 박수를 치고 있었다. 그들 중 몇몇은 당신에게 다가와 자신들은 반란군 때문에 가족을 잃었다고 말했다. 반란군 때문에 연인을 잃은 자들도 있었다. 그들은 무슨 일이 있어도 반란군은 용서하면 안 된다고 입을 모아서 말했다." +
+                    "<br><br>\"우리는 발렌님께 당신의 출신을 바꿔달라고 요청을 드릴까 합니다.\"<br><br>" +
+                    "그들은 당신은 하류도시 출신이면 안 된다고 말했다. 그들은 당신은 하류도시 출신이기에는 너무 고귀하고 아름답다고도 말했다. <br><br>...비꼬는 것이 아니었다. 그들은 진심으로 그렇게 믿고 있었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_09_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.common_route_quest_08_after_luke_02 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_08_after_03_day + 2),
+
+    action : (player) => {
+        player.flags.upper_route_quest_09_intro_01 = true;
+        player.flags.upper_route_quest_09_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "천국의 성이 평소보다 더 분주해보인다. 상류도시의 귀족들은 여전히 부채로 입을 가리고 잡담을 하고 있었지만 오늘의 잡담은 평소와 주제가 달랐다. \"반란군 토벌도 아닌데 이렇게 많은 백색 군단이 움직이는 건 처음 아닌가요?\" 그들은 지금 세상이 어떻게 돌아가는지를 모르겠다며 불안해했다." +
+                    "<br><br>\"불안해하실 필요 없습니다.\"<br><br>" +
+                    "발렌이다. 그의 목소리는 크지 않았지만 모든 사람들의 시선이 그에게 집중됐다. 발렌은 천사같은 미소를 지으며 이번에야말로 상류도시를 지킬 수 있는 방안에 가까워지는 것뿐이라고 말했다." +
+                    "<br><br>\"제가 있는 한, 상류도시는 절대로 쓰러지지 않습니다.\"<br><br>" +
+                    "그의 시선은 마지막으로 당신을 향했다." +
+                    "<br><br>\"저는 제 목숨을 바쳐서라도 상류도시를 지킬 것이니까요.\""
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "사람들의 동요를 가라앉힌 후 발렌은 당신에게 걸어왔다. 그는 당신에게 이번에야말로 당신의 힘이 필요하다고 말했다." +
+                    "<br><br>\"창백을 얻을 겁니다.\"<br><br>" +
+                    "...창백? 그는 지금 알고 말하는 걸까? 당신의 표정에 발렌은 미소를 지었다." +
+                    "<br><br>\"아무나 선택하셔도 됩니다. 다만, 그 '아무나'는 저희의 편이 되어야 합니다. 믿고 있겠습니다, 상류도시의 영웅.\"<br><br>" +
+                    "그는 때가 되면 당신에게 한 번 더 연락을 주겠다고 말했다. 그는 당신의 손등에 입술을 맞춘 후 다른 쪽으로 걸어갔다."
                 ]
             }
         ], player, {

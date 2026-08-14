@@ -1533,6 +1533,48 @@ const WEAPON_SKILLS = {
             unlock : 200,
             desc : "6턴간 hp 40 회복, 회피율/명중률 2배"
         }
+    ],
+    "장미대검" : [
+        {
+            name : "맹목적인 마음",
+            cost : 3,
+            type : "buff",
+            effect : {
+                id : "sionGreatSword_buff",
+                atkMult : 2,
+                evaMult : 1.5
+            },
+            duration : 6,
+            unlock : 20,
+            desc : "6턴간 공격력 2배, 회피력/명중률 1.5배"
+        },
+        {
+            name : "내려찍기",
+            cost : 4,
+            type : "damage",
+            power : 7.3,
+            unlock : 100,
+            desc : "데미지 7.3배"
+        },
+        {
+            name : "흩날리는 장미",
+            cost : 4,
+            type : "multiHit",
+            power : 2.1,
+            hits : 4,
+            unlock : 150,
+            desc : "데미지 2.1배로 4번 공격" 
+        },
+        {
+            name: "장미 핏바람",
+            cost: 3,
+            type: "bleed",
+            id : "sionGreatSword_bleed",
+            dot: 50,
+            duration: 3,
+            unlock: 200,
+            desc : "3턴간 상대방에게 출혈데미지(50)"
+        }
     ]
 };
 
@@ -1682,6 +1724,10 @@ const MASTER_SKILLS = {
     "아카시아향 은장도" : {
         requiredMastery : 300,
         skillName : "달향의 시선"
+    },
+    "장미대검" : {
+        requiredMastery : 300,
+        skillName : "맹목적인 마음"
     }
 };
 
@@ -2118,6 +2164,19 @@ const ITEMS ={
                 dex : 9,
                 int : 10,
                 charm : 10
+            } 
+        },
+
+        sionGreatSword : {
+            name : "장미대검",
+            type : "weapon",
+            desc : "당신이 있는 세상에서만 장미는 시들지 않는다.",
+            price : 30000,
+            stats : {
+                str : 15,
+                dex : 7,
+                int : 3,
+                charm : 5
             } 
         }
     },

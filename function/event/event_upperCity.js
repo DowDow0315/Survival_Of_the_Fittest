@@ -143,6 +143,33 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_aboutHisParents_02",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        getCurrentDay(player) >= (player.flags.eric_aboutHisParents_01_day + 3) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        !player.flags?.soraDie &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_aboutHisParents_02 = true;
+        player.flags.eric_aboutHisParents_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_aboutHisParents_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
@@ -1025,6 +1052,63 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["deric"].scenes.deric_afterHisGoing_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_aboutHisParents_03",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "heavenRoad"  &&
+        getCurrentDay(player) >= (player.flags.eric_aboutHisParents_02_day + 2) &&
+        NPC_DATA["deric"].emotion.affection >= 70 &&
+        NPC_DATA["eric"].emotion.affection >= 50 &&
+        !player.flags?.act3_quest_09_unlock &&
+        !player.flags?.soraDie &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.deric_aboutHisParents_03 = true;
+        player.flags.deric_aboutHisParents_03_day = getCurrentDay(player);
+        player.flags.openLateLab = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_aboutHisParents_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_aboutHisParents_04",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        player.flags?.endAshParents &&
+        !player.flags?.act3_quest_09_unlock &&
+        !player.flags?.soraDie &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.deric_aboutHisParents_04 = true;
+        player.flags.deric_aboutHisParents_04_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_aboutHisParents_04,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

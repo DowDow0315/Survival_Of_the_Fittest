@@ -1047,6 +1047,34 @@ const QUESTS = {
 
         acceptText : "\"뒤틀린 깊은숲.\"<br><br>마틴은 장소를 말해주며 당신에게 의뢰서를 내밀었다. 그의 얼굴은 평소보다 창백했다.<br><br>\"그것들은 폐야에서 내려오고 있어.\"",
         completeText : "마틴은 당신의 얼굴을 힐끗 보더니 괜찮냐고 물었다. <br><br>\"...보고는 내가 할 테니 들어가서 쉬어.\"<br><br>그는 주저하다가 마지막 말을 덧붙였다. <br><br>\"...네 몸은 네가 챙겨야 해.\""
+    },
+
+    act3_quest_09 : {
+        id : "act3_quest_09",
+        title : "소녀와 소녀",
+        type: "investigate",
+        targetName : "소녀",
+        repeatable : false,
+        giver : "",
+        
+        desc : "하얀꽃 무덤에서, 두 소녀는 당신을 기다리고 있다.",        
+        activeDesc : "하얀꽃 무덤에 가야 한다.",
+        readyDesc : "결국 두 소녀들 중 한 명은 사라졌다. 당신이 어떤 선택을 했든 옳지 않았다. 당신이 어떤 선택을 했든 틀리지도 않았고.",
+        targetFlag : "act3_quest_09_boss_end",
+        requiredKill: 1,
+        rewardGold: 45000,
+
+        require : {
+            flag : "act3_quest_09_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_09_done = true;
+            player.flags.act3_quest_09_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "\"...의뢰의 내용이 뭔지는 모르겠어.\"<br><br>마틴이 말했다.<br><br>\"...네가 어떤 선택을 하든, 한번 선택을 하면 뒤돌아보지 마.\"<br><br>하지만 그는 이 의뢰가 소라와 관련이 있다는 걸 눈치채고 있다.",
+        completeText : "마틴은 당신에게 아무 말도 하지 않았다. 그저 고개를 끄덕인 후, 따듯한 수프 하나를 당신의 앞에 내밀었을 뿐."
     }
 };
 

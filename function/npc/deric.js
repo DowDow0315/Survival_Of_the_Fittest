@@ -322,21 +322,21 @@ registerActions("deric", {
     otherTalk : (player) => {
         const choices = [];
 
-        if (player.flags?.eric_break_wineGlass && !player.flags?.deric_dareToBreakWineGlass){
+        if (player.flags?.eric_break_wineGlass && !player.flags?.deric_dareToBreakWineGlass && !player.flags?.ericDie ){
             choices.push({
                 text: "당신은 데릭의 잔을 깨뜨렸다.",
                 scene: NPC_DATA.deric.scenes.deric_dareToBreakWineGlass
             });
         }
 
-        if (player.flags?.dericEricBloodyBandage && !player.flags?.deric_ericfirehistowel){
+        if (player.flags?.dericEricBloodyBandage && !player.flags?.deric_ericfirehistowel && !player.flags?.ericDie){
             choices.push({
                 text: "당신은 에릭에게 수건을 가져다주었다고 말했다.",
                 scene: NPC_DATA.deric.scenes.deric_ericfirehistowel
             });
         }
 
-        if (player.flags?.eric_deric_hisGoing && !player.flags?.deric_notAnswer){
+        if (player.flags?.eric_deric_hisGoing && !player.flags?.deric_notAnswer && !player.flags?.ericDie){
             choices.push({
                 text: "당신은 상류도시 관문에서 있었던 일에 대해 물었다.",
                 scene: NPC_DATA.deric.scenes.deric_notAnswer

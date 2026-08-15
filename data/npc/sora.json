@@ -1,6 +1,6 @@
 {
     "name" : "소라",
-    "hp" : 650,
+    "hp" : 700,
     "attack" : 80,
     "defense" : 60,
     "eva" : 60,
@@ -134,7 +134,7 @@
             ]
         },
         {
-            "name" : "폭주한 촉수",
+            "name" : "촉수 두 번",
             "type" : "multiHit",
             "power" : 1,
             "hits" : 2,

@@ -1144,7 +1144,7 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
     ){
         choices.push({
             text: "흉물에 오염된 고블린들을 토벌하러 간다",
-            action: "start_abominatedGolbinRaid"
+            action: "start_abominatedGoblinRaid"
         });
     }
 

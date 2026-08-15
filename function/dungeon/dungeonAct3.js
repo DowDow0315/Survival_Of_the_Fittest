@@ -833,7 +833,14 @@ Object.assign(DUNGEONS, {
             "r7c0" : {name : "비밀 공간", exits : {up : "r6c0"}, event : "lateLab_memo_05", seenFlag : "lateLab_memo_05"},
             "r7c6" : {name : "불", exits : {up : "r6c6", right : "r7c7"}, event : "lateLab_lightUp", seenFlag : "lateLab_lightUp"},
             "r7c7" : {name : "연구소 입구", exits : {left : "r7c6"}}
-        }
+        },
+
+        encounters : [
+            { type : "battle", enemy : "flower3", minCount : 2, maxCount : 4, weight : 30},
+            { type : "battle", enemies : ["flower5", "flower6", "flower4"], weight : 20 },
+            { type : "battle", enemies : ["flower3", "flower", "flower2", "flower3"], weight : 30 },
+            { type : "battle", enemies : ["flower5", "flower6", "flower5", "flower6"], weight : 30 }
+        ]
     }
 })
 

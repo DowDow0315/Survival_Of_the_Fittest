@@ -455,6 +455,18 @@ function calculateDamage(attack, defense){
     return Math.max(1, damage); //최소 1 데미지
 }
 
+function applyPlayerCritical(player, damage){
+    if (
+        hasBattleTrait(player, "slippery") &&
+        Math.random() < 0.3
+    ){
+        log("치명타!", "damage");
+        return damage * 2;
+    }
+
+    return damage;
+}
+
 //공격턴제
 
 function playerAttack(isBonusAttack = false){
@@ -714,6 +726,9 @@ function useSkill(index){
                 powerStat * skill.power,
                 getEnemyFinalDef(enemy)
             );
+
+            damage = applyPlayerCritical(player, damage);
+
             enemy.hp -= damage;
             log(`${skill.name}! ${formatStatNumber(damage)} 데미지!`, "damage");
             break;
@@ -726,10 +741,12 @@ function useSkill(index){
             
             for (let i = 0; i < hits; i++){
                 const defenseRate = 0.5 + Math.random() * 0.2;
-                const d = calculateDamage(
+                let d = calculateDamage(
                     powerStat * (skill.power || 1),
                     Math.floor(getEnemyFinalDef(enemy) * defenseRate)
                 );
+
+                d = applyPlayerCritical(player, d);
                 
                 total += d;
                 log(`${i + 1}타! ${formatStatNumber(d)} 데미지!`, "damage");
@@ -803,10 +820,12 @@ function useSkill(index){
         }
 
         case "drainHp": {
-            const damage = calculateDamage(
+            let damage = calculateDamage(
                 powerStat * (skill.power || 1),
                 getEnemyFinalDef(enemy)
             );
+
+            damage = applyPlayerCritical(player, damage);
             
             enemy.hp -= damage;
             

@@ -1,0 +1,115 @@
+{
+    "name": "창백한 촉수",
+    "hp": 350,
+    "attack": 48,
+    "defense": 40,
+    "eva": 55,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "flower",
+            "chance": 0.8
+        },
+        {
+            "item": "flowerNectar",
+            "chance": 0.8
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            "..."
+        ],
+        "weak" : [
+            "...."
+        ],
+        "success" : [
+            "....."
+        ]
+    },
+    "lines": {
+        "attack": [
+            "촉수가 당신을 내려친다."
+        ],
+        "hit": [
+            "창백한 촉수는 당신의 공격에 제 몸을 말았다."
+        ],
+        "evade": [
+            "창백한 촉수는 당신의 공격을 회피했다."
+        ],
+        "defeat": [
+            "창백한 촉수는 꿈틀거리더니 곧 움츠러들었다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            "창백한 촉수는 당신을 놓아주지 않는다."
+        ],
+        "escapeSuccess": [
+            "당신은 어떻게든 창백한 촉수에게서 도망갔다. 도망에 성공했다!"
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name" : "창백한 촉수 회복",
+            "type" : "selfBuff",
+            "chance" : 0.4,
+            "duration" : 1,
+            "effect" : {
+                "id" : "flower7_heal",
+                "heal": 100
+            },
+            "lines" : [
+                "창백한 촉수는 자신의 체력을 회복했다."
+            ]
+        },
+        {
+            "name" : "촉수 치기",
+            "type" : "multiHit",
+            "power" : 0.85,
+            "hits" : 2,
+            "chance" : 0.6,
+            "lines" : [
+                "촉수는 당신을 두 번 내려쳐왔다."
+            ]
+        },
+        {
+            "name": "촉수 내려치기",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "창백한 촉수가 당신을 내려친다."
+            ]
+        }
+    ],
+    "exp": 250
+}

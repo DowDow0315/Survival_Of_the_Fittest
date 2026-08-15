@@ -1292,3 +1292,34 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_09_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_09_intro_01 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_09_intro_01_day + 3),
+
+    action : (player) => {
+        player.flags.upper_route_quest_09_intro_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 걷고 있는 당신의 앞으로 에이든이 걸어왔다." +
+                    "<br><br>\"모든 준비를 마쳤습니다, 상류도시의 영웅. 당신이 소라에게 특별한 관심을 받고 있다는 건 압니다. <br><br>저희 대신 소라의 상점에 들어가주시겠습니까? 저희는 상점 앞에서 대기하고 있겠습니다.\"<br><br>" +
+                    "...불길한 예감이 든다." +
+                    "<br><br><span class='log-danger'>소라의 상점에 가면 돌이킬 수 없습니다. 진행하고 있던 퀘스트가 있다면 완료해주십시오.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

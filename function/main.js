@@ -2170,6 +2170,10 @@ function renderMap(player){
     ? "goldenShelter"
     : "shelter";
 
+    const shopKey = player.flags?.soraDie
+    ? "reclaimedShop"
+    : "shop";
+
     mapArea.innerHTML = `
         <div class="map-box">
             <h3>지도</h3>
@@ -2194,7 +2198,7 @@ function renderMap(player){
                     <div class="branch-list">
                         ${hasHouse(player, "under") ? node("underHouse") : ""}
                         ${node(shelterKey)}
-                        ${node("shop")}
+                        ${node(shopKey)}
                         ${node("tavern")}
                         ${node("subway")}
                         ${node("gloryHole")}
@@ -3069,6 +3073,11 @@ function handleAction(action, player){
 
     if (action === "open_soraShop"){
         openShop("soraShop", player);
+        return;
+    }
+
+    if (action === "open_reclaimedShop"){
+        openShop("reclaimedShop", player);
         return;
     }
 

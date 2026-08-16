@@ -2358,6 +2358,7 @@ const ITEMS ={
             price : 3000,
             stats : {}
         },
+
         dotBra : {
             name : "도트브라",
             type : "bra",
@@ -2366,6 +2367,7 @@ const ITEMS ={
                 charm : 1
             }
         },
+
         ribonBra : {
             name : "리본브라",
             type : "bra",
@@ -2399,6 +2401,36 @@ const ITEMS ={
             price : 0,
             stats : {
                 charm : 3
+            }
+        },
+        goldenThreadBra : {
+            name : "금실브라",
+            type : "bra",
+            desc : "상류도시에서 유행하는 화려한 브라. 몸보다 장식이 더 무거운 것 같은 기분이 든다.",
+            price : 150000,
+            stats : {
+                str : 3,
+                charm : 5
+            }
+        },
+        armoredBra : {
+            name : "철갑브라",
+            type : "bra",
+            desc : "중요한 부위만큼은 확실하게 보호한다. 상당히 무겁고 착용감은 최악이다.",
+            price : 10000,
+            stats : {
+                str : 3,
+                int : 2
+            }
+        },
+        bandageBra : {
+            name : "압박붕대",
+            type : "bra",
+            desc : "중요한 부위만큼은 확실하게 보호한다. 상당히 무겁고 착용감은 최악이다.",
+            price : 20000,
+            stats : {
+                dex : 5,
+                int : 3
             }
         }
     },
@@ -2640,7 +2672,54 @@ const ITEMS ={
             stats : {
                 charm : 3
             }
-        }
+        },
+
+        slimePants : {
+            name : "슬라임팬티",
+            type : "underwear",
+            desc : "특수 가공한 슬라임으로 만들었다. 시원하고 신축성이 좋지만 가끔 혼자서 꿈틀거린다.",
+            price : 12000,
+            stats : {
+                dex : 2,
+                charm : 3
+            }
+        },
+
+        luckyPants : {
+            name : "행운의 빨간 팬티",
+            type : "underwear",
+            desc : "이것을 입고 살아 돌아왔다는 사람은 많다. 입고도 죽은 사람은 증언할 수 없었다.",
+            price : 7777777,
+            stats : {
+                str : 7,
+                dex : 7,
+                int : 7,
+                charm : 7
+            }
+        },
+
+        goldenThreadPants : {
+            name : "금실팬티",
+            type : "underwear",
+            desc : "상류도시의 재단사가 금빛 실로 수놓은 속옷. 지나치게 화려해서 오히려 입고 있는 쪽이 민망하다.",
+            price : 150000,
+            stats : {
+                str : 3,
+                charm : 5
+            }
+        },
+
+        invisiblePants : {
+            name : "투명팬티",
+            type : "underwear",
+            desc : "분명 입고 있는데 보이지 않는다. 이걸 속옷이라고 부를 수 있는지는 의견이 갈린다.",
+            price : 10000,
+            stats : {
+                str : 1,
+                charm : 4,
+                dex : 4
+            }
+        },
     },
 
     accessary : {
@@ -2762,6 +2841,24 @@ const ITEMS ={
             value: 100,
             price: 2000
         },
+        fullPotion2: {
+            name: "가득영양제(150)",
+            type: "heal",
+            value: 150,
+            price: 3500
+        },
+        fullPotion3: {
+            name: "가득가득영양제(200)",
+            type: "heal",
+            value: 200,
+            price: 4500
+        },
+        fullPotion4: {
+            name: "창백특제영양제(300)",
+            type: "heal",
+            value: 300,
+            price: 6500
+        },
         meatPotion : {
             name : "무언가의고기(10)",
             type : "heal",
@@ -2784,6 +2881,24 @@ const ITEMS ={
             effect: {
                 heal: 30,
                 duration: 4
+            }
+        },
+        regenPotion3: {
+            name: "최상급 재생 물약(40*5)",
+            type: "regen",
+            price: 4000,
+            effect: {
+                heal: 40,
+                duration: 5
+            }
+        },
+        regenPotion4: {
+            name: "창백 특제 재생 물약(50*6)",
+            type: "regen",
+            price: 7000,
+            effect: {
+                heal: 50,
+                duration: 6
             }
         },
         smallStaminaPotion : {

@@ -1,6 +1,7 @@
 const LOCATION_SCENE_BUILDERS = {
     townStreet : buildTownStreetScene,
     shop: buildShopScene,
+    reclaimedShop: buildReclaimedShopScene,
     barracks : buildBarracksScene,
     darkStreet : buildDarkStreetScene,
     lukeHouse: buildLukeHouseScene,
@@ -36,6 +37,8 @@ const LOCATION_SCENE_BUILDERS = {
 };
 
 function getLocationScene(player){
+    updateReclaimedShopLocation(player);
+
     if (player.dungeon?.active && typeof buildDungeonScene === "function"){
         return buildDungeonScene(player);
     }
@@ -151,6 +154,27 @@ function buildShopScene(player, loc, randomDesc){
     choices.push(
         { text: "쇼핑", action: "open_soraShop" },
         { text: "소라와 대화", action: "sora_talk" },
+        { text: "나가기", action: "move_townStreet" }
+    );
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+function buildReclaimedShopScene(player, loc, randomDesc){
+    const choices = [];
+
+    choices.push(
+        { text: "쇼핑", action: "open_reclaimedShop" },
+        { text: "창백과 대화", action: "pale_talk" },
         { text: "나가기", action: "move_townStreet" }
     );
 

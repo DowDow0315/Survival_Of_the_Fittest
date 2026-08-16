@@ -320,7 +320,7 @@ function socketGem(player, item, gem){
         trait: gemConfig.trait
     };
 
-    removeItem(player, gem);
+    removeItem(player, gem.key);
 
     savePlayer(player);
     updateDerivedStats(player);

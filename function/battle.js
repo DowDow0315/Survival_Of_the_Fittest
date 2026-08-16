@@ -1179,6 +1179,42 @@ function enemyTurn(){
         endEnemyTurn();
         return;
     }
+
+    if (skill.type === "summon"){
+        const enemyFactory = ENEMIES[skill.enemyId];
+        
+        if (!enemyFactory){
+            console.error(`등록되지 않은 소환 적: ${skill.enemyId}`);
+            endEnemyTurn();
+            return;
+        }
+        
+        enemy.summonUses = enemy.summonUses || {};
+        
+        const skillId = skill.id || skill.name;
+        const amount = skill.amount ?? 1;
+        
+        if (skill.lines?.length){
+            log(getRandom(skill.lines));
+        } else {
+            log(`${enemy.name}이 지원군을 불러냈다!`);
+        }
+        
+        for (let i = 0; i < amount; i++){
+            const summonedEnemy = enemyFactory();
+            
+            battleState.enemies.push(summonedEnemy);
+            
+            log(`${summonedEnemy.name}이 전투에 참가했다!`, "damage");
+        }
+        
+        enemy.summonUses[skillId] =
+        (enemy.summonUses[skillId] || 0) + 1;
+        
+        updateBattleUI();
+        endEnemyTurn();
+        return;
+    }
     
     const blockedByAttack = 
     battleState.usedNormalAttack &&
@@ -1835,6 +1871,21 @@ function chooseEnemySkill(enemy){
     let available = enemy.skills.filter(skill => {
         if (skill.type === "disarm" && !player.equipment.weapon){
             return false;
+        }
+
+        if (skill.type === "summon"){
+            const skillId = skill.id || skill.name;
+            const used = enemy.summonUses?.[skillId] || 0;
+            const maxUses = skill.maxUses ?? 1;
+            
+            if (used >= maxUses){
+                return false;
+
+            }
+            
+            if (!ENEMIES[skill.enemyId]){
+                return false;
+            }
         }
         return true;
     });

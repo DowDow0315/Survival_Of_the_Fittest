@@ -227,7 +227,7 @@ function weeklyPaymentAfterEricDeath(player){
 
                                 if (player.gold > 0){
                                     return "당신은 돈을 내지 않겠다고 말했다. 수금책은 잠시 당신을 바라보다가 피식 웃었다." +
-                                        "<br><br>\"네가 정하는 게 아닌데.\"" +
+                                        "<br><br>\"그건 네가 정하는 게 아닌데.\"" +
                                         `<br><br>그는 당신이 가지고 있던 ${taken}G를 전부 가져갔다.`;
                                 }
 

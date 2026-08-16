@@ -1605,3 +1605,91 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "yuriAndSion_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["townEntrance_act3", "forest_act3", "deepForest_act3"].includes(player.location) &&
+        player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
+        (hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        NPC_DATA["sion"].emotion.affection >= 40 &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.yuriAndSion_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "서로의 칼이 부딪히는 소리가 들린다. 당신이 고개를 돌리자 그 자리에는 유리와 시온이 있었다. 대련이라도 하고 있었는지, 유리는 사뭇 진지한 얼굴로 시온을 바라보고 있었다. 하지만 시온은 당신의 인기척이 느껴지자마자 당신 쪽을 바라보았다. 그의 얼굴이 반가움으로 환해졌다." +
+                    "<br><br>챙<br><br>" +
+                    "날카로운 소리와 함께 시온의 대검이 옆으로 쳐내졌다. 눈을 깜박였을 때 유리의 대거는 시온의 목 바로 앞에서 멈춰 있었다. 시온은 인상을 찌푸렸다." +
+                    "<br><br>\"...비겁하긴, 제가 이기고 있었는데.\"<br><br>" +
+                    "\"시온, 네가 강하다는 건 잘 알고 있어. 하지만 누가 온다고 해도 적에서 시선을 떼면 안 돼. 한순간이 네 목숨을 가져갈 수도 있으니까.\"<br><br>" +
+                    "유리의 차분한 목소리에 시온은 코웃음을 쳤다. 그는 당신은 어떻게 영웅님이 있는데도 그렇게 차분할 수 있냐고 물었다. 영웅님을 정말 아끼는 건 맞아요? 시온은 신경질적으로 유리의 대거를 쳐냈다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 입술을 삐죽거리며 유리에게 자신은 보이지도 않는 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 유리는 미소를 지으며 고개를 저었다." +
+                                    "<br><br>\"네가 안 보일 리가. 하지만 내가 쓰러진다면 더 이상 널 지켜줄 수 없잖아.\"<br><br>" +
+                                    "유리의 다정한 호박색 눈동자가 당신을 바라본다."  +
+                                    "<br><br>\"...어떻게 그러겠어요. 저는 영웅님에게서 눈을 뗄 수 없는걸요. 유리 형이라면 영웅님이 쓰러져도 해야 할 일을 먼저 생각하시겠지만.\"<br><br>" +
+                                    "시온은 의도적으로 당신과 유리의 사이에 섰다. 유리와 마주쳤던 시선은 불쑥 끼어든 시온에게 가로막혔다. 시온은 당신을 뒤돌아보며 자신은 언제나 영웅님이 1순위라고 말했다." +
+                                    "<br><br>\"유리 형과는 다르게요.\"<br><br>" +
+                                    "...분위기가 무거워졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 1);
+                                    changeNpcSuspicion("yuri", 3);
+                                    changeNpcSuspicion("sion", 3);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 시온에게 무슨 일이 있어도 적에게서는 시선을 떼면 안 된다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...어떻게 그럴 수 있겠어요. 저는 영웅님에게서 시선을 뗄 수 없는 걸요. 유리 형은 영웅님이 쓰러져도 앞만 바라보시겠지만.\"<br><br>" +
+                                    "\"그럴 일은 없어.\"<br><br>" +
+                                    "유리의 목소리는 단호했다. 그는 시온이 다른 행동을 취하기 전에 당신에게 걸어와 곁에 섰다" +
+                                    "<br><br>\"내가 무슨 일이 있어도 지킬 거니까.\"<br><br>" +
+                                    "그는 시온이 반박하기도 전에 먼저 입술을 뗐다." +
+                                    "<br><br>\"내 사랑을 지켜주는 건 고맙지만, 내가 지키지 못할 때 지켜주도록 해. 순서를 지켜야지.\"<br><br>" +
+                                    "...시온의 눈에 살기가 일렁인다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", -5);
+                                    changeNpcSuspicion("yuri", 3);
+                                    changeNpcSuspicion("sion", 5);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

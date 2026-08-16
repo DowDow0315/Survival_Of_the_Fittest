@@ -87,6 +87,76 @@ const SHOPS = {
             ITEMS.misc.pepperSeed
         ]
     },
+
+    reclaimedShop: {
+        name: "되찾은 상점",
+        items: [
+            ITEMS.weapon.rebelsSpear,
+            ITEMS.weapon.fallenGoblingKingSword,
+            ITEMS.weapon.rebelsTwinDagger,
+            ITEMS.weapon.whiteArmyShieldMace,
+
+            ITEMS.top.rebelsTop2,
+            ITEMS.top.whiteUppercityTop2,
+            ITEMS.top.croptshirt,
+            ITEMS.top.overshirt,
+            ITEMS.top.hoodie,
+
+            ITEMS.bra.basicBra,
+            ITEMS.bra.dotBra,
+            ITEMS.bra.ribonBra,
+            ITEMS.bra.raceBra,
+            ITEMS.bra.strapLessBra,
+            ITEMS.bra.goldenThreadBra,
+            ITEMS.bra.armoredBra,
+            ITEMS.bra.bandageBra,
+
+            ITEMS.bottom.rebelsBottom2,
+            ITEMS.bottom.whiteUppercityBottom2,
+            ITEMS.bottom.bluejeams,
+            ITEMS.bottom.blackjeams,
+            ITEMS.bottom.hotpants,
+            ITEMS.bottom.skirts,
+            ITEMS.bottom.longskirts,
+            ITEMS.bottom.shortskirts,
+
+            ITEMS.underwear.basic,
+            ITEMS.underwear.racepants,
+            ITEMS.underwear.ribonpants,
+            ITEMS.underwear.hundosiHM,
+            ITEMS.underwear.slimePants,
+            ITEMS.underwear.luckyPants,
+            ITEMS.underwear.goldenThreadPants,
+            ITEMS.underwear.invisiblePants,
+
+            ITEMS.consumable.smallPotion,
+            ITEMS.consumable.mediumPotion,
+            ITEMS.consumable.highPotion,
+            ITEMS.consumable.fullPotion,
+            ITEMS.consumable.fullPotion2,
+            ITEMS.consumable.fullPotion3,
+            ITEMS.consumable.fullPotion4,
+
+            ITEMS.consumable.regenPotion,
+            ITEMS.consumable.regenPotion2,
+            ITEMS.consumable.regenPotion3,
+            ITEMS.consumable.regenPotion4,
+
+            ITEMS.consumable.smallStaminaPotion,
+            ITEMS.consumable.mediumStaminaPotion,
+            ITEMS.consumable.largeStaminaPotion,
+
+            ITEMS.consumable.calmPotion,
+
+            ITEMS.misc.potatoSeed,
+            ITEMS.misc.cabbageSeed,
+            ITEMS.misc.mushroomSeed,
+            ITEMS.misc.wheatSeed,
+            ITEMS.misc.riceSeed,
+            ITEMS.misc.pepperSeed
+        ]
+    },
+
     matinShop : {
         name : "마틴의 주점 물품",
         items : [

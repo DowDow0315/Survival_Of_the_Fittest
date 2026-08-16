@@ -2,7 +2,7 @@
     "name": "모방의 백흉물",
     "hp": 600,
     "attack": 58,
-    "defense": 58,
+    "defense": 68,
     "eva": 62,
     "lustResist" : 1,
     "drops": [
@@ -118,11 +118,11 @@
             "type" : "debuff",
             "duration" : 3,
             "effect" : {
-                "evaMult" : 0.6,
-                "atkMult" : 0.6,
-                "defMult" : 0.6
+                "evaMult" : 0.5,
+                "atkMult" : 0.5,
+                "defMult" : 0.5
             },
-            "chance" : 0.4,
+            "chance" : 0.5,
             "lines" : [
                 "그것은 꿈틀거리더니 당신이 지금 가장 그리워하는 사람의 얼굴로 변신했다. 당신은 순간 동요했다.",
                 "\"...기억, 나.\"<br><br>그것은 당신이 가장 그리워하는 사람의 얼굴로 변신했다. 그것은 당신을 보며 익숙한 얼굴로 히죽 웃었다. <br><br>\"기억, 나?\""
@@ -132,10 +132,10 @@
             "name" : "개화",
             "type" : "selfBuff",
             "chance" : 0.2,
-            "duration" : 1,
+            "duration" : 2,
             "effect" : {
                 "id" : "whiteAbomination4_healbuff",
-                "heal" : 100
+                "heal" : 150
             },
             "lines" : [
                 "모방의 백흉물의 몸에서 하얀 꽃이 만개했다. 그와 동시에, 상처가 꽃잎에 덮이면서 순식간에 사라졌다."
@@ -144,9 +144,9 @@
         {
             "name" : "강탈",
             "type" : "drainHp",
-            "power" : 1,
+            "power" : 1.5,
             "healRate" : 0.5,
-            "chance" : 0.25,
+            "chance" : 0.7,
             "lines" : [
                 "모방의 백흉물이 당신의 몸을 스쳤다. 그 순간 당신의 힘이 꽃잎 속으로 빨려들어갔다.",
                 "그것은 입꼬리를 올리며 웃었다. <br><br>\"내, 놔.\"<br><br>그것의 손이 당신에게 일부분이라도 닿는 순간, 당신은 그것에게 생명력을 빼앗겼다."

@@ -492,6 +492,28 @@ const LOCATIONS ={
             townStreet: 4
         }
     },
+    reclaimedShop:{
+        name: "되찾은 상점",
+        desc:  {
+            dawn : [
+                "되찾은 상점이다. <br>창백은 당신을 인지하자마자 웃었다. 등뒤에서 창백한 촉수가 마치 강아지 꼬리처럼 이리저리 흔들린다."
+            ],
+            morning: [
+                "되찾은 상점이다. <br>창백은 카운터의 물품을 정리하다가 당신을 돌아보며 속삭이듯이 물었다. <br><br>\"아침은... 먹었어...?\""
+            ],
+            afternoon : [
+                "되찾은 상점이다. <br>카운터의 물품은 소라가 있을 때보다 훨씬 깔끔하게 정리되어 있었다. 새로운 물품도 들여와서 그런지 상점을 찾는 사람들이 더 많아졌다."
+            ],
+            night : [
+                "되찾은 상점이다. <br>창백은 졸고 있다가 당신의 인기척에 바로 눈을 떴다. 그는 당신을 보며 미소를 지었다."
+            ]
+        },
+        sleepDanger:0.0,
+        collectorChance:0.8,
+        connections : {
+            townStreet: 4
+        }
+    },
     shelter:{
         name: "쉘터",
         desc:  {
@@ -1330,5 +1352,33 @@ function updateGoldenShelterLocation(player){
         applyGoldenShelterLocationChange();
     } else {
         resetGoldenShelterLocationChange();
+    }
+}
+
+//소라 사망 후 상점 바뀌기
+function resetReclaimedShopLocationChange(){
+    delete LOCATIONS.townStreet.connections.reclaimedShop;
+    LOCATIONS.townStreet.connections.shop = 4;
+}
+
+function applyReclaimedShopLocationChange(){
+    delete LOCATIONS.townStreet.connections.shop;
+    LOCATIONS.townStreet.connections.reclaimedShop = 4;
+}
+
+function updateReclaimedShopLocation(player){
+    if (player.flags?.soraDie){
+        applyReclaimedShopLocationChange();
+
+        //소라가 죽은 순간 아직 기존 상점에 있을 경우
+        if (player.location === "shop"){
+            player.location = "reclaimedShop";
+        }
+    } else {
+        resetReclaimedShopLocationChange();
+
+        if (player.location === "reclaimedShop"){
+            player.location = "shop";
+        }
     }
 }

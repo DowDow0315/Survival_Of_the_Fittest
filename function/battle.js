@@ -2633,7 +2633,7 @@ function runAllyTurnSupport(){
         line ||
         `${support.name || "동료"}가 ${enemy.name}을 공격했다! ` +
         `(${formatStatNumber(damage)} 데미지!)`,
-        "damage"
+        support.logType || "damage"
     );
 
     if (enemy.hp <= 0){

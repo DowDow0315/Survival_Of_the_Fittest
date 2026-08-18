@@ -122,6 +122,13 @@ window.FURNITURE_DATA = {
         price : 1000000
     },
 
+    nikolaiDoll : {
+        id : "nikolaiDoll",
+        name : "니콜라이 인형",
+        type : "doll",
+        price : 1000000
+    },
+
     luxuryTeaSet : {
         id : "luxuryTeaSet",
         name : "고급 찻잔 세트",
@@ -1554,6 +1561,27 @@ window.openFurnitureTypeMenu = function(
         ],
         player
     );
+};
+
+window.giveFurniture = function(
+    player,
+    furnitureId
+){
+    initFurnitureInventory(player);
+    const furniture =
+        FURNITURE_DATA[furnitureId];
+    if (!furniture){
+        console.warn(
+            "존재하지 않는 가구:",
+            furnitureId
+        );
+        return false;
+    }
+    player.furnitureInventory.push(
+        furnitureId
+    );
+    savePlayer(player);
+    return true;
 };
 
 window.installFurniture = function(

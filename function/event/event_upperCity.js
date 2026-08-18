@@ -510,6 +510,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_lust_90",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["valen"].emotion.lust >= 90 &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+         !player.flags?.valenDie &&
+         player.location === "heavenPalace" &&
+         ["dawn", "night"].includes(getTimePeriod(player)) &&
+         Math.random() < 0.09,
+
+    action : (player) => {
+        startScene(NPC_DATA["valen"].scenes.valen_lust_90, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};
@@ -1967,6 +1989,65 @@ window.EVENTS.push({
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags?.KainWillNotSingHisSong &&
+        player.weather === "sunny" &&
+        NPC_DATA["kain"].emotion.affection >= 60,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_training_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags?.KainWillNotSingHisSong &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        player.weather === "sunny" &&
+        NPC_DATA["kain"].emotion.rage <= 50 &&
+        NPC_DATA["kain"].emotion.affection >= 90,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["kain"].scenes.kain_training_02,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 15);
+                    changeStamina(player, -20);
+                    passTime(player, 15);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
             }
         );
     }

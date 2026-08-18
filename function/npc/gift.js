@@ -3646,16 +3646,16 @@ const NPC_GIFT_CONFIG = {
                 },
 
                 normal: {
-                    affection: 2,
+                    affection: 1,
                     rage: 0,
-                    lust : 3,
+                    lust : 1,
                     line: "에릭은 당신의 요리와 당신을 번갈아보다가 그대로 당신을 제 무릎 위로 앉혔다. 당신이 당황하자 그는 이런 걸 바란 게 아니었냐고 되물었다."
                 },
             
                 bad: {
                     affection: 1,
                     rage: 0,
-                    lust : 3,
+                    lust : 1,
                     line: "에릭은 당신의 요리와 당신을 번갈아보다가 요리는 치우고 그대로 당신을 제 품으로 끌어안았다. <br><br>\"원하는 거면 그냥 말로 해도 된다.\""
                 }
             },
@@ -3899,6 +3899,363 @@ const NPC_GIFT_CONFIG = {
                 }
             }
         }
+    },
+    pale: {
+        reactions: {
+            paleFavorite: {
+                great: {
+                    affection: 7,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 0,
+                    lust : 0,
+                    line: ""
+                }
+            },
+            paleHate: {
+                great: {
+                    affection: -1,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                normal: {
+                    affection: -2,
+                    rage: 2,
+                    lust : 0,
+                    line: ""
+                },
+            
+                bad: {
+                    affection: -3,
+                    rage: 3,
+                    lust : 0,
+                    line: ""
+                }
+            },
+
+
+            sweet: {
+                great: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 0,
+                    line: "창백은 당신을 올려다보았다. <br><br>\"요리 엄청 잘해... 다음에는 창백도 해줄게.\"<br><br>그는 웃으며 당신의 달콤한 요리를 먹었다."
+                },
+            
+                normal: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 0,
+                    line: "창백은 어려서부터 달콤한 것들은 많이 받았다고 말했다. <br><br>\"사람들이 정말 많이 줬었어....\"<br><br>그는 잠시 생각에 잠겼다."
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "창백은 어려서부터 달콤한 것들은 많이 받았다고 말했다. <br><br>\"사람들이 정말 많이 줬었어....\"<br><br>그는 잠시 생각에 잠겼다."
+                }
+            },
+            
+            lusty: {
+                great: {
+                    affection: 1,
+                    rage: 0,
+                    lust : 2,
+                    line: "창백은 눈을 동그랗게 뜨고 당신을 바라보았다.<br><br>\"...이거...\"<br><br>창백이 얼굴을 붉혔다."
+                },
+
+                normal: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 1,
+                    line: "창백은 당신을 올려다보았다. 그러더니 곧 그는 얼굴을 붉히며 고개를 숙였다."
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"네가 무슨 뜻으로 이걸 줬는지는 알겠어...\"<br><br>창백은 손가락을 꼼지락거렸다. <br><br>\"그렇지만 너무 비려서 못 먹을 것 같아. 미안해.\""
+                }
+            },
+
+            lustyHighAffection : {
+                great: {
+                    affection: 3,
+                    rage: 0,
+                    lust : 3,
+                    line: "창백은 화들짝 놀라더니 음식을 가지고 카운터 밑으로 숨었다. 그는 카운터 아래에 숨어서 빼꼼 당신을 올려다보다가 시선이 마주치자 황급히 눈을 내리깔았다."
+                },
+
+                normal: {
+                    affection: 2,
+                    rage: 0,
+                    lust : 2,
+                    line: "창백은 당신의 요리를 받더니 그대로 카운터 밑으로 숨어버렸다. <br><br>\"...먹을게...\"<br><br>그는 속삭이듯이 말했다."
+                },
+            
+                bad: {
+                    affection: 0,
+                    rage: 0,
+                    lust : 0,
+                    line: "창백은 당신의 요리를 받더니 그대로 카운터 밑으로 숨어버렸다. 비린 냄새가 진동하는데도, 그는 당신의 요리를 먹을 생각인 것 같다. 얼굴이 붉어진 채로."
+                }
+            },
+
+            meat : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"고기는 별로 안 먹어봤어.\"<br><br>창백은 솔직하게 말했다.<br><br>\"그렇지만 좋아, 나를 위해 네가 만들어준 요리는 뭐든.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 당신의 고기 요리를 먹으며 미소를 지었다. <br><br>\"고마워.\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "그는 사람들이 왜 데이트를 할 때 고기 요리를 잘 안 먹는지 알 것 같다고 말했다."
+                }
+            },
+
+            vegetable : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "\"예전에는 많이 먹었는데...\"<br><br>창백은 고개를 숙였다. <br><br>\"이제는 맛이 잘 안 느껴져.\""
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채 요리를 먹으며 잠시 생각에 잠겼다. 과거를 생각하고 있는 걸까? 그는 말이 없다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 맛을 잘 못 느끼지만 당신의 채소 요리가 뭔가 잘못됐다는 건 느낀 것 같다. <br><br>\"...괜찮아. 네 마음만으로도 기뻐.\"<br><br>창백은 진심이다."
+                }
+            },
+
+            fish : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 당신의 생선 요리를 먹으며 낚시는 어떻게 하냐고 물어보았다. 그는 낚시에 관심을 보이고 있다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 당신의 생선도 생선이지만 낚시에 더 관심을 보였다. 그는 당신의 낚시 이야기에 푹 빠져들었다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 맛을 잘 못 느끼지만 당신의 생선 요리가 뭔가 잘못됐다는 건 느낀 것 같다. <br><br>\"...괜찮아. 네 마음만으로도 기뻐.\"<br><br>창백은 진심이다."
+                }
+            },
+
+            mixed : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 뭔가를 섞어먹는 요리는 별로인 모양이다. <br><br>\"...미안, 맛을 더 못 느끼겠어.\"<br><br>그는 당신에게 미안해하고 있다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 뭔가를 섞어먹는 요리는 별로인 모양이다. <br><br>\"...미안, 맛을 더 못 느끼겠어.\"<br><br>그는 당신에게 미안해하고 있다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 뭔가를 섞어먹는 요리는 별로인 모양이다. <br><br>\"...미안, 맛을 더 못 느끼겠어.\"<br><br>그는 당신에게 미안해하고 있다."
+                }
+            },
+
+            bread : {
+                great : {
+                    affection : 4,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 식빵을 먹으며 고개를 갸웃거렸다. <br><br>\"이거 좋아...\"<br><br>그냥 빵만 있어서 오히려 맛을 더 느끼는 것 같다."
+                },
+
+                normal : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 빵을 먹으면서 밀값이 조금만 더 싸진다면 하류도시 사람들도 빵을 먹을 수 있게 될 거라고 말했다."
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 맛없는 빵에도 괜찮다는 듯이 웃어보였다. <br><br>\"네가 날 생각해서 만들어준 요리니까....\"<br><br>그는 쑥스러워하고 있다."
+                }
+            },
+
+            meatBread : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 예전에 아버지가 고기빵을 사와서 먹어본 적이 있다고 말했다. <br><br>\"상류도시에는 많이 다녀와?\"<br><br>그는 상류도시에 대해 물었다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 고기빵을 먹으며 상류도시의 물건을 들여오는 방법에 대해 말해주었다. <br><br>\"언젠가 같이 상점을...\"<br><br>창백은 말하다가 당황하며 말을 멈췄다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 고기빵을 먹으며 상류도시에서 지켜야 하는 법도에 대해 물었다. 그는 상류도시의 물자는 수입하지만 직접 상류도시에는 가지 않는다고 말했다."
+                }
+            },
+
+            vegetableBread : {
+                great : {
+                    affection : 2,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 예전에 아버지가 야채빵을 사와서 먹어본 적이 있다고 말했다. <br><br>\"상류도시에는 많이 다녀와?\"<br><br>그는 상류도시에 대해 물었다."
+                },
+
+                normal : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채빵을 먹으며 상류도시의 물건을 들여오는 방법에 대해 말해주었다. <br><br>\"언젠가 같이 상점을...\"<br><br>창백은 말하다가 당황하며 말을 멈췄다."
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채빵을 먹으며 상류도시에서 지켜야 하는 법도에 대해 물었다. 그는 상류도시의 물자는 수입하지만 직접 상류도시에는 가지 않는다고 말했다."
+                }
+            },
+
+            vegetableRice : {
+                great : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 당신의 야채밥에 미소를 지었다. <br><br>\"날 위해... 이렇게까지 해줘서 고마워...\"<br><br>그는 당신에게 한 숟가락 내밀었다가 얼굴이 붉어지더니 새 숟가락을 하나 더 가져왔다."
+                },
+
+                normal : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채밥을 먹으며 마틴이 가끔 밥을 가져온다고 말했다. <br><br>\"마틴 좋아... 착해.\"<br><br>그는 중얼거렸다.<br><br>\"물론 네가 더 좋아...\""
+                },
+
+                bad : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채밥을 먹으며 고기밥이랑 야채밥 중에 뭐가 더 간을 맞추기가 힘드냐고 물었다."
+                }
+            },
+
+            meatRice : {
+                great : {
+                    affection : 0,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 당신의 고기밥에 미소를 지었다. <br><br>\"날 위해... 이렇게까지 해줘서 고마워...\"<br><br>그는 당신에게 한 숟가락 내밀었다가 얼굴이 붉어지더니 새 숟가락을 하나 더 가져왔다."
+                },
+
+                normal : {
+                    affection : -1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 야채밥을 먹으며 마틴이 가끔 밥을 가져온다고 말했다. <br><br>\"마틴은 고기를 그렇게 좋아하진 않는데 나한테는 단백질이 필요하대... 착해서 좋아.\"<br><br>그는 중얼거렸다.<br><br>\"물론 네가 더 좋아...\""
+                },
+
+                bad : {
+                    affection : -3,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 고기밥을 먹으며 고기밥이랑 야채밥 중에 뭐가 더 간을 맞추기가 힘드냐고 물었다."
+                }
+            },
+
+            spicy : {
+                great : {
+                    affection : 5,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 매운 맛에 눈을 반짝였다. <br><br>\"고마워.\"<br><br>매운지 그는 자기도 모르게 혀를 입밖으로 내밀었다."
+                },
+
+                normal : {
+                    affection : 3,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 고추 재배는 어렵다고 말했다. <br><br>\"관리할 게 많아서... 그래서 네가 대단한 것 같아.\"<br><br>창백은 미소를 지었다. <br><br>\"...특별하고.\""
+                },
+
+                bad : {
+                    affection : 1,
+                    rage : 0,
+                    lust : 0,
+                    line : "창백은 매운 요리는 맛이 없어도 매워서 좋다고 말했다. 그는 당신의 요리를 다 먹고 웃었다."
+                }
+            },
+            
+            default: {
+                trash: {
+                    affection: -10,
+                    rage: 0,
+                    lust : 0,
+                    line: "\"...\"<br><br>창백은 상처받은 얼굴로 당신을 올려다보았다."
+                }
+            }
+        }
     }
 };
 
@@ -4072,6 +4429,14 @@ function giveFoodToNpc(player, npcId, item){
             npcId === "eric" &&
             taste === "lusty" &&
             affection >= 100
+        ){
+            reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
+        }
+
+        if (
+            npcId === "pale" &&
+            taste === "lusty" &&
+            affection >= 80
         ){
             reaction = config.reactions?.lustyHighAffection?.[grade] || reaction;
         }

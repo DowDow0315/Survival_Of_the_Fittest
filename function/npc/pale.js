@@ -452,3 +452,115 @@ window.return_shelter_after_pale_chase = function(player){
 window.return_townEntrance_after_pale_chase = function(player){
     startScene(getLocationScene(player), player);
 };
+
+registerActions("pale", {
+    //talk
+    giveFood : (player) => {
+        openGiveFoodMenu(player, "pale");
+    },
+
+    talk: (player) => {
+        startScene([
+            {
+                type: "text",
+                value: "당신이 다가오자 창백은 당신을 올려다보았다. 그의 뒤에서 뻗어나온 촉수가 좌우로 이리저리 흔들린다."
+            },
+            {
+                type: "choice",
+                choices: [
+                    { text: "사소한 잡담을 한다", action: "pale_smallTalk" },
+                    { text: "다른 얘기를 한다", action: "pale_otherTalk" },
+                    { text: "돌아간다", action: "back_location" }
+                ]
+            }
+        ], player);
+    },
+
+    smallTalk : (player) => {
+        passTime(player, 5);
+        const affection = NPC_DATA["pale"].emotion.affection || 0;
+        const lust = NPC_DATA["pale"].emotion.lust || 0;
+        const onEnd = () => {
+            startScene(getLocationScene(player), player);
+        };
+
+        if (lust >= 90){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "창백은 손가락을 꼼지락거리며 당신을 올려다보았다. 뭔가 할 말이 있는지 그는 당신을 올려다보았다가도 얼굴을 붉히며 고개를 숙였다."
+                    ])
+                }
+            ], player, { onEnd });
+            return;
+        }
+
+        else if (affection >= 90){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        ""
+                    ])
+                }
+            ], player, { onEnd });
+        } 
+
+        else if (affection >= 80){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "당신을 본 창백이 당신에게 달려오려다가 물건을 우수수 떨어뜨려버렸다. <br><br>\"...아.\"<br><br>그는 시무룩한 표정으로 물품들을 다시 정렬했다.",
+                        "\"이 세상에 네가 있어서... 다행이야.\"<br><br>여전히 목소리는 흔들리긴 하지만, 그는 당신에게 자신의 마음을 또박또박 전했다. 그는 당신을 보며 웃었다.",
+                        "\"다치지 마.\"<br><br>창백은 우물쭈물하더니 다시 당신을 똑바로 바라보며 말했다. <br><br>\"네가 다치면... 너무 마음이 아파.\""
+                    ])
+                }
+            ], player, { onEnd });
+        } else if (affection > 60){
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "창백은 당신이 오자마자 빠르게 당신에게 다가왔다. 그는 당신의 옆에서 물품을 어디서 들여왔는지 하나하나 설명해주었다.",
+                        "\"...어디 다녀오는 길이야?\"<br><br>그의 금안은 호기심에 반짝거리고 있다. 창백은 당신의 이야기를 듣고 싶어한다."
+                    ])
+                }
+            ], player, { onEnd });
+        } else{
+            startScene([
+                {
+                    type : "text",
+                    value : pickRandom([
+                        "창백은 당신의 옆에서 낮은 목소리로 노래를 불렀다. 삐걱삐걱거리지만 전보다 더 명확한 발음으로 노래를 부르고 있다.",
+                        "창백은 만들던 꽃다발을 당신에게 내밀었다. 그리고 헤헤 웃었다."
+                    ])
+                }
+            ], player, { onEnd });
+        }
+    },
+    otherTalk : (player) => {
+        const choices = [];
+
+        choices.push({
+            text: "음식을 건넨다",
+            action: "pale_giveFood"
+        });
+
+        choices.push({ text: "돌아간다", action: "pale_talk" });
+
+        startScene([
+            {
+                type : "text",
+                value : "무엇에 대해 물어볼까."
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ], player);
+    }
+})
+
+registerGiftActions("pale");

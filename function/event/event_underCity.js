@@ -59,6 +59,7 @@ window.EVENTS.push({
         getCurrentDay(player) >= (player.flags.act3_quest_07_done_day + 2) &&
         player.flags?.act3_you_know_who_is_sora &&
         player.flags?.eric_youTellTruth &&
+        player.flags?.paleGivesYouPower &&
         NPC_DATA["eric"].emotion.affection >= 50 &&
         !player.flags?.soraDie &&
         !player.flags?.ericDie,
@@ -2469,6 +2470,32 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "yuri_withYuri_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        ["deepForest_act3", "forest_act3"].includes(player.location) &&
+        ["rain", "storm"].includes(player.weather) &&
+        player.flags?.yuri_withYuri_day !== getCurrentDay(player) &&
+        !player.flags?.yuriDie &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") )  &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.yuri_withYuri_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_withYuri_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "yuri_rebel_route_quest_07_after",
     once : true,
 
@@ -2927,6 +2954,31 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_breakUp_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_hisDoll",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["underHouse", "upperHouse"].includes(player.location) &&
+        ( hasNpcRelationship("nikolai", "lover") || hasNpcRelationship("nikolai", "spouse") )  &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        addFurniture(player, "nikolaiDoll");
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_hisDoll,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

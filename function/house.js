@@ -134,6 +134,27 @@ window.FURNITURE_DATA = {
         name : "고급 찻잔 세트",
         type : "decoration",
         price : 70000000
+    },
+
+    dericMiniGoldenStatue : {
+        id : "dericMiniGoldenStatue",
+        name : "데릭의 미니 황금 동상",
+        type : "decoration",
+        price : 1000000000
+    },
+
+    musicBox : {
+        id : "musicBox",
+        name : "작은 오르골",
+        type : "decoration",
+        price : 4000000
+    },
+
+    musicBoxSwan : {
+        id : "musicBoxSwan",
+        name : "백조 오르골",
+        type : "decoration",
+        price : 30000000
     }
 
 };

@@ -2759,6 +2759,19 @@ const ITEMS ={
             }
         },
 
+        paleWhiteFlowerCrown : {
+            name : "창백한 꽃 왕관",
+            desc : "모든 것이 무너졌다고 생각한 순간, 내 앞에 당신이 나타났다. 그리고 당신을 보는 순간 깨달았다. 무너진 모든 것들 속에서도, 당신을 향한 내 감정만은 진짜라는 것을.",
+            type : "accessary",
+            price : 0,
+            stats : {
+                str : 1,
+                dex : 1,
+                int : 1,
+                charm : 8
+            }
+        },
+
         //npc 관련 악세사리
         flowerCrown : {
             name : "꽃왕관",

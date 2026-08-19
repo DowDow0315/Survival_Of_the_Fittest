@@ -1197,7 +1197,7 @@ function changeEmotion(npcId, key, amount){
     npc.emotion = npc.emotion || {};
     npc.emotion[key] = npc.emotion[key] ?? 0;
 
-    const min = key === "lust" ? 0 : -100;
+    const min = ["lust", "rage", "dominance"].includes(key) ? 0 : -100;
     const max = getNpcEmotionMax(npcId, key);
 
     npc.emotion[key] = clamp(

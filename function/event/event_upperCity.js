@@ -1139,6 +1139,30 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_miniGoldenStatue",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet"  &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        player.flags?.dericSmallGoldenStatue,
+
+    action : (player) => {
+        addFurniture(player, "dericMiniGoldenStatue");
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_miniGoldenStatue,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",

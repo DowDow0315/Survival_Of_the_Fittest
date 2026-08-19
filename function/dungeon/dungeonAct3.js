@@ -841,6 +841,116 @@ Object.assign(DUNGEONS, {
             { type : "battle", enemies : ["flower3", "flower", "flower2", "flower3"], weight : 30 },
             { type : "battle", enemies : ["flower5", "flower6", "flower5", "flower6"], weight : 30 }
         ]
+    },
+    paleHideOut : {
+        id : "paleHideOut",
+        name : "단 한 명",
+        startRoom : "r0c4",
+
+        layout : [
+            ["r0c0", "r0c1", "r0c2",     "", "r0c4",     "", "r0c6", "r0c7", "r0c8", "r0c9"],
+            ["r1c0",     "",     "", "r1c3", "r1c4", "r1c5", "r1c6",     "", "r1c8",     ""],
+            ["r2c0",     "", "r2c2", "r2c3",     "", "r2c5",     "", "r2c7", "r2c8", "r2c9"],
+            ["r3c0", "r3c1", "r3c2",     "", "r3c4",     "",     "", "r3c7",     "", "r3c9"],
+            ["r4c0",     "", "r4c2", "r4c3", "r4c4", "r4c5", "r4c6",     "", "r4c8", "r4c9"],
+            [    "", "r5c1", "r5c2",     "", "r5c4",     "", "r5c6",     "",     "", "r5c9"],
+            [    "", "r6c1",     "", "r6c3", "r6c4",     "",     "", "r6c7", "r6c8", "r6c9"],
+            ["r7c0", "r7c1", "r7c2",     "", "r7c4", "r7c5", "r7c6",     "", "r7c8",     ""],
+            ["r8c0",     "", "r8c2",     "",     "",     "", "r8c6",     "", "r8c8", "r8c9"],
+            ["r9c0", "r9c1",     "", "r9c3", "r9c4", "r9c5", "r9c6", "r9c7",     "", "r9c9"],
+            [    "", "r10c1",    "",    "", "r10c4",     "",     "", "r10c7",   "", "r10c9"]
+        ],
+
+        rooms : {
+            "r0c0" : {name : "다시 하얀 길", exits : {right : "r0c1", down : "r1c0"}},
+            "r0c1" : {name : "소라의 상점", exits : {left : "r0c0", right : "r0c2"}, event : "paleHideOut_soraShop_01", seenFlag : "paleHideOut_soraShop"},
+            "r0c2" : {name : "무너진 소라의 상점", exits : {left : "r0c1"}, event : "paleHideOut_soraShop_02", seenFlag : "paleHideOut_soraShop_02"},
+            "r0c4" : {name : "하얀 꽃길", exits : {down : "r1c4"}},
+            "r0c6" : {name : "", exits : {right : "r0c7", down : "r1c6"}},
+            "r0c7" : {name : "", exits : {left : "r0c6", right : "r0c8"}},
+            "r0c8" : {name : "", exits : {left : "r0c7", right : "r0c9", down : "r1c8"}},
+            "r0c9" : {name : "", exits : {left : "r0c8"}},
+
+            "r1c0" : {name : "상점 잔해", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c3" : {name : "왼쪽 하얀 꽃길", exits : {right : "r1c4", down : "r2c3"}},
+            "r1c4" : {name : "꽃 너머의", exits : {up : "r0c4", left : "r1c3", right : "r1c5"}, event : "paleHideOut_there", seenFlag : "paleHideOut_there"},
+            "r1c5" : {name : "", exits : {left : "r1c4", right : "r1c6", down : "r2c5"}},
+            "r1c6" : {name : "", exits : {up : "r0c6", left : "r1c5"}},
+            "r1c8" : {name : "", exits : {up : "r0c8", down : "r2c8"}},
+
+            "r2c0" : {name : "붉게 물든 길", exits : {up : "r1c0", down : "r3c0"}},
+            "r2c2" : {name : "습득", exits : {right : "r2c3", down : "r3c2"}, event : "paleHideOut_experiment_02", seenFlag : "paleHideOut_experiment_02"},
+            "r2c3" : {name : "감정", exits : {up : "r1c3", left : "r2c2"}, event : "paleHideOut_experiment_01", seenFlag : "paleHideOut_experiment_01"},
+            "r2c5" : {name : "", exits : {up : "r1c5"}},
+            "r2c7" : {name : "", exits : {right : "r2c8", down : "r3c7"}},
+            "r2c8" : {name : "", exits : {up : "r1c8", left : "r2c7", right : "r2c9"}},
+            "r2c9" : {name : "", exits : {left : "r2c8", down : "r3c9"}},
+
+            "r3c0" : {name : "소라의 길", exits : {up : "r2c0", right : "r3c1", down : "r4c0"}},
+            "r3c1" : {name : "울렁거리는 통로", exits : {left : "r3c0", right : "r3c2"}},
+            "r3c2" : {name : "몰아치는 모퉁이", exits : {up : "r2c2", left : "r3c1", down : "r4c2"}, event : "paleHideOut_experiment_03", seenFlag : "paleHideOut_experiment_03"},
+            "r3c4" : {name : "", exits : {down : "r4c4"}},
+            "r3c7" : {name : "", exits : {up : "r2c7"}},
+            "r3c9" : {name : "", exits : {up : "r2c9", down : "r4c9"}},
+
+            "r4c0" : {name : "학살", exits : {up : "r3c0"}, event : "paleHideOut_genocide", seenFlag : "paleHideOut_genocide"},
+            "r4c2" : {name : "울렁거리는 길", exits : {up : "r3c2", right : "r4c3", down : "r5c2"}},
+            "r4c3" : {name : "", exits : {left : "r4c2", right : "r4c4"}},
+            "r4c4" : {name : "", exits : {up : "r3c4", left : "r4c3", right : "r4c5", down : "r5c4"}},
+            "r4c5" : {name : "", exits : {left : "r4c4", right : "r4c6"}},
+            "r4c6" : {name : "", exits : {left : "r4c5", down : "r5c6"}},
+            "r4c8" : {name : "", exits : {right : "r4c9"}},
+            "r4c9" : {name : "", exits : {up : "r3c9", left : "r4c8", down : "r5c9"}},
+
+            "r5c1" : {name : "공허", exits : {right : "r5c2", down : "r6c1"}, event : "paleHideOut_noMind", seenFlag : "paleHideOut_noMind"},
+            "r5c2" : {name : "누군가의 시선", exits : {up : "r4c2", left : "r5c1"}},
+            "r5c4" : {name : "", exits : {up : "r4c4", down : "r6c4"}},
+            "r5c6" : {name : "", exits : {up : "r4c6"}},
+            "r5c9" : {name : "", exits : {up : "r4c9", down : "r6c9"}},
+
+            "r6c1" : {name : "이유 없는 집착", exits : {up : "r5c1", down : "r7c1"}},
+            "r6c3" : {name : "", exits : {right : "r6c4"}},
+            "r6c4" : {name : "", exits : {up : "r5c4", left : "r6c3", down : "r7c4"}},
+            "r6c7" : {name : "", exits : {right : "r6c8"}},
+            "r6c8" : {name : "", exits : {left : "r6c7", right : "r6c9", down : "r7c8"}},
+            "r6c9" : {name : "", exits : {up : "r5c9", left : "r6c8"}},
+
+            "r7c0" : {name : "", exits : {right : "r7c1", down : "r8c0"}},
+            "r7c1" : {name : "끊어진 하얀 꽃길", exits : {up : "r6c1", left : "r7c0", right : "r7c2"}},
+            "r7c2" : {name : "한 아이", exits : {left : "r7c1", down : "r8c2"}, event : "paleHideOut_oneChild_01", seenFlag : "paleHideOut_oneChild_01"},
+            "r7c4" : {name : "", exits : {up : "r6c4", right : "r7c5"}},
+            "r7c5" : {name : "", exits : {left : "r7c4", right : "r7c6"}},
+            "r7c6" : {name : "", exits : {left : "r7c5", down : "r8c6"}},
+            "r7c8" : {name : "", exits : {up : "r6c8", down : "r8c8"}},
+
+            "r8c0" : {name : "", exits : {up : "r7c0", down : "r9c0"}},
+            "r8c2" : {name : "파기된 신뢰", exits : {up : "r7c2"}, event : "paleHideOut_oneChild_02", seenFlag : "paleHideOut_oneChild_02"},
+            "r8c6" : {name : "", exits : {up : "r7c6", down : "r9c6"}},
+            "r8c8" : {name : "", exits : {up : "r7c8", right : "r8c9"}},
+            "r8c9" : {name : "", exits : {left : "r8c8", down : "r9c9"}},
+
+            "r9c0" : {name : "", exits : {up : "r8c0", right : "r9c1"}},
+            "r9c1" : {name : "", exits : {left : "r9c0", down : "r10c1"}},
+            "r9c3" : {name : "", exits : {right : "r9c4"}},
+            "r9c4" : {name : "두려움은 한 명만의 것이 아니다", exits : {left : "r9c3", right : "r9c5", down : "r10c4"}, safeZone: true, allowRest: true},
+            "r9c5" : {name : "", exits : {left : "r9c4", right : "r9c6"}},
+            "r9c6" : {name : "", exits : {up : "r8c6", left : "r9c5", right : "r9c7"}},
+            "r9c7" : {name : "", exits : {left : "r9c6", down : "r10c7"}},
+            "r9c9" : {name : "", exits : {up : "r8c9", down : "r10c9"}},
+
+            "r10c1" : {name : "", exits : {up : "r9c1"}},
+            "r10c4" : {name : "선택의 시간", exits : {up : "r9c4"}},
+            "r10c7" : {name : "", exits : {up : "r9c7"}},
+            "r10c9" : {name : "", exits : {up : "r9c9"}}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "flower7", minCount : 2, maxCount : 5, weight : 30},
+            { type : "battle", enemy : "flower8", minCount : 1, maxCount : 3, weight : 20},
+            { type : "battle", enemies : ["flower7", "flower7", "flower8", "flower7"], weight : 20 },
+            { type : "battle", enemies : ["flower4", "flower5", "flower6", "flower8"], weight : 30 },
+            { type : "battle", enemies : ["flower7", "flower7", "flower6", "flower8"], weight : 30 }
+        ]
     }
 })
 
@@ -4698,6 +4808,263 @@ Object.assign(DUNGEON_EVENTS, {
                 type : "effect",
                 run : (player) => {
                     player.flags.lateLab_late = true;
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+    paleHideOut : {
+        paleHideOut_there : [
+            {
+                type : "text",
+                value : [
+                    "당신은 고개를 들었다. 저 너머에, 하얀 꽃잎으로 이루어진 집이 있었다. 당신은 무엇을 형상화하고 있는지 바로 알아차렸다. <br><br><strong>하얀꽃상점</strong><br><br>계속 하얀 꽃잎들이 흘러내리며 무너지고 있긴 했지만 무너지는 만큼 하얀 꽃잎들이 붙어서 형태는 유지하고 있었다. 당신은 발걸음을 옮겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_there = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_experiment_01 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎들이 일었다. 당신은 주변을 둘러보았다. 당신은 관 안에 있었다. 소라의 아버지가 당신을 바라보고 있다." +
+                    "<br><br>\"몇 번을 말하게 하는 거지? 너는 나를 따라야 한다. 내가 없었으면 너는 태어나지도 않았을 테니까.\"<br><br>" +
+                    "당신은 입을 벌렸다. 하지만 당신의 입에서 나온 건 목소리가 아니라 고통에 겨운 신음 소리였다. 당신은 온몸으로 고통을 느꼈다. 모든 살갗이 찢어질 것 같았고, 머리는 작은 도끼 여러 개로 계속 쪼개고 있는 것처럼 아팠다. 당신은 손을 뻗어 관을 두드렸다. 멈춰, 이거 멈춰, 다른 꽃인간들의 감정이 당신이 원하지도 않는데 당신의 머릿속으로 들어온다. 당신은 어떤 감정을 느껴야 하는지 알 수 없다. 그저 많은 감정들에 휘말리며 고통스러워할 뿐." +
+                    "<br><br><span class='log-sora'>……아니, 이 고통은 정말 내 것이 맞아?</span><br><br>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_experiment_01 = true;
+                    changeTrauma(player, 7);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_experiment_02 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎이 당신의 시야를 가린다. 당신은 눈을 깜박였다. 당신은 또, 관 안에 있었다. 당신은 고통스러운 몸을 몇 번이나 쓸어내리며 고개를 들었다. 소라의 아버지는 데이터를 정리하며 고개를 끄덕였다." +
+                    "<br><br>\"...나, 물어볼 거 있어.\"<br><br>" +
+                    "이제는 꽃인간들 모두의 생각을 보면서도 괴롭지 않다. 그들의 생각에 '내'가 영향을 받는 게 아니라 '내' 생각에 그들의 생각이 영향을 받는다. <strong>내</strong> 생각. 소라의 아버지는 고개를 들어 당신을 보았다. 그는 드디어 자신을 따를 생각이 들었냐고 물었다. 그는 당신이 자신을 따르기만 한다면 상류도시와 하류도시의 사람들을 지킬 수 있다고 말했다." +
+                    "<br><br>\"내 비명을 녹음하고, 기록하고, 나를 계속 괴롭게 해.\"<br><br>" +
+                    "당신은 관에 얼굴을 바짝 댄다. 당신은 꽃인간들 모두의 생각을 알 수 있지만 이 남자의 생각만은 알 수 없다." +
+                    "<br><br>\"넌 감정이 있어?\"<br><br>" +
+                    "소라의 아버지는 당신을 바라보았다." +
+                    "<br><br>\"항상 네게는 배우는 점이 많구나. 질문 고맙단다. 궁금한 걸 또 물어보렴.\"<br><br>" +
+                    "당신은 미소를 지었다." +
+                    "<br><br>\"나야말로 고마워.\"<br><br>" +
+                    "\"고맙다고?\"<br><br>" +
+                    "<span class='log-sora'>\"나도 날마다 네게 배우고 있으니까. 아빠.\"</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_experiment_02 = true;
+                    changeTrauma(player, 4);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_experiment_03 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎이 당신의 시야를 가린다. 당신은 주변을 둘러보았다. 이번에는 관이 아니었다. 당신은 바깥에 있었다. 그리고 당신은, 하얀꽃 상점 앞에 있었다. 당신은 하얀꽃 상점의 창문에 머리를 기댔다. 이 세상에서 많은 사람들에게 사랑을 받는 백발이 창문에 기대어 흘러내린다. 당신은 소라의 아버지를 보았다. 그리고 소라를 보았다. 소라는 물품을 정리하며 웃고 있었고, 그의 아버지는 사랑스러워 죽겠다는 시선으로 자신의 딸을 바라보고 있었다. 당신은 당신도 모르게 유리에 더 세게 머리를 박았다. 놀란 소라가 당신을 돌아본다." +
+                    "<br><br>\"...어?\"<br><br>" +
+                    "소라의 눈동자와 당신의 눈동자가 부딪혔다. 그리고 당신의 의식은 묵직한 통증과 함께 끊겼다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신은 당신의 팔을 내려다보았다. 순간, 당신의 팔이 당신이 아닌 것처럼 보였다. 마치 소라의 팔처럼 창백하게- 당신은 고개를 털었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_experiment_03 = true;
+                    changeTrauma(player, 7);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_genocide : [
+            {
+                type : "text",
+                value : [
+                    "당신이 눈을 깜박이는 순간 주변이 바뀌었다. 당신은 한 실험실에 있었다. 당신은 창문에 비친 당신의 모습을 보았다. 피로 물든 백발은 더 이상 하얀색이라 부를 수 없었다. 남은 건 오직 창백한 피부뿐. 당신은 주변을 둘러보았다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "배운 건 오로지 남에게 고통을 주는 법." +
+                    "<br><br>\"....\"<br><br>" +
+                    "하지만 그럼에도 당신은 사랑을 받고 싶었다. 당신은 얼굴에 묻은 피를 팔로 닦아냈다. 그리고 머리를 어떻게든 손으로 빗어서 붉은기를 빼려고 했다." +
+                    "<br><br>\"소라는 사랑을 받아. 누구에게나.\"<br><br>" +
+                    "당신은 노래하듯이 거울에 비친 당신에게 속삭였다." +
+                    "<br><br>\"소라는 소라야.\"<br><br>" +
+                    "당신은 더 이상 창백이 아니다. 창백은 이미 다른 사람이니까. 조금 더 가벼워진 발걸음으로 당신은 걸어나갔다. 복도에 찍힌 붉은색 발자국은 쳐다보지 않았다. 당신은 햇살 아래에서 위로 손을 뻗었다." +
+                    "<br><br>\"마을로 돌아가자. 소라는 소라니까.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_genocide = true;
+                    changeTrauma(player, 7);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_soraShop_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신이 아는 그 소라의 상점이다. 당신이 다가가도 하얀 꽃들은 시들지 않고 팔랑팔랑거렸다. 시들기는커녕, 무너지기는커녕, 그들은 살랑살랑 당신을 유혹하듯이 흔들리고 있었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 하얀 꽃잎에 손을 뻗었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "하얀 꽃잎에 손을 대자 하얀 꽃잎들이 당신의 손을 감싸 안았다. 누군가의 목소리가 흘러들어온다." +
+                                    "<br><br>\"네 이름이 왜 창백이냐고? 넌 창백하지 않은 것들을 이끌어야 하니까.\"<br><br>" +
+                                    "당신의 눈앞에 쪽지 한 장이 보였다. 소라가 몰살시킨 연구소들 중 하나에서 본 쪽지일지도. 당신은 쪽지 위의 글자를 읽었다." +
+                                    "<br><br>[창백하지 않은 꽃들 개발 완료]<br><br>" +
+                                    "[창백한 꽃이랑은 비교도 안 될 정도로 효과가 적지만, 그들은 잡초처럼 생명을 이어간다. 우리의 꿈은 완벽함이 아니라 불완전한 다수에 있을지도 모른다.]"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, 40);
+                                    changeHP(player, 80);
+                                    player.flags.paleHideOut_soraShop_01 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 하얀 꽃잎에 손을 대지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "하얀 꽃잎들은 하늘하늘 계속 흔들리고 있다. 당신이 지나친 자리에서도 잡초처럼 계속."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.paleHideOut_soraShop_01 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        paleHideOut_soraShop_02 : [
+            {
+                type : "text",
+                value : [
+                    "무너져 있는 소라의 상점에 하얀 꽃이 하나 피어 있었다. 그 하얀 꽃은 당신이 오자마자 당신만을 바라보았다. 분명히 그냥 하얀 꽃인데, 당신은 어쩐지 누군가의 금안이 떠올라버렸다." +
+                    "<br><br>당신이 가까이 다가오자 하얀 꽃은 고개를 위로 들어 당신을 바라보았다. 그러더니 사르르 몸을 떨었다." +
+                    "<br><br>...하얀꽃 왕관은 바닥에서 창백하게 빛나고 있다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.accessary.paleWhiteFlowerCrown);
+                    player.flags.paleHideOut_soraShop_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_noMind : [
+            {
+                type : "text",
+                value : [
+                    "바닥을 본 순간, 당신의 주변은 또 당신이 모르는 곳으로 바뀌었다. 당신은 화가 났다. 사람들은 상점을 찾아오긴 했지만, 그리고 몇몇은 당신에게 관심을 보이긴 했지만, 당신의 마음을 충족시킬 수는 없었다. 그들의 그런 관심은 당신이 원했던 사랑이 아니었다. 당신은 당신도 모르게 소라의 아버지와 소라가 있는 사진을 손가락으로 매만졌다." +
+                    "<br><br>아니다.<br><br>" +
+                    "당신은 사진을 깼다. 그리고 밟았다. 저번부터 느껴지던 시선이 또 느껴졌다. 당신은 고개를 돌렸다. 하지만 그 시선은 금세 상점에 찾아온 사람들 사이에 엉켜서 사라졌다. 몇 명밖에 없는데도 불구하고."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "사람들이 전부 나가고 당신은 카운터에서 쪽지 한 장을 발견했다. 당신은 쪽지를 집어들었다." +
+                    "<br><br>[그 상점을 아끼는 모양이시군요. 당신의 것도 아니면서.]<br><br>" +
+                    "소라의 상점은 소라의 것이다. 당신은 문장을 더 읽었다." +
+                    "<br><br>[당신이 그 상점에 머무를 수 있도록 해드리겠습니다. 당신도 제 부탁을 들어주신다면.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_noMind = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_oneChild_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 하얀 꽃잎으로 이루어진 아이의 형상을 보았다. 어린 아이가 바닥에 쓰러져 있었다. 당신이 다가가는 순간, 그 형상은 현실이 되었다. 남색 머리카락에 자안, 당신은 이 사람을 알고 있다. 당신은 아이를 내려다보다가 그에게 살고 싶냐고 물었다. 당신은 아이에게 자신이라면 널 살려줄 수 있다고 속삭였다." +
+                    "<br><br>\"대신, 상류도시에서 딱 하나만 훔쳐와줘.\"<br><br>" +
+                    "<span class='log-sora'>창백한 꽃</span><br><br>"
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "눈을 깜박이자 발렌이 보였다. 당신이 아는 모습보다 훨씬 젊은 발렌, 그는 당신에게 고개를 저으며 창백한 꽃은 줄 수 없다고 말했다." +
+                    "<br><br>\"왜? 그 여자가 죽을까봐?\"<br><br>" +
+                    "당신의 비아냥거리는 목소리에 발렌의 미소가 서늘해졌다. 그는 창백한 꽃은 사적인 이익으로 사용되면 안 되는 꽃이라고 대답했다.<br><br>" +
+                    "\"나는 네게 계속 하얀 꽃들을 주고 있는데? 그 한 송이를 못 준다고?\"<br><br>" +
+                    "\"...당신이 지금 찾고자 하는 게 창백에게 있다고 생각하십니까?<br><br> ...진심으로요?\"<br><br>" +
+                    "눈앞이 일렁인다. 당신의 밑에서 그림자가 촉수로 일렁인다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_oneChild_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_oneChild_02 : [
+            {
+                type : "text",
+                value : [
+                    "아이는 당신에게 시든 창백한 꽃을 내밀었다. 그는 자신이 손을 대자마자 창백한 꽃이 시들어버렸다고 말했다. 그나마 덜 시든 꽃은 이 꽃이라고 말하며 아이는 당신을 노려보았다." +
+                    "<br><br>\"...왜?\"<br><br>" +
+                    "<span class='log-luke'>\"넌 감정이 있어?\"</span><br><br>" +
+                    "당신은 멍하니 아이를 바라보았다. 그리고 미소를 지었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_oneChild_02 = true;
                     savePlayer(player);
                 }
             }

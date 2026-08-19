@@ -183,7 +183,7 @@
             "type": "summon",
             "enemyId": "flower7",
             "amount": 4,
-            "maxUses": 10,
+            "maxUses": 15,
             "chance": 0.3,
             "lines": [
                 "창백이 비명을 지르자 창백한 촉수들이 지면에서부터 비명에 호응하듯 솟아올랐다. 창백은 고개를 저었다. 그는 자신의 능력을 자제할 수 없다."

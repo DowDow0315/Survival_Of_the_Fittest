@@ -190,7 +190,9 @@ const SHOPS = {
 
             "bearDoll",
 
-            "luxuryTeaSet"
+            "luxuryTeaSet",
+            "musicBox",
+            "musicBoxSwan"
         ]
     },
     merchantVillageShop : {
@@ -550,21 +552,38 @@ function renderShopModal(shopId, player){
 
                 div.appendChild(sellOneBtn);
                 if (!isEquipmentItem(item)){
-                    const sellAllBtn = document.createElement("button");
-                    sellAllBtn.innerText = "전부 판매";
-                    sellAllBtn.onclick = () => {
-                        sellAllItems(player, item.key || item.name);
+                    const sellAmountBtn = document.createElement("button");
+                    sellAmountBtn.innerText = "수량 판매";
+                    
+                    sellAmountBtn.onclick = () => {
+                        const input = prompt(
+                            `몇 개 판매할까요? (보유 수량: ${count}개)`,
+                            count
+                        );
+                        
+                        // 취소를 누른 경우
+                        if (input === null) return;
+                        
+                        const amount = Number(input);
+                        if (!Number.isInteger(amount) || amount < 1){
+                            alert("1 이상의 정수를 입력해주세요.");
+                            return;
+                        }
+                        
+                        if (amount > count){
+                            alert(`보유 수량은 ${count}개입니다.`);
+                            return;
+                        }
+                        
+                        sellItems(player, item.key || item.name, amount);
                         renderShopModal(shopId, player);
                     };
-                    
-                    div.appendChild(sellAllBtn);
+                    div.appendChild(sellAmountBtn);
                 }
-
                 listWrap.appendChild(div);
             });
         }
     }
-
     box.appendChild(listWrap);
 }
 
@@ -593,29 +612,51 @@ function canSellItem(item){
     return ["weapon", "top", "bra", "bottom", "underwear", "heal", "stamina", "regen", "arousal", "consumable", "food", "sensitivityDown", "junk", "key", "ore"].includes(item.type);
 }
 
-function sellAllItems(player, itemKey){
+function sellItems(player, itemKey, amount){
     const items = player.inventory.filter(
-        item => !isEquipmentItem(item) && (item.key || item.name) === itemKey
+        item =>
+            !isEquipmentItem(item) &&
+            (item.key || item.name) === itemKey
     );
 
     if (items.length === 0) return;
 
-    let total = 0;
+    if (
+        !Number.isInteger(amount) ||
+        amount < 1 ||
+        amount > items.length
+    ){
+        return;
+    }
 
-    items.forEach(item => {
-        total += getSellPrice(item);
-    });
+    const itemsToSell = items.slice(0, amount);
 
-    player.inventory = player.inventory.filter(
-        item => isEquipmentItem(item) || (item.key || item.name) !== itemKey
+    const total = itemsToSell.reduce(
+        (sum, item) => sum + getSellPrice(item),
+        0
     );
 
+    let soldCount = 0;
+
+    player.inventory = player.inventory.filter(item => {
+        const isTarget =
+            !isEquipmentItem(item) &&
+            (item.key || item.name) === itemKey;
+
+        if (isTarget && soldCount < amount){
+            soldCount++;
+            return false;
+        }
+
+        return true;
+    });
+
     addGold(player, total);
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
     renderInventoryModal(player);
 
     addLog(
-        `${items[0].name} ${items.length}개 판매!<br>+${total}G`
+        `${itemsToSell[0].name} ${amount}개 판매!<br>+${total}G`
     );
 }
 

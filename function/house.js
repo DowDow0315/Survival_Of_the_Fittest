@@ -470,6 +470,7 @@ window.enterHouse = function(player, houseType){
         return;
     }
 
+    player.justMoved = true;
     player.location = house.location;
     savePlayer(player);
     if (checkAllEvents(player)){

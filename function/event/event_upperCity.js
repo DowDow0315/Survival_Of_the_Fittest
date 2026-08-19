@@ -1150,7 +1150,7 @@ window.EVENTS.push({
         player.flags?.dericSmallGoldenStatue,
 
     action : (player) => {
-        addFurniture(player, "dericMiniGoldenStatue");
+        giveFurniture(player, "dericMiniGoldenStatue");
         savePlayer(player);
 
         startScene(

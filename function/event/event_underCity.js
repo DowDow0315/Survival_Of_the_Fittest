@@ -2974,7 +2974,7 @@ window.EVENTS.push({
         !player.flags?.nikolaiDie,
 
     action : (player) => {
-        addFurniture(player, "nikolaiDoll");
+        giveFurniture(player, "nikolaiDoll");
         savePlayer(player);
         
         startScene(

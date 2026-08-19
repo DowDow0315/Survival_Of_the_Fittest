@@ -1,5 +1,6 @@
 let shopTab = "buy";
 let juliangBuyTab = "items";
+let pendingSellQuantity = null;
 
 function getSellPrice(item){
     if (!item) return 0;
@@ -554,29 +555,13 @@ function renderShopModal(shopId, player){
                 if (!isEquipmentItem(item)){
                     const sellAmountBtn = document.createElement("button");
                     sellAmountBtn.innerText = "수량 판매";
-                    
                     sellAmountBtn.onclick = () => {
-                        const input = prompt(
-                            `몇 개 판매할까요? (보유 수량: ${count}개)`,
+                        openSellQuantityModal(
+                            shopId,
+                            player,
+                            item,
                             count
                         );
-                        
-                        // 취소를 누른 경우
-                        if (input === null) return;
-                        
-                        const amount = Number(input);
-                        if (!Number.isInteger(amount) || amount < 1){
-                            alert("1 이상의 정수를 입력해주세요.");
-                            return;
-                        }
-                        
-                        if (amount > count){
-                            alert(`보유 수량은 ${count}개입니다.`);
-                            return;
-                        }
-                        
-                        sellItems(player, item.key || item.name, amount);
-                        renderShopModal(shopId, player);
                     };
                     div.appendChild(sellAmountBtn);
                 }
@@ -585,6 +570,160 @@ function renderShopModal(shopId, player){
         }
     }
     box.appendChild(listWrap);
+}
+
+function openSellQuantityModal(
+    shopId,
+    player,
+    item,
+    count
+){
+    const modal =
+        document.getElementById("sellQuantityModal");
+
+    const input =
+        document.getElementById("sellQuantityInput");
+
+    if (!modal || !input) return;
+
+    pendingSellQuantity = {
+        shopId,
+        player,
+        itemKey : item.key || item.name,
+        count,
+        price : getSellPrice(item)
+    };
+
+    document.getElementById(
+        "sellQuantityItemName"
+    ).innerText = item.name;
+
+    document.getElementById(
+        "sellQuantityOwned"
+    ).innerText = `보유 수량: ${count}개`;
+
+    document.getElementById(
+        "sellQuantityPrice"
+    ).innerText =
+        `개당 판매가: ${getSellPrice(item)}G`;
+
+    document.getElementById(
+        "sellQuantityError"
+    ).innerText = "";
+
+    input.min = 1;
+    input.max = count;
+    input.value = count;
+
+    updateSellQuantityTotal();
+
+    modal.style.display = "flex";
+
+    requestAnimationFrame(() => {
+        input.focus();
+        input.select();
+    });
+}
+
+function updateSellQuantityTotal(){
+    const input =
+        document.getElementById("sellQuantityInput");
+
+    const totalText =
+        document.getElementById("sellQuantityTotal");
+
+    if (
+        !input ||
+        !totalText ||
+        !pendingSellQuantity
+    ){
+        return;
+    }
+
+    const amount = Number(input.value);
+
+    const validAmount =
+        Number.isInteger(amount) && amount > 0
+            ? amount
+            : 0;
+
+    const total =
+        pendingSellQuantity.price * validAmount;
+
+    totalText.innerText =
+        `총 판매액: ${total.toLocaleString()}G`;
+
+    document.getElementById(
+        "sellQuantityError"
+    ).innerText = "";
+}
+
+function confirmSellQuantity(){
+    if (!pendingSellQuantity) return;
+
+    const input =
+        document.getElementById("sellQuantityInput");
+
+    const errorText =
+        document.getElementById("sellQuantityError");
+
+    const amount = Number(input.value);
+
+    if (
+        !Number.isInteger(amount) ||
+        amount < 1
+    ){
+        errorText.innerText =
+            "1 이상의 정수를 입력해주세요.";
+
+        input.focus();
+        return;
+    }
+
+    if (amount > pendingSellQuantity.count){
+        errorText.innerText =
+            `보유 수량은 ${pendingSellQuantity.count}개입니다.`;
+
+        input.focus();
+        return;
+    }
+
+    const {
+        shopId,
+        player,
+        itemKey
+    } = pendingSellQuantity;
+
+    sellItems(
+        player,
+        itemKey,
+        amount
+    );
+
+    closeSellQuantityModal();
+    renderShopModal(shopId, player);
+}
+
+function closeSellQuantityModal(){
+    const modal =
+        document.getElementById("sellQuantityModal");
+
+    if (modal){
+        modal.style.display = "none";
+    }
+
+    pendingSellQuantity = null;
+}
+
+function handleSellQuantityKeydown(event){
+    if (event.key === "Enter"){
+        event.preventDefault();
+        confirmSellQuantity();
+
+    } else if (event.key === "Escape"){
+        event.preventDefault();
+        closeSellQuantityModal();
+    }
 }
 
 function sellItem(player, item){

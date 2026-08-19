@@ -1536,7 +1536,7 @@ window.openFurnitureTypeMenu = function(
 
     if (uniqueIds.length === 0){
         choices.push({
-            text : `보유한 ${typeName}가 없다`,
+            text : `보유한 ${typeName}이/가 없다`,
             action : "noOwnedFurniture"
         });
 

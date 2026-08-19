@@ -127,6 +127,64 @@
     </div>
     </div>
 
+    <!-- 판매 수량 선택창 -->
+     <div
+     id="sellQuantityModal"
+     class="sell-quantity-modal"
+     style="display:none;"
+     onclick="if (event.target === this) closeSellQuantityModal()"
+     >
+     <div
+        class="sell-quantity-window"
+        onkeydown="handleSellQuantityKeydown(event)"
+    >
+    <h3>판매 수량</h3>
+
+        <strong id="sellQuantityItemName"></strong>
+        <p id="sellQuantityOwned"></p>
+        <p id="sellQuantityPrice"></p>
+
+        <label for="sellQuantityInput">
+            몇 개 판매할까요?
+        </label>
+
+        <input
+            id="sellQuantityInput"
+            type="number"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            oninput="updateSellQuantityTotal()"
+        >
+
+        <p
+            id="sellQuantityTotal"
+            class="sell-quantity-total"
+        ></p>
+
+        <p
+            id="sellQuantityError"
+            class="sell-quantity-error"
+        ></p>
+
+        <div class="sell-quantity-actions">
+            <button
+                type="button"
+                onclick="closeSellQuantityModal()"
+            >
+                취소
+            </button>
+
+            <button
+                type="button"
+                onclick="confirmSellQuantity()"
+            >
+                판매
+            </button>
+        </div>
+    </div>
+    </div>
+
     <div id="flashOverlay"></div>
 
 
@@ -1877,7 +1935,84 @@
             gap: 10px;
         }
 
+        .sell-quantity-modal{
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.76);
+        }
+        
+        .sell-quantity-window{
+            width: min(360px, 100%);
+            padding: 22px;
+            box-sizing: border-box;
+            color: white;
+            background: #222;
+            border: 1px solid #666;
+            border-radius: 14px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+        }
+        
+        .sell-quantity-window h3{
+            margin: 0 0 16px;
+        }
+        
+        .sell-quantity-window p{
+            margin: 7px 0;
+        }
+        
+        .sell-quantity-window label{
+            display: block;
+            margin: 18px 0 7px;
+            font-size: 14px;
+        }
+        
+        #sellQuantityInput{
+            width: 100%;
+            padding: 11px 12px;             
+            box-sizing: border-box;
+            color: white;
+            background: #151515;
+            border: 1px solid #777;
+            border-radius: 8px;    
+            font-size: 17px;
+        }
+        
+        #sellQuantityInput:focus{
+            outline: none;
+            border-color: #8fca76;
+            box-shadow: 0 0 0 3px rgba(143, 202, 118, 0.18);
+        }
+        
+        .sell-quantity-total{
+            min-height: 20px;
+            color: #a8e58e;
+            font-weight: bold;
+        }
+        
+        .sell-quantity-error{
+            min-height: 20px;
+            color: #ff7777;
+            font-size: 13px;
+        }
+        
+        .sell-quantity-actions{
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 14px;
+        }
 
+        .sell-quantity-actions button{
+            width: auto;
+            min-width: 90px;
+            margin: 0;
+        }
 
         .status-modal{
             position: fixed;

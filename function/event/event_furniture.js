@@ -531,7 +531,193 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "kain_musicBox",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        ["storm", "rain", "snow"].includes(player.weather) &&
+        ( currentHouseHasFurniture(player, "musicBox") || currentHouseHasFurniture(player, "musicBoxSwan") )&&
+        canNpcVisitHouse(player, "kain") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "우산을 챙기지 않은 건지, 다 젖은 카인이 당신의 집으로 들어섰다. 그는 오늘은 목소리가 더 잘 나왔다고 말하다가 당신의 오르골 근처에서 멈췄다. 그는 노래를 듣고 싶으면 자신에게 들려달라고 하면 되는 거 아니냐고 투덜거리면서도 오르골을 돌렸다. 그는 오르골을 듣다가 음에 맞춰서 자기도 흥얼거렸다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그의 옆에서 같이 흥얼거렸다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신이 옆에서 같이 흥얼거리자 카인은 키득키득 웃었다. 그는 혹시 혼자서도 오르골 틀어놓고 흥얼거리냐고 물었다." +
+                                        "<br><br>\"나도 옛날에 자주 그랬거든. 형 없을....\"<br><br>" +
+                                        "카인은 잠시 말을 멈췄다. 오르골이 멈추자 그는 다시 오르골을 돌렸다. 이번에는 아까보다 더 많이."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 2);
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 수건을 가지고 오며 우산은 안 챙기고 다니냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"챙겼다고 생각했는데.... 없어졌어.\"<br><br>" +
+                                        "카인은 멈칫하더니 곧 당신 쪽으로 고개를 숙였다. 당신은 그의 머리를 말려주었다. 카인은 고개를 숙인 채로 당신을 빤히 바라보다가 눈을 감았다. 오르골 소리가 멈췄다. 하지만 여전히 카인은 당신의 손길에 자신의 머리를 맡기고 있다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 2);
+                                        changeNPCEmotion("kain", "rage", -2);
+                                        changeNPCEmotion("kain", "lust", 2);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
 //루크
+window.EVENTS.push({
+    id: "luke_music_box",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("luke", "lover") || hasNpcRelationship("luke", "spouse") ) &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        !player.flags?.collapseLuke &&
+        ( currentHouseHasFurniture(player, "musicBox") || currentHouseHasFurniture(player, "musicBoxSwan") ) &&
+        Math.random() < 0.08,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "당신이 집에 들어오라는 허락을 하지 않았는데도 대체 문을 어떻게 열었는지 루크는 당신의 집에 들어섰다. 당신이 쳐다보자 루크는 씩 웃으며 어깨만 으쓱였다, 언제나처럼. 그는 주변을 둘러보다가 오르골을 보더니 하류도시의 20% 정도는 오르골을 봐도 이게 대체 뭔지 모를 거라고 말했다. 그는 어색하게 오르골을 돌렸다." +
+                        "<br><br>\"근데 노래 하나만 나오는 건 아무리 생각해도 비효율적이긴 하다. 더럽게 비싸잖아.\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 오르골은 한 가지 노래만 나오는 것조차 완벽한 거라고 대꾸했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 대답에도 루크는 이해를 하지 못하겠다는 듯 어깨만 으쓱였다. 그는 노래가 멈추자 다시 오르골을 돌렸다. 오르골을 돌리는 그의 모습은 여전히 어색했다." +
+                                        "<br><br>\"뭐, 네가 좋으면 됐지.\"<br><br>" +
+                                        "그는 오르골에서 나오는 노래에 대해 물었다. 이야기를 하는 동안 그는 오르골이 멈출 때마다 계속 오르골을 돌렸다. 마지막까지 어색하게."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 20);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 음치가 그렇게 말하니까 더 설득력이 없는 것 같다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "루크는 말없이 당신을 쳐다봤다." +
+                                        "<br><br>\"야 이 씨발.... 누가 음치야. 노래를 거의 안 들어봤으니까 그렇지.\"<br><br>" +
+                                        "그는 화풀이하듯이 당신의 머리를 꾹꾹 눌렀다. 그러다가 입꼬리를 올리며 머리를 누르던 손으로 당신의 뒷목을 잡았다." +
+                                        "<br><br>\"그리고 넌 박치잖아. 내 밑에서.\"<br><br>"
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("luke", "lust", 15);
+                                        changeNPCEmotion("luke", "dominance", -2);
+                                        changeNPCEmotion("luke", "affection", 1);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "어쩌면 루크의 말이 맞을지도? 당신은 고개를 끄덕였다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신이 고개를 끄덕이자 루크는 더 이해가 안 간다는 표정을 지었다." +
+                                        "<br><br>\"너... 돈이 그렇게 많아?\"<br><br>" +
+                                        "그는 당신의 이마를 툭 쳐서 밀었다." +
+                                        "<br><br>\"야. 네가 아무리 그래도 출신을 바꿀 순 없어. 하류도시 출신.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("luke", "dominance", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
 window.EVENTS.push({
     id: "luke_house_bath",
 
@@ -759,6 +945,12 @@ window.EVENTS.push({
                         "<br><br>\"아... 너무 웃었더니 배 아파...\"<br><br>" +
                         "니콜라이는 찔끔 눈물까지 흘리며 오늘도 기분 좋은 하루를 선사해줘서 고맙다고 말했다. <br><br>이야기를 나누는 동안 그는 몇 번이나 데릭의 미니 황금 동상과 시선을 마주치고 웃음을 참지 못했다."
                     ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        passTime(player, 15);
+                    }
                 }
             ],
             player, {
@@ -912,8 +1104,115 @@ window.EVENTS.push({
                     run : (player) => {
                         changeNPCEmotion("yuri", "affection", -2);
                         changeNpcSuspicion("yuri", 1);
+                        passTime(player, 10);
                         savePlayer(player);
                     }
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "yuri_musicBox",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        ["storm", "rain", "snow"].includes(player.weather) &&
+        getTimePeriod(player) === "night" &&
+        ( currentHouseHasFurniture(player, "musicBox") || currentHouseHasFurniture(player, "musicBoxSwan") )&&
+        canNpcVisitHouse(player, "yuri") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "\"미안. 들어가도 될까?\"<br><br>" +
+                        "유리의 머리는 젖어 있었다. 그는 오다가 어린 아이가 비를 맞고 있길래 우산을 줬다고 말하며, 몸이 마를 때까지만 집에 있어도 되겠냐고 물었다. 그는 당신에게 받은 수건으로 머리를 털며 요즘은 어떻냐고 물었다. 그는 당신의 집 천장을 보면서 새는 곳은 없는지 살폈다." +
+                        "<br><br>\"아, 오르골.\"<br><br>" +
+                        "유리는 미소를 지었다. 그는 오르골은 좋아한다고 말하며 당신에게 무슨 노래 오르골이냐고 물었다. 돌려도 되냐고 물은 후, 그는 오르골을 익숙하게 돌렸다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 유리에게 좋아하는 오르골 노래가 있냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "유리는 기억나는 오르골 노래를 몇 가지 말해주었다. 당신이 아는 노래도 몇 개 있었지만 모르는 노래도 많았다. 당신의 표정을 살피던 유리는 혹시 이들 중에 궁금한 노래가 있냐고 물었다. 그는 당신이 원한다면 직접 불러주겠다고 말하며 웃었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("yuri", "affection", 1);
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 오르골 음에 맞춰 흥얼거렸다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신이 오르골 음에 맞춰 흥얼거리자 유리는 잠시 말을 잃었다. 당신이 의아해하자 그는 고개를 저으며 잠시 옛날 생각이 났을 뿐이라고 말했다. 그는 흥얼거리는 당신의 옆에서 같이 흥얼거렸다. 그의 음색은 예전처럼 상냥했고 부드러웠다. 어떤 상류도시의 가수들도 유리의 목소리는 따라잡을 수 없을 거라고 당신은 무의식적으로 생각했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("yuri", "dominance", 5);
+                                        changeNPCEmotion("yuri", "affection", 2);
+                                        changeTrauma(player, -3);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 유리와 함께 조용히 오르골 노래를 들었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신과 유리는 서로에게 머리를 기댄 채 오르골 노래를 들었다." +
+                                        "<br><br>\"어렸을 때 생각난다... 물론 그때는 오르골도 없었고 천장이 새기는 했지만... 그때의 우리와 지금의 우리는 달라진 게 없다는 생각이 들어.\"<br><br>" +
+                                        "유리는 부드럽게 손깍지를 껴며 미소를 지었다." +
+                                        "<br><br>\"그래서 네가 좋아, {yuriTitle}.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 15);
+                                        changeTrauma(player, -2);
+                                        changeNPCEmotion("yuri", "affection", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             player, {

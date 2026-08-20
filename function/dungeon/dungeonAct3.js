@@ -866,31 +866,31 @@ Object.assign(DUNGEONS, {
             "r0c1" : {name : "소라의 상점", exits : {left : "r0c0", right : "r0c2"}, event : "paleHideOut_soraShop_01", seenFlag : "paleHideOut_soraShop"},
             "r0c2" : {name : "무너진 소라의 상점", exits : {left : "r0c1"}, event : "paleHideOut_soraShop_02", seenFlag : "paleHideOut_soraShop_02"},
             "r0c4" : {name : "하얀 꽃길", exits : {down : "r1c4"}},
-            "r0c6" : {name : "", exits : {right : "r0c7", down : "r1c6"}},
-            "r0c7" : {name : "", exits : {left : "r0c6", right : "r0c8"}},
-            "r0c8" : {name : "", exits : {left : "r0c7", right : "r0c9", down : "r1c8"}},
-            "r0c9" : {name : "", exits : {left : "r0c8"}},
+            "r0c6" : {name : "떨어져 있는 담배", exits : {right : "r0c7", down : "r1c6"}, event : "paleHideOut_luke_01", seenFlag : "paleHideOut_luke_01"},
+            "r0c7" : {name : "슬픔의 길", exits : {left : "r0c6", right : "r0c8"}},
+            "r0c8" : {name : "하얀 꽃잎들로 형체화되어 있는 돌들", exits : {left : "r0c7", right : "r0c9", down : "r1c8"}},
+            "r0c9" : {name : "비명", exits : {left : "r0c8"}, event : "paleHideOut_scream", seenFlag : "paleHideOut_scream"},
 
             "r1c0" : {name : "상점 잔해", exits : {up : "r0c0", down : "r2c0"}},
             "r1c3" : {name : "왼쪽 하얀 꽃길", exits : {right : "r1c4", down : "r2c3"}},
             "r1c4" : {name : "꽃 너머의", exits : {up : "r0c4", left : "r1c3", right : "r1c5"}, event : "paleHideOut_there", seenFlag : "paleHideOut_there"},
-            "r1c5" : {name : "", exits : {left : "r1c4", right : "r1c6", down : "r2c5"}},
-            "r1c6" : {name : "", exits : {up : "r0c6", left : "r1c5"}},
-            "r1c8" : {name : "", exits : {up : "r0c8", down : "r2c8"}},
+            "r1c5" : {name : "오른쪽 하얀 꽃길", exits : {left : "r1c4", right : "r1c6", down : "r2c5"}},
+            "r1c6" : {name : "혼자 걷는 길", exits : {up : "r0c6", left : "r1c5"}},
+            "r1c8" : {name : "두 명의 발자국", exits : {up : "r0c8", down : "r2c8"}},
 
             "r2c0" : {name : "붉게 물든 길", exits : {up : "r1c0", down : "r3c0"}},
             "r2c2" : {name : "습득", exits : {right : "r2c3", down : "r3c2"}, event : "paleHideOut_experiment_02", seenFlag : "paleHideOut_experiment_02"},
             "r2c3" : {name : "감정", exits : {up : "r1c3", left : "r2c2"}, event : "paleHideOut_experiment_01", seenFlag : "paleHideOut_experiment_01"},
-            "r2c5" : {name : "", exits : {up : "r1c5"}},
-            "r2c7" : {name : "", exits : {right : "r2c8", down : "r3c7"}},
-            "r2c8" : {name : "", exits : {up : "r1c8", left : "r2c7", right : "r2c9"}},
-            "r2c9" : {name : "", exits : {left : "r2c8", down : "r3c9"}},
+            "r2c5" : {name : "구석", exits : {up : "r1c5"}, chest : "gem_chest"},
+            "r2c7" : {name : "하얀 꽃으로 형상화된 마을 입구", exits : {right : "r2c8", down : "r3c7"}},
+            "r2c8" : {name : "고독의 길", exits : {up : "r1c8", left : "r2c7", right : "r2c9"}},
+            "r2c9" : {name : "그리고 당신", exits : {left : "r2c8", down : "r3c9"}, event : "paleHideOut_andYou", seenFlag : "paleHideOut_andYou"},
 
             "r3c0" : {name : "소라의 길", exits : {up : "r2c0", right : "r3c1", down : "r4c0"}},
             "r3c1" : {name : "울렁거리는 통로", exits : {left : "r3c0", right : "r3c2"}},
             "r3c2" : {name : "몰아치는 모퉁이", exits : {up : "r2c2", left : "r3c1", down : "r4c2"}, event : "paleHideOut_experiment_03", seenFlag : "paleHideOut_experiment_03"},
             "r3c4" : {name : "", exits : {down : "r4c4"}},
-            "r3c7" : {name : "", exits : {up : "r2c7"}},
+            "r3c7" : {name : "무너진 마을 입구", exits : {up : "r2c7"}, event : "paleHideOut_townEntrance", seenFlag : "paleHideOut_townEntrance"},
             "r3c9" : {name : "", exits : {up : "r2c9", down : "r4c9"}},
 
             "r4c0" : {name : "학살", exits : {up : "r3c0"}, event : "paleHideOut_genocide", seenFlag : "paleHideOut_genocide"},
@@ -915,7 +915,7 @@ Object.assign(DUNGEONS, {
             "r6c8" : {name : "", exits : {left : "r6c7", right : "r6c9", down : "r7c8"}},
             "r6c9" : {name : "", exits : {up : "r5c9", left : "r6c8"}},
 
-            "r7c0" : {name : "", exits : {right : "r7c1", down : "r8c0"}},
+            "r7c0" : {name : "하늘색 바닥", exits : {right : "r7c1", down : "r8c0"}, event : "paleHideOut_valen_01", seenFlag : "paleHideOut_valen_01"},
             "r7c1" : {name : "끊어진 하얀 꽃길", exits : {up : "r6c1", left : "r7c0", right : "r7c2"}},
             "r7c2" : {name : "한 아이", exits : {left : "r7c1", down : "r8c2"}, event : "paleHideOut_oneChild_01", seenFlag : "paleHideOut_oneChild_01"},
             "r7c4" : {name : "", exits : {up : "r6c4", right : "r7c5"}},
@@ -923,14 +923,14 @@ Object.assign(DUNGEONS, {
             "r7c6" : {name : "", exits : {left : "r7c5", down : "r8c6"}},
             "r7c8" : {name : "", exits : {up : "r6c8", down : "r8c8"}},
 
-            "r8c0" : {name : "", exits : {up : "r7c0", down : "r9c0"}},
+            "r8c0" : {name : "갈라진 하늘색 바닥", exits : {up : "r7c0", down : "r9c0"}},
             "r8c2" : {name : "파기된 신뢰", exits : {up : "r7c2"}, event : "paleHideOut_oneChild_02", seenFlag : "paleHideOut_oneChild_02"},
             "r8c6" : {name : "", exits : {up : "r7c6", down : "r9c6"}},
             "r8c8" : {name : "", exits : {up : "r7c8", right : "r8c9"}},
             "r8c9" : {name : "", exits : {left : "r8c8", down : "r9c9"}},
 
-            "r9c0" : {name : "", exits : {up : "r8c0", right : "r9c1"}},
-            "r9c1" : {name : "", exits : {left : "r9c0", down : "r10c1"}},
+            "r9c0" : {name : "하얀꽃으로 이루어진 쌍둥이저택", exits : {up : "r8c0", right : "r9c1"}, event : "paleHideOut_valen_02", seenFlag : "paleHideOut_valen_02"},
+            "r9c1" : {name : "핏길", exits : {left : "r9c0", down : "r10c1"}},
             "r9c3" : {name : "", exits : {right : "r9c4"}},
             "r9c4" : {name : "두려움은 한 명만의 것이 아니다", exits : {left : "r9c3", right : "r9c5", down : "r10c4"}, safeZone: true, allowRest: true},
             "r9c5" : {name : "", exits : {left : "r9c4", right : "r9c6"}},
@@ -938,7 +938,7 @@ Object.assign(DUNGEONS, {
             "r9c7" : {name : "", exits : {left : "r9c6", down : "r10c7"}},
             "r9c9" : {name : "", exits : {up : "r8c9", down : "r10c9"}},
 
-            "r10c1" : {name : "", exits : {up : "r9c1"}},
+            "r10c1" : {name : "무너진 쌍둥이저택", exits : {up : "r9c1"}, event : "paleHideOut_valen_03", seenFlag : "paleHideOut_valen_03"},
             "r10c4" : {name : "선택의 시간", exits : {up : "r9c4"}},
             "r10c7" : {name : "", exits : {up : "r9c7"}},
             "r10c9" : {name : "", exits : {up : "r9c9"}}
@@ -5012,7 +5012,7 @@ Object.assign(DUNGEON_EVENTS, {
                     "사람들이 전부 나가고 당신은 카운터에서 쪽지 한 장을 발견했다. 당신은 쪽지를 집어들었다." +
                     "<br><br>[그 상점을 아끼는 모양이시군요. 당신의 것도 아니면서.]<br><br>" +
                     "소라의 상점은 소라의 것이다. 당신은 문장을 더 읽었다." +
-                    "<br><br>[당신이 그 상점에 머무를 수 있도록 해드리겠습니다. 당신도 제 부탁을 들어주신다면.]"
+                    "<br><br>[몇몇 사람들이 이미 당신에게 의구심을 품고 있습니다. 원하신다면 제가 당신이 그 상점에 머무를 수 있도록 해드리겠습니다. 물론 당신도 제 부탁을 들어주셔야겠지만.]"
                 ]
             },
             {
@@ -5067,6 +5067,161 @@ Object.assign(DUNGEON_EVENTS, {
                     player.flags.paleHideOut_oneChild_02 = true;
                     savePlayer(player);
                 }
+            }
+        ],
+        paleHideOut_valen_01 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎들이 당신의 앞에 흩날린다. 다시 한번 또, 당신은 다른 사람이 되어 있다. 당신은 당신의 기억보다 훨씬 더 젊은 발렌의 모습을 본다. 당신의 입이 열린다." +
+                    "<br><br>\"...어디선가 본 적이 있는 것 같은데.\"<br><br>" +
+                    "당신의 말에 발렌은 눈을 깜박이더니 미소를 지으며 자신을 잘 모르겠다고 말했다." +
+                    "<br><br>\"가끔씩 어린 아이들은 자신이 저지른 일을 기억하지 못하거든요.\"<br><br>" +
+                    "당신은 다시 당신으로 돌아왔다. 순식간에 변한 주변의 풍경에 당신은 순간 멀미가 났다. 당신은 비틀거리면서 넘어질 뻔했지만 어떻게든 버텨냈다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_valen_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_valen_02 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎들이 당신의 앞에서 일렁인다. 저번부터 누군가 당신의 정신을 자꾸만 건드린다. 창백인가? 아니, 이건 창백이 하는 짓이라기에는.... 누군가의 감정들이 강제로 당신에게 밀려들어왔다가 다시 사라진다. 당신은 살의를 느꼈다. 상점 카운터에서 고개를 숙이고 있는 당신의 앞으로 쪽지 한 장이 내밀어진다. 당신은 고개를 들었다. 금발에 하늘색 눈동자를 가진 소년, 그는 익숙한 천사같은 미소를 짓고 있었다. 그는 까치발을 들더니 당신에게 속삭였다." +
+                    "<br><br>\"지금도 실험은 계속되고 있어요.\"<br><br>" +
+                    "그는 당신에게 주소를 내밀었다. 주소의 글자가 일렁인다. 이 아이는 대체 뭐지? 하지만 아이의 정체보다 중요한 건 이 고통을 멈추는 것이다. 당신은 고개를 들었다. 당신은 그 주소로 찾아가기로 결심했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_valen_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_valen_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 쌍둥이저택에 들어가는 연인을 본다. 그리고 그들의 아이들을 본다. 그리고 당신은 생각한다. 어째서 저들만 사랑을 받는 거지? 소라는 소라인데, 소라야말로 이 세상에서 사랑을 받아야 하는 존재인데, 당신은 저택으로 발을 내딛으려다가 멈춘다. 그리고 밑을 바라본다." +
+                    "<br><br>당신은 밑을 바라보다가 일부러 하얀꽃들을 피워낸다. 그리고 하얀꽃들이 당신의 피부에서부터 흘러내리는 것처럼 만든다. 그리고 미소를 지었다." +
+                    "<br><br>\"이런 일은 창백이 하는 짓이야.... 소라가 아니라.\"<br><br>" +
+                    "당신은 쌍둥이저택으로 다가간다. 한 가족의 웃음 소리가 당신의 머리를 아프게 파고 든다. 당신은 앞을 본다. 당신의 금색 눈동자에 화들짝 놀란 네 명의 얼굴이 맺힌다. 당신은 미소를 지었다. 어른 둘은 아이 둘의 앞을 막아섰다. 한 아이가 제 부모의 팔을 붙잡는다. 당신의 미소가 짙어졌다." +
+                    "<br><br><span class='log-sora'>당신은 처음부터 아이들은 죽일 생각이 없었다.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_valen_03 = true;
+                    changeTrauma(player, 15);
+                    changeStamina(player, -20);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_luke_01 : [
+            {
+                type : "text",
+                value : [
+                    "하얀 꽃잎으로 이루어진 길을 걸어가던 당신은 하얀 꽃잎들 사이에 묻혀 있는 담배를 하나 발견했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 담배를 피워보았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 담배를 입에 물고 불을 붙였다. 당신의 위화감대로 담배에서 내뿜어지는 연기는 일반 연기가 아니었다. 당신이 몇 번이고 봐왔던 하얀색 연기였다. 매캐한 냄새보다는 달콤한 냄새에 가까운, 하류도시에서 사는 사람들이라면 적어도 한 번 정도는 맡아봤을 그 연기."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.paleHideOut_luke_01 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 담배를 건드리지 않고 갔다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 비흡연자다. 당신은 그대로 담배꽁초를 지나쳤다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.paleHideOut_luke_01 = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        paleHideOut_scream : [
+            {
+                type : "text",
+                value : [
+                    "....<br><br>" +
+                    "<div style='text-align:center; font-size:2rem; color: #302ce9;'>때리지 마</div><br><br>" +
+                    "<div style='text-align:center; font-size:2rem; color: #302ce9;'>던지지 말아줘</div><br><br>" +
+                    "<div style='text-align:center; font-size:2rem; color: #302ce9;'>돌려줘</div><br><br>" +
+                    "<div style='text-align:center; font-size:2rem; color: #302ce9;'>아파</div><br><br>" +
+                    "<br><br><br>그리고 당신의 목에서부터 울리는 그것의 비명."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_scream = true;
+                    changeTrauma(player, 20);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_townEntrance : [
+            {
+                type : "text",
+                value : [
+                    "무너진 마을 입구를 보는 순간 무언가가 당신의 시야를 스치고 지나갔다. 당신은 다시 눈을 깜박였다. 당신의 앞에 에릭이 서 있었다. 그는 당신에게 총구를 겨누더니 그대로 방아쇠를 당겼다. 탕, 하는 소리와 함께 당신의 머리가 뚫렸지만 당신은 죽지 않았다. 오직 고통만이 당신을 비명지르게 했다. 아프다. 당신은 본능적으로 손을 휘저었다. 에릭은 당신의 고통에도 주저하지 않았다. 그의 살기 어린 눈동자를 마주하면서 당신은 공포를 느낀다. 그는 움직이지 못하게 될 때까지 당신을 쫓아올 것이다. 당신은 공포에 손을 들었다. 창백한 촉수들이 그의 심장을 뚫기 위해 여기저기서 일어났다." +
+                    "<br><br>하지만 그 순간, 당신은 그의 과거를 본다. 고개를 돌리지도 못하고, 눈을 감지도 못하고, 창백한 촉수에 묶인 채로 그는 그의 부모님이 무참하게 살해당하는 것을 보아야만 했다. 두 사람의 녹안에 창백한 꽃잎들이 흘러내리는 <span class='log-pale'>나</span>의 얼굴이 맺힌다." +
+                    "<br><br>당신은 괴로워하며 뒤로 물러났다. 당신은 그를 공격하지 못했다. 당신은 도망갔다. 하지만 뒤에서 총성은 계속 들려왔다. 당신은 말하고 싶었다, 말하려고 노력을 했다, 당신의 부모님을 죽인 건 내가 아니라고.... 하지만 목소리는 제대로 나오지 않았다." +
+                    "<br><br>결국 당신은 그를 공격했다. 하지만 그는 공격을 맞으면서도 당신을 쫓았다." +
+                    "<br><br><span class='log-pale'>...제발 그만...</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_townEntrance = true;
+                    changeTrauma(player, 20);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_andYou : [
+            {
+                type : "text",
+                value : [
+                    "당신은 눈을 깜박였다. 당신의 앞에는 당신이 있었다. 당신은 당신을 두려워하거나 무서워하지 않았다. 당신의 손이 당신에게 뻗어온다. 당신은 머뭇거리다가도 다시 한번 당신의 손을 잡았다. 따듯하다. 그리웠다. 당신은 그의 손에 뺨을 기댄 채 눈물을 흘린다. 눈물을 흘릴 때마다 얼굴이 하얀 꽃잎들로 흘러내려 버려서 당신은 한쪽 손으로 얼굴을 가렸다. 흘러내리는 얼굴을 봤는데도 당신은 무서워하지 않았다."
+                ]
             }
         ]
     }

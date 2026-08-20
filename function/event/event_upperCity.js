@@ -2236,6 +2236,98 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "matin_rubyEarring_04",
+    once: true,
+
+    condition: (player) =>
+        player.location === "richTownStreet" &&
+        player.flags?.matin_rubyEarring_03 &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)),
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_04 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.matin_rubyEarring_04,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "matin_rubyEarring_06",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge" &&
+        getCurrentDay(player) >= (player.flags.matin_rubyEarring_05_day + 3) &&
+        player.flags?.matin_rubyEarring_05,
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_06 = true;
+        player.flags.matin_rubyEarring_06_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.matin_rubyEarring_06,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "matin_rubyEarring_07",
+    once: true,
+
+    condition: (player) =>
+        player.location === "gloryStreet" &&
+        getCurrentDay(player) >= (player.flags.matin_rubyEarring_06_day + 4) &&
+        player.flags?.matin_rubyEarring_06,
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_07 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.matin_rubyEarring_07,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "matin_rubyEarring_08",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalForge" &&
+        player.flags?.matin_rubyEarring_07,
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_08 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["juliang"].scenes.matin_rubyEarring_08,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //라파엘
 window.EVENTS.push({
     id: "raphael_firstMeeting",
@@ -2291,6 +2383,29 @@ window.EVENTS.push({
 
     action: (player) => {
         startRaphaelForcedHospitalization(player);
+    }
+});
+
+window.EVENTS.push({
+    id: "matin_rubyEarring_05",
+    once: true,
+
+    condition: (player) =>
+        player.location === "royalHospital" &&
+        player.flags?.matin_rubyEarring_04,
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_05 = true;
+        player.flags.matin_rubyEarring_05_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["raphael"].scenes.matin_rubyEarring_05,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
     }
 });
 

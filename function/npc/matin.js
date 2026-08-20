@@ -332,7 +332,7 @@ registerActions("matin",{
                 scene: NPC_DATA.matin.scenes.matin_rubyEarring_03
             });
         }
-
+        
         choices.push({ text: "돌아간다", action: "matin_talk" });
 
         startScene([

@@ -1813,6 +1813,29 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "matin_rubyEarring_09",
+    once: true,
+
+    condition: (player) =>
+        player.location === "darkStreet" &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.matin_rubyEarring_08,
+        
+    action: (player) => {
+        player.flags.matin_rubyEarring_09 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["matin"].scenes.matin_rubyEarring_09,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id : "yuri_shelter_heal_event",

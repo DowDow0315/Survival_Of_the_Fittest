@@ -1323,3 +1323,35 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_09_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_09_intro_02,
+
+    action : (player) => {
+        player.flags.act3_quest_09_intro_03 = true;
+        player.flags.act3_quest_09_unlock = true;
+        player.location = "townStreet";
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 상점에 들어가려고 했지만 상점은 처음으로 문이 닫혀 있었다. 당신이 어렸을 때부터 상점이 닫혀있던 적은 단 한 번도 없었다. 하류도시 사람들이 웅성거리며 상점 주변을 둘러쌌다. 늙은 노인이 고개를 갸웃거리며 말했다, \"내 생애 이 상점이 닫힌 건 처음 보는 것 같은데?\". 에이든은 인상을 쓰더니 당신을 뒤로 반 걸음 물러나게 하고 문을 두드렸다. 하지만 여전히 어떤 인기척도 느껴지지 않았다. 에이든은 랜스를 들더니 그대로 상점 문을 밀고 들어갔다." +
+                    "<br><br>소라는 없었다. 상황을 빠르게 파악한 에이든은 소라가 어디 갔을지는 예상이 된다고 말했다." +
+                    "<br><br>\"...눈치 하나는 기가 막히게 빠르군요. 창백을 제거하러 가다니.\"<br><br>" +
+                    "그는 중얼거리듯이 말하더니 소라가 있을 곳은 하얀꽃 무덤 근처라고 말했다. 그는 주점에 자세한 위치를 올려놓겠다고 말했다. 그는 백색 군단을 이끌고 먼저 하류도시를 나섰다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

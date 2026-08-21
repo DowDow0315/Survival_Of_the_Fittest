@@ -884,64 +884,64 @@ Object.assign(DUNGEONS, {
             "r2c5" : {name : "구석", exits : {up : "r1c5"}, chest : "gem_chest"},
             "r2c7" : {name : "하얀 꽃으로 형상화된 마을 입구", exits : {right : "r2c8", down : "r3c7"}},
             "r2c8" : {name : "고독의 길", exits : {up : "r1c8", left : "r2c7", right : "r2c9"}},
-            "r2c9" : {name : "그리고 당신", exits : {left : "r2c8", down : "r3c9"}, event : "paleHideOut_andYou", seenFlag : "paleHideOut_andYou"},
+            "r2c9" : {name : "그리고 당신", exits : {left : "r2c8", down : "r3c9"}, event : "paleHideOut_andYou_01", seenFlag : "paleHideOut_andYou_01"},
 
             "r3c0" : {name : "소라의 길", exits : {up : "r2c0", right : "r3c1", down : "r4c0"}},
             "r3c1" : {name : "울렁거리는 통로", exits : {left : "r3c0", right : "r3c2"}},
             "r3c2" : {name : "몰아치는 모퉁이", exits : {up : "r2c2", left : "r3c1", down : "r4c2"}, event : "paleHideOut_experiment_03", seenFlag : "paleHideOut_experiment_03"},
-            "r3c4" : {name : "", exits : {down : "r4c4"}},
+            "r3c4" : {name : "그리움", exits : {down : "r4c4"}, event : "paleHideOut_andYou_04", seenFlag : "paleHideOut_andYou_04"},
             "r3c7" : {name : "무너진 마을 입구", exits : {up : "r2c7"}, event : "paleHideOut_townEntrance", seenFlag : "paleHideOut_townEntrance"},
-            "r3c9" : {name : "", exits : {up : "r2c9", down : "r4c9"}},
+            "r3c9" : {name : "2주간의 꿈", exits : {up : "r2c9", down : "r4c9"}},
 
             "r4c0" : {name : "학살", exits : {up : "r3c0"}, event : "paleHideOut_genocide", seenFlag : "paleHideOut_genocide"},
             "r4c2" : {name : "울렁거리는 길", exits : {up : "r3c2", right : "r4c3", down : "r5c2"}},
-            "r4c3" : {name : "", exits : {left : "r4c2", right : "r4c4"}},
-            "r4c4" : {name : "", exits : {up : "r3c4", left : "r4c3", right : "r4c5", down : "r5c4"}},
-            "r4c5" : {name : "", exits : {left : "r4c4", right : "r4c6"}},
-            "r4c6" : {name : "", exits : {left : "r4c5", down : "r5c6"}},
-            "r4c8" : {name : "", exits : {right : "r4c9"}},
-            "r4c9" : {name : "", exits : {up : "r3c9", left : "r4c8", down : "r5c9"}},
+            "r4c3" : {name : "결말로 이어지는 길", exits : {left : "r4c2", right : "r4c4"}},
+            "r4c4" : {name : "아픔의 길", exits : {up : "r3c4", left : "r4c3", right : "r4c5", down : "r5c4"}},
+            "r4c5" : {name : "창백한 길", exits : {left : "r4c4", right : "r4c6"}},
+            "r4c6" : {name : "더 이어지는 창백한 길", exits : {left : "r4c5", down : "r5c6"}},
+            "r4c8" : {name : "당신이 있는 세상", exits : {right : "r4c9"}, event : "paleHideOut_andYou_03", seenFlag : "paleHideOut_andYou_03"},
+            "r4c9" : {name : "그리고 당신?", exits : {up : "r3c9", left : "r4c8", down : "r5c9"}, event : "paleHideOut_andYou_02", seenFlag : "paleHideOut_andYou_02"},
 
             "r5c1" : {name : "공허", exits : {right : "r5c2", down : "r6c1"}, event : "paleHideOut_noMind", seenFlag : "paleHideOut_noMind"},
             "r5c2" : {name : "누군가의 시선", exits : {up : "r4c2", left : "r5c1"}},
-            "r5c4" : {name : "", exits : {up : "r4c4", down : "r6c4"}},
-            "r5c6" : {name : "", exits : {up : "r4c6"}},
-            "r5c9" : {name : "", exits : {up : "r4c9", down : "r6c9"}},
+            "r5c4" : {name : "두 사람이 걸어간 길", exits : {up : "r4c4", down : "r6c4"}},
+            "r5c6" : {name : "더 짙어지는 그리움", exits : {up : "r4c6"}, event : "paleHideOut_andYou_05", seenFlag : "paleHideOut_andYou_05"},
+            "r5c9" : {name : "계속 당신", exits : {up : "r4c9", down : "r6c9"}},
 
             "r6c1" : {name : "이유 없는 집착", exits : {up : "r5c1", down : "r7c1"}},
-            "r6c3" : {name : "", exits : {right : "r6c4"}},
-            "r6c4" : {name : "", exits : {up : "r5c4", left : "r6c3", down : "r7c4"}},
-            "r6c7" : {name : "", exits : {right : "r6c8"}},
-            "r6c8" : {name : "", exits : {left : "r6c7", right : "r6c9", down : "r7c8"}},
-            "r6c9" : {name : "", exits : {up : "r5c9", left : "r6c8"}},
+            "r6c3" : {name : "거울", exits : {right : "r6c4"}, event : "paleHideOut_mirror", seenFlag : "paleHideOut_mirror"},
+            "r6c4" : {name : "사랑", exits : {up : "r5c4", left : "r6c3", down : "r7c4"}},
+            "r6c7" : {name : "불안의 결과", exits : {right : "r6c8"}, event : "paleHideOut_oneChild_03", seenFlag : "paleHideOut_oneChild_03"},
+            "r6c8" : {name : "불안의 흔적", exits : {left : "r6c7", right : "r6c9", down : "r7c8"}, event : "paleHideOut_twos_01", seenFlag : "paleHideOut_twos_01"},
+            "r6c9" : {name : "불안의 시작", exits : {up : "r5c9", left : "r6c8"}},
 
             "r7c0" : {name : "하늘색 바닥", exits : {right : "r7c1", down : "r8c0"}, event : "paleHideOut_valen_01", seenFlag : "paleHideOut_valen_01"},
             "r7c1" : {name : "끊어진 하얀 꽃길", exits : {up : "r6c1", left : "r7c0", right : "r7c2"}},
             "r7c2" : {name : "한 아이", exits : {left : "r7c1", down : "r8c2"}, event : "paleHideOut_oneChild_01", seenFlag : "paleHideOut_oneChild_01"},
-            "r7c4" : {name : "", exits : {up : "r6c4", right : "r7c5"}},
-            "r7c5" : {name : "", exits : {left : "r7c4", right : "r7c6"}},
-            "r7c6" : {name : "", exits : {left : "r7c5", down : "r8c6"}},
-            "r7c8" : {name : "", exits : {up : "r6c8", down : "r8c8"}},
+            "r7c4" : {name : "멀리서 들리는 싸움의 소리", exits : {up : "r6c4", right : "r7c5"}},
+            "r7c5" : {name : "반란군들의 시체", exits : {left : "r7c4", right : "r7c6"}},
+            "r7c6" : {name : "시체를 밟고 가는 길", exits : {left : "r7c5", down : "r8c6"}},
+            "r7c8" : {name : "누군가의 무덤으로 이어지는 길", exits : {up : "r6c8", down : "r8c8"}},
 
             "r8c0" : {name : "갈라진 하늘색 바닥", exits : {up : "r7c0", down : "r9c0"}},
             "r8c2" : {name : "파기된 신뢰", exits : {up : "r7c2"}, event : "paleHideOut_oneChild_02", seenFlag : "paleHideOut_oneChild_02"},
-            "r8c6" : {name : "", exits : {up : "r7c6", down : "r9c6"}},
-            "r8c8" : {name : "", exits : {up : "r7c8", right : "r8c9"}},
-            "r8c9" : {name : "", exits : {left : "r8c8", down : "r9c9"}},
+            "r8c6" : {name : "처참한 백색 군인들의 시체", exits : {up : "r7c6", down : "r9c6"}},
+            "r8c8" : {name : "꽃길", exits : {up : "r7c8", right : "r8c9"}},
+            "r8c9" : {name : "무덤들", exits : {left : "r8c8", down : "r9c9"}},
 
             "r9c0" : {name : "하얀꽃으로 이루어진 쌍둥이저택", exits : {up : "r8c0", right : "r9c1"}, event : "paleHideOut_valen_02", seenFlag : "paleHideOut_valen_02"},
             "r9c1" : {name : "핏길", exits : {left : "r9c0", down : "r10c1"}},
-            "r9c3" : {name : "", exits : {right : "r9c4"}},
+            "r9c3" : {name : "삐뚤거리는 글씨", exits : {right : "r9c4"}, event : "paleHideOut_paleMemo", seenFlag : "paleHideOut_paleMemo"},
             "r9c4" : {name : "두려움은 한 명만의 것이 아니다", exits : {left : "r9c3", right : "r9c5", down : "r10c4"}, safeZone: true, allowRest: true},
-            "r9c5" : {name : "", exits : {left : "r9c4", right : "r9c6"}},
-            "r9c6" : {name : "", exits : {up : "r8c6", left : "r9c5", right : "r9c7"}},
-            "r9c7" : {name : "", exits : {left : "r9c6", down : "r10c7"}},
-            "r9c9" : {name : "", exits : {up : "r8c9", down : "r10c9"}},
+            "r9c5" : {name : "다가오는 이별의 시간", exits : {left : "r9c4", right : "r9c6"}},
+            "r9c6" : {name : "시체를 밟고 가는 길", exits : {up : "r8c6", left : "r9c5", right : "r9c7"}},
+            "r9c7" : {name : "어디선가 들리는 중얼거리는 소리", exits : {left : "r9c6", down : "r10c7"}},
+            "r9c9" : {name : "가장 안쪽의 무덤으로 이어지는 길", exits : {up : "r8c9", down : "r10c9"}},
 
             "r10c1" : {name : "무너진 쌍둥이저택", exits : {up : "r9c1"}, event : "paleHideOut_valen_03", seenFlag : "paleHideOut_valen_03"},
-            "r10c4" : {name : "선택의 시간", exits : {up : "r9c4"}},
-            "r10c7" : {name : "", exits : {up : "r9c7"}},
-            "r10c9" : {name : "", exits : {up : "r9c9"}}
+            "r10c4" : {name : "선택의 시간", exits : {up : "r9c4"}, event : "paleHideOut_finalChoice"},
+            "r10c7" : {name : "정신이 나간 백색 군인", exits : {up : "r9c7"}, event : "paleHideOut_whiteSoldier", seenFlag : "paleHideOut_whiteSoldier"},
+            "r10c9" : {name : "가짜 무덤", exits : {up : "r9c9"}, event : "paleHideOut_tomb", seenFlag : "paleHideOut_tomb"}
         },
 
         encounters : [
@@ -5216,12 +5216,357 @@ Object.assign(DUNGEON_EVENTS, {
                 }
             }
         ],
-        paleHideOut_andYou : [
+        paleHideOut_andYou_01 : [
             {
                 type : "text",
                 value : [
-                    "당신은 눈을 깜박였다. 당신의 앞에는 당신이 있었다. 당신은 당신을 두려워하거나 무서워하지 않았다. 당신의 손이 당신에게 뻗어온다. 당신은 머뭇거리다가도 다시 한번 당신의 손을 잡았다. 따듯하다. 그리웠다. 당신은 그의 손에 뺨을 기댄 채 눈물을 흘린다. 눈물을 흘릴 때마다 얼굴이 하얀 꽃잎들로 흘러내려 버려서 당신은 한쪽 손으로 얼굴을 가렸다. 흘러내리는 얼굴을 봤는데도 당신은 무서워하지 않았다."
+                    "당신은 눈을 깜박였다. 당신의 앞에는 당신이 있었다. 당신은 당신을 두려워하거나 무서워하지 않았다. 당신의 손이 당신에게 뻗어온다. 당신은 머뭇거리다가도 다시 한번 당신의 손을 잡았다. 따듯하다. 그리웠다. 당신은 그의 손에 뺨을 기댄 채 눈물을 흘린다. 눈물을 흘릴 때마다 얼굴이 하얀 꽃잎들로 흘러내려 버려서 당신은 한쪽 손으로 얼굴을 가렸다. 흘러내리는 얼굴을 봤는데도 당신은 무서워하지 않았다." +
+                    "<br><br>보고 싶지도 않은, 하얀 꽃들로만 이루어진 세상에 당신이 생겼다. 처음에는 당신이 마을로 가지 않았으면 좋겠다고 생각했다. 당신만 자신의 곁에 있으면 행복할 것 같았다. 당신은 손에 잡힌 하얀 꽃들을 내려다보았다. 이 하얀 꽃들을 당신에게 많이 먹이면, 어쩌면 당신은 자신의 품에서 벗어나지 못할지도 모른다. 당신은 하얀 꽃들을 음식에 듬뿍 넣었다. 그리고 하얀꽃 그릇에 담아 천천히 당신에게 가져갔다." +
+                    "<br><br>당신은 당신을 본다. 당신은 당신이 혼자가 아니라는 걸 안다. 가족이든, 친구든, 당신을 지켜주는 사람이든, 당신이 지키는 사람이든, 당신은 당신의 옆에 누군가가 있을 것을 알고 있다. 당신과 시선이 마주쳤다. 당신은 요리를 등뒤로 숨겼다." +
+                    "<br><br><strong>당신은 차마 당신에게 요리를 줄 수 없었다.</strong>" +
+                    "<br><br>\"나ㄹ...ㅇ...ㅈ...ㅁ...\"<br><br>" +
+                    "...적어도 당신의 기억에 내가 한조각이라도 남기를. 당신은 당신의 마음이 바뀌기 전에 당신을 마을 입구에 데려다주었다. 어쩌면 당신은 나를 잊을지도 모른다. 나에게는 소중한 시간을, 당신은 꿈처럼 여길지도 모른다. 하지만 그래도 상관없었다." +
+                    "<br><br>당신의 기억 어딘가에는 내가 남아있을 테니까, 당신이 기억하지 못한다고 하더라도." +
+                    "<br><br><br><span class='log-pale'>...벌써 당신이 보고 싶다.</span>"
                 ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_andYou_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_andYou_02 : [
+            {
+                type : "text",
+                value : [
+                    "손님들을 대접하던 당신은 딸랑거리는 방울 소리에 무료함 속에서 고개를 들었다. 당신이다. 그 순간, 처음 느껴보는 감정이 당신을 장악했다. 뭐지? 지금 내 심장이 뛰는 건가? 내 심장 박동 소리가 원래 이렇게 컸던가? 당신은 당신을 바라본다. 당신은 당신을 알고 있다. 어린 당신이 살아남기 위해 밟버둥치던 모습도, 박스를 머리에 뒤집어쓰고 비를 피하던 모습도, 전부, 당신은 봐왔다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "생각해보면 그때도 당신은 당신을 싫다고 생각한 적이 없었다. 이렇게까지 감정이 강렬하지는 않았었지만, 그때도 당신은 다른 사람들보다는 당신을 특별하게 여겼던 것 같기도 하다. 당신은 당신에게로 손을 뻗었다." +
+                    "<br><br>\"귀염둥이.\"<br><br>" +
+                    "그리고 당신은 인사와 함께 말한다." +
+                    "<br><br>\"무슨 일 없었던 거지? 안색이 안 좋아보여.\"<br><br>" +
+                    "이 감정만큼은 내 감정일 거야. 당신은 생각한다. 내 감정이 아니라면 이렇게 강렬할 리가 없잖아. 당신은 눈동자를 이리저리 굴리다가 뭐라도 줘야겠다는 생각에 당신의 손에 수혈팩을 쥐어주었다." +
+                    "\"어디 가서는 내가 줬다고 말하면 안 된다?\"" +
+                    "<br><br>누군가에게 대가 없이 뭔가를 준 건 처음이다. 원래 세상이 이렇게까지 색깔이 다채로웠나?" +
+                    "<br><br>\"이거 준 대신, 절대로 내 앞에서 말없이 사라지면 안돼? 알겠지?\"<br><br>" +
+                    "<span class='log-sora'>지금까지 지켜봤었던 시선들, 어쩌면 이번에야말로 당신의 시선도 그들의 시선과 비슷해졌을지도 모른다는 생각이 들었다.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_andYou_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_andYou_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 하얀 꽃잎들로 만들어져 있는 세상을 보았다. 하얀 꽃잎 벤치, 하얀 꽃잎 그네, 하얀 꽃잎 소파...." +
+                    "<br>...당신은 이 세상에 1인용은 하나도 없다는 걸 알게 되었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_andYou_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_twos_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 세 사람의 발자국을 보았다. 두 사람의 발자국은 얽혀 있었고, 한 사람의 발자국은 조금 멀찍히 떨어져 있었다. 당신은 고개를 숙였다. 얽혀 있는 두 사람의 발자국들은 크기마저 똑같았다. 당신은 몸을 숙이고 발자국에 손을 뻗었다. 발자국 모양을 따라 쓸어내리던 손가락이 순간 멈췄다." +
+                    "<br><br><strong>불안</strong><br><br>" +
+                    "<strong>한쪽이 죽으면, 그가 선택할 필요도 없잖아?</strong>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_twos_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_oneChild_03 : [
+            {
+                type : "text",
+                value : [
+                    "\"왔어?\"<br><br>" +
+                    "백발 아래의 금안은 언제나처럼 당신을 바라보며 반달모양으로 휘어져 있었다. 멍하니 있던 루크가 당신을 돌아보았다. 당신을 본 루크의 표정이 점점 굳어갔다. 그는 주변을 살피더니 \"뭐야, 씨발...?\"이라는 말을 내뱉었다. 소라는 그런 루크에게는 신경도 쓰지 않고 당신에게만 말했다. 소라는 당신의 선택에 따라 루크가 살 수도, 혹은 죽을 수도 있다고 말했다." +
+                    "<br><br>\"원래는 먼저 처리해버리려고 했는데.... 소라는 약하니까.\"<br><br>" +
+                    "루크는 소라가 자신을 이용해서 당신을 묶어놓으려고 한다는 것을 바로 이해했다. 그는 욕을 내뱉더니 소라에게 달려들었다. 하지만 소라는 유연하게 루크의 공격을 피한 후 그대로 창백한 촉수들로 그의 몸을 짓눌렀다. 소라는 다시 당신을 돌아보았다." +
+                    "<br><br>\"창백이 아니라 소라를 선택하겠다고 맹세해. 그 아이가 아니라 나를 선택하겠다고, 맹세해.\"<br><br>" +
+                    "소라는 미소를 지었다." +
+                    "<br><br><span class='log-sora'>\"...무슨 일이 있어도 소라의 편이라고, 소라를 사랑해주겠다고 맹세해.\"</span>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 소라에게 영원히 소라의 편이 되겠다고 맹세했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"씨발, 뭐!? 안돼.\"<br><br>" +
+                                    "루크는 필사적으로 당신과 소라 사이를 막으려고 했지만 그의 힘은 소라의 압도적인 힘 앞에서는 무력했다. 소라는 발버둥치는 루크를 두고 당신에게로 걸어왔다. 그리고 그는 당신의 맹세는 잘 들었다고 말했다." +
+                                    "<br><br>\"소라는 이제 더 이상 두렵지 않아.\"<br><br>" +
+                                    "당신의 머리가 멍해졌다. 달콤한 향기가 당신의 온몸을 장악하고 있는 듯한 느낌이었다. 소라는 당신의 이마 위로 키스를 남긴 후, 루크는 다시 하류도시로 돌려보내겠다고 말했다. 루크는 저항했지만, 무언가가 주입되면서 그대로 의식을 잃었다. 당신이 루크를 바라보자 소라는 고개를 저으며 당신의 턱을 잡고 자기 쪽으로 돌렸다." +
+                                    "<br><br>\"난 너와의 약속은 깨지 않아. 그러니까 걱정마.\"<br><br>" +
+                                    "소라는 당신에게 모든 것을 준비해놓고 기다리겠다고 말했다. 그는 곧 보자는 말을 하며 이번에는 당신의 입술 위로 입술도장을 찍은 뒤 가벼운 발걸음으로 멀어져 갔다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sora", "affection", 20);
+                                    changeNPCEmotion("luke", "affection", -3);
+                                    changeNPCEmotion("sora", "dominance", 5);
+                                    player.flags.paleHideOut_oneChild_03 = true;
+                                    player.flags.sora_brainwashing_accept = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 소라에게 싫다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "소라는 당신의 거절에 당신에게 화내지 않았다. 그는 당신이 아니라 루크에게 짜증을 냈다." +
+                                    "<br><br>\"쓸모가 없어.\"<br><br>" +
+                                    "소라는 웃으며 루크에게 다가갔다. 당신이 손을 뻗는 속도보다 소라가 루크의 팔에서 뭔가를 뜯어내는 속도가 더 빨랐다. 당신은 루크의 팔에서 뽑힌 하얀 꽃을 보았다. 그 하얀 꽃은 일반 하얀 꽃들과는 달랐다. 창백한 꽃- 하얀 꽃은 반짝반짝 빛나고 있었다. 소라는 아무렇지도 않게 루크의 팔에서 뽑은 하얀 꽃을 냠냠 먹었다. 루크는 믿기지 않는다는 눈으로 소라를 바라보았다." +
+                                    "<br><br>\"...소라는 그래도 너를 사랑해.\"<br><br>" +
+                                    "루크의 뺨에 있던 흉물이 그대로 그의 몸 전체로 번져나갔다. 루크는 쌍욕을 하며 자신의 뺨을 손으로 짓눌렀지만 흉물은 이미 그의 몸을 장악한 후였다. 루크의 자안이 당신을 바라본다." +
+                                    "<br><br>\"씨발, 가...!\"<br><br>" +
+                                    "하지만 이미 늦었다. 루크의 몸에서 자라난 흉물들이 당신의 앞을 가로막았다. 소라는 당신이 루크에게 가로막힌 동안 그대로 발걸음을 돌려 당신의 시야에서 사라졌다. 소라는 속삭이듯이 당신에게 마지막 말을 남겼다." +
+                                    "<br><br>\"다 끝내고 돌아올게. 기다리고 있어, 내 사랑.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startPaleHideOutLukeFighting(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        paleHideOut_tomb : [
+            {
+                type : "text",
+                value : [
+                    "당신은 하얀 꽃잎들로 이루어진 무덤을 보았다. 하얀 꽃잎들이 일렁거리고는 있지만, 다른 장소들처럼 무너져 내리지는 않았다. 어쩌면 이 무덤은 이 공간에서 가장 오래된 무덤일지도 모르겠다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_tomb = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_andYou_04 : [
+            {
+                type : "text",
+                value : [
+                    "당신의 눈앞으로 하얀 꽃잎이 살랑살랑 스쳐 지나갔다. 당신은 눈을 깜박였다. 당신은 또 당신을 보았다. 당신을 보게 된 건 우연이었다." +
+                    "<br><br>당신은 당신에게 나를 기억하냐고 묻고 싶었다. 하지만 당신은 뒤도 돌아보지도 않고 뛰어갔다. 당신이 나를 잊었을 수도 있겠다는 생각은 하고 있었다. 하지만 당신은 나를 도와준다고 말했었잖아...? 한 번 더 이야기를 해보면 당신이 내게로 돌아와줄지도 몰라. 당신은 당신에게로 뛰어갔다. 하지만 그럴 수록 당신은 더 필사적으로 도망갔다." +
+                    "<br><br>날 기억해줘. 도망가지마. 부탁이야.<br><br>" +
+                    "감정이 요동친다. 당신을 향한 감정이, 그리움뿐만 아니라 모든 감정들이 요동친다. 당신을 놓치고 싶지 않다. 당신은 필사적으로 손을 뻗었다." +
+                    "<br><br><br>괴물<br><br><br>" +
+                    "당신을 놓친 후에야, 당신은 당신의 길게 뻗은 그림자를 내려다보았다. 당신은 당신의 심장 쪽을 손가락으로 가리켰다." +
+                    "<br><br><span class='log-pale'>...당신의 심장도 나를 괴물로 보고 있어?</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_andYou_04 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_andYou_05 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 눈을 깜박였다. 하얀 꽃잎 폭풍이 당신을 감싸안으면서 당신은 또 다른 장면을 보고 있었다. 온갖 부정적인 감정들이 속에서 뒤섞였지만, 당신의 감정들 중 가장 큰 감정이었던 그리움이 모든 감정을 눌러버렸다. 당신은 용기를 내어 마을 입구까지 갔다. 그리고 당신은 당신을 보았다." +
+                    "<br><br>정확히 말하면 소라와 당신을." +
+                    "<br><br>당신은 소라의 금안과 마주쳤다. 소라는 미소를 짓더니 당신에게로 붙으며 다정한 목소리로 당신을 챙겼다. 모든 감정을 억누르던 그리움이 무너져 내린다. 당신마저 빼앗기고 싶지는 않다. 당신은 그대로 당신에게로 다가가려고 했다. 하지만 결국 당신은 걸음을 멈추었다." +
+                    "<br><br><strong>결국 당신은 당신에게로 다가가지 못했다.</strong>" +
+                    "<br><br><strong>당신은 자신을 사랑하는 만큼 당신도 사랑하기에.</strong>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_andYou_05 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_mirror : [
+            {
+                type : "text",
+                value : [
+                    "거울이 하나 있었다. 당신은 거울에 비친 당신의 모습을 바라보았다. 그 순간, 거울 속에 있는 당신의 입술이 움직였다." +
+                    "<br><br>\"뭐가 진짜인지\"<br><br>" +
+                    "\"네가 정말로\"<br><br>" +
+                    "\"분간할 수 있다고\"<br><br>" +
+                    "\"생각해?\"" +
+                    "<br><br>당신은 눈을 깜박였다. 당신은 순간, 당신이 백발에 금안을 가진 소녀라고 생각하고 있었었다. 거울에 비친 사람은 당신이 아니다. 당신은 고개를 털었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_mirror = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_whiteSoldier : [
+            {
+                type : "text",
+                value : [
+                    "중얼거리는 소리를 쫓아 구석으로 들어와보니 백색 군인 한 명이 자신의 머리를 감싸고 있었다. 넋을 놓은 것 같다. 그는 당신이 바로 앞으로 다가와도 중얼거리더니 갑자기 당신을 보고 사랑한다고 했다. 당신은 그를 모른다. 하지만 그는 또박또박 당신의 이름을 부르며 당신에게 사랑한다고 말하고 있었다. 그는 당신만 있으면 자신은 괜찮다고 말했다. 그는 계속 당신에게 다가왔다." +
+                    "<br><br>\"소라는 너를 사랑해.\"<br><br>" +
+                    "<span class='log-danger'>...이 사람은 자신을 소라라고 생각하고 있다.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_whiteSoldier = true;
+                    changeTrauma(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_paleMemo : [
+            {
+                type : "text",
+                value : [
+                    "삐뚤삐뚤한 글씨로 문장이 적혀 있다." +
+                    "<br><br><span class='log-pale'> 이제는 끝내고 싶어 <br><br> 너무 지쳤어 <br><br> 딱 하나 물어본다면 <br><br> 나를 왜 그렇게 싫어했냐고 묻고 싶어 <br><br> 그리고 너를 딱 한 번만 더 만나고 싶어 <br><br> ...그것도 내게는 너무 큰 소원인 걸까</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.paleHideOut_paleMemo = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        paleHideOut_finalChoice : [
+            {
+                type : "text",
+                value : [
+                    "당신은 창백과 소라가 서로 마주하고 있는 모습을 보았다. 당신이 들어오자 창백과 소라는 당신을 동시에 돌아보았다. 여기저기에 싸운 흔적이 남아있지만 결국 끝을 맺지는 못한 모양이다. 창백은 당신을 보자마자 자신의 얼굴을 가렸다. 그의 얼굴은 여전히 하얀 꽃잎들로 흘러내리고 있었다." +
+                    "<br><br>\"방해꾼들이 너무 많아.\"<br><br>" +
+                    "소라는 밝은 목소리로 말했다. 두 사람의 주변에는 자신이 지금까지 본 시체들보다 더 많은 시체들이 쌓여 있었다. 백색 군인들과 반란군들의 시체, 그리고 그들의 시체에서 피어난 하얀 꽃들." +
+                    "<br><br>\"...너를 사랑해.\"<br><br>" +
+                    "소라는 미소를 지었다." +
+                    "<br><br>\"네가 무슨 선택을 한다고 해도... 소라는 널 사랑할 거야. 널 사랑하지 않는 방법을 모르거든.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    //브레인워시
+                    if (player.flags?.sora_brainwashing_accept) {
+                        startScene([
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 두 사람을 바라보았다. <br><br>소라와 창백. 그들은 당신의 선택을 기다리고 있다. 당신은 선택을 하기 위해 입을 열었다." +
+                                    "<br><br><br><span class='log-sora'>\"소라\"</span>"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    startPaleBossBattle(player);
+                                }
+                            }
+                        ], player);
+                        return;
+                    }
+
+                    startScene([
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 두 사람을 바라보았다. <br><br>소라와 창백. 그들은 당신의 선택을 기다리고 있다. 당신은 선택을 하기 위해 입을 열었다."
+                            ]
+                        },
+                        {
+                            type : "choice",
+                            choices : [
+                                {
+                                    text : "당신은 소라를 선택했다.",
+                                    scene : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "소라는 당신의 선택에 미소를 지었다. 하지만 그 순간, 창백은 참지 못하고 비명을 질렀다. 그의 금안에서 눈물이 똑똑 떨어진다." +
+                                                "<br><br>\"ㅇ...째...ㅅ...!\"<br><br>" +
+                                                "폭주하는 창백의 촉수를 소라는 자신의 촉수로 맞부딪혀 당신을 지켜주었다. 소라는 당신의 손을 잡았다." +
+                                                "<br><br>\"사랑해.\"<br><br>" +
+                                                "창백과의 전투가 시작된다...!"
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                startPaleBossBattle(player);
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    text : "당신은 창백을 선택했다.",
+                                    scene : [
+                                        {
+                                            type : "text",
+                                            value : [
+                                                "소라는 당신의 선택에 씁쓸한 미소를 지었다. 그는 당신도 다른 사람들처럼 자신을 선택하지 않는 거냐고 물었다." +
+                                                "<br><br>\"하지만 소라는 널 사랑해. 여전히.\"<br><br>" +
+                                                "한순간이었다. 당신이 눈을 깜박이는 찰나에 소라의 촉수가 당신을 노리고 달려들었다. 찢어지는 비명과 함께 창백의 촉수가 소라의 촉수를 가로막았다. 창백은 고개를 저었다. 그는 당신을 자신의 촉수들로 보호하며 처음으로 적의를 드러냈다." +
+                                                "<br><br>\"더...ㅇ상... 누ㄱ...ㄷ... ㅈㄱ...하...ㅈ...않...ㅇ...!\"<br><br>" +
+                                                "소라는 창백을 바라보지도 않았다. 그의 금안은 오로지 당신을 향해 있었다." +
+                                                "<br><br>\"그러니까, 널 가질래.\""
+                                            ]
+                                        },
+                                        {
+                                            type : "effect",
+                                            run : (player) => {
+                                                startSoraBossBattle(player);
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ], player);
+                }
             }
         ]
     }
@@ -6090,4 +6435,262 @@ function startAshParentsLose(player){
             }
         }
     ], player);
+}
+
+//act3_quest_09
+window.startPaleHideOutLukeFighting = function(player){
+    startBattle("abominatedLuke" , player, {
+        noEscape: true,
+        onWin: () => { startPaleHideOutLukeFightingWin(player); },
+        onSkipDefeat : () => { startPaleHideOutLukeFightingLose(player); }
+    });
+};
+
+function startPaleHideOutLukeFightingWin(player){
+    player.flags.collapseLuke = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 흉물화된 루크를 쓰러뜨렸다. 쓰러진 루크의 주변으로 흉물이 느껴진다. 흉물은 여전히 의식 없는 그의 몸에 붙어서 기회를 노리듯이 꿈틀거리고 있었다." +
+                "<br><br>...루크는 여전히 살아있다. 의식을 다시 되찾을 수 있을지는 모르겠지만 어쨌든 그는 아직 살아있다. 당신은 루크를 제대로 눕혀놓은 후 발걸음을 옮겼다." +
+                "<br><br>당신은 두 여자들이 있는 곳으로 가야만 한다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                startScene(buildDungeonScene(player), player)
+            }
+        }
+    ], player);
+}
+
+function startPaleHideOutLukeFightingLose(player){
+    player.flags.paleDie = true;
+    player.flags.collapseLuke = true;
+    player.flags.act3_quest_09_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "의식이 끊긴 뒤 당신이 다시 일어났을 때, 하얀색 꽃잎들로 이루어진 공간은 무너져내리고 있었다. 둘 중 하나가 죽었을 것이다. 그리고 당신은 살아남은 존재가 누굴지 알 것만 같았다. 당신은 공간이 더 무너져내리기 전에 몸을 피했다." +
+                "<br><br>던전을 나오자 당신의 눈앞에는 똑같은 세상이 펼쳐졌다." +
+                "<br><br>당신이 원하는 사람이었든 아니었든, 이미 결론은 났다. 당신은 주점으로 돌아가기 위해 발걸음을 옮겼다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeHP(player, 1);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+//act3_quest_09_final
+window.startPaleBossBattle = function(player){
+    let supportStarted = false;
+    startBattle( ["pale", "flower7", "flower7", "flower7"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "소라",
+            hpRate : 0.5,
+            damage : 100,
+            logType : "sora",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "창백의 주변 촉수들을 다 해치운 소라가 창백을 직접적으로 공격해온다. 소라는 당신을 곁눈질하며 웃었다.<strong>100 데미지!</strong>";
+                }
+
+                const lines = [
+                    "\"소라는 괜찮아. 제일 사랑하는 사람에게 사랑을 받으니까.\"<br><br>소라는 당신에게로 오는 공격을 막아주며 창백을 공격했다.<strong>100 데미지!</strong>",
+                    "\"마지막 승자는, 소라야.\"<br><br>소라는 미소를 지으며 창백을 공격했다. <strong>100 데미지!</strong>",
+                    "\"여기서 패배해서 죽어도 행복할 거라고 생각해. 하지만 진짜 해피엔딩이 더 좋으니까, 소라는.\"<br><br>소라는 질 생각이 없다. 그는 당신과 함께 창백을 공격했다. <strong>100 데미지!</strong>",
+                    "소라는 당신을 창백의 공격에서 보호해주며 사랑한다고 속삭였다. <strong>100 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => { startPaleBossBattleWin(player); },
+        onSkipDefeat : () => { startPaleBossBattleLose(player); }
+    });
+};
+
+function startPaleBossBattleWin(player){
+    player.flags.paleDie = true;
+    player.flags.closeSoraShop = false;
+    player.flags.act3_quest_09_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "창백이 쓰러졌다. 창백은 쓰러지면서 당신에게 손을 뻗었지만, 당신을 올려다보더니 알아서 손을 내렸다. 하얀 꽃잎들이 산산조각나서 하얀 꽃무덤을 만든다. 소라는 그런 창백의 모습을 가만히 바라보고 있다가 몸을 숙였다. 그의 손이 하얀 꽃무덤에 닿았다. 그러자 하얀 꽃잎들이 바들바들 떨리더니 다시 소라의 몸으로 달라붙었다." +
+                "<br><br>\"...영원한 소라의 편.\"<br><br>" +
+                "소라는 당신을 올려다보며 미소를 지었다." +
+                "<br><br>\"소라도 영원히 너를 지켜줄게. 영원히 너를 사랑할 거고. <br><br> 소라는 이제... 이 시체들을 처리하고 갈게. 꼭 찾아갈 테니까 걱정하지 마.\"<br><br>" +
+                "소라는 당신의 이마에 짧게 입맞춤을 한 후 당신의 등을 창백의 근거지 밖으로 밀었다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+function startPaleBossBattleLose(player){
+    player.flags.paleDie = true;
+    player.flags.closeSoraShop = false;
+    player.flags.act3_quest_09_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 창백의 공격을 버텨내지 못하고 쓰러졌다. 소라는 쓰러진 당신을 촉수로 받아내더니 폭주한 창백을 노려보았다. 창백은 당신이 쓰러진 모습을 보더니 비명을 지르며 고개를 저었다. 안돼, 안돼...!" +
+                "<br><br>\"돼.\"<br><br>" +
+                "당신의 눈에 보이는 건 그림자뿐이었다. 촉수 그림자가 창백의 중심부를 뚫었다. 당신은 그대로 의식을 잃었다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "당신이 다시 의식을 되찾았을 때, 당신은 소라의 품에 안겨 있었다. 창백한 촉수가 당신의 뺨을 쓰다듬는다." +
+                "<br><br>\"일어났어?\"<br><br>" +
+                "그는 당신의 머리를 쓰다듬더니 당신을 일으켰다." +
+                "<br><br>\"소라는 아직 할 일이 남아서, 먼저 가있으면 소라가 곧 찾아갈게.\"<br><br>" +
+                "...당신은 창백의 근거지를 나섰다. 뒤를 돌았을 때 창백의 근거지는 하얀 꽃잎들로 산산히 부서지고 있었다.<br><br>...거대한 하얀꽃 무덤으로."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("sora", "dominance", 60);
+                passTime(player, 50);
+                leaveDungeon(player);
+            }
+        }
+    ], player);
+}
+
+window.startSoraBossBattle = function(player){
+    let supportStarted = false;
+    startBattle( ["sora", "flower7", "flower8", "flower8"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "창백",
+            hpRate : 0.5,
+            damage : 100,
+            logType : "pale",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "소라의 주변 촉수들을 다 해치운 창백이 소라를 직접적으로 공격해온다. 창백은 당신만은 지킬 거라고 흩어지는 목소리로 더듬더듬 말했다.<strong>100 데미지!</strong>";
+                }
+
+                const lines = [
+                    "창백은 울고 있다. 그는 자신의 얼굴이 하얀 꽃잎으로 흘러내리든 말든 당신을 지키는 것에 전념하고 있다. <strong>100 데미지!</strong>",
+                    "\"ㄴ..만...ㅇ...!\"<br><br>창백은 필사적으로 당신을 지키고 있다. <strong>100 데미지!</strong>",
+                    "창백은 폭주하려다가도 당신을 바라보더니 자신의 감정을 억눌렀다. 악물린 창백의 입술이 하얀 꽃잎들로 흩날린다. <strong>100 데미지!</strong>",
+                    "창백은 당신에게로 온 공격을 막았다. 당신을 보호해주는 것과 동시에 그는 소라의 촉수에 목이 뚫려 괴로워했지만 금방 회복했다. <strong>100 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => { startSoraBossBattleWin(player); },
+        onSkipDefeat : () => { startSoraBossBattleLose(player); }
+    });
+};
+
+function startSoraBossBattleWin(player){
+    player.flags.soraDie = true;
+    player.flags.act3_quest_09_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "소라가 쓰러졌다. 소라가 쓰러지자 창백은 창백한 촉수들을 거둬들이며 당신에게 우물쭈물 다가왔다. 그는 차마 당신에게 닿지는 못하고 손가락만 꼼지락거렸다. 소라는 그런 창백과 당신을 번갈아 보았다. 하지만 그것도 잠시, 그는 창백은 쳐다도 보지 않고 당신에게 손을 뻗었다." +
+                "<br><br>\"....\"<br><br>" +
+                "창백은 당신에게 괜찮다는 듯 고개를 끄덕였다."
+            ]
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "당신은 소라의 손을 잡아주었다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "소라의 손은 예전보다 더 차가웠다. 소라는 당신의 손을 맞잡으며 자신은 아직까지도 당신을 사랑한다고 말했다. 소라의 금안에 당신의 눈동자가 맺힌다." +
+                                "<br><br>\"...계속 그 눈으로, 나를...\"<br><br>" +
+                                "소라는 당신을 뚫어지게 응시하다가 만족했다는 듯이 눈을 감았다. 소라의 몸에서 하얀 꽃들이 잘게 부서졌다. 그리고 하얀 꽃들은 그대로 무덤이 되었다. 창백은 말없이 그 모습을 바라보다가 간신히 목소리를 가다듬으며 먼저 하류도시에 돌아가라고 말했다." +
+                                "<br><br>\"꼭... 찾아...ㄱ...갈...ㄱ...게...\"<br><br>" +
+                                "당신은 창백의 근거지를 나왔다. 이상하다. 여전히 당신의 손에 소라의 손이 느껴지는 것만 같은 느낌이 든다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                leaveDungeon(player);
+                            }
+                        }
+                    ]
+                },
+                {
+                    text : "당신은 소라의 손을 잡지 않았다.",
+                    scene : [
+                        {
+                            type : "text",
+                            value : [
+                                "당신은 소라의 손을 잡지 않았다. 소라는 그럴 줄 알았다는 듯이 당신을 바라보다가 조용히 눈을 감았다. 소라의 몸에서 하얀 꽃들이 잘게 부서졌다. 그리고 하얀 꽃들은 그대로 무덤이 되었다. 창백은 말없이 그 모습을 바라보다가 간신히 목소리를 가다듬고 당신은 먼저 하류도시에 돌아가있으라고 말했다." +
+                                "<br><br>\"꼭...찾아갈...ㅌ...ㅌ..ㅌ...테..니까.\"<br><br>" +
+                                "당신은 창백의 근거지를 나왔다. 이제 정말 소라는 없다."
+                            ]
+                        },
+                        {
+                            type : "effect",
+                            run : (player) => {
+                                leaveDungeon(player);
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ], player);
+}
+
+function startSoraBossBattleLose(player){
+    gameOver(
+        player,
+        "당신은 소라의 공격을 버티지 못하고 쓰러졌다. 안돼, 라는 뭉개진 발음과 함께 창백의 촉수가 당신을 감싸안았다. 그리고 그 순간 하얀 꽃잎들이 이리저리 흩날렸다. 용서하지 않을 거라는, 처음으로 창백의 눈동자에 서린 살의에 소라는 놀란 듯 눈을 동그랗게 떴다. 당신의 의식이 멀어져간다. 당신은 창백의 촉수들이 이성을 잃고 날뛰는 모습을 보았다." +
+        "<br><br>의식이 끊겼다가 다시 돌아왔을 때, 온 세상은 창백한 촉수들로 뒤덮여 있었다. 당신은 어디 있는지도 모르겠는 창백을 향해 손을 뻗었다. 어디선가 누군가의 무전이 들려온다. 발렌...? 발렌은 상류도시의 벽이 허물어지기 전에 꽃 마물을 막으라고 명령을 내리고 있었다. 하류도시는 이미 붕괴됐다. 머지 않아 상류도시도 뚫릴 것이다." +
+        "<br><br>...하지만 당신이 할 수 있는 일은 없었다."
+    );
 }

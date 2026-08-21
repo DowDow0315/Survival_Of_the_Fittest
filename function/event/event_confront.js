@@ -1693,3 +1693,113 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "yuriAndMatin_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        player.flags?.yuriAndMatin_day !== getCurrentDay(player) &&
+        (hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        (hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse") ) &&
+        getTimePeriod(player) === "afternoon" &&
+        !player.flags?.yuriDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.yuriAndMatin_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 장을 보고 있는 마틴을 발견했다. 그는 가판대에서 야채 몇 개를 고르며 상태를 찬찬히 살피고 있었다. 당신이 마틴에게 다가가려는 순간 뒤에서 유리의 목소리가 들렸다. 그는 아무렇지도 않게 당신을 {yuriTitle}이라고 부르며 여기서 만나게 되어서 좋다고 말했다. 마틴이 고개를 돌렸다. 그는 유리와 당신이 같이 있는 모습을 보더니 고개를 까닥였다. 유리도 반갑게 마틴에게 인사했다." +
+                    "<br><br>\"야채... 주점의 사람들이 좋아하겠다.\"<br><br>" +
+                    "유리는 미소를 지으며 하류도시에 마틴의 주점이 있어서 다행이라고 말했다. 마틴은 유리를 잠시 쳐다보더니 하류도시의 아이들에게는 쉘터가 있어서 다행이라고 말했다." +
+                    "<br><br>\"...{playerName}한테도 그렇고.\"<br><br>" +
+                    "\"{playerName}한테는, 오히려 내가 고마워해야지. 나한테 특별한 감정을 가르쳐준 사람이니까.\"<br><br>" +
+                    "유리의 말에 마틴은 잠시 말이 없어졌다. 그는 유리와 당신을 번갈아보았다." +
+                    "<br><br>\"...그래? 나한테도.\"<br><br>" +
+                    "이번에는 유리의 말이 없어졌다. 분위기가 점점 무거워지는 것 같다...."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 유리를 바라보며 언제나 고맙다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신의 말에 웃으며 자기야말로 언제나 고맙다고 말했다. 그는 당신의 손등을 자신의 손등으로 톡 치며 당신이 없었다면 자신은 여기까지 오지 못했을 거라고 말했다. 마틴은 아무 말도 하지 않았지만 당신과 유리의 얼굴을 번갈아보았다." +
+                                    "<br><br>\"...먼저 갈게.\"<br><br>" +
+                                    "마틴이 먼저 발걸음을 돌렸다. 유리는 마틴의 뒷모습을 바라보다가 오늘따라 마틴의 기분이 안 좋은 것 같다는 얘기를 했다." +
+                                    "<br><br>\"그 이유, 넌 알고 있어?\"<br><br>" +
+                                    "유리의 호박색 눈동자가 당신을 물끄러미 바라본다..."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("matin", "affection", -3);
+                                    changeNPCEmotion("matin", "rage", 3);
+                                    changeNPCEmotion("yuri", "affection", 2);
+                                    changeNpcSuspicion("yuri", 3);
+                                    changeNpcSuspicion("matin", 5);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 마틴에게 눈짓을 하며 하류도시에 주점이 없었다면 너무 삭막해졌을 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...\"<br>",
+                                    "마틴은 아무 말도 안 하고 눈썹만 올렸다. 그는 그저 할 수 있는 일이니까 하는 것뿐이라고 대답했다." +
+                                    "<br><br>\"아. 그리고...\"<br><br>" +
+                                    "그는 당신이 좋아하는 요리를 말하며, 이번에 재료가 들어왔으니 다음 번에 오면 해주겠다고 말했다. 유리는 말없이 당신과 마틴의 얼굴을 번갈아보았다. 마틴은 당신과의 대화를 끝내고 유리에게 한번 고개를 까닥여보이더니 그대로 주점으로 걸어갔다." +
+                                    "<br><br>\"...갈까?\"<br><br>" +
+                                    "유리는 미소를 지었지만 어쩐지 생각이 많아진 것처럼 보였다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("matin", "affection", 1);
+                                    changeNPCEmotion("yuri", "affection", -3);
+                                    changeNpcSuspicion("yuri", 5);
+                                    changeNpcSuspicion("matin", 1);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 두 사람 모두 자신에게 고마운 사람이라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"다행이네. 네게 조금이라도 도움이 될 수 있어서 다행이야.\"<br><br>" +
+                                    "유리는 웃으며 앞으로도 당신의 옆을 지켜주고 싶다고 말했다. 마틴은 아무 말 없이 유리와 당신을 번갈아 보다가 고개를 돌렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNpcSuspicion("yuri", 1);
+                                    changeNpcSuspicion("matin", 1);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

@@ -194,7 +194,15 @@ function buildBarracksScene(player, loc, randomDesc){
     const choices = [];
 
     if (player.flags?.luke_talk_unlocked && isLukeTalkTime(player)){
-        choices.push({ text: "루크와 대화", action: "luke_talk" });
+        if (!player.flags?.collapseLuke){
+        choices.push(
+            { text:"루크와 대화한다", action:"luke_talk" }
+        );
+    } else {
+        choices.push(
+            { text:"루크가 서 있던 자리를 바라본다", action:"luke_talk_after_death" }
+        );
+    }
     }
 
     const exitAction = player.flags?.act3CollapseDone
@@ -1273,6 +1281,16 @@ function buildWhiteFlowerTombScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_09" &&
+        !player.flags?.act3_quest_09_boss_end
+    ){
+        choices.push({
+            text : "당신의 앞에 있는 하얀 꽃잎 길을 따라간다.",
+            action : "start_Act3Quest09Raid"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -1287,6 +1305,10 @@ function buildWhiteFlowerTombScene(player, loc, randomDesc){
         }
     ];
 }
+
+window.start_Act3Quest09Raid = function(player){
+    startAct3Quest09Raid(player);
+};
 
 const GRAVEYARD_ROUTE = ["left", "left", "right", "right", "left", "right", "left"];
 

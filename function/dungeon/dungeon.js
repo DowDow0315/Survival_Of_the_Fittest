@@ -1769,6 +1769,8 @@ function leaveDungeon(player){
         player.location = "wastedRuin";
     } else if (dungeonId === "lateLab"){
         player.location = "whiteFlowerTomb";
+    } else if (dungeonId === "paleHideOut"){
+        player.location = "whiteFlowerTomb";
     } else {
         player.location = "townStreet";
     }

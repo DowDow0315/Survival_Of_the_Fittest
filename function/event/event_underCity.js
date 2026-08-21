@@ -1092,6 +1092,26 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "sora_findHerPlace",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        player.flags?.act3_quest_09_boss_end,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["sora"].scenes.sora_findHerPlace,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //소라 개인퀘스트
 window.EVENTS.push({
     id : "sora_drug_02_unlock_event",
@@ -3159,6 +3179,29 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["pale"].scenes.pale_promisePaleDream_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_findHerPlace",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "reclaimedShop" &&
+        player.flags?.act3_quest_09_boss_end,
+
+    action : (player) => {
+        player.flags.paleFindsHerPlace = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_findHerPlace,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

@@ -1863,3 +1863,62 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_09_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shop" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        player.flags?.rebel_route_quest_09_intro_02,
+
+    action : (player) => {
+        player.flags.act3_quest_09_intro_03 = true;
+        player.flags.act3_quest_09_unlock = true;
+        player.location = "townStreet";
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 급하게 상점으로 향했다. 하지만 이미 상점은 백색 군단이 점령하고 있었다. 당신은 벽 뒤로 몸을 숨긴 채 그들의 대화를 들었다. 백색 군인들은 소라가 없어지자 당황했고, 그들의 중심에 서 있는 에이든은 잠시 생각에 잠기더니 고개를 끄덕였다. 그는 소라가 어디로 도망갔는지 알고 있는 눈치였다. 그는 너무 늦어버리기 전에 소라를 찾으러 가야 한다고 말했다." +
+                    "<br><br>\"늦어버린다니, 그게 무슨 뜻...?\"<br><br>" +
+                    "\"우리에게 선택이 한 가지만 남기 전에.\"<br><br>" +
+                    "에이든은 백색 군단을 이끌고 하류도시 바깥으로 나갔다." +
+                    "<br><br>\"하류도시의 영웅.\"<br><br>" +
+                    "반란군들 중 한 명이 당신을 불렀다. 그들은 이미 백색 군단의 선두를 뒤쫓고 있다고 말했다. 그들은 백색 군단의 위치를 파악한 후 주점에 대략적인 위치를 표시한 지도를 올려놓겠다고 말했다." +
+                    "<br><br>\"이번에도 부탁드립니다. 상류도시가 대체 뭘 하려고 하는지는 모르겠지만 막아야만 합니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "act3_quest_09_intro_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_quest_09_intro_03 &&
+        player.flags?.act3_quest_09_unlock,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 루크를 보았다. 그는 자신의 팔을 움켜잡고 있었다. 고통스러운지 그의 얼굴은 창백했다. 그는 쌍욕을 내뱉더니 그대로 마을 입구 밖으로 나갔다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

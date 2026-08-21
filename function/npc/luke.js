@@ -62,6 +62,20 @@ registerActions("luke", {
         openGiveFoodMenu(player, "luke");
     },
 
+    talk_after_death : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 루크가 서 있던 자리를 지켜보았다." +
+                    "<br><br>...루크는 더 이상 없다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    },
+
     talk : (player) => {
         const intro = isLukeNoSmoking(player)
         ? "루크는 벽에 기대어 서있다. 입에 하얀색 막대기가 물려있어서 뭔가 하고 봤더니 담배가 아니라 막대사탕이었다. 그의 손에는 라이터만 들려 있었다. 그는 무의식적으로 라이터 뚜껑을 딸깍거리고 있다."

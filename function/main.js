@@ -2712,6 +2712,14 @@ function moveTo(player,locationKey){
         return;
     }
 
+    if (locationKey === "shop" && player.flags?.closeSoraShop ){
+        showSingleTextScene(
+            "상점 문은 굳게 닫혀 있다.",
+            player
+        );
+        return;
+    }
+
     if (!connections[locationKey] && !window.DUNGEONS?.[locationKey]){
         addLog("여기서는 갈 수 없는 곳이다.");
         return;

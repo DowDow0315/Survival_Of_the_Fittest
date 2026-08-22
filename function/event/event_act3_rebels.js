@@ -1651,7 +1651,7 @@ window.EVENTS.push({
     once : true,
 
     condition : (player) =>
-        player.location === "darkTownStreet" &&
+        player.location === "darkStreet" &&
         player.flags?.act3_quest_08_done &&
         getCurrentDay(player) >= (player.flags.act3_quest_08_done_day + 2),
 

@@ -4445,7 +4445,7 @@ Object.assign(DUNGEON_EVENTS, {
                                 type : "effect",
                                 run : (player) => {
                                     const enemyId = ["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"];
-                                    const defeatEnemy = ENEMIES["whiteAbominaton1"]();
+                                    const defeatEnemy = ENEMIES["whiteAbomination1"]();
                                     startBattle(enemyId, player, {
                                         onWin: () => startScene(buildDungeonScene(player), player),    
                                         onEscape: () => startScene(buildDungeonScene(player), player),
@@ -4479,7 +4479,7 @@ Object.assign(DUNGEON_EVENTS, {
                                 type : "effect",
                                 run : (player) => {
                                     const enemyId = ["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"];
-                                    const defeatEnemy = ENEMIES["whiteAbominaton1"]();
+                                    const defeatEnemy = ENEMIES["whiteAbomination1"]();
                                     startBattle(enemyId, player, {
                                         onWin: () => startScene(buildDungeonScene(player), player),    
                                         onEscape: () => startScene(buildDungeonScene(player), player),

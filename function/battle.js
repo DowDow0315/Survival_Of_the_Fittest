@@ -1815,7 +1815,7 @@ function removeClothes(player){
 }
 
 function counterAttack(){
-    const player = battleState.player;
+    if (!battleState) return;
     if (!startPlayerTurn()) return;
     if (handlePlayerStunnedTurn()) return;
 

@@ -6473,6 +6473,7 @@ function startPaleHideOutLukeFightingWin(player){
 function startPaleHideOutLukeFightingLose(player){
     player.flags.paleDie = true;
     player.flags.collapseLuke = true;
+    player.flags.closeSoraShop = false;
     player.flags.act3_quest_09_boss_end = true;
     addQuestProgress(player);
     savePlayer(player);

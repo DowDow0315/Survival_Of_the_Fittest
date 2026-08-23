@@ -6628,6 +6628,7 @@ window.startSoraBossBattle = function(player){
 function startSoraBossBattleWin(player){
     player.flags.soraDie = true;
     player.flags.act3_quest_09_boss_end = true;
+    player.flags.closeSoraShop = false;
     addQuestProgress(player);
     savePlayer(player);
 

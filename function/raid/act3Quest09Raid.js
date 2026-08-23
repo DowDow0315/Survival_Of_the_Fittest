@@ -114,7 +114,7 @@ function startAct3Quest09RaidRandomEvent(player){
                 startArrowMinigame(player, {
                 target: 4, 
                 sequenceLength: 8,
-                timeLimit: 700,         
+                timeLimit: 6500,         
 
                 title: "창백한 촉수를 피해라!",
 

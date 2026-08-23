@@ -127,7 +127,7 @@ function buildTownStreetScene(player, loc, randomDesc){
             ? "되찾은 상점으로 간다"
             : "상점으로 간다",
             
-            action: player.flags?.yuriDie
+            action: player.flags?.soraDie
             ? "move_shop"
             : "move_reclaimedShop"
         },

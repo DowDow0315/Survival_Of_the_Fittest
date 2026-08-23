@@ -1337,6 +1337,7 @@ window.EVENTS.push({
     action : (player) => {
         player.flags.act3_quest_09_intro_03 = true;
         player.flags.act3_quest_09_unlock = true;
+        player.flags.closeSoraShop = true;
         player.location = "townStreet";
         savePlayer(player);
 

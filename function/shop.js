@@ -193,7 +193,9 @@ const SHOPS = {
 
             "luxuryTeaSet",
             "musicBox",
-            "musicBoxSwan"
+            "musicBoxSwan",
+            "kainPoster",
+            "kainRarePoster"
         ]
     },
     merchantVillageShop : {

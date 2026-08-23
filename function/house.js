@@ -155,6 +155,27 @@ window.FURNITURE_DATA = {
         name : "백조 오르골",
         type : "decoration",
         price : 30000000
+    },
+
+    kainPoster : {
+        id : "kainPoster",
+        name : "카인 포스터",
+        type : "decoration",
+        price : 7000000
+    },
+
+    kainRarePoster : {
+        id : "kainRarePoster",
+        name : "카인 한정 포스터",
+        type : "decoration",
+        price : 35000000
+    },
+
+    starryPoster : {
+        id : "starryPoster",
+        name : "스테리 포스터",
+        type : "decoration",
+        price : 1000000000
     }
 
 };

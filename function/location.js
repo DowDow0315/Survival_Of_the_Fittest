@@ -454,6 +454,7 @@ const LOCATIONS ={
             townEntrance : 4,
             shelter: 4,
             shop: 4,
+            reclaimedShop: 4,
             tavern : 4,
             darkStreet : 4,
             subway : 5,

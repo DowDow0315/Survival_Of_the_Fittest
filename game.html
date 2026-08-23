@@ -509,6 +509,17 @@
                 return "에릭은 드디어 깊은 잠에 들었다.";
             }
 
+            if (key === "pale" && player?.flags?.paleDie){
+                return "창백은 바란다, 끝나지 않을 꿈속에서는 당신과 함께할 수 있기를.";
+            }
+
+            if (key === "sora" && player?.flags?.soraDie){
+                return "소라는 마지막까지 당신만을 원했다.";
+            }
+
+            if (key === "luke" && player?.flags?.collapseLuke){
+                return "루크는 일어나지 못하고 있다.";
+            }
 
             if (!npc || !npc.emotion) return "아직 잘 모르는 사이";
 

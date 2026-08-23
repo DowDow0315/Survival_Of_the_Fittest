@@ -1178,6 +1178,10 @@ function changeEmotion(npcId, key, amount){
         return;
     }
 
+    if (npcId === "luke" && player?.flags?.collapseLuke){
+        return;
+    }
+
     if (npcId === "valen" && player?.flags?.valenDie){
         return;
     }

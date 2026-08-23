@@ -128,8 +128,8 @@ function buildTownStreetScene(player, loc, randomDesc){
             : "상점으로 간다",
             
             action: player.flags?.soraDie
-            ? "move_shop"
-            : "move_reclaimedShop"
+            ? "move_reclaimedShop"
+            : "move_shop"
         },
         { text: "주점으로 간다", action: "move_tavern" },
         { text: "빈민가 거리로 간다", action: "move_darkStreet" },

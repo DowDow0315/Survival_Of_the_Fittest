@@ -6595,7 +6595,7 @@ function startPaleBossBattleLose(player){
 
 window.startSoraBossBattle = function(player){
     let supportStarted = false;
-    startBattle( ["sora", "flower7", "flower8", "flower8"] , player, {
+    startBattle( ["sora", "flower7", "flower7", "flower8"] , player, {
         noEscape: true,
 
         allyTurnSupport : {

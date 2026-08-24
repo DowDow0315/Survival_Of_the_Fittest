@@ -88,6 +88,111 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "akasia_ericBasket_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        ["upperHouse", "underHouse"].includes(player.location) &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        currentHouseHasFurniture(player, "ericBasket") &&
+        canNpcVisitHouse(player, "akasia") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "당신의 집에 도착한 아카시아는 당신과 이야기를 나누다가 에릭의 바구니에서 시선을 멈췄다. 아카시아는 어디서 본 것 같다고 말하며 고개를 기울이다가 \"아\"하는 소리와 함께 기억해냈다. 그는 당신에게 저건 에릭이 준 거냐고 물었다." +
+                        "<br><br>\"에릭은 예전부터 작은 동물들을 좋아했습니다. 가끔씩 저도 에릭의 옆에서 먹이를 주고는 했었죠. 하지만 이상하게.... 저보다는 에릭을 더 따르더군요.\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 자신은 에릭보다 아카시아를 더 따르니 된 것 아니냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "아카시아는 당신의 말에 두 눈을 느리게 깜박이다가 이내 웃음을 터뜨렸다. 그의 웃음은 언제나처럼 조용했지만, 이번만큼은 손으로 입을 가리며 고개를 숙이고 어깨를 떨었다." +
+                                        "<br><br>\"...기쁘네요.\"<br><br>" +
+                                        "아카시아의 미소가 짙어졌다. 그는 당신의 입술 위로 가볍게 입맞춤을 하더니 당연히 당신이 자신을 따르는 게 더 중요하다고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("akasia", "affection", 3);
+                                        changeNPCEmotion("akasia", "dominance", 5);
+                                        changeNPCEmotion("akasia", "lust", 5);
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 다음 번에는 자신과 함께 소동물에게 먹이를 줘보자고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 아카시아는 고개를 갸웃거리더니 그러다가 동물이 당신을 더 잘 따르면 어쩌냐고 물었다." +
+                                        "<br><br>\"...하지만 소동물들 사이에 낑겨있는 당신을 보고 싶긴 하군요.... 귀여울 것 같아요.\"<br><br>" +
+                                        "대체 무슨 상상을 한 건지 아카시아의 미소가 더 짙었다. 당신과 아카시아는 더 많은 얘기를 나누었다. 어째 아카시아의 입에서 귀엽다는 소리가 많이 나오는 것 같긴 했지만...."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("akasia", "affection", 1);
+                                        changeNPCEmotion("akasia", "dominance", 2);
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 에릭이 괴짜인 거라고 대꾸했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "아카시아는 말없이 당신을 바라보다가 고개를 저었다." +
+                                        "<br><br>\"에릭은 괴짜가 아닙니다.\"" +
+                                        "<br><br>더 이상 말은 없었다. 분위기가 안 좋아졌다...."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("akasia", "affection", -3);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
 //데릭
 window.EVENTS.push({
     id: "deric_house_bed",
@@ -329,6 +434,206 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "deric_ericBasket_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        currentHouseHasFurniture(player, "ericBasket") &&
+        canNpcVisitHouse(player, "deric") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "당신의 집에 들어온 데릭은 주변을 둘러보다가 견과류 바구니를 보고 멈칫했다. 그는 그 바구니에 가까이 다가가더니 인상을 찌푸렸다." +
+                        "<br><br>\"뭐야? 못생겼어. 누구 취향 아니랄까봐.\"<br><br>" +
+                        "그는 실력이 하나도 안 늘었다고 투덜거리며 시중에서 파는 걸 사면 되는데 왜 직접 만드는 건지 아직도 이해가 안 간다고 말했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 에릭이 예전부터 바구니를 직접 만들고는 했냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"걘 어렸을 때부터 다람쥐한테 먹이 주는 걸 좋아했단다.\"<br><br>" +
+                                        "데릭은 곰같은 놈이 소동물을 좋아하는 거가 어울리냐고 물으면서도 입꼬리를 씰룩였다. 옛날 생각이 난 모양이다. 그는 바구니에 설치류들을 가득 담아서 집에 돌아왔던 적이 많다고 말하며, 결국에는 집에 데려오지 못했다는 말을 했다." +
+                                        "<br><br>\"그런 걸 집에서 어떻게 키우겠니. 집이 금방 더러워져버린다고.\""
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 못생기지 않았다고 투덜거렸다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "데릭은 당신을 바라보다가 바구니를 들며 거친 부분을 하나하나 손가락으로 짚어보였다." +
+                                        "<br><br>\"우리 아가.... 보는 눈이 정말 없구나?\"<br><br>" +
+                                        "그는 오히려 당신의 눈을 안쓰럽게 여기고 있다. 그는 다음 번에 시중에서 파는 바구니를 구경시켜주겠다고 말했다."
+                                    ]
+                                },
+                                {
+                                    type  : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", -2);
+                                        changeNPCEmotion("deric", "rage", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 데릭은 바구니를 직접 만들어본 적이 있냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"내가? 그럴 리가 있겠니.\"<br><br>" +
+                                        "데릭은 미소를 지으며 다리를 꼬았다. 그는 가슴 안쪽 주머니에 있던 자신의 지갑을 흔들어 보였다. 저번에 가지고 있던 지갑이랑 다른 것 같다." +
+                                        "<br><br>\"원하는 게 있으면 돈으로 사면 된단다.\""
+                                    ]
+                                },
+                                {
+                                    type  : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "deric_kainSignFrame_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        getTimePeriod(player) === "morning" &&
+        canNpcVisitHouse(player, "deric") &&
+        currentHouseHasFurniture(player, "kainSignFrame") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "데릭은 당신의 집에서 모닝커피를 타다가 보이는 카인의 사인 액자에 미간을 찌푸렸다." +
+                        "<br><br>\"우리 아가가... 카인을 많이 좋아하나 보구나?\"<br><br>" +
+                        "그는 카인의 사인 액자를 뚫어지게 응시하며 말했다." +
+                        "<br><br>\"하기야, 내가 만들어낸 1위 가수니까 당연한 거겠지만. 그래도 나쁜 물은 들면 안 된단다. 알지?\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 데릭이 없었어도 카인은 언젠가 1위 가수가 되었을 거라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "데릭은 코웃음을 치더니 커피를 마저 우아하게 마셨다." +
+                                        "<br><br>\"카인처럼 부르는 사람은 많아. 내가 있었기에 그 녀석이 무대에 올라설 수 있었던 거다. 아니, 적어도 스테리만 남아 있었어도 그 녀석은 무대에 오르지도 못했을 테다.\"<br><br>" +
+                                        "데릭은 입꼬리를 비틀어올리며 카인은 원래 무대 뒤에서 청소나 해야 하는 운명이었다고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", -5);
+                                        changeNPCEmotion("deric", "dominance", -5);
+                                        changeNPCEmotion("deric", "rage", 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 카인은 착한 아이라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"착하다?\"<br><br>" +
+                                        "데릭은 피식 웃더니 뒤에서 당신의 어깨를 끌어안았다. 그는 당신에게로 고개를 기울이더니 마치 비밀 얘기를 하는 것처럼 속삭였다." +
+                                        "<br><br>\"이 세상에 착한 사람은 존재하지 않는단다, 아가. 누구나 닥친 상황에 따라 착해질 수도, 나빠질 수도 있는데 이 세상에 착한 사람이 어디 있겠니.\"<br><br>" +
+                                        "그는 당신의 어깨를 주무르며 언젠가는 당신도 자신의 말을 이해할 날이 올 거라고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "dominance", 3);
+                                        changeNPCEmotion("deric", "rage", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 고개를 끄덕였다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 순종적인 반응에 데릭은 만족하며 다시 커피를 음미했다. 그는 당신의 팬심은 귀엽게 이해해주겠다고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", 3);
+                                        changeNPCEmotion("deric", "rage", -5);
+                                        changeNPCEmotion("deric", "dominance", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
 
 //에릭
 window.EVENTS.push({
@@ -401,6 +706,93 @@ window.EVENTS.push({
                                     value : [
                                         "당신의 말에 에릭은 당신을 흘낏 보더니 밤에는 혼자 번쩍번쩍 빛나서 황금 동상밖에 안 보일 것 같다고 말했다.... 마치 영광의 거리에 있는 그 동상처럼."
                                     ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "eric_ericBasket_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        ["upperHouse", "underHouse"].includes(player.location) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        currentHouseHasFurniture(player, "ericBasket") &&
+        canNpcVisitHouse(player, "eric") &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "노크 후, 당신의 집에 들어온 에릭은 당신이 권해준 자리에 앉아있다가 집안 한곳에 놓인 바구니를 보았다. 그는 자리에서 일어나더니 빈 바구니에 견과류를 채웠다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 에릭에게 같이 먹자고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "에릭은 당신의 말에 멈칫하더니 견과류가 담긴 바구니를 당신의 앞으로 가져왔다. 그는 도토리 하나를 능숙하게 까더니 당신의 입앞으로 내밀었다. 당신이 먼저 먹기 전에는 먹지 않을 생각인 것 같다..." +
+                                        "<br><br>...분명 같이 먹기로 했는데 어쩌다보니 당신이 2/3 이상을 먹어버린 것 같다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, 50);
+                                        changeHP(player, 50);
+                                        passTime(player, 15);
+                                        changeNPCEmotion("eric", "affection", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 에릭에게 항상 견과류를 주워오는 거냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"보이는 걸 줍는 것뿐이다.\"<br><br>",
+                                        "그는 호두 하나를 똑 부러뜨리더니 그 안에 든 알맹이를 당신의 입앞으로 내밀었다." +
+                                        "<br><br>\"줄 사람도 있으니.\"<br><br>" +
+                                        "당신은 그에게 견과류를 받아먹었다. 에릭은 익숙하게 당신에게 견과류를 먹여주었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeStamina(player, 50);
+                                        changeHP(player, 50);
+                                        passTime(player, 15);
+                                        changeNPCEmotion("eric", "affection", 1);
+                                        changeNPCEmotion("eric", "dominance", 3);
+                                        savePlayer(player);
+                                    }
                                 }
                             ]
                         }
@@ -593,6 +985,86 @@ window.EVENTS.push({
                                         changeNPCEmotion("kain", "rage", -2);
                                         changeNPCEmotion("kain", "lust", 2);
                                         passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_kainSignFrame_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        ["morning", "night"].includes(getTimePeriod(player)) &&
+        currentHouseHasFurniture(player, "kainSignFrame") &&
+        canNpcVisitHouse(player, "kain") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "공연까지 시간이 좀 남아서 찾아왔다는 카인은 집에 오자마자 주변을 둘러보았다. 그는 자신의 사인 액자를 발견하더니 입꼬리를 올렸다. 그는 당신과 함께 앉아 지금까지 했던 공연들에 대해 이야기했다. 가끔 공연의 줄거리를 들려주다가, 당신이 그 등장인물이었다면 어떻게 했을 것 같냐고 묻기도 했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그에게 성심성의껏 대답해주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 대답에 카인은 진지한 얼굴로 고개를 끄덕였다. 그는 역시 사람마다 등장인물을 받아들이는 방법은 다른 것 같다고 말하며, 다른 시각에서 보니까 대사가 조금 더 이해되는 것 같다고 말했다. 그는 작게 흥얼거리며 그 대사를 노래했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 3);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 사인 액자가 그렇게 신경쓰였냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...뭐, 뭐? 아니거든?\"<br><br>" +
+                                        "카인은 얼굴이 붉어지더니 그저 사인 액자가 있길래 시선이 간 거라고 변명했다. 그는 잠시 고개를 숙이고 있다가 어쨌든 네가 자신을 생각해서 자신의 사인 액자를 걸어놓은 거 아니냐고 물었다." +
+                                        "<br><br>\"시선이 계속 가는 데 어떡하라고... 하.\"<br><br>" +
+                                        "자신이 방금 무슨 말을 했는지 깨달은 카인은 마른 세수를 하더니 이만 가보겠다고 말하며 몸을 일으켰다. 그의 얼굴은 집밖으로 나갈 때까지도 붉었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 1);
+                                        changeNPCEmotion("kain", "lust", 5);
                                         savePlayer(player);
                                     }
                                 }
@@ -815,6 +1287,117 @@ window.EVENTS.push({
 });
 
 //마틴
+window.EVENTS.push({
+    id: "matin_nikolai_doll",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("matin", "lover") || hasNpcRelationship("matin", "spouse") ) &&
+        getTimePeriod(player) === "night" &&
+        canNpcVisitHouse(player, "matin") &&
+        currentHouseHasFurniture(player, "nikolaiDoll")&&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        addItem(player, ITEMS.consumable.greatSalmonSushi);
+        savePlayer(player);
+
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "당신의 집에 들른 마틴은 당신이 밥을 안 먹었을 것 같아서 연어 초밥을 따로 챙겨왔다고 말했다. 당신은 마틴에게서 연어 초밥을 받으며 오늘 주점 일은 어땠냐고 물었다. 마틴은 주점 일은 언제나 똑같다고 대답하면서도 오늘 있었던 사소한 일에 대해서 가볍게 말해주었다." +
+                        "<br>그는 연어초밥을 식탁에 차리다가 문득 니콜라이 인형을 바라보았다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 마틴 인형도 갖고 싶다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...그게 무슨 소리야.\"<br><br>" +
+                                        "마틴은 당신에게서 고개를 돌리며 밥이나 먹으라고 말했다. 그는 넥타르 소스를 연어 초밥 위로 살살 뿌렸다. 이상하다. 특별한 방법이 아닌데도 그의 연어 초밥은 더 맛있어 보였다." +
+                                        "<br><br>\"남은 건 나중에 출출할 때 먹어.\"<br><br>" +
+                                        "마틴은 남은 음식은 용기에 싸주며 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("matin", "affection", 1);
+                                        passTime(player, 15);
+                                        changeHP(player, 75);
+                                        changeStamina(player, 30);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 \"안녕, 미니 니콜라이\"라고 니콜라이 인형에게 인사했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "마틴의 눈동자가 순간 떨렸다. 당신은 니콜라이 인형에게 손인사까지 해준 후 마틴과 함께 식탁 앞에 앉았다. 마틴은 앉으면서도 당신과 니콜라이 인형을 번갈아보다가 픽 웃었다. 다시 무표정으로 돌아오긴 했지만 그는 분명 피식 웃었다." +
+                                        "<br><br>\"남은 음식은 나중에 출출할 때 먹어.\"<br><br>" +
+                                        "당신을 바라보는 마틴의 검은색 눈동자는 평소보다 더 부드러웠다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("matin", "affection", 2);
+                                        changeHP(player, 75);
+                                        changeStamina(player, 30);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 아무렇지도 않게 일상 이야기를 이어갔다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "니콜라이 인형을 응시하던 마틴은 당신이 이야기를 이어가자 곧 시선을 돌리고 당신에게 집중했다. 당신은 그와 함께 연어초밥을 먹었다." +
+                                        "<br><br>\"남은 건 나중에 출출할 때 먹어.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("matin", "affection", 1);
+                                        changeHP(player, 75);
+                                        changeStamina(player, 30);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
 
 //니콜라이
 window.EVENTS.push({
@@ -1076,6 +1659,105 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id: "valen_ericBasket_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        ["dawn", "morning"].includes(getTimePeriod(player)) &&
+        currentHouseHasFurniture(player, "ericBasket") &&
+        canNpcVisitHouse(player, "valen") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "몇몇 고급 과일들과 함께 당신의 집을 찾아온 발렌은 깎아놓은 과일을 자신이 가져온 그릇 위로 옮기며 주변을 둘러보았다. 그는 바구니를 보더니 미소를 지었다." +
+                        "<br><br>\"오랜만에 보는 군요. 에릭은 언제나 특이하긴 했죠.\"<br><br>" +
+                        "그는 어려서부터 에릭이 친구들과 어울리기보다는 혼자 돌아다니는 것을 좋아했었다고 말했다." +
+                        "<br><br>\"아, 물론 그건 지금도 그런 것 같지만.\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그래도 에릭이 예전에는 당신들과 돌아다녔던 거 아니냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"어렸을 때는 같이 돌아다니고는 했죠. 하지만 이제 저희는 성인이고.\"<br><br>" +
+                                        "발렌은 잠시 말을 멈췄다. 그의 푸른색 눈동자가 부드럽게 휘어졌다. 하지만 그 청안 안에는 온기가 없었다." +
+                                        "<br><br>\"각자 길을 정했으니까요. 당신이 저의 곁에서 저와 함께 걷기로 했듯이.\"<br><br>" +
+                                        "그는 당신과 함께 과일을 먹으며 더 많은 얘기를 나누었다. 이야기 내내 그는 자신의 어린 시절에 대해서 말하는 걸 꺼렸다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그럼 발렌은 친구들과 어울리는 것을 더 좋아하냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...친구들?\"<br><br>" +
+                                        "발렌은 웃더니 당신이 생각하는 의미의 친구라면 자신에게는 한 명밖에 남지 않았다고 말했다. 그러더니 그는 당신 쪽으로 몸을 기울였다." +
+                                        "<br><br>\"물론 당신은 연인이고요. 그리고 전 혼자 있는 것보다 당신과 있는 시간을 더 좋아합니다.\"<br><br>" +
+                                        "발렌은 당신과 함께 과일을 먹으며 더 많은 얘기를 나누었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("valen", "affection", 1);
+                                        passTime(player, 10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 자신도 사실 혼자 돌아다니는 것을 선호한다고 대답했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...아닌 것 같은데요.\"<br><br>" +
+                                        "발렌은 미소를 지으며 고개를 설레설레 흔들었다." +
+                                        "<br><br>\"왜냐면 당신은 혼자 있는 것보다 저와 함께 있는 걸 즐기시니까요.\"<br><br>" +
+                                        "발렌은 과일 한 조각을 포크로 찝더니 당신에게 내밀었다. 그의 눈은 \"안 그런가요?\"라고 묻고 있었다. 그는 당신이 당연히 고개를 끄덕일 거라고 생각하고 있다."
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
 //유리
 window.EVENTS.push({
     id: "yuri_MinigoldenStatue",
@@ -1213,6 +1895,152 @@ window.EVENTS.push({
                             ]
                         }
                     ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "yuri_kainSignFrame_01",
+    once : true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        getTimePeriod(player) === "afternoon" &&
+        !player.flags?.YuriKainGoodRelationship &&
+        currentHouseHasFurniture(player, "kainSignFrame"),
+
+    action: (player) => {
+        player.flags.yuri_kainSignFrame_01 = true;
+        savePlayer(player);
+
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "하류도시 바깥으로 나가려다가 당신이 집에 들어가는 걸 발견한 유리는 당신과 함께 집까지 같이 걸어갔다. 그는 온 김에 청소를 해주겠다고 말하며 당신과 함께 당신의 집에 들어섰다. 바닥과 벽을 청소하던 유리의 시선이 카인의 사인 액자에서 멈췄다." +
+                        "<br><br>\"....\"<br><br>" +
+                        "유리는 아무 말 없이 카인의 사인 액자를 응시했다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 카인이 상류도시에서 잘 지내고 있다고 말해주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 말에 유리는 힘없이 웃었다. 그는 카인이 잘 지낼 줄 알았다고 대답했다." +
+                                        "<br><br>\"카인은 그 누구보다도 무대를 사랑했던 아이니까.\"<br><br>" +
+                                        "그는 카인이 상류도시에서 행복하면 됐다고 말하며 액자에서 시선을 거두었다. 그리고 그는 청소를 끝낼 때까지 단 한 번도 그 액자에 시선을 주지 않았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 카인이 여전히 당신을 그리워하고 있다고 말해주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...그래?\"<br><br>" +
+                                        "유리는 흐릿하게 미소를 지었다. 그는 카인의 액자를 손가락으로 건드리려다가 다시 손을 거두었다. 그는 더 이상 카인의 액자에 시선을 주지 않았다." +
+                                        "<br><br>\"카인이 잘 지내고 있는 것 같아서 다행이야.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 카인을 만나고 싶은 거 아니냐고 물었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"....\"<br><br>" +
+                                        "유리는 당신의 말에 어떤 대답도 하지 않았다. 그는 그저 조용히 웃더니 청소를 재개했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "yuri_kainSignFrame_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        getTimePeriod(player) === "night" &&
+        player.flags?.yuri_kainSignFrame_01 &&
+        !player.flags?.YuriKainGoodRelationship &&
+        currentHouseHasFurniture(player, "kainSignFrame") &&
+        canNpcVisitHouse(player, "yuri") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "당신의 집을 청소해주겠다고 온 유리는 어느 때처럼 깨끗하게 바닥과 벽을 닦아주었다. 당신은 그가 카인의 액자 근처에서도 스스럼없이 청소를 하고 있는 모습을 보았다. 하지만 멈추지 않았을 뿐, 그는 카인의 액자만큼은 닦지 않았다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        passTime(player, 15);
+                        savePlayer(player);
+                    }
                 }
             ],
             player, {

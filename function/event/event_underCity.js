@@ -89,7 +89,7 @@ window.EVENTS.push({
         NPC_DATA["eric"].emotion.affection >= 50 &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         !player.flags?.ericDie &&
-        Math.random() < 0.7,
+        Math.random() < 0.07,
 
     action : (player) => {
         player.flags.eric_day = getCurrentDay(player);
@@ -97,6 +97,86 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["eric"].scenes.eric_day_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_die_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet"  &&
+        !player.flags?.endAshParents &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 4) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.ericDie = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_die_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_training_01",
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet"  &&
+        player.flags?.endAshParents &&
+        NPC_DATA["eric"].emotion.affection >= 50 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 4) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["eric"].scenes.eric_training_01,
+            player,
+            {
+                onEnd : () => {
+                    increasePlayerMaxHp(player, 30);
+                    changeStamina(player, -50);
+                    passTime(player, 50);
+                    savePlayer(player);
+                    startScene(getLocationScene(player), player);
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_ericBasket",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["underHouse", "upperHouse"].includes(player.location) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        player.flags?.endAshParents &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 6) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        giveFurniture(player, "ericBasket");
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["eric"].scenes.eric_ericBasket,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -676,6 +756,31 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "luke_collapseLukeIntro_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        player.flags?.collapseLuke,
+
+    action : (player) => {
+        player.flags.luke_collapseLukeIntro_01 = true;
+        player.flags.luke_collapseLukeIntro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_collapseLukeIntro_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //소라
 window.EVENTS.push({

@@ -164,6 +164,25 @@ registerActions("akasia",{
                 choices
             }
         ], player);
+    },
+
+    lust_90_refuse : (player) => {
+        const akasia = NPC_DATA["akasia"].emotion;        
+        
+        if (akasia.dominance >= 50) {
+            startScene(
+                NPC_DATA["akasia"].scenes.akasia_lust_90_refuse_no,
+                player,
+                {
+                    onEnd: () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+
+        startScene(NPC_DATA["akasia"].scenes.akasia_lust_90_refuse_yes, player, {
+            onEnd: () => startScene(getLocationScene(player), player)
+        });       
     }
 })
 

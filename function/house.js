@@ -176,6 +176,20 @@ window.FURNITURE_DATA = {
         name : "스테리 포스터",
         type : "decoration",
         price : 1000000000
+    },
+
+    ericBasket : {
+        id : "ericBasket",
+        name : "견과류 바구니",
+        type : "decoration",
+        price : 5000
+    },
+
+    kainSignFrame : {
+        id : "kainSignFrame",
+        name : "카인 사인 액자",
+        type : "decoration",
+        price : 5000
     }
 
 };

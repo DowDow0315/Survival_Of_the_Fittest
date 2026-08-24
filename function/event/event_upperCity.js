@@ -1522,6 +1522,28 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_lust_90",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        NPC_DATA["akasia"].emotion.lust >= 90 &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+         !player.flags?.akasiaDie &&
+         player.location === "heavenValenRoom" &&
+         ["dawn", "night"].includes(getTimePeriod(player)) &&
+         Math.random() < 0.09,
+
+    action : (player) => {
+        startScene(NPC_DATA["valen"].scenes.akasia_lust_90, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
 
 //카인
 window.EVENTS.push({
@@ -2141,6 +2163,32 @@ window.EVENTS.push({
     action : (player) => {
         startScene(
             NPC_DATA["kain"].scenes.kain_rebel_route_quest_08_intro_attack_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_hisSignFrame",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        !player.flags?.KainWillNotSingHisSong &&
+        ["afternoon", "morning"].includes(getTimePeriod(player)) &&
+        hasItemOrEquipped(player, "kainSign") &&
+        NPC_DATA["kain"].emotion.affection >= 80,
+
+    action : (player) => {
+        giveFurniture(player, "kainSignFrame");
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_hisSignFrame,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

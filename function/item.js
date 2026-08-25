@@ -2932,6 +2932,12 @@ const ITEMS ={
             value : 100,
             price : 3500
         },
+        ericAcorn : {
+            name : "에릭의 도토리(40)",
+            type : "stamina",
+            value : 40,
+            price : 500
+        },
         calmPotion : {
             name : "진정제(30)",
             type : "arousal",

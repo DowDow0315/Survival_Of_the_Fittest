@@ -781,6 +781,30 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "luke_collapseLukeIntro_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shop" &&
+        player.flags?.luke_collapseLukeIntro_01 &&
+        player.flags?.collapseLuke,
+
+    action : (player) => {
+        player.flags.luke_collapseLukeIntro_02 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_collapseLukeIntro_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //소라
 window.EVENTS.push({
@@ -2666,6 +2690,27 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_lust_90",
+
+    condition : (player) =>
+        player.justMoved &&
+        NPC_DATA["yuri"].emotion.lust >= 90 &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.location === "shelter" &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_lust_90,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //니콜라이
 window.EVENTS.push({
@@ -3048,6 +3093,34 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_05",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.nikolai_heavenPalace_hisLocation_04 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_04_day + 7) &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_05 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_05_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_05,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -5513,6 +5586,109 @@ window.EVENTS.push({
         ], player, {
             onEnd : () =>
                 startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_collapse_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance", "townEntrance_act3"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        player.flags?.collapseLuke &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신을 발견한 경비병들 중 몇몇이 당신의 앞을 가로막았다. 그들은 당신의 옷을 움켜잡으며 당신도 뭔가를 숨기는 것은 없는지 신체 검사를 해야 한다고 말했다. 그들의 눈은 이미 탐욕으로 번들거리고 있었다." +
+                    "<br><br>\"거기 뭐하는 거야?\"<br><br>" +
+                    "당신이 경비병들에게 포위되어 있는 것을 본 다른 경비병들이 당신과 다른 경비병들 사이를 가로막았다. 그들은 루크가 잠깐 쓰러졌다고 이딴 식으로 구는 거냐고 물었다. 그러자 당신을 붙잡았던 경비병들은 오히려 목에 핏대를 세우며 루크가 쓰러지기 전부터 당신이 마음에 안 들었다고 말했다. <br><br>두 무리가 싸우는 동안 다른 경비병 하나가 당신에게 고갯짓을 해보였다. 여기는 우리가 맡을 테니 가보라는 것 같다... 당신은 발걸음을 옮겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_collapse_02",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "barracks" &&
+        player.flags?.collapseLuke &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "백색 군단이 막사 중 방 하나를 막고 있다. 루크와 친하게 지냈던 경비병들이 루크를 보게 해달라고 해도 백색 군단은 비키지 않았다." +
+                    "<br><br>\"그러다가 마을에 해를 끼치게 된다면? 그 책임을 너희 어깨가 감당할 수 있나?\"<br><br>" +
+                    "몇몇 경비병들이 백색 군인들에게 달려들었지만 백색 군인들은 손쉽게 경비병들을 제압했다. 소란스러웠던 막사는 곧 잠잠해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_collapse_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        player.flags?.collapseLuke &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"아, 형수님.\"<br><br>" +
+                    "루크랑 친하게 지냈던 경비병이다. 그는 당신을 보더니 힘없이 입꼬리를 올렸다. 그는 당신 앞에서만큼은 밝은 표정이고 싶다고 말하며 손에 들린 담배를 만지작거렸다." +
+                    "<br><br>당신은 그와 루크에 대해 이런 저런 얘기를 나누었다. 당신의 예상보다 루크는 죽을 뻔한 적이 더 많았던 것 같다. 그는 루크가 다시 일어날 거라 믿고 있다고 말했다." +
+                    "<br><br>\"그전까지는... 경비병들을 어떻게든 붙들어둬야겠죠.\"<br><br>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    passTime(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
         });
     }
 });

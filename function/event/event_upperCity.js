@@ -1533,10 +1533,10 @@ window.EVENTS.push({
          !player.flags?.akasiaDie &&
          player.location === "heavenValenRoom" &&
          ["dawn", "night"].includes(getTimePeriod(player)) &&
-         Math.random() < 0.09,
+         Math.random() < 0.1,
 
     action : (player) => {
-        startScene(NPC_DATA["valen"].scenes.akasia_lust_90, player, {
+        startScene(NPC_DATA["akasia"].scenes.akasia_lust_90, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }

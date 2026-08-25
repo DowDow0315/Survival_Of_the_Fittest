@@ -160,9 +160,16 @@ function shouldTriggerEricWeeklyPayment(player){
 function triggerEricWeeklyPayment(player){
     player.inEvent = true;
     player.lastWeeklyPaymentWeek = getCurrentWeek(player);
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
+
+    const isEricPartner =
+        hasNpcRelationship("eric", "lover") ||
+        hasNpcRelationship("eric", "spouse");
+
     if (player.flags?.ericDie){
         weeklyPaymentAfterEricDeath(player);
+    } else if (isEricPartner){
+        weeklyPaymentWithEricPartner(player);
     } else {
         weeklyPayment(player);
     }
@@ -256,6 +263,24 @@ function weeklyPaymentAfterEricDeath(player){
     });
 }
 
+function weeklyPaymentWithEricPartner(player){
+    startScene(
+        NPC_DATA["eric"].scenes.eric_weeklyPayment_partner,
+        player,
+        {
+            onEnd : () => {
+                player.inEvent = false;
+                addItem(player, ITEMS.consumable.ericAcorn);
+                addItem(player, ITEMS.consumable.ericAcorn);
+                addItem(player, ITEMS.consumable.ericAcorn);
+                addItem(player, ITEMS.consumable.ericAcorn);
+                savePlayer(player);
+                startScene(getLocationScene(player), player);
+            }
+        }
+    );
+}
+
 const EVENTS = [
     //npc 이벤트
     //에릭
@@ -267,6 +292,7 @@ const EVENTS = [
             player.justMoved &&
             player.location === "townStreet" &&
             !player.flags?.ericDie &&
+            NPC_DATA["eric"].emotion.affection <= 40 &&
             player.flags?.eric_victim_collect_event01_unlocked &&
             !player.flags?.eric_victim_collect_event01_seen,
             

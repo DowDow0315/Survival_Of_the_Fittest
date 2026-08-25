@@ -10,7 +10,8 @@ function processEricText(text, player){
 }
 
 function getEricTitle(player){
-    if (NPC_DATA["eric"].emotion.affection > 50) return "꼬맹이";
+    if(NPC_DATA["eric"].emotion.affection >= 90) return "꼬마";
+    else if (NPC_DATA["eric"].emotion.affection >= 50) return "꼬맹이";
     return "애송이";
 }
 

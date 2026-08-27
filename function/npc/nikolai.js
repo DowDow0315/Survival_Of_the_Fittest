@@ -195,6 +195,27 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_heavenPalace_hisLocation_07 && player.flags.nikolai_heavenPalace_hisLocation_06 ){
+            choices.push({
+                text: "당신은 니콜라이에게 당신을 노리는 자가 있다고 알려주었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_heavenPalace_hisLocation_07
+            });
+        }
+
+        if (!player.flags?.nikolai_killingTatiana_answer && player.flags.nikolai_killingTatiana ){
+            choices.push({
+                text: "당신은 타티아나에 대해 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_killingTatiana_answer
+            });
+        }
+
+        if (!player.flags?.nikolai_savingTatiana_answer && player.flags.nikolai_savingTatiana ){
+            choices.push({
+                text: "당신은 타티아나에 대해 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_savingTatiana_answer
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 
         startScene([

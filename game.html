@@ -517,6 +517,10 @@
                 return "소라는 마지막까지 당신만을 원했다.";
             }
 
+            if (key === "nikolai" && player?.flags?.nikolaiDie){
+                return "니콜라이는 그 누구도 닿지 못할 곳으로 떠났다.";
+            }
+
             if (key === "luke" && player?.flags?.collapseLuke){
                 return "루크는 일어나지 못하고 있다.";
             }

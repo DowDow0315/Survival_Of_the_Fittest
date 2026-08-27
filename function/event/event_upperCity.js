@@ -3359,3 +3359,39 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "nikolai_attack_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.nikolai_heavenPalace_hisLocation_09 &&
+        (
+            getTimePeriod(player) === "morning" ||
+            getTimePeriod(player) === "dawn"
+        ) &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길을 걷던 당신의 뒤로 노예들이 습격해왔다. 그들은 니콜라이와 당신이 한 패라고 생각하고 있다!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startBattle(["slave", "slave", "slave", "slave", "slave", "slave"], player, {
+                        onWin : () => startScene(getLocationScene(player), player),
+                        onEscape : () => startScene(getLocationScene(player), player),
+                    });
+                    return true;
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

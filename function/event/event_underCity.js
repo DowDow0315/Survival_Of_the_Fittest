@@ -3130,6 +3130,145 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_06",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        ["dawn", "morning"].includes(getTimePeriod(player)) &&
+        player.flags?.nikolai_heavenPalace_hisLocation_04 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_05_day + 3) &&
+        NPC_DATA["nikolai"].emotion.affection >= 70 &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_06 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_06_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_06,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_08_death",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        !player.flags?.nikolai_heavenPalace_hisLocation_07 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_06_day + 7) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolaiDie = true;
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_08_death,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_08",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        getTimePeriod(player) === "dawn" &&
+        player.flags?.nikolai_heavenPalace_hisLocation_07 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_06_day + 7) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_08 = true;
+        player.flags.nikolai_heavenPalace_hisLocation_08_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_08,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_09",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryHole" &&
+        player.flags?.nikolai_heavenPalace_hisLocation_08 &&
+        !hasNpcRelationship("nikolai", "lover") &&
+        !hasNpcRelationship("nikolai", "spouse") &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_08_day + 1) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_09 = true;
+        changeGold(player, 400000);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_09,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_heavenPalace_hisLocation_09_lover",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["underHouse", "upperHouse", "shelter", "goldenShelter"].includes(player.location) &&
+        player.flags?.nikolai_heavenPalace_hisLocation_08 &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_08_day + 7) &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_heavenPalace_hisLocation_09 = true;
+        addItem(player, ITEMS.top.featherTop);
+        addItem(player, ITEMS.bottom.featherBottom);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_heavenPalace_hisLocation_09_lover,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "nikolai_withNikolai_01",
 
     condition : (player) =>
@@ -3175,6 +3314,35 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["nikolai"].scenes.nikolai_breakUp_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "nikolai_breakUp_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.nikolai_ask_about_breakUp_03 &&
+        getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_08_day + 4) &&
+        (
+            hasNpcRelationship("nikolai", "lover") ||
+            hasNpcRelationship("nikolai", "spouse")
+        )  &&
+        !player.flags?.nikolaiDie,
+
+    action : (player) => {
+        player.flags.nikolai_breakUp_03 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["nikolai"].scenes.nikolai_breakUp_03,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -3380,6 +3548,30 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["pale"].scenes.pale_findHerPlace,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_shop_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "reclaimedShop" &&
+        player.flags?.pale_withPale_day !== getCurrentDay(player) &&
+        player.flags?.paleFindsHerPlace &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.pale_withPale_day = getCurrentDay(player)
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_shop_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -3712,6 +3904,31 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["sion"].scenes.sion_hisLittleConfession_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "sion_redRoseNecklace",
+    once : true,
+
+    condition : (player) =>
+        NPC_DATA["sion"].emotion.affection >= 90 &&
+        ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
+        ["upperHouse", "underHouse"].includes(player.location) &&
+        canNpcVisitHouse(player, "sion") &&
+        player.justMoved,
+
+    action : (player) => {
+        addItem(player, ITEMS.accessary.sionRedRoseNecklace);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["sion"].scenes.sion_redRoseNecklace,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -5684,6 +5901,41 @@ window.EVENTS.push({
                 run : (player) => {
                     changeTrauma(player, -2);
                     passTime(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "underHouse_shelter_kids_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        getTimePeriod(player) === "afternoon" &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "딩동, 초인종 소리가 들려서 밖으로 나가보니 쉘터의 어린 아이들이었다. 그들은 쉘터에 가던 길에 당신의 집이 보여서 잠깐 들른 거라고 말하며 당신에게 쿠키를 내밀었다." +
+                    "<br><br>\"항상 저희를 돌봐줬었잖아요.\"<br><br>" +
+                    "아이들은 이제는 당신을 돌볼 차례라고 말하며, 당신이 쿠키를 다 먹기 전에는 안 가겠다고 말했다. 귀여운 고집이다. 당신은 아이들의 앞에서 쿠키를 먹었다." +
+                    "<br><br>평범한 쿠키였지만 맛있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -5);
+                    changeHP(player, 30);
+                    changeStamina(player, 20);
+                    passTime(player, 5);
                     savePlayer(player);
                 }
             }

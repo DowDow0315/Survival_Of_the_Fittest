@@ -2330,10 +2330,10 @@ const ITEMS ={
             price : 3500,
             desc : "화려한 깃털이다, 그의 진심까지도 숨겨버릴 정도로 화려한.",
             stats : {
-                str : 1,
-                dex : 5,
-                int : 3,
-                charm : 5
+                str : 5,
+                dex : 8,
+                int : 7,
+                charm : 10
             }
         },
 
@@ -2607,10 +2607,10 @@ const ITEMS ={
             price : 3500,
             desc : "그의 미소는 깃털처럼 가볍다. 그의 마음과는 반대로.",
             stats : {
-                str : 1,
-                dex : 5,
-                int : 3,
-                charm : 5
+                str : 7,
+                dex : 8,
+                int : 5,
+                charm : 10
             }
         },
 
@@ -2825,6 +2825,18 @@ const ITEMS ={
             stats : {
                 int : 2,
                 charm : 3
+            }
+        },
+
+        sionRedRoseNecklace : {
+            name : "붉은 장미 목걸이",
+            desc : "영웅님의 주변에 언제나 장미 향기가 맴돌길.",
+            type : "accessary",
+            price : 10000,
+            stats : {
+                str : 2,
+                int : 1,
+                charm : 5
             }
         }
     },

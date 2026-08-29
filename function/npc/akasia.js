@@ -209,3 +209,101 @@ function isAkasiaAvailable(player){
 
     return true;
 }
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.akasia = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startAkasiaChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startAkasiaChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 집무실에서 아카시아를 찾았다. 아카시아는 이미 수많은 초콜릿들을 받았지만, 선물 포장지는 단 하나도 뜯고 있지 않고 있었다." +
+                    "<br><br>\"당신의 초콜릿을 제일 먼저 먹고 싶었습니다.\"<br><br>" +
+                    "아카시아는 당신의 앞에서 당신의 수제 초콜릿을 먹었다. 그는 입을 오물거리며 당신의 초콜릿을 천천히 음미했다." +
+                    "<br><br>\"...당신의 진심이 담겨서 그럴까요... 이 세상에서 제일 맛있네요.\"<br><br>" +
+                    "아카시아는 당신에게 한 발자국 다가가더니 상류도시 사람들은 초코초코 데이 때 초콜릿을 받는 걸 청혼으로 생각하기도 한다는 걸 아냐고 물었다." +
+                    "<br><br>\"당신의 청혼이라면 몇 번을 받아도 좋지만요.\"<br><br>" +
+                    "그는 당신의 아랫입술에 입맞춤을 하며 웃었다." +
+                    "<br><br>\"이건 청혼일까요, 아닐까요?\"<br><br>" +
+                    "아카시아는 자신도 당신을 위한 초콜릿을 만들었다고 하며 당신에게 초콜릿을 내밀었다. 아카시아 꽃잎 모양의 하얀 초콜릿... 그는 장난스럽게 웃으며 당신의 입에 아카시아 꽃잎 모양의 초콜릿을 넣어주었다." +
+                    "<br><br>\"...당신의 상상력에 맡기겠습니다.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "akasia");
+                    player.location = "heavenValenRoom";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 집무실에서 아카시아를 찾았다. 아카시아는 이미 수많은 초콜릿들을 받았지만, 선물 포장지는 단 하나도 뜯고 있지 않고 있었다." +
+                    "<br><br>\"당신의 초콜릿을 제일 먼저 먹고 싶었습니다.\"<br><br>" +
+                    "아카시아는 당신의 앞에서 당신의 수제 초콜릿을 먹었다. 그는 입을 오물거리며 당신의 초콜릿을 천천히 음미했다." +
+                    "<br><br>\"분명 평범한 초콜릿인데.... 왜 저는 다르게 느껴질까요. 이 맛만큼은 제가 죽을 때까지 잊지 못할 것 같습니다.\"<br><br>" +
+                    "중얼거리듯이 말하던 아카시아는 장난스럽게 웃으며 그래도 자신은 잊으려고 노력할 거라고 말했다. 그리고 그 핑계로 매년 초코초코데이 때 당신의 초콜릿을 받을 거라고 말했다." +
+                    "<br><br>\"그리고 당신도...\"<br><br>" +
+                    "그는 아무렇지도 않게 당신의 입에 초콜릿을 넣어주었다. 당신이 놀란 표정을 짓자 이 초콜릿의 맛은 다음 초코초코 데이 때까지만 기억하라고 말했다." +
+                    "<br><br>\"다음 초코초코 데이 때도 또 드릴 거니까요.\"<br><br>" +
+                    "...당신은 다른 건 몰라도 아카시아의 은은한 미소는 못 잊을 것 같다고 생각했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "akasia");
+                    player.location = "heavenValenRoom";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 집무실에서 아카시아를 찾았다. 아카시아는 이미 수많은 초콜릿들을 받았지만, 선물 포장지는 단 하나도 뜯고 있지 않고 있었다." +
+                    "<br><br>\"당신의 초콜릿을 제일 먼저 먹고 싶었습니다.\"<br><br>" +
+                    "아카시아는 당신의 앞에서 당신의 수제 초콜릿을 먹었다. 그는 입을 오물거리며 당신의 초콜릿을 천천히 음미했다." +
+                    "<br><br>\"다른 사람들이 만든 요리였다면 화가 났을 것 같은데...\"<br><br>" +
+                    "아카시아는 미소를 지었다." +
+                    "<br><br>\"영광으로 아세요, {akasiaTitle}. 당신의 요리여서 먹는 거니까.\"<br><br>" +
+                    "아카시아는 보란 듯이 당신의 수제 초콜릿을 당신의 앞에서 다 먹은 후 아카시아 꽃잎 모양의 하얀 초콜릿을 당신의 입에 넣어주었다. 당연히, 당신의 수제 초콜릿보다는 아카시아의 수제 초콜릿이 더 맛있었다. 아카시아는 웃으며 다음번에는 조금 더 노력해달라고 말했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "akasia");
+                    player.location = "heavenValenRoom";
+                    changeNPCEmotion("akasia", "dominance", 5);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

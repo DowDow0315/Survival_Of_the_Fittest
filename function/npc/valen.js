@@ -211,3 +211,94 @@ function isValenAvailable(player){
 
     return true;
 }
+
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.valen = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startValenChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startValenChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 발렌의 집무실로 들어서자마자 발렌은 당신이 올 줄 알았다는 듯이 \"오셨습니까\"하고 당신을 맞이해주었다. 그는 지금 집무실 밖으로 나가면 초콜릿들의 세례에서 벗어날 수 없을 것 같다며 작게 농담을 했다. 그의 집무실 책상에는 이미 고급진 초콜릿들로 가득했다." +
+                    "<br><br>\"...당신의 초콜릿을 기다리고 있었습니다, {valenTitle}\"<br><br>" +
+                    "당신의 시선이 수많은 초콜릿들로 가있다는 걸 인지한 발렌은 미소를 지으며 자신이 가장 기다리고 있던 초콜릿은 당신의 초콜릿이라고 말했다. 그는 당신의 초콜릿을 맛보더니 미소를 지었다." +
+                    "<br><br>\"제것도 준비했습니다.\"<br><br>" +
+                    "그리고 그가 준비한 것은 더 이상 평범한 초콜릿이라 부를 수 없었다. 새하얀 꽃을 닮은 초콜릿들이 한 아름 묶여, 꽃다발을 이루고 있었다. 그는 당신에게 초콜릿 꽃다발을 건넨 뒤, 당신의 손을 잡아 손등 위로 가볍게 입을 맞췄다." +
+                    "<br><br>\"영원히 제 곁에 있어주십시오, {valenTitle}.\"<br><br>" +
+                    "...고개를 숙인 채 당신을 올려다보는 그의 푸른 눈동자에는 조금의 흔들림도 없었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "valen");
+                    player.location = "heavenValenRoom";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 발렌의 집무실로 들어서자마자 발렌은 당신이 올 줄 알았다는 듯이 \"오셨습니까\"하고 당신을 맞이해주었다. 그는 지금 집무실 밖으로 나가면 초콜릿들의 세례에서 벗어날 수 없을 것 같다며 작게 농담을 했다. 그의 집무실 책상에는 이미 고급진 초콜릿들로 가득했다." +
+                    "<br><br>\"...당신의 초콜릿을 기다리고 있었습니다, {valenTitle}\"<br><br>" +
+                    "당신의 시선이 수많은 초콜릿들로 가있다는 걸 인지한 발렌은 미소를 지으며 자신이 가장 기다리고 있던 초콜릿은 당신의 초콜릿이라고 말했다. 그는 당신의 초콜릿을 맛보며 고개를 기울였다." +
+                    "<br><br>\"맛으로는 특별할 게 없지만.... 그래도 당신이 이 날 저를 위해 만들어준 초콜릿이라 생각하니 특별하게 느껴지는 군요.\"<br><br>" +
+                    "그는 다음 초코초코 데이 때도 기다리고 있겠다고 말하며 당신에게 초콜릿 차를 대접했다. 왜 초콜릿이 아니라 초콜릿 차냐고 묻자 그는 미소를 지으며 자신이 당신에게 청혼하는 모습을 보고 싶냐고 물었다. 농담인지 진담인지 잘 모르겠다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "valen");
+                    player.location = "heavenValenRoom";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 발렌의 집무실로 들어서자마자 발렌은 당신이 올 줄 알았다는 듯이 \"오셨습니까\"하고 당신을 맞이해주었다. 그는 지금 집무실 밖으로 나가면 초콜릿들의 세례에서 벗어날 수 없을 것 같다며 작게 농담을 했다. 그의 집무실 책상에는 이미 고급진 초콜릿들로 가득했다." +
+                    "<br><br>\"...당신의 초콜릿을 기다리고 있었습니다, {valenTitle}\"<br><br>" +
+                    "당신의 시선이 수많은 초콜릿들로 가있다는 걸 인지한 발렌은 미소를 지으며 자신이 가장 기다리고 있던 초콜릿은 당신의 초콜릿이라고 말했다. 그 말은 다른 초콜릿들도 기다린 거냐고 묻자, 발렌은 당연히 와야 할 초콜릿들은 기다리고 있었다고 말했다." +
+                    "<br><br>\"그들과는 사이가 틀어지지 않아야 하거든요.\"<br><br>" +
+                    "발렌은 당신의 초콜릿을 맛보며 말했다." +
+                    "<br><br>\"...당신의 초콜릿보다 맛있기도 하고요.\"<br><br>" +
+                    "그는 만약 이 초콜릿이 프로포즈 용도였다면 다음 초코초코 데이 때 다시 한번 청혼을 시도해보는 게 좋겠다고 가볍게 말했다. 농담일까, 아니면 진심일까. 아무튼 발렌은 평소와 다르게 당신의 맛없는 초콜릿도 다 먹어주었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "valen");
+                    player.location = "heavenValenRoom";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

@@ -1481,6 +1481,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "chocoChoco" && room.bossId === "chocos"){
+        handleChocosWin(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -1771,6 +1776,8 @@ function leaveDungeon(player){
         player.location = "whiteFlowerTomb";
     } else if (dungeonId === "paleHideOut"){
         player.location = "whiteFlowerTomb";
+    } else if (dungeonId === "chocoChoco"){
+        player.location = "townStreet";
     } else {
         player.location = "townStreet";
     }
@@ -5146,6 +5153,25 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startAshParentsBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "chocos_intro"){
+            startScene([
+            {
+                type: "text",
+                value:
+                      "마지막 방에 들어가자 거대한 초코 슬라임 하나가 통통거리고 있었다." +
+                      "<br><br>\"...초코?\"<br><br>" +
+                      "거대한 초코 슬라임이 당신을 돌아보았다. 전투가 시작된다!" 
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startChocosBattle(player);
                     return true;
                 }
             }

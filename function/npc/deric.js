@@ -443,3 +443,101 @@ function startDericSmallTalkAfterEricDeath(
         }
     ], player, { onEnd });
 }
+
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.deric = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startDericChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startDericChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 데릭의 저택에서 그가 돌아오기를 기다려야 했다. 그의 방은 이미 초콜릿 상자들로 가득했고, 심지어 거실까지도 그가 받은 초콜릿들이 공간을 지배하고 있었다.... 특히 유리 식탁 위에 있는 반지 모양 초콜릿은 장식품이라 볼 수 있을 정도로 정교하고 세밀했다." +
+                    "<br><br>\"아가.\"<br><br>" +
+                    "데릭은 한 손에 초콜릿 상자들을 가득 들고 쌍둥이 저택에 들어왔다. 그는 입꼬리를 올리며 자신에게 초콜릿을 줄 생각이냐고 물었다." +
+                    "<br><br>\"우리는 초코초코데이 때 초콜릿을 주면 청혼으로 받아들이기도 하는데.\"<br><br>" +
+                    "그는 당신의 초콜릿을 받으며 당신이 그 의도로 초콜릿을 줬든, 그 의도가 없이 초콜릿을 줬든 어쨌든 받은 건 자신이니 알아서 생각하겠다고 말했다. 데릭은 자신이 당신을 위해 준비한 초콜릿은 식탁에 있다고 말했다." +
+                    "<br><br>\"널 위해 특별히 주문 제작했단다.\"<br><br>" +
+                    "그는 다음 초코초코데이 때는 더 아름다운 걸 주겠다고 말하며 웃었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "deric");
+                    player.location = "twinsMansion";
+                    passTime(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 데릭의 저택에서 그가 돌아오기를 기다려야 했다. 그의 방은 이미 초콜릿 상자들로 가득했고, 심지어 거실까지도 그가 받은 초콜릿들이 공간을 지배하고 있었다.... 특히 유리 식탁 위에 있는 동물 모양 초콜릿은 장식품이라 볼 수 있을 정도로 정교하고 세밀했다." +
+                    "<br><br>\"아가.\"<br><br>" +
+                    "데릭은 한 손에 초콜릿 상자들을 가득 들고 쌍둥이 저택에 들어왔다. 그는 입꼬리를 올리며 자신에게 초콜릿을 줄 생각이냐고 물었다." +
+                    "<br><br>\"우리는 초코초코데이 때 초콜릿을 주면 청혼으로 받아들이기도 하는데.\"<br><br>" +
+                    "그는 당신의 초콜릿을 받으며 당신이 그 의도로 초콜릿을 줬든, 그 의도가 없이 초콜릿을 줬든 어쨌든 받은 건 자신이니 알아서 생각하겠다고 말했다. 데릭은 자신이 당신을 위해 준비한 초콜릿은 식탁에 있다고 말했다." +
+                    "<br><br>\"널 위해 특별히 주문 제작했단다.\"<br><br>" +
+                    "그는 다음 초코초코데이 때는 더 큰 걸 주겠다고 말하며 웃었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "deric");
+                    player.location = "twinsMansion";
+                    passTime(player, 10);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 데릭의 저택에서 그가 돌아오기를 기다려야 했다. 그의 방은 이미 초콜릿 상자들로 가득했고, 심지어 거실까지도 그가 받은 초콜릿들이 공간을 지배하고 있었다.... 특히 유리 식탁 위에 있는 초콜릿은 포장지부터 남달랐다. 금으로 만든 포장지인 걸까, 딱딱해 보이기까지 한다." +
+                    "<br><br>\"아가.\"<br><br>" +
+                    "데릭은 한 손에 초콜릿 상자들을 가득 들고 쌍둥이 저택에 들어왔다. 그는 입꼬리를 올리며 자신에게 초콜릿을 줄 생각이냐고 물었다." +
+                    "<br><br>\"우리는 초코초코데이 때 초콜릿을 주면 청혼으로 받아들이기도 하는데.\"<br><br>" +
+                    "데릭은 초콜릿의 완성도에 따라 청혼이 거절당하기도 한다고 말하며 웃었다. 그러더니 그는 자신이 당신을 위해 준비한 초콜릿은 유리 식탁 위에 있다고 말해주었다." +
+                    "<br><br>\"그 포장지는 네가 가져도 된단다. 너를 위한 것이니까.\"<br><br>" +
+                    "그는 선심 쓰듯 말하며 고개를 까닥였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "deric");
+                    changeGold(player, 50000);
+                    changeNPCEmotion("deric", "dominance", 5);
+                    passTime(player, 10);
+                    player.location = "twinsMansion";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

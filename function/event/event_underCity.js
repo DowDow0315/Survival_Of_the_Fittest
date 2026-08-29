@@ -185,6 +185,42 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_chocoChoco",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["underHouse", "upperHouse", "shelter", "goldenShelter"].includes(player.location) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        player.flags?.ericChocoChoco &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.ericChocoChoco = false;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 집을 나서다가 문고리에 걸려 있는 투박한 바구니를 발견했다. 바구니 안에는 초콜릿이 들어 있었다." +
+                    "<br><br>...에릭이라면 분명 상류도시의 초코초코데이 풍습을 알 것이다.<br><br>에릭은 대체 무슨 생각으로 당신에게 초콜릿을 줬을까? 당신은 그의 초콜릿을 먹었다. 시중에 파는 초콜릿들과는 맛이 달랐다. 어쩐지 호두랑 도토리 맛이 나는 것 같기도 하다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeStamina(player, 20);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
 //루크
 window.EVENTS.push({
     id : "luke_guard_punishment_event",

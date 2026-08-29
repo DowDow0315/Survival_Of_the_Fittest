@@ -608,3 +608,89 @@ function isLukeNoSmoking(player){
     return player.flags?.luke_told_stop_smoking &&
            NPC_DATA["luke"].emotion.affection > 50;
 }
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.luke = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startLukeChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startLukeChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "대체 어디서 나타난 건지, 빈민가 거리를 지나가던 당신의 뒤로 루크의 팔이 뻗어왔다. 그는 당신의 어깨를 잡더니 당신의 주머니를 뒤지기 시작했다. 당신의 수제 초콜릿 하나를 꺼낸 루크는 킥킥 웃으며 당신의 허락도 없이 초콜릿을 먹었다." +
+                    "<br><br>\"왜, 씨발? 어차피 나 주려고 만든 거 아냐?\"<br><br>" +
+                    "당신의 초콜릿을 음미하던 루크는 놀랍다는 듯 당신을 내려다보았다." +
+                    "<br><br>\"...오, 존맛.\"<br><br>" +
+                    "그러더니 그는 자기가 가고 나면 주머니를 확인해보라고 말했다. 루크는 남은 초콜릿을 먹으며 멀어져갔다. 당신은 그의 뒷모습을 바라보다가 문득 주머니에 손을 넣었다. 어라, 주머니 안에는 어느새 초콜릿 사탕 하나가 들어 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "luke");
+                    player.location = "darkStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "대체 어디서 나타난 건지, 빈민가 거리를 지나가던 당신의 뒤로 루크의 팔이 뻗어왔다. 그는 당신의 어깨를 잡더니 당신의 주머니를 뒤지기 시작했다. 당신의 수제 초콜릿 하나를 꺼낸 루크는 킥킥 웃으며 당신의 허락도 없이 초콜릿을 먹었다." +
+                    "<br><br>\"왜, 씨발? 어차피 나 주려고 만든 거 아냐?\"<br><br>" +
+                    "당신의 초콜릿을 음미하던 루크는 당신의 표정을 보더니 당신의 머리를 꾹꾹 눌렀다." +
+                    "<br><br>\"아니야? 그래도 상관없어.\"<br><br>" +
+                    "그러더니 그는 자기가 가고 나면 주머니를 확인해보라고 말했다. 루크는 남은 초콜릿을 먹으며 멀어져갔다. 당신은 그의 뒷모습을 바라보다가 문득 주머니에 손을 넣었다. 어라, 주머니 안에는 어느새 초콜릿 사탕 하나가 들어 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "luke");
+                    player.location = "darkStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "대체 어디서 나타난 건지, 빈민가 거리를 지나가던 당신의 뒤로 루크의 팔이 뻗어왔다. 그는 당신의 어깨를 잡더니 당신의 주머니를 뒤지기 시작했다. 당신의 수제 초콜릿 하나를 꺼낸 루크는 킥킥 웃으며 당신의 허락도 없이 초콜릿을 먹었다." +
+                    "<br><br>\"왜, 씨발? 어차피 나 주려고 만든 거 아냐?\"<br><br>" +
+                    "당신의 초콜릿을 음미하던 루크는 놀랍다는 듯 당신을 내려다보았다." +
+                    "<br><br>\"...뭔 맛이야, 이거. 이거 나 빼고 먹어주는 사람이 있겠냐?\"<br><br>" +
+                    "그러더니 그는 자기가 가고 나면 주머니를 확인해보라고 말했다. 루크는 남은 초콜릿을 먹으며 멀어져갔다. 당신은 그의 뒷모습을 바라보다가 문득 주머니에 손을 넣었다. 어라, 주머니 안에는 어느새 초콜릿 사탕 하나가 들어 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "luke");
+                    player.location = "darkStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

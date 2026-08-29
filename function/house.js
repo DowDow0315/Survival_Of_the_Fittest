@@ -115,6 +115,18 @@ window.FURNITURE_DATA = {
         }
     },
 
+    chocoBath : {
+        id : "chocoBath",
+        name : "초콜릿 욕조",
+        type : "bath",
+        price : 1000000000000,
+        
+        cleanse : {
+            multiplier : 1.2,
+            time : 8
+        }
+    },
+
     bearDoll : {
         id : "bearDoll",
         name : "곰 인형",

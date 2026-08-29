@@ -1475,21 +1475,25 @@ function getWeekdayName(player){
 }
 
 function getCalendarDate(player){
-    let day = getCurrentDay(player);
+    const totalDay = getCurrentDay(player);
+
+    const year = Math.floor((totalDay - 1) / 365) + 1;
+    let day = ((totalDay - 1) % 365) + 1;
+
     const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     let month = 1;
 
     for (const days of monthDays){
         if (day <= days){
-            return { month, day };
+            return { year, month, day };
         }
 
         day -= days;
         month++;
     }
 
-    return { month: 12, day: 31 };
+    return { year, month: 12, day: 31 };
 }
 
 const WEATHER = {
@@ -3010,12 +3014,16 @@ function getDisplayItemName(item){
     return item.name;
 }
 
-function useItem(player, item){
+function useItem(player, item, skipSpecialGift = false){
+
+    if (item.specialGift && !skipSpecialGift){
+        openSpecialGiftAction(player, item);
+        return;
+    }
 
     if (item.type === "heal"){
         changeHP(player, item.value);
-
-        consumeItem(player, item); // ← 추가
+        consumeItem(player, item);
         return;
     }
 
@@ -3034,14 +3042,12 @@ function useItem(player, item){
 
     if (item.type === "stamina"){
         changeStamina(player, item.value);
-
-        consumeItem(player, item); // ← 추가
+        consumeItem(player, item);
         return;
     }
 
     if (item.type === "arousal"){
         changeArousal(player, -item.value);
-
         consumeItem(player, item);
         return;
     }

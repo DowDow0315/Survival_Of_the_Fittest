@@ -106,6 +106,13 @@ function buildTownStreetScene(player, loc, randomDesc){
         });
     }
 
+    if (isChocoChocoPeriod(player)){
+        choices.push({
+            text : "초코로초코초코초코코~ 쪼꼬쪼쪼로쪼쪼코~",
+            action : "move_chocoChoco"
+        });
+    }
+
     choices.push(
         {
             text: "마을 입구로 간다",

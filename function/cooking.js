@@ -47,8 +47,9 @@ window.open_cookingIngredientSelect = function(player){
     Object.values(grouped).forEach(({ item, count }) => {
         const selectedCount =
         player.cooking.selected.filter(key => key === item.key).length;
-        
-        const remainingCount = count - selectedCount;
+
+        const cookingUnit = item.cookingUnit || 1;
+        const remainingCount = count - (selectedCount * cookingUnit);
         
         choices.push({
             text: `${item.name} (${remainingCount}개)`,
@@ -82,13 +83,15 @@ function selectCookingIngredient(player, itemKey){
 
     if (player.cooking.selected.length >= 3) return;
 
-    const ownedCount =
-        player.inventory.filter(item => item.key === itemKey).length;
+    const item = findItemByKey(itemKey);
+    const cookingUnit = item?.cookingUnit || 1;
+    
+    const ownedCount = player.inventory.filter(item => item.key === itemKey).length;
+    const selectedCount = player.cooking.selected.filter(key => key === itemKey).length;
+    
+    const neededCount = (selectedCount + 1) * cookingUnit;
 
-    const selectedCount =
-        player.cooking.selected.filter(key => key === itemKey).length;
-
-    if (selectedCount >= ownedCount){
+    if (neededCount > ownedCount){
         showSingleTextScene(
             "그 재료는 더 이상 없다.",
             player,
@@ -182,9 +185,12 @@ let weirdIndex = 0;
     });
     
     for (const [key, needed] of Object.entries(neededCounts)){
+        const item = findItemByKey(key);
+        const cookingUnit = item?.cookingUnit || 1;
+        const realNeeded = needed * cookingUnit;
         const owned = player.inventory.filter(item => item.key === key).length;
         
-        if (owned < needed){
+        if (owned < realNeeded){
             showSingleTextScene("재료가 부족하다.", player, {
                 onEnd: () => open_cookingMenu(player)
             });
@@ -194,21 +200,55 @@ let weirdIndex = 0;
 
     // 재료 소모
     selected.forEach(key => {
-        const index = player.inventory.findIndex(item => item.key === key);
-        if (index !== -1){
-            player.inventory.splice(index, 1);
+        const item = findItemByKey(key);
+        const cookingUnit = item?.cookingUnit || 1;
+        
+        for (let i = 0; i < cookingUnit; i++){
+            const index = player.inventory.findIndex(item => item.key === key);
+            
+            if (index !== -1){
+                player.inventory.splice(index, 1);
+            }
         }
     });
 
     const recipeId = findRecipeByIngredients(selected);
+    const recipe = recipeId ? window.RECIPES[recipeId] : null;
+    const difficulty = recipe?.difficulty || "normal";
+
+    const difficultySettings = {
+        normal: {
+            target: 4,
+            sequenceLength: 6,
+            timeLimit: 4300,
+            hideAfter: 1100,
+            great: 4,
+            normal: 3,
+            bad: 2
+        },
+        
+        hard: {
+            target: 6,
+            sequenceLength: 8,
+            timeLimit: 4300,
+            hideAfter: 1000,
+            
+            great: 7,
+            normal: 5,
+            bad: 3
+        }
+    };
+    
+    const settings = difficultySettings[difficulty] || difficultySettings.normal;
+
     let successCount = 0;
     
     startArrowMinigame(player, {
         title: "요리를 시작한다!",
-        target: 4,
-        sequenceLength: 6,
-        timeLimit: 4300,
-        hideAfter: 1100,
+        target: settings.target,
+        sequenceLength: settings.sequenceLength,
+        timeLimit: settings.timeLimit,
+        hideAfter: settings.hideAfter,
         
         successText: (player, state) => {
             if (recipeId){
@@ -238,9 +278,9 @@ let weirdIndex = 0;
         onClear: (player) => {
             let grade;
             
-            if (successCount >= 4) grade = "great";
-            else if (successCount === 3) grade = "normal";
-            else if (successCount === 2) grade = "bad";
+            if (successCount >= settings.great) grade = "great";
+            else if (successCount >= settings.normal) grade = "normal";
+            else if (successCount >= settings.bad) grade = "bad";
             else grade = "disaster";
             
             finishCooking(player, recipeId, grade);

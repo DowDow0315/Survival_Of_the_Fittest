@@ -98,6 +98,7 @@ window.EVENTS.push({
         ["afternoon", "night"].includes(getTimePeriod(player)) &&
         currentHouseHasFurniture(player, "ericBasket") &&
         canNpcVisitHouse(player, "akasia") &&
+        !player.flags?.akasiaDie &&
         Math.random() < 0.07,
 
     action: (player) => {
@@ -444,6 +445,7 @@ window.EVENTS.push({
         ["dawn", "night"].includes(getTimePeriod(player)) &&
         currentHouseHasFurniture(player, "ericBasket") &&
         canNpcVisitHouse(player, "deric") &&
+        !player.flags?.ericDie &&
         Math.random() < 0.07,
 
     action: (player) => {
@@ -615,6 +617,210 @@ window.EVENTS.push({
                                         changeNPCEmotion("deric", "affection", 3);
                                         changeNPCEmotion("deric", "rage", -5);
                                         changeNPCEmotion("deric", "dominance", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "deric_kainPoster_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        currentHouseHasFurniture(player, "kainPoster") &&
+        getTimePeriod(player) === "afternoon" &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "\"...카인의 팬이니?\"<br><br>" +
+                        "당신의 집에 찾아와서 자연스럽게 의자에 앉아있던 데릭은 주변을 둘러보다가 카인의 포스터를 발견했다. 그는 당신의 안목에 오늘도 놀랐다고 말하며 고개를 절레절레 저었다." +
+                        "<br><br>\"나라면 다른 포스터를 붙여놓을 것 같은데 말이지....\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 당신이 카인의 팬이라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...팬?\"<br><br>" +
+                                        "데릭은 코웃음을 치더니 하긴 카인은 1위 가수니까 당신도 그의 팬일 수도 있겠다고 조롱하듯이 말했다. 그는 카인을 1위 가수로 만들려고 자신이 얼마나 많은 노력을 한지 아냐고 물었다." +
+                                        "<br><br>\"그에 비해 스테리는, 아무 것도 안 해줘도 사람의 마음을 사로잡는 아이였지.\"<br><br>" +
+                                        "데릭은 당신을 안쓰럽다는 듯이 바라보며, 스테리가 공연에 오르는 걸 당신이 봤다면 당신도 카인의 팬이 아니라 스테리의 팬이 되었을 거라고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", -2);
+                                        changeNPCEmotion("deric", "rage", 1);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 데릭의 포스터가 생긴다면 그걸 붙여놓겠다고 대답했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "데릭은 당신의 말에 웃었다." +
+                                        "<br><br>\"내 포스터는... 바탕색이나 겉면이 금색이어야 할 텐데?\"<br><br>" +
+                                        "그는 자신의 포스터는 남들의 포스터와는 차원이 달라야 한다고 말했다." +
+                                        "<br><br>\"언젠가 만들게 되면 {dericTitle}한테 먼저 보여주마. 약속이란다.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("deric", "affection", 2);
+                                        changeNPCEmotion("deric", "dominance", 2);
+                                        changeNPCEmotion("deric", "rage", -4);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "deric_kainPoster_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        currentHouseHasFurniture(player, "kainRarePoster")&&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        canNpcVisitHouse(player, "deric") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "\"....\"<br>" +
+                        "<br>술을 마시고 온 건지 데릭의 표정은 평소보다 더 굳어 있었다. 그는 카인의 한정 포스터를 보자마자 기가 막히다는 듯이 코웃음을 쳤다." +
+                        "<br><br>\"아가, 이게 그 정도 가격의 가치가 있니?\"<br><br>" +
+                        "그는 카인의 눈빛을 뚫어지게 응시하더니 저건 거짓이라고 말했다." +
+                        "<br><br>\"진실이 되려면.... 조금 더 진심으로 보여야지. 사람들의 마음을 사로잡을 수 있도록.\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 당신의 눈에는 카인이 진심으로 보인다고 대꾸했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 쳐다보던 데릭은 낮게 한숨을 쉬었다. 그는 당신의 손목을 붙잡더니 카인의 한정 포스터에서 떨어졌다." +
+                                        "<br><br>\"그래. 아가는 잘 모를 수도 있지. 공연을 좋아하는 사람들 중에서도 무지한 이들이 많으니까...\"<br>" +
+                                        "<br>그는 자신이 당신의 눈이 되어줄 테니 걱정하지 말라고 말했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 10);
+                                        changeNPCEmotion("deric", "affection", -2);
+                                        changeNPCEmotion("deric", "dominance", 4);
+                                        changeNPCEmotion("deric", "rage", 1);
+                                        changeNpcSuspicion("deric", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그런 말은 술이나 깨고 하라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...나는 지금 취하지 않았단다.\"<br><br>" +
+                                        "데릭은 당신의 손목을 잡아당겼고, 균형을 잃은 당신은 그와 함께 바닥으로 넘어졌다. 데릭과 함께 넘어진 당신은 허리에 묵직한 통증을 느꼈다. 하지만 데릭은 당신의 찌푸린 표정에도 개의치 않고 말을 이었다." +
+                                        "<br><br>\"...아가, 어른에게는 예의를 지켜야 한다는 것도 안 배웠니?\"<br><br>" +
+                                        "그의 손바닥이 당신의 엉덩이를 향해 3번 내려왔다. 짝, 짜악, 짜아악! 점점 세지는 파열음에 당신은 허리를 떨었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        passTime(player, 4);
+                                        changeHP(player, -15);
+                                        changeStamina(player, -10);
+                                        changeTrauma(player, 3);
+                                        changeNPCEmotion("deric", "affection", -3);
+                                        changeNPCEmotion("deric", "dominance", 3);
+                                        changeNPCEmotion("deric", "rage", 5);
+                                        changeNPCEmotion("deric", "lust", -10);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그의 말에 동의하며, 카인에게는 진심이 부족하다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "데릭은 당신의 말에 입꼬리를 올리며 고개를 끄덕였다." +
+                                        "<br><br>\"그리고 아마 이 아이는 평생 그걸 모를 테고 말이야.\"<br><br>" +
+                                        "그는 당신을 꽈악 끌어안더니 포스터에서 멀리 떨어졌다. 그는 당신의 귀에 나쁜 물이 들면 안 된다고 속삭였다. 그의 입술이 당신의 귀를 타고 내려간다. 점점 더 밑으로..."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeSensitivity(player, "bSensitivity", 3);
+                                        passTime(player, 6);
+                                        changeNPCEmotion("deric", "affection", 3);
+                                        changeNPCEmotion("deric", "dominance", 5);
+                                        changeNPCEmotion("deric", "lust", -30);
                                         savePlayer(player);
                                     }
                                 }
@@ -1085,6 +1291,224 @@ window.EVENTS.push({
     }
 });
 
+
+window.EVENTS.push({
+    id: "kain_kainPoster_01",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        currentHouseHasFurniture(player, "kainPoster") &&
+        ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        canNpcVisitHouse(player, "kain") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "\"...너, 너 이게 뭐야!\"<br><br>" +
+                        "당신의 집에 들른 카인은 벽에 붙어있는 포스터를 보자마자 얼굴이 새빨갛게 달아올랐다. 그는 당신과 자신의 포스터 사이에 서며 이런 걸 네가 왜 갖고 있냐고 묻다가 당신이 대답하려고 하자 대답하지 말라고 고개를 저었다. 그는 거칠게 숨을 몰아쉬더니 자신의 머리를 대충 쓸어넘겼다." +
+                        "<br><br>\"하, 씨....\""
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 그에게 불편하면 포스터를 떼겠다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"뭐? 안 불편해!\"<br><br>" +
+                                        "그는 마치 포스터를 지키듯이 가로막더니 당신을 노려보았다. 그는 자신이 이런 걸로 흔들릴 것 같냐고 금방이라도 터질 것 같은 얼굴로 물었다. 그는 자신의 포스터를 붙이고 싶으면 붙여도 된다고 말했다." +
+                                        "<br><br>...그 후로 몇 분 동안 다른 이야기를 나누었지만, 카인의 얼굴색은 붉은색에서 돌아올 생각을 안 했다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 2);
+                                        changeNPCEmotion("kain", "lust", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 포스터보다 역시 실물이 더 좋다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "안 그래도 붉어졌던 카인의 얼굴이 당신의 말 떄문에 더 붉어졌다. 그는 괜히 목소리를 높이려다가 당신의 얼굴을 보고 다시 고개를 푹 숙였다." +
+                                        "<br><br>\"나도 그럴 거야.\"<br><br>" +
+                                        "당신이 고개를 들어 카인을 바라보자 카인은 입술을 씹더니 한 마디를 더 덧붙였다.<br><br>" +
+                                        "\"네가 있는 포스터라면 당연히 가지겠지만.... 역시 포스터보다는 네 실물이 더 좋아.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 4);
+                                        changeNpcSuspicion("kain", -5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그에게 쑥스러운 거냐고 놀리듯이 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...그럼, 안 쑥스럽겠어?\"<br><br>" +
+                                        "카인이 당신의 허리를 잡고 끌어당겼다. 순식간에 가까워진 거리, 그의 숨결이 당신의 입술 바로 위에서 느껴졌다." +
+                                        "<br><br>\"내가 없을 때도.... 네가 내 얼굴을 보고 있다는 거잖아.\"<br><br>" +
+                                        "그의 주황색 눈동자는 당신만을 담고 있었다. 카인은 천천히 당신의 입술 위로 자신의 입술을 묻었다. 그는 작게 속삭였다, 그 사실만으로도 자신의 심장이 얼마나 뛰는지 당신은 평생 모를 거라고. 그의 입술에서부터 당신은 그의 빠른 심장 박동 소리를 느꼈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 1);
+                                        changeSensitivity("player", "mSensitivity", 4);
+                                        changeNPCEmotion("kain", "lust", -10);
+                                        changeNpcSuspicion("kain", -5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "kain_kainPoster_02",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "upperHouse" &&
+        ( hasNpcRelationship("kain", "lover") || hasNpcRelationship("kain", "spouse") ) &&
+        currentHouseHasFurniture(player, "kainRarePoster")&&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        canNpcVisitHouse(player, "kain") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "늦은 밤, 카인은 일정이 늦게 끝났다고 말하며 문밖으로 나온 당신을 끌어안았다. 당신이 품안에서 꼼지락거리자 카인은 가만히 좀 있으라고 말하며 키득키득 웃었다. 그는 당신과 함께 집안으로 들어섰다." +
+                        "<br><br>\"....\"<br><br>" +
+                        "집안에 대놓고 있는 자신의 한정 포스터에 카인의 얼굴이 붉어졌다. 그는 힐끔힐끔 자신의 한정 포스터를 보다가 마른 세수를 하며 한숨을 쉬었다. 그리고 자신의 포스터보다는 당신의 포스터를 만들고 싶다고 말했다." +
+                        "<br><br>\"너만 내 포스터 갖고 있는 건 좀 치사하잖아.\"<br><br>" +
+                        "그는 얼토당토 없는 소리를 하며 투덜거렸다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 카인은 연예인이니 당연한 거라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"당연한 게 어딨어. 데릭이 그럼 연예인이냐? 황금동상도 있으니 그럼 걘 대대대연예인이겠네.\"<br>" +
+                                        "<br>카인은 투덜거리며 고개를 저었다. 그는 혹시라도 연예인을 할 생각은 하지도 말라고 말했다. 당신이 그를 쳐다보자 카인은 당황하더니 입술을 꾹 다물었다." +
+                                        "<br><br>\"아니, 물론... 네가 진지하게 하겠다고 하면 막지 않을 거야. 그렇지만.... 씨발, 네가 데릭한테 더 휘둘릴 거라는 생각을 하면.\"<br><br>" +
+                                        "그는 다시 한 번 데릭과는 가까이 하지 말라고 말했다. 특히 연예계 쪽으로는 더더욱."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "rage", 1);
+                                        changeNpcSuspicion("kain", 1);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 카인의 포스터를 더 갖고 싶다고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"네가 내 포스터 훨씬 많이 가지고 있는데.\"<br><br>" +
+                                        "자기 포스터인데도 자기가 안 갖고 있는 거냐고 묻자 카인은 어깨를 으쓱이더니 자신은 단 한 번도 제 포스터를 가져본 적이 없다고 말했다. 그래도 그는 자신의 포스터가 비싼 건 알고 있다고 말했다. 한정수량 포스터라면 특히나 더." +
+                                        "<br><br>\"가격을 알아서.... 네가 내 포스터를 가지고 있다는 게 기쁘긴 해.\"<br><br>" +
+                                        "그는 작은 목소리로 중얼거리듯이 말하다가 다시 투덜거리며 당신을 꼬옥 끌어안았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 한정 포스터의 카인 포즈를 똑같이 따라했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"야이씨, 그만 안 해?\"<br><br>" +
+                                        "카인은 마치 자신의 흑역사를 보는 것마냥 행동했다. 그는 거칠게 당신의 손목을 잡아채더니 그대로 당신을 자신의 품에 가두어버렸다. 당신이 계속 장난을 치자 카인은 어이가 없다는 듯 당신을 내려다보았다." +
+                                        "<br><br>\"내가 하고 싶어서 한 포즈도 아니거든?\"<br><br>" +
+                                        "그는 놀리지 말라고 투덜거리면서도 당신을 제 품에서 놓아주지는 않았다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("kain", "affection", 1);
+                                        changeNPCEmotion("kain", "dominance", 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+
 //루크
 window.EVENTS.push({
     id: "luke_music_box",
@@ -1553,6 +1977,88 @@ window.EVENTS.push({
 //라파엘
 
 //시온
+window.EVENTS.push({
+    id: "sion_kainPoster",
+
+    condition: (player) =>
+        player.justMoved &&
+        ["underHouse", "upperHouse"].includes(player.location) &&
+        ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") ) &&
+        ( currentHouseHasFurniture(player, "kainRarePoster") || currentHouseHasFurniture(player, "kainPoster") ) &&
+        ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        canNpcVisitHouse(player, "sion") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type  : "text",
+                    value : [
+                        "간식거리와 함께 당신의 집을 찾은 시온은 카인의 포스터를 보자마자 인상을 찌푸렸다. 그는 카인의 포스터를 떼내려다가도 이성을 붙잡고 당신을 돌아보았다. 장밋빛 눈동자가 벌써부터 그렁그렁하다." +
+                        "<br><br>\"...제가 더 잘생겨질 거예요. 전 아직 어리고, 아직 제대로 꾸민 적도 없으니까요.\"<br><br>" +
+                        "시온은 포스터 앞에 서더니 포스터 속에 있는 카인과 똑같은 포즈를 취해보였다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 시온에게 멋지다고 말해주었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "시온은 당신의 말 한 마디에 바로 표정이 풀렸다. 그는 당신이 그렇게 생각하고 있다면 됐다고 말하며, 당신이 아닌 다른 사람들의 의견은 중요하지 않다고 말했다. 그는 의도적으로 카인의 포스터를 가리고 선 채 당신과 이야기를 나누었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("sion", "affection", 3);
+                                        changeNPCEmotion("sion", "rage", -3);
+                                        passTime(player, 15);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 진지하게 연예인과 일반인은 다른 법이라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "\"...조금만 기다리세요. 제가 더 잘생겨질 테니까.\"<br><br>" +
+                                        "시온은 서늘하게 말했다. 그의 서늘한 시선은 당신이 아니라 카인의 포스터를 향하고 있었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("sion", "affection", -5);
+                                        changeNPCEmotion("sion", "dominance", -5);
+                                        changeNPCEmotion("sion", "rage", 3);
+                                        changeNpcSuspicion("sion", 3);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
 
 //소라
 
@@ -1667,6 +2173,7 @@ window.EVENTS.push({
         player.location === "upperHouse" &&
         ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
         ["dawn", "morning"].includes(getTimePeriod(player)) &&
+        !player.flags?.valenDie &&
         currentHouseHasFurniture(player, "ericBasket") &&
         canNpcVisitHouse(player, "valen") &&
         Math.random() < 0.07,
@@ -1812,6 +2319,7 @@ window.EVENTS.push({
         ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
         ["storm", "rain", "snow"].includes(player.weather) &&
         getTimePeriod(player) === "night" &&
+        !player.flags?.yuriDie &&
         ( currentHouseHasFurniture(player, "musicBox") || currentHouseHasFurniture(player, "musicBoxSwan") )&&
         canNpcVisitHouse(player, "yuri") &&
         Math.random() < 0.07,
@@ -1918,6 +2426,7 @@ window.EVENTS.push({
         player.location === "underHouse" &&
         ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
         getTimePeriod(player) === "afternoon" &&
+        !player.flags?.yuriDie &&
         !player.flags?.YuriKainGoodRelationship &&
         currentHouseHasFurniture(player, "kainSignFrame"),
 
@@ -2021,6 +2530,7 @@ window.EVENTS.push({
         ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
         getTimePeriod(player) === "night" &&
         player.flags?.yuri_kainSignFrame_01 &&
+        !player.flags?.yuriDie &&
         !player.flags?.YuriKainGoodRelationship &&
         currentHouseHasFurniture(player, "kainSignFrame") &&
         canNpcVisitHouse(player, "yuri") &&
@@ -2041,6 +2551,83 @@ window.EVENTS.push({
                         passTime(player, 15);
                         savePlayer(player);
                     }
+                }
+            ],
+            player, {
+                onEnd : () => {
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+                }
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "yuri_kainPoster",
+
+    condition: (player) =>
+        player.justMoved &&
+        player.location === "underHouse" &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        ( currentHouseHasFurniture(player, "kainRarePoster") || currentHouseHasFurniture(player, "kainPoster") )&&
+        !player.flags?.yuriDie &&
+        !player.flags?.YuriKainGoodRelationship &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        canNpcVisitHouse(player, "yuri") &&
+        Math.random() < 0.07,
+
+    action: (player) => {
+        startScene(
+            [
+                {
+                    type : "text",
+                    value : [
+                        "시간이 남아서 당신의 집에 들렀다는 유리는 당신의 집 상태를 봐주다가 카인의 포스터 앞에서 멈췄다. 무슨 생각을 하고 있는 건지 그는 잠시 동안 포스터만 멍하니 바라보았다." +
+                        "<br><br>...포스터를 멍하니 보고 있는 유리의 표정은 굳어 있었다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 유리에게 조용히 차를 내밀었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신에게 차를 받은 유리는 희미하게 미소를 지었다." +
+                                        "<br><br>\"...고마워. 너무 내가 찍었던 것과 똑같아서.\"<br><br>" +
+                                        "그는 배경도, 포즈도, 시선 처리도 똑같다고 말했다." +
+                                        "<br><br>\"...그가 원해서 저렇게 찍은 건 아니겠지만.\""
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeNPCEmotion("yuri", "affection", 2);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 카인이 원했던 삶이라고 말했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "유리는 당신의 말에 천천히 고개를 끄덕였다." +
+                                        "<br><br>\"네 말이 맞아. 그가 선택한 길이지.\"<br><br>" +
+                                        "유리는 포스터에서 시선을 떼고 당신을 바라보았다." +
+                                        "<br><br>\"...내가 이곳을 선택했듯이.\""
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             player, {

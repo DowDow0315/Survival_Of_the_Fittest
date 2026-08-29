@@ -469,3 +469,92 @@ window.sora_patience_limit_shop_refuse = function(player){
 
     return true;
 };
+
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.sora = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startSoraChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startSoraChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 상점에 들어서자마자 소라는 품 안에 초콜릿을 한가득 안겨주었다. 상점 안은 평소와 달리 달콤한 냄새로 가득했다. 그는 당신을 위해 밤새 만들었다며 미소 지었다. 당신이 소라에게 다가가려던 순간, 머리 위로 초콜릿들이 또다시 쏟아졌다." +
+                    "<br><br>\"소라가 열심히 만든 건데 다 먹어줄 거지?\"<br><br>" +
+                    "당신은 어떻게든 초콜릿 산을 넘어가 소라에게 당신이 만든 수제 초콜릿을 내밀었다. 소라는 눈을 동그랗게 뜨더니 곧 반달 모양으로 접어 웃으며 상류도시의 초코초코데이 풍습은 알고 있지 않냐고 물었다." +
+                    "<br><br>\"무슨 일이 있어도 꼭 먹어야겠네.\"<br><br>" +
+                    "소라는 당신의 초콜릿을 먹으며 당신에게서 단 한 번도 시선을 떼지 않았다." +
+                    "<br><br>\"...너처럼 달콤해.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sora");
+                    player.location = "shop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 상점에 들어서자마자 소라는 품 안에 초콜릿을 한가득 안겨주었다. 상점 안은 평소와 달리 달콤한 냄새로 가득했다. 그는 당신을 위해 밤새 만들었다며 미소 지었다. 당신이 소라에게 다가가려던 순간, 머리 위로 초콜릿들이 또다시 쏟아졌다." +
+                    "<br><br>\"소라가 열심히 만든 건데 다 먹어줄 거지?\"<br><br>" +
+                    "당신은 산더미 같이 쌓인 초콜릿들을 넘어가다가 그대로 넘어졌다. 소라는 까르르 웃으며 넘어진 당신의 위로 폭 쓰러졌다. 그는 당신의 품에 든 초콜릿을 보더니 그건 소라 것이냐고 물었다." +
+                    "<br><br>\"...소라도, 다 먹을게. 그러니까 {soraTitle}도 다 먹어야 해, 알겠지?\"<br><br>" +
+                    "이 많은 초콜릿들을 다 먹기 전까지는 못 나갈 것 같다.... 소라는 여전히 웃고 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sora");
+                    player.location = "shop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 상점에 들어서자마자 소라는 품 안에 초콜릿을 한가득 안겨주었다. 상점 안은 평소와 달리 달콤한 냄새로 가득했다. 그는 당신을 위해 밤새 만들었다며 미소 지었다. 당신이 소라에게 다가가려던 순간, 머리 위로 초콜릿들이 또다시 쏟아졌다." +
+                    "<br><br>\"소라가 열심히 만든 건데 다 먹어줄 거지?\"<br><br>" +
+                    "당신은 초콜릿 더미를 헤치고 나아가 소라에게 당신의 수제 초콜릿을 내밀었다. 수제 초콜릿을 받은 소라는 고개를 기울였다." +
+                    "<br><br>\"왜 그런 표정이야? 맛없게 만들었어? 그래도 걱정하지 않아도 되는데.\"<br><br>" +
+                    "소라는 당신을 똑바로 바라보며 초콜릿을 입에 머금었다. 소라의 창백한 혀가 초콜릿을 감고 있는 게 보인다." +
+                    "<br><br>\"소라는 어떤 맛이든 네가 준 거면 다 먹을 거거든.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sora");
+                    player.location = "shop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

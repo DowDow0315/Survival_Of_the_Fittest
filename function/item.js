@@ -3785,9 +3785,32 @@ const ITEMS ={
             value : 70,
             tags : ["gift", "spicy", "bad"],
             price : 300
-        }
+        },
 
-    
+        greatSlimeChocolate : {
+            name : "훌륭한 수제 초콜릿(st45)",
+            type : "stamina",
+            value : 45,
+            tags : ["gift", "sweet", "great"],
+            specialGift : "chocoChoco",
+            price : 500
+        },
+        normalSlimeChocolate : {
+            name : "수제 초콜릿(st30)",
+            type : "stamina",
+            value : 30,
+            tags : ["gift", "sweet", "normal"],
+            specialGift : "chocoChoco",
+            price : 350 
+        },
+        badSlimeChocolate : {
+            name : "맛없는 수제 초콜릿(st15)",
+            type : "stamina",
+            value : 15,
+            tags : ["gift", "sweet", "bad"],
+            specialGift : "chocoChoco",
+            price : 100
+        } 
     },
     misc : {
         tornClothes: {
@@ -3892,6 +3915,13 @@ const ITEMS ={
             desc : "과연 만지고 싶은 사람이 있을까?",
             type: "food",
             price: 40
+        },
+        chocoSlime: {
+            name: "슬라임의 초코 조각",
+            desc : "초코초코초코~ 초코초코초코~ 작은 초코 조각 3개가 큰 초코 하나~",
+            type: "food",
+            cookingUnit : 3,
+            price: 100
         },
         goblinStick: {
             name: "고블린의 나무몽둥이.",
@@ -4917,6 +4947,23 @@ window.RECIPES = {
             great : "greatPepperPepper",
             normal : "normalPepperPepper",
             bad : "badPepperPepper",
+            disaster: "trash"
+        }
+    },
+
+    slimeChocolate : {
+        name : "수제 초콜릿",
+        desc : "슬라임의 초코초코초코를 초코초코초코해서 초코초코초코해줄게~",
+        ingredients : {
+            chocoSlime : 3
+        },
+
+        difficulty : "hard",
+
+        results : {
+            great : "greatSlimeChocolate",
+            normal : "normalSlimeChocolate",
+            bad : "badSlimeChocolate",
             disaster: "trash"
         }
     }

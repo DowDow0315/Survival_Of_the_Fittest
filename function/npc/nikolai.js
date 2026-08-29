@@ -241,3 +241,101 @@ window.giveDericLetter = function(player){
     player.flags.dericLetterReceived = true;
     savePlayer(player);
 };
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.nikolai = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startNikolaiChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startNikolaiChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "글로리홀은 이미 초콜릿들로 가득했다. 여러 창남 창녀들이 자신의 손님들에게 초콜릿을 받으며 야릇하게 웃고 있었다. 당신은 니콜라이를 찾기 위해 주변을 둘러보았다." +
+                    "<br><br>\"어머, 자기!\"<br><br>" +
+                    "니콜라이는 초콜릿을 냠냠 먹으며 당신에게 누굴 찾고 있는 거냐고 물었다." +
+                    "<br><br>\"나~?\"<br><br>" +
+                    "당신은 니콜라이에게 초콜릿을 내밀었다. 니콜라이는 당신을 끌어안으며 감동이라고 말했다. 그는 당신을 끌어안은 채 입으로 \"두근두근\" 소리까지 내더니, 당신의 초콜릿을 주저 없이 먹었다." +
+                    "<br><br>\"어머! 지금까지 먹은 초콜릿 중 제일 맛있어, 자기야!\"<br><br>" +
+                    "그는 답례로 자신도 초콜릿을 주겠다고 말하며 당신의 입에 초콜릿을 쏙 집어넣었다. 당신은 니콜라이에게 수제로 만든 거냐고 물었다. 니콜라이는 어깨만 으쓱였다." +
+                    "<br><br>\"비밀이 많은 게 더 매력적이지 않아?\"<br><br>" +
+                    "...확실한 건 그가 준 초콜릿은 시중에 있는 초콜릿과는 맛이 달랐다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "nikolai");
+                    player.location = "gloryHole";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "글로리홀은 이미 초콜릿들로 가득했다. 여러 창남 창녀들이 자신의 손님들에게 초콜릿을 받으며 야릇하게 웃고 있었다. 당신은 니콜라이를 찾기 위해 주변을 둘러보았다." +
+                    "<br><br>\"어머, 자기!\"<br><br>" +
+                    "니콜라이는 초콜릿을 냠냠 먹으며 당신에게 누굴 찾고 있는 거냐고 물었다." +
+                    "<br><br>\"나~?\"<br><br>" +
+                    "당신은 니콜라이에게 초콜릿을 내밀었다. 니콜라이는 당신을 끌어안으며 감동이라고 말했다. 그는 당신을 끌어안은 채 입으로 \"두근두근\" 소리까지 내더니, 당신의 초콜릿을 주저 없이 먹었다." +
+                    "<br><br>\"어머! 지금까지 먹은 초콜릿 중 제일 맛있어, 자기야!\"<br><br>" +
+                    "아닐 텐데? 당신은 그를 올려다봤지만 그는 싱글싱글 웃고 있기만 했다. 그는 답례로 자신도 초콜릿을 주겠다고 말하며 당신의 입에 초콜릿을 쏙 집어넣었다. 당신은 니콜라이에게 수제로 만든 거냐고 물었다. 니콜라이는 어깨만 으쓱였다." +
+                    "<br><br>\"비밀이 많은 게 더 매력적이지 않아?\"<br><br>" +
+                    "...확실한 건 그가 준 초콜릿은 시중에 있는 초콜릿과는 맛이 달랐다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "nikolai");
+                    player.location = "gloryHole";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "글로리홀은 이미 초콜릿들로 가득했다. 여러 창남 창녀들이 자신의 손님들에게 초콜릿을 받으며 야릇하게 웃고 있었다. 당신은 니콜라이를 찾기 위해 주변을 둘러보았다." +
+                    "<br><br>\"어머, 자기!\"<br><br>" +
+                    "니콜라이는 초콜릿을 냠냠 먹으며 당신에게 누굴 찾고 있는 거냐고 물었다." +
+                    "<br><br>\"나~?\"<br><br>" +
+                    "당신은 니콜라이에게 초콜릿을 내밀었다. 니콜라이는 당신을 끌어안으며 감동이라고 말했다. 그는 당신을 끌어안은 채 입으로 \"두근두근\" 소리까지 내더니, 당신의 초콜릿을 주저 없이 먹었다." +
+                    "<br><br>\"어머! 지금까지 먹은 초콜릿 중 제일 맛있...다고 말하기엔 내가 양심이 없는 것 같네.\"<br><br>" +
+                    "그는 자신이 들고 있던 초콜릿들을 하나하나 당신의 입에 넣어주었다. 그는 몇 개는 수제로 만든 초콜릿이라고 하며 미소를 지었다. 어떤 초콜릿이든 당신의 초콜릿보다는 맛있었다." +
+                    "<br><br>\"그래도 자기 초콜릿은 기억에 남을 것 같아.\"<br><br>" +
+                    "니콜라이는 놀리듯 말하며 당신의 뺨을 아프지 않게 꼬집었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "nikolai");
+                    player.location = "gloryHole";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

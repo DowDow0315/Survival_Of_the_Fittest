@@ -276,3 +276,89 @@ function isSionAvailable(player){
 
     return true;
 }
+
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.sion = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startSionChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startSionChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님!\"<br><br>" +
+                    "시온이 아주 큰 초콜릿을 들고 당신에게 다가왔다. 그는 당신을 향한 마음을 담아서 만들었다고 말하며, 사실 조금 더 크게 만들고 싶었다고 아쉬워했다. 당신은 그에게서 초콜릿을 받았다. 초콜릿인데 이상할 만큼 묵직해서 당신은 뒤로 넘어갈 뻔했다. 당신은 시온에게 당신이 만든 수제 초콜릿을 내밀었다." +
+                    "<br><br>\"영웅님...\"<br><br>" +
+                    "시온은 금방이라도 울 것 같은 얼굴로 당신이 준 초콜릿을 가슴에 꼬옥 끌어안았다. 영원히 안 먹고 가보로 삼을 거라는 시온을 당신은 어떻게든 설득해야만 했다... 결국 시온은 고개를 끄덕이긴 했지만 그럼에도 당신은 그가 정말로 당신의 초콜릿을 먹을지 확신할 수 없었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sion");
+                    player.location = "townStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님!\"<br><br>" +
+                    "시온이 아주 큰 초콜릿을 들고 당신에게 다가왔다. 그는 당신을 향한 마음을 담아서 만들었다고 말하며, 사실 조금 더 크게 만들고 싶었다고 아쉬워했다. 당신은 그에게서 초콜릿을 받았다. 초콜릿인데 이상할 만큼 묵직해서 당신은 뒤로 넘어갈 뻔했다. 당신은 시온에게 당신이 만든 수제 초콜릿을 내밀었다." +
+                    "<br><br>\"영웅님...\"<br><br>" +
+                    "시온은 그렁그렁한 눈으로 당신의 초콜릿을 끌어안으며, 죽을 때까지 이 초콜릿은 간직하겠다고 말했다. 당신은 내년에 더 달콤한 초콜릿을 만들어줄 테니 먹으라고 말했지만 그는 들을 생각이 없는 것만 같았다. 년도와 날짜를 포장지 위에 써놓는 시온을 보며 당신은 시야가 아득해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sion");
+                    player.location = "townStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님!\"<br><br>" +
+                    "시온이 아주 큰 초콜릿을 들고 당신에게 다가왔다. 그는 당신을 향한 마음을 담아서 만들었다고 말하며, 사실 조금 더 크게 만들고 싶었다고 아쉬워했다. 당신은 그에게서 초콜릿을 받았다. 초콜릿인데 이상할 만큼 묵직해서 당신은 뒤로 넘어갈 뻔했다. 당신은 시온에게 당신이 만든 수제 초콜릿을 내밀었다." +
+                    "<br><br>\"영웅님...\"<br><br>" +
+                    "시온은 당신의 초콜릿을 가슴으로 끌어안으며 무슨 일이 있어도 이 초콜릿만은 지키겠다고 말했다." +
+                    "<br><br>\"제 목숨을 바쳐서라도... 아, 안 돼, 영웅님을 지켜야 하니까 그건 안 돼요.\"<br><br>" +
+                    "...어쩌면 내년에는 초콜릿을 더 맛있게 만들어줘야 할지도 모르겠다. 이러다가 당신의 맛없는 초콜릿이 평생 박제되게 생겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "sion");
+                    player.location = "townStreet";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

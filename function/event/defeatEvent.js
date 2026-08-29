@@ -1488,6 +1488,58 @@ const DEFEAT_EVENTS = {
                 }
             ]
         }
+    ],
+    chocoSlime : [
+        {
+            id: "chocoSlime_defeat",
+            weight: 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "\"초코오오옷!\"<br><br>",
+                        "초코슬라임은 당신의 초코적이지 않은 피부가 마음에 들지 않은 모양이다. 초코슬라임은 쓰러진 당신에게 다가가 몸을 잔뜩 비볐다. 당신의 몸은 점점 초코초코해지고 있다..."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                        changeSensitivity(player, "aSensitivity", 8);
+                        changeSensitivity(player, "mSensitivity", 8);
+                        changeSensitivity(player, "bSensitivity", 8);
+                        changeSensitivity(player, "cSensitivity", 8);
+                        changeTrauma(player, 2);
+                        passTime(player, 15);
+                   }
+                }
+            ]
+        }
+    ],
+    chocoSlimeBig : [
+        {
+            id: "chocoSlimeBig_defeat",
+            weight: 100,
+            scene : [
+                {
+                    type : "text",
+                    value : [
+                        "...거대 초코 슬라임이 당신의 몸을 압박해온다. 무언가를 하지 않아도 당신의 온몸은 초코초코해져버렸다..." +
+                        "<br><br>초코...초코... 당신은 겉뿐만 아니라 안까지 전부 초코로 물드는 듯한 기분이 들었다.... 초코..."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run: (player) => {
+                        changeSensitivity(player, "aSensitivity", 13);
+                        changeSensitivity(player, "mSensitivity", 13);
+                        changeSensitivity(player, "bSensitivity", 13);
+                        changeSensitivity(player, "cSensitivity", 13);
+                        changeTrauma(player, 4);
+                        passTime(player, 15);
+                   }
+                }
+            ]
+        }
     ]
 };
 

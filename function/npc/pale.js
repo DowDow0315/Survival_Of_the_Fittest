@@ -564,3 +564,94 @@ registerActions("pale", {
 })
 
 registerGiftActions("pale");
+
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.pale = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startPaleChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startPaleChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "되찾은 상점, 창백은 손님들에게 받은 초콜릿들을 정리하다가 당신을 돌아보았다. 그는 기대감 어린 눈동자로 당신을 바라보다가 먼저 당신에게 초콜릿을 내밀었다. 그것도 종류별로. 스트로베리, 밀크, 다크, 플레인.... 창백은 여러 가지 색깔의 초콜릿들을 당신 앞에 늘어놓으며 원하는 것을 고르라고 말했다." +
+                    "<br><br>\"...! 아, 다, 가져...가도 돼!\"<br><br>" +
+                    "환하게 웃는 창백의 뒤로 창백한 촉수가 이리저리 흔들렸다." +
+                    "<br><br>\"어차피 줄, 사람.... 너밖...에, 없어!\"<br><br>" +
+                    "창백의 수제 초콜릿을 받은 당신은 그에게도 초콜릿을 내밀었다. 창백의 창백한 촉수 꼬리들이 바닥을 빠르게 두드리기 시작했다. 그는 지금 먹어도 되냐고 물어보더니 당신 앞에서 먹으며 헤실헤실 웃었다. 촉수들 중 하나가 당신의 허리를 휘감았지만, 창백은 아직 눈치채지 못한 것 같다..."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "pale");
+                    player.location = "reclaimedShop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "되찾은 상점, 창백은 손님들에게 받은 초콜릿들을 정리하다가 당신을 돌아보았다. 그는 기대감 어린 눈동자로 당신을 바라보다가 먼저 당신에게 초콜릿을 내밀었다. 그것도 종류별로. 스트로베리, 밀크, 다크, 플레인.... 창백은 여러 가지 색깔의 초콜릿들을 당신 앞에 늘어놓으며 원하는 것을 고르라고 말했다." +
+                    "<br><br>\"...! 아, 다, 가져...가도 돼!\"<br><br>" +
+                    "환하게 웃는 창백의 뒤로 창백한 촉수가 이리저리 흔들렸다." +
+                    "<br><br>\"어차피 줄, 사람.... 너밖...에, 없어!\"<br><br>" +
+                    "창백에게 초콜릿을 받은 당신은, 이어 그에게 당신의 수제 초콜릿을 주었다. 눈을 반짝이며 당신의 초콜릿을 먹는 창백에게 당신은 상류도시의 초코초코데이 풍습을 아냐고 물었다. 창백은 고개를 갸웃거렸다." +
+                    "<br><br>\"...?\"<br><br>" +
+                    "모르는 것 같다. 창백은 그저 당신에게 초콜릿을 받았다는 사실만으로도 저렇게 기뻐하는 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "pale");
+                    player.location = "reclaimedShop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "되찾은 상점, 창백은 손님들에게 받은 초콜릿들을 정리하다가 당신을 돌아보았다. 그는 기대감 어린 눈동자로 당신을 바라보다가 먼저 당신에게 초콜릿을 내밀었다. 그것도 종류별로. 스트로베리, 밀크, 다크, 플레인.... 창백은 여러 가지 색깔의 초콜릿들을 당신 앞에 늘어놓으며 원하는 것을 고르라고 말했다." +
+                    "<br><br>\"...! 아, 다, 가져...가도 돼!\"<br><br>" +
+                    "환하게 웃는 창백의 뒤로 창백한 촉수가 이리저리 흔들렸다." +
+                    "<br><br>\"어차피 줄, 사람.... 너밖...에, 없어!\"<br><br>" +
+                    "창백에게 초콜릿을 받은 후, 당신도 창백에게 초콜릿을 내밀었다. 맛없는 초콜릿인데도 창백은 크게 기뻐하며 당신의 초코를 맛있게 먹었다. 당신도 창백의 초콜릿을 먹었다. 어라, 단맛이 아예 느껴지지 않는다...." +
+                    "<br><br>\"고마워, 너무...맛,있어!\"<br><br>" +
+                    "창백은 순수하게 당신을 바라보며 웃고 있다. 차라리 당신의 맛없는 초콜릿이 창백의 초콜릿보다는 맛있는 것 같다...."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "pale");
+                    player.location = "reclaimedShop";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

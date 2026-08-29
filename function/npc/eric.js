@@ -636,3 +636,83 @@ function isEricAvailable(player){
     }
     return true;
 }
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.eric = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startEricChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startEricChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 쌍둥이 저택에 찾아가서 에릭을 기다렸지만 에릭은 오지 않았다. 그는 초코초코데이 때도 집에 잘 들어가지 않는 모양이다. 당신은 어쩔 수 없이 당신의 수제 초콜릿을 쌍둥이 저택 문고리에 걸어놓고 나왔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "eric");
+                    player.location = "gloryStreet";
+                    player.flags.ericChocoChoco = true;
+                    passTime(player, 30);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 쌍둥이 저택에 찾아가서 에릭을 기다렸지만 에릭은 오지 않았다. 그는 초코초코데이 때도 집에 잘 들어가지 않는 모양이다. 당신은 어쩔 수 없이 당신의 수제 초콜릿을 쌍둥이 저택 문고리에 걸어놓고 나왔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "eric");
+                    player.location = "gloryStreet";
+                    player.flags.ericChocoChoco = true;
+                    passTime(player, 30);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 쌍둥이 저택에 찾아가서 에릭을 기다렸지만 에릭은 오지 않았다. 그는 초코초코데이 때도 집에 잘 들어가지 않는 모양이다. 당신은 어쩔 수 없이 당신의 수제 초콜릿을 쌍둥이 저택 문고리에 걸어놓고 나왔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "eric");
+                    player.location = "gloryStreet";
+                    player.flags.ericChocoChoco = true;
+                    passTime(player, 30);
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

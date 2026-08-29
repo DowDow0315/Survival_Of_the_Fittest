@@ -392,3 +392,89 @@ function startMatinGraveyardReturnEvent(player){
     }
 }
 
+
+//스페셜 데이
+window.SPECIAL_GIFT_HANDLERS.matin = function(player, item, grade){
+    if (item.specialGift === "chocoChoco"){
+        startMatinChocoChocoGift(player, item, grade);
+        return;
+    }
+};
+
+function startMatinChocoChocoGift(player, item, grade){
+
+    if (grade === "great"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "주점은 초콜릿 냄새로 가득했다. 이미 많은 사람들이 마틴의 주변에서 초콜릿을 만들고 있었다. 마틴은 인상을 쓰면서도 무심하게 그들에게 조언을 해주고 있었다. 당신이 초콜릿을 내밀자 마틴은 당신을 빤히 응시했다." +
+                    "<br><br>\"...여기서 잠깐 기다려.\"<br><br>" +
+                    "마틴은 당신의 초콜릿을 따로 챙겨놓은 뒤 당신의 앞으로 초콜릿 케이크를 가져왔다. 그는 당신에게 먹으라는 듯 고개를 까닥였다. 당신은 그의 앞에서 초콜릿 케이크를 먹었다. 그리고 그는 당신의 앞에 서서 당신의 초콜릿을 먹었다. 어쩐지 귀끝이 붉은 것 같기도 하다." +
+                    "<br><br>\"...잘 만들었네.\"<br><br>" +
+                    "당신이 상류도시의 초코초코데이 풍습을 아느냐고 묻자 마틴은 반 박자 늦게 고개를 끄덕였다. 당신은 방금 먹은 초콜릿 케이크를 내려다보았다.<br><br>이번에는 확실했다. 표정은 평소와 똑같았지만, 그의 귀끝은 분명 붉어져 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "matin");
+                    player.location = "tavern";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "normal"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "주점은 초콜릿 냄새로 가득했다. 이미 많은 사람들이 마틴의 주변에서 초콜릿을 만들고 있었다. 마틴은 인상을 쓰면서도 무심하게 그들에게 조언을 해주고 있었다. 당신이 초콜릿을 내밀자 마틴은 당신을 빤히 응시했다." +
+                    "<br><br>\"...여기서 잠깐 기다려.\"<br><br>" +
+                    "마틴은 당신의 초콜릿을 따로 챙겨놓은 뒤 당신의 앞으로 초콜릿 케이크를 가져왔다. 그는 당신에게 먹으라는 듯 고개를 까닥였다. 당신은 그의 앞에서 초콜릿 케이크를 먹었다. 그리고 그는 당신의 앞에 서서 당신의 초콜릿을 먹었다. 어쩐지 귀끝이 붉은 것 같기도 하다." +
+                    "<br><br>\"...잘 만들었네.\"<br><br>" +
+                    "그는 당신의 요리에서 부족했던 점을 말해주려다가 입을 다물었다. 그는 당신의 초콜릿을 먹다가 은근슬쩍 다른 사람에게도 초콜릿을 줄 생각이냐고 물었다. 당신은 마틴을 올려다보았다. <br><br>...마틴은 언제나처럼 무표정했다. 정말 아무 뜻 없이 물은 것처럼."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "matin");
+                    player.location = "tavern";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+
+    if (grade === "bad"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "주점은 초콜릿 냄새로 가득했다. 이미 많은 사람들이 마틴의 주변에서 초콜릿을 만들고 있었다. 마틴은 인상을 쓰면서도 무심하게 그들에게 조언을 해주고 있었다. 당신이 초콜릿을 내밀자 마틴은 당신을 빤히 응시했다." +
+                    "<br><br>\"...여기서 잠깐 기다려.\"<br><br>" +
+                    "마틴은 당신의 초콜릿을 따로 챙겨놓은 뒤 당신의 앞으로 초콜릿 케이크를 가져왔다. 그는 당신에게 먹으라는 듯 고개를 까닥였다. 당신은 그의 앞에서 초콜릿 케이크를 먹었다. 그리고 그는 당신의 앞에 서서 당신의 초콜릿을 먹었다. 어쩐지 귀끝이 붉은 것 같기도 하다." +
+                    "<br><br>\"...망했어?\"<br><br>" +
+                    "그는 픽 웃었다가도 금방 무표정으로 돌아왔다. 시무룩해하는 당신에게 마틴은 관심 있는 상대가 준 것이라면, 아무리 독약 같은 맛이 나도 먹어줄 거라고 말했다. 당신이 고개를 다시 들었을 때, 마틴은 이미 당신의 맛없는 초콜릿을 남김없이 먹은 뒤였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    completeSpecialGift(player, item, "matin");
+                    player.location = "tavern";
+                    savePlayer(player);
+                }
+            }
+        ], player);
+
+        return;
+    }
+}

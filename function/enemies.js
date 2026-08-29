@@ -61,7 +61,8 @@ async function loadEnemies(){
         "whiteAbomination1", "whiteAbomination2", "whiteAbomination3", "whiteAbomination4", "whiteAbomination5", "whiteAbomination6",
         "abominatedSoldier1", "abominatedSoldier2", "abominatedWhiteArmy1", "abominatedRebels1", "abominatedWhiteArmy2", "abominatedRebels2",
         "cassandra", "magnus", "cassandra2", "magnus2", "abominatedLuke",
-        "slave"
+        "slave",
+        "chocoSlime", "chocoSlimeBig"
     ];
 
     for (const name of list){

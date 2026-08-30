@@ -3322,8 +3322,25 @@ function handleFieldCollapse(player){
     pickWeightedRescue(rescuers)(player);
 }
 
+function canRescuePlayer(rescueFn, player){
+    if (rescueFn === collapse_yuri && player?.flags?.yuriDie) return false;
+    if (rescueFn === collapse_eric && player?.flags?.ericDie) return false;
+    if (rescueFn === collapse_sora && player?.flags?.soraDie) return false;
+    if (rescueFn === collapse_pale && player?.flags?.paleDie) return false;
+    if (rescueFn === collapse_luke && player?.flags?.collapseLuke) return false;
+
+    return true;
+}
+
 function pickWeightedRescue(list){
-    const valid = list.filter(e => e.weight > 0);
+    const valid = list.filter(e =>
+        e.weight > 0 && canRescuePlayer(e.fn, player)
+    );
+
+    if (valid.length === 0){
+        return collapse_noRescue;
+    }
+    
     const total = valid.reduce((sum, e) => sum + e.weight, 0);
     let roll = Math.random() * total;
 

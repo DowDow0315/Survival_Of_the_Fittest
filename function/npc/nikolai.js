@@ -335,7 +335,44 @@ function startNikolaiChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.nikolai = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...자기.\"<br><br>" +
+                "당신에게 초청을 받은 후에도 정말로 나냐고, 장난치는 거 아니냐고, 나여도 괜찮겠냐고 몇 번이나 묻던 니콜라이는 당신의 방에 들어오고 나서야 드물게 낮은 목소리로 당신을 불렀다. 당신이 돌아보자 니콜라이는 답지 않게 당신의 시선을 피했다." +
+                "<br><br>\"이제 더 묻지는 않을게. 자기의 선택이니까.\"<br><br>"+
+                "니콜라이는 다시 고개를 들고 당신과 시선을 마주했다. 그는 평소처럼 생글생글 웃으며 연말에는 보통 무엇을 했냐고 물었다. 당신의 대답에 니콜라이는 꺄르륵 웃으며 회색 농담을 했다." +
+                "<br><br>그는 당신을 끌어안으며 내년은 당신이 조금 덜 다치는 1년이 되었으면 좋겠다고 말했다. 그는 당신의 어깨에 자신의 얼굴을 묻더니 당신 냄새가 나서 좋다고 말했다." +
+                "<br><br>당신과 그는 떠들다가 그대로 잠이 들어버렸다. 눈을 떴을 때, 여전히 니콜라이는 당신을 끌어안고 있었다."
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "nikolai")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.nikolai = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "니콜라이에게서 온 편지다. 마지막에는 입술 도장이 찍혀 있다.<br><br><br>" +
+                "<span class='log-nikolai'>[어머, 자기, 어제 즐거운 시간 보낸 것 같더라? 다음 번에는 나도 그 자리에 끼워주길 바라 ㅋㅅㅇ]</span><br><br>" +
+                "<span class='log-nikolai'>[자기가 잘 지낸 건 알지만, 그래도 새해 복 많이 받으라는 말은 하고 싶어서 이렇게 편지를 쓰게 됐네. 내가 자기를 생각보다 더~더~더~ 아끼거든.]</span><br><br>" +
+                "<span class='log-nikolai'>[자기야, 새해 복 많이 받아.]</span><br><br>" +
+                "<span class='log-nikolai'>[죽지 말고~ 자기를 못 본다고 생각하면 마음이 찢어져버린단 말이야. 항상 몸 조심해~ 당신의 니콜라이가.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

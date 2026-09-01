@@ -554,7 +554,44 @@ function startSoraChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.sora = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신의 방에 들어선 소라는 이리저리 둘러보더니 당신의 품에 꽈악 안겼다." +
+                "<br><br>\"역시 소라가 제일 좋지?\"<br><br>" +
+                "그는 그대로 당신을 침대 위로 넘어뜨렸다. 당신의 위에 올라탄 소라는 미소를 지으며 역시 당신이 소라를 사랑하게 될 줄 알았다고 말했다. 소라가 고개를 숙였다. 그의 백발이 당신의 뺨에 닿는다. 당신을 똑바로 바라보며 소라는 당신에게 지금 무슨 생각을 하고 있냐고 물었다." +
+                "<br><br>\"소라는 지금, 소라의 것 생각만 계속 하고 있어.\"<br><br>" +
+                "다른 생각은 들어오지도 않아, 너로 꽉 차서. 소라는 화사하게 웃으며 당신의 손에 손깍지를 꼈다. 그리고 당신의 가슴에 자신의 가슴을 뭉근하게 비비며 키스를 해왔다. 달콤한 향기가 당신의 머리를 장악한다." +
+                "<br><br>\"계속 소라와 함께해줘.\"<br><br>" +
+                "짧지만은 않았던 입맞춤 후, 소라는 당신에게 속삭였다. 그의 입술에서부터 당신의 입술까지 길게 늘어난 타액이 결국 끊겨서 당신의 피부 위로 떨어졌다. 소라는 당신의 젖은 피부를 엄지로 문지르며 고개를 기울였다." +
+                "<br><br>\"올해도, 내년도, 내후년도... 쭈욱.\"<br><br>" +
+                "영원히. 두 사람의 그림자가 다시 겹쳐졌다. 소라는, 당신과의 시간을 짧게 끝낼 생각이 없다."
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "sora")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.sora = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "소라에게서 온 편지다.<br><br><br>" +
+                "<span class='log-sora'>[괜찮아. 소라는 기다릴 수 있거든. 왜냐하면 마지막은 분명 소라일 테니까.]</span><br><br>" +
+                "<span class='log-sora'>[있잖아, 소라의 상점에 와줄 거지? 소라가 기다리고 있을게!]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

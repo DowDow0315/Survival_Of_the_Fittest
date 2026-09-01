@@ -637,6 +637,7 @@ function isEricAvailable(player){
     return true;
 }
 
+
 //스페셜 데이
 window.SPECIAL_GIFT_HANDLERS.eric = function(player, item, grade){
     if (item.specialGift === "chocoChoco"){
@@ -716,3 +717,35 @@ function startEricChocoChocoGift(player, item, grade){
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.eric = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신의 방에 들어온 에릭은 당신이 준비해놓은 자리에 앉았다. 그의 녹안이 당신의 방안 구석구석을 훑다가 당신의 얼굴에서 멈춘다. 하지만 시선이 마주쳤는데도 그는 아무 말도 하지 않았다. 정적이 흐른다." +
+                "<br><br>에릭은 언제나처럼 당신에게 이야기를 하는 것보다는 당신의 이야기를 들어주었다. 1년 동안 있었던 일들에 대해 말하던 당신은 에릭에게 당신의 1년도 궁금하다고 물었다. 에릭은 당신에게 짤막짤막하게 이야기를 해주었다. 그의 이야기들 중 대다수는 바깥에서 일어난 일이었다. 그는 흉물 오염에서 살아남은 소동물들이 예상보다 많다고 말해주었다." +
+                "<br><br>대화가 중간중간 끊겼을 때도 에릭은 돌아가지 않았다. 12시를 넘어가자 그는 당신의 몸에 담요를 덮어주었다. 당신이 담요를 두르고 그에게 더 가까이 붙어도 에릭은 묵묵히 가만히 있어주었다. 당신은 그의 옆에서 잠에 들었다." +
+                "<br><br>이마에 부드러운 게 닿았다가 떨어진 것 같긴 한데.... 꿈일까?"
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "eric")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.eric = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "에릭에게서 온 편지다. 글씨를 눌러 쓴 자국이 남아있다.<br><br><br>" +
+                "<span class='log-eric'>[새해 복 많이 받길.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

@@ -690,7 +690,44 @@ function startLukeChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.luke = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "루크는 당신의 방에 들어서자마자 당신의 입술을 자신의 입술로 눌러버렸다. 갑작스러운 키스에 페이스를 잃은 당신은 키스가 길어지자 숨을 헐떡거리기 시작했다. 거칠게 숨을 몰아내쉬는 당신을 가늘게 뜬 눈으로 바라보던 루크는 낮게 웃었다. 결국 기침을 하며 떨어진 당신은 루크를 올려다보았다." +
+                "<br><br>\"뭐, 씨발, 이런 거 하고 싶었던 거 아니야?\"<br><br>" +
+                "그는 당신의 머리를 제 손으로 꾹꾹 누르며 장난스럽게 웃었다. 그는 아무렇지도 않게 당신의 침대를 차지하더니 자신의 옆자리를 툭툭 쳤다. 당신이 다가오자 루크는 그대로 팔을 잡아끌어 당신을 제 무릎 위에 앉혔다. 그의 턱이 당신의 정수리를 누른다." +
+                "<br><br>\"날도 날이니까 소원 하나 들어주리?\"<br><br>" +
+                "당신이 고개를 들려고 하자 루크는 턱에 힘을 주며 당신이 고개를 들지 못하게 했다." +
+                "<br><br>\"말해봐. 한번 들어는 줄게.\"<br><br>" +
+                "키득거리는 웃음, 그리고 당신의 몸에 자꾸만 겹쳐지는 그의 그림자, 그는 오늘 밤 당신을 놓아줄 생각이 없는 것 같다." 
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "luke")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.luke = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "루크에게서 온 편지다.<br><br><br>" +
+                "<span class='log-luke'>[어제 네 집 앞까지 갔는데 내가 깽판치려다가 말았다. ㅋㅋㅋ이 값은 나중에 톡톡히 받아낼 테니까 기억하고 있어라?]</span><br><br>" +
+                "<span class='log-luke'>[값 치르기 싫다고?]</span><br><br>" +
+                "<span class='log-luke'>[네게 거부권이 언제부터 있었다고?]</span><br><br>" +
+                "<span class='log-luke'>[입술 간수나 잘 해. 다음 번에 나 만나면 부르틀 대로 부르틀 테니까.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

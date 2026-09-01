@@ -362,3 +362,44 @@ function startSionChocoChocoGift(player, item, grade){
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.sion = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"한 해의 마지막 날을 함께 보낸다는 건...\"<br><br>" +
+                "당신에게 초청을 받아 당신의 방안으로 들어온 시온은 주변을 둘러보다가 다시 당신을 바라보았다." +
+                "<br><br>\"하나 더 맹세할게요. 저는 절대로 영웅님을 놓치지 않을 거예요. 무슨 일이 있어도.\"<br><br>" +
+                "그는 미리 준비한 만찬을 당신의 앞에 차리고 화려하게 엮은 꽃다발을 당신의 품에 안겨주었다. 뭔가 프로포즈를 받는 느낌이었다.... 시온은 영웅님은 아무것도 하지 않아도 된다고 말했다." +
+                "<br><br>\"영웅님은 바쁜 사람이니까요. 영웅님이 못하는 만큼 제가 하면 돼요.\"<br><br>" +
+                "시온은 당신에게 다가오더니 아주 천천히, 당신의 입술 위로 자신의 입술을 얹었다. 그는 급하지 않았다. 입술 위로 전해져오는 심장 박동 소리는 엄청 빨랐지만 그는 평소보다 더 느릿하게 당신의 입술을 탐했다. 그의 손이 점점 당신의 옷 안으로 들어온다." +
+                "<br><br>\"...즐겁게 해드릴게요, 영웅님.\"<br><br>" +
+                "어느새 당신은 꽃다발과 함께 침대 위에 쓰러져 있었다. 당신을 자신의 두 팔 안에 가둔 시온은 미소를 지었다." +
+                "<br><br>\"그 어떤 밤보다 더 즐거운 밤을, 영웅님께 드릴게요.\"<br><br>" +
+                "...밤이 엄청 길어질 것 같다. 아니, 짧아지는 걸까?"
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "sion")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.sion = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "시온에게서 온 편지다.<br><br><br>" +
+                "<span class='log-sion'>[영웅님.]</span><br><br>" +
+                "<span class='log-sion'>[어제 영웅님을 기다리면서 생각했어요. 아무리 생각해도 영웅님 주변에 사람들이 너무 많은 것 같아요. 영웅님은 너무 착하신 것 같아요.]</span><br><br>" +
+                "<span class='log-sion'>[영웅님이 못하시는 걸, 제가 할게요. 걱정마세요. 저는 언제나 영웅님의 곁에 있을 테니까요.]</span><br><br>" +
+                "<span class='log-sion'>[그러니 걱정하지 마세요. 새해 복 많이 받으세요, 영웅님.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

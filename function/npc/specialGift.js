@@ -122,7 +122,19 @@ window.SPECIAL_GIFT_NPCS = [
 
 ];
 
+//연인NPC 조회
+function getRomanceNpcs(player){
 
+    return window.SPECIAL_GIFT_NPCS.filter(npc =>
+        npc.canGift(player) &&
+        (
+            hasNpcRelationship(npc.id, "lover") ||
+            hasNpcRelationship(npc.id, "spouse")
+        )
+    );
+}
+
+//이하 선물 주기 공용 공식
 function openSpecialGiftAction(player, item){
 
     startScene([

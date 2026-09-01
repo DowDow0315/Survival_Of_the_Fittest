@@ -211,6 +211,7 @@ function isAkasiaAvailable(player){
 }
 
 //스페셜 데이
+//초코초코데이
 window.SPECIAL_GIFT_HANDLERS.akasia = function(player, item, grade){
     if (item.specialGift === "chocoChoco"){
         startAkasiaChocoChocoGift(player, item, grade);
@@ -307,3 +308,40 @@ function startAkasiaChocoChocoGift(player, item, grade){
         return;
     }
 }
+//연말 이벤트
+window.YEAR_END_HANDLERS.akasia = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 마지막 날 밤을 아카시아와 함께 보내기로 했다. 당신의 초청에 응한 아카시아는 눈을 반짝이며 당신의 옆에 붙어 앉았다. 그는 언젠가부터인가 연말은 혼자 보냈었다고 말했다." +
+                "<br><br>\"물론 어렸을 적에는 네 사람이 같이 지냈지만요.\"<br><br>" +
+                "아카시아는 미소를 짓더니 당신은 어렸을 때 누구랑 연말을 보냈냐고 물었다. 당신이 이야기를 하는 동안 아카시아는 당신의 어깨에 머리를 기댔다. 어깨 위로 올라온 그의 머리가 가볍다." +
+                "<br><br>\"1년 동안 어떤 일이 있었는지 말씀해주실 수 있나요? 특히 아직 다른 사람들에게 말하지 않은 이야기들도.\"<br><br>" +
+                "당신과 아카시아는 시간 가는 줄도 모르고 이야기를 계속 이어갔다. 이야기가 잠깐 멈췄을 때 아카시아는 놀 것을 가져왔다고 말하며 젠가를 꺼냈다." +
+                "<br><br>\"연인들끼리 하는 젠가, 해보시겠어요?\"<br><br>" +
+                "아카시아는 당신의 옷차림을 위아래로 훑어보더니 의기양양한 표정을 지었다. 당신은 아카시아의 옷차림을 보았다.... 당신보다 훨씬 옷가지가 많다...."
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "akasia")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.akasia = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "아카시아에게서 온 편지다.<br><br><br>" +
+                "<span class='log-akasia'>[당신을 이해하려고 노력은 했습니다. 어쩌면 하류도시 출신이라서, 1년의 마지막 날을 누군가와 함께 보내는 의미를 모르는 걸 수도 있겠다는 생각을 했습니다. 하류도시 출신이라고 해도 이 날의 의미를 모를 리가 없는데도 말이죠.]</span><br><br>" +
+                "<span class='log-akasia'>[혹시 엇갈렸을까봐 당신이 있을만한 곳을 찾아다녀보기도 했습니다. 그리고 전, 당신의 집에 불이 켜져 있는 걸 보고 말았습니다.]</span><br><br>" +
+                "<span class='log-akasia'>[연말의 마지막 밤을 잘 보내셨길 바랍니다. 제 몫까지도요. 저는 전혀 잘 보내지 못했거든요.]</span><br><br>" +
+                "<span class='log-akasia'>[용서는 잘 모르겠습니다. 어쩌면 당신에게는 또 제가 자비를 베풀지도 모르죠. 하지만 용서를 한다고 해서 어제를 제가 잊을 수 있을지는 모르겠네요.]</span>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

@@ -382,3 +382,45 @@ function startKainChocoChocoGift(player, item, grade){
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.kain = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신의 방에 들어선 카인은 평소보다 행동이 부자연스러웠다. 그는 괜시리 투덜거리며 당신의 옆에 붙어 앉았다." +
+                "<br><br>\"야... 나 사실 준비한 거 있거든?\"<br><br>" +
+                "당신과 시선이 마주치자 그는 쑥스러워졌는지 헛기침을 하더니 당신을 위해 1년 동안 천천히 만들었던 노래가 있다고 말했다. 당신과 만날 때마다, 그리고 당신을 떠올릴 때마다 생각나던 문장들을 하나로 엮어서 만들었다고 한다. 말을 하면 할수록 그의 얼굴은 더 붉어졌지만, 당신을 바라보는 주황색 눈동자만큼은 진지했다." +
+                "<br><br>\"...불러줄게. 어차피 너한테밖에 안 불러줄 거야. 너만을 위해 만든 노래니까.\"<br><br>" +
+                "그는 당신의 손을 잡더니 천천히 노래를 부르기 시작했다. 그가 무대에서 부르는 노래와는 완전히 다른 느낌의 노래였다. 신비로우면서도 처연한 음색이 당신의 마음을 사로잡는다." +
+                "<br><br>...1년 동안 당신과 카인이 나누었던 감정들이, 노래 하나에 전부 서려 있었다." +
+                "<br><br>긴 노래를 마친 카인이 촉촉해진 눈동자로 당신을 응시했다." +
+                "<br><br>\"좋아해. 올해도, 그리고....\"<br><br>" +
+                "그의 입술이 당신의 입술에 다가온다." +
+                "<br><br>\"...내년도.\""
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "kain")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.kain = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "카인에게서 온 편지다.<br><br><br>" +
+                "<span class='log-kain'>[너 어제 누구랑 있었]</span><br><br>" +
+                "줄로 죽죽 지워져 있다.<br><br>" +
+                "<span class='log-kain'>[어제 존나 바빴나 보다?]</span><br><br>" +
+                "<span class='log-kain'>[얼마나 바쁘면 연말인데도 나보다 바쁘냐.]</span><br><br>" +
+                "<span class='log-kain'>[씨발. 그래도 미리 말을 해주면 좋았잖아. 다음부터는 바빠서 못 만날 것 같으면 미리 말해. 사람 기다리게 하지 말고.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

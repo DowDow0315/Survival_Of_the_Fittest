@@ -537,7 +537,41 @@ function startDericChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.deric = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "데릭은 당신의 방을 둘러보면서 자신이 여기서 잘 수 있을지는 잘 모르겠다고 말했다. 주변을 휘휘 둘러보던 그는 당신과 시선을 마주치더니 그래도 오늘은 특별히 당신을 위해 여기에 머물러주겠다고 말했다. 당신의 옆에 앉으면서도 그는 불편한 듯 코끝을 찡그렸다." +
+                "<br><br>\"자. 아가를 위해 가져온 술이란다.\"<br><br>" +
+                "딱 봐도 가격이 나갈 것만 같은 술이다. 데릭은 당신의 입맛에 맞춰오느라고 와인 저장고에서 꽤 많은 시간을 보냈다고 말하며 능숙하게 마개를 땄다. 그리고 그는 자신이 가져온 잔에 술을 따랐다." +
+                "<br><br>\"무사히 1년을 넘긴 걸 축하하며, 내년은 더 높은 곳으로 올라가길.\"<br><br>" +
+                "그는 당신의 잔에 자신의 잔을 부딪혔다. 술을 마시며 당신과 데릭은 많은 이야기를 나누었다. 당신이 어떤 이야기를 하든 그는 잘 받아주었다, 하류도시의 생활이나 바깥 생활을 제외한다면. 당신과 이야기를 나누던 데릭은 당신을 꽈악 끌어안더니 그대로 침대로 누워버렸다. 당신은 데릭에게 안긴 채 둘 중 한 쪽이 먼저 잠에 들기 전까지 계속계속 이야기를 했다."
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "deric")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.deric = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "데릭에게서 온 편지다.<br><br><br>" +
+                "<span class='log-deric'>[안녕, 아가. 사실 별로 놀라지는 않았단다. 기분이 나쁜 것과 놀라는 건 별개니까 말이다.]</span><br><br>" +
+                "<span class='log-deric'>[네 입맛에 맞춘 와인까지 준비해놨는데 네가 그 기회를 놓쳤으니 어쩔 수 없지. 지금 와서 술을 마시고 싶다고 해도 내가 해줄 수 있는 건 없어. 이미 그 술은 엎질러졌거든.]</span><br><br>" +
+                "<span class='log-deric'>[네가 연말을 다른 사람과 잘 보냈길 바란다. 물론 나보다는 조금 덜 잘 보냈겠지만.]</span>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

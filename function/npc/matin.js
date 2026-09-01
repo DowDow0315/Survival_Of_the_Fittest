@@ -474,7 +474,42 @@ function startMatinChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.matin = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 마틴과 함께 새해의 마지막을 보내기로 했다. 당신의 방에 들어온 마틴은 당신의 앞에 새해 음식들을 차려놓았다. 시간에 딱 맞춰서 만든 건지 그의 요리는 여전히 따끈따끈했다." +
+                "<br><br>\"식기 전에 먹어.\"<br><br>" +
+                "그는 당신의 밥그릇 위에 맛있는 부위를 올려주며 안 그래도 당신은 다칠 일이 많기 때문에 많이 먹어놓아야 한다고 말했다. 그는 아무렇지도 않게 당신의 입에 요리들을 넣어주었다. 채소 한번, 생선 한번, 고기 한번...." +
+                "<br><br>당신도 그의 입에 음식을 넣어주었다. 갑자기 음식을 받아먹은 마틴의 동공이 순간 커졌지만 이내 아무렇지도 않게 당신이 준 음식을 받아먹으며 다시 당신을 먹여주었다." +
+                "<br><br>\"오늘은 아무 생각도 하지 마.\"<br><br>" +
+                "마틴의 손이 조심스럽게 당신의 손 위로 얹혔다. 잡은 것도, 놓은 것도 아니고 그의 손은 그저 당신의 손 위에 있었다." +
+                "<br><br>\"...적어도 오늘, 내 옆에서만큼은.\""
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "matin")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.matin = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "마틴에게서 온 편지다.<br><br><br>" +
+                "<span class='log-matin'>[네가 네 행동에 책임을 질 줄 아는 어른이라고 믿는다.]</span><br><br>" +
+                "<span class='log-matin'>[새해 복 많이 받아.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

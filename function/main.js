@@ -3805,6 +3805,8 @@ function startArrowMinigame(player, options = {}){
         onStepFail: options.onStepFail || null,
         onClear: options.onClear || null,
         onGameOver: options.onGameOver || null,
+        onTimeout: options.onTimeout || null,
+        skipFailScene: options.skipFailScene || false,
         endOnFail: options.endOnFail || false
     };
 
@@ -3878,6 +3880,18 @@ function startArrowMinigame(player, options = {}){
 
         if (timer) clearTimeout(timer);
         timer = setTimeout(() => {
+            if (config.onTimeout){
+                cleanup();
+                config.onTimeout(player, {
+                    progress,
+                    target: config.target,
+                    inputCount: inputSequence.length,
+                    sequenceLength: currentSequence.length
+                });
+                return;
+            }
+            
+            // 기존 미니게임은 원래대로 실패 처리
             failRound();
         }, config.timeLimit);
     }
@@ -3967,6 +3981,15 @@ function startArrowMinigame(player, options = {}){
             if (result?.progress !== undefined){
                 progress = Math.max(0, result.progress);
             }
+        }
+
+        if (config.skipFailScene && config.endOnFail){
+            cleanup();
+            
+            if (config.onGameOver){
+                config.onGameOver(player);
+            }
+            return;
         }
 
         showSingleTextScene(

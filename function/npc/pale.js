@@ -651,7 +651,45 @@ function startPaleChocoChocoGift(player, item, grade){
                 }
             }
         ], player);
-
         return;
     }
 }
+
+//연말 이벤트
+window.YEAR_END_HANDLERS.pale = function(player){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "창백은 당신의 옆에 꼭 붙어서 당신의 방안으로 들어왔다. 축축한 것이 느껴져서 당신은 옆을 보았다. 그의 뒤에서 나온 창백한 촉수 하나가 당신의 허리를 휘감고 있었다." +
+                "<br><br>...창백은 아직 눈치채지 못한 듯하다." +
+                "<br><br>당신의 방을 천천히 둘러보던 창백은 당신과 시선을 마주치더니 휙 고개를 숙였다. 우물쭈물하며 촉수 꼬리로 바닥을 톡톡 치던 창백은 용기를 낸 듯 다시 고개를 들었다." +
+                "<br><br>\"고, 마...워. 날 특...ㅂ...별한, 사람ㅇ, 이라, 말해....ㅈ....줘서.\"<br><br>" +
+                "창백은 자신의 목을 가다듬더니 이번에는 또박또박 말했다." +
+                "<br><br>\"...너도 내게, 특...특별한 사람이야.\"<br><br>" +
+                "\"그 누구보다도.\", 그는 기침을 하면서도 마지막 말을 덧붙였다. 그러더니 당신의 옆에 꼭 붙어서 당신의 행동을 기다렸다. 그의 꼬리는 이미 기대감에 붕붕 당신의 옆에서 이리저리 흔들리고 있었다. 당신이 어떤 얘기를 하든, 그리고 당신이 어떤 놀이를 하든, 창백은 행복했다." +
+                "<br><br>...창백의 손가락이 당신의 손가락에 닿았다. 우연이었다. 손가락이 닿자 창백은 흠칫 놀랐지만 당신의 눈치를 보더니 은근슬쩍 제 새끼손가락을 당신의 새끼손가락에 걸어왔다. 당신과 창백의 웃음 소리는 밤이 지나갈 때까지 멈추지 않았다."
+            ]
+        }
+    ], player, {
+        onEnd : () => completeYearEndEvent(player, "pale")
+    });
+};
+window.YEAR_END_LETTER_HANDLERS.pale = function(player, next){
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "창백에게서 온 편지다.<br><br><br>" +
+                "<span class='log-pale'>[너를 기다리지 않았다는 거짓말은 하지 않을게.]</span><br><br>" +
+                "<span class='log-pale'>[네게 화가 나지 않았다는 거짓말도 하지 않을게.]</span><br><br>" +
+                "<span class='log-pale'>[그래도 나는 여전히 널 사랑해.]</span><br><br>" +
+                "<span class='log-pale'>[거짓말이 아닌 건, 너도 알 거라고 생각해.]</span><br><br>"
+            ]
+        }
+    ], player, {
+        onEnd : next
+    });
+};

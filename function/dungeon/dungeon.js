@@ -1778,11 +1778,13 @@ function leaveDungeon(player){
         player.location = "whiteFlowerTomb";
     } else if (dungeonId === "chocoChoco"){
         player.location = "townStreet";
+    }  else if (dungeonId === "lukeInner"){
+        player.location = "barracks";
     } else {
         player.location = "townStreet";
     }
 
-    localStorage.setItem("playerData", JSON.stringify(player));
+    savePlayer(player);
     renderMap(player);
     if (checkAllEvents(player)){
         return;

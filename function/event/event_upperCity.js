@@ -1163,6 +1163,86 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_knowsEricDifferent_01",
+    once : true,
+
+    condition : (player) =>
+        player.location === "twinsMansion" &&
+        isPlayerProperlyDressed(player) &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ),
+
+    action : (player) => {
+        player.flags.deric_knowsEricDifferent_01_seen = true;
+        passTime(player, 15);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_knowsEricDifferent_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_knowsEricDifferent_02",
+    once : true,
+
+    condition : (player) =>
+        player.location === "twinsMansion" &&
+        isPlayerProperlyDressed(player) &&
+        player.flags?.deric_knowsEricDifferent_01_seen &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        ( hasNpcRelationship("deric", "lover") || hasNpcRelationship("deric", "spouse") ) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        changeNpcSuspicion("deric", 1);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_knowsEricDifferent_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_knowsEricDifferent_02_notLover",
+    once : true,
+
+    condition : (player) =>
+        player.location === "twinsMansion" &&
+        isPlayerProperlyDressed(player) &&
+        player.flags?.deric_knowsEricDifferent_01_seen &&
+        ["morning", "dawn"].includes(getTimePeriod(player)) &&
+        !hasNpcRelationship("deric", "lover") &&
+        !hasNpcRelationship("deric", "spouse") &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        passTime(player, 5);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["deric"].scenes.deric_knowsEricDifferent_02_notLover,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",

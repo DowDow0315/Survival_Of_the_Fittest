@@ -152,6 +152,31 @@ registerActions("eric", {
             onEnd : () => startScene(getLocationScene(player), player)
         });
     },
+
+    yourConfession_02 : (player) => {
+        const eventDay = player.flags?.eric_squirrel_01_day;
+        if (
+            eventDay != null &&
+            getCurrentDay(player) < eventDay + 7
+        ){
+            startScene(
+                NPC_DATA.eric.scenes.eric_yourConfession_02_before7Days,
+                player,
+                {
+                    onEnd : () => startScene(getLocationScene(player), player)
+                }
+            );
+            return;
+        }
+        
+        startScene(
+            NPC_DATA.eric.scenes.eric_yourConfession_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    },
     
     talk: (player) => {
         if (!isEricAvailable(player)){
@@ -316,6 +341,20 @@ registerActions("eric", {
             choices.push({
                 text: "당신은 에릭에게 몸이 안 좋냐고 물었다.",
                 scene: NPC_DATA.eric.scenes.eric_notAnswer
+            });
+        }
+
+        if (player.flags?.eric_yourConfession_01 && !player.flags?.eric_yourConfession_02 ){
+            choices.push({
+                text: "당신은 그때 했던 말은 진심이라고 말했다.",
+                action: "eric_yourConfession_02"
+            });
+        }
+
+        if (player.flags?.eric_yourConfession_03 && !player.flags?.eric_yourConfession_03_ask ){
+            choices.push({
+                text: "당신은 에릭에게 사교회장에서 자신을 걱정해준 거냐고 물었다.",
+                action: "eric_yourConfession_03_ask"
             });
         }
 

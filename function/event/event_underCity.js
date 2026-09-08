@@ -106,6 +106,108 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "eric_day_02",
+
+    condition : (player) =>
+        player.location === "townEntrance_act3"  &&
+        player.flags.eric_day !== getCurrentDay(player) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        getTimePeriod(player) === "afternoon" &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.eric_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_day_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_day_03",
+
+    condition : (player) =>
+        player.location === "tavern"  &&
+        player.flags.eric_day !== getCurrentDay(player) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        ["rain", "snow"].includes(player.weather) &&
+        !player.flags?.ericDie &&
+        !player.flags?.eric_day_03_soup_refuse &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.eric_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_day_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_day_04",
+
+    condition : (player) =>
+        ["forest_act3", "deepForest_act3", "wastedRuin", "whiteFlowerTomb"].includes(player.location) &&
+        player.flags.eric_day !== getCurrentDay(player) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.05,
+
+    action : (player) => {
+        player.flags.eric_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_day_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_day_05",
+
+    condition : (player) =>
+        ["forest_act3", "deepForest_act3", "wastedRuin", "whiteFlowerTomb"].includes(player.location) &&
+        player.flags.eric_day !== getCurrentDay(player) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.065,
+
+    action : (player) => {
+        player.flags.eric_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_day_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "eric_die_01",
     priority : true,
     once : true,
@@ -218,6 +320,83 @@ window.EVENTS.push({
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)
         });
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_squirrel_01",
+    once : true,
+
+    condition : (player) =>
+        player.location === "deepForest_act3"  &&
+        player.flags?.endAshParents &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 7) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_squirrel_01 = true;
+        player.flags.eric_squirrel_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_squirrel_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_yourConfession_02_after",
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        player.flags?.eric_yourConfession_02 &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_yourConfession_02_after = true;
+        player.flags.eric_yourConfession_02_after_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_yourConfession_02_after,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_yourConfession_03",
+    once : true,
+
+    condition : (player) =>
+        player.location === "nobleSquare"  &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        player.flags?.eric_yourConfession_02_after &&
+        getCurrentDay(player) >= (player.flags.eric_yourConfession_02_after_day + 7) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_yourConfession_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_yourConfession_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
     }
 });
 
@@ -713,6 +892,7 @@ window.EVENTS.push({
         player.flags?.act3CollapseDone &&
         player.location === "darkStreet" &&
         !player.flags?.collapseLuke &&
+        !player.flags?.savingLuke &&
         player.flags.luke_cheek_day !== getCurrentDay(player) &&
         getTimePeriod(player) === "morning" &&
         (
@@ -743,6 +923,7 @@ window.EVENTS.push({
         player.flags?.act3_quest_07_done &&
         player.location === "shop" &&
         !player.flags?.collapseLuke &&
+        !player.flags?.savingLuke &&
         !player.flags?.soraDie &&
         player.flags.luke_cheek_day !== getCurrentDay(player) &&
         (
@@ -757,6 +938,30 @@ window.EVENTS.push({
         
         startScene(
             NPC_DATA["luke"].scenes.luke_his_cheek_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_his_cheek_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        ( hasNpcRelationship("luke", "lover") || hasNpcRelationship("luke", "spouse") ) &&
+        player.flags?.savingLuke &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.luke_cheek_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_his_cheek_03,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -823,7 +1028,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.justMoved &&
-        player.location === "shop" &&
+        player.location === "reclaimedShop" &&
         player.flags?.luke_collapseLukeIntro_01 &&
         player.flags?.collapseLuke,
 
@@ -840,6 +1045,76 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "luke_collapseLukeIntro_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "reclaimedShop" &&
+        getCurrentDay(player) >= (player.flags.luke_collapseLukeIntro_01_day + 7) &&
+        player.flags?.luke_collapseLukeIntro_02 &&
+        player.flags?.collapseLuke,
+
+    action : (player) => {
+        player.flags.luke_collapseLukeIntro_03 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_collapseLukeIntro_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_collapseLukeInnerEnter",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "barracks" &&
+        player.flags?.luke_collapseLukeIntro_03 &&
+        player.flags?.collapseLuke,
+
+    action : (player) => {
+        player.flags.luke_collapseLukeInnerEnter = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["luke"].scenes.luke_collapseLukeInnerEnter,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_savingLukeAfter",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        player.flags?.savingLuke,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["luke"].scenes.luke_savingLukeAfter,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 
 //소라
@@ -5947,6 +6222,113 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "luke_saving_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        (
+            hasNpcRelationship("luke", "lover") ||
+            hasNpcRelationship("luke", "spouse")
+        ) &&
+        player.flags?.savingLuke &&
+        Math.random() < 0.09,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"아, 형수님!\"<br><br>" +
+                    "당신을 발견한 경비병들 몇 명이 씩씩하게 인사했다. 그들은 당신에게 무슨 일은 없었냐고 물으며, 당신에게 함부로 대하는 경비병이나 경계병이 있으면 언질을 해달라고 말했다." +
+                    "<br><br>\"형수님이 있어서 루크가 산 거잖아요~\"<br><br>" +
+                    "친구를 도와줘서 감사하다고 말하며 그들은 이거라도 받아달라고 말하며 당신에게 비타민을 내밀었다." +
+                    "<br><br>...비타민의 온기가 당신의 마음까지 전해진다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -2);
+                    addItem(player, ITEMS.consumable.mediumPotion);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_saving_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        player.flags?.savingLuke &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 지나가다가 루크가 경비병들에게 기합을 주고 있는 모습을 보았다. 경비병들의 얼굴을 찬찬히 훑어보던 당신은 경비병들에게서 한 가지 공통점을 발견했다. 루크가 쓰러졌을 때 당신을 괴롭혔던 경비병들이다. 당신을 눈치챈 몇몇 경비병들의 인상이 험악해졌지만 그들의 얼굴보다 더 험악해진 루크의 얼굴에 곧 기가 죽었다." +
+                    "<br><br>...루크는 당신을 쳐다보지 않았다. 하지만 당신이 뒤에 있는 건 알고 있는 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -5);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "luke_saving_03",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townEntrance_act3" &&
+        ( hasNpcRelationship("luke", "lover") || hasNpcRelationship("luke", "spouse") ) &&
+        player.flags?.savingLuke &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구를 지나가는 당신의 앞을 경계병이 가로막았다. 당신은 경계병 뒤에 있던 경비병들 몇 명이 수군거리며 당신을 힐끔거리는 것을 보았다. 그들은 당신이 경계병에게 치욕스러운 짓을 당할 거라고 기대하는 것 같다. 경계병은 무뚝뚝한 목소리로 소지품 검사를 하겠다고 말했다." +
+                    "<br><br>\"하류도시의 영웅인 건 알지만 그래도 특별대우해줄 수는 없다.\"<br><br>" +
+                    "그는 조금만 더 하면 끝난다고 말하며 당신의 바지주머니에 손을 뻗었다." +
+                    "<br><br>\"얜 아까 내가 했어.\"<br><br>" +
+                    "당신의 뒤에서 갑자기 나타난 루크가 당신의 정수리 위로 턱을 올렸다. 그리고 그는 아무렇지도 않게 손으로 당신의 바지주머니를 뒤졌다. 물론, 그러면서 당신의 하복부도 은근슬쩍 건드렸고. 당신이 올려다보자 루크는 낄낄 웃었다." +
+                    "<br><br>\"야. 가.\"<br><br>" +
+                    "루크는 마지막으로 한번 더 당신의 허벅지 안쪽을 아프지 않게 꼬집더니 당신을 놓아주었다. 경계병은 불만스러워 보였지만 루크의 태도에 어쩔 수 없다는 듯 고개를 끄덕였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, -5);
+                    changeArousal(player, 10);
+                    changeSensitivity(player, "aSensitivity", 5);
+                    changeSensitivity(player, "cSensitivity", 5);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
     id : "underHouse_shelter_kids_01",
     condition : (player) =>
         player.justMoved &&
@@ -5974,6 +6356,31 @@ window.EVENTS.push({
                     passTime(player, 5);
                     savePlayer(player);
                 }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "underCity_squirrel",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "townEntrance_act3"].includes(player.location) &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        player.flags?.eric_squirrel_02 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 다람쥐 한 마리가 위풍당당한 걸음으로 걷고 있는 것을 보았다. 입에는 도토리를 물고 있었는데, 당신을 보자 마치 아는 사람을 반기듯이 다람쥐는 당신의 주변에서 빙글빙글 돌았다." +
+                    "<br><br>하지만 당신이 손을 움직이자 다람쥐는 도토리만큼은 못 준다는 듯이 앙증맞은 두 팔로 자신의 입에 물린 도토리를 가리며 삐죽 당신을 노려보았다." +
+                    "<br><br>...당신은 도토리를 물고 다시 위풍당당하게 걸어가는 다람쥐를 뒤에서 멍하니 바라보았다."
+                ]
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)

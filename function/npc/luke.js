@@ -609,6 +609,11 @@ function isLukeNoSmoking(player){
            NPC_DATA["luke"].emotion.affection > 50;
 }
 
+window.enterLukeInner = function(player){
+    enterDungeon(player, lukeInner);
+    return true;
+};
+
 //스페셜 데이
 window.SPECIAL_GIFT_HANDLERS.luke = function(player, item, grade){
     if (item.specialGift === "chocoChoco"){

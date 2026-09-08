@@ -951,6 +951,52 @@ Object.assign(DUNGEONS, {
             { type : "battle", enemies : ["flower4", "flower5", "flower6", "flower8"], weight : 30 },
             { type : "battle", enemies : ["flower7", "flower7", "flower6", "flower8"], weight : 30 }
         ]
+    },
+    lukeInner : {
+        id : "lukeInner",
+        name : "루크 내면",
+        startRoom : "r0c0",
+
+        layout : [
+            ["r0c0",     "", "r0c2", "r0c3", "r0c4"],
+            ["r1c0",     "", "r1c2",     "", "r1c4"],
+            ["r2c0", "r2c1", "r2c2",     "", "r2c4"],
+            [    "",     "",     "",     "", "r3c4"],
+            ["r4c0", "r4c1", "r4c2", "r4c3", "r4c4"],
+        ],
+
+        rooms : {
+            "r0c0" : {name : "정신세계 입구", exits : {down : "r1c0"}},
+            "r0c2" : {name : "뒷골목", exits : {down : "r1c2", right : "r0c3"}},
+            "r0c3" : {name : "빈민가 거리의 신문지 침낭", exits : {left : "r0c2", right : "r0c4"}},
+            "r0c4" : {name : "핏자국", exits : {left : "r0c3", down : "r1c4"}},
+            
+            "r1c0" : {name : "하류도시", exits : {up : "r0c0", down : "r2c0"}},
+            "r1c2" : {name : "길거리 매대", exits : {up : "r0c2", down : "r2c2"}, event : "lukeInner_luke_03", seenFlag : "lukeInner_luke_03"},
+            "r1c4" : {name : "핏자국을 따라", exits : {up : "r0c4", down : "r2c4"}},
+            
+            "r2c0" : {name : "가난의 길", exits : {up : "r1c0", right : "r2c1"}, event : "lukeInner_luke_01", seenFlag : "lukeInner_luke_01"},
+            "r2c1" : {name : "고독의 길", exits : {left : "r2c0", right : "r2c2"}, event : "lukeInner_luke_02", seenFlag : "lukeInner_luke_02"},
+            "r2c2" : {name : "하류도시 길거리", exits : {left : "r2c1", up : "r1c2"}},
+            "r2c4" : {name : "아주 큰 막대사탕", exits : {up : "r1c4", down : "r3c4"}, event : "lukeInner_luke_04", seenFlag : "lukeInner_luke_04"},
+
+            "r3c4" : {name : "작은 막대사탕들", exits : {up : "r2c4", down : "r4c4"}},
+
+            "r4c0" : {name : "루크", exits : {right : "r4c1"}, event : "lukeInner_luke_08", seenFlag : "lukeInner_luke_08"},
+            "r4c1" : {name : "상류도시 입구", exits : {left : "r4c0", right : "r4c2"}, event : "lukeInner_luke_07", seenFlag : "lukeInner_luke_07"},
+            "r4c2" : {name : "지하철", exits : {left : "r4c1", right : "r4c3"}},
+            "r4c3" : {name : "하류도시 막사", exits : {left : "r4c2", right : "r4c4"}, event : "lukeInner_luke_06", seenFlag : "lukeInner_luke_06"},
+            "r4c4" : {name : "그 사람", exits : {left : "r4c3", up : "r3c4"}, event : "lukeInner_luke_05", seenFlag : "lukeInner_luke_05"}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "rebels7", minCount : 2, maxCount : 4, weight : 20},
+            { type : "battle", enemy : "whiteArmy4", minCount : 2, maxCount : 4, weight : 20},
+            { type : "battle", enemies : ["whiteArmy4", "whiteArmy5", "whiteArmy6"], weight : 20 },
+            { type : "battle", enemies : ["rebels6", "rebels7", "rebels8"], weight : 20 },
+            { type : "event", id : "lukeInner_starving", weight : 15 },
+            { type : "event", id : "lukeInner_thief", weight : 15 }
+        ]
     }
 })
 
@@ -5571,6 +5617,455 @@ Object.assign(DUNGEON_EVENTS, {
                 }
             }
         ]
+    },
+    lukeInner : {
+        lukeInner_starving : [
+            {
+                type : "text",
+                value : [
+                    "당신은 굶주리고 있는 아이들을 보았다. 몇 명은 이미 숨만 붙어 있었고, 몇 명은 이미 죽은 듯 눈두덩이가 시꺼맸다. 당신은 어른들이 아이들의 앞을 지나가는 것을 보았다. 몇 명은 눈을 질끈 감고 아이들을 지나쳤고, 몇몇은 아이들을 쳐다보지도 않고 제 갈 길을 가버렸다. 당신은 아이 한 명과 시선이 마주쳤다." +
+                    "<br><br>당신은 아이에게 뭐라도 하나 주려고 했지만 이상하게도 당신의 주머니에는 아무 것도 없었다. 당신을 바라보던 아이는 실망한 표정도 짓지 않았다. 그저 그럴 줄 알았다는 듯이 당신을 쳐다보다가 웅크리고 잠에 들 뿐."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_thief : [
+            {
+                type : "text",
+                value : [
+                    "당신은 도둑질을 하는 아이를 발견했다. 도둑질을 당한 어른은 아직 눈치를 채지 못했는지 돈을 세고 있었다. 그는 돈을 세다가 이번에도 굶어야된다고 중얼거렸다. 아이는 어른의 상황을 알면서도 훔친 돈을 돌려줄 생각이 없어 보였다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 도둑질을 한 아이를 잡아 어른에게 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"예? 아, 고맙습니다.\"<br><br>" +
+                                    "당신에게 잡힌 아이는 겁먹은 얼굴로 발버둥을 치기 시작했다. 어른은 당신에게서 아이를 받아가더니 이 은혜는 잊지 않겠다고 말했다. 당신은 움직일 수 없다...! 당신은 어른이 아이를 두들겨 패는 것을 보았다. 마치 화풀이를 하듯이, 어른은 아이에게 폭력을 쏟아내고 있었다." +
+                                    "<br><br>...아이가 숨을 거둘 때까지."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 아이를 가만히 내버려두었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이는 그대로 돌아가려다가 힐끗 어른을 다시 돌아보았다. 당신은 아이의 눈동자에 탐욕이 어리는 것을 보았다. 아이는 살금살금 어른의 뒤로 각목을 들고 접근했다. 당신은 움직일 수 없다...! 아이의 각목이 어른의 뒤통수를 후려쳤다. 어른은 비명 한 번 지르지 못하고 앞으로 고꾸라졌고 아이는 어른의 얼굴과 몸을 각목으로 내려치기 시작했다." +
+                                    "<br><br>...어른이 숨을 거둘 때까지."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        lukeInner_luke_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 남녀가 싸우고 있는 모습을 보았다. 그들 중 한 명은 자안이었다. 이러다가는 둘이 같이 죽겠다며, 어떻게 냉장고에 있는 음식을 혼자 먹어버린 거냐며, 그러는 너는 어제 혼자 다 먹어버리고 오리발을 내밀지 않았냐며, 그들은 싸움을 계속 이어갔다. 당신의 시선이 갓난아기에 닿았다. 어른들이 목소리를 높여 싸우면 울 만도 한데 갓난아기는 울지 않았다. 당신은 갓난아기에게 다가가 내려다 보았다." +
+                    "<br><br>갓난아기의 자안이 당신을 올려다본다. 아기는 전혀 울고 있지 않았다. 갓난아기의 배에서 꼬르륵 소리가 나서 당신은 주변을 둘러보았지만, 당신은 아기의 주변에서 젖병 하나조차 찾지 못했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_01 = true;
+                    player.flags.lukeInnerScore = 0;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_02 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 어린 루크를 보았다. 그의 남색 머리카락은 어깨 밑까지 내려와있었고, 골목길 담벼락에 기대어 앉은 그는 날붙이로 자신의 머리카락을 자르고 있었다. 그의 주변에는 노숙자들만 가득했다." +
+                    "<br><br>\"야. 거기 내 자리야.\"<br><br>" +
+                    "머리카락을 자르던 루크가 목소리의 주인을 올려다보았다. 그들은 무리였다." +
+                    "<br><br>\"싫은데?\"<br><br>" +
+                    "루크는 날붙이를 손에 쥐며 말했다." +
+                    "<br><br>\"씨발, 여긴 내 자리야.\"<br><br>" +
+                    "무리가 쌍욕을 내뱉더니 어린 루크에게 달려든다. 루크는 날붙이를 손에 쥔 채 그들에게 맞섰다. 길었던 남색 머리카락이 바닥에 흩어진다. 당신은 고개를 들었다. 그리고 당신은 백발의 소녀를 보았다. 그는, 루크가 죽기 직전까지 맞고 찔리는 모습을 보고 있었다, 웃는 얼굴로."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_03 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 가판대의 먹음직스러운 요리를 둘러보았다." +
+                    "<br><br>...하지만 당신은 본능적으로 깨달았다. 이곳에 당신이 먹을 수 있는 요리는 없다. 당신이 가판대에 가까이 다가가자마자 요리는 신기루처럼 증발해버렸다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_03 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_04 : [
+            {
+                type : "text",
+                value : [
+                    "\"쉘터?\"<br><br>" +
+                    "무리와 함께 사람들에게 빼앗은 동전을 손가락으로 튕기던 루크는 고개를 돌렸다. 당신은 루크의 시선을 쫓아갔다. 루크의 시선 끝에는 당신이 있었다." +
+                    "<br><br>\"알지. 근데 왜?\"<br><br>" +
+                    "\"진짜로 아이들을 위한 쉼터를 만들고 있더라고.\"<br><br>" +
+                    "한 아이가 당신의 앞으로 넘어졌다. 당신은 유리와 함께 아이를 일으켜주고 막대사탕을 내밀었다. 루크는 멍하니 당신을 바라보았다." +
+                    "<br><br>\"왜 그래?\"<br><br>" +
+                    "\"아니. 그냥.\"<br><br>" +
+                    "루크는 하얀색 담배 연기를 내뱉으며 인상을 찌푸렸다." +
+                    "<br><br>\"내가 씨발, 막대사탕을 존나게 좋아했었거든.\"<br><br>" +
+                    "\"뭔 '했었거든'이야? 넌 지금도 좋아하잖아.\"<br><br>" +
+                    "\"시끄러워.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_04 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_05 : [
+            {
+                type : "text",
+                value : [
+                    "루크는 몸을 일으키려고 했다. 하지만 손에 힘이 전혀 들어가지 않아서 일어날 수가 없었다. 그는 고개를 들었다. 서린 녹안과 격렬한 자안이 마주쳤다." +
+                    "<br><br>\"...\"<br><br>" +
+                    "에릭은 말없이 루크를 내려다보다가 입을 열었다." +
+                    "<br><br>\"따라올 수 있으면 따라와.\"<br><br>" +
+                    "\"...뭐?\"<br><br>" +
+                    "루크는 명치를 쥐어잡은 채 에릭에게 그게 무슨 소리냐고 물었다. 하지만 에릭은 그에게 아무 것도 설명해주지 않았다. 씨발, 씨발, 욕을 지껄이던 루크는 결국은 기어서라도 어떻게든 에릭을 쫓아갔다." +
+                    "<br><br>\"씨발.... 대체 왜 따라오라는 거야.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_05 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_06 : [
+            {
+                type : "text",
+                value : [
+                    "루크는 막사에 들어섰다." +
+                    "<br><br>\"오늘부터 너네랑 일하게 된 경비병 단장이다.\"<br><br>" +
+                    "루크의 뒤로 몇몇의 사람들이 고개를 빼꼼 내밀었다. 날라리 같은 인상과 다르게 그들은 모두 경비병 제복을 입고 있었다. 막사에 먼저 있던 경비병들이 경악한 얼굴로 루크와 그를 뒤쫓아온 경비병들을 번갈아 보았다." +
+                    "<br><br>\"씨발, 왜? 뭐 문제 있어?\"<br><br>" +
+                    "루크는 비스듬히 고개를 기울이더니 입에서 하얀 담배 연기를 내뿜었다." +
+                    "<br><br>\"우리 목적은 하류도시 지키기, 그리고.... 반란군 토벌이다.\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_06 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_07 : [
+            {
+                type : "text",
+                value : [
+                    "상류도시 입구에서 루크는 문지기에게 자신은 하류도시 경비병 단장이라고 말했다. 문지기는 루크의 말을 듣고서도 한쪽 눈썹만 치켜올릴 뿐 그의 전진을 막았다." +
+                    "<br><br>\"씨발, 지금 우리 애들 다 죽게 생겼다고! 지원 하나 못 보내주냐?\"<br><br>" +
+                    "\"네 이름은 이미 알고 있어, 하류도시의 개새끼.\"<br><br>" +
+                    "뭐? 루크는 험악한 얼굴로 문지기를 노려보았다. 문지기는 루크의 살기등등한 기세에도 입꼬리를 씰룩이며 말을 이었다." +
+                    "<br><br>\"반란군 하나 토벌 못하는 하류도시의 개들을 우리가 왜...\"<br><br>" +
+                    "문지기의 말이 끝나기도 전에 루크는 문지기의 얼굴에 주먹을 날렸다. 소란이 커지자 주변에 있던 귀족들의 시선이 루크와 문지기에게로 쏠린다. 귀족들 중 몇 명이 비명을 질렀고, 주변에 있던 백색 군인들이 루크에게로 달려갔다." +
+                    "<br><br>\"품위 없긴....\"<br><br>" +
+                    "누가 한 소리인지는 모른다. 하지만 확실한 건, 백색 군인들은 경멸 어린 시선으로 루크를 내려다보며 그를 제압했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.lukeInner_luke_07 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        lukeInner_luke_08 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 가장 안쪽에서 루크를 보았다. 당신은 그의 뺨을 보았다. 그의 뺨에는 여전히 검붉은 상처가 남아 있었다. 그는 당신을 돌아보더니 기가 차다는 듯 웃었다." +
+                    "<br><br>\"씨발, 이제 환상까지 보이네.\"<br><br>" +
+                    "그는 이제 자신의 앞에서 사라지라는 듯 손을 휘저어 보였다. 하지만 그럼에도 당신이 없어지지 않자 그는 눈을 가늘게 뜨고 당신을 응시했다. 당신은 그의 팔을 보았다. 그의 팔에는 여전히 하얀꽃의 뿌리가 남아 있었다." +
+                    "<br><br>당신은 창백에게서 가져온 하얀꽃 씨앗을 그에게 내밀었다. 당신은 이 씨앗을 다시 심으면 흉물화될 걱정은 하지 않아도 된다고 말했다." +
+                    "<br><br>\"씨발, 뭐? 내가 미쳤다고 또 꽃을 팔에 심을 줄 알아?\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 이 꽃은 소라의 꽃이 아니라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그래서 뭐? 너는 그걸 어떻게 갖고 있는 건데?\"<br><br>" +
+                                    "소라의 꽃이 아니라는 당신의 말에 루크의 눈매가 더 사나워졌다. 그는 출처도 모르는 하얀 꽃을 자신의 팔에 또 심고 싶지는 않다고 말했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) - 3;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 루크에게 자신을 믿으라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...하.\"<br><br>" +
+                                    "루크는 짜증난다는 듯이 당신을 쳐다보았다. 그는 생각이 복잡해졌는지 욕만 내뱉더니 고개를 돌려버렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) - 1;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 루크에게 그럼 영원히 여기에 있을 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"어, 씨발, 영원히 여기 있을 건데?\"<br><br>" +
+                                    "루크는 팔짱을 끼며 당신에게서 한 걸음 물러났다." +
+                                    "<br><br>\"씨발, 내가 여기에 있는 동안은 저새끼가 날뛰지는 않을 것 아냐. 내가 어떻게든 안에서 답 찾을 거야.\"<br><br>" +
+                                    "뭐? 영원히 여기에 있을 거냐고? 말 존나 싸가지없게 하네. 그는 짜증을 내면서도 당신에게 자신은 방법을 찾아서 어떻게든 이곳에서 나갈 거라고 강조했다. 루크답게 포기할 생각은 없는 듯하다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) + 1;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "루크는 하얀 꽃을 자신의 팔에 심을 생각이 없어 보였다. 그는 당신을 쳐다보다가 그래서 지금 경비병들 상태는 어떻냐고 물었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 루크가 없어서 경비병들이 개판이 되었다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...하....\"<br><br>" +
+                                    "당신의 말에 루크를 짜증스럽게 한숨을 쉬었다. 그는 왜 아직도 다 큰 그새끼들의 기저귀를 자신이 갈아줘야 하는 건지 모르겠다고 말하며 신경질적으로 땅을 발로 찼다." +
+                                    "<br><br>\"존나 짜증나네.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) + 2;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 경비병들은 괜찮으니 너무 걱정하지 말고, 자신을 먼저 걱정하라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 루크는 안도한 것처럼 보였다." +
+                                    "<br><br>\"새끼들... 이제 많이 컸네.\"<br><br>" +
+                                    "그는 슬쩍 당신을 곁눈질하더니 자신이 돌아가는 게 너무 늦어지면 당신이 경비병들을 조금 봐줬으면 한다고 말하다가 말을 끊었다. 씨발... 그는 자신의 머리를 헝클이며 욕을 내뱉었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) - 1;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "경비병들을 떠올리는 건지 루크는 잠시 말이 없었다. 당신은 루크의 팔을 보았다. 마치 팔에 또하나의 심장이 있는 것마냥 맥동이 느껴졌다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 소라가 준 흰꽃은 뽑는 게 나을 것 같다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "루크는 힐끗 당신을 보더니 그럴 수는 없다고 말했다." +
+                                    "<br><br>\"이게 없으면 난 못 버텨. 얘가 억누르고 있는 거라서.\"<br><br>" +
+                                    "그는 어차피 소라도 없으니 자신에게 시간은 많이 남았다고 말했다. 그래도 여태까지 안 죽인 걸 보면 나 지금 누군가한테 보호받고 있긴 한 거잖아? 그는 어깨를 으쓱이더니 누가 자신을 보호해주고 있든, 자신은 이 기회를 놓치지 않을 거라고 말했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) - 2;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 창백은 꽃으로 루크를 조종하려고 들지 않을 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그걸 네가 어떻게 알아?\"<br><br>" +
+                                    "당신은 루크에게 창백이 지금까지 루크를 보호하고 있었던 거라고 말했다. 루크는 한쪽 눈썹을 일그러뜨리더니 당신이 그렇게 멍청한 사람이었냐고 되물었다." +
+                                    "<br><br>\"아무도 믿지 마. 믿는 순간 등신되니까.\"<br><br>" +
+                                    "그는 당신을 응시하다가 욕설이 섞인 한숨을 쉬었다. 짜증은 났지만 어쨌든 여전히 당신은 당신답다고 생각하고 있는 모양이다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) + 2;
+                                    changeNPCEmotion("luke", "affection", -2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "그 순간, 당신의 이름을 애타게 부르는 목소리가 들렸다. 루크는 흠칫하더니 소라가 아직 살아있냐고 물었다. 당신은 고개를 저었다." +
+                    "<br><br>\"이제....ㅅ...간...ㅇ... 없어...!\"<br><br>" +
+                    "당신을 잃기 싫다고 말하며 창백은 울먹였다. 루크는 창백의 목소리를 듣다가 픽 웃었다. 그는 당신을 돌아보며 확실히 소라는 아닌 것 같다고 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 창백은 착한 사람이라고 말했다. 그리고 루크를 도와주고 싶어하고.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "루크는 당신의 말에 인상을 찌푸렸다. 그는 여전히 창백을 믿지 않고 있다. 특히 소라의 목소리와 창백의 목소리가 똑같아서 더 거부감이 드는 모양이다." +
+                                    "<br><br>\"착한 사람이고 날 돕고 싶어 한다고?\"<br><br>" +
+                                    "루크는 코웃음을 치더니 당신의 머리를 아무렇게나 꾹꾹 눌렀다." +
+                                    "<br><br>\"씨발, 그런 말을 믿기엔 내가 너무 머리가 컸다.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    resolveSavingLuke(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 기회를 놓치고 싶지 않으면 창백을 믿지 않는다고 해도 그의 선의를 받아들여야 하는 거 아니냐고 되물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 루크는 픽 웃었다." +
+                                    "<br><br>\"...그래, 네 말이 맞지.\"<br><br>" +
+                                    "그는 당신을 내려다보다가 머리를 꾹꾹 눌렀다. 새끼, 언제 이렇게 컸냐?"
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.lukeInnerScore = (player.flags.lukeInnerScore || 0) + 2;
+                                    savePlayer(player);
+
+                                    resolveSavingLuke(player);
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 })
 
@@ -6697,4 +7192,66 @@ function startSoraBossBattleLose(player){
         "<br><br>의식이 끊겼다가 다시 돌아왔을 때, 온 세상은 창백한 촉수들로 뒤덮여 있었다. 당신은 어디 있는지도 모르겠는 창백을 향해 손을 뻗었다. 어디선가 누군가의 무전이 들려온다. 발렌...? 발렌은 상류도시의 벽이 허물어지기 전에 꽃 마물을 막으라고 명령을 내리고 있었다. 하류도시는 이미 붕괴됐다. 머지 않아 상류도시도 뚫릴 것이다." +
         "<br><br>...하지만 당신이 할 수 있는 일은 없었다."
     );
+}
+
+//루크루크
+function resolveSavingLuke(player) {
+
+    const score = player.flags.lukeInnerScore || 0;
+    delete player.flags.lukeInnerScore;
+
+    if (score >= 5) {
+        delete player.flags.collapseLuke;
+        player.flags.savingLuke = true;
+
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "창백의 목소리가 점점 더 희미해진다. 그는 필사적으로 당신을 루크의 내면에서 빼내려고 하고 있었다. 창백한 촉수들이 사방에서 내려오기 시작한다. 더 이상 시간이 없다. 당신은 루크에게 손을 내밀었다. 루크는 당신의 얼굴을 빤히 응시하다가 하얀꽃을 들고 있는 당신의 손으로 시선을 내렸다." +
+                    "<br><br>\"씨발. 그래, 뭐.\"<br><br>" +
+                    "한 번 흉물될 뻔한 거 두 번 흉물된다고 해도 달라질 건 없지, 루크는 욕설과 함께 중얼거리며 당신에게 자신의 손을 내밀었다. 당신은 창백이 알려줬던 대로 하얀 꽃을 루크의 팔에 꽂아넣었다. 아팠는지 루크의 손가락이 움찔거리긴 했지만 그는 가만히 있었다. 당신은 창백의 하얀꽃을 꽂은 채로 남아있던 소라의 꽃 뿌리 부분을 전부 뽑아냈다." +
+                    "<br><br>그리고 당신은 루크와 함께 당신들에게 내려오는 창백한 촉수의 품에 안겼다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신이 다시 눈을 떴을 때 창백이 당신을 내려다보고 있었다. 그는 당신이 일어나자마자 당신을 끌어안았다. 당신의 어깨가 꽃잎눈물로 촉촉해졌다. 창백은 다시는 당신을 위험에 빠뜨리지 않을 거라고 더듬거리며 말했다." +
+                    "<br><br>\"루, 루크는.... 밖...ㅇ...서...기...ㄷ...다리고, 있는, ㄷ...고, 했어.\"<br><br>" +
+                    "당신은 고개를 끄덕였다."
+                ]
+            }
+        ], player, {
+            onEnd : () => leaveDungeon(player)
+        });
+
+    } else {
+        startScene([
+            {
+                type : "text",
+                value : [
+                   "창백의 목소리가 점점 더 희미해진다. 그는 필사적으로 당신을 루크의 내면에서 빼내려고 하고 있었다. 창백한 촉수들이 사방에서 내려오기 시작한다. 더 이상 시간이 없다. 당신은 루크에게 손을 내밀었다. 루크는 당신의 얼굴을 빤히 응시하다가 하얀꽃을 들고 있는 당신의 손으로 시선을 내렸다." +
+                   "<br><br><span class='log-luke'>루크는 당신의 손을 잡지 않았다.</span><br><br>" +
+                   "\"씨발, 그런 표정 짓지 마. 어떻게든 일어날 거니까.\"<br><br>" +
+                   "루크는 창백한 촉수를 보더니 인상을 찌푸리며 뒤로 물러났다. 거부감을 느끼는 것 같다. 당신이 어떤 행동을 취하기도 전에 창백한 촉수는 당신의 몸을 감더니 그대로 당신을 끌고 갔다."
+                ]
+            },
+            {
+                type : "text",
+                value : [
+                    "당신이 다시 눈을 떴을 때 창백이 당신을 내려다보고 있었다. 그는 당신이 일어나자마자 당신을 끌어안았다. 그는 다시는 당신을 위험에 빠뜨리지 않을 거라고 더듬거리며 말했다. 그리고 미안하다고도 말했다." +
+                    "<br><br>\"ㄴ...가, 그 아, 이처럼....ㄸ...똑했ㄷ...면....\"<br><br>" +
+                    "당신의 어깨가 푹 젖었다. 당신은 창백에게 안긴 채로 여전히 눈을 뜨고 있지 않은 루크를 내려다보았다." +
+                    "<br><br><strong>루크는 여전히 일어나지 못했다.</strong>"
+                ]
+            }
+        ], player, {
+            onEnd : () => leaveDungeon(player)
+        });
+    }
+
+    return true;
 }

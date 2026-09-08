@@ -200,6 +200,87 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_squirrel_02",
+
+    condition : (player) =>
+        ["deepForest_act3", "forest_act3"].includes(player.location) &&
+        player.flags?.endAshParents &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        ["night", "afternoon"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 7) &&
+        player.flags?.eric_squirrel_01 &&
+        !player.flags?.ericDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.eric_squirrel_02 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_squirrel_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_yourConfession_04",
+    once : true,
+
+    condition : (player) =>
+        ["deepForest_act3", "forest_act3"].includes(player.location) &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        player.flags?.eric_yourConfession_04_intro &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.eric_yourConfession_03_day + 7) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_yourConfession_04 = true;
+        player.flags.eric_yourConfession_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_yourConfession_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_yourConfession_05",
+    once : true,
+
+    condition : (player) =>
+        player.location === "deepForest_act3" &&
+        NPC_DATA["eric"].emotion.affection >= 70 &&
+        player.flags?.eric_yourConfession_04 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.eric_yourConfession_04_day + 3) &&
+        player.weather === "rain" &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        passTime(player, 40);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["eric"].scenes.eric_yourConfession_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //시온
 window.EVENTS.push({
     id : "sion_hisOutTraining_01",

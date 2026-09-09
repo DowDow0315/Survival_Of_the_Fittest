@@ -943,5 +943,3 @@ window.EVENTS.push({
         });
     }
 });
-
-window.MUSHROOM_ROMANCE_HANDLERS = window.MUSHROOM_ROMANCE_HANDLERS || {};

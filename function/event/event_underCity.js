@@ -3392,7 +3392,7 @@ window.EVENTS.push({
         player.location === "heavenPalace" &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         player.flags?.nikolai_heavenPalace_hisLocation_03 &&
-        player.flags?.nikolai_heavenPalace_hisLocation_01 &&
+        player.flags?.nikolai_heavenPalace_hisLocation &&
         getCurrentDay(player) >= (player.flags.nikolai_heavenPalace_hisLocation_03_day + 7) &&
         NPC_DATA["nikolai"].emotion.affection >= 70 &&
         !player.flags?.nikolaiDie,

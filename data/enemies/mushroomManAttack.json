@@ -13,6 +13,18 @@
         {
             "item": "mushroomRainbow",
             "chance": 0.05
+        },
+        {
+            "item": "mushroom",
+            "chance": 1
+        },
+        {
+            "item": "mushroom",
+            "chance": 1
+        },
+        {
+            "item": "mushroom",
+            "chance": 1
         }
     ],
     "teaseLines" : {

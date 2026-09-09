@@ -635,8 +635,6 @@ window.EVENTS.push({
 // =========================
 // 연말 이벤트
 // =========================
-window.YEAR_END_HANDLERS = window.YEAR_END_HANDLERS || {};
-window.YEAR_END_LETTER_HANDLERS = window.YEAR_END_LETTER_HANDLERS || {};
 window.EVENTS.push({
     id : "yearEnd_01",
 

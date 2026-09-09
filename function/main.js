@@ -1153,7 +1153,7 @@ function getNpcEmotionMax(npcId, key){
     if (
         npcId === "eric" &&
         key === "affection" &&
-        !player.flags?.EricQuestClear
+        !player.flags?.ericMindOpen
     ) {
         return 79;
     }

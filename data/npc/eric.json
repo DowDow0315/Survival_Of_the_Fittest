@@ -2485,6 +2485,12 @@
                                 "type" : "effect",
                                 "run" : "becomeLover",
                                 "args" : ["eric"]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "ericMindOpen", "value": true }
+                                ]
                             }
                         ]
                     },
@@ -2507,6 +2513,12 @@
                                 "type" : "effect",
                                 "run" : "becomeLover",
                                 "args" : ["eric"]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "ericMindOpen", "value": true }
+                                ]
                             }
                         ]
                     },

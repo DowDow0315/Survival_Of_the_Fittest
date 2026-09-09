@@ -403,3 +403,98 @@ window.YEAR_END_LETTER_HANDLERS.sion = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.sion = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...영웅님?\"<br><br>" +
+                    "갑작스레 소환되어 긴장하던 시온은 당신을 보자마자 표정이 풀어졌다. 그는 영웅님을 만나서 너무 행복해졌다고 말하며 당신에게 다가갔다. 그는 버섯을 먹어야 한다는 안내판을 보더니 은은한 미소를 지었다." +
+                    "<br><br>\"그렇다면 제가 먹지 않는다면 영웅님은 영원히.... 저와 함께 여기에 있는 걸까요?\"<br><br>" +
+                    "꿀꺽. 어디선가 버섯맨의 숨 넘어가는 소리가 들렸다. 시온은 당신을 빤히 바라보다가 당연히 장난이었다고 말했다. 정말 장난이었을까? 시온은 버섯을 한 입 먹더니 너무 맛있다고 말하며 나머지는 전부 당신을 주려다가 말았다." +
+                    "<br><br>\"....아~\"<br><br>" +
+                    "붉어진 얼굴로 그는 당신에게 버섯을 직접 먹여주었다. 시온은 행복해 보였다. 그는 하얀 빛이 다시 뿜어져나오자 안타깝다는 표정으로 당신을 보았다." +
+                    "<br><br>\"...함께 어딘가에 갇혀버리면 좋을 텐데...\"<br><br>" +
+                    "...농담이겠지?"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("sion", "affection", 2);
+                    changeNPCEmotion("sion", "rage", -5);
+                    changeStamina(player, 25);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "안내문을 읽은 시온은 버섯을 손에 쥔 채 먹을 생각을 하지 않았다. 당신이 계속 버섯 쪽으로 눈짓을 해도 시온은 모르는 척 계속 자신의 이야기를 이어갔다. 그는 원하는 만큼 이야기를 하고 나서야 버섯에 눈길을 주었다. 그는 버섯을 한 입 먹더니 인상을 찌푸리며 다시 뱉었다." +
+                    "<br><br>\"...독버섯인데요, 이거.\"<br><br>" +
+                    "시온의 안색이 안 좋아진 걸 눈치챈 당신이 시온을 눕혔다. 그리고 당신은 그의 손을 주무르며 그가 조금 더 편해질 수 있게 도왔다. 시온은 그런 당신을 올려다보다가 미소를 지었다." +
+                    "<br><br>\"죄송해요. 제가.... 실수했네요. 영웅님의 손, 너무 부드러워서... 실수 더 하고 싶어졌어요.\"<br><br>" +
+                    "그는 나머지 독버섯까지 자기가 먹으려고 했다. 당신과 시온은 서로 옥신각신 독버섯을 먹는 내내 싸웠다. 하지만 시온은 오히려 기분이 좋아 보였다.... 다 먹고 혈색이 좋지 않은 얼굴로 하얀 빛에 사라질 때까지도."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("sion", "affection", 1);
+                    changeNPCEmotion("sion", "dominance", -5);
+                    changeHP(player, -25);
+                    passTime(player, 30);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...장미 모양이네요.\"<br><br>" +
+                "시온은 먹기 아깝다는 듯 장미 모양 버섯을 만지작거리다가 입에 넣었다. 입에 넣자마자 시온의 얼굴은 붉어졌다. 그는 당신을 빤히 응시하다가 그대로 당신을 바닥으로 넘어뜨렸다. 다치지는 않게, 당신의 뒤통수를 손으로 감싸 안으며... 바닥에 부딪힌 그의 손목이 부어올랐을지도 모르겠다. 하지만 시온은 큰 소리가 났는데도 당신만을 바라보고 있었다." +
+                "<br><br>\"몸이 뜨거워요, 영웅님.\"<br><br>" +
+                "그는 바라는 얼굴로 당신을 내려다보고 있었다. 버섯을 입에 문 시온은 그대로 당신에게 입술을 맞추며 버섯을 넘겨주었다. 발정버섯이다...! 당신의 피부에도 열기가 돌았다. 시온은 뜨거워진 손으로, 뜨겁게 느껴지는 당신의 피부를 쓰다듬으며 애원조로 말했다, \"안아도 될까요?\"라고. 그의 장밋빛 눈동자는 물러설 생각이 없는 것 같다.... 당신의 반응에 시온은 미소를 짓더니 그대로 당신의 몸으로 파고들었다. 그의 뜨거운 입술이 당신의 열꽃이 피어오른 목덜미에 닿았다. 목, 쇄골, 가슴, 쪽쪽거리며 열꽃잎들을 남기며 시온은 당신의 옷을 풀어헤쳤다." +
+                "<br><br>뜨거운 공기가 식었을 땐, 이미 많은 시간이 흐른 후였다. 시온은 당신을 꽈악 끌어안은 채 사랑한다고 말했다. 당신은 시온의 가슴에 기댄 채 색색 열기가 가라앉지 않은 숨소리를 내쉬었다. 허리가 아파서 일어나고 싶지가 않다. 그때, 하얀 빛이 두 사람 앞에 내리쬐었다. 시온은 인상을 찌푸리며 왜 자신들을 가만히 내버려두지 않는 거냐고 살기 어린 목소리로 중얼거렸다." +
+                "<br><br>\"시, 시간, 우리 시간 많이 줬다버섯...\"<br><br>" +
+                "버섯맨들은 당신과 시온을 빨리 보내버리기로 한 모양이다. 하얀 빛이 더 강렬해졌다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 100);
+                changeNPCEmotion("sion", "affection", 5);
+                changeNPCEmotion("sion", "lust", 40);
+                changeSensitivity("player", "mSensitivity", 7);
+                changeSensitivity("player", "cSensitivity", 10);
+                changeSensitivity("player", "aSensitivity", 10);
+                addBodyFluid(player, "a", 20);
+                addBodyFluid(player, "c", 20);
+                addBodyFluid(player, "m", 20);
+                passTime(player, 80);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

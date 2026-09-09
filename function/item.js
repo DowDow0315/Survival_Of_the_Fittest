@@ -2884,6 +2884,12 @@ const ITEMS ={
             value: 300,
             price: 6500
         },
+        mushroomPotion1: {
+            name: "버섯맨의버섯버섯(190)",
+            type: "heal",
+            value: 190,
+            price: 100
+        },
         meatPotion : {
             name : "무언가의고기(10)",
             type : "heal",
@@ -4053,6 +4059,51 @@ const ITEMS ={
             desc : "팬들에게는 나름 가치가 있는 편이다. 카인은 아주 자신만만하게 당신에게 이 종이를 건네주었었다.",
             price : 700
         },
+        mushroomWhite: {
+            name: "버섯(하양)",
+            type: "junk",
+            price: 170
+        },
+        mushroomBlue: {
+            name: "버섯(파랑)",
+            type: "junk",
+            price: 170
+        },
+        mushroomRed: {
+            name: "버섯(빨강)",
+            type: "junk",
+            price: 170
+        },
+        mushroomPink: {
+            name: "버섯(핑크)",
+            type: "junk",
+            price: 170
+        },
+        mushroomOrange: {
+            name: "버섯(주황)",
+            type: "junk",
+            price: 170
+        },
+        mushroomGreen: {
+            name: "버섯(초록)",
+            type: "junk",
+            price: 170
+        },
+        mushroomYellow: {
+            name: "버섯(노랑)",
+            type: "junk",
+            price: 170
+        },
+        mushroomPurple: {
+            name: "버섯(보라)",
+            type: "junk",
+            price: 170
+        },
+        mushroomRainbow: {
+            name: "버섯(무지개)",
+            type: "junk",
+            price: 170
+        },
 
         //강화재료
         ironOre: {
@@ -4236,6 +4287,10 @@ function hasItem(player, itemName){
 
 function hasItemKey(player, key){
     return player.inventory.some(item => item.key === key);
+}
+
+function countItemByKey(player, key){
+    return player.inventory.filter(item => item.key === key).length;
 }
 
 function hasItemOrEquipped(player, key){

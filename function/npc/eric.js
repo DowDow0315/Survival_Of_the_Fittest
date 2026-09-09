@@ -788,3 +788,79 @@ window.YEAR_END_LETTER_HANDLERS.eric = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.eric = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "에릭은 안내문을 읽더니 버섯을 내려다보았다. 그는 버섯을 조금 살피더니 그것을 반으로 나누며 이건 먹을 수 있는 버섯이라고 말했다. 당신은 그와 함께 버섯을 먹었다. 에릭의 말대로 이 버섯은 먹을 수 있는, 아니, 그냥 먹을 수 있는 것도 아니고 당신이 지금까지 먹어본 버섯 중에 제일 맛있는 버섯이었다!" +
+                    "<br><br>에릭은 당신이 버섯을 맛있게 먹자 잇자국이 난 부분의 반대쪽으로 버섯을 조금 떼어 당신에게 먹여주었다. 당신을 먹여주는 에릭을 보며 버섯들은 버섯버섯 속삭였다. 당신이 먹자마자 빛이 다시 번쩍였다...!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("eric", "affection", 1);
+                    changeNPCEmotion("eric", "rage", -5);
+                    changeStamina(player, 40);
+                    passTime(player, 15);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "안내문을 읽은 에릭은 버섯을 살피더니 소매에서 약을 꺼냈다. 그는 이 버섯을 먹기 전에 이 약을 먼저 먹으라고 말했다. 무슨 약인지는 모르겠지만 당신은 그 약을 먹었다. 에릭은 당신에게는 손톱만큼 건네고 나머지는 자신이 다 먹었다. 독버섯이다. 당신은 에릭을 힐끔 올려다보았다. 당신보다 더 많이 먹은 에릭의 안색은 평소보다 조금 더 하얘 보였다." +
+                    "<br><br>\"난 괜찮다.\"<br><br>" +
+                    "그는 오히려 당신의 안색을 살폈다. 당신과 에릭의 거리는 평소보다 훨씬 가까웠다...." +
+                    "<br><br>버섯들은 당신과 에릭의 가까워진 거리에 수군거리다가도 더 이상은 가까워지지 않을 거라고 생각했는지 버섯버섯거리며 웅얼거렸다. 빛이 번쩍인다..!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("eric", "dominance", 5);
+                    passTime(player, 10);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "안내문을 읽은 에릭은 남성기 모양의 버섯을 보더니 미간이 좁아졌다. 그는 아무렇지도 않게 남성기 버섯을 손으로 반갈죽 찢더니 반 부분은 자신이 먹었다. 그는 당신과 시선을 마주치지 않은 채 당신은 조금만 먹어도 된다고 말했다." +
+                "<br><br>당신도 버섯을 먹었다. 당신은 에릭이 평소보다 당신에게서 더 거리를 벌리고 있다는 걸 눈치챘다...." +
+                "<br><br>\"재미없어버섯.\"<br><br>" +
+                "버섯들의 야유 소리와 함께 빛이 번쩍였다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 20);
+                changeNPCEmotion("eric", "lust", 10);
+                passTime(player, 25);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

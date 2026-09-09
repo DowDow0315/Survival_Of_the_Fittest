@@ -345,3 +345,86 @@ window.YEAR_END_LETTER_HANDLERS.akasia = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.akasia = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "아카시아는 눈을 깜박이더니 일을 하고 있다가 갑자기 끌려온 거라고 말했다." +
+                    "<br><br>\"놀랍긴 하지만, 당신과 함께 있을 수 있는 놀라움이니....\"<br><br>" +
+                    "아카시아는 기분 전환이 필요했었다고 말하며 미소를 지었다. 그리고 그는 당신과 함께 버섯을 먹었다." +
+                    "<br><br>맛있다! 아카시아는 이렇게 맛있는 버섯은 처음 먹어본다고 말하며 눈을 크게 떴다. 문이 열린다. 아카시아는 이런 버섯 초대라면 몇 번이라도 초대해달라고 말하며 즐거운 목소리로 말했다." +
+                    "<br><br>다시 빛이 번쩍인다...!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("akasia", "affection", 5);
+                    changeNPCEmotion("akasia", "rage", -5);
+                    changeStamina(player, 30);
+                    passTime(player, 15);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "아카시아는 버섯을 가만히 바라보다가 이 버섯을 꼭 같이 먹어야 되는 거냐고 물었다. 버섯버섯... 어디선가 수군거리는 소리가 들려온다. 그들은 같이 먹지 않으면 안 된다고 버섯버섯거리고 있었다. 아카시아는 버섯을 조금 떼어주더니 당신을 일부분 떼어주고 나머지는 자신이 다 먹었다." +
+                    "<br><br>독버섯이다!<br><br>" +
+                    "다행히 당신은 기분만 조금 역해지고 끝났다. 아카시아는 독버섯인 건 이미 알고 있었다고 말했다." +
+                    "<br><br>\"...많이 먹어봤으니까요. 다행히도 저는 면역이랍니다.\"<br><br>" +
+                    "아카시아의 씁쓸한 미소에 당신이 반응하기도 전에 빛이 다시 번쩍였다..!"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("akasia", "dominance", 5);
+                    changeHP(player, -10);
+                    passTime(player, 30);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "아카시아는 이렇게 묘하게 생긴 버섯은 처음 본다고 말했다. 버섯은 아카시아 꽃잎을 닮아 있었다. 아카시아는 고민하다가 당신과 반씩 나누어 냠냠 먹었다." +
+                "<br><br>\"...어머.\"<br><br>" +
+                "무엇을 먹었는지 깨달은 아카시아가 인상을 찌푸렸다. 그는 누군지는 몰라도 귀족들이 쓸 법한 수법을 여기서도 당할 줄은 몰랐다고 말했다. 얼굴은 붉히면서도 아카시아는 당신이 느끼는 모습을 남들에게 보여주고 싶지 않다고 말했다." +
+                "<br><br>\"저도 그들에게 휘둘리고 싶지 않고요. 그들이 누구든.\"<br><br>" +
+                "아카시아는 당신에게 손가락 하나 대지 않았다. 버섯들의 실망한 소리와 함께 빛이 번쩍였다...." +
+                "<br><br>\"저희는 나중에 조금 더... 은밀한 곳에서...\""
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 40);
+                changeNPCEmotion("akasia", "lust", 35);
+                passTime(player, 15);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

@@ -736,3 +736,93 @@ window.YEAR_END_LETTER_HANDLERS.luke = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.luke = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...뭐야?\"<br><br>" +
+                    "루크는 주변을 둘러보더니 여기가 어디냐고 물었다. 당신이 설명을 해주자 루크는 어이없다는 듯이 낄낄 웃으며 당신은 아직도 애니메이션을 믿냐고 물었다. 버섯맨이 있는 건 알지만 머쉬룸킹덤은 만화에서나 나오는 거 아니냐고 그는 낄낄거렸다." +
+                    "<br><br>\"이 버섯을 먹으라고.\"<br><br>" +
+                    "그는 아무렇지도 않게 버섯을 먹었다. \"오, 맛있는데?\", 그는 씹고 뜯고 맛보고 즐기고 씹고 뜯고 맛보고 즐기고~ 그대로 당신에게 키스했다. 버섯의 맛이 당신의 입안에 맴돈다. 맛있긴 하다...!" +
+                    "<br><br>어디선가 박수소리가 들렸다. 버섯맨들은 루크의 저돌성에 감격한 모양이다. 버섯버섯...! 키스가 끝나자 당신의 눈앞이 번쩍였다. 루크의 어이없어 하는 소리와 함께 당신은 하얀 빛에 삼켜졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("luke", "affection", 3);
+                    changeSensitivity("player", "mSensitivity", 7);
+                    changeStamina(player, 10);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"응?\"<br><br>" +
+                    "루크는 주변을 둘러보며 사태 파악을 했다. 안내문을 확인한 그는 버섯을 돌리며 자신이 얼마나 보고 싶었으면 이런 쇼까지 하는 거냐며 낄낄 웃어댔다. 당신이 아무리 아니라고 말해도 그는 당신을 계속 놀렸다." +
+                    "<br><br>\"어쨌든 이거 먹....\"<br><br>" +
+                    "루크가 잠시 말을 멈췄다. 그러더니 그는 아무 말 없이 버섯을 거의 다 먹고 손톱보다 더 적은 부분만 당신의 입에 넣어주었다." +
+                    "<br><br>\"너 나한테 빚진 거다?\"<br><br>" +
+                    "당신은 루크의 이마 위로 식은땀이 송골송골 맺힌 것을 보았다. 당신이 식은땀을 닦아주자 루크는 웃으며 아무리 그래도 빚은 안 깎아줄 거라고 장난을 쳤다." +
+                    "<br><br>\"곧 찾아갈 테니까 입술 닦고 기다려라?\"<br><br>" +
+                    "눈앞에 빛이 번쩍이자 루크는 평소와 똑같은 목소리로 당신에게 웃으며 말했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeHP(player, -5);
+                    changeNPCEmotion("luke", "affection", 1);
+                    changeNPCEmotion("luke", "dominance", 10);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...오.\"<br><br>" +
+                "입술 모양의 버섯을 보며 루크는 이 버섯에 입술을 묻으면 볼 만할 것 같다고 낄낄거렸다. 그는 입꼬리 쪽을 한번 맛보더니 씩 웃으며 나머지는 당신이 다 먹으라고 말했다. 그리고 그는 당신의 뒷목을 잡아 고정한 뒤 그 입술 모양의 버섯을 당신의 입술에 비벼왔다. 당신은 어쩔 수 없이 입술 모양의 버섯을 먹었다." +
+                "<br><br>...점점 몸이 뜨거워진다. 루크는 당신이 이 버섯을 대신 먹어줬으니 빚은 갚겠다고 말하며 손을 아래로 내렸다. 그의 손가락이 당신의 구멍을 파고든다. 당신이 다리를 오므리려고 하자 그는 장난스럽게 혀를 차며 다시 벌려버렸다." +
+                "<br><br>\"왜 그래, {lukeTitle}? 너무 좋아서 쑥스러워?\"<br><br>" +
+                "발정이 난 당신은 평소보다 더 많이 그의 손가락에 반응했고, 더 많이 가버렸다.... 버섯들의 환호성과 함께 당신은 늘어진 채로 하얀 빛에 안겨졌다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 100);
+                changeNPCEmotion("luke", "lust", 25);
+                changeNPCEmotion("luke", "dominance", 10);
+                changeSensitivity("player", "mSensitivity", 4);
+                changeSensitivity("player", "cSensitivity", 7);
+                changeSensitivity("player", "aSensitivity", 7);
+                passTime(player, 55);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

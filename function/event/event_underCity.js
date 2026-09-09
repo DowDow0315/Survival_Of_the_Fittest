@@ -3868,7 +3868,7 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
-    id : "pale_shop_01",
+    id : "pale_withPale_01",
 
     condition : (player) =>
         player.justMoved &&
@@ -3882,7 +3882,7 @@ window.EVENTS.push({
         savePlayer(player);
 
         startScene(
-            NPC_DATA["pale"].scenes.pale_shop_01,
+            NPC_DATA["pale"].scenes.pale_withPale_01,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)
@@ -3890,6 +3890,58 @@ window.EVENTS.push({
         );
     }
 });
+
+window.EVENTS.push({
+    id : "pale_withPale_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "townStreet" &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        player.flags?.pale_withPale_day !== getCurrentDay(player) &&
+        player.weather === "sunny" &&
+        player.flags?.paleFindsHerPlace &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        player.flags.pale_withPale_day = getCurrentDay(player)
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_withPale_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_withPale_03",
+
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance_act3"].includes(player.location) &&
+        player.flags?.pale_withPale_day !== getCurrentDay(player) &&
+        ["rain", "storm"].includes(player.weather) &&
+        player.flags?.paleFindsHerPlace &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.pale_withPale_day = getCurrentDay(player)
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_withPale_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 
 //시온
 window.EVENTS.push({

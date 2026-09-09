@@ -575,3 +575,97 @@ window.YEAR_END_LETTER_HANDLERS.deric = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.deric = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...흠?\"<br><br>" +
+                    "데릭은 주변을 둘러보더니 벽의 버섯맨들 그림을 보며 자신이 알던 애니메이션의 버섯맨과 묘하게 다르다고 말했다. 그는 이제 버섯맨도 도용을 당하는 거냐고 말하며 한탄했다. 버섯을 먹어야 이 방을 나갈 수 있다는 말에 데릭은 꺼려했다. 하지만 당신이 먼저 버섯을 먹으려고 하자 막아 세우며, 자신이 먼저 한 입을 먹겠다고 말했다." +
+                    "<br><br>\"...음.\"<br><br>" +
+                    "손톱만큼 베어물은 데릭은 맛을 보더니 놀란 표정을 지었다. 그는 이렇게 맛있는 버섯은 처음 먹어봤다고 말하며, 이 버섯의 주인이 있다면 상권 관련으로 얘기를 나눠보고 싶다고 말했다. 재잘재잘 떠드는 그의 옆에서 당신도 버섯을 먹었다. 버섯을 다 먹자 빛이 다시 번쩍였다." +
+                    "<br><br>\"잠깐, 난 이 버섯을 재배하는 사람과 한번 얘기를...!\"<br><br>" +
+                    "...데릭의 목소리가 멀어졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("deric", "affection", 2);
+                    changeNPCEmotion("deric", "rage", -5);
+                    changeStamina(player, 30);
+                    passTime(player, 15);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "데릭은 버섯의 색을 보더니 이렇게 화려한 버섯은 처음 본다고 말하며 신기해했다. 그는 맛있게 생겼다고 말하며 버섯을 먹으려다가 의심 때문에 먹지 못하고 당신을 바라보았다." +
+                    "<br><br>\"...먹으려고?\"<br><br>" +
+                    "그는 당신이 먹으려고 하자 인상을 찌푸리더니 결국 한숨을 쉬며 당신이 먹기 전에 자신이 한 입 베어물었다." +
+                    "<br>....<br>" +
+                    "데릭은 그대로 쓰러졌다. 미량을 먹고 쓰러져버렸다.... 남은 독버섯은 당신이 다 먹어야만 했다.... 속이 쓰리다.... 빛이 다시 번쩍일 때까지 데릭은 일어나지 못했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("deric", "rage", 5);
+                    changeHP(player, -70);
+                    passTime(player, 50);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "데릭은 버섯의 모양을 보더니 인상을 찌푸렸다." +
+                "<br><br>\"원래 버섯이 이렇게... 적나라하게 생길 수도 있니?\"<br><br>" +
+                "남성기를 닮은 버섯에 그는 먹고 싶지 않아했다. 하지만 그는 당신이 먹는 거엔 관심이 생겼다고 말하며 일부러 툭 튀어나온 부분을 당신의 입술에 물렸다." +
+                "<br><br>\"...오.\"<br><br>" +
+                "당신의 아랫배가 점점 뜨거워진다. 발정버섯이다...! 그는 야릇한 미소를 지으며 남성기를 닮은 버섯을 빠는 것만으로도 느끼는 거냐고 물었다. \"앙큼한 변태구나.\"라고 말하며 그는 자신도 발정 버섯을 한 입 물었다." +
+                "<br><br>\"....\"<br><br>" +
+                "데릭은 먹고나서야 이것이 발정버섯이라는 걸 인지했다. 그는 나머지는 당신에게 먹으라고 한 후 당신이 다 먹을 때까지 기다렸다. 그의 중심부는 텐트를 치고 있었지만 누군가 보고 있을 수도 있다는 생각에 간신히 참...." +
+                "<br><br>아니구나. 당신은 당신을 억누르는 데릭의 두 팔을 보며 생각했다. 데릭은 미소를 지으며 어차피 자신과 당신의 모습이 누군가에게 보인다고 해도 그건 하모니일 것이라고 말했다. 그는 밤의 천국의 성에서 얼마나 많은 사람들이 부끄러움 없이 나체가 되는지 아냐고 물으며 그대로 당신의 입술을 제 입술로 눌렀다. 그보다 발정버섯을 더 먹은 당신은 그의 손길에 저항할 수 없었다." +
+                "<br><br>그의 손길이 이끄는 대로 당신의 몸은 무력하게 바르작거렸다. 행위가 다 끝나고 나서야 빛이 번쩍였다..."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 60);
+                changeSensitivity("player", "aSensitivity", 5);
+                changeSensitivity("player", "bSensitivity", 5);
+                changeSensitivity("player", "cSensitivity", 5);
+                changeSensitivity("player", "mSensitivity", 5);
+                addBodyFluid(player, "a", 20);
+                addBodyFluid(player, "c", 20);
+                addBodyFluid(player, "m", 20);
+                changeNPCEmotion("deric", "dominance", 10);
+                passTime(player, 70);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

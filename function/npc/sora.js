@@ -595,3 +595,89 @@ window.YEAR_END_LETTER_HANDLERS.sora = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.sora = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"흐응?\"<br><br>"+
+                    "소라는 주변을 둘러보더니 휘파람을 불었다. 그는 눈치 빠른 정령들이 당신과 자신의 시간을 만들어주기 위해 머리를 좀 쓴 것 같다고 말하며 웃었다. 어떤 정령인지는 모르겠지만 듬뿍 귀여워해줘야겠네...? 휘어지는 금안에 버섯맨들이 위화감을 느끼고 웅성거리는 소리가 난다. 그러거나 말거나 소라는 버섯을 입에 물고 당신에게 다가왔다." +
+                    "<br><br>\"...소라 입에 있는 거.\"<br><br>" +
+                    "소라의 입술은 움직이지 않고 있다. 하지만 당신은 분명하게 그의 목소리를 듣고 있었다." +
+                    "<br><br>\"먹어줄 거지?\"<br><br>" +
+                    "당신은 소라의 입에 물린 버섯을 먹었다. 소라는 당신이 아주 가까이에서 입을 오물거리는 것을 지켜보며 즐거워했다. 버섯맨들은 쑥덕거리더니 당신이 버섯을 다 먹지도 않았는데 하얀 빛을 소환했다." +
+                    "<br><br>\"...너무 짧은 걸?\""
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("sora", "affection", 2);
+                    changeNPCEmotion("sora", "dominance", 2);
+                    changeNPCEmotion("sora", "rage", -5);
+                    changeStamina(player, 40);
+                    passTime(player, 5);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "소라는 버섯을 바라보더니 버섯이 무슨 맛이 날지 두렵다고 말했다. 소라는 당신을 똑바로 바라보며 당신이 먼저 먹어줄 수 있겠냐고 물었다. 당신은 주저하다가 버섯을 먹었다. 소라의 금안은 당신이 버섯을 먹는 모습을 끈질기게 바라보았다." +
+                    "<br><br>독버섯이다!<br><br>" +
+                    "몇 입 베어물자마자 당신의 주변이 윙윙 불쾌하게 돌았다. 소라는 자연스럽게 당신을 끌어안더니 남은 독버섯을 천천히 씹어먹었다." +
+                    "<br><br>\"소라를 위해 먹어줄 줄 알았어.\"<br><br>" +
+                    "소라는 행복해 보였다. 그는 당신을 낫게 해줄 거라고 속삭였다. 달콤한 향기와 하얀 빛이 동시에 당신의 몸을 감싼다.... 당신의 몸은 조금이나마 편안해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("sora", "affection", 8);
+                    changeNPCEmotion("sora", "dominance", 5);
+                    changeHP(player, -2);
+                    passTime(player, 15);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"...먹어줄래, 소라를 위해?\"<br><br>" +
+                "소라는 남성기 모양의 버섯에도 놀라지 않았다. 오히려 그는 당신의 입을 남성기 모양 버섯으로 문지르며 야릇한 미소를 지었다." +
+                "<br><br>\"소라를 사랑하잖아?\"<br><br>" +
+                "베시시 웃는 소라의 모습, 그리고 흔들리는 그림자, 뒤에서 웅성거리는 버섯맨들의 소리가 더 커졌다. 그들은 비상 회의라도 여는 듯 목소리가 빨라졌다. 그동안 소라는 당신에게 다가와, 당신을 끌어안으며, 그래서 안 먹을 거냐고 물었다. 소라의 금안에 당신이 맺히고 있다. 당신은 결국 입을 벌려, 달콤한 냄새와 함께 남성기 버섯을 삼켰다." +
+                "<br><br>\"버, 버섯...!\"<br><br>" +
+                "겁에 질린 목소리, 그리고 하얀 빛이 번쩍였다. 소라는 방해라고 말하며 중얼거렸지만 계속 당신을 바라보고 있었다. 당신이 사랑스럽다는 듯이 웃으며."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 100);
+                passTime(player, 5);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

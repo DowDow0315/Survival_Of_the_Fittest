@@ -376,3 +376,80 @@ window.YEAR_END_LETTER_HANDLERS.nikolai = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.nikolai = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"어라? 머쉬룸킹덤?\"<br><br>" +
+                    "니콜라이는 깔깔 웃으며 머쉬룸킹덤이 진짜 존재하는 거였냐고 물었다. 그는 쌍둥이 저택 구석에서 머쉬룸킹덤 관련 책을 읽은 적이 있다고 말했다. 그는 둘 중에 누군가가 버섯맨 애니메이션의 팬인 것 같다며 당신에게 가볍게 윙크했다." +
+                    "<br><br>니콜라이는 버섯을 들더니 자신이 먼저 맛보았다." +
+                    "<br><br>\"맛은 있는데... 역시 자기야, 난 달콤한 게 더 좋아. 이런 퍼석한 거 말고.\"<br><br>" +
+                    "버서어어어엇!! 어디선가 원통한 버섯의 울음 소리가 들렸지만, 니콜라이는 오히려 깔깔 웃으며 당신에게 나머지 부분을 전부 주었다. 하얀 빛이 두 사람을 감싸안을 때까지 니콜라이의 웃음 소리는 그치지 않았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeStamina(player, 70);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "니콜라이는 안내문을 읽으며 자신은 머쉬룸 킹덤 애니메이션을 본 적은 없지만, 본 사람들은 이런 안내문을 읽으면 동심이 다 깨져버리지 않을까 하고 깔깔 웃어댔다." +
+                    "<br><br>\"어린이 만화에 이런 장면이 나올 리는 없잖아?\"<br><br>" +
+                    "그는 버섯을 들더니 한 입을 맛봤다. 그의 표정이 오묘해졌다. 그는 당신이 물어보기도 전에 한 입에 삼켜버리더니 아주 조금의 버섯만 키스로 당신의 입에 넣어주었다. 아니, 넣어주는 척했다. 그는 당신의 입에 넣었던 버섯을 다시 가져가버렸다." +
+                    "<br><br>\"이 버섯은 진짜 맛없다. 그렇지, {nikolaiTitle}?\"<br>"+
+                    "<br>니콜라이의 안색이 좋지 않다... 하얀 빛으로 둘러싸인 그는 여전히 웃고 있었지만 입꼬리는 파들파들 떨리고 있었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("nikolai", "dominance", 3);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "니콜라이는 남성기 모양의 버섯을 보자마자 웃음을 터뜨렸다. 깔깔깔, 그는 몇 분이 지났는데도 웃음을 그치지 못하고 오히려 배꼽을 잡고 웃기 시작했다." +
+                "<br><br>\"버섯...버섯버섯.... 저 녀석, 계속 웃는 거 아냐버섯...?\"<br><br>" +
+                "끝날 기미가 보이지 않는 니콜라이의 포복절도에 버섯들이 수군거리는 소리가 났다. 그들은 슬쩍 모습을 드러내더니 땅을 구르고 있는 니콜라이의 모습을 살폈다. 곧이어 그들은 당신을 바라보았다." +
+                "<br><br>\"어쩌다 저런 사람이랑버섯....\"<br>"+
+                "<br>...그들은 당신을 안쓰러워하고 있는 것 같다. 그들은 니콜라이와 당신을 그냥 보내주었다...."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                passTime(player, 10);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

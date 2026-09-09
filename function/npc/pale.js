@@ -693,3 +693,79 @@ window.YEAR_END_LETTER_HANDLERS.pale = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.pale = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "창백은 놀란 듯 주변을 둘러보더니 이곳이 바로 머쉬룸킹덤이냐고 물었다. 어렸을 때부터 만화를 열심히 봐서 안다고 말하며 창백은 어린 아이처럼 히히 웃었다." +
+                    "<br><br>\"하, 지만... 그, ㄱ, 것과 별, 개로, 이렇, 게.... ㅅ...람으, 을, 납치하면, 아...안돼...!\"<br><br>" +
+                    "보이지 않는 누군가에게 충고하듯 창백은 부서지는 목소리로 단호하게 말했다. 그의 창백 촉수 꼬리가 위협적으로 바닥을 탁탁 치다가 버섯을 잡았다. 창백은 먼저 버섯을 먹어보더니 당신에게 맛있다고 말하며 내밀었다. 당신이 받아먹으려고 하자 창백의 얼굴이 붉어졌다." +
+                    "<br><br>버섯.... 어쩐지 버섯들의 기가 죽은 것 같다. 그들은 시무룩하게 버섯버섯거리며 당신과 창백을 하얀 빛으로 감쌌다..."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeStamina(player, 40);
+                    passTime(player, 10);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "창백은 촉수꼬리로 독버섯을 잡더니 한 입 먹어보았다." +
+                    "<br><br>\"...이거, ㄷ, 독.\"<br><br>" +
+                    "창백은 인상을 찌푸리더니 자기가 독버섯을 다 먹어버렸다. 버서엇!? 버섯맨들은 독버섯들을 더 떨어뜨렸지만, 창백은 그 독버섯들을 계속 먹었다. 이러다 식량 거덜나겠어버섯...! 버섯맨들은 독버섯들을 전부 먹어치우는 창백에 당황한 모양이다. 창백은 아무렇지도 않게 중얼거리듯이 말했다." +
+                    "<br><br>\"내, ㄱ... 배부....르...ㅁ, 촉수, 들이, 대, 신...ㅁ..먹어.\"<br><br>" +
+                    "창백은 당신에게 독버섯을 먹일 생각이 없다. 결국 버섯맨들은 먼저 두 손을 들었다. 그들은 없어진 재정에 슬퍼하며 당신과 창백을 하얀 빛으로 감싸 안았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("pale", "dominance", 3);
+                    passTime(player, 30);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "창백은 꽃 모양으로 생긴 버섯에 눈을 깜박이더니 예쁘다고 말했다. 그리고 그는 그 버섯을 입에 집어넣었다. 눈을 깜박이던 창백의 눈동자가 확장됐다." +
+                "<br><br>\"아...!\"<br><br>" +
+                "창백은 뒤로 물러나더니 구석에 쪼그리고 앉았다. 그는 저 버섯은 대신 먹어줄 수가 없어서 미안하다고 말했다. 그는 자신이 더 먹게 되면 당신이 위험해질 거라고 덧붙였다. 당신은 꽃 모양의 버섯을 먹었다. 하복부가 뜨거워진다." +
+                "<br><br>촉수들은 위협적으로 당신에게 달려들려고 했지만 창백이 팔로 잡아서 제지했다. 창백은 당신에게 가까이 오지 말라고 말했다. 창백은 하얀 빛이 다시 눈앞에 나타날 때까지 당신에게 한 걸음도 가까이 다가오지 않았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("pale", "lust", 25);
+                passTime(player, 25);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

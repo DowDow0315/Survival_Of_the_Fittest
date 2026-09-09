@@ -513,3 +513,80 @@ window.YEAR_END_LETTER_HANDLERS.matin = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.matin = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...?\"<br><br>" +
+                    "마틴은 주변을 둘러보더니 당신에게 괜찮냐고 물었다. 그는 당신도 갑자기 그처럼 여기에 소환된 거라고 생각하고 있는 모양이었다. 그는 당신의 몸을 훑은 뒤 버섯을 바라보았다." +
+                    "<br><br>\"...이건...\"<br><br>" +
+                    "그는 버섯의 상태가 좋은 것 같다고 말하며, 자신이 먼저 맛을 보았다. 그의 눈이 살짝 커졌다가 돌아왔다. 그는 이런 버섯이라면 어떤 요리로 해도 맛있을 거라고 말하며 당신에게 반보다 더 내밀었다. 당신과 마틴은 일상 얘기를 소소하게 나누며 버섯을 먹었다." +
+                    "<br><br>버섯을 다 먹자 다시 하얀 빛이 두 사람을 감쌌다. 마틴은 주점에서 보자고 말하며 작게 웃었다. 스쳐지나갈 수도 있는 작은 미소였지만, 당신은 분명히 보았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("matin", "affection", 2);
+                    changeStamina(player, 40);
+                    passTime(player, 20);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "안내문을 읽은 마틴은 버섯을 살피더니 이건 독버섯인 것 같다고 말했다. 그는 주변을 둘러보더니 익숙하게 부싯돌을 가져왔다. 그는 돌로 불을 피우기 시작했다." +
+                    "<br><br>\"이 정도의 독버섯은.... 불로 익히면 중화돼.\"<br><br>" +
+                    "그는 독버섯을 완전히 익힌 후 당신과 반씩 나눠 먹었다. 마틴의 말대로 독은 느껴지지 않았다...! 허억, 하는 버섯맨들의 놀란 소리가 들렸다. 그들의 수군거림과 함께 당신과 마틴은 하얀 빛에 둘러싸였다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("matin", "dominance", 3);
+                    passTime(player, 28);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"....\"<br><br>" +
+                "마틴의 시선은 남성기 모양의 버섯을 보며 서늘하게 식어 있었다. 그는 작게 한숨을 쉬더니 자신이 먼저 먹어보겠다고 말한 후 버섯을 먹었다." +
+                "<br><br>\"....\"<br><br>" +
+                "버섯을 먹은 마틴의 표정이 순간 흔들렸다. 그는 힐끔 당신을 보더니 휙 고개를 돌렸다. 그는 더 많은 버섯을 먹은 후 입을 손으로 가린 채 당신에게 얼마 남지 않은 버섯을 내밀었다. 당신은 버섯을 먹었다. 뜨거운 기운이 당신의 몸에 맴돈다. 마틴은 고개를 푹 숙인 채 아무 말도 하지 않았다. 하얀 빛이 두 사람을 감싸안을 때까지도 쭈욱...."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeArousal(player, 30);
+                changeNPCEmotion("matin", "lust", 15);
+                passTime(player, 30);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

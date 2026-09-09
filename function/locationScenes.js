@@ -773,6 +773,13 @@ function buildDeepForestScene(player, loc, randomDesc){
         });
     }
 
+    if (isMushroomKingdomPeriod(player)){
+        choices.push({
+            text : "버...버섯....!(들켰다!)",
+            action : "move_mushroomKingdom"
+        });
+    }
+
     choices.push({
         text: "숲에서 빠져나오기",
         action: "escape_deepForest"
@@ -1086,6 +1093,13 @@ function buildForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (isMushroomKingdomPeriod(player)){
+        choices.push({
+            text : "버...버섯....!(들켰다!)",
+            action : "move_mushroomKingdom"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -1202,6 +1216,13 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         choices.push({
             text : "백색 흉물 왼쪽부대를 토벌하러 간다",
             action : "move_whiteAbominationArmy"
+        });
+    }
+
+    if (isMushroomKingdomPeriod(player)){
+        choices.push({
+            text : "버...버섯....!(들켰다!)",
+            action : "move_mushroomKingdom"
         });
     }
 

@@ -1,5 +1,5 @@
 // =========================
-// 초코초코
+// 초코초코 이벤트
 // =========================
 
 function isChocoChocoPeriod(player){
@@ -145,7 +145,7 @@ window.EVENTS.push({
 });
 
 // =========================
-// 신년 복주머니 레이드
+// 신년 복주머니 이벤트
 // =========================
 
 function isNewYearDay(player){
@@ -834,3 +834,114 @@ function startYearEndLetterSequence(player, npcIds, index){
         startYearEndLetterSequence(player, npcIds, index + 1);
     });
 }
+
+// =========================
+// 버섯런킹덤 이벤트
+// =========================
+function isMushroomKingdomPeriod(player){
+    const date = getCalendarDate(player);
+
+    return (
+        (date.month === 9 && date.day >= 9 && date.day <= 19)
+    );
+}
+
+window.EVENTS.push({
+    id : "mushroomKingdom_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet", "townEntrance_act3", "townEntrance"].includes(player.location) &&
+        isMushroomKingdomPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"아니, 요새 숲에... 버섯이 좀 많아지지 않았어?\"<br><br>" +
+                    "\"버섯버섯.\"<br><br>" +
+                    "\"...뭔데, 진짜.\"<br><br>" +
+                    "\"버섯맨 왕국은 언젠가 부흥할 것이다...! 버섯버섯...!!\"<br><br>" +
+                    "\"이녀석, 버섯맨 애니를 많이 보더니 결국... 버섯맨 오타쿠가 되어버렸어...!\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "mushroomKingdom_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet", "richTownEntrance"].includes(player.location) &&
+        isMushroomKingdomPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시 귀족들은 9월이 벌써 왔다고 말하며 이번 수확은 어떻냐고 물었다. 하류도시 사람들처럼 그들에게도 9월은 수익이 제일 많이 나는 달인 모양이다." +
+                    "<br><br>\"제 아들은 9월이니까 버섯맨에게 기도를 올리겠다고 하더라고요.\"<br><br>" +
+                    "한 귀족의 넋두리에 나머지 사람들이 웃었다. 그들은 어리면 그럴 수도 있다고 말하며, 자신들도 어렸을 때는 버섯맨에게 풍요를 기원한 적이 있다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "mushroomKingdom_03",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "tavern" &&
+        isMushroomKingdomPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"근데 진짜 버섯맨들의 왕국이 있다며?\"<br><br>" +
+                    "\"숲에 있다고 들었어. 깊은 숲인지, 그냥 숲인지....\"<br><br>" +
+                    "사람들은 술을 마시면서 버섯맨들의 왕국에 대한 이야기를 나누고 있었다. 그들은 버섯맨의 왕국에서 킹버섯맨을 만나기만 해도 다음 년도는 풍년이라는 전설이 있다고 말하며 낄낄 웃었다. 몇 명은 이미 숲으로 떠났다더라. 한 탕 잡으려는 거지."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "mushroomKingdom_04",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        isMushroomKingdomPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "[9월 9일부터 19일까지, 버섯맨들의 습격이 시작된다!]" +
+                    "<br><br>...벽에 아주 큰 포스터가 붙어져 있다. 버섯맨들은 모두 옥수수 칼이나 당근 쌍검을 들고 인간을 향해 적대심을 보이고 있었고, 붉은색 머리에 주황색 눈동자를 하고 있는 인간은 마왕처럼 망토를 입고 버섯맨을 향해 독구름을 뿜어내고 있었다." +
+                    "<br><br>...어린이들을 위한 뮤지컬인 모양이다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.MUSHROOM_ROMANCE_HANDLERS = window.MUSHROOM_ROMANCE_HANDLERS || {};

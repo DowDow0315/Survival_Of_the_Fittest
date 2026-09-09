@@ -1,0 +1,101 @@
+{
+    "name": "버섯클 타이슨",
+    "hp": 400,
+    "attack": 75,
+    "defense": 70,
+    "eva": 50,
+    "lustResist" : 2,
+    "drops": [
+        {
+            "item": "mushroomPotion1",
+            "chance": 0.7
+        },
+        {
+            "item": "mushroomRainbow",
+            "chance": 0.05
+        }
+    ],
+    "teaseLines" : {
+        "fail" : [
+            ""
+        ],
+        "weak" : [
+            ""
+        ],
+        "success" : [
+            ""
+        ]
+    },
+    "lines": {
+        "attack": [
+            "버섯클 타이슨은 슉슉 당신에게 펀치를 날렸다."
+        ],
+        "hit": [
+            "버섯클 타이슨은 당신에게 맞았지만, 오히려 더 가슴을 폈다."
+        ],
+        "evade": [
+            "슉, 슉슉, 버섯클 타이슨은 꽤나 진지하게 슉슉 소리를 내며 당신의 공격을 피했다."
+        ],
+        "defeat": [
+            "누구에게나 계획은 있다. 처맞기 전까지는. 버섯클 타이슨의 계획은 당신에게 처맞으며 산산조각나버렸다."
+        ],
+        "grappleStart": [
+            ""
+        ],
+        "grappleFail": [
+            ""
+        ],
+        "grappleSubmit": [
+            ""
+        ],
+        "nakedStart": [
+            ""
+        ],
+        "orgasm": [
+            ""
+        ],
+        "escapeFail": [
+            ""
+        ],
+        "escapeSuccess": [
+            ""
+        ]
+    },
+    "releaseLines" : {
+        "m": [
+            ""
+        ],
+        "c": {
+            "male": [
+                ""
+            ],
+            "female" : [
+                ""
+            ]
+        },
+        "a" : [
+            ""
+        ]
+    },
+    "skills": [
+        {
+            "name": "복싱복싱",
+            "power": 1,
+            "type": "damage",
+            "chance": 1,
+            "lines": [
+                "버섯클 타이슨의 펀치가 당신을 향해 날아든다. 버섯클 타이슨은 당신과의 대련에 진지한 자세로 임하고 있다."
+            ]
+        },
+        {
+            "name": "버섯클 타이슨의 펀치",
+            "power": 2.5,
+            "type": "damage",
+            "chance": 0.5,
+            "lines": [
+                "누구에게나 계획은 있다. 처맞기 전까지는.<br><br>츠, 츠요잇!"
+            ]
+        }
+    ],
+    "exp" : 150
+}

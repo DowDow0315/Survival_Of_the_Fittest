@@ -202,6 +202,69 @@ window.FURNITURE_DATA = {
         name : "카인 사인 액자",
         type : "decoration",
         price : 5000
+    },
+
+    mushroomWhiteMiniature : {
+        id : "mushroomWhiteMiniature",
+        name : "하얀버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomBlueMiniature : {
+        id : "mushroomBlueMiniature",
+        name : "파란버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomRedMiniature : {
+        id : "mushroomRedMiniature",
+        name : "빨간버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomPinkMiniature : {
+        id : "mushroomPinkMiniature",
+        name : "핑크버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomOrangeMiniature : {
+        id : "mushroomOrangeMiniature",
+        name : "주황버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomGreenMiniature : {
+        id : "mushroomGreenMiniature",
+        name : "초록버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomYellowMiniature : {
+        id : "mushroomYellowMiniature",
+        name : "노란버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomPurpleMiniature : {
+        id : "mushroomPurpleMiniature",
+        name : "보라버섯맨 미니어처",
+        type : "decoration",
+        price : 1919
+    },
+
+    mushroomKingdomMiniature : {
+        id : "mushroomKingdomMiniature",
+        name : "머쉬룸킹덤 미니어처",
+        type : "decoration",
+        price : 191919191919191919
     }
 
 };

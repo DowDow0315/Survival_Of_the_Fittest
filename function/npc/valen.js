@@ -340,3 +340,84 @@ window.YEAR_END_LETTER_HANDLERS.valen = function(player, next){
         onEnd : next
     });
 };
+
+//버섯이벤트
+window.MUSHROOM_ROMANCE_HANDLERS.valen = function(player, next){
+    const mushroomType =
+        getMushroomRomanceType();
+
+    if (mushroomType === "tasty"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...이런. 업무 중이었는데... 그래도 이런 방해는 나쁘지 않군요.\"<br><br>" +
+                    "발렌은 마침 기분 전환이 필요했다고 말하며 당신의 옆으로 다가왔다. 그는 버섯을 보더니 정체도 모르는 것을 그냥 먹을 수는 없다고 말했다." +
+                    "<br><br>\"저는 아직 쓰러질 수 없으니까요. 그렇다고 당신을 쓰러뜨릴 수도 없고.\"<br><br>" +
+                    "발렌은 여유롭게 웃으며 자신의 마법칼을 만지작거렸다. 꿀꺽, 버섯맨들의 침 삼키는 소리가 들린다. 발렌은 상큼한 얼굴로 가고 싶을 때는 가면 된다고 말했다. 버섯맨들의 웅성거림이 커졌다...." +
+                    "<br><br>\"자, 그럼... 가고 싶어질 때까지는 여기에 있어 볼까요? 마침 당신에게 하고 싶었던 이야기가....\"<br><br>" +
+                    "버, 버서어어엇! 버섯의 비명과 함께 하얀 빛이 두 사람에게 쏟아져 내렸다. 이건 대체 무슨 마법, 발렌은 중얼거리며 버섯맨들 쪽으로 고개를 돌렸다. 버섯맨들은 급하게 빛의 강도를 올렸다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    passTime(player, 3);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    if (mushroomType === "poison"){
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "발렌은 안내문을 읽은 후 버섯을 보았다." +
+                    "<br><br>\"화려한 것에는 보통 독이 있는 법이죠.\"<br><br>" +
+                    "그는 그 버섯을 먹을 생각이 없어 보인다. 물론 당신을 먹일 생각도 없고. 발렌은 독버섯을 바닥에 던지더니 자신의 마법 칼의 등을 부드럽게 쓰다듬었다." +
+                    "<br><br>\"당신처럼요, {valenTitle}.\"<br><br>" +
+                    "버섯맨들의 침 넘어가는 소리가 들린다... 그들은 웅성거리더니 곧 하얀 빛을 내리쬐기 시작했다. 발렌은 이 마법은 어떤 마법인지 궁금하다고 말하며 언젠가는 자신이 밝히겠다고 말하며 웃었다.... 어쩐지 당신은 소름이 돋았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("valen", "fear", 3);
+                    changeNPCEmotion("valen", "dominance", 5);
+                    passTime(player, 5);
+                }
+            }
+        ], player, {
+            onEnd : next
+        });
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"아.\"<br><br>" +
+                "발렌은 남성기 모양의 버섯을 보자마자 불쾌하다는 듯 얼굴을 굳혔다. 그러더니 그는 당신에게 다가가서 당신의 눈을 한 손으로 가려주었다." +
+                "<br><br>\"당신과는 어울리지 않는 모양입니다. 신경쓰지 않는 걸로 하죠.\"<br><br>" +
+                "그는 버섯이 아니어도 나갈 방법은 많다고 말하며 당신을 자리에 앉혔다. 갇힌 건 신경쓰지도 않는지, 그는 아무렇지도 않게 일상 이야기를 이어갔다. 당신은 당신도 모르게 그의 이야기를 들으며 똑같이 자연스러워졌다. 버섯맨들이 뒤에서 웅성거리는 소리가 들린다." +
+                "<br><br>\"그나저나 머쉬룸 킹덤이 정말 존재하는 것일 줄은.... 배울 게 많을지도 모르겠군요.\"<br><br>" +
+                "버서서서서서섯! 단말마. 그리고 하얀 빛이 부리나케 당신과 발렌을 감싸 안았다. 발렌의 시선은 여전히 머쉬룸 킹덤을 살피고 있었다.... 마치 해부하듯이."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                changeNPCEmotion("valen", "fear", 3);
+                changeNPCEmotion("valen", "dominance", 5);
+                passTime(player, 5);
+            }
+        }
+    ], player, {
+        onEnd : next
+    });
+};

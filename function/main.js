@@ -1650,6 +1650,17 @@ const NPC_LUST_GROWTH_CONDITIONS = {
     ]
 };
 
+const NPC_LUST_GROWTH_STOP_FLAGS = {
+    yuri: "yuriDie",
+    nikolai: "nikolaiDie",
+    eric: "ericDie",
+    luke: "collapseLuke",
+    valen: "valenDie",
+    akasia: "akasiaDie",
+    pale: "paleDie",
+    sora: "soraDie"
+};
+
 function randomInt(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -1665,6 +1676,11 @@ function updateNpcDaily(player){
 
     Object.entries(NPC_DATA).forEach(([npcId, npc]) => {
         if (!npc.emotion) return;
+
+        const stopFlag = NPC_LUST_GROWTH_STOP_FLAGS[npcId];
+        if (stopFlag && player.flags?.[stopFlag]){
+            return;
+        }
 
         const conditions = NPC_LUST_GROWTH_CONDITIONS[npcId] || [];
 

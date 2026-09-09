@@ -610,7 +610,7 @@ function isLukeNoSmoking(player){
 }
 
 window.enterLukeInner = function(player){
-    enterDungeon(player, lukeInner);
+    enterDungeon(player, "lukeInner");
     return true;
 };
 

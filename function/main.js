@@ -1525,7 +1525,7 @@ const WEATHER = {
 const MONTHLY_WEATHER_CHANCE = {
     1:  { sunny: 75, rain: 5,  storm: 0,  snow: 20 },
     2:  { sunny: 80, rain: 5,  storm: 0,  snow: 15 },
-    3:  { sunny: 80, rain: 15, storm: 2,  snow: 3 },
+    3:  { sunny: 80, rain: 15, storm: 2,  snow: 0 },
     4:  { sunny: 78, rain: 20, storm: 2,  snow: 0 },
     5:  { sunny: 75, rain: 22, storm: 3,  snow: 0 },
     6:  { sunny: 60, rain: 32, storm: 8,  snow: 0 },

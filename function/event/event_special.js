@@ -1,3 +1,33 @@
+function getActiveEventName(player){
+    const date = getCalendarDate(player);
+
+    if (isChocoChocoPeriod(player)){
+        return "🍫";
+    }
+
+    if (isMushroomKingdomPeriod(player)){
+        return "🍄";
+    }
+
+    if (isSpringDancePeriod(player) || isSpringDanceDay(player)){
+        return "🩰";
+    }
+
+    if (isHarvestDay(player)){
+        return "🌾";
+    }
+
+    if (date.month === 1 && date.day === 1){
+        return "🧧";
+    }
+
+    if (date.month === 12 && date.day === 31){
+        return "💐";
+    }
+
+    return "";
+}
+
 // =========================
 // 초코초코 이벤트
 // =========================

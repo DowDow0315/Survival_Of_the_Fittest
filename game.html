@@ -22,6 +22,7 @@
                          <p id="nameText"></p>
                          <hr>
                          <p> 소지금 : <span id="goldText">0</span>G</p>
+                         <p> 이벤트 포인트 : <span id="eventPointText">0</span>🌹</p>
                          <div id="timeText"></div>
                          <p> 위치 : <span id="locationText">마을입구</span></p>
                     </div>
@@ -342,6 +343,7 @@
 
             //소지금표시
             document.getElementById("goldText").innerText = player.gold;
+            document.getElementById("eventPointText").innerText = Number(player.eventPoint) || 0;
             //시간표시
             const totalMinutes = player.time * 6;
             const hour = Math.floor(totalMinutes / 60) % 24;
@@ -353,22 +355,32 @@
             const minuteText = String(minute).padStart(2, "0");
             
             const weatherDisplay = getWeatherDisplay(player.weather);
+            const activeEventName = getActiveEventName(player);
 
-            document.getElementById("timeText").innerHTML =
-            `<div class="time-info">
+            document.getElementById("timeText").innerHTML = `<div class="time-info">
+                
+                ${activeEventName
+                ? `<div class="active-event">${activeEventName}</div>`
+                : ""
+                }
+
                 <div class="calendar-date">
-                    [${date.month}/${date.day}]
+                    <span class="date-year">${date.year}년</span>
+                    <span class="date-main">
+                        ${getSeasonIcon(date.month)}
+                        ${date.month}월 ${date.day}일
+                        </span>
+                </div>
+                
+                <div class="current-time">
+                    ${weekday}요일 · 🕰️ ${hourText}:${minuteText}
                     </div>
                     
-                    <div class="current-time">
-                        ${day}일차 ${weekday} | ${hourText}:${minuteText}
-                    </div>
-                        
                     <div class="weather-badge ${weatherDisplay.className}">
                         <span class="weather-icon">${weatherDisplay.icon}</span>
                         <span class="weather-name">${weatherDisplay.text}</span>
-                    </div>
-            </div>`;
+                        </div>
+                    </div>`;
 
             //장소표시
             if (player.dungeon?.active && window.DUNGEONS){
@@ -381,6 +393,13 @@
                 document.getElementById("locationText").innerText =
                 LOCATIONS[player.location]?.name || player.location;
             }
+        }
+
+        function getSeasonIcon(month){
+            if ([3, 4, 5].includes(month)) return "🌸";
+            if ([6, 7, 8].includes(month)) return "☀️";
+            if ([9, 10, 11].includes(month)) return "🍂";
+            return "❄️";
         }
 
         function equipItem(player, item){
@@ -2812,6 +2831,32 @@
 
 .harvest-tower-info {
     margin-top: 15px;
+    font-weight: bold;
+}
+
+.calendar-date{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    margin-bottom: 8px;
+}
+
+.date-year{
+    padding: 2px 7px;
+
+    color: #b8ffbf;
+    background: rgba(4, 151, 17, 0.18);
+    border: 1px solid rgba(80, 220, 95, 0.45);
+    border-radius: 10px;
+
+    font-size: 12px;
+}
+
+.date-main{
+    color: #7dff89;
+    font-size: 17px;
     font-weight: bold;
 }
 

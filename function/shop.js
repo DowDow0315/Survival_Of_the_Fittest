@@ -863,10 +863,6 @@ const EVENT_SHOP = {
     ]
 };
 
-window.openEventShop = function(player){
-    openEventShop(player);
-};
-
 function openEventShop(player){
     eventShopTab = "items"
     const modal = document.getElementById("shopModal");
@@ -1078,7 +1074,7 @@ window.tobias_exchangeEventPoint = function(player){
             class="story-input"
             min="1"
             max="${currentPoint}"
-            placeholder="환전할 꽃 개수"
+            placeholder=""
         >
         <br><br>
         <button id="eventPointExchangeBtn">환전한다</button>

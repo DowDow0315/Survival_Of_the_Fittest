@@ -91,6 +91,109 @@ window.FURNITURE_DATA = {
         }
     },
 
+    luxuryBed : {
+        id : "luxuryBed",
+        name : "고급 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.7,
+            trauma : -5,
+            time : 15
+        }
+    },
+    luxuryBed : {
+        id : "luxuryBed",
+        name : "고급 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.7,
+            trauma : -5,
+            time : 15
+        }
+    },
+
+    carrotWhiteBed : {
+        id : "carrotWhiteBed",
+        name : "하얀 당근 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
+    carrotBlackBed : {
+        id : "carrotBlackBed",
+        name : "검정 당근 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
+    carrotBlueBed : {
+        id : "carrotBlueBed",
+        name : "파란 당근 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
+    carrotGreenBed : {
+        id : "carrotGreenBed",
+        name : "독 당근 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
+    carrotBunnyBed : {
+        id : "carrotBunnyBed",
+        name : "당근과 토끼 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
+    carrotBunnyBunnyBed : {
+        id : "carrotBunnyBunnyBed",
+        name : "당근보다 토끼들이 더 많은 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.6,
+            hp : 0.6,
+            trauma : -10,
+            time : 15
+        }
+    },
+
     basicBath : {
         id : "basicBath",
         name : "욕조",
@@ -139,6 +242,56 @@ window.FURNITURE_DATA = {
         name : "니콜라이 인형",
         type : "doll",
         price : 1000000
+    },
+
+    blueRabbitDoll : {
+        id : "blueRabbitDoll",
+        name : "파란리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    redRabbitDoll : {
+        id : "redRabbitDoll",
+        name : "빨간리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    greenRabbitDoll : {
+        id : "greenRabbitDoll",
+        name : "초록리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    blackRabbitDoll : {
+        id : "blackRabbitDoll",
+        name : "검은리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    yellowRabbitDoll : {
+        id : "yellowRabbitDoll",
+        name : "노란리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    whiteRabbitDoll : {
+        id : "whiteRabbitDoll",
+        name : "하얀리본토끼 인형",
+        type : "doll",
+        price : 10000000
+    },
+    goldenRabbitDoll : {
+        id : "goldenRabbitDoll",
+        name : "황금토끼 인형",
+        type : "doll",
+        price : 1000000000
+    },
+
+    dericEricDoll : {
+        id : "dericEricDoll",
+        name : "데릭에릭 쌍둥이 인형",
+        type : "doll",
+        price : 10000000000
     },
 
     luxuryTeaSet : {

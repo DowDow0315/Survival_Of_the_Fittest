@@ -4300,6 +4300,25 @@ window.EVENTS.push({
     }
 });
 
+//토비아스
+window.EVENTS.push({
+    id: "tobias_firstMeeting",
+    once: true,
+
+    condition: (player) =>
+        ( player.location === "tobiasShop_upper" || player.location === "tobiasShop_under" ),
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["tobias"].scenes.tobias_firstMeeting,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //스토리이벤트
 window.EVENTS.push({
     id : "undercity_story_07_rebel_leader_head_event",

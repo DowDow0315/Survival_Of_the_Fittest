@@ -778,6 +778,25 @@ function changeGold(player, amount){
     localStorage.setItem("playerData", JSON.stringify(player));
 }
 
+function changeEventPoint(player, amount){
+    player.eventPoint = Number.isFinite(player.eventPoint)
+        ? player.eventPoint
+        : 0;
+
+    amount = Number(amount) || 0;
+    
+    if (amount < 0 && player.eventPoint < Math.abs(amount)){
+        return false;
+    }
+
+    player.eventPoint += amount;
+
+    updateStatusUI(player);
+    savePlayer(player);
+
+    return true;
+}
+
 
 function addGold(player, amount){
     player.gold += amount;
@@ -4044,7 +4063,306 @@ function getProgressBar(progress, target){
     + "○".repeat(target - progress);
 }
 
-//연산
+//화살표 리듬 게임
+function startArrowRhythmGame(player, options = {}){
+
+    const config = {
+        title: options.title || "리듬게임",
+        noteCount: options.noteCount ?? 20,
+        spawnInterval: options.spawnInterval ?? 700,
+        fallDuration: options.fallDuration ?? 2500,
+
+        perfectRange: options.perfectRange ?? 20,
+        goodRange: options.goodRange ?? 25,
+        okRange: options.okRange ?? 35,
+
+        perfectScore: options.perfectScore ?? 3,
+        goodScore: options.goodScore ?? 2,
+        okScore: options.okScore ?? 1,
+
+        onEnd: options.onEnd || null
+    };
+
+    const sceneBox = document.getElementById("storyText");
+    const choiceArea = document.getElementById("choiceArea");
+    const storyBtn = document.getElementById("storyBtn");
+
+    if (!sceneBox) return;
+
+    if (choiceArea) choiceArea.innerHTML = "";
+    if (storyBtn) storyBtn.style.display = "none";
+
+    let score = 0;
+    let spawned = 0;
+    let finished = 0;
+    let combo = 0;
+    let maxCombo = 0;
+
+    let ended = false;
+    let spawnTimer = null;
+
+    const activeNotes = [];
+
+    sceneBox.innerHTML = `
+        <div class="rhythm-game">
+
+            <h3>${config.title}</h3>
+
+            <div class="rhythm-info">
+                점수: <span id="rhythmScore">0</span>
+                &nbsp; | &nbsp;
+                콤보: <span id="rhythmCombo">0</span>
+            </div>
+
+            <div class="rhythm-board">
+
+                <div class="rhythm-lane" data-direction="←"></div>
+                <div class="rhythm-lane" data-direction="↓"></div>
+                <div class="rhythm-lane" data-direction="↑"></div>
+                <div class="rhythm-lane" data-direction="→"></div>
+
+                <div class="rhythm-judge-line">
+                    <span>←</span>
+                    <span>↓</span>
+                    <span>↑</span>
+                    <span>→</span>
+                </div>
+
+                <div id="rhythmJudgeText"></div>
+
+            </div>
+
+        </div>
+    `;
+
+    const board = sceneBox.querySelector(".rhythm-board");
+
+    function updateUI(){
+        const scoreEl = document.getElementById("rhythmScore");
+        const comboEl = document.getElementById("rhythmCombo");
+
+        if (scoreEl) scoreEl.textContent = score;
+        if (comboEl) comboEl.textContent = combo;
+    }
+
+    function showJudge(text){
+        const el = document.getElementById("rhythmJudgeText");
+        if (!el) return;
+
+        el.textContent = text;
+
+        el.className = "";
+        void el.offsetWidth;
+        el.className = `judge-${text.toLowerCase()}`;
+    }
+
+    function spawnNote(){
+
+        if (spawned >= config.noteCount){
+            clearInterval(spawnTimer);
+            return;
+        }
+
+        spawned++;
+
+        const arrows = Object.values(ARROW_KEYS);
+        const arrow =
+            arrows[Math.floor(Math.random() * arrows.length)];
+
+        const lane =
+            board.querySelector(
+                `.rhythm-lane[data-direction="${arrow}"]`
+            );
+
+        if (!lane) return;
+
+        const element = document.createElement("div");
+
+        element.className =
+            `rhythm-note ${getArrowClass(arrow)}`;
+
+        element.textContent = arrow;
+
+        lane.appendChild(element);
+
+        const note = {
+            arrow,
+            element,
+            hit: false,
+            startTime: performance.now()
+        };
+
+        activeNotes.push(note);
+
+        requestAnimationFrame(() => {
+            element.style.transition =
+                `top ${config.fallDuration}ms linear`;
+
+            element.style.top = "100%";
+        });
+
+        // 판정선을 완전히 지나가면 MISS
+        setTimeout(() => {
+
+            if (note.hit || ended) return;
+
+            note.hit = true;
+
+            combo = 0;
+            finished++;
+
+            showJudge("MISS");
+            updateUI();
+
+            element.remove();
+
+            checkEnd();
+
+        }, config.fallDuration + 200);
+    }
+
+    function handleKeyDown(e){
+
+        if (ended) return;
+
+        const arrow = ARROW_KEYS[e.key];
+
+        if (!arrow) return;
+
+        e.preventDefault();
+
+        const candidates = activeNotes.filter(note =>
+            !note.hit &&
+            note.arrow === arrow
+        );
+
+        if (candidates.length === 0){
+            combo = 0;
+            showJudge("MISS");
+            updateUI();
+            return;
+        }
+
+        const judgeLine =
+            board.querySelector(".rhythm-judge-line");
+
+        const judgeRect =
+            judgeLine.getBoundingClientRect();
+
+        const judgeY =
+            judgeRect.top +
+            judgeRect.height / 2;
+
+        let bestNote = null;
+        let bestDistance = Infinity;
+
+        candidates.forEach(note => {
+
+            const rect =
+                note.element.getBoundingClientRect();
+
+            const noteY =
+                rect.top +
+                rect.height / 2;
+
+            const distance =
+                Math.abs(noteY - judgeY);
+
+            if (distance < bestDistance){
+                bestDistance = distance;
+                bestNote = note;
+            }
+        });
+
+        if (!bestNote) return;
+
+        let gainedScore = 0;
+        let judge = null;
+
+        if (bestDistance <= config.perfectRange){
+            gainedScore = config.perfectScore;
+            judge = "PERFECT";
+        }
+        else if (bestDistance <= config.goodRange){
+            gainedScore = config.goodScore;
+            judge = "GOOD";
+        }
+        else if (bestDistance <= config.okRange){
+            gainedScore = config.okScore;
+            judge = "OK";
+        }
+        else {
+            // 아직 판정 범위 밖이면 무시
+            return;
+        }
+
+        bestNote.hit = true;
+
+        score += gainedScore;
+
+        combo++;
+        maxCombo = Math.max(maxCombo, combo);
+
+        finished++;
+
+        showJudge(judge);
+        updateUI();
+
+        bestNote.element.remove();
+
+        checkEnd();
+    }
+
+    function checkEnd(){
+
+        if (
+            spawned >= config.noteCount &&
+            finished >= config.noteCount
+        ){
+            endGame();
+        }
+    }
+
+    function endGame(){
+
+        if (ended) return;
+
+        ended = true;
+
+        clearInterval(spawnTimer);
+
+        window.removeEventListener(
+            "keydown",
+            handleKeyDown
+        );
+
+        activeNotes.forEach(note => {
+            note.element?.remove();
+        });
+
+        if (config.onEnd){
+            config.onEnd(player, {
+                score,
+                maxCombo,
+                noteCount: config.noteCount
+            });
+        }
+    }
+
+    window.addEventListener(
+        "keydown",
+        handleKeyDown
+    );
+
+    // 첫 노트
+    spawnNote();
+
+    spawnTimer = setInterval(
+        spawnNote,
+        config.spawnInterval
+    );
+}
+
 //연산
 function startMathMinigame(player, options = {}){
     const config = {
@@ -4131,8 +4449,158 @@ function startMathMinigame(player, options = {}){
             submitAnswer();
         }
     });
-
     input.focus();
+}
+//타이밍 미니 게임
+function startTimingGaugeGame(player, options = {}){
+    const config = {
+        title: options.title || "타이밍을 맞추세요!",
+        speed: options.speed ?? 0.7,
+        targetX: options.targetX ?? 50,
+        tolerance: options.tolerance ?? 10,
+
+        instruction: options.instruction || "SPACE를 눌러 멈추세요!",
+
+        extraHtml: options.extraHtml || "",
+
+        onSuccess: options.onSuccess || null,
+        onFail: options.onFail || null
+    };
+
+    const sceneBox = document.getElementById("storyText");
+    const choiceArea = document.getElementById("choiceArea");
+    const storyBtn = document.getElementById("storyBtn");
+
+    if (!sceneBox) return;
+
+    if (choiceArea) choiceArea.innerHTML = "";
+    if (storyBtn) storyBtn.style.display = "none";
+
+    const targetLeft = Math.max(
+        0,
+        config.targetX - config.tolerance
+    );
+
+    const targetWidth = Math.min(
+        100 - targetLeft,
+        config.tolerance * 2
+    );
+
+    sceneBox.innerHTML = `
+        <div class="timing-game">
+
+            <h3>${config.title}</h3>
+
+            <div class="timing-track">
+
+                <div
+                    class="timing-target"
+                    style="
+                        left:${targetLeft}%;
+                        width:${targetWidth}%;
+                    "
+                ></div>
+
+                <div
+                    class="timing-cursor"
+                    id="timingCursor"
+                ></div>
+            </div>
+
+            ${config.extraHtml}
+
+            <div class="timing-instruction">
+                ${config.instruction}
+            </div>
+
+        </div>
+    `;
+
+    const cursor = document.getElementById("timingCursor");
+
+    let position = 0;
+    let direction = 1;
+    let lastTime = performance.now();
+
+    let animationId = null;
+    let ended = false;
+
+    function animate(now){
+        if (ended) return;
+
+        const delta = now - lastTime;
+        lastTime = now;
+
+        position +=
+            direction *
+            config.speed *
+            delta / 10;
+
+        if (position >= 100){
+            position = 100;
+            direction = -1;
+        }
+
+        else if (position <= 0){
+            position = 0;
+            direction = 1;
+        }
+
+        cursor.style.left = `${position}%`;
+
+        animationId = requestAnimationFrame(animate);
+    }
+
+    function stopGame(){
+        if (ended) return;
+
+        ended = true;
+
+        cancelAnimationFrame(animationId);
+        window.removeEventListener("keydown", handleKeyDown);
+
+        const distance =
+            Math.abs(position - config.targetX);
+
+        const success =
+            distance <= config.tolerance;
+
+        if (success){
+            if (config.onSuccess){
+                config.onSuccess(player, {
+                    position,
+                    targetX: config.targetX,
+                    distance
+                });
+            }
+        }
+
+        else {
+            if (config.onFail){
+                config.onFail(player, {
+                    position,
+                    targetX: config.targetX,
+                    distance
+                });
+            }
+        }
+    }
+
+    function handleKeyDown(e){
+        if (ended) return;
+        if (
+            e.code !== "Space" &&
+            e.key !== " "
+        ){
+            return;
+        }
+
+        e.preventDefault();
+        stopGame();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    animationId = requestAnimationFrame(animate);
 }
 
 //흉물 공식

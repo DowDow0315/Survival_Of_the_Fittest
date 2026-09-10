@@ -131,6 +131,10 @@ function normalizePlayer(player){
     player.exp = Number.isFinite(player.exp) ? player.exp : 0;
     player.statPoints = Number.isInteger(player.statPoints) ? player.statPoints : 0;
 
+    player.eventPoint = Number.isFinite(player.eventPoint)
+    ? player.eventPoint
+    : 0;
+
     player.derivedStats = player.derivedStats || {};
     player.flags = player.flags || {};
     player.lastWeeklyPaymentWeek = Number.isInteger(player.lastWeeklyPaymentWeek)

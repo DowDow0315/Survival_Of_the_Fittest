@@ -20,11 +20,13 @@ const LOCATION_SCENE_BUILDERS = {
     goblinCave : buildGoblinCaveScene,
     richTownEntrance : buildRichTownEntranceScene,
     richTownStreet : buildRichTownStreetScene,
+    gloryStreet : buildGloryStreetScene,
     royalForge : buildRoyalForgeScene,
     royalHospital : buildRoyalHospitalScene,
     royalHotel: buildRoyalHotelScene,
     arena : buildArenaScene,
     twinsMansion : buildTwinsMansionScene,
+    nobleSquare : buildNobleSquareScene,
     heavenPalace : buildHeavenPalaceScene,
     heavenValenRoom : buildHeavenValenRoomScene,
     theater : buildTheaterScene,
@@ -33,7 +35,9 @@ const LOCATION_SCENE_BUILDERS = {
     deepForest_act3 : buildDeepForest_act3Scene,
     townEntrance_act3 : buildTownEntrance_act3Scene,
     underHouse : buildUnderHouseScene,
-    upperHouse : buildUpperHouseScene
+    upperHouse : buildUpperHouseScene,
+    tobiasShop_under : buildTobiasShopScene,
+    tobiasShop_upper : buildTobiasShopScene
 };
 
 function getLocationScene(player){
@@ -113,6 +117,34 @@ function buildTownStreetScene(player, loc, randomDesc){
         });
     }
 
+    if (isHarvestDay(player)){
+        choices.push({
+            text : "배추가 달아난다!",
+            action : () => startHarvestChase(player, "cabbage")
+        });
+    }
+
+    if (isHarvestDay(player)){
+        choices.push({
+            text : "감자가 달아난다!",
+            action : () => startHarvestChase(player, "potato")
+        });
+    }
+
+    if (isHarvestDay(player)){
+        choices.push({
+            text : "고추가 달아난다!",
+            action : () => startHarvestChase(player, "pepper")
+        });
+    }
+
+    if (isHarvestDay(player)){
+        choices.push({
+            text : "꼬, 꼬, 꼬끼~~~~오!",
+            action : () => startHarvestRodeo(player)
+        });
+    }
+
     choices.push(
         {
             text: "마을 입구로 간다",
@@ -141,6 +173,7 @@ function buildTownStreetScene(player, loc, randomDesc){
         { text: "주점으로 간다", action: "move_tavern" },
         { text: "빈민가 거리로 간다", action: "move_darkStreet" },
         { text: "낡은 글로리홀로 간다", action: "move_gloryHole" },
+        { text: "토비아스의 임시 노점으로 간다", action: "move_tobiasShop_under" },
         { text: "지하철을 타러 간다", action: "move_subway" }
     );
 
@@ -1981,6 +2014,32 @@ function buildRichTownStreetScene(player, loc, randomDesc){
     ];
 }
 
+function buildGloryStreetScene(player, loc, randomDesc){
+    const choices =
+        Object.keys(loc.connections).map(dest => ({
+            text : `${LOCATIONS[dest].name}(으)로 이동한다.`,
+            action : "move_" + dest
+        }));
+    
+    if (isHarvestDay(player)){
+        choices.push({
+            text: "풍요의 탑을 쌓는다.",
+            action: () => startHarvestTower(player)
+        });
+    }
+
+    return [
+        {
+            type : "text",
+            value : `${randomDesc}<br><br>어디로 갈까?`
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ];
+}
+
 function buildRoyalForgeScene(player, loc, randomDesc){
     return [
         {
@@ -2543,6 +2602,94 @@ window.rest_twinsMansion = function(player){
     );
 };
 
+function buildNobleSquareScene(player, loc, randomDesc){
+    const choices = [];
+    
+    const date = getCalendarDate(player);
+    const dance = normalizeSpringDance(player);
+    if (
+        date.month === 3 &&
+        date.day >= 20 &&
+        date.day <= 25
+    ){
+        if (!dance.partner){
+            choices.push({
+                text: "무도회 상대를 찾는다",
+                action: "springDance_findPartner"
+            });
+
+        }
+        else {
+            const npc = NPC_DATA[dance.partner];
+            const npcName = npc?.name || dance.partner;
+            choices.push({
+                text: `${npcName}을(를) 찾는다`,
+                action: "springDance_findPartnerNpc"
+            });
+        }
+    }
+    if (
+        date.month === 3 &&
+        date.day === 26 &&
+        !dance.contestDone
+    ){
+        choices.push({
+            text: "무도회에 참가한다",
+            action: "springDance_contest"
+        });
+    }
+    
+
+    choices.push({
+        text: "나간다",
+        action: "move_gloryStreet"
+    });
+
+    return [
+        {
+            type: "text",
+            value: `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type: "choice",
+            choices
+        }
+    ];
+}
+
+window.springDance_findPartner = function(player){
+    openSpringDancePartnerSelection(player);
+};
+
+window.springDance_findPartnerNpc = function(player){
+    const dance = normalizeSpringDance(player);
+    if (!dance.partner) return;
+    const npc = NPC_DATA[dance.partner];
+    if (!npc) return;
+    const period = getTimePeriod(player);
+    if (
+        period !== "afternoon" &&
+        period !== "night"
+    ){
+        showSingleTextScene(
+            `${npc.name}은(는) 지금 자리에 없는 것 같다.`,
+            player
+        );
+        return;
+    }
+
+    const date = getCalendarDate(player);
+
+    if (dance.practiceDays.includes(date.day)){
+        showSingleTextScene(
+            `${npc.name}와(과)는 오늘 이미 충분히 춤을 연습했다.`,
+            player
+        );
+        return;
+    }
+    startSpringDancePracticeScene(player, dance.partner);
+};
+
 function buildHeavenPalaceScene(player, loc, randomDesc){
     const choices = [];
 
@@ -2628,6 +2775,37 @@ window.rest_valenRoom = function(player){
         }
     );
 };
+
+function buildTobiasShopScene(player, loc, randomDesc){
+    const isUpper = player.location === "tobiasShop_upper";
+
+    const choices = [
+        {
+            text : "토비아스의 보급품을 살펴본다",
+            action : "openEventShop"
+        },
+        {
+            text : "꽃을 환전한다",
+            action : "tobias_exchangeEventPoint"
+        },
+        {
+            text : "노점에서 나간다",
+            action : isUpper
+                ? "move_richTownStreet"
+                : "move_townStreet"
+        }
+    ];
+    return [
+        {
+            type : "text",
+            value : `${randomDesc}<br><br>무엇을 할까?`
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ];
+}
 
 function getGloryHoleScene(player){
     return [

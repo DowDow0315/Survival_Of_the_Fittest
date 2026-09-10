@@ -1,6 +1,8 @@
 let shopTab = "buy";
 let juliangBuyTab = "items";
 let pendingSellQuantity = null;
+let eventShopTab = "items";
+const EVENT_POINT_EXCHANGE_RATE = 500;
 
 function getSellPrice(item){
     if (!item) return 0;
@@ -803,4 +805,349 @@ function sellItems(player, itemKey, amount){
 
 window.open_juliangShop = function(player){
     openShop("juliangShop", player);
+};
+
+
+
+//이벤트 꽃상점
+const EVENT_SHOP = {
+    name: "꽃 상점",
+        items: [
+        {
+            item: ITEMS.consumable.sensitivityADownPotion,
+            price: 15
+        },
+        {
+            item: ITEMS.consumable.sensitivityBDownPotion,
+            price: 15
+        },
+        {
+            item: ITEMS.consumable.sensitivityCDownPotion,
+            price: 15
+        },
+        {
+            item: ITEMS.consumable.sensitivityMDownPotion,
+            price: 15
+        }
+    ],
+
+    furniture: [
+        {
+            id: "carrotWhiteBed",
+            price: 1500
+        },
+        {
+            id: "carrotBlackBed",
+            price: 1500
+        },
+        {
+            id: "carrotBlueBed",
+            price: 1500
+        },
+        {
+            id: "carrotGreenBed",
+            price: 1500
+        },
+        {
+            id: "carrotBunnyBed",
+            price: 2500
+        },
+        {
+            id: "carrotBunnyBunnyBed",
+            price: 5000
+        },
+        {
+            id : "dericEricDoll",
+            price : 10000
+        }
+    ]
+};
+
+window.openEventShop = function(player){
+    openEventShop(player);
+};
+
+function openEventShop(player){
+    eventShopTab = "items"
+    const modal = document.getElementById("shopModal");
+    modal.style.display = "flex";
+    renderEventShop(player);
+}
+
+function renderEventShop(player){
+    const box = document.getElementById("shopContent");
+    box.innerHTML = "";
+
+    const title = document.createElement("h3");
+    title.innerText = EVENT_SHOP.name;
+    box.appendChild(title);
+
+    const pointText = document.createElement("p");
+    pointText.innerHTML = `<strong>보유 꽃 : ${(player.eventPoint || 0).toLocaleString()}꽃</strong>`;
+    box.appendChild(pointText);
+    // 탭
+    const tabWrap = document.createElement("div");
+    tabWrap.className = "shop-tabs";
+    const itemTab = document.createElement("button");
+    itemTab.innerText = "소모품";
+    itemTab.className =
+        eventShopTab === "items"
+            ? "active-tab"
+            : "";
+    itemTab.onclick = () => {
+        eventShopTab = "items";
+        renderEventShop(player);
+    };
+
+    const furnitureTab = document.createElement("button");
+    furnitureTab.innerText = "가구";
+    furnitureTab.className =
+        eventShopTab === "furniture"
+            ? "active-tab"
+            : "";
+    furnitureTab.onclick = () => {
+        eventShopTab = "furniture";
+        renderEventShop(player);
+    };
+
+    tabWrap.appendChild(itemTab);
+    tabWrap.appendChild(furnitureTab);
+
+    box.appendChild(tabWrap);
+
+    const listWrap = document.createElement("div");
+    listWrap.className = "shop-list";
+
+    if (eventShopTab === "items"){
+        EVENT_SHOP.items.forEach(shopItem => {
+            const item = shopItem.item;
+            if (!item) return;
+
+            const div = document.createElement("div");
+            div.className = "shop-item";
+
+            const info = document.createElement("div");
+            info.className = "shop-item-info";
+
+            const name = document.createElement("strong");
+
+            name.innerText = item.name;
+            info.appendChild(name);
+
+            const price = document.createElement("p");
+            price.innerText = `${shopItem.price}꽃`;
+            info.appendChild(price);
+
+            const desc = document.createElement("p");
+            desc.innerText = `사용 시 해당 민감도 -${item.value}`;
+            info.appendChild(desc);
+            div.appendChild(info);
+
+            const buyBtn = document.createElement("button");
+            buyBtn.innerText = "구매";
+            buyBtn.onclick = () => {
+                buyEventItem(
+                    player,
+                    shopItem
+                );
+                renderEventShop(player);
+            };
+            div.appendChild(buyBtn);
+            listWrap.appendChild(div);
+        });
+    }
+
+    else if (eventShopTab === "furniture"){
+        EVENT_SHOP.furniture.forEach(shopItem => {
+            const furniture = FURNITURE_DATA[shopItem.id];
+            if (!furniture) return;
+            const div = document.createElement("div");
+            div.className = "shop-item";
+            const info = document.createElement("div");
+            info.className = "shop-item-info";
+            const name = document.createElement("strong");
+            name.innerText = furniture.name;
+            info.appendChild(name);
+            const price = document.createElement("p");
+            price.innerText = `${shopItem.price.toLocaleString()}꽃`;
+            info.appendChild(price);
+            const desc = document.createElement("p");
+            if (furniture.type === "bed"){
+                desc.innerText =
+                    "집에 배치할 수 있는 침대다.";
+            } else {
+                desc.innerText =
+                    "집에 배치할 수 있는 가구다.";
+            }
+            info.appendChild(desc);
+            div.appendChild(info);
+            const buyBtn = document.createElement("button");
+            buyBtn.innerText = "구매";
+            buyBtn.onclick = () => {
+                buyEventFurniture(
+                    player,
+                    shopItem
+                );
+                renderEventShop(player);
+            };
+            div.appendChild(buyBtn);
+            listWrap.appendChild(div);
+        });
+    }
+    box.appendChild(listWrap);
+}
+
+function buyEventItem(player, shopItem){
+    const item = shopItem.item;
+    if (!item) return;
+    const currentPoint =
+        Number(player.eventPoint) || 0;
+    if (currentPoint < shopItem.price){
+        addLog("꽃이 부족하다.");
+        return;
+    }
+    const paid =
+        changeEventPoint(
+            player,
+            -shopItem.price
+        );
+    if (!paid) return;
+    addItem(
+        player,
+        cloneItem(item)
+    );
+    savePlayer(player);
+    addLog(
+        `${item.name} 구매! -${shopItem.price}꽃`
+    );
+}
+
+function buyEventFurniture(
+    player,
+    shopItem
+){
+    const furniture =
+        FURNITURE_DATA[shopItem.id];
+    if (!furniture) return;
+
+    const currentPoint = Number(player.eventPoint) || 0;
+    if (currentPoint < shopItem.price){
+        addLog(
+            "꽃이 부족하다."
+        );
+        return;
+    }
+    const paid = changeEventPoint(
+        player,
+            -shopItem.price
+        );
+    if (!paid) return;
+    giveFurniture(
+        player,
+        shopItem.id
+    );
+    addLog(
+        `${furniture.name} 구매! -${shopItem.price}꽃`
+    );
+}
+
+//토비아스 환전 함수
+window.tobias_exchangeEventPoint = function(player){
+    const storyText = document.getElementById("storyText");
+    const choiceArea = document.getElementById("choiceArea");
+    const storyBtn = document.getElementById("storyBtn");
+
+    const currentPoint = Number(player.eventPoint) || 0;
+
+    storyBtn.style.display = "none";
+
+    storyText.innerHTML = `
+        토비아스는 당신이 내민 꽃을 바라보았다.
+        <br><br>
+        "몇 개."
+        <br><br>
+        보유 꽃 : <strong>${currentPoint.toLocaleString()}꽃</strong>
+        <br>
+        환율 : <strong>1꽃 = ${EVENT_POINT_EXCHANGE_RATE.toLocaleString()}G</strong>
+    `;
+
+    choiceArea.innerHTML = `
+        <input
+            id="eventPointExchangeInput"
+            type="number"
+            class="story-input"
+            min="1"
+            max="${currentPoint}"
+            placeholder="환전할 꽃 개수"
+        >
+        <br><br>
+        <button id="eventPointExchangeBtn">환전한다</button>
+        <button id="eventPointExchangeCancelBtn">그만둔다</button>
+    `;
+
+    const input =
+        document.getElementById("eventPointExchangeInput");
+
+    const exchangeBtn =
+        document.getElementById("eventPointExchangeBtn");
+
+    const cancelBtn =
+        document.getElementById("eventPointExchangeCancelBtn");
+
+    function exchange(){
+        const amount = Number(input.value);
+
+        if (
+            !Number.isInteger(amount) ||
+            amount < 1
+        ){
+            addLog("1 이상의 정수를 입력해주세요.");
+            input.focus();
+            return;
+        }
+
+        if (amount > player.eventPoint){
+            addLog("꽃이 부족하다.");
+            input.focus();
+            return;
+        }
+
+        const gold =
+            amount * EVENT_POINT_EXCHANGE_RATE;
+
+        const paid =
+            changeEventPoint(player, -amount);
+
+        if (!paid) return;
+
+        addGold(player, gold);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value :
+                    `토비아스는 꽃 ${amount.toLocaleString()}개를 받아들고 ` +
+                    `${gold.toLocaleString()}G를 건넸다.`
+            }
+        ], player);
+    }
+
+    exchangeBtn.onclick = exchange;
+
+    cancelBtn.onclick = () => {
+        startScene(
+            getLocationScene(player),
+            player
+        );
+    };
+
+    input.addEventListener("keydown", e => {
+        if (e.key === "Enter"){
+            e.preventDefault();
+            exchange();
+        }
+    });
+
+    input.focus();
 };

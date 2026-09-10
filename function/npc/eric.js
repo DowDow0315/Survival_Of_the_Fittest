@@ -177,6 +177,16 @@ registerActions("eric", {
             }
         );
     },
+
+    yourConfession_03_ask : (player) => {
+        startScene(
+            NPC_DATA["eric"].scenes.eric_yourConfession_03_ask,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    },
     
     talk: (player) => {
         if (!isEricAvailable(player)){

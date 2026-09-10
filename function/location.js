@@ -459,6 +459,7 @@ const LOCATIONS ={
             darkStreet : 4,
             subway : 5,
             gloryHole : 4,
+            tobiasShop_under : 5,
         }
     },
     shop:{
@@ -843,7 +844,8 @@ const LOCATIONS ={
             gloryStreet : 5,
             royalHospital : 3,
             royalForge : 3,
-            royalHotel : 3
+            royalHotel : 3,
+            tobiasShop_upper : 5
         }
     },
     royalHospital : {
@@ -1274,7 +1276,52 @@ const LOCATIONS ={
         },
         collectorChance: 0,
         sleepDanger: 0
-    }
+    },
+
+    tobiasShop_under : {
+        name : "토비아스의 임시 노점(하류도시)",
+        desc : {
+            dawn : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 음울한 목소리로 흥얼거리다가 당신의 존재를 인지하자 입을 닫았다."
+            ],
+            morning : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 빛은 싫다고 중얼거렸다. <br><br>\"너무 많은 게 보여...\""
+            ],
+            afternoon : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 음울한 목소리로 흥얼거리다가 당신의 존재를 인지하자 말을 멈췄다."
+            ],
+            night : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 낮보다 밤에 더 편안한 표정을 짓고 있다."
+            ]
+        },
+        collectorChance: 0,
+        connections : {
+            townStreet : 5
+        }
+    },
+
+    tobiasShop_upper : {
+        name : "토비아스의 임시 노점(상류도시)",
+        desc : {
+            dawn : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 음울한 목소리로 흥얼거리다가 당신의 존재를 인지하자 입을 닫았다."
+            ],
+            morning : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 날아들어온 새에게 아침부터 새 모이를 주고 있다."
+            ],
+            afternoon : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 천막의 그림자 속에서 벗어나지 않고 있다."
+            ],
+            night : [
+                "토비아스의 임시 노점이다. <br><br>토비아스는 영광의 거리는 밤에도 황금빛으로 번쩍번쩍해서 싫다고 말했다."
+            ]
+        },
+        collectorChance: 0,
+        connections : {
+            richTownStreet : 5
+        }
+    },
+    
 }
 
 //ACT3 이후

@@ -13,6 +13,10 @@ function getActiveEventName(player){
         return "🩰";
     }
 
+    if (isEatEatEatPeriod(player) || isEatEatEatDay(player)){
+        return "🍙";
+    }
+
     if (isHarvestDay(player)){
         return "🌾";
     }
@@ -34,7 +38,6 @@ function getActiveEventName(player){
 
 function isChocoChocoPeriod(player){
     const date = getCalendarDate(player);
-
     return (
         (date.month === 2 && date.day >= 8 && date.day <= 14) ||
         (date.month === 11 && date.day >= 5 && date.day <= 11)
@@ -180,7 +183,6 @@ window.EVENTS.push({
 
 function isNewYearDay(player){
     const date = getCalendarDate(player);
-
     return date.month === 1 && date.day === 1;
 }
 
@@ -2859,5 +2861,22 @@ function finishHarvestTower(player, state){
                     player
                 )
         }
+    );
+}
+
+// =========================
+// 많이 먹기 대회 이벤트
+// =========================
+function isEatEatEatPeriod(player){
+    const date = getCalendarDate(player);
+    return (
+        (date.month === 5 && date.day >= 1 && date.day <= 4)
+    );
+}
+
+function isEatEatEatDay(player){
+    const date = getCalendarDate(player);
+    return (
+        (date.month === 5 && date.day === 5)
     );
 }

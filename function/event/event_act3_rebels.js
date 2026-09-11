@@ -1923,3 +1923,255 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "common_route_quest_09_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.act3_quest_09_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_done_day + 7),
+
+    action : (player) => {
+        player.flags.act3_quest_09_after_01 = true;
+        player.flags.act3_quest_09_after_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구에서 사람들이 아우성치는 것이 보인다. 그들은 모두 누군가의 이름을 부르며, 그들이 살아있다고 주장했다. 경비병과 경계병은 마을 입구 밖으로 나가려는 사람들을 막아서며 가만히 있으라고 윽박질렀다. 하지만 사람들의 아우성은 통제할 수 없었다." +
+                    "<br><br>\"다들 반란군이 되려는 거냐!\"<br><br>" +
+                    "한번에 어딘가로 가려는 사람들의 동향에 몇몇 경비병들과 경계병들은 그들이 반란분자일 수도 있다는 생각을 한 것 같다. 반란군이라는 단어에도 사람들은 멈추지 않았다." +
+                    "<br><br>\"내 딸이 나를 기다리고 있다고!\"<br><br>\"내 아들은 아직 살아있어!\"<br><br>\"어머니께서 날 부르셨어!\"<br><br>" +
+                    "경비병, 경계병들이 시민들을 막을수록 시민들의 폭력 수위는 올라갔다. 으악, 결국 몇 명은 신음 소리를 흘리며 뒤로 물러났다. 독기가 가득 서린 채로 경계병들이 시민들에게 달려들었다." +
+                    "<br><br><br><br><span class='log-valen'>\"보내십시오.\"</span><br><br><br><br>" +
+                    "시민들을 제압하려고 했던 경계병들의 움직임이 멈췄다. 경계병들과 함께 시민들을 무차별적으로 진압하려고 했던 경비병들의 움직임도 멈췄다. 그들의 움직임이 멈추자 시민들은 썰물처럼 마을 밖으로 빠져나갔다." +
+                    "<br><br>\"원래 저희는 마을을 지키는 거지, 마을 밖으로 나가는 사람들까지 지키지는 않지 않았습니까.\"<br><br>" +
+                    "에이든은 차가운 표정으로 사라지는 마을 사람들의 뒷모습을 바라보았다. 백색 군인들이었다면 마을 입구 밖으로 나가는 시민들을 막을 수 있었을지도 모른다." +
+                    "<br><br>...하지만 그들은 막지 않았다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_09_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownStreet" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.act3_quest_09_after_01 &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_after_01_day + 7),
+
+    action : (player) => {
+        player.flags.act3_quest_09_after_02 = true;
+        player.flags.act3_quest_09_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...그 소문 들었어? 아카시아 님이 공식 석상에서 쓰러지셨잖아.\"<br><br>" +
+                    "\"하루도 지나지 않아서 일어나셨잖아. 큰일은 아니겠지.\"<br><br>" +
+                    "상류도시 귀족들이 떠들다가 당신의 인기척이 느껴지자 싹 입을 닫았다. 그들은 서로의 눈치를 살피더니 헛기침을 하면서 각자 다른 길을 갔다." +
+                    "<br><br>그리고 문득, 당신은 뒤에서 소름끼치는 시선을 느꼈다.<br><br>" +
+                    "고개를 돌리자 라파엘이 서 있었다. 동공이 보이지 않는 그의 하얀색 눈동자는 당신이 아니라 흩어진 귀족들을 훑고 있었다. 당신과 시선이 마주친 그는 평소와 같은 따뜻한 미소를 지어 보이며 요새 힘든 일은 없냐고 물었다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 힘든 일은 없다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그러십니까.\"<br><br>" +
+                                    "그는 당신의 표정을 천천히 살피더니 당신에게는 지금까지 많은 일이 있었던 것 같다고 말했다." +
+                                    "<br><br>\"당신이 강한 사람이라 정말로 괜찮다면 상관이 없지만.... 괜찮은 척하는 거라면.\"<br><br>" +
+                                    "라파엘은 당신을 응시했다. 그의 하얀 눈동자는 당신을 흔들림 없이 담고 있다." +
+                                    "<br><br>\"제 마음이 아파질 것 같군요.\"<br><br>" +
+                                    "라파엘은 상담을 하고 싶다면 언제라도 병원을 두드려 달라고 말한 후 걸어갔다. "
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("raphael", "affection", -1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 최근에 있었던 힘든 일에 대해 말해주었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "라파엘은 당신의 이야기를 관심 있게 들어주었다. 당신의 이야기가 끝나자 라파엘은 이런 이야기는 길거리가 아니라 아늑한 방에서 들었으면 더 좋았을 것 같다는 이야기를 했다." +
+                                    "<br><br>\"언젠가 당신이 병원에 찾아와 더 많은 이야기를 들려주시길 기다리겠습니다. 당신도 알다시피, 제 병원은 누구에게나 열려 있으니까요.\"<br><br>" +
+                                    "라파엘은 당신에게 인사를 한 후 병원 쪽으로 사라졌다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("raphael", "affection", 5);
+                                    player.flags.talkToRaphael = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_09_after_03_rapahel",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "royalHospital" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.act3_quest_09_after_02 &&
+        player.flags?.talkToRaphael,
+
+    action : (player) => {
+        player.flags.act3_quest_09_after_03 = true;
+        savePlayer(player);
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 라파엘의 뒤를 따라 병원에 들어섰다. 라파엘은 병원을 찾아준 사람들에게 하나하나 인사를 하면서 복도의 더 깊은 곳으로 발걸음을 옮겼다. 그는 복도의 마지막 방 앞에서 발걸음을 멈추더니 붉은색 점을 밟았다. 끼이익, 소리와 함께 아래가 열렸다. 당신은 설마 이런 곳에 지하실이 있을 줄은 상상도 하지 못했다." +
+                    "<br><br>\"...{playerName}.\"<br><br>" +
+                    "라파엘이 당신을 돌아보았다. 그는 인자한 미소를 지어보이며 궁금증이 너무 많은 고양이에게는 변이 생기는 법이라고 말했다." +
+                    "<br><br>\"이 지하는 어린 양이 볼 만한 곳이 아닙니다. 아카시아 님이 궁금하신 거겠죠. 그분은 원래 쓰러지실 운명이었습니다.\"<br><br>" +
+                    "라파엘이 붉은색 점을 밟자 다시 지하의 문이 닫혔다." +
+                    "<br><br>\"물론 아직 완전히 쓰러지신 건 아니지만. 저는 환자에게 최선을 다할 생각입니다.\"<br><br>" +
+                    "...당신이 붉은색 점을 응시하고 있자 라파엘은 웃으며 이건 자신이 밟아야만 움직이는 문이라고 말했다." +
+                    "<br><br>\"자, 이제 돌아갑시다. 말을 잘 듣는 착한 양에게 보여주는 선물은 여기까지입니다.\"<br><br>" +
+                    "당신은 라파엘의 손에 떠밀려 다시 돌아가야만 했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_09_after_03_raphaelNo",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "royalHospital" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.act3_quest_09_after_02 &&
+        !player.flags?.talkToRaphael,
+
+    action : (player) => {
+        player.flags.act3_quest_09_after_03 = true;
+        savePlayer(player);
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"....\"<br><br>" +
+                    "당신은 라파엘의 뒤를 쫓았다. 라파엘은 당신을 돌아보지도 않았지만, 당신의 예상보다 빠르게 환자들 사이에 섞여들었다. 당신은 그를 끝까지 쫓아가려고 했지만 결국 그를 놓치고 말았다." +
+                    "<br><br>\"진료 일정이 없으면 나가주십시오.\"<br><br>" +
+                    "병원 경비병이 인상을 쓰더니 당신을 병원 입구 쪽으로 밀어버렸다. 당신은 결국 아무것도 알아낼 수 없었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_09_after_03_raphael",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "royalHospital" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.act3_quest_09_after_02 &&
+        player.flags?.talkToRaphael,
+
+    action : (player) => {
+        player.flags.act3_quest_09_after_03 = true;
+        savePlayer(player);
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 라파엘의 뒤를 따라 병원에 들어섰다. 라파엘은 병원을 찾아준 사람들에게 하나하나 인사를 하면서 복도의 더 깊은 곳으로 발걸음을 옮겼다. 그는 복도의 마지막 방 앞에서 발걸음을 멈추더니 붉은색 점을 밟았다. 끼이익, 소리와 함께 아래가 열렸다. 당신은 설마 이런 곳에 지하실이 있을 줄은 상상도 하지 못했다." +
+                    "<br><br>\"...{playerName}.\"<br><br>" +
+                    "라파엘이 당신을 돌아보았다. 그는 인자한 미소를 지어보이며 궁금증이 너무 많은 고양이에게는 변이 생기는 법이라고 말했다." +
+                    "<br><br>\"이 지하는 어린 양이 볼 만한 곳이 아닙니다. 아카시아 님이 궁금하신 거겠죠. 그분은 원래 쓰러지실 운명이었습니다.\"<br><br>" +
+                    "라파엘이 붉은색 점을 밟자 다시 지하의 문이 닫혔다." +
+                    "<br><br>\"물론 아직 완전히 쓰러지신 건 아니지만. 저는 환자에게 최선을 다할 생각입니다.\"<br><br>" +
+                    "...당신이 붉은색 점을 응시하고 있자 라파엘은 웃으며 이건 자신이 밟아야만 움직이는 문이라고 말했다." +
+                    "<br><br>\"자, 이제 돌아갑시다. 말을 잘 듣는 착한 양에게 보여주는 선물은 여기까지입니다.\"<br><br>" +
+                    "당신은 라파엘의 손에 떠밀려 다시 돌아가야만 했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_09_after_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        player.flags?.act3_quest_09_after_03 &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_after_02_day + 10),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_09_after_04 = true;
+        player.flags.rebel_route_quest_09_after_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 들어오자 반란군들이 모여 있었다. 그들이 당신이 오자마자 당신과 함께 유리의 방으로 들어간 후 문을 닫았다. 그들은 엿듣고 있는 쉘터의 아이들이 있나 없나 기척을 살핀 후 작은 목소리로 속삭였다." +
+                    "<br><br>\"아카시아가 또 쓰러졌다고 합니다. 현재 상류도시에 공식적으로 밝히지는 않았습니다.\"<br><br>" +
+                    "\"소란이 일어날까봐 그러는 거겠지. 발렌의 시선이 아카시아에게 가있는 동안 우리는 아카시아의 것을 파야 해.\"<br><br>" +
+                    "그들은 아카시아가 쓰러진 게 우연이 아닐 거라고 말했다." +
+                    "<br><br>\"아카시아는 상류도시를 세운 설립자 가문으로 언제나 의문점이 많았죠. 지금이야말로 밝힐 때입니다. 준비가 다 된 후 다시 한번 연락드리겠습니다, 하류도시의 영웅. 당신을 믿고 있습니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

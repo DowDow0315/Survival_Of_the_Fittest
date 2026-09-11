@@ -1356,3 +1356,42 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_09_after_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_09_after_03 &&
+        getCurrentDay(player) >= (player.flags.act3_quest_09_after_02_day + 5),
+
+    action : (player) => {
+        player.flags.upper_route_quest_09_after_04 = true;
+        player.flags.upper_route_quest_09_after_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...상류도시의 영웅.\"<br><br>" +
+                    "영광의 거리에서 만난 발렌은 여전히 미소를 짓고 있었지만 평소보다 표정이 어두워 보였다. 발렌은 당신의 안부를 물으며 당신의 옆에서 걸었다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "간단한 안부 인사가 끝난 후 답지 않게 침묵이 길어졌다. 힐끗 곁눈질해서 본 발렌은 정면을 응시한 채 생각에 잠겨 있었다." +
+                    "<br><br>\"아카시아가 한 번 쓰러졌다는 건 알고 계시겠죠. 그 후로 한 번 더 쓰러졌습니다.\"<br><br>" +
+                    "발렌은 여전히 당신을 바라보고 있지 않다." +
+                    "<br><br>\"아카시아의 아버지와 어머니는 일찍 돌아가셨습니다. 그리고 전... 아카시아마저 그들처럼 일찍 보내고 싶지 않습니다.\"<br><br>" + 
+                    "이제야 발렌이 당신을 돌아보았다. 그의 푸른색 눈동자에는 날것의 감정이 단 하나도 느껴지지 않았다." +
+                    "<br><br>\"아카시아의 죽음을 지연시킬 수 있는 것이 있습니다. 준비가 되면, 당신에게 알려드리겠습니다.\"<br><br>" +
+                    "발렌은 몸을 숙이더니 당신과 눈높이를 맞추었다. 그의 푸른색 눈동자엔 당신만이 담겨 있다." +
+                    "<br><br>\"가시기 전에 드릴 말씀이 있습니다, {valenTitle}. 당신이 아니었다면 반란군들이 이때를 틈타서 저희를 공격했겠죠. <br> ...감사합니다, 진심으로.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

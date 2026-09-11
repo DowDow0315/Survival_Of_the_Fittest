@@ -1803,3 +1803,168 @@ window.EVENTS.push({
         });
     }
 });
+
+//창백과 에릭
+window.EVENTS.push({
+    id : "paleAndEric_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        !player.flags?.ericDie &&
+        player.flags?.ericCaresPale &&
+        Math.random() < 0.05,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 경비병들이 창백을 둘러싸고 있는 모습을 보았다. 창백은 소지품 검사를 하겠다며 자신에게 다가오는 무리를 경계심 어린 눈으로 바라보았다. 경비병들 중 한 명이 창백에게 손을 뻗었다. 그러자 창백은 아무렇지도 않게 그의 손을 잡아 꺾어버렸다." +
+                    "<br><br>\"끄아아악!\"<br><br>" +
+                    "우두둑, 소름끼치는 소리와 함께 경비병의 손이 기괴한 형태로 꺾였다.... 다른 경비병들이 기겁을 하며 창백을 제압하기 위해 손을 뻗었다." +
+                    "<br><br>\"....\"<br><br>" +
+                    "모두의 움직임이 멈췄다. 당신은 우연치 않게 이 장면을 목격한 에릭을 보았다. 에릭은 아무 말도 하지 않았지만 시선만으로도 경비병들은 압도당했다. 그는 말없이 경비병들을 둘러보다가 창백에게 걸어갔다." +
+                    "<br><br>\"...돈 내는 날이다.\"<br><br>" +
+                    "창백은 에릭을 올려다보다가 고개를 끄덕이고 돈을 냈다. 당신에게 걷는 돈보다 훨씬 더 많은 양의 돈이다... 경비병들은 서로의 눈치를 보다가 흩어져버렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "paleAndEric_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["night", "afternoon"].includes(getTimePeriod(player)) &&
+        player.location === "reclaimedShop" &&
+        !player.flags?.ericDie &&
+        player.flags?.ericCaresPale &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        changeHP(player, -30);
+        savePlayer(player);
+        
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상점에 들어온 당신은 에릭이 창백에게 매운맛 사탕을 주는 것을 보았다." +
+                    "<br><br>\"자극적인 걸 먹다보면 미각이 돌아올지도 모른다.\"" +
+                    "<br><br>에릭의 말에 창백은 고개를 끄덕이며 고맙다고 말했다. 인기척을 느낀 두 사람이 당신을 돌아보았다. 에릭은 주머니에서 매운맛 사탕을 하나 더 꺼내더니 당신에게 내밀었다. 그 순간 창백한 촉수가 스르르 그의 손 위로 미끄러졌다." +
+                    "<br><br>\"어, 어라...?\"<br><br>" +
+                    "창백은 당황하더니 자신의 촉수를 다시 질질질 끌어당겼다. 당신은 에릭의 매운맛 사탕을 먹었다." +
+                    "<br><br><strong>..........!!!!!!!!!!</strong><br><br>" +
+                    "<span class='log-danger'>너.무.맵.다.</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "valenAndAkasia_01",
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "heavenPalace" &&
+        getTimePeriod(player) === "night" &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        !player.flags?.valenDie &&
+        !player.flags?.akasiaDie &&
+        Math.random() < 0.06,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"{akasiaTitle}.\"<br><br>" +
+                    "아카시아는 귀족들과 이야기를 나누다가도 당신을 발견하자마자 다가왔다. 그는 요새 들어 몇몇 귀족들이 당신의 혼사에 대해 묻고 있다고 말하며 작게 한숨을 쉬었다." +
+                    "<br><br>\"그것도 당신을 본처도 아니고 첩으로 들이고 싶답니다. 당신은.... 하류도시 출신이지만 출신을 뛰어넘는 가치를 가지고 있는데도 말이죠. 아직도 당신의 가치를 보지 못한 그들이 바보처럼 느껴지는 군요.\"<br><br>" +
+                    "아카시아는 자연스럽게 한 손으로 당신의 뺨을 쓰다듬었다." +
+                    "<br><br>\"...출신은 중요하지만, 출신이 진정한 자리를 만들어주는 건 아니니까요.\"<br><br>" +
+                    "당신의 뺨을 쓰다듬고 있는 아카시아의 손위로 발렌의 손이 얹혔다. 그는 미소를 지으며 하류도시 출신들 중에서도 존경할 만한 사람은 있다고 말했다." +
+                    "<br><br>\"물론 당신은 존경을 넘어서서 사랑할 만한 사람이지만. 그대도 그렇게 생각하지 않습니까, 아카시아?\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그들의 겹쳐진 손에 뺨을 기댔다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...이런.\"<br><br>" +
+                                    "아카시아는 눈을 느리게 깜박였고 발렌은 작게 웃음을 터뜨렸다. 두 사람은 당신의 뺨에서 손을 떼지 않았다. 누가 누르는 건지는 모르겠지만 오히려 당신의 뺨 위로는 그들의 손이 더 무겁게 얹혔다." +
+                                    "<br><br>\"발렌의 말이 맞습니다. 그대는 정말 사랑할 만한 사람이에요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("akasia", "dominance", 3);
+                                    changeNPCEmotion("valen", "dominance", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 보는 눈이 있는데 자신의 뺨을 이렇게 어루만지고 있어도 되냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"글쎄요. 이러고 있으면.... 당신을 강아지처럼 아끼는 한쌍의 커플처럼 보일 수도 있지요.\"<br><br>" +
+                                    "아카시아는 발렌의 말에 입술을 작게 꿈틀이더니 고개를 저으며 당신의 뺨에서 손을 뗐다." +
+                                    "<br><br>\"{akasiaTitle}가 강아지인 건 싫습니다.\"<br><br>" +
+                                    "분위기가 묘해졌다. 발렌의 미소가 희미해졌다가 다시 선명해졌다. 그는 아카시아의 말을 잘 기억해두겠다고 말하며 시선을 돌렸다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNpcSuspicion("valen", 1);
+                                    changeNpcSuspicion("akasia", 1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 발렌이랑 아카시아야말로 사랑할 만한 사람이라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아카시아와 발렌은 서로를 바라보았다." +
+                                    "<br><br>\"사실 다른 사람의 눈은 필요없습니다. 전 당신의 눈에만 사랑스러우면 됩니다.\"<br><br>" +
+                                    "아카시아의 말에 발렌은 말없이 웃을 뿐, 자신의 의견을 드러내지는 않았다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("akasia", "affection", 2);
+                                    changeNPCEmotion("valen", "affection", 1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

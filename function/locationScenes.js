@@ -723,6 +723,10 @@ function buildGoldenShelterScene(player, loc, randomDesc){
 }
 
 function buildTavernScene(player, loc, randomDesc){
+    if (isEatEatEatDay(player)){
+        return buildEatEatEatDayTavernScene(player, loc, randomDesc);
+    }
+    
     const choices = [
         { text: "퀘스트 게시판을 본다", action: "open_tavernQuests" },
         { text: "진행 중인 의뢰를 확인한다", action: "open_activeQuest" },
@@ -731,6 +735,16 @@ function buildTavernScene(player, loc, randomDesc){
         { text: "장비를 강화한다", action : "open_matinEnhance"},
     ];
 
+    if (
+        isEatEatEatPeriod(player) &&
+        player.flags?.eatEatEatMartinPrepDate !== getEatEatEatPrepDateKey(player)
+    ){
+        choices.push({
+            text : "5월 5일 무료급식 준비를 돕는다.",
+            action : "eatEatEat_matinPrep"
+        });
+    }
+    
     if (player.flags?.tavern_cooking_unlocked){
         choices.push({ text: "요리를 한다", action: "open_cookingMenu" });
     }
@@ -2028,6 +2042,17 @@ function buildGloryStreetScene(player, loc, randomDesc){
         });
     }
 
+    if (isEatEatEatDay(player)){
+        const date = getCalendarDate(player);
+        
+        if (player.flags?.mayRoseContestYear !== date.year){
+            choices.push({
+                text : "5월의 장미 콘테스트에 참가한다.",
+                action : "start_mayRoseContest"
+            });
+        }
+    }
+
     return [
         {
             type : "text",
@@ -2783,6 +2808,10 @@ function buildTobiasShopScene(player, loc, randomDesc){
         {
             text : "토비아스의 보급품을 살펴본다",
             action : "openEventShop"
+        },
+        {
+            text : "가구를 판다.",
+            action : "tobias_sellFurniture"
         },
         {
             text : "꽃을 환전한다",

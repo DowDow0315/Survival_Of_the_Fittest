@@ -91,31 +91,6 @@ window.FURNITURE_DATA = {
         }
     },
 
-    luxuryBed : {
-        id : "luxuryBed",
-        name : "고급 침대",
-        type : "bed",
-        price : 5000000,
-        rest : {
-            stamina : 0.7,
-            hp : 0.7,
-            trauma : -5,
-            time : 15
-        }
-    },
-    luxuryBed : {
-        id : "luxuryBed",
-        name : "고급 침대",
-        type : "bed",
-        price : 5000000,
-        rest : {
-            stamina : 0.7,
-            hp : 0.7,
-            trauma : -5,
-            time : 15
-        }
-    },
-
     carrotWhiteBed : {
         id : "carrotWhiteBed",
         name : "하얀 당근 침대",
@@ -194,6 +169,58 @@ window.FURNITURE_DATA = {
         }
     },
 
+    redRoseBed : {
+        id : "redRoseBed",
+        name : "붉은 장미 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.5,
+            trauma : -3,
+            time : 15
+        }
+    },
+
+    greenRoseBed : {
+        id : "greenRoseBed",
+        name : "독 장미 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.5,
+            trauma : -3,
+            time : 15
+        }
+    },
+
+    blueRoseBed : {
+        id : "blueRoseBed",
+        name : "푸른 장미 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.5,
+            trauma : -3,
+            time : 15
+        }
+    },
+
+    blackRoseBed : {
+        id : "blackRoseBed",
+        name : "흑장미 침대",
+        type : "bed",
+        price : 5000000,
+        rest : {
+            stamina : 0.7,
+            hp : 0.5,
+            trauma : -3,
+            time : 15
+        }
+    },
+
     basicBath : {
         id : "basicBath",
         name : "욕조",
@@ -227,6 +254,18 @@ window.FURNITURE_DATA = {
         cleanse : {
             multiplier : 1.2,
             time : 8
+        }
+    },
+
+    roseBath : {
+        id : "roseBath",
+        name : "장미 욕조",
+        type : "bath",
+        price : 90000000,
+        
+        cleanse : {
+            multiplier : 3,
+            time : 10
         }
     },
 
@@ -294,6 +333,34 @@ window.FURNITURE_DATA = {
         price : 10000000000
     },
 
+    piggyDoll : {
+        id : "piggyDoll",
+        name : "꿀꿀이 돼지 인형",
+        type : "doll",
+        price : 10000000
+    },
+
+    piggyForkDoll : {
+        id : "piggyForkDoll",
+        name : "포크 들고 있는 돼지 인형",
+        type : "doll",
+        price : 10000000
+    },
+
+    piggySpoonDoll : {
+        id : "piggySpoonDoll",
+        name : "스푼 들고 있는 돼지 인형",
+        type : "doll",
+        price : 10000000
+    },
+
+    poogyDoll : {
+        id : "poogyDoll",
+        name : "푸기 봉제인형",
+        type : "doll",
+        price : 50000000
+    },
+
     luxuryTeaSet : {
         id : "luxuryTeaSet",
         name : "고급 찻잔 세트",
@@ -357,6 +424,13 @@ window.FURNITURE_DATA = {
         price : 5000
     },
 
+    coopClock : {
+        id : "coopClock",
+        name : "비둘기 시계",
+        type : "decoration",
+        price : 50000
+    },
+
     mushroomWhiteMiniature : {
         id : "mushroomWhiteMiniature",
         name : "하얀버섯맨 미니어처",
@@ -418,6 +492,48 @@ window.FURNITURE_DATA = {
         name : "머쉬룸킹덤 미니어처",
         type : "decoration",
         price : 191919191919191919
+    },
+
+    piggyMoney : {
+        id : "piggyMoney",
+        name : "돼지저금통",
+        type : "decoration",
+        price : 10000000
+    },
+
+    pooggy : {
+        id : "pooggy",
+        name : "푸기 미니어처",
+        type : "decoration",
+        price : 50000000
+    },
+
+    goldenSuperPig : {
+        id : "goldenSuperPig",
+        name : "황금슈퍼돼지",
+        type : "decoration",
+        price : 50000000
+    },
+
+    roseBunch : {
+        id : "roseBunch",
+        name : "장미꽃다발",
+        type : "decoration",
+        price : 2000000
+    },
+
+    roseSmell : {
+        id : "roseSmell",
+        name : "장미향수",
+        type : "decoration",
+        price : 5000000
+    },
+
+    goldenRose : {
+        id : "goldenRose",
+        name : "황금장미",
+        type : "decoration",
+        price : 10000000
     }
 
 };

@@ -574,7 +574,7 @@ function finishLuckyBagRaid(player){
                 "복주머니를 쫓아 정신없이 달리던 당신은 마침내 걸음을 멈췄다.<br><br>" +
                 "복주머니가 공중에서 빙글빙글 돌더니, 당신의 앞에 툭 떨어졌다. 금빛 끈이 스르르 풀리고 안에서 돈이 쏟아져 나왔다.<br><br>" +
                 `<strong>복주머니 레이드를 완료했습니다!</strong><br><br>` +
-                `<span class='log-positive'>획득 금액 : ${reward.toLocaleString()}원</span>`
+                `<span class='log-lust'>획득 금액 : ${reward.toLocaleString()}원</span>`
             ]
         }
     ], player, {
@@ -2045,14 +2045,14 @@ function giveSpringDanceReward(player){
                 "무도회의 시상이 시작되었다." +
                 "<br><br>" +
 
-                `<span class='log-positive'>점수 보상 : ${scoreReward}꽃</span>` +
+                `<span class='log-lust'>점수 보상 : ${scoreReward}🌹</span>` +
                 "<br>" +
 
-                `<span class='log-positive'>${dance.rank}위 보상 : ${rankFlowerReward}꽃</span>` +
+                `<span class='log-lust'>${dance.rank}위 보상 : ${rankFlowerReward}🌹</span>` +
 
                 (
                     furniture
-                        ? `<br><span class='log-positive'>${furniture.name}을(를) 획득했다!</span>`
+                        ? `<br><span class='log-lust'>${furniture.name}을(를) 획득했다!</span>`
                         : ""
                 ) +
                 `<br><br><strong>총 ${totalFlowerReward}꽃을 획득했다!</strong>`
@@ -2347,7 +2347,7 @@ function harvestChaseSuccess(player, cropType, roundIndex){
             `<br><br>당신은 ${data.name}에게서 ${data.itemName} 두 개를 뜯어냈다.` +
             `<br>${data.name}은 홀쭉해진 몸으로 터덜터덜 돌아갔다.` +
             `<br><br><b>${data.itemName} +2</b>` +
-            `<br><b>꽃 +10</b>` +
+            `<br><b>+10🌹</b>` +
             `<br><br><b>추격 성공!</b>`,
             player,
             {
@@ -2623,7 +2623,7 @@ function finishHarvestRodeo(player, state){
         "<br><br><strong>치. 치. 치키이이이이이인!!!</strong>" +
         "<br><br>당신은 그대로 하늘로 솟아올랐다. 마치 튀겨진 CHICKEN처럼." +
         `<br><br><b>성공 ${state.success}회</b>` +
-        `<br><b>획득한 꽃 ${earned}개</b>`,
+        `<br><b>${earned}🌹 획득</b>`,
         player,
         {
             onEnd: () =>
@@ -2802,7 +2802,7 @@ function harvestTowerSuccess(
 
     showSingleTextScene(
         "농작물이 아슬아슬하게 아래층 위에 올라갔다!" +
-        `<br><br><b>꽃 +${HARVEST_TOWER_REWARD}</b>` +
+        `<br><br><b>+${HARVEST_TOWER_REWARD}🌹</b>` +
         `<br><b>${state.stage}단계 성공!</b>` +
         "<br><br>더 높이 쌓아볼까?",
         player,
@@ -2827,7 +2827,7 @@ function harvestTowerFail(player, state){
         "온 우주의 기운을 받은 당신의 탑은 그대로 중력을 받아 무너졌다. 아아, 역시 어떤 일이든 한 순간의 실수로 무너지는 법이다." +
         "<br><br><b>풍요의 탑 쌓기 실패!</b>" +
         `<br><b>성공 ${state.stage}단계</b>` +
-        `<br><b>획득한 꽃 ${earned}개</b>`,
+        `<br><b>${earned}🌹 획득</b>`,
         player,
         {
             onEnd: () =>
@@ -2852,7 +2852,7 @@ function finishHarvestTower(player, state){
         "<br><br>\"오오! 역시 풍요로운 몸매가 풍요로운 탑을 쌓는다!\"" +
         "<br><br>...응?" +
         "<br><br><b>풍요의 탑 완성!</b>" +
-        `<br><b>획득한 꽃 ${earned}개</b>`,
+        `<br><b>${earned}🌹 획득</b>`,
         player,
         {
             onEnd: () =>
@@ -2879,4 +2879,1452 @@ function isEatEatEatDay(player){
     return (
         (date.month === 5 && date.day === 5)
     );
+}
+
+window.EVENTS.push({
+    id : "eatEatEatDay_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["shelter", "goldenShelter"].includes(player.location) &&
+        isEatEatEatPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 무료급식의 날이 왔다고 떠들어댔다. 아이들 중에서는 5월 5일을 가장 기다리는 사람들이 많았다. 그들은 이번에는 상류도시에서 어떤 음식을 내놓을까 기대하며 서로 손을 꼽았다." +
+                    "<br><br>\"1년치를 한번에 배에 저장해놓을 수 있으면 좋을 텐데.\"<br><br>" +
+                    "\"그러니까~\"<br><br>" +
+                    "\"주점 가는 거 벌써 기대된다~\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "eatEatEatDay_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["darkStreet", "townStreet"].includes(player.location) &&
+        isEatEatEatPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"이번에는 잘 숨겨봐야겠어.\"<br><br>" +
+                    "몇몇 사람들이 수군거리며 결의를 다졌다. 누군가 겁에 질린 목소리로 들키면 어떡하냐고 묻자 다른 사람들이 그래도 그날만큼은 백색 군인들이 도둑질을 해도 눈을 감아준다고 말하며 용기를 북돋아주었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "eatEatEatDay_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        isEatEatEatPeriod(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"대체 우리가 언제까지 하류도시 사람들을 먹여살려야 하는 거예요?\"<br><br>" +
+                    "몇몇 귀족들이 짜증을 내고 있었다. 그들은 가진 게 없어도 1인분을 하려 노력이라도 해야 하는데, 하류도시 사람들은 근성부터 글러먹은 것 같다고 말했다." +
+                    "<br><br>\"에휴, 그래도 우리같은 사람들이 나눠줘야죠. 우리는 그들보다 잘났으니까.\"" +
+                    "<br><br>\"저희 쪽은 준비가 잘 되어간대요? 이번에는 누가 장미가 될지 궁금하네요...?\"<br><br>" +
+                    "이미 많은 사람들이 장미 선발 대회에 참가할 준비를 하고 있는 것 같다...."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+function getEatEatEatPrepDateKey(player){
+    const date = getCalendarDate(player);
+    return `${date.year}-${date.month}-${date.day}`;
+}
+
+window.eatEatEat_matinPrep = function(player){
+    startScene([
+        {
+            type : "text",
+            value : [
+                "평소보다 더 바빠보이는 마틴이 당신을 힐끗 올려다보았다. 당신은 주점을 둘러보았다. 마틴 혼자서 이 일을 하려면 4일 내내 밤을 새야 할지도 모른다.... 산더미 같은 식량에 백색 군인들이 가져온 식량이 더 쌓였다." +
+                "<br><br>\"...재료 썰기.\"<br><br>" +
+                "마틴은 냄비에 퐁당퐁당 썬 고기들을 넣으며 말했다." +
+                "<br><br>\"...일한 만큼 꽃동전 줄게.\""
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                startEatEatEatMartinPrepGame(player);
+                return true;
+            }
+        }
+    ], player);
+};
+
+const EAT_EAT_EAT_PREP_INGREDIENTS = [
+    "감자",
+    "당근",
+    "양파",
+    "양배추",
+    "고기"
+];
+
+function startEatEatEatMartinPrepGame(player){
+    player.flags.eatEatEatMartinPrepDate = getEatEatEatPrepDateKey(player);
+    savePlayer(player);
+
+    const ingredients = [...EAT_EAT_EAT_PREP_INGREDIENTS];
+
+    for (let i = ingredients.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [ingredients[i], ingredients[j]] = [ingredients[j], ingredients[i]];
+    }
+
+    const prep = {
+        round : 0,
+        success : 0,
+        ingredients
+    };
+    startEatEatEatMartinPrepRound(player, prep);
+}
+
+
+function startEatEatEatMartinPrepRound(player, prep){
+    if (prep.round >= prep.ingredients.length){
+        finishEatEatEatMartinPrep(player, prep);
+        return;
+    }
+
+    const ingredient = prep.ingredients[prep.round];
+
+    // 성공 구간 위치도 매번 변경
+    const targetX = 25 + Math.floor(Math.random() * 51); // 25 ~ 75
+
+    startTimingGaugeGame(player, {
+        title : `${ingredient} 썰기`,
+        instruction : "적당한 크기가 되도록 SPACE를 눌러 칼을 내리세요!",
+        targetX : targetX,
+        tolerance : 2,
+        speed : 0.8,
+
+        onSuccess : () => {
+            prep.success++;
+            prep.round++;
+
+            startScene([
+                {
+                    type : "text",
+                    value : `${ingredient}을(를) 먹기 좋은 크기로 썰었다.`
+                }
+            ], player, {
+                onEnd : () => startEatEatEatMartinPrepRound(player, prep)
+            });
+        },
+
+        onFail : () => {
+            prep.round++;
+
+            startScene([
+                {
+                    type : "text",
+                    value : `${ingredient}의 크기가 제각각이다....`
+                }
+            ], player, {
+                onEnd : () => startEatEatEatMartinPrepRound(player, prep)
+            });
+        }
+    });
+}
+
+function finishEatEatEatMartinPrep(player, prep){
+    const date = getCalendarDate(player);
+    const success = prep.success;
+
+    let reward = 1;
+    let result = "bad";
+    let text = "";
+
+    if (success === 5){
+        reward = 15;
+        result = "good";
+        text =
+            "마지막 식재료까지 썰은 후 당신은 당신의 결과를 감상했다. 당신이 생각해도 엄청 잘 썬 것 같다! 마틴은 당신의 결과를 보더니 동공이 살짝 커졌다." +
+            "<br><br>\"...언젠가 조수로 쓰고 싶어질 정도네.\"<br><br>" +
+            "그의 입가에 희미한 미소가 맺혔다.";
+
+    } else if (success === 4){
+        reward = 10;
+        result = "good";
+        text =
+            "몇 조각의 크기가 조금 어긋나긴 했지만, 전체적으로 제법 그럴듯하게 썰었다." +
+            "<br><br>마틴이 식재료들을 살펴보다가 괜찮다는 듯 고개를 끄덕였다." +
+            "<br><br>\"이 정도면 됐어.\"";
+
+    } else if (success >= 2){
+        reward = 5;
+        result = "normal";
+        text =
+            "어떻게든 식재료를 전부 썰기는 했다. 도마 위에는 크고 작은 조각들이 뒤섞여 있었다." +
+            "<br><br>마틴이 그중 유난히 큰 조각 하나를 집어 들었다. 그러더니 말없이 그 조각을 다시 썰었다.";
+    } else {
+        reward = 1;
+        result = "bad";
+
+        text =
+            "식재료를 전부 썰었다." +
+            "<br><br>...썰기는 했다." +
+            "<br><br>마틴은 도마 위에 널린 기괴한 모양의 식재료들을 한참 바라보았다." +
+            "<br><br>\"....\"<br><br>" +
+            "침묵이 길어지자 당신은 차라리 욕을 먹는 게 낫겠다는 생각마저 들었다.";
+    }
+    changeEventPoint(player, reward);
+
+    if (date.month === 5 && date.day === 4){
+        player.flags.eatEatEatMartinResult = result;
+        player.flags.eatEatEatMartinResultYear = date.year;
+    }
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                text +
+                `<br><br><strong>${success} / 5회 성공!</strong>` +
+                `<br><span class='log-lust'>${reward}화</span>`
+            ]
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+}
+
+function buildEatEatEatDayTavernScene(player, loc, randomDesc){
+    const date = getCalendarDate(player);
+    const choices = [];
+
+    if (player.flags?.eatEatEatContestYear !== date.year){
+        choices.push({
+            text : "많이 먹기 대회에 참가한다.",
+            action : "start_eatEatEatContest"
+        });
+    }
+
+    choices.push({
+        text : "주점에서 나간다.",
+        action : "move_townStreet"
+    });
+
+    return [
+        {
+            type : "text",
+            value :
+                "주점 안은 발 디딜 틈도 없을 만큼 사람들로 가득 차 있었다." +
+                "<br><br>테이블마다 음식이 산처럼 쌓여 있고, 쉴 새 없이 새로운 접시가 주방에서 나오고 있었다.<br><br>" +
+                "평소라면 음식 냄새를 맡으며 주점 밖을 서성였을 사람들도 오늘만큼은 자리를 차지하고 정신없이 음식을 먹고 있다." +
+                "<br><br>...몇 명은 음식을 슬쩍 훔치고 있었다." +
+                "<br><br>그리고 주점 한가운데에는 유난히 커다란 테이블 하나가 놓여 있었다." +
+                "<br><br><strong>[5월 5일 많이 먹기 대회]</strong>" +
+                "<br><br>누가 가장 많이 먹을 수 있는지 겨루는 모양이다."
+        },
+        {
+            type : "choice",
+            choices
+        }
+    ];
+}
+
+window.start_eatEatEatContest = function(player){
+    const date = getCalendarDate(player);
+
+    // 올해 참가 처리
+    player.flags.eatEatEatContestYear = date.year;
+
+    player.eatEatEatContest = {
+        plate : 0,
+        score : 0,
+        fullness : 0
+    };
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "당신은 많이 먹기 대회에 참가하기로 했다." +
+                "<br><br>주점 한가운데 놓인 커다란 테이블로 다가가자 사람들이 자리를 비켜주었다. 이미 몇몇 참가자들은 빈 접시를 앞에 두고 음식이 나오기만을 기다리고 있었다." +
+                "<br><br>당신도 그들 사이에 자리를 잡고 앉았다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "잠시 후 마틴이 음식이 가득 담긴 접시를 들고 나왔다. 그는 당신을 힐끗 보더니 테이블 위에 접시를 내려놓았다. 설명은 필요없었다. 많이 먹기 대회에 무슨 설명이 필요하겠는가? 그냥 먹으면 되는 거지." +
+                "<br><br>고기를 먹으면 점수가 더 오를 거고, 야채를 먹으면 덜 배부른 대신 점수가 덜 오를 거고... 당신은 당신의 옆에서 물을 마시며 어떻게든 배부른 배를 쥐어잡는 사람을 보았다." +
+                "<br><br>돼장돼장 준비되었나요 돼장 가보자고 돼장~"
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                startEatEatEatContest(player);
+                return true;
+            }
+        }
+    ], player);
+};
+
+function startEatEatEatContest(player){
+    const contest = player.eatEatEatContest;
+
+    if (!contest) return;
+
+    if (contest.fullness >= 100){
+        finishEatEatEatContest(player);
+        return;
+    }
+
+    const nextPlate = contest.plate + 1;
+
+    if (nextPlate === 9){
+        const date = getCalendarDate(player);
+
+        const hasMartinFood =
+            player.flags?.eatEatEatMartinResultYear === date.year;
+
+        if (hasMartinFood){
+            startEatEatEatMartinFood(player);
+            return;
+        }
+
+        startEatEatEatFoodChoice(player);
+        return;
+    }
+
+    if (nextPlate % 3 === 0){
+        startEatEatEatFoodChoice(player);
+        return;
+    }
+    startEatEatEatRandomFood(player);
+}
+
+function startEatEatEatRandomFood(player){
+    const foods = ["meat", "vegetable"];
+    const food = foods[Math.floor(Math.random() * foods.length)];
+
+    if (food === "meat"){
+        startEatEatEatFood(player, {
+            type : "meat",
+            name : "고기",
+            score : 40,
+            failScore : 20,
+            fullness : 20,
+            failFullness : 25,
+            sequenceLength : 6,
+            text : "고기가 가득한 접시가 나왔다."
+        });
+        return;
+    }
+
+    startEatEatEatFood(player, {
+        type : "vegetable",
+        name : "야채",
+        score : 15,
+        failScore : 10,
+        fullness : 10,
+        failFullness : 15,
+        sequenceLength : 4,
+        text : "야채가 가득한 접시가 나왔다."
+    });
+}
+
+function startEatEatEatFood(player, food){
+    const contest = player.eatEatEatContest;
+    if (!contest) return;
+
+    const nextPlate = contest.plate + 1;
+
+    startScene([
+        {
+            type : "text",
+            value :
+                `<strong>${nextPlate}번째 접시</strong>` +
+                `<br><br>${food.text}`
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                startArrowMinigame(player, {
+                    mode : "sequence",
+                    sequenceLength : food.sequenceLength,
+                    timeLimit : 5000,
+                    title : `${food.name} 먹기`,
+                    endOnFail : true,
+
+                    onClear : () => {
+                        finishEatEatEatFood(player, food, true);
+                    },
+
+                    onGameOver : () => {
+                        finishEatEatEatFood(player, food, false);
+                    },
+
+                    onTimeout : () => {
+                        finishEatEatEatFood(player, food, false);
+                    }
+                });
+                return true;
+            }
+        }
+    ], player);
+}
+
+function finishEatEatEatFood(player, food, success){
+    const contest = player.eatEatEatContest;
+    if (!contest) return;
+
+    contest.plate++;
+
+    let gainedScore;
+    let gainedFullness;
+
+    if (success){
+        gainedScore = food.score;
+        gainedFullness = food.fullness;
+    } else {
+        gainedScore = food.failScore;
+        gainedFullness = food.failFullness;
+    }
+
+    contest.score += gainedScore;
+    contest.fullness += gainedFullness;
+    contest.fullness = Math.max(0, contest.fullness);
+
+    savePlayer(player);
+
+    let text = "";
+    
+    if (food.type === "water"){
+        if (success){
+            text =
+            "당신은 물을 벌컥벌컥 들이켰다. 이제 좀 살 것 같다!" +
+            `<br><br><span class='log-lust'>점수 +${gainedScore}</span>`;
+        } else {
+            text =
+            "물이라고 괜찮을 것 같으면 물배 찼다는 말이 왜 있겠는가. 당신은 그만 사레가 들어버리고 말았다. 당신의 기침 소리에 경기를 지켜보던 다른 사람들이 낄낄대는 소리가 들린다." +
+            `<br><span class='log-lust'>점수 +${gainedScore}</span>`;
+        }
+    } else if (success){
+        text =
+        `다시는 먹짱을 무시하지 마라. 당신은 ${food.name}을(를) 빠르게 먹어치웠다!` +
+        `<br><br><span class='log-lust'>점수 +${gainedScore}</span>`;
+    } else {
+        text =
+        `어디서 머피의 법칙 노래가 들리지 않는가? ${food.name}이 끝나지를 않는다.` +
+        "<br><br>마치 라면이 불어서 먹어도 먹어도 끝이 안 나는 것처럼." +
+        `<br><span class='log-lust'>점수 +${gainedScore}</span>`;
+    }
+
+    if (gainedFullness > 0){
+        text += `<br>배부름 +${gainedFullness}`;
+    } else if (gainedFullness < 0){
+        text += `<br><span class='log-danger'>배부름 ${gainedFullness}</span>`;
+    }
+
+    text +=
+        `<br><br><strong>${contest.plate}접시째</strong>` +
+        `<br>점수 : ${contest.score}` +
+        `<br>배부름 : ${contest.fullness} / 100`;
+
+    startScene([
+        {
+            type : "text",
+            value : text
+        }
+    ], player, {
+        onEnd : () => startEatEatEatContest(player)
+    });
+}
+
+function startEatEatEatFoodChoice(player){
+    const contest = player.eatEatEatContest;
+    if (!contest) return;
+
+    const nextPlate = contest.plate + 1;
+
+    startScene([
+        {
+            type : "text",
+            value :
+                `<strong>${nextPlate}번째 접시</strong>` +
+                "<br><br>이번에는 먹을 것을 직접 고를 수 있다." +
+                "<br><br>무엇을 먹을까?"
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "고기가 가득한 접시",
+                    action : () => startEatEatEatFood(player, {
+                        type : "meat",
+                        name : "고기",
+                        score : 40,
+                        failScore : 20,
+                        fullness : 20,
+                        failFullness : 25,
+                        sequenceLength : 6,
+                        text : "고기가 가득한 접시를 골랐다."
+                    })
+                },
+                {
+                    text : "야채가 가득한 접시",
+                    action : () => startEatEatEatFood(player, {
+                        type : "vegetable",
+                        name : "야채",
+                        score : 15,
+                        failScore : 10,
+                        fullness : 10,
+                        failFullness : 15,
+                        sequenceLength : 4,
+                        text : "야채가 가득한 접시를 골랐다."
+                    })
+                },
+                {
+                    text : "물, 물을 마셔야 해!!",
+                    action : () => startEatEatEatFood(player, {
+                        type : "water",
+                        name : "물",
+                        score : 0,
+                        failScore : 0,
+                        fullness : -5,
+                        failFullness : 5,
+                        sequenceLength : 10,
+                        text : "무, 물이 필요해! 당신은 황급히 물을 집어들었다."
+                    })
+                }
+            ]
+        }
+    ], player);
+}
+
+function startEatEatEatMartinFood(player){
+    const contest = player.eatEatEatContest;
+    if (!contest) return;
+
+    const result = player.flags?.eatEatEatMartinResult;
+
+    let fullnessChange = 0;
+    let text = "";
+
+    if (result === "good"){
+        fullnessChange = -40;
+
+        text =
+            "<strong>9번째 접시</strong>" +
+            "<br><br>이번에는 마틴이 직접 접시를 들고 나왔다." +
+            "<br><br>접시 위에는 어딘가 낯익은 크기의 식재료들이 가지런히 담겨 있었다. 전날 당신이 썰었던 것들이다." +
+            "<br><br>당신은 음식을 한입 먹었다." +
+            "<br><br>...맛있다. 이상할 정도로 술술 들어간다." +
+            "<br><br>마틴이 당신을 힐끗 바라보았다." +
+            "<br><br>\"잘 썰어놨더라.\"";
+
+    } else if (result === "normal"){
+        fullnessChange = -20;
+
+        text =
+            "<strong>9번째 접시</strong>" +
+            "<br><br>이번에는 마틴이 직접 접시를 들고 나왔다." +
+            "<br><br>접시 위에는 전날 당신이 썰었던 식재료들이 들어간 음식이 담겨 있었다." +
+            "<br><br>크기가 조금씩 제각각이라 먹기 불편한 부분도 있었지만, 마틴이 어떻게 손을 본 모양이다." +
+            "<br><br>그래도 제법 잘 넘어간다.";
+
+    } else {
+        fullnessChange = 20;
+
+        text =
+            "<strong>9번째 접시</strong>" +
+            "<br><br>이번에는 마틴이 직접 접시를 들고 나왔다." +
+            "<br><br>당신은 접시를 보자마자 불길한 예감이 들었다." +
+            "<br><br>전날 당신이 썰어놓았던 기괴한 모양의 식재료들이 그대로 남아 있다." +
+            "<br><br>작은 조각을 삼키자마자 큰 조각이 입을 틀어막고, 겨우 씹어 넘기자 이번에는 또 다른 거대한 조각이 기다리고 있었다." +
+            "<br><br>마틴은 말없이 당신이 먹는 모습을 지켜보았다." +
+            "<br><br>...왜 다시 안 썰어준 건데?";
+    }
+
+    contest.plate++;
+    contest.fullness += fullnessChange;
+    contest.fullness = Math.max(0, contest.fullness);
+
+    savePlayer(player);
+
+    if (fullnessChange > 0){
+        text += `<br><br>배부름 +${fullnessChange}`;
+    } else {
+        text +=
+            `<br><br><span class='log-danger'>배부름 ${fullnessChange}</span>`;
+    }
+
+    text +=
+        `<br><br><strong>${contest.plate}접시째</strong>` +
+        `<br>점수 : ${contest.score}` +
+        `<br>배부름 : ${contest.fullness} / 100`;
+
+    startScene([
+        {
+            type : "text",
+            value : text
+        }
+    ], player, {
+        onEnd : () => startEatEatEatContest(player)
+    });
+}
+
+const EAT_EAT_EAT_NPCS = [
+    {
+        id : "yuri",
+        name : "유리",
+        minScore : 220,
+        maxScore : 300,
+        canJoin : (player) =>
+            !!player.flags?.yuri_firstMeeting &&
+            !player.flags?.yuriDie
+    },
+
+    {
+        id : "luke",
+        name : "루크",
+        minScore : 215,
+        maxScore : 240,
+        canJoin : (player) =>
+            !!player.flags?.luke_firstMeeting &&
+            !player.flags?.collapseLuke
+    },
+
+    {
+        id : "sion",
+        name : "시온",
+        minScore : 145,
+        maxScore : 215,
+        canJoin : (player) =>
+            !!player.flags?.sion_hisLittleConfession
+    },
+
+    {
+        id : "akasia",
+        name : "아카시아",
+        minScore : 230,
+        maxScore : 250,
+        canJoin : (player) =>
+            !!player.flags?.akasiaValenMedal_event &&
+            !player.flags?.akasiaDie
+    },
+
+    {
+        id : "pale",
+        name : "창백",
+        minScore : 240,
+        maxScore : 320,
+        canJoin : (player) =>
+            !!player.flags?.pale_findHerPlace
+    },
+
+    {
+        id : "sora",
+        name : "소라",
+        minScore : 240,
+        maxScore : 320,
+        canJoin : (player) =>
+            !!player.flags?.sora_firstMeeting &&
+            !player.flags?.soraDie
+    },
+
+    {
+        id : "nikolai",
+        name : "니콜라이",
+        minScore : 110,
+        maxScore : 200,
+        canJoin : (player) =>
+            !!player.flags?.nikolai_firstMeeting &&
+            !player.flags?.nikolaiDie
+    }
+];
+
+const EAT_EAT_EAT_MOBS = [
+    { name : "건장한 남자", minScore : 200, maxScore : 310 },
+    { name : "굶주린 주민", minScore : 100, maxScore : 210 },
+    { name : "주점 단골", minScore : 50, maxScore : 210 },
+    { name : "하류도시 주민", minScore : 200, maxScore : 230 },
+    { name : "정체불명의 먹보", minScore : 200, maxScore : 320 }
+];
+
+function getEatEatEatRandomScore(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getEatEatEatContestants(player){
+    const contestants = [];
+    const availableNpcs = EAT_EAT_EAT_NPCS.filter(npc =>
+        npc.canJoin(player)
+    );
+
+    for (let i = availableNpcs.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [availableNpcs[i], availableNpcs[j]] =
+            [availableNpcs[j], availableNpcs[i]];
+    }
+
+    availableNpcs.slice(0, 3).forEach(npc => {
+        contestants.push({
+            id : npc.id,
+            name : npc.name,
+            score : getEatEatEatRandomScore(
+                npc.minScore,
+                npc.maxScore
+            )
+        });
+    });
+
+    const mobs = [...EAT_EAT_EAT_MOBS];
+
+    for (let i = mobs.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [mobs[i], mobs[j]] = [mobs[j], mobs[i]];
+    }
+
+    mobs.slice(0, 2).forEach((mob, index) => {
+        contestants.push({
+            id : `mob_${index}`,
+            name : mob.name,
+            score : getEatEatEatRandomScore(
+                mob.minScore,
+                mob.maxScore
+            )
+        });
+    });
+    return contestants;
+}
+
+function finishEatEatEatContest(player){
+    const contest = player.eatEatEatContest;
+    if (!contest) return;
+
+    const contestants = getEatEatEatContestants(player);
+
+    contestants.push({
+        id : "player",
+        name : player.name || "당신",
+        score : contest.score,
+        plates : contest.plate
+    });
+
+    contestants.sort((a, b) => b.score - a.score);
+
+    let previousScore = null;
+    let previousRank = 0;
+
+    contestants.forEach((contestant, index) => {
+        if (contestant.score === previousScore){
+            contestant.rank = previousRank;
+        } else {
+            contestant.rank = index + 1;
+            previousRank = contestant.rank;
+        }
+
+        previousScore = contestant.score;
+    });
+
+    const playerResult = contestants.find(
+        contestant => contestant.id === "player"
+    );
+
+    player.flags.eatEatEatContestScore = contest.score;
+    player.flags.eatEatEatContestPlates = contest.plate;
+    player.flags.eatEatEatContestRank = playerResult.rank;
+
+    savePlayer(player);
+
+    showEatEatEatContestResult(
+        player,
+        contestants,
+        playerResult
+    );
+}
+
+const EAT_EAT_EAT_RANK_REWARDS = {
+    1 : 200,
+    2 : 200,
+    3 : 150,
+    4 : 100,
+    5 : 50,
+    6 : 1
+};
+
+const EAT_EAT_EAT_FIRST_PRIZE_FURNITURES = [
+    "piggyDoll",
+    "piggyForkDoll",
+    "piggySpoonDoll",
+    "poogyDoll",
+    "piggyMoney",
+    "pooggy",
+    "goldenSuperPig"
+];
+
+function showEatEatEatContestResult(player, contestants, playerResult){
+    const rank = playerResult.rank;
+    const reward = EAT_EAT_EAT_RANK_REWARDS[rank] ?? 1;
+
+    let rankingText = contestants
+        .map(contestant => {
+            const isPlayer = contestant.id === "player";
+
+            return (
+                `${contestant.rank}위 - ` +
+                `${isPlayer ? "<strong>당신</strong>" : contestant.name}` +
+                ` : ${contestant.score}점`
+            );
+        })
+        .join("<br>");
+
+    let resultText =
+        "잠시 후 모든 참가자의 점수 집계가 끝났다." +
+        "<br><br><strong>[5월 5일 많이 먹기 대회 결과]</strong>" +
+        "<br><br>" +
+        rankingText +
+        `<br><br>당신의 최종 순위는 <strong>${rank}위</strong>다!`;
+
+    startScene([
+        {
+            type : "text",
+            value : resultText
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                giveEatEatEatContestReward(player, rank, reward);
+                return true;
+            }
+        }
+    ], player);
+}
+
+function giveEatEatEatContestReward(player, rank, reward){
+    changeEventPoint(player, reward);
+
+    let furnitureId = null;
+    let furnitureName = null;
+
+    if (rank === 1){
+        furnitureId =
+            EAT_EAT_EAT_FIRST_PRIZE_FURNITURES[
+                Math.floor(
+                    Math.random() *
+                    EAT_EAT_EAT_FIRST_PRIZE_FURNITURES.length
+                )
+            ];
+
+        giveFurniture(player, furnitureId);
+
+        const furniture = FURNITURE_DATA[furnitureId];
+        furnitureName = furniture?.name || furnitureId;
+    }
+
+    let text =
+        `대회 상품으로 <span class='log-lust'>${reward}🌹</span>를 받았다!`;
+
+    if (rank === 1){
+        text +=
+            "<br><br>그리고 우승 상품으로 커다란 상자 하나가 당신 앞에 놓였다." +
+            "<br><br>상자를 열어보니..." +
+            `<br><br><strong>${furnitureName}</strong>이(가) 들어 있었다!`;
+    }
+
+    player.eatEatEatContest = null;
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : text
+        }
+    ], player, {
+        onEnd : () => startScene(getLocationScene(player), player)
+    });
+}
+
+//5월의 장미
+const MAY_ROSE_OUTFITS = {
+    animalPajamas : {
+        name : "귀여운 동물 잠옷"
+    },
+    ballGown : {
+        name : "화려한 무도회복"
+    },
+    festivalDress : {
+        name : "단정한 축제복"
+    },
+    lingerie : {
+        name : "란제리"
+    }
+};
+
+const MAY_ROSE_GREETINGS = {
+    nyan : {
+        name : "귀엽게 냥냥거리며 인사"
+    },
+    elegant : {
+        name : "우아하게 인사"
+    },
+    proud : {
+        name : "도도하게 고개만 까닥"
+    },
+    seductive : {
+        name : "야릇한 미소를 지으며 인사"
+    }
+};
+
+const MAY_ROSE_JUDGES = {
+    kain : {
+        name : "카인",
+        canJoin : (player) => true,
+
+        outfit : {
+            animalPajamas : 40,
+            ballGown : 50,
+            festivalDress : 40,
+            lingerie : 25
+        },
+        greeting : {
+            nyan : 50,
+            elegant : 50,
+            proud : 40,
+            seductive : 25
+        }
+    },
+
+    valen : {
+        name : "발렌",
+        canJoin : (player) =>
+            !player.flags?.valenDie,
+
+        outfit : {
+            animalPajamas : 40,
+            ballGown : 25,
+            festivalDress : 50,
+            lingerie : 10
+        },
+        greeting : {
+            nyan : 25,
+            elegant : 50,
+            proud : 40,
+            seductive : 10
+        }
+    },
+
+    deric : {
+        name : "데릭",
+        canJoin : (player) => true,
+
+        outfit : {
+            animalPajamas : 10,
+            ballGown : 50,
+            festivalDress : 25,
+            lingerie : 40
+        },
+        greeting : {
+            nyan : 10,
+            elegant : 50,
+            proud : 25,
+            seductive : 40
+        }
+    },
+
+    akasia : {
+        name : "아카시아",
+        canJoin : (player) =>
+            !player.flags?.akasiaDie,
+
+        outfit : {
+            animalPajamas : 25,
+            ballGown : 40,
+            festivalDress : 50,
+            lingerie : 10
+        },
+        greeting : {
+            nyan : 25,
+            elegant : 50,
+            proud : 40,
+            seductive : 10
+        }
+    },
+
+    nikolai : {
+        name : "니콜라이",
+        canJoin : (player) =>
+            !player.flags?.nikolaiDie,
+
+        outfit : {
+            animalPajamas : 50,
+            ballGown : 25,
+            festivalDress : 10,
+            lingerie : 40
+        },
+        greeting : {
+            nyan : 40,
+            elegant : 25,
+            proud : 10,
+            seductive : 50
+        }
+    }
+};
+
+const MAY_ROSE_MOBS = [
+    { name : "화려하게 차려입은 귀족" },
+    { name : "긴장한 귀족 영애" },
+    { name : "자신만만한 귀족 청년" },
+    { name : "장미를 든 참가자" },
+    { name : "잔뜩 꾸민 상류도시 주민" }
+];
+
+function getRandomMayRoseJudge(player){
+    const judgeIds = Object.keys(MAY_ROSE_JUDGES).filter(
+        judgeId => MAY_ROSE_JUDGES[judgeId].canJoin(player)
+    );
+
+    if (judgeIds.length === 0){
+        return null;
+    }
+
+    return judgeIds[
+        Math.floor(Math.random() * judgeIds.length)
+    ];
+}
+
+function getMayRoseContestants(player, judgeId){
+    const contestants = [];
+
+    const availableNpcs = Object.entries(MAY_ROSE_JUDGES)
+        .filter(([npcId, npc]) =>
+            npcId !== judgeId &&
+            npc.canJoin(player)
+        )
+        .map(([npcId, npc]) => ({
+            id : npcId,
+            name : npc.name
+        }));
+
+    for (let i = availableNpcs.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [availableNpcs[i], availableNpcs[j]] =
+            [availableNpcs[j], availableNpcs[i]];
+    }
+    contestants.push(
+        ...availableNpcs.slice(0, 2)
+    );
+
+    const mobs = [...MAY_ROSE_MOBS];
+    for (let i = mobs.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [mobs[i], mobs[j]] =
+            [mobs[j], mobs[i]];
+    }
+    const mobCount = 5 - contestants.length;
+    mobs.slice(0, mobCount).forEach((mob, index) => {
+        contestants.push({
+            id : `mayRoseMob_${index}`,
+            name : mob.name
+        });
+    });
+    return contestants;
+}
+
+window.start_mayRoseContest = function(player){
+    player.mayRoseContest = {
+        outfit : null,
+        judge : null,
+        greeting : null,
+        charmScore : 0,
+        outfitScore : 0,
+        greetingScore : 0,
+        totalScore : 0
+    };
+
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "상류도시의 광장에는 평소보다 훨씬 많은 사람들이 모여 있었다." +
+                "<br><br>화려하게 꾸며진 무대 위에는 커다란 장미 장식과 함께 현수막 하나가 걸려 있다." +
+                "<br><br><strong>[5월의 장미 선발회]</strong>" +
+                "<br><br>오늘 하루, 가장 매력적인 사람을 가려내는 상류도시의 축제다." +
+                "<br><br>당신은 참가자 대기실로 향했다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "무대에 오르기 전에 먼저 옷을 골라야 한다." +
+                "<br><br>어떤 옷을 입고 나갈까?"
+            ]
+        },
+        {
+            type : "choice",
+            choices : Object.entries(MAY_ROSE_OUTFITS).map(
+                ([outfitId, outfit]) => ({
+                    text : outfit.name,
+                    action : () => selectMayRoseOutfit(
+                        player,
+                        outfitId
+                    )
+                })
+            )
+        }
+    ], player);
+};
+
+function selectMayRoseOutfit(player, outfitId){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+
+    contest.outfit = outfitId;
+    contest.judge = getRandomMayRoseJudge(player);
+
+    contest.contestants = getMayRoseContestants(
+        player,
+        contest.judge
+    );
+
+    savePlayer(player);
+    revealMayRoseJudge(player);
+}
+
+function revealMayRoseJudge(player){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+    const outfit = MAY_ROSE_OUTFITS[contest.outfit];
+    const judge = MAY_ROSE_JUDGES[contest.judge];
+    startScene([
+        {
+            type : "text",
+            value :
+                `당신은 <strong>${outfit.name}</strong>을(를) 입고 무대에 올랐다.` +
+                "<br><br>먼저 무대에 오른 참가자들이 차례로 심사를 받고 있다." +
+                "<br><br>잠시 후, 당신의 차례가 되었다." +
+                "<br><br>관객들의 시선이 일제히 당신에게 쏠렸다."
+        },
+        {
+            type : "text",
+            value :
+                "당신은 무대 앞으로 걸어나가 심사위원석을 바라보았다." +
+                "<br><br>오늘 당신을 심사할 사람은..." +
+                `<br><br><strong>${judge.name}</strong>이다!`
+        },
+        {
+            type : "text",
+            value :
+                `${judge.name}의 시선이 당신에게 향했다.` +
+                "<br><br>어떻게 인사할까?"
+        },
+        {
+            type : "choice",
+            choices : Object.entries(MAY_ROSE_GREETINGS).map(
+                ([greetingId, greeting]) => ({
+                    text : greeting.name,
+                    action : () => selectMayRoseGreeting(
+                        player,
+                        greetingId
+                    )
+                })
+            )
+        }
+    ], player);
+}
+
+function selectMayRoseGreeting(player, greetingId){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+    contest.greeting = greetingId;
+    savePlayer(player);
+    calculateMayRoseScore(player);
+}
+
+function calculateMayRoseScore(player){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+
+    const judge = MAY_ROSE_JUDGES[contest.judge];
+    const outfit = MAY_ROSE_OUTFITS[contest.outfit];
+    const greeting = MAY_ROSE_GREETINGS[contest.greeting];
+    const totalStats = calculateTotalStats(player);
+    const charm = totalStats.charm || 0;
+
+    const charmScore = Math.min(
+        100,
+        Math.round(charm * 1.2)
+    );
+
+    const outfitScore =
+        judge.outfit[contest.outfit] || 0;
+
+    const greetingScore =
+        judge.greeting[contest.greeting] || 0;
+
+    const totalScore =
+        charmScore +
+        outfitScore +
+        greetingScore;
+
+    contest.charmScore = charmScore;
+    contest.outfitScore = outfitScore;
+    contest.greetingScore = greetingScore;
+    contest.totalScore = totalScore;
+
+    savePlayer(player);
+    showMayRosePlayerScore(player);
+}
+
+function showMayRosePlayerScore(player){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+
+    const judge = MAY_ROSE_JUDGES[contest.judge];
+    const outfit = MAY_ROSE_OUTFITS[contest.outfit];
+    const greeting = MAY_ROSE_GREETINGS[contest.greeting];
+
+    startScene([
+        {
+            type : "text",
+            value :
+                `당신은 <strong>${greeting.name}</strong>을(를) 했다.` +
+                `<br><br>${judge.name}은(는) 잠시 당신을 바라보더니 점수를 적었다.`
+        },
+        {
+            type : "text",
+            value :
+                `<strong>[${judge.name}의 심사 결과]</strong>` +
+                `<br><br>비밀투표점수 : ${contest.charmScore}점` +
+                `<br>의상 (${outfit.name}) : ${contest.outfitScore}점` +
+                `<br>인사 (${greeting.name}) : ${contest.greetingScore}점` +
+                `<br><br><strong>총점 : ${contest.totalScore} / 200점</strong>`
+        }
+    ], player, {
+        onEnd : () => finishMayRoseContest(player)
+    });
+}
+
+const MAY_ROSE_NPC_SCORE_RANGES = {
+    kain : {
+        min : 180,
+        max : 200
+    },
+    deric : {
+        min : 160,
+        max : 190
+    },
+    valen : {
+        min : 140,
+        max : 180
+    },
+    akasia : {
+        min : 145,
+        max : 175
+    },
+    nikolai : {
+        min : 150,
+        max : 180
+    }
+};
+
+function getRandomMayRoseScore(min, max){
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+}
+
+function finishMayRoseContest(player){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+    const results = contest.contestants.map(contestant => {
+        const range = MAY_ROSE_NPC_SCORE_RANGES[contestant.id];
+        if (range){
+            return {
+                ...contestant,
+                score : getRandomMayRoseScore(
+                    range.min,
+                    range.max
+                )
+            };
+        }
+        return {
+            ...contestant,
+            score : getRandomMayRoseScore(120, 175)
+        };
+    });
+
+    results.push({
+        id : "player",
+        name : player.name,
+        score : contest.totalScore
+    });
+
+    results.sort((a, b) => b.score - a.score);
+
+    let previousScore = null;
+    let previousRank = 0;
+
+    results.forEach((result, index) => {
+        if (result.score === previousScore){
+            result.rank = previousRank;
+        } else {
+            result.rank = index + 1;
+            previousRank = result.rank;
+        }
+
+        previousScore = result.score;
+    });
+
+    const playerResult = results.find(
+        result => result.id === "player"
+    );
+    contest.rank = playerResult.rank;
+    contest.results = results;
+    savePlayer(player);
+    showMayRoseContestResult(player);
+}
+
+function showMayRoseContestResult(player){
+    const contest = player.mayRoseContest;
+    if (!contest || !contest.results) return;
+
+    const judge = MAY_ROSE_JUDGES[contest.judge];
+
+    const rankingText = contest.results
+        .map(result => {
+            const isPlayer = result.id === "player";
+
+            return (
+                `${result.rank}위 - ` +
+                `${isPlayer ? "<strong>당신</strong>" : result.name}` +
+                ` : ${result.score}점`
+            );
+        })
+        .join("<br>");
+
+    startScene([
+        {
+            type : "text",
+            value :
+                "모든 참가자의 심사가 끝났다." +
+                "<br><br>잠시 후, 집계가 끝난 점수와 순위가 공개되기 시작했다."
+        },
+        {
+            type : "text",
+            value :
+                "<strong>[5월의 장미 선발회 결과]</strong>" +
+                `<br><br>오늘의 심사위원 : <strong>${judge.name}</strong>` +
+                "<br><br>" +
+                rankingText +
+                `<br><br>당신의 최종 순위는 <strong>${contest.rank}위</strong>다!`
+        }
+    ], player, {
+        onEnd : () => giveMayRoseContestReward(player)
+    });
+}
+
+const MAY_ROSE_RANK_REWARDS = {
+    1 : 350,
+    2 : 350,
+    3 : 300,
+    4 : 100,
+    5 : 50,
+    6 : 1
+};
+
+const MAY_ROSE_FIRST_PRIZE_FURNITURES = [
+    "roseBunch",
+    "roseSmell",
+    "goldenRose",
+    "roseBath",
+    "redRoseBed",
+    "greenRoseBed",
+    "blueRoseBed",
+    "blackRoseBed"
+];
+
+function giveMayRoseContestReward(player){
+    const contest = player.mayRoseContest;
+    if (!contest) return;
+
+    const rank = contest.rank;
+    const reward = MAY_ROSE_RANK_REWARDS[rank] ?? 1;
+
+    changeEventPoint(player, reward);
+
+    let furnitureName = null;
+
+    if (rank === 1){
+        const furnitureId =
+            MAY_ROSE_FIRST_PRIZE_FURNITURES[
+                Math.floor(
+                    Math.random() *
+                    MAY_ROSE_FIRST_PRIZE_FURNITURES.length
+                )
+            ];
+
+        giveFurniture(player, furnitureId);
+
+        const furniture = FURNITURE_DATA[furnitureId];
+        furnitureName = furniture?.name || furnitureId;
+    }
+
+    let text =
+        `대회 상품으로 <span class='log-lust'>${reward}🌹</span>를 받았다!`;
+
+    if (rank === 1){
+        text +=
+            "<br><br>그리고 '5월의 장미'에게 주어지는 특별한 상품이 당신 앞에 놓였다." +
+            "<br><br>상품을 확인해보니..." +
+            `<br><br><strong>${furnitureName}</strong>이(가) 들어 있었다!`;
+    }
+
+    const date = getCalendarDate(player);
+    player.flags.mayRoseContestYear = date.year;
+    player.mayRoseContest = null;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : text
+        }
+    ], player, {
+        onEnd : () =>
+            startScene(getLocationScene(player), player)
+    });
 }

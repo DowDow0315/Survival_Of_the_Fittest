@@ -859,6 +859,10 @@ const EVENT_SHOP = {
         {
             id : "dericEricDoll",
             price : 10000
+        },
+        {
+            id : "coopClock",
+            price : 1000
         }
     ]
 };
@@ -1147,3 +1151,227 @@ window.tobias_exchangeEventPoint = function(player){
 
     input.focus();
 };
+
+// =========================
+// 토비아스 가구 판매
+// =========================
+
+function getFurnitureSellPrice(furniture){
+    if (!furniture) return 0;
+
+    return Math.floor(
+        (furniture.price || 0) * 0.5
+    );
+}
+
+
+window.tobias_sellFurniture = function(player){
+    initFurnitureInventory(player);
+    const storyText =
+        document.getElementById("storyText");
+    const choiceArea =
+        document.getElementById("choiceArea");
+    const storyBtn =
+        document.getElementById("storyBtn");
+    storyBtn.style.display = "none";
+    const sellableFurniture =
+        player.furnitureInventory.filter(
+            furnitureId => {
+                const furniture =
+                    FURNITURE_DATA[furnitureId];
+
+                return (
+                    furniture &&
+                    getFurnitureSellPrice(furniture) > 0
+                );
+            }
+        );
+    const grouped = {};
+    sellableFurniture.forEach(furnitureId => {
+
+        if (!grouped[furnitureId]){
+            grouped[furnitureId] = 0;
+        }
+
+        grouped[furnitureId]++;
+    });
+    storyText.innerHTML = `
+        토비아스는 가구를 판다는 말에 눈을 깜박이더니 고개를 끄덕였다.
+        <br><br>
+        "...쓰다만 가구라도 원하는 사람들은 많으니까."
+    `;
+    choiceArea.innerHTML = "";
+    const furnitureIds =
+        Object.keys(grouped);
+    if (furnitureIds.length === 0){
+        const empty =
+            document.createElement("p");
+        empty.innerText =
+            "판매할 수 있는 가구가 없다.";
+        choiceArea.appendChild(empty);
+    } else {
+        furnitureIds.forEach(furnitureId => {
+
+            const furniture =
+                FURNITURE_DATA[furnitureId];
+
+            const count =
+                grouped[furnitureId];
+
+            const sellPrice =
+                getFurnitureSellPrice(furniture);
+
+
+            const wrap =
+                document.createElement("div");
+
+            wrap.className = "shop-item";
+
+
+            const info =
+                document.createElement("div");
+
+            info.className =
+                "shop-item-info";
+
+
+            const name =
+                document.createElement("strong");
+
+            name.innerText =
+                count > 1
+                    ? `${furniture.name} x${count}`
+                    : furniture.name;
+
+            info.appendChild(name);
+
+
+            const price =
+                document.createElement("p");
+
+            price.innerText =
+                `판매가: ${sellPrice.toLocaleString()}G`;
+
+            info.appendChild(price);
+
+            wrap.appendChild(info);
+
+            const sellBtn =
+                document.createElement("button");
+
+            sellBtn.innerText =
+                "1개 판매";
+
+            sellBtn.onclick = () => {
+                sellFurnitureToTobias(
+                    player,
+                    furnitureId,
+                    1
+                );
+            };
+
+            wrap.appendChild(sellBtn);
+
+            if (count > 1){
+
+                const sellAllBtn =
+                    document.createElement("button");
+
+                sellAllBtn.innerText =
+                    `전부 판매 (${count}개)`;
+
+                sellAllBtn.onclick = () => {
+                    sellFurnitureToTobias(
+                        player,
+                        furnitureId,
+                        count
+                    );
+                };
+
+                wrap.appendChild(sellAllBtn);
+            }
+
+
+            choiceArea.appendChild(wrap);
+        });
+    }
+    const cancelBtn =
+        document.createElement("button");
+
+    cancelBtn.innerText =
+        "그만둔다";
+
+    cancelBtn.onclick = () => {
+        startScene(
+            getLocationScene(player),
+            player
+        );
+    };
+
+    choiceArea.appendChild(cancelBtn);
+};
+
+function sellFurnitureToTobias(
+    player,
+    furnitureId,
+    amount = 1
+){
+    initFurnitureInventory(player);
+    const furniture =
+        FURNITURE_DATA[furnitureId];
+
+    if (!furniture){
+        return;
+    }
+
+    const ownedCount =
+        player.furnitureInventory.filter(
+            id => id === furnitureId
+        ).length;
+
+    if (
+        !Number.isInteger(amount) ||
+        amount < 1 ||
+        amount > ownedCount
+    ){
+        addLog(
+            "보유하고 있는 가구 수량이 부족하다."
+        );
+        return;
+    }
+
+    const sellPrice =
+        getFurnitureSellPrice(furniture);
+    if (sellPrice <= 0){
+        addLog(
+            "이 가구는 판매할 수 없다."
+        );
+        return;
+    }
+    let removed = 0;
+    player.furnitureInventory =
+        player.furnitureInventory.filter(id => {
+
+            if (
+                id === furnitureId &&
+                removed < amount
+            ){
+                removed++;
+                return false;
+            }
+
+            return true;
+        });
+    const total = sellPrice * amount;
+    addGold(
+        player,
+        total
+    );
+    savePlayer(player);
+
+    addLog(
+        `${furniture.name} ${amount}개 판매! +${total.toLocaleString()}G`
+    );
+
+    tobias_sellFurniture(player);
+}

@@ -378,7 +378,11 @@ function startScene(scene, player, options = {}){
                         return;
                     }
 
-                    handleAction(choice.action, player);
+                    if (typeof choice.action === "function"){
+                        choice.action(player);
+                    } else {
+                        handleAction(choice.action, player);
+                    }
                 };
 
                 choiceArea.appendChild(btn);

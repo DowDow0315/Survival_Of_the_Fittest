@@ -3868,6 +3868,61 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
+    id : "pale_lust70_notLover",
+
+    condition : (player) =>
+        player.justMoved &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.location === "reclaimedShop" &&
+        !hasNpcRelationship("pale", "lover") &&
+        !hasNpcRelationship("pale", "spouse") &&
+        NPC_DATA["pale"].emotion.lust >= 70 &&
+        player.flags?.paleFindsHerPlace &&
+        Math.random() < 0.1,
+
+    action : (player) => {
+        changeNPCEmotion("pale", "lust", -70);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_lust70_notLover,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "pale_eric_confess_his_fault",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.location === "reclaimedShop" &&
+        !hasNpcRelationship("pale", "lover") &&
+        player.flags?.endAshParents &&
+        !player.flags?.ericDie &&
+        player.flags?.paleFindsHerPlace,
+
+    action : (player) => {
+        player.flags.ericCaresPale = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["pale"].scenes.pale_eric_confess_his_fault,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
     id : "pale_withPale_01",
 
     condition : (player) =>
@@ -6435,7 +6490,7 @@ window.EVENTS.push({
 });
 
 window.EVENTS.push({
-    id : "underCity_squirrel",
+    id : "underCity_squirrel_01",
     condition : (player) =>
         player.justMoved &&
         ["townStreet", "townEntrance_act3"].includes(player.location) &&
@@ -6451,6 +6506,63 @@ window.EVENTS.push({
                     "당신은 다람쥐 한 마리가 위풍당당한 걸음으로 걷고 있는 것을 보았다. 입에는 도토리를 물고 있었는데, 당신을 보자 마치 아는 사람을 반기듯이 다람쥐는 당신의 주변에서 빙글빙글 돌았다." +
                     "<br><br>하지만 당신이 손을 움직이자 다람쥐는 도토리만큼은 못 준다는 듯이 앙증맞은 두 팔로 자신의 입에 물린 도토리를 가리며 삐죽 당신을 노려보았다." +
                     "<br><br>...당신은 도토리를 물고 다시 위풍당당하게 걸어가는 다람쥐를 뒤에서 멍하니 바라보았다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "underCity_squirrel_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        player.flags?.eric_squirrel_02 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        changeTrauma(player, -3);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어라? 에릭의 그 위풍당당한 다람쥐다. 다람쥐는 당신을 보자마자 우다다다 당신에게 달려들었다. 겁도 없이 당신에게 달려들은 다람쥐는 당신의 품안에서 고롱고롱거렸다." +
+                    "<br><br>...다람쥐에게 당신은 폭신한 침대인 모양이다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "underCity_squirrel_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        player.flags?.eric_squirrel_02 &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        changeTrauma(player, -3);
+        savePlayer(player);
+        
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "다람쥐 두 마리가 자랑하듯이 서로가 가지고 있는 도토리를 내밀고 있다. 두 마리는 당신의 인기척을 느끼더니 촉촉한 코를 벌름거리며 돌아보았다. 찍, 찌지직, 뭔가 얘기라도 하는 걸까? 두 마리는 당신을 딱히 경계하고 있지는 않다." +
+                    "<br><br>그 순간, 다람쥐 한 마리가 위로 도토리를 던졌다. 그러자 다른 다람쥐가 점프해서 그 도토리를 낚아채며 도토리를 던진 다람쥐 위에 섰다." +
+                    "<br><br>그리고 둘 다 턱을 들어올렸다.<br><br>...당신은 당신도 모르게 박수를 쳤다."
                 ]
             }
         ], player, {

@@ -1593,6 +1593,8 @@ window.springDance_contest = function(player){
 
 function startSpringDanceRhythmGame(player){
 
+    passTime(player, 30);
+
     startArrowRhythmGame(player, {
 
         title: "꽃무도회",
@@ -2272,7 +2274,7 @@ function startHarvestChase(player, cropType){
     }
 
     // 하루 1회
-    if (hasPlayedHarvestGameToday(player, cropType)){
+    if (hasPlayedHarvestGameToday(player, gameId)){
         showSingleTextScene(
             `오늘은 이미 ${data.name} 추격에 참가했다.` +
             `<br><br>내일 다시 참가할 수 있다.`,
@@ -2304,6 +2306,8 @@ function startHarvestChaseRound(player, cropType, roundIndex){
     const round = HARVEST_CHASE_ROUNDS[roundIndex];
 
     if (!data || !round) return;
+
+    passTime(player, 10);
 
     startArrowMinigame(player, {
         mode: "sequence",
@@ -3064,6 +3068,8 @@ function finishEatEatEatMartinPrep(player, prep){
     let result = "bad";
     let text = "";
 
+    passTime(player, 20);
+
     if (success === 5){
         reward = 15;
         result = "good";
@@ -3166,7 +3172,6 @@ window.start_eatEatEatContest = function(player){
         score : 0,
         fullness : 0
     };
-
     savePlayer(player);
 
     startScene([
@@ -3304,6 +3309,8 @@ function startEatEatEatFood(player, food){
 function finishEatEatEatFood(player, food, success){
     const contest = player.eatEatEatContest;
     if (!contest) return;
+
+    passTime(player, 5);
 
     contest.plate++;
 
@@ -4170,6 +4177,9 @@ function getRandomMayRoseScore(min, max){
 function finishMayRoseContest(player){
     const contest = player.mayRoseContest;
     if (!contest) return;
+    
+    passTime(player, 30);
+
     const results = contest.contestants.map(contestant => {
         const range = MAY_ROSE_NPC_SCORE_RANGES[contestant.id];
         if (range){

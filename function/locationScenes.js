@@ -120,28 +120,28 @@ function buildTownStreetScene(player, loc, randomDesc){
     if (isHarvestDay(player)){
         choices.push({
             text : "배추가 달아난다!",
-            action : () => startHarvestChase(player, "cabbage")
+            action : "startHarvestChase_cabbage"
         });
     }
 
     if (isHarvestDay(player)){
         choices.push({
             text : "감자가 달아난다!",
-            action : () => startHarvestChase(player, "potato")
+            action : "startHarvestChase_potato"
         });
     }
 
     if (isHarvestDay(player)){
         choices.push({
             text : "고추가 달아난다!",
-            action : () => startHarvestChase(player, "pepper")
+            action : "startHarvestChase_pepper"
         });
     }
 
     if (isHarvestDay(player)){
         choices.push({
             text : "꼬, 꼬, 꼬끼~~~~오!",
-            action : () => startHarvestRodeo(player)
+            action : "startHarvestRodeo"
         });
     }
 
@@ -185,6 +185,16 @@ function buildTownStreetScene(player, loc, randomDesc){
         }
     ];
 }
+
+window.startHarvestChase_cabbage = function(player){
+    startHarvestChase(player, "cabbage");
+};
+window.startHarvestChase_potato = function(player){
+    startHarvestChase(player, "potato");
+};
+window.startHarvestChase_pepper = function(player){
+    startHarvestChase(player, "pepper");
+};
 
 function buildShopScene(player, loc, randomDesc){
     const choices = [];
@@ -2038,7 +2048,7 @@ function buildGloryStreetScene(player, loc, randomDesc){
     if (isHarvestDay(player)){
         choices.push({
             text: "풍요의 탑을 쌓는다.",
-            action: () => startHarvestTower(player)
+            action: "startHarvestTower"
         });
     }
 

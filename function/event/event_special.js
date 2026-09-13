@@ -2638,11 +2638,11 @@ function finishHarvestRodeo(player, state){
 
 //풍요의 탑
 const HARVEST_TOWER_STAGES = [
-    { speed: 0.35, tolerance: 18 },
-    { speed: 0.50, tolerance: 12 },
-    { speed: 0.60, tolerance: 9 },
-    { speed: 0.75, tolerance: 8 },
-    { speed: 0.90, tolerance: 5 }
+    { speed: 0.50, tolerance: 18 },
+    { speed: 0.70, tolerance: 12 },
+    { speed: 0.85, tolerance: 9 },
+    { speed: 0.95, tolerance: 8 },
+    { speed: 1.50, tolerance: 5 }
 ];
 
 const HARVEST_TOWER_REWARD = 10;

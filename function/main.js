@@ -4074,7 +4074,7 @@ function startArrowRhythmGame(player, options = {}){
         title: options.title || "리듬게임",
         noteCount: options.noteCount ?? 20,
         spawnInterval: options.spawnInterval ?? 700,
-        fallDuration: options.fallDuration ?? 2500,
+        fallDuration: options.fallDuration ?? 1900,
 
         perfectRange: options.perfectRange ?? 20,
         goodRange: options.goodRange ?? 25,

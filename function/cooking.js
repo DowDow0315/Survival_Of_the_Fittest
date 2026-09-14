@@ -233,7 +233,7 @@ let weirdIndex = 0;
             timeLimit: 4300,
             hideAfter: 1000,
             
-            great: 7,
+            great: 6,
             normal: 5,
             bad: 3
         }

@@ -3768,7 +3768,7 @@ window.EVENTS.push({
         ( player.location === "shelter" || player.location === "goldenShelter" ) &&
         player.flags?.promisePaleDream &&
         !player.flags?.paleDie &&
-        !player.flags?.paleFindsHerPlace &&
+        !player.flags?.paleFindHerPlace &&
         player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
         player.flags?.paleGivesYouPower &&
         Math.random() < 0.08,
@@ -3795,7 +3795,7 @@ window.EVENTS.push({
         ( player.location === "shelter" || player.location === "goldenShelter" ) &&
         player.flags?.promisePaleDream &&
         !player.flags?.paleDie &&
-        !player.flags?.paleFindsHerPlace &&
+        !player.flags?.paleFindHerPlace &&
         NPC_DATA["pale"].emotion.affection >= 30 &&
         player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
         player.flags?.paleGivesYouPower &&
@@ -3823,7 +3823,7 @@ window.EVENTS.push({
         player.location === "deepForest_act3" &&
         player.flags?.promisePaleDream &&
         !player.flags?.paleDie &&
-        !player.flags?.paleFindsHerPlace &&
+        !player.flags?.paleFindHerPlace &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         NPC_DATA["pale"].emotion.affection >= 40 &&
         player.flags?.pale_promisePale_day !== getCurrentDay(player) &&
@@ -3854,7 +3854,7 @@ window.EVENTS.push({
         player.flags?.act3_quest_09_boss_end,
 
     action : (player) => {
-        player.flags.paleFindsHerPlace = true;
+        player.flags.paleFindHerPlace = true;
         savePlayer(player);
 
         startScene(
@@ -3877,8 +3877,8 @@ window.EVENTS.push({
         !hasNpcRelationship("pale", "lover") &&
         !hasNpcRelationship("pale", "spouse") &&
         NPC_DATA["pale"].emotion.lust >= 70 &&
-        player.flags?.paleFindsHerPlace &&
-        Math.random() < 0.1,
+        player.flags?.paleFindHerPlace &&
+        Math.random() < 0.4,
 
     action : (player) => {
         changeNPCEmotion("pale", "lust", -70);
@@ -3906,7 +3906,7 @@ window.EVENTS.push({
         !hasNpcRelationship("pale", "lover") &&
         player.flags?.endAshParents &&
         !player.flags?.ericDie &&
-        player.flags?.paleFindsHerPlace,
+        player.flags?.paleFindHerPlace,
 
     action : (player) => {
         player.flags.ericCaresPale = true;
@@ -3929,7 +3929,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "reclaimedShop" &&
         player.flags?.pale_withPale_day !== getCurrentDay(player) &&
-        player.flags?.paleFindsHerPlace &&
+        player.flags?.paleFindHerPlace &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -3955,7 +3955,7 @@ window.EVENTS.push({
         ["morning", "afternoon"].includes(getTimePeriod(player)) &&
         player.flags?.pale_withPale_day !== getCurrentDay(player) &&
         player.weather === "sunny" &&
-        player.flags?.paleFindsHerPlace &&
+        player.flags?.paleFindHerPlace &&
         Math.random() < 0.07,
 
     action : (player) => {
@@ -3980,7 +3980,7 @@ window.EVENTS.push({
         ["townStreet", "darkStreet", "townEntrance_act3"].includes(player.location) &&
         player.flags?.pale_withPale_day !== getCurrentDay(player) &&
         ["rain", "storm"].includes(player.weather) &&
-        player.flags?.paleFindsHerPlace &&
+        player.flags?.paleFindHerPlace &&
         Math.random() < 0.08,
 
     action : (player) => {

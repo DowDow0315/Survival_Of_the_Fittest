@@ -269,6 +269,44 @@ window.FURNITURE_DATA = {
         }
     },
 
+    vegetableTable : {
+        id : "vegetableTable",
+        name : "귀여움으로 편식을 방지하는, 야채들이 앉아있는 테이블",
+        type : "table",
+        price : 8500000
+    },
+
+    meatTable : {
+        id : "meatTable",
+        name : "고기 그림으로 가득한 테이블",
+        type : "table",
+        price : 9500000
+    },
+    potatoChair : {
+        id : "potatoChair",
+        name : "감자의자",
+        type : "chair",
+        price : 3500000
+    },
+    cabbageChair : {
+        id : "cabbageChair",
+        name : "양배추의자",
+        type : "chair",
+        price : 3500000
+    },
+    pepperChair : {
+        id : "pepperChair",
+        name : "고추의자",
+        type : "chair",
+        price : 3500000
+    },
+    meatChair : {
+        id : "meatChair",
+        name : "고기쿠션이 놓여있는 의자",
+        type : "chair",
+        price : 4000000
+    },
+
     bearDoll : {
         id : "bearDoll",
         name : "곰 인형",
@@ -331,6 +369,30 @@ window.FURNITURE_DATA = {
         name : "데릭에릭 쌍둥이 인형",
         type : "doll",
         price : 10000000000
+    },
+    potatoDoll : {
+        id : "potatoDoll",
+        name : "감자 인형",
+        type : "doll",
+        price : 10000000
+    },
+    cabbageDoll : {
+        id : "cabbageDoll",
+        name : "양배추 인형",
+        type : "doll",
+        price : 10000000
+    },
+    pepperDoll : {
+        id : "pepperDoll",
+        name : "고추 인형",
+        type : "doll",
+        price : 10000000
+    },
+    potatoCabbagePepperDoll : {
+        id : "potatoCabbagePepperDoll",
+        name : "서로 나란히 손잡고 있는 감자양배추고추 인형들",
+        type : "doll",
+        price : 30000000
     },
 
     piggyDoll : {
@@ -616,6 +678,61 @@ window.initPlayerHouses = function(player){
                 ]
             }
         };
+    }
+
+    const furnitureDefaults = {
+        under : {
+            bed : "basicBed",
+            bath : null,
+            table : null,
+            chair : null,
+            doll : null,
+            doll2 : null,
+            doll3 : null,
+            decoration1 : null,
+            decoration2 : null,
+            decoration3 : null,
+            decoration4 : null,
+            decoration5 : null,
+            decoration6 : null
+        },
+        
+        upper : {
+            bed : "basicBed",
+            bath : null,
+            table : null,
+            chair : null,
+            doll : null,
+            doll2 : null,
+            doll3 : null,
+            doll4 : null,
+            doll5 : null,
+            decoration1 : null,
+            decoration2 : null,
+            decoration3 : null,
+            decoration4 : null,
+            decoration5 : null,
+            decoration6 : null,
+            decoration7 : null,
+            decoration8 : null,
+            decoration9 : null,
+            decoration10 : null
+        }
+    };
+    
+    for (const [houseType, defaults] of Object.entries(furnitureDefaults)){
+        const house = player.houses[houseType];
+        if (!house){
+            continue;
+        }
+        
+        house.furniture ??= {};
+        
+        for (const [slot, defaultValue] of Object.entries(defaults)){
+            if (!(slot in house.furniture)){
+                house.furniture[slot] = defaultValue;
+            }
+        }
     }
 };
 
@@ -1864,12 +1981,151 @@ window.openHouseBathFurniture = function(player){
 };
 
 window.openHouseDollFurniture = function(player){
-    openFurnitureTypeMenu(
-        player,
-        "doll",
-        "인형"
+    initFurnitureInventory(player);
+    const house = getCurrentHouse(player);
+    if (!house){
+        return;
+    }
+    const choices = [];
+    const ownedDolls =
+        player.furnitureInventory.filter(
+            furnitureId =>
+                FURNITURE_DATA[furnitureId]?.type === "doll"
+        );
+    const uniqueIds =
+        [...new Set(ownedDolls)];
+    uniqueIds.forEach(furnitureId => {
+        const furniture =
+            FURNITURE_DATA[furnitureId];
+        const count =
+            ownedDolls.filter(
+                id => id === furnitureId
+            ).length;
+        choices.push({
+            text :
+                `${furniture.name}을/를 배치한다` +
+                `${count > 1 ? ` ×${count}` : ""}`,
+            action :
+                `installFurniture_${furnitureId}`
+        });
+    });
+
+    const dollSlots =
+        Object.keys(house.furniture)
+            .filter(key =>
+                key === "doll" ||
+                /^doll\d+$/.test(key)
+            );
+
+    const installedDolls =
+        dollSlots.filter(
+            slot =>
+                !!house.furniture[slot]
+        );
+
+    installedDolls.forEach(slot => {
+        const furnitureId =
+            house.furniture[slot];
+        const furniture =
+            FURNITURE_DATA[furnitureId];
+        choices.push({
+            text :
+                `${furniture?.name || "인형"}을 치운다`,
+            action :
+                `removeDoll_${slot}`
+        });
+    });
+
+    if (
+        uniqueIds.length === 0 &&
+        installedDolls.length === 0
+    ){
+        choices.push({
+            text : "보유하거나 배치한 인형이 없다",
+            action : "noOwnedFurniture"
+        });
+    }
+
+    choices.push({
+        text : "돌아간다",
+        action : "openHouseFurniture"
+    });
+
+    startScene(
+        [
+            {
+                type : "text",
+                value :
+                    "집의 인형을 살펴보았다." +
+                    `<br><br>` +
+                    `배치된 인형 : ${installedDolls.length} / ${dollSlots.length}`
+            },
+            {
+                type : "choice",
+                choices
+            }
+        ],
+        player
     );
 };
+
+window.removeDoll = function(
+    player,
+    slot
+){
+    initFurnitureInventory(player);
+    const house = getCurrentHouse(player);
+    if (!house){
+        return;
+    }
+    const furnitureId =
+        house.furniture?.[slot];
+    if (!furnitureId){
+        return;
+    }
+    const furniture =
+        FURNITURE_DATA[furnitureId];
+    player.furnitureInventory.push(
+        furnitureId
+    );
+    house.furniture[slot] = null;
+    savePlayer(player);
+
+    startScene(
+        [
+            {
+                type : "text",
+                value :
+                    `${furniture?.name || "인형"}을 치웠다.`
+            }
+        ],
+        player,
+        {
+            onEnd : () =>
+                openHouseDollFurniture(player)
+        }
+    );
+};
+
+[
+    "doll",
+    "doll2",
+    "doll3",
+    "doll4",
+    "doll5"
+].forEach(slot => {
+
+    window[`removeDoll_${slot}`] =
+        function(player){
+
+            removeDoll(
+                player,
+                slot
+            );
+
+        };
+
+});
 
 window.openFurnitureTypeMenu = function(
     player,
@@ -1985,6 +2241,77 @@ window.giveFurniture = function(
     return true;
 };
 
+window.installDoll = function(
+    player,
+    furnitureId
+){
+    initFurnitureInventory(player);
+    const house = getCurrentHouse(player);
+    const furniture = FURNITURE_DATA[furnitureId];
+    if (!house || !furniture){
+        return;
+    }
+    const inventoryIndex =
+        player.furnitureInventory.indexOf(
+            furnitureId
+        );
+    if (inventoryIndex === -1){
+        showSingleTextScene(
+            "가지고 있지 않은 인형이다.",
+            player
+        );
+        return;
+    }
+
+    // doll, doll2, doll3... 슬롯 찾기
+    const dollSlots =
+        Object.keys(house.furniture)
+            .filter(key =>
+                key === "doll" ||
+                /^doll\d+$/.test(key)
+            );
+
+    const emptySlot =
+        dollSlots.find(
+            slot => !house.furniture[slot]
+        );
+
+    if (!emptySlot){
+        showSingleTextScene(
+            "더 이상 인형을 놓을 공간이 없다.",
+            player,
+            {
+                onEnd : () =>
+                    openHouseDollFurniture(player)
+            }
+        );
+        return;
+    }
+
+    player.furnitureInventory.splice(
+        inventoryIndex,
+        1
+    );
+
+    house.furniture[emptySlot] = furnitureId;
+    savePlayer(player);
+
+    startScene(
+        [
+            {
+                type : "text",
+                value :
+                    `${furniture.name}을/를 집에 배치했다.`
+            }
+        ],
+        player,
+        {
+            onEnd : () =>
+                openHouseDollFurniture(player)
+        }
+    );
+};
+
 window.installFurniture = function(
     player,
     furnitureId
@@ -2014,6 +2341,14 @@ window.installFurniture = function(
 
     if (furniture.type === "decoration"){
         installDecoration(
+            player,
+            furnitureId
+        );
+        return;
+    }
+
+    if (furniture.type === "doll"){
+        installDoll(
             player,
             furnitureId
         );
@@ -2122,10 +2457,6 @@ window.removeFurniture_bed = function(player){
 
 window.removeFurniture_bath = function(player){
     removeFurniture(player, "bath");
-};
-
-window.removeFurniture_doll = function(player){
-    removeFurniture(player, "doll");
 };
 
 window.noOwnedFurniture = function(player){
@@ -2297,6 +2628,78 @@ window.installDecoration = function(
         {
             onEnd : () =>
                 openHouseFurniture(player)
+        }
+    );
+};
+
+window.installDoll = function(
+    player,
+    furnitureId
+){
+    initFurnitureInventory(player);
+
+    const house = getCurrentHouse(player);
+    const furniture = FURNITURE_DATA[furnitureId];
+
+    if (!house || !furniture){
+        return;
+    }
+
+    const inventoryIndex =
+        player.furnitureInventory.indexOf(
+            furnitureId
+        );
+
+    if (inventoryIndex === -1){
+        showSingleTextScene(
+            "가지고 있지 않은 인형이다.",
+            player
+        );
+        return;
+    }
+
+    const dollSlots =
+        Object.keys(house.furniture)
+            .filter(key =>
+                key === "doll" ||
+                /^doll\d+$/.test(key)
+            );
+
+    const emptySlot =
+        dollSlots.find(
+            key => !house.furniture[key]
+        );
+
+    if (!emptySlot){
+        showSingleTextScene(
+            "더 이상 인형을 놓을 공간이 없다.",
+            player
+        );
+        return;
+    }
+
+    player.furnitureInventory.splice(
+        inventoryIndex,
+        1
+    );
+
+    house.furniture[emptySlot] =
+        furnitureId;
+
+    savePlayer(player);
+
+    startScene(
+        [
+            {
+                type : "text",
+                value :
+                    `${furniture.name}을/를 집에 배치했다.`
+            }
+        ],
+        player,
+        {
+            onEnd : () =>
+                openHouseDollFurniture(player)
         }
     );
 };

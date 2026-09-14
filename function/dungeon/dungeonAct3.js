@@ -997,6 +997,65 @@ Object.assign(DUNGEONS, {
             { type : "event", id : "lukeInner_starving", weight : 15 },
             { type : "event", id : "lukeInner_thief", weight : 15 }
         ]
+    },
+
+    paleWhiteFlowerCliff : {
+        id : "paleWhiteFlowerCliff",
+        name : "창백한 꽃이 심어져 있는 낭떠러지",
+        startRoom : "r0c6",
+
+        layout : [
+            [    "",     "", "r0c2", "r0c3", "r0c4",     "", "r0c6"],
+            [    "", "r1c1",     "",     "", "r1c4",     "", "r1c6"],
+            ["r2c0", "r2c1", "r2c2", "r2c3", "r2c4", "r2c5", "r2c6"],
+            [    "", "r3c1",     "",     "", "r3c4",     "",     ""],
+            [    "", "r4c1",     "",     "",     "", "r4c5", "r4c6"],
+            [    "", "r5c1",     "", "r5c3", "r5c4", "r5c5",     ""],
+            ["r6c0", "r6c1", "r6c2", "r6c3",     "",     "",     ""],
+            [    "", "r7c1",     "", "r7c3", "r7c4", "r7c5", "r7c6"]
+        ],
+
+        rooms : {
+            "r0c2" : {name : "늑대들의 무덤", exits : {right : "r0c3"}, event : "paleWhiteFlowerCliff_wolvesTomb", seenFlag : "paleWhiteFlowerCliff_wolvesTomb"},
+            "r0c3" : {name : "죽어가는 늑대", exits : {left : "r0c2", right : "r0c4"}, event : "paleWhiteFlowerCliff_dyingWolf", seenFlag : "paleWhiteFlowerCliff_dyingWolf"},
+            "r0c4" : {name : "이어지는 하울링", exits : {left : "r0c3", down : "r1c4"}},
+            "r0c6" : {name : "숲 입구", exits : {down : "r1c6"}},
+            
+            "r1c1" : {name : "길다란 하얀꽃 나무", exits : {down : "r2c1"}, event : "paleWhiteFlowerCliff_tallWhiteTree", seenFlag : "paleWhiteFlowerCliff_tallWhiteTree"},
+            "r1c4" : {name : "위협적인 하울링", exits : {up : "r0c4", down : "r2c4"}},
+            "r1c6" : {name : "울창한 하얀꽃 나무들", exits : {up : "r0c6", down : "r2c6"}},
+
+            "r2c0" : {name : "균열", exits : {right : "r2c1"}, event : "paleWhiteFlowerCliff_crack", seenFlag : "paleWhiteFlowerCliff_crack"},
+            "r2c1" : {name : "하얀꽃길5", exits : {left : "r2c0", up : "r1c1", right : "r2c2", down : "r3c1"}},
+            "r2c2" : {name : "하얀꽃길4", exits : {left : "r2c1", right : "r2c3"}},
+            "r2c3" : {name : "하얀꽃길3", exits : {left : "r2c2", right : "r2c4"}},
+            "r2c4" : {name : "하얀꽃길2", exits : {left : "r2c3", up : "r1c4", right : "r2c5", down : "r3c4"}},
+            "r2c5" : {name : "하얀꽃길1", exits : {left : "r2c4", right : "r2c6"}},
+            "r2c6" : {name : "바람결의 하울링 소리", exits : {left : "r2c5", up : "r1c6"}},
+            
+            "r3c1" : {name : "하얀꽃길6", exits : {up : "r2c1", down : "r4c1"}},
+            "r3c4" : {name : "나무의 긁힌 자국", exits : {up : "r2c4"}, chest : "soraBasement_chest"},
+            
+            "r4c1" : {name : "하얀꽃길7", exits : {up : "r3c1", down : "r5c1"}},
+            "r4c5" : {name : "큰 늑대", exits : {right : "r4c6", down : "r5c5"}, event : "paleWhiteFlowerCliff_bigwolf", seenFlag : "paleWhiteFlowerCliff_bigwolf"},
+            "r4c6" : {name : "아기늑대들", exits : {left : "r4c5"}, event : "paleWhiteFlowerCliff_babywolves", seenFlag : "paleWhiteFlowerCliff_babywolves"},
+            
+            "r5c1" : {name : "하얀꽃길8", exits : {up : "r4c1", down : "r6c1"}},
+            "r5c3" : {name : "말라가는 길", exits : {right : "r5c4", down : "r6c3"}},
+            "r5c4" : {name : "시든 창백한 꽃", exits : {left : "r5c3", right : "r5c5"}},
+            "r5c5" : {name : "죽은 창백한 꽃", exits : {left : "r5c4", up : "r4c5"}, event : "paleWhiteFlowerCliff_deadFlower", seenFlag : "paleWhiteFlowerCliff_deadFlower"},
+            
+            "r6c0" : {name : "인간의 손길이 닿지 않은 길", exits : {right : "r6c1"}, event : "paleWhiteFlowerCliff_justWhite", seenFlag : "paleWhiteFlowerCliff_justWhite"},
+            "r6c1" : {name : "하얀꽃길9", exits : {left : "r6c0", up : "r5c1", right : "r6c2", down : "r7c1"}},
+            "r6c2" : {name : "하얀꽃길10", exits : {left : "r6c1", right : "r6c3"}},
+            "r6c3" : {name : "인간의 손길이 닿은 모퉁이", exits : {left : "r6c2", up : "r5c3", down : "r7c3"}},
+            
+            "r7c1" : {name : "바스러진 잔해", exits : {up : "r6c1"}, event : "paleWhiteFlowerCliff_akasia", seenFlag : "paleWhiteFlowerCliff_akasia"},
+            "r7c3" : {name : "하얀꽃만이 있는 건 아니다", exits : {up : "r6c3", right : "r7c4"}},
+            "r7c4" : {name : "하얀꽃들 사이의 아카시아 꽃잎", exits : {left : "r7c3", right : "r7c5"}, event : "paleWhiteFlowerCliff_akasia_02", seenFlag : "paleWhiteFlowerCliff_akasia_02"},
+            "r7c5" : {name : "으스러진 아카시아 꽃잎", exits : {left : "r7c4", right : "r7c6"}, safeZone: true, allowRest: true},
+            "r7c6" : {name : "벼랑 끝의 아카시아 나무 아래", exits : {left : "r7c5"}, bossId: "whiteWolves", boss : ["whiteAbomination3King", "whiteAbomination3", "whiteAbomination3"], bossIntro:"whiteWolves_intro"}
+        }
     }
 })
 
@@ -6065,8 +6124,325 @@ Object.assign(DUNGEON_EVENTS, {
                     }
                 ]
             }
-        ]
-    }
+        ],
+    },
+    paleWhiteFlowerCliff : {
+        paleWhiteFlowerCliff_dyingWolf : [
+            {
+                type : "text",
+                value : [
+                        "길을 가던 당신은 죽어가던 늑대를 보았다. 늑대는 힘없이 앓는 소리를 내고 있다가도 당신을 보자 경계 태세로 몸을 일으키려 했다. 하지만 다리가 부러진 건지, 아니면 아예 뼈가 없어진 건지, 그것은 일어나지 못하고 그대로 물컹 주저 앉았다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                        {
+                            text : "당신은 늑대를 치료하기 위해 다가갔다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 선의의 마음으로 늑대를 치료하려고 했지만, 늑대는 당신이 다가오자 기회를 노리다가 그대로 당신의 손목을 물어버렸다. 아프다! 송곳니가 박힌 늑대를 뿌리치기 위해서 당신은 늑대를 죽여야만 했다." +
+                                        "<br><br>...결국 깽 소리와 함께 늑대는 당신의 손에 죽었다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 5);
+                                        changeHP(player, -50);
+                                        player.flags.paleWhiteFlowerCliff_dyingWolf = true;
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 다친 늑대를 죽였다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "늑대는 당신의 손에 저항하려고 했지만 다친 몸으로는 저항할 수 없었다. 결국 늑대는 깽 하는 소리도 제대로 내지 못하고 당신의 손에 죽었다. 늑대의 시체에서 기어나오던 백흉물은 당신을 보자마자 재빨리 도망가버렸다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeTrauma(player, 3);
+                                        player.flags.paleWhiteFlowerCliff_dyingWolf = true;
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+            }
+        ],
+        paleWhiteFlowerCliff_wolvesTomb : [
+            {
+                    type : "text",
+                    value : [
+                        "죽은 늑대를 지난 당신은 늑대들의 시체가 산처럼 쌓여있는 곳에 도착했다. 늑대들이 일부러 자기네들 시체를 여기로 끌고 온 걸까? 당신은 주변을 더 둘러보았다." +
+                        "<br><br>늑대들의 시체 옆으로 백흉물의 잔존물들이 끔찍하게 죽어 있었다. 갈기갈기 찢긴 백흉물부터 시작해서 아래부터 속으로 파먹힌 것 같은 백흉물까지, 악의가 느껴지는 살해다."
+                    ]
+            },
+            {
+                    type : "effect",
+                    run : (player) => {
+                        player.flags.paleWhiteFlowerCliff_wolvesTomb = true;
+                        savePlayer(player);
+                    }
+            }
+        ],
+        paleWhiteFlowerCliff_tallWhiteTree : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 길다란 하얀꽃 나무를 보았다. 이 나무는 다른 나무들보다 키가 훨씬 큰 것 같다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 하얀꽃 나무 꼭대기까지 올라가 보았다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 주변을 정찰하기 위해 긴 하얀꽃 나무를 타고 올라갔다. 하지만 당신이 반도 올라가기 전에 하얀꽃 나무는 아래에서부터 무너져내렸다. 당신이 어떻게 무게 중심을 잡기도 전에 나무는 부서져버렸다." +
+                                        "<br><br><strong>쿵</strong><br><br>" +
+                                        "당신은 그대로 땅에 떨어졌다. 떨어진 당신의 주변으로 하얀꽃들이 전부 으스러져 버렸다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, -70);
+                                        player.flags.paleWhiteFlowerCliff_tallWhiteTree = true;
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 나무를 내버려두었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신은 나무를 만지지 않기로 했다. 당신은 밑을 내려다보았다. 아까부터 당신이 가는 발걸음마다 하얀꽃들이 갈색으로 변색되거나 쪼그라들고 있는 듯한 느낌이 든다..."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        player.flags.paleWhiteFlowerCliff_tallWhiteTree = true;
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            paleWhiteFlowerCliff_crack : [
+                {
+                    type : "text",
+                    value : [
+                        "하얀꽃 나무 사이로 지나가자 당신은 빽빽한 하얀꽃 나무 숲에서 벗어날 수 있었다. 하얀꽃 나무 숲에서 벗어난 당신은 앞을 바라보았다." +
+                        "<br><br>...앞은 절벽이었다.<br><br>" +
+                        "당신은 절벽 아래를 내려다보았다. 절벽이 너무 높아서 아래에 있는 것은 보이지 않았다. 하지만 절벽 아래를 내려다보는 순간 당신은 익숙한 목소리를 들었다." +
+                        "<br><br>...당신과 친한 사람의 목소리였다. 당신이 굳어있자 밑에서 키득거리는 소리가 들렸다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 5);
+                        player.flags.paleWhiteFlowerCliff_crack = true;
+                        savePlayer(player);
+                    }
+                }
+            ],
+            paleWhiteFlowerCliff_justWhite : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 하얀꽃 길을 보았다. 이곳의 하얀꽃들은 보통 하얀꽃들과 다르게 창백하게 빛난다. 연구소에 있었던 꽃들보다는 덜 빛나긴 하지만... 당신은 뒤를 돌아보았다. 당신이 걸어온 길의 하얀꽃들은 전부 시들어 있었다." +
+                        "<br><br>...연약한 건 똑같은 것 같다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        player.flags.paleWhiteFlowerCliff_justWhite = true;
+                        savePlayer(player);
+                    }
+                }
+            ],
+            paleWhiteFlowerCliff_akasia : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 하얀 꽃이 아니라 아카시아 꽃의 잔해를 보았다. 중앙까지 갈색으로 변한 아카시아 꽃잎은 바스락바스락 소리를 내며 부서져내리고 있었다. 당신은 눈을 깜박였다." +
+                        "<br><br>당신은 검은색 머리에 은회색 눈동자를 가지고 있는 사람의 손을 잡고 있었다. 마치 당신이 방금 봤던 아카시아 꽃잎처럼 그는 죽어가고 있었다. 죽어가는 와중에도 그는 당신에게 당신을 위해서라도 더 버티겠다고 말하고 있었다." +
+                        "<br><br><span class='log-akasia'>버티지 말고 죽으라고 해야 할까. 아니면 당신의 삶을 위해 어떻게든 살아남으라고 해야 할까.</span><br><br>" +
+                        "\"아카시아.\"<br><br>" +
+                        "당신은 뒤를 돌았다. 하얀 장갑을 낀 사람들이 당신에게 이만 나오라고 말했다. 그들은 당신의 손을 잡고 오늘의 몸상태는 어떻냐고 물었다. 그들이 당신의 몸상태만 궁금해할 리가 없다. 당신은 그들에게 어느 정도 힘을 조절할 수 있게 됐다고 말했다." +
+                        "<br><br>\"아카시아. 넌 다른 사람들보다 더더욱 책임감을 가져야 한다.\"<br><br>" +
+                        "그들의 말에 당신은 그들이 원하는 정답을 말한다." +
+                        "<br><br>\"알고 있어요. 그리고 그 어떤 감정도 느끼지 말기.\"<br><br>" +
+                        "<span class='log-akasia'>감정은 날 버티기 힘들게만 하니까.</span>"
+                    ]
+                },
+                {
+                    type : "text",
+                    value : [
+                        "아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br>아카시아." +
+                        "<br><br><strong>세실리아.</strong>" +
+                        "<br><br>모두가 당신에게 바라는 것이 있어도 당신은 괜찮았다. 글자를 익혔을 때부터 당신은 당신의 목숨은 당신만의 것이 아니라는 걸 알고 있었으니까. 당신은 고독하지 않았다." +
+                        "<br><br><span class='log-valen'>세실리아?</span><br><br>" +
+                        "어떤 감정도 느끼지 말라고 했는데. 당신은 당신의 앞에 있는 당신 또래의 아이들 3명을 응시하다가 당신의 어머니와 아버지를 번갈아 바라보았다. 죽어가던 아버지는 처음으로 몸을 일으키며 말했다." +
+                        "<br><br>\"세실리아, 너는 우리에게 아카시아만이 아니란다.<br><br> 그리고 네게도.\"<br><br>"
+                    ]
+                },
+                {
+                    type : "text",
+                    value : [
+                        "당신은 눈을 깜박였다. 당신의 앞에 있었던 아카시아 꽃잎은 완전히 갈색이 되어 부서져내렸다. 흔적 하나 남기지 않고 바스락, 바스락."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 3);
+                        player.flags.paleWhiteFlowerCliff_akasia = true;
+                        savePlayer(player);
+                    }
+                }
+            ],
+            paleWhiteFlowerCliff_deadFlower : [
+                {
+                    type : "text",
+                    value : [
+                        "당신은 시들다 못해 죽은 창백한 꽃을 내려다보았다." +
+                        "<br><br>...창백한 꽃은 시들면 그대로 끝인 걸까.<br><br>" +
+                        "당신이 무슨 짓을 해도 시든 창백한 꽃을 기다리고 있는 건 죽음뿐이다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        changeTrauma(player, 4);
+                        player.flags.paleWhiteFlowerCliff_deadFlower = true;
+                        savePlayer(player);
+                    }
+                }
+            ],
+            paleWhiteFlowerCliff_bigwolf : [
+                {
+                    type : "text",
+                    value : [
+                        "죽은 창백한 꽃을 따라가던 당신은 위에서 시선을 느꼈다. 당신은 고개를 들었다. 당신이 지금까지 봐왔던 백흉물늑대보다 훨씬 큰 크기의 늑대가 당신을 노려보고 있었다. 당신이 앞으로 한 걸음 내딛자 큰 늑대는 하울링을 했다. 그러자 여기저기서 부름을 받은 백흉물늑대들이 튀어나왔다. 그것들은 모두 당신에게 적의를 가지고 있다." +
+                        "<br><br>하지만 그 순간, 늑대 하나가 발작하듯이 바닥에서 경련하더니 백흉물 촉수가 쏟아져나왔다. 옆에 있던 백흉물늑대들이 그 늑대 하나를 멈추기 위해 달려들었다. 당신은 그들의 시선이 분산된 동안 다행스럽게도 몸을 피할 수 있었다."
+                    ]
+                },
+                {
+                    type : "effect",
+                    run : (player) => {
+                        player.flags.paleWhiteFlowerCliff_bigwolf = true;
+                        savePlayer(player);
+                    }
+                }
+            ],
+            paleWhiteFlowerCliff_babywolves : [
+                {
+                    type : "text",
+                    value : [
+                        "길의 끝에서 당신은 작은 동굴을 발견했다. 당신은 작은 동굴을 들여다보았다." +
+                        "<br><br>깨앵!<br><br>" +
+                        "아기늑대들이 당신을 노려보고 있었다. 그것들은 당신에게 적개심을 드러내며 작은 이빨을 드러냈다. 당신은 그것들의 상태를 살폈다. 전부 백흉물에 이미 감염되어 있었다. 그것들의 등에서 백흉물 촉수들이 넘실넘실거리며 제 존재감을 드러내고 있다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 백흉물늑대 아기들을 전부 죽였다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "전염된 백흉물늑대들은 분명 당신의 마을을 공격할 것이다. 저번에 늑대들이 그랬듯이. 당신은 백흉물늑대들을 죽였다. 아기 늑대들은 당신에게 반항했지만 죽음을 피해갈 수는 없었다." +
+                                        "<br><br>딱 한 마리. 딱 한 마리의 백흉물늑대가 짧은 울음소리를 내며 당신의 손을 피해갔다. 당신은 쫓아가려고 했지만 그 늑대는 아주 작은 틈을 통해 빠져나가서 당신이 쫓아갈 수 없었다." +
+                                        "<br><br>당신은 주변을 둘러보았다. 그 한 마리를 뺀 모든 백흉물늑대들이 죽어 있었다. 당신은 또, 도시의 영웅으로 미래의 사람들을 지켜냈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        player.flags.paleWhiteFlowerCliff_babywolves = true;
+                                        player.flags.paleWhiteFlowerCliff_babywolves_kill = true;
+                                        changeTrauma(player, 3);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 차마 아기 늑대들을 죽이지 못했다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "백흉물에 전염되었다고 해도 이들은 아기들이다. 그리고 당신에게 경계심을 표출하지만 정말로 새끼처럼, 당신에게 공격은 하지 않고 있다. 몇몇은 오히려 겁먹어서 울고 있는 것 같다." +
+                                        "<br><br>당신이 공격하지 않자 백흉물아기늑대들은 조심스럽게 머리를 빼꼼빼꼼 내밀었다. 등에 있는 촉수들만 빼면 보통 늑대들과 다를 것이 없었다." +
+                                        "<br><br>어쩌면 당신은 나중에 이 선택을 후회할 수도 있다. 하지만 지금만큼은, 당신은 생명을 죽이지 않았다는 것에 안도감을 느꼈다."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        player.flags.paleWhiteFlowerCliff_babywolves = true;
+                                        player.flags.paleWhiteFlowerCliff_babywolves_saving = true;
+                                        changeTrauma(player, -3);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            paleWhiteFlowerCliff_akasia_02 : [
+                {
+                    type : "text",
+                    value : [
+                        "당신의 시야가 또 아카시아향과 함께 다른 세상으로 뒤덮였다. 당신은 발렌을 보았다. 발렌은 자신의 마법 검 손잡이를 손수건으로 닦으며 고개를 들었다. 그의 손수건은 붉은 피로 젖어 있었다." +
+                        "<br><br>\"왜...?\"<br><br>" +
+                        "당신은 물었다. 그러자 발렌은 대답했다." +
+                        "<br><br>\"틀렸는데 틀린 걸 인정할 생각도 안 하니까.\"<br><br>" +
+                        "그는 피를 닦은 마법검을 다시 검집에 집어넣었다. 그가 입은 하얀 제복에는 핏방울 하나 남아있지 않았다." +
+                        "<br><br>\"한 사람의 목숨에만 달려있는 도시는 언젠가 무너지게 되어 있어.\"<br><br>" +
+                        "발렌은 아카시아에게 손을 내밀었다." +
+                        "<br><br>\"설득을 시도해보지 않은 건 아니야. 하지만 더 설득을 해보기에는 시간이 없어. 네게.... 우리에게 남은 시간은 생각보다 적잖아.\"<br><br>" +
+                        "당신은 발렌을 올려다보았다. 당신의 시야가 흐릿하다. 그리고 뜨거운 것이 당신의 뺨을 타고 흘렀다." +
+                        "<br><br>\"에릭과 데릭의 부모님도 그래서 죽인 거야? 설득하기에는 시간이 없어서?\"<br><br>" +
+                        "발렌은 말없이 당신을 응시했다. 당신의 뺨 위로 뜨거운 것이 자꾸만 흐른다. 발렌은 당신의 뺨에 손을 뻗었다. 그리고 당신의 눈물을 닦아주며 말했다." +
+                        "<br><br>\"...그래서 내가 싫어졌어?\"<br><br>"
+                    ]
+                }
+            ]
+        }
 })
 
 //act3 던전 보스들 처리

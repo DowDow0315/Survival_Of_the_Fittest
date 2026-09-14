@@ -3695,7 +3695,9 @@ const EAT_EAT_EAT_FIRST_PRIZE_FURNITURES = [
     "poogyDoll",
     "piggyMoney",
     "pooggy",
-    "goldenSuperPig"
+    "goldenSuperPig",
+    "meatTable",
+    "meatChair"
 ];
 
 function showEatEatEatContestResult(player, contestants, playerResult){

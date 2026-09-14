@@ -1780,6 +1780,8 @@ function leaveDungeon(player){
         player.location = "townStreet";
     }  else if (dungeonId === "lukeInner"){
         player.location = "barracks";
+    } else if (dungeonId === "paleWhiteFlowerCliff"){
+        player.location = "whiteFlowerTomb";
     } else {
         player.location = "townStreet";
     }

@@ -857,6 +857,38 @@ const EVENT_SHOP = {
             price: 5000
         },
         {
+            id: "potatoDoll",
+            price: 1000
+        },
+        {
+            id: "cabbageDoll",
+            price: 1000
+        },
+        {
+            id: "pepperDoll",
+            price: 1000
+        },
+        {
+            id: "potatoCabbagePepperDoll",
+            price: 3000
+        },
+        {
+            id: "vegetableTable",
+            price: 1500
+        },
+        {
+            id: "potatoChair",
+            price: 1200
+        },
+        {
+            id: "cabbageChair",
+            price: 1200
+        },
+        {
+            id: "pepperChair",
+            price: 1200
+        },
+        {
             id : "dericEricDoll",
             price : 10000
         },

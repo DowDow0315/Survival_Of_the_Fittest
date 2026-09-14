@@ -1055,7 +1055,15 @@ Object.assign(DUNGEONS, {
             "r7c4" : {name : "하얀꽃들 사이의 아카시아 꽃잎", exits : {left : "r7c3", right : "r7c5"}, event : "paleWhiteFlowerCliff_akasia_02", seenFlag : "paleWhiteFlowerCliff_akasia_02"},
             "r7c5" : {name : "으스러진 아카시아 꽃잎", exits : {left : "r7c4", right : "r7c6"}, safeZone: true, allowRest: true},
             "r7c6" : {name : "벼랑 끝의 아카시아 나무 아래", exits : {left : "r7c5"}, bossId: "whiteWolves", boss : ["whiteAbomination3King", "whiteAbomination3", "whiteAbomination3"], bossIntro:"whiteWolves_intro"}
-        }
+        },
+
+        encounters : [
+            { type : "battle", enemy : "whiteAbomination2", minCount : 1, maxCount : 3, weight : 20},
+            { type : "battle", enemy : "whiteAbomination3", minCount : 1, maxCount : 4, weight : 20},
+            { type : "battle", enemies : ["whiteAbomination2", "whiteAbomination3", "whiteAbomination3"], weight : 20 },
+            { type : "battle", enemies : ["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"], weight : 20 },
+            { type : "event", id : "paleWhiteFlowerCliff_paleWhiteFlower", weight : 15 }
+        ]
     }
 })
 
@@ -6437,8 +6445,57 @@ Object.assign(DUNGEON_EVENTS, {
                         "<br><br>\"설득을 시도해보지 않은 건 아니야. 하지만 더 설득을 해보기에는 시간이 없어. 네게.... 우리에게 남은 시간은 생각보다 적잖아.\"<br><br>" +
                         "당신은 발렌을 올려다보았다. 당신의 시야가 흐릿하다. 그리고 뜨거운 것이 당신의 뺨을 타고 흘렀다." +
                         "<br><br>\"에릭과 데릭의 부모님도 그래서 죽인 거야? 설득하기에는 시간이 없어서?\"<br><br>" +
-                        "발렌은 말없이 당신을 응시했다. 당신의 뺨 위로 뜨거운 것이 자꾸만 흐른다. 발렌은 당신의 뺨에 손을 뻗었다. 그리고 당신의 눈물을 닦아주며 말했다." +
-                        "<br><br>\"...그래서 내가 싫어졌어?\"<br><br>"
+                        "발렌은 말없이 당신을 응시했다. 당신의 뺨 위로 뜨거운 것이 자꾸만 흐른다. 발렌은 당신의 뺨에 손을 뻗었다. 그는 당신의 눈물을 닦아주며 말했다." +
+                        "<br><br>\"...그래서 내가 싫어졌어?\"<br><br>" +
+                        "당신은 고개를 들었다. 그리고 말했다." +
+                        "<br><br>\"...실망은 했어.\"<br><br>" +
+                        "당신의 말에 발렌은 미소를 지었다. 그의 미소는 희미했다." +
+                        "<br><br>\"그럴 줄 알았어, 세실리아.\"" +
+                        "<br><br><br><br>당신은 눈을 깜박였다. 당신은 다시, 당신으로 돌아왔다."
+                    ]
+                }
+            ],
+            paleWhiteFlowerCliff_paleWhiteFlower : [
+                {
+                    type : "text",
+                    value : [
+                        "길을 걷던 당신은 창백하게 빛나는 꽃을 보았다."
+                    ]
+                },
+                {
+                    type : "choice",
+                    choices : [
+                        {
+                            text : "당신은 창백한 꽃에 손을 뻗었다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "당신의 손에 닿은 창백한 꽃은 한번 환하게 반짝이더니 그대로 시들어버렸다. 몸은 가벼웠지만 마음은 무거워진 기분이다..."
+                                    ]
+                                },
+                                {
+                                    type : "effect",
+                                    run : (player) => {
+                                        changeHP(player, 150);
+                                        changeStamina(player, 50);
+                                        changeTrauma(player, 5);
+                                        savePlayer(player);
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text : "당신은 그냥 지나쳤다.",
+                            scene : [
+                                {
+                                    type : "text",
+                                    value : [
+                                        "인간의 손에 닿지 않는 게 좋을 것 같다. 당신은 창백한 꽃을 그냥 지나쳤다."
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 }
             ]

@@ -231,7 +231,7 @@ let weirdIndex = 0;
             target: 6,
             sequenceLength: 8,
             timeLimit: 4300,
-            hideAfter: 1000,
+            hideAfter: 1500,
             
             great: 6,
             normal: 5,

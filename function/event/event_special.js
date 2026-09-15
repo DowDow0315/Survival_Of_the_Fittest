@@ -29,6 +29,10 @@ function getActiveEventName(player){
         return "💐";
     }
 
+    if (isGuGuDay(player)){
+        return "🕊️";
+    }
+
     return "";
 }
 
@@ -4339,4 +4343,726 @@ function giveMayRoseContestReward(player){
         onEnd : () =>
             startScene(getLocationScene(player), player)
     });
+}
+
+// =========================
+// 비둘기 이벤트
+// =========================
+
+function isGuGuDay(player){
+        const date = getCalendarDate(player);
+    return (
+        (date.month === 4 && date.day >= 1 && date.day <= 4)
+    );
+}
+
+window.EVENTS.push({
+    id : "guGuDay_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        isGuGuDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"뭐, 뭐야... 왜 안 도망가....\"<br><br>" +
+                    "비둘기는 절대로 날지 않는다. 그것들은 닭둘기라 불릴 정도로 날지 않는다. 그것들은 위협이 와도 그저 쳐다볼 뿐이다." +
+                    "<br><br><strong>그것들은 두려워하지 않는다, 새대가리 비둘기니까.</strong>"                    
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "guGuDay_02",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        isGuGuDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어디선가 귀족의 비명 소리가 들렸다." +
+                    "<br><br><strong>누가 내 머리에 똥 쌌어</strong><br><br>" +
+                    "제아무리 상류도시 사람이라고 해도 비둘기의 습격에서 도망칠 수는 없었다. 그것이 비둘기이기 때문이다. 비둘기는 백색 군인들이 오는데도 고개를 높게 쳐들고 날개만 퍼덕였다." +
+                    "<br><br>\"안돼, 저건 광범위 바이러스 공격-!\"<br><br>" +
+                    "비둘기는 도망가지 않는다. 그것이 비둘기니까."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "guGuDay_03",
+    condition : (player) =>
+        player.justMoved &&
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        isGuGuDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "황금빛 새장 안에 비둘기들이 앉아 있었다. 귀족들은 어느 비둘기의 깃털이 더 희고 윤기가 흐르는지 진지하게 평가하고 있었다." +
+                    "<br><br>\"저건 평민들이 기르는 비둘기와는 혈통부터 달라요.\"<br><br>" +
+                    "그 말이 끝나자 비둘기가 바닥에 떨어진 과자 부스러기를 향해 필사적으로 달려갔다." +
+                    "<br><br>...당신이 보기에는 별로 다르지 않았다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "guGuDay_04",
+    condition : (player) =>
+        player.justMoved &&
+        ["shelter", "goldenShelter"].includes(player.location) &&
+        isGuGuDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 비둘기 한 마리를 빙 둘러싸고 있었다." +
+                    "<br><br>\"이름은 국수야!\"<br><br>\"아니야, 내가 먼저 봤으니까 감자야!\"<br><br>" +
+                    "비둘기는 이미 자신에게 내밀어진 빵을 전부 먹어치운 뒤였다. 그런데도 도망가지 않았다. 이곳에 있으면 계속 먹을 것을 받을 수 있다는 사실을 깨달은 모양이다." +
+                    "<br><br>....제법 영리한 녀석이다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+const GUGU_RHYTHM_CONFIG = {
+    darkStreet : {
+        title : "평범한 비둘기와 춤 대결",
+        noteCount : 15,
+        spawnInterval : 700,
+        fallDuration : 2100,
+        rewards : [
+            { minScore : 40, point : 25 },
+            { minScore : 35, point : 15 },
+            { minScore : 0,  point : 4 }
+        ]
+    },
+
+    richTownStreet : {
+        title : "상류도시 비둘기와 춤 대결",
+        noteCount : 25,
+        spawnInterval : 500,
+        fallDuration : 1300,
+        rewards : [
+            { minScore : 70, point : 30 },
+            { minScore : 65, point : 20 },
+            { minScore : 0,  point : 4 }
+        ]
+    }
+};
+
+function hasPlayedGuGuRhythmToday(player){
+    return (
+        player.flags?.guGuRhythmDay ===
+        getCurrentDay(player)
+    );
+}
+
+function markGuGuRhythmPlayedToday(player){
+    player.flags ??= {};
+    player.flags.guGuRhythmDay =
+        getCurrentDay(player);
+
+    savePlayer(player);
+}
+
+function startGuGuRhythmGame(player, location){
+    const config = GUGU_RHYTHM_CONFIG[location];
+    if (
+        !config ||
+        !isGuGuDay(player) ||
+        hasPlayedGuGuRhythmToday(player)
+    ){
+        showSingleTextScene(
+            "오늘은 이미 비둘기와 춤 대결을 했다." +
+            "<br><br>비둘기들은 당신에게 더 보여줄 춤이 없다는 듯 고개를 돌렸다.",
+            player,
+            {
+                onEnd : () =>
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+            }
+        );
+        return;
+    }
+    markGuGuRhythmPlayedToday(player);
+    startScene([
+        {
+            type : "text",
+            value : [
+                "\"구구.\"<br><br>" +
+                "비둘기가 오른발을 내밀었다." +
+                "<br><br>\"구구구.\"<br><br>" +
+                "이번에는 날개를 벌린 채 두 번 회전했다. 주변의 비둘기들이 일제히 당신을 바라보았다. <br><br>...아무래도 도전을 받은 것 같다." +
+                "<br><br><strong>비둘기보다 춤을 못 추면 이 거리에서 살아남을 수 없다!</strong>"
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                startArrowRhythmGame(player, {
+                    title : config.title,
+                    noteCount : config.noteCount,
+                    spawnInterval : config.spawnInterval,
+                    fallDuration : config.fallDuration,
+                    perfectScore : 3,
+                    goodScore : 2,
+                    okScore : 1,
+                    onEnd : (player, result) => {
+                        finishGuGuRhythmGame(
+                            player,
+                            location,
+                            result
+                        );
+                    }
+                });
+                return true;
+            }
+        }
+    ], player);
+}
+
+function finishGuGuRhythmGame(player, location, result){
+    const config = GUGU_RHYTHM_CONFIG[location];
+    if (!config) return;
+
+    const rewardData =
+        config.rewards.find(data =>
+            result.score >= data.minScore
+        );
+
+    const reward = rewardData?.point || 0;
+
+    changeEventPoint(player, reward);
+    savePlayer(player);
+
+    let resultText;
+
+    if (location === "darkStreet"){
+        if (reward === 25){
+            resultText =
+                "당신이 마지막 박자에 맞춰 발을 내디뎠다." +
+                "<br><br>비둘기는 자신의 짧은 다리를 내려다보더니 조용히 고개를 숙였다. 춤 대결의 패배를 인정한 모양이다." +
+                "<br><br>잠시 후 비둘기 떼가 당신에게 길을 내어주었다." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        } else if (reward === 15){
+            resultText =
+                "당신과 비둘기는 마지막까지 팽팽하게 춤을 이어갔다." +
+                "<br><br>\"구....\"<br><br>" +
+                "비둘기는 못마땅한 표정으로 당신을 바라보다가 몇 걸음 뒤로 물러났다. 완벽하게 굴복시키지는 못했지만, 춤 실력은 인정받은 모양이다." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        } else {
+            resultText =
+                "비둘기가 가슴을 부풀리며 승리의 스텝을 밟았다." +
+                "<br><br>\"구구구!\"<br><br>" +
+                "그것은 그대로 당신의 머리 위에 자리를 잡더니 날개를 퍼덕이며 승리를 자축했다. 당신은 패배감에 고개를 들 수가 없었다.... 어쩌면 비둘기의 무게 때문일지도 모르겠지만." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        }
+    } else {
+        if (reward === 30){
+            resultText =
+                "당신은 비둘기의 현란한 발놀림을 완벽하게 따라잡았다." +
+                "<br><br>\"구굿!?\"<br><br>" +
+                "상류도시 비둘기가 충격받은 듯 한 걸음 뒤로 물러났다. 마침내 비둘기 떼가 당신에게 길을 내어주었다." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        } else if (reward === 20){
+            resultText =
+                "상류도시 비둘기와 당신은 마지막 박자까지 한 치도 물러서지 않았다." +
+                "<br><br>비둘기는 당신의 춤을 인정하듯 우아하게 고개를 숙였다. 그러나 완전히 패배를 인정할 생각은 없는 모양이다." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        } else {
+            resultText =
+                "상류도시 비둘기가 우아하게 마지막 회전을 마쳤다. 주변의 비둘기들이 날개를 퍼덕이며 환호했다." +
+                "<br><br>비둘기는 거기서 멈추지 않았다. 그것은 그대로 당신의 머리 위에 자리를 잡더니 \"구!\" 소리와 함께 승리를 자축했다." +
+                "<br><br>당신은 패배감에 고개를 들 수가 없었다.... 어쩌면 비둘기의 무게 때문일지도 모르겠지만." +
+                `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+        }
+    }
+
+    showSingleTextScene(
+        resultText,
+        player,
+        {
+            onEnd : () =>
+                startScene(
+                    getLocationScene(player),
+                    player
+                )
+        }
+    );
+}
+
+// =========================
+// 눈사람 이벤트
+// =========================
+
+function isSnowManDay(player){
+    const date = getCalendarDate(player);
+    return (
+        (date.month === 12 && date.day >= 1) ||
+        date.month === 1 ||
+        (date.month === 2 && date.day <= 28)
+    );
+}
+
+window.EVENTS.push({
+    id : "snowManDay_01",
+    condition : (player) =>
+        player.justMoved &&
+        ["townStreet", "darkStreet"].includes(player.location) &&
+        isSnowManDay(player) &&
+        Math.random() < 0.08,
+
+    action : (player) => {
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"12월 1일부터 2월 28일까지는 눈이 몇 번이나 올까? 나는 눈사람 데이 좋아한단 말이야.\"<br><br>" +
+                    "그들은 3개월 내내 눈이 왔으면 좋겠다고 말하며 손을 호호 불었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+const SNOWMAN_REWARDS = [
+    { minScore : 45, point : 20 },
+    { minScore : 38, point : 15 },
+    { minScore : 28, point : 10 },
+    { minScore : 18, point : 5 },
+    { minScore : 0,  point : 2 }
+];
+
+function calculateSnowManScore(bodySize, headSize){
+    const sizeScore =
+        (bodySize + headSize) * 4;
+
+    let balanceBonus = 0;
+
+    // 가장 이상적인 눈사람 비율
+    if (bodySize === headSize + 1){
+        balanceBonus = 12;
+    }
+
+    // 몸통과 얼굴이 같은 눈경단
+    else if (bodySize === headSize){
+        balanceBonus = 2;
+    }
+
+    // 몸통이 얼굴보다 두 단계 큼
+    else if (bodySize === headSize + 2){
+        balanceBonus = 5;
+    }
+
+    // 얼굴이 더 크거나 차이가 지나치면 보너스 없음
+    return {
+        sizeScore,
+        balanceBonus,
+        totalScore : sizeScore + balanceBonus
+    };
+}
+
+function hasPlayedSnowManToday(player){
+    return (
+        player.flags?.snowManPlayedDay ===
+        getCurrentDay(player)
+    );
+}
+
+function markSnowManPlayedToday(player){
+    player.flags ??= {};
+    player.flags.snowManPlayedDay =
+        getCurrentDay(player);
+
+    savePlayer(player);
+}
+
+window.startSnowManGame = function(player){
+    if (
+        !isSnowManDay(player) ||
+        !isSnowing(player) ||
+        hasPlayedSnowManToday(player)
+    ){
+        showSingleTextScene(
+            "오늘은 눈사람을 만들 수 없다.",
+            player,
+            {
+                onEnd : () =>
+                    startScene(
+                        getLocationScene(player),
+                        player
+                    )
+            }
+        );
+        return;
+    }
+    
+    markSnowManPlayedToday(player);
+    const state = {
+        part : "body",
+        bodySize : 1,
+        headSize : 1
+    };
+
+    startSnowManGrowthRound(
+        player,
+        state
+    );
+};
+
+const SNOWMAN_GROWTH_STAGES = {
+    1 : {
+        speed : 1.0,
+        tolerance : 4
+    },
+    2 : {
+        speed : 1.25,
+        tolerance : 3
+    },
+    3 : {
+        speed : 1.5,
+        tolerance : 2
+    },
+    4 : {
+        speed : 1.8,
+        tolerance : 1.5
+    }
+};
+
+function getSnowManPartName(part){
+    return part === "body"
+        ? "몸통"
+        : "얼굴";
+}
+
+function getSnowManPartSize(state){
+    return state.part === "body"
+        ? state.bodySize
+        : state.headSize;
+}
+
+function setSnowManPartSize(state, size){
+    if (state.part === "body"){
+        state.bodySize = size;
+    } else {
+        state.headSize = size;
+    }
+}
+
+function getSnowManSizeText(size){
+    const sizeNames = {
+        1 : "아주 작은",
+        2 : "작은",
+        3 : "적당한",
+        4 : "커다란",
+        5 : "엄청나게 커다란"
+    };
+
+    return sizeNames[size] || "형체를 알 수 없는";
+}
+
+function startSnowManGrowthRound(player, state){
+    const partName = getSnowManPartName(state.part);
+    const currentSize = getSnowManPartSize(state);
+
+    // 이미 최대 크기라면 해당 부위 완성
+    if (currentSize >= 5){
+        finishSnowManPart(
+            player,
+            state
+        );
+        return;
+    }
+
+    const stage =
+        SNOWMAN_GROWTH_STAGES[currentSize];
+
+    // 성공 구간 위치는 매번 변경
+    const targetX =
+        20 + Math.floor(Math.random() * 61);
+
+    startTimingGaugeGame(player, {
+        title :
+            `${partName} 굴리기 - 현재 ${currentSize}단계`,
+
+        instruction :
+            "성공 구간에 맞춰 SPACE를 누르세요!",
+
+        targetX,
+        speed : stage.speed,
+        tolerance : stage.tolerance,
+
+        extraHtml :
+            `<div style="margin-top:12px;">` +
+            `현재 ${partName} 크기: ` +
+            `<strong>${currentSize} / 5단계</strong>` +
+            `</div>`,
+
+        onSuccess : () => {
+            const nextSize =
+                Math.min(5, currentSize + 1);
+
+            setSnowManPartSize(
+                state,
+                nextSize
+            );
+
+            showSnowManGrowthSuccess(
+                player,
+                state
+            );
+        },
+
+        onFail : () => {
+            showSnowManGrowthFail(
+                player,
+                state
+            );
+        }
+    });
+}
+
+function showSnowManGrowthSuccess(player, state){
+    const partName =
+        getSnowManPartName(state.part);
+
+    const currentSize =
+        getSnowManPartSize(state);
+
+    // 5단계에 도달하면 자동 완성
+    if (currentSize >= 5){
+        startScene([
+            {
+                type : "text",
+                value :
+                    `당신이 눈덩이를 힘껏 굴리자 ${partName}이(가) 더욱 커졌다.` +
+                    `<br><br><strong>${partName}이(가) 최대 크기인 5단계가 되었다!</strong>`
+            }
+        ], player, {
+            onEnd : () =>
+                finishSnowManPart(
+                    player,
+                    state
+                )
+        });
+
+        return;
+    }
+
+    startScene([
+        {
+            type : "text",
+            value :
+                `당신이 눈덩이를 굴리자 ${partName}이(가) 더욱 커졌다.` +
+                `<br><br>현재 크기는 <strong>${currentSize}단계</strong>다.` +
+                "<br><br>조금 더 굴리면 커지겠지만, 실패하면 지금 크기로 완성해야 한다."
+        },
+        {
+            type : "choice",
+            choices : [
+                {
+                    text : "조금 더 굴린다",
+                    action : () =>
+                        startSnowManGrowthRound(
+                            player,
+                            state
+                        )
+                },
+                {
+                    text : `이 크기로 ${partName}을(를) 완성한다`,
+                    action : () =>
+                        finishSnowManPart(
+                            player,
+                            state
+                        )
+                }
+            ]
+        }
+    ], player);
+}
+
+function showSnowManGrowthFail(player, state){
+    const partName =
+        getSnowManPartName(state.part);
+
+    const currentSize =
+        getSnowManPartSize(state);
+
+    startScene([
+        {
+            type : "text",
+            value :
+                "당신이 욕심을 내어 눈사람을 더 크게 하는 순간, 눈덩이가 데굴데굴 굴러갔다. 아, 안돼!!! 당신은 가까스로 굴러가는 눈사람을 멈췄다. 더 이상 욕심내면 안 될 것 같다." +
+                `<br><br>${partName}은(는) <strong>${currentSize}단계</strong> 크기로 완성되었다.`
+        }
+    ], player, {
+        onEnd : () =>
+            finishSnowManPart(
+                player,
+                state
+            )
+    });
+}
+
+function finishSnowManPart(player, state){
+    if (state.part === "body"){
+        state.part = "head";
+
+        startScene([
+            {
+                type : "text",
+                value :
+                    `${getSnowManSizeText(state.bodySize)} 몸통이 완성되었다.` +
+                    "<br><br>이제 몸통 위에 올릴 얼굴을 만들어야 한다." +
+                    "<br><br><strong>몸통보다 한 단계 작은 얼굴을 만들면 가장 예쁜 비율이 된다!</strong>"
+            }
+        ], player, {
+            onEnd : () =>
+                startSnowManGrowthRound(
+                    player,
+                    state
+                )
+        });
+
+        return;
+    }
+
+    finishSnowManGame(
+        player,
+        state
+    );
+}
+
+function finishSnowManGame(player, state){
+    const scoreData =
+        calculateSnowManScore(
+            state.bodySize,
+            state.headSize
+        );
+
+    const rewardData =
+        SNOWMAN_REWARDS.find(data =>
+            scoreData.totalScore >= data.minScore
+        );
+
+    const reward =
+        rewardData?.point || 0;
+
+    changeEventPoint(
+        player,
+        reward
+    );
+
+    let resultText;
+
+    if (
+        state.bodySize === 5 &&
+        state.headSize === 4
+    ){
+        resultText =
+            "당신은 커다란 몸통 위에 얼굴을 조심스럽게 올렸다." +
+            "<br><br>눈사람은 금방이라도 움직일 것처럼 크고 균형 잡힌 모습이었다. 주변 사람들이 눈사람을 올려다보며 감탄했다." +
+            "<br><br>\"내 비율 비너스 비율이구마잉\"<br><br>" +
+            "...대체 어디서 들린 목소리였지? 어쨌든,<br><br>" +
+            "<br><br><strong>완벽한 눈사람이다!</strong>";
+    }
+
+    else if (
+        state.bodySize ===
+        state.headSize + 1
+    ){
+        resultText =
+            "당신은 몸통 위에 얼굴을 조심스럽게 올렸다." +
+            "<br><br>몸통보다 조금 작은 얼굴이 안정적으로 자리를 잡았다. 크기와 비율 모두 제법 훌륭한 눈사람이다.";
+    }
+
+    else if (
+        state.bodySize ===
+        state.headSize
+    ){
+        resultText =
+            "당신은 몸통 위에 얼굴을 올렸다." +
+            "<br><br>위아래의 눈덩이 크기가 똑같다." +
+            "<br><br>……눈사람이라기보다는 커다란 눈경단 두 개를 쌓아놓은 것처럼 보인다.";
+    }
+
+    else if (
+        state.headSize >
+        state.bodySize
+    ){
+        resultText =
+            "얼굴을 몸통 위에 올리는 순간 눈사람 전체가 위태롭게 흔들렸다." +
+            "<br><br>머리가 너무 크다. 눈사람이 무거운 고민을 품고 있는 것처럼 보인다.";
+    }
+
+    else if (
+        state.bodySize >=
+        state.headSize + 3
+    ){
+        resultText =
+            "거대한 몸통 위에 작은 얼굴을 올렸다." +
+            "<br><br>멀리서 보면 눈사람이라기보다는 눈덩이 위에 무언가 꽂혀 있는 것 같다.";
+    }
+
+    else {
+        resultText =
+            "당신은 완성한 얼굴을 몸통 위에 올렸다." +
+            "<br><br>조금 어설픈 부분은 있지만, 어디에서 봐도 눈사람이라는 사실만큼은 확실하다.";
+    }
+
+    resultText +=
+        `<br><br>몸통 크기: <strong>${state.bodySize}단계</strong>` +
+        `<br>얼굴 크기: <strong>${state.headSize}단계</strong>` +
+        `<br>크기 점수: <strong>${scoreData.sizeScore}점</strong>` +
+        `<br>비율 보너스: <strong>+${scoreData.balanceBonus}점</strong>` +
+        `<br>최종 점수: <strong>${scoreData.totalScore}점</strong>` +
+        `<br><br><strong>꽃 ${reward}개를 획득했다!</strong>`;
+
+    showSingleTextScene(
+        resultText,
+        player,
+        {
+            onEnd : () =>
+                startScene(
+                    getLocationScene(player),
+                    player
+                )
+        }
+    );
 }

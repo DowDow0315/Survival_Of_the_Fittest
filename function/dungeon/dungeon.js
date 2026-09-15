@@ -1486,6 +1486,11 @@ function handleDungeonBossWin(player, dungeon, room){
         return;
     }
 
+    if (dungeon.id === "paleWhiteFlowerCliff" && room.bossId === "whiteWolves"){
+        handleWhiteWolvesWin(player);
+        return;
+    }
+
     startScene([
         {
             type: "text",
@@ -5176,6 +5181,27 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startChocosBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "whiteWolves_intro"){
+            startScene([
+            {
+                type : "text",
+                value : [
+                    "우지끈. 당신은 고개를 돌렸다. 당신이 지나온 길 위로 하얀꽃 나무가 하나하나 쓰러지고 있었다." +
+                    "<br><br>...창백한 하얀 꽃들은 더 이상 없다.<br><br>" +
+                    "절벽 끝에 있는 마지막 창백한 하얀 꽃을 제외하면. 그 꽃은 다른 창백한 꽃들보다 훨씬 환하게 빛나고 있었다. 그리고 지면이 아니라.... 시체들 위에 뿌리를 박고 피어올라 있었다. 당신은 가져온 하얀 장갑을 끼고 창백한 하얀 꽃에 다가갔다." +
+                    "<br><br>그 순간 큰 백흉물늑대가 당신과 꽃 사이를 가로막았다. 그것은 당신에게 적개심을 드러내며 하울링을 했다. 우두머리가 하울링을 하자 그 부름을 받은 백흉물늑대들이 그것의 주변으로 모여들었다. 그것들은 당신이 환하게 빛나는 창백한 꽃을 가져가게 둘 생각이 없다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startWhiteWolvesBattle(player);
                     return true;
                 }
             }

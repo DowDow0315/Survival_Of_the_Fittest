@@ -2108,40 +2108,6 @@ window.EVENTS.push({
     }
 });
 
-window.EVENTS.push({
-    id : "common_route_quest_09_after_03_raphael",
-    priority : true,
-    once : true,
-
-    condition : (player) =>
-        player.location === "royalHospital" &&
-        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route || player.flags?.act3_uppercity_route ) &&
-        player.flags?.act3_quest_09_after_02 &&
-        player.flags?.talkToRaphael,
-
-    action : (player) => {
-        player.flags.act3_quest_09_after_03 = true;
-        savePlayer(player);
-        startScene([
-            {
-                type : "text",
-                value : [
-                    "당신은 라파엘의 뒤를 따라 병원에 들어섰다. 라파엘은 병원을 찾아준 사람들에게 하나하나 인사를 하면서 복도의 더 깊은 곳으로 발걸음을 옮겼다. 그는 복도의 마지막 방 앞에서 발걸음을 멈추더니 붉은색 점을 밟았다. 끼이익, 소리와 함께 아래가 열렸다. 당신은 설마 이런 곳에 지하실이 있을 줄은 상상도 하지 못했다." +
-                    "<br><br>\"...{playerName}.\"<br><br>" +
-                    "라파엘이 당신을 돌아보았다. 그는 인자한 미소를 지어보이며 궁금증이 너무 많은 고양이에게는 변이 생기는 법이라고 말했다." +
-                    "<br><br>\"이 지하는 어린 양이 볼 만한 곳이 아닙니다. 아카시아 님이 궁금하신 거겠죠. 그분은 원래 쓰러지실 운명이었습니다.\"<br><br>" +
-                    "라파엘이 붉은색 점을 밟자 다시 지하의 문이 닫혔다." +
-                    "<br><br>\"물론 아직 완전히 쓰러지신 건 아니지만. 저는 환자에게 최선을 다할 생각입니다.\"<br><br>" +
-                    "...당신이 붉은색 점을 응시하고 있자 라파엘은 웃으며 이건 자신이 밟아야만 움직이는 문이라고 말했다." +
-                    "<br><br>\"자, 이제 돌아갑시다. 말을 잘 듣는 착한 양에게 보여주는 선물은 여기까지입니다.\"<br><br>" +
-                    "당신은 라파엘의 손에 떠밀려 다시 돌아가야만 했다."
-                ]
-            }
-        ], player, {
-            onEnd : () => startScene(getLocationScene(player), player)
-        });
-    }
-});
 
 window.EVENTS.push({
     id : "rebel_route_quest_09_after_04",
@@ -2149,7 +2115,7 @@ window.EVENTS.push({
     once : true,
 
     condition : (player) =>
-        player.location === "shelter" &&
+        ["shelter", "goldenShelter"].includes(player.location) &&
         ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
         player.flags?.act3_quest_09_after_03 &&
         getCurrentDay(player) >= (player.flags.act3_quest_09_after_02_day + 10),
@@ -2163,11 +2129,435 @@ window.EVENTS.push({
             {
                 type : "text",
                 value : [
-                    "쉘터에 들어오자 반란군들이 모여 있었다. 그들이 당신이 오자마자 당신과 함께 유리의 방으로 들어간 후 문을 닫았다. 그들은 엿듣고 있는 쉘터의 아이들이 있나 없나 기척을 살핀 후 작은 목소리로 속삭였다." +
+                    "쉘터에 들어오자 반란군들이 모여 있었다. 그들이 당신이 오자마자 당신과 함께 당신의 방으로 들어간 후 문을 닫았다. 그들은 엿듣고 있는 쉘터의 아이들이 있나 없나 기척을 살핀 후 작은 목소리로 속삭였다." +
                     "<br><br>\"아카시아가 또 쓰러졌다고 합니다. 현재 상류도시에 공식적으로 밝히지는 않았습니다.\"<br><br>" +
                     "\"소란이 일어날까봐 그러는 거겠지. 발렌의 시선이 아카시아에게 가있는 동안 우리는 아카시아의 것을 파야 해.\"<br><br>" +
                     "그들은 아카시아가 쓰러진 게 우연이 아닐 거라고 말했다." +
                     "<br><br>\"아카시아는 상류도시를 세운 설립자 가문으로 언제나 의문점이 많았죠. 지금이야말로 밝힐 때입니다. 준비가 다 된 후 다시 한번 연락드리겠습니다, 하류도시의 영웅. 당신을 믿고 있습니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_09_after_04 &&
+        player.weather === "sunny" &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_09_after_04_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_intro_01 = true;
+        player.flags.rebel_route_quest_10_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "익숙한 노랫소리에 이끌려 올라가보니 당신의 예상대로 쉘터의 옥상에는 유리가 있었다. 유리는 노래를 부르다가도 당신을 돌아보며 눈웃음을 지었다. 그는 옆에 있어도 된다는 듯 고개를 까닥여보였다. 당신은 유리의 옆에 다가갔다. 상류도시에서 금지됐다는 '괴물'이라는 곡을 유리는 흥얼거리며 밤하늘을 올려다보았다." +
+                    "<br><br>\"...어디에나 정답은 없는 것 같아. 누군가 알려주면 좋을 텐데.\"<br><br>" +
+                    "그는 지금까지 있었던 일들에 대해 생각해보고 있었다고 말했다." +
+                    "<br><br>\"너는 지금까지 네가 걸은 길이 정답이라고 생각해?\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 다는 정답이 아닐 거라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신의 말에 공감한다는 듯 고개를 끄덕였다." +
+                                    "<br><br>\"네 말이 맞아. 정답만을 걷고 있는 사람은 이 세상에 없겠지.\"<br><br>" +
+                                    "그는 당신에게서 그 말을 들었더니 마음이 편안해졌다고 말하며 당신과 함께 하늘을 올려다보았다. 그는 앞으로 무슨 일이 생기든 자신은 당신의 옆에 있을 거라고 말했다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 당신의 길이 정답이라고 생각한다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신을 바라보다가 미소를 지었다." +
+                                    "<br><br>\"난 그렇게 확신을 가진 사람을 보면 부럽더라고. 한 번도 흔들리지 않고 앞으로 나아가는 사람... 내게는 가장 어려운 일이야.\"<br><br>" +
+                                    "유리는 그런 사람이야말로 이 세상을 바꿀 수 있는 것 같다고 말했다. 그는 가볍게 당신의 어깨에 머리를 기댔다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 잘 모르겠다고 대답했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...맞는 말이야. 설사 결과가 나온다고 해도, 결과에 따라서만 정답이 갈리는 건 아니잖아. 결과에 따라서만 정답이 갈리는 거면 지금까지의 난 전부 오답이었을 걸.\"<br><br>" +
+                                    "유리는 미소를 지으며 그래도 당신이 지금까지 내린 답들은 괜찮다고 말했다." +
+                                    "<br><br>\"적어도 나한테는. 난 네가 대단한 사람이라고 생각해, {yuriTitle}. 진심으로 내 옆에 있어줘서 고마워.\"<br><br>" +
+                                    "유리의 호박색 눈동자가 당신을 바라보고 있다. 그는 진심으로 당신에게 고마워하고 당신을 애정하고 있다. 당신의 마음이 따듯해졌다."
+                                ]
+                            }
+                        ]
+                    }
+                ] 
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        player.flags?.rebel_route_quest_10_intro_01 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_intro_01_day + 5),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_intro_02 = true;
+        player.flags.rebel_route_quest_10_intro_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "빈민가 거리, 당신은 경비병들에게 맞고 있는 사람을 보았다. 당신도 얼굴을 아는 사람이다, 반란군 중 하나였으니까. 경비병들은 너같은 놈들 때문에 상류도시가 더더욱 하류도시 지원을 안 해주는 거라고 말했다." +
+                    "<br><br>\"우리를 위한 거라고? 웃기지 마.\"<br><br>" +
+                    "\"너네는 너네를 위한 거잖아!\"<br><br>" +
+                    "퍽, 퍽, 마찰음이 당신의 귀를 아프게 때린다. 심지어 그들 중에 몇 명은 우리 가족은 아직 괜찮은데 너네 가족 때문에 위협을 느껴야 하냐며 화를 냈다. 그리고 당신은 그 광기 너머에서 에이든을 보았다. 에이든은 절망의 아고라를 응시하고 있다가 고개를 들어 당신을 보았다. 그의 차가운 금색 눈동자는 당신을 한번 바라보더니 그대로 어둠 속으로 사라져갔다." +
+                    "<br><br>그는 대체 언제부터 무엇을 보고 있었던 걸까."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        ( player.flags?.act3_rebel_route || player.flags?.act3_neutral_route ) &&
+        player.flags?.rebel_route_quest_10_intro_02 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_intro_02_day + 3),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_intro_03 = true;
+        player.flags.rebel_route_quest_10_intro_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...죽였어.\"<br><br>" +
+                    "당신은 빈민가 거리를 지나가다가 반란군들을 보았다. 그들은 어둠 속에 몸을 숨긴 채, 반란군 하나가 맞아죽었던 곳을 바라보며 얘기를 나누고 있었다." +
+                    "<br><br>\"우리는 모두를 위해, 그들을 대표해서 싸우고 있었던 건데.\"<br><br>" +
+                    "\"이딴 취급을 받으려고 싸우는 거였나.\"<br><br>" +
+                    "\"...스테리가 없어서 그래.\"<br><br>" +
+                    "'스테리'란 이름에 그들 사이에서 정적이 흘렀다. 그들은 서로 시선을 교환하며 꼭 스테리일 필요는 없지 않냐고 물었다. 붉은색 머리의 잘생긴 얼굴이기만 하면 되는 거 아니야?"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 카인을 이용할 생각은 하지 말라고 했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...우리도 그렇게 하면 안 된다는 건 알고 있습니다.\"<br><br>" +
+                                    "몇 명은 그저 해본 말이라고 말하며 고개를 저었지만 몇 명은 고집을 꺾은 눈이 아니었다." +
+                                    "<br><br>\"...영웅님은 스테리가 우리들에게 어떤 존재였는지 모르시겠죠. 그는 상류도시 노예들에게는 희망을 주고, 몇몇 상류도시 사람들에게마저 의구심을 주고, 하류도시 사람들에게는 호응을 끌어냈던 사람입니다. 우리는 스테리로부터 시작한 단체입니다. 그래서 그가 없으면....\"<br><br>" +
+                                    "반란군은 고개를 떨구었다. 그들에게는 하류도시 시민들에게 맞아죽은 자의 그림자가 드리워져 있었다." +
+                                    "<br><br>\"...너무 힘듭니다. 쉬운 길이 있다면 쉬운 길로 가는 게 낫지 않겠습니까...\""
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 아무 말도 하지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "그들은 카인이 비협조적일 거라고 단정하고 있었다. 스테리랑 그렇게 사이가 안 좋았는데, 스테리랑 다르게 반란군도 싫어했겠지. 그들은 모두를 위해 한 명의 희생은 어쩔 수 없다고 말했다." +
+                                    "<br><br>...당신은 위화감이 들었다."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_intro_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_10_intro_03 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_intro_03_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_intro_04 = true;
+        player.flags.act3_quest_10_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "우당탕. 쉘터에서 쉬고 있던 당신은 뒤를 돌아보았다. 상처투성이인 반란군이 거칠게 숨을 몰아쉬며 쉘터로 들어왔다. 피범벅이 된 그의 모습에 쉘터 아이들 몇 명이 겁을 먹고 울었다. 유리는 인상을 찌푸리더니 어린 쉘터의 아이들을 챙기며 시온에게 고갯짓을 했다. 벽에 기댄 채 팔짱을 끼고 있던 시온은 한숨을 쉬더니 다친 반란군을 부축하여 자신의 방으로 향했다." +
+                    "<br><br>\"그들이 뭘 원하는지 찾아냈습니다.\"<br><br>" +
+                    "그는 피가 섞인 기침을 내뱉으며 말했다. 붉은 피가 아니라 검붉은 피다. 시온은 검붉은 피를 보더니 그의 목에 대검을 들이밀었다." +
+                    "<br><br>\"움직이지 마. 영웅님, 오지 마세요. 이 피는 흉물의 피예요.\"<br><br>" +
+                    "\"...이후의 처분은 알아서 판단해라. 하지만 이 정보만큼은 공유해야 한다.\"<br><br>" +
+                    "그는 당신을 보더니 발렌이 무엇을 원하는지 알아냈다고 말했다. 그는 찢어진 지도를 펼치며 손가락으로 하얀꽃 무덤을 가리켰다. 이곳에 그가 원하는 게 있다. 꽃은 맞는데 그냥 꽃은 아닌 것 같다. 시온의 대검날이 그의 목을 지그시 눌렀다." +
+                    "<br><br>\"시온.\"<br><br>" +
+                    "아이들을 달래고 온 유리가 시온을 제지했다." +
+                    "<br><br>\"아직 그에게 무슨 일이 벌어진 것도 아니잖아.\"<br><br>" +
+                    "\"무슨 일이 벌어진 후는 이미 늦죠.\"<br><br>" +
+                    "유리는 시온의 대검을 손으로 밀어냈다. 하지만 시온은 대검에 힘을 주며 오히려 유리의 손을 파고들었다. 대검에 피가 묻는다...." +
+                    "<br><br>\"...그러지 마십시오. 어차피 정보만 알려드리고 마을을 떠나려고 했습니다. 전 누군가에게 피해를 주는 것이 제일 싫습니다.\"<br><br>" +
+                    "그는 유리에게 고맙다고 말한 후 비틀거리며 쉘터를 떠나갔다. 시온은 다친 반란군이 쉘터에서 멀어질 때까지 쭈욱 쳐다보았다. 마치 그가 언제라도 마음을 바꾸어 돌아올 것마냥. 남은 반란군들은 그가 준 정보를 토대로 얘기를 나누더니 당신에게 주점에 의뢰를 비밀 리에 올려놓겠다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_10_done,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_after_01 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신이 길거리로 나오자마자 시온은 당신을 기다리고 있었다. 그는 당신을 힐끔 보더니 평소보다 낮은 목소리로 당신이 다치지 않아서 다행이라고 말했다. 평소의 시온과 다른 느낌이다. 당신을 보고 웃지도 않고, 당신을 보고 표정이 풀어지지도 않고 있다." +
+                    "<br><br>\"영웅님. 반란군을 돕는 건 그만하셨으면 좋겠어요.\"<br><br>" +
+                    "그는 당신에게 한 발자국 다가왔다." +
+                    "<br><br>\"반란군은 당신보다 스테리를 더 원해요. 그러면 스테리 형한테 맡기면 되는 거잖아요. 저는 당신이 더 이상 다칠 일이 없었으면 좋겠어요.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온이야말로 왜 그런 곳에 있었냐며 쏘아붙였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...영웅님께는 그게 중요한가요?\"<br><br>" +
+                                    "시온은 당신에게 한 걸음 다가왔다. 그의 장밋빛 눈동자에는 눈물이 가득했지만 표정은 서늘하게 식어 있었다. 그는 당신이 거기서 죽을 뻔한 건 알고 있었냐고 물었다." +
+                                    "<br><br>\"그곳은 인간의 손길이 닿으면 무너져내리는 곳이었어요. 영웅님이 그곳에 가셨다는 걸 들었을 때 제가 얼마나 무서웠는지.\"<br><br>" +
+                                    "그는 두 손으로 당신의 어깨를 잡았다. 뼈가 으스러질 듯한 고통에 당신은 인상을 찌푸렸다. 하지만 시온은 당신을 놓아주지 않았다. 그의 눈동자에서 눈물이 흘러내렸다." +
+                                    "<br><br>\"영웅님은 평생 모르실 거예요.\"<br><br>" +
+                                    "그리고 그는 당신을 꽈악 끌어안았다. 당신을 꽈악 끌어안은 채로 그는 속삭였다." +
+                                    "<br><br>\"영웅님께 미움을 받게 된다고 하더라도 저는 영웅님을 지킬 거예요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", -10);
+                                    changeNPCEmotion("sion", "rage", 10);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 다친다고 해도 해야만 하는 일이 있는 법이라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...영웅님의 그런 점을.\"<br><br>" +
+                                    "시온은 당신에게 한 걸음 더 다가왔다. 그러더니 그는 당신의 어깨에 푹 머리를 묻었다." +
+                                    "<br><br>\"사랑하는데... 이제는 싫어지기도 해요.\"<br><br>" +
+                                    "시온은 이 감정을 어떻게 해야 하는지 모르겠다고 울음 섞인 목소리로 말했다. 그는 당신을 꽈악 끌어안았다. 결국 당신은 시온이 괜찮아질 때까지 달래주어야만 했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    changeNPCEmotion("sion", "dominance", -5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 시온에게 미안하다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "시온은 당신의 말에 조금은 표정이 풀어졌다. 그는 당신에게 한 걸음 더 다가서더니 그대로 당신을 꼬옥 끌어안았다. 그는 당신에게 자신을 조금이라도 생각해줘서 고맙다고 말했다." +
+                                    "<br><br>\"잊어버리면 안돼요, 영웅님.... 제가 누구보다도 영웅님을 사랑하고 있다는 걸.\"<br><br>" +
+                                    "시간이 흘러도 그는 당신에게 떨어질 생각을 하지 않았다. 결국 당신은 시온이 괜찮아질 때까지 달래주어야만 했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 5);
+                                    changeNPCEmotion("sion", "dominance", -3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_after_02_seedAlive",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.paleWhiteFlowerSeedAlive &&
+        player.flags?.rebel_route_quest_10_after_01,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_after_02 = true;
+        player.flags.rebel_route_quest_10_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "반란군들이 당신에게 다가왔다. 그들은 당신에게 거기서 무슨 일이 있었냐고 물었다. 그들은 창백한 꽃과 관련된 당신의 이야기를 들으며 고개를 끄덕였다. 당신은 씨앗 하나는 가져왔다고 말하며 씨앗을 꺼내려고 했지만...." +
+                    "<br><br>...?<br><br>" +
+                    "분명히 아까까지 있었는데 당신의 주머니에는 씨앗이 없었다." +
+                    "<br><br>\"무슨 일입니까, 하류도시의 영웅?\"<br><br>" +
+                    "씨앗이 없어졌다는 걸 알게 된 반란군이 표정을 굳혔다. 그들은 당신이 씨앗을 잃어버린 것이 아니라 씨앗을 도둑질당한 가능성 더 높을 것 같다고 말했다." +
+                    "<br><br>\"...그 창백한 꽃을 이용할 사람은 상류도시 사람들밖에 없습니다.\"<br><br>" +
+                    "반란군은 당신이 말한 게 사실이라면 그 창백한 꽃은 다른 창백한 꽃들과 다르게 금방 시들지 않는 꽃일지도 모르겠다고 말했다." +
+                    "<br><br>\"그렇다면 그 꽃은 상류도시가 아니라 하류도시에게 필요합니다.\"<br><br>" +
+                    "그들의 시선 끝에는 어떻게든 하류도시에 마물이 들어오는 걸 막고 있는 경계병들과 경비병들이 보였다. 반란군은 당신에게 어떻게든 그 창백한 꽃을 다시 회수해올 방법을 찾아오겠다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_after_02_seedDie",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.paleWhiteFlowerSeedDie &&
+        player.flags?.rebel_route_quest_10_after_01,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_after_02 = true;
+        player.flags.rebel_route_quest_10_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "반란군들이 당신에게 다가왔다. 그들은 당신에게 거기서 무슨 일이 있었냐고 물었다. 그들은 창백한 꽃과 관련된 당신의 이야기를 들으며 고개를 끄덕였다. 당신은 그들에게 죽은 씨앗을 내밀며 아쉽게도 씨앗은 죽었다고 말했다." +
+                    "<br><br>\"씨앗이 죽은 건 안타까운 일이긴 하지만... 그래도 당신이 살아남아서 다행입니다, 하류도시의 영웅.\"<br><br>" +
+                    "\"그리고 덕분에 저희는 창백한 꽃을 발렌이 간절하게 찾고 있다는 걸 알게 되었고요. 상류도시가 돌아가는 방식에 뭔가 문제가 생긴 게 분명합니다.\"<br><br>" +
+                    "그들은 조금이라도 진실에 다가가게 해줘서 감사하다고 말하며, 다음 번에도 잘 부탁한다고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_10_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_rebel_route &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_after_02_day + 7) &&
+        player.flags?.rebel_route_quest_10_after_02,
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_after_03 = true;
+        player.flags.rebel_route_quest_10_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...? 방금 백색이 아니었던 것 같은데...?\"<br><br>" +
+                    "귀족의 목소리에 당신은 고개를 돌렸다. 상류도시를 감싸고 있는 성벽은 여전히 백색이었다. 귀족은 고개를 갸웃거리며 분명 자신이 방금 갈색을 본 것 같은데 이상하다고 말했다." +
+                    "<br><br>\"수면 부족입니다, 부인. 수면 부족은 정신에도 외모에도 좋지 않아요.\"<br><br>" +
+                    "질 좋은 수면 방법을 알려주겠다고 말하며 다른 귀족 부인이 화제를 돌렸다. 당신은 백색 성벽을 응시했다. 그 사람이 잘못 본 걸까? 성벽은 여전히 백색이었다." +
+                    "<br><br>...그리고 당신은 발렌을 보았다. 어디를 나갔다 온 건지 발렌은 상류도시 입구에서 내리더니 빠른 걸음으로 상류도시로 들어가버렸다."
                 ]
             }
         ], player, {

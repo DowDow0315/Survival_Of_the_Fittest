@@ -1395,3 +1395,335 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_09_after_04 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_09_after_04_day + 4),
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_intro_01 = true;
+        player.flags.upper_route_quest_10_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"상류도시의 영웅.\"<br><br>" +
+                    "에이든이다. 그는 짧게 당신에게 경례를 올린 후 다가왔다." +
+                    "<br><br>\"발렌님께서 당신을 부르십니다. 시간이 되실 때 천국의 성으로 와주시길 바랍니다.\"<br><br>" +
+                    "에이든은 잠시 머뭇거리더니 시선을 내리깔며 말을 이었다." +
+                    "<br><br>\"발렌님께서 요 근래에 잠을 못 주무셨습니다. 당신이라면... 발렌님께 저보다 더 도움이 되실 수도 있지 않을까 하는 생각에...\"<br><br>" +
+                    "답지 않게 그의 말은 두서가 없었다. 에이든은 내일 발렌이 병원에 들를 일정이 있다고 말하다가 고개를 저었다." +
+                    "<br><br>\"죄송합니다. 잊어주셔도 됩니다.\"<br><br>" +
+                    "그는 천국의 성에서 발렌이 기다리고 있을 거라는 말을 마지막으로 인사한 후 당신에게서 멀어졌다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_10_intro_01,
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_intro_02 = true;
+        player.flags.act3_quest_10_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"오셨습니까.\"<br><br>" +
+                    "당신이 천국의 성에 도착하자마자 발렌은 당신을 돌아보았다. 그는 평소와 같이 천사같은 미소를 짓고 있었지만 에이든의 말 때문일까, 안색이 묘하게 평소와는 달라 보였다." +
+                    "<br><br>\"예전에 아카시아의 조상들을 묻었던 곳이 있습니다. 대격변이 일어나면서 그 위치를 찾지 못하고 있었는데 드디어 찾았습니다.\"<br><br>" +
+                    "그는 그곳에 자신이 찾는 창백한 꽃이 있다고 말했다. 당신이라면 금방 자신이 찾는 꽃이 무엇인지 알아차릴 수 있을 거라고 말하며, 발렌은 주점에 당신만의 의뢰로 올려놓겠다고 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 발렌에게 아카시아를 이렇게까지 아낄 줄은 몰랐다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"저는 상류도시의 모두를 아낍니다.\"<br><br>" +
+                                    "발렌은 미소를 짓더니 손가락으로 당신의 심장 쪽을 가볍게 콕 찔렀다." +
+                                    "<br><br>\"물론 당신도요. 느껴지지 않는 건가요, <span class='log-valen'>상류도시의 영웅?</span>\"<br><br>"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 발렌에게 좀 쉬어야 하는 거 아니냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "발렌은 당신의 말에 짧게 웃었다." +
+                                    "<br><br>\"제게 시간은 무한하지 않으니까요.\"<br><br>" +
+                                    "그는 걱정해줘서 고맙다고 말하며 당신을 믿고 있겠다고 말했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("valen", "affection", 2);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_intro_02_valen",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "royalHospital" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_10_intro_01 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_10_intro_01_day + 1),
+
+    action : (player) => {
+        player.flags.akasiaHospitalWithValen = true;
+        passTime(player, 40);
+        changeNPCEmotion("valen", "affection", 3);
+        changeNPCEmotion("akasia", "affection", 5);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "병원에 들어선 당신은 어디로 가야 할지 몰라 방황하고 있었다. 당신이 방황하고 있자 병원에서 일하는 사람이 다가오더니 발렌은 이쪽으로 오시면 된다고 안내했다. 당신이 당황하자 그는 라파엘이 미리 언질해두었다고 말했다. 당신은 그를 쫓아 깊은 곳까지 들어갔다. 가장 안쪽에 있는 병실 문을 열고 들어서자 발렌과 아카시아가 있었다. 침대 위에 누워있던 아카시아가 몸을 일으켜 침대 등받이에 허리를 기댔다. 발렌은 아카시아보다 늦게 당신을 돌아보았다." +
+                    "<br><br>\"...에이든입니까?\"<br><br>" +
+                    "발렌은 낮게 한숨을 쉬더니 어쩔 수 없다는 듯 고개를 저었다. 당신은 아카시아를 보았다. 그의 팔에는 주사바늘 여러 개가 꽂혀 있었다. 아니, 팔뿐만 아니라 다리에도." +
+                    "<br><br>\"걱정 마십시오. 마법으로 흉터는 안 남으니까요.\"<br><br>" +
+                    "당신의 시선을 눈치챈 아카시아는 아무 일도 아니라는 듯이 평탄한 어조로 말했다." +
+                    "<br><br>\"걱정보다는.... 당신의 이야기를 더 듣고 싶습니다. 제가 이곳에 있는 동안 당신이 지금까지 무슨 일을 했었는지, 그리고 바깥 세상에는 무슨 일이 벌어지고 있는지. 전부요.\"<br><br>" +
+                    "...당신은 아카시아에게 많은 이야기를 해주었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_upper_route &&
+        player.flags?.act3_quest_10_done,
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_after_01 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅님.\"<br><br>" +
+                    "시온이다. 그는 기다리고 있었다는 듯이 당신에게 다가왔다." +
+                    "<br><br>\"당신이 무사하셔서 다행이에요. 저한테... 묻고 싶으신 게 많죠?\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온도 무사해서 다행이라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...영웅님.\"<br><br>" +
+                                    "시온은 감격하여 눈물이 그렁그렁한 얼굴로 당신을 바라보았다. 그는 자신은 그때부터 영웅님 때문에 괜찮았던 거라고 말하며, 그때부터 지금까지 자신이 존재할 수 있었던 이유는 당신 때문이라고 말했다." +
+                                    "<br><br>\"제가 거기에 있었던 이유는.... 발렌에게 이미 들었기 때문이었어요.\"<br><br>" +
+                                    "그는 발렌이 당신이 위험한 곳에 있으니 당신을 지키고 싶다면 따라가라고 귀띔해주었다고 말해주었다. 당신이 놀라자 시온은 자신은 당신을 위해서라면 뭐든지 할 수 있다고 말했다." +
+                                    "<br><br>\"필요하다면 발렌의 구두도 닦을 수 있어요... 물론 영웅님의 발을 핥는 게 더 즐겁겠지만.\"<br><br>" +
+                                    "그는 미소를 지으며 앞으로도 자신은 당신의 옆에 머무를 거라고 말했다." +
+                                    "<br><br>\"아참, 발렌이 당신이 천국의 성으로 와줬으면 좋겠다는 말을 했어요. 당신이 반란군의 편이 아닌 건 다행이지만 그래도 상류도시를 너무 믿지는 마세요. 너무 믿으면 다치기 쉬우니까요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", 3);
+                                    changeNPCEmotion("sion", "dominance", -3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 시온에게 왜 거기에 있었는지 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...저는 발렌의 밑에서 일하고 있어요.\"<br><br>" +
+                                    "영웅님은 자꾸만 멀어지니까.... 시온은 당신의 뺨에 손을 뻗었다. 저한테는 방법이 그것밖에 없었어요. 그는 자신이 발렌의 이상론을 따르는 건 아니라고 말했다. 그저 현실을 택한 것뿐이라고 말했다." +
+                                    "<br><br>\"영웅님을 위해서라도 저는 멍청하면 안 되거든요.\"<br><br>" +
+                                    "그는 당신이 할 수 없는 일은 자신이 할 거라고 말했다." +
+                                    "<br><br>\"아참, 발렌이 당신이 천국의 성으로 와줬으면 좋겠다는 말을 했어요. 당신이 반란군의 편이 아닌 건 다행이지만 그래도 상류도시를 너무 믿지는 마세요. 너무 믿으면 다치기 쉬우니까요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "affection", -1);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_after_02_seedAlive",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_upper_route &&
+        player.flags?.paleWhiteFlowerSeedAlive &&
+        player.flags?.upper_route_quest_10_after_01,
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_after_02 = true;
+        player.flags.upper_route_quest_10_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "천국의 성에 도착하자 발렌이 당신을 맞이했다. 발렌은 당신에게 창백한 꽃을 얻어왔는지 물었고, 당신은 그가 찾던 꽃은 시들었지만 씨앗은 시들지 않았다고 말했다." +
+                    "<br><br>\"...감사합니다.\"<br><br>" +
+                    "발렌은 당신에게서 씨앗을 받아들며 당신의 수고를 헛되게 만들지 않겠다고 말했다. 그는 씨앗을 마법 용기에 조심스럽게 담은 후, 당신의 손등에 입술을 맞췄다." +
+                    "<br><br>\"당신 같은 사람이 제 옆에 있어줘서 다행입니다, 상류도시의 영웅. 그리고 이건 제가 드리는 소정의 선물입니다, 제 감사함을 다 담아낼 수는 없지만.\"<br><br>" +
+                    "...당신을 바라보는 발렌의 시선이 전보다 훨씬 더 부드러워진 것 같다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeNPCEmotion("valen", "affection", 5);
+                    changeNPCEmotion("valen", "rage", -10);
+                    changeGold(player, 100000000);
+                    savePlayer(player);
+                }
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_after_02_seedDie",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_upper_route &&
+        player.flags?.paleWhiteFlowerSeedDie &&
+        player.flags?.upper_route_quest_10_after_01,
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_after_02 = true;
+        player.flags.upper_route_quest_10_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "천국의 성에 도착하자 발렌이 당신을 맞이했다. 발렌은 당신에게 창백한 꽃을 얻어왔는지 물었고, 당신은 아쉽게도 꽃은 전부 시들어버렸다고 말했다. 발렌은 당신의 이야기를 듣는 동안 내내 말이 없었다. 그는 당신이 이야기를 마칠 때까지 미소를 잃지 않았지만, 동공은 점점 더 어두워졌다." +
+                    "<br><br>\"...기적을 바랐는데, 언제나 기적은 제 편이 아니군요.\"<br><br>" +
+                    "발렌은 당신에게 수고했다고 말하며, 당신이 해준 일은 마음에 기억해두겠다고 말했다." +
+                    "<br><br>\"당신이 할 일을 마쳤으니, 저도 제가 해야 할 일을 해야겠습니다. 상류도시의 영웅, 그러면 저는 이만.\"<br><br>" +
+                    "...발렌의 눈동자는 더 이상 흔들리지 않는다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_10_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownEntrance" &&
+        player.flags?.act3_upper_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_10_after_02_day + 7) &&
+        player.flags?.upper_route_quest_10_after_02,
+
+    action : (player) => {
+        player.flags.upper_route_quest_10_after_03 = true;
+        player.flags.upper_route_quest_10_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "아무 생각 없이 걷던 당신은 순간, 상류도시를 감싸고 있던 백색 벽이 갈색으로 변하는 것을 보았다. 당신은 발걸음을 멈췄고, 지나가던 상류도시 귀족들 중 몇몇도 발걸음을 멈췄지만 아무리 눈을 깜박여도 백색 벽은 여전히 백색이었다. 마치 당신들이 잘못 봤다는 듯이." +
+                    "<br><br>\"...보셨습니까.\"<br><br>" +
+                    "당신의 옆으로 에이든이 걸어왔다. 그의 금색 눈동자는 백색 벽을 뚫어지게 바라보고 있었다." +
+                    "<br><br>\"발렌 님은 상류도시를 지키기 위해 무슨 일이든 할 것입니다.\"<br><br>" +
+                    "상류도시의 귀족들이 에이든을 인지하고 고개를 까닥인다. 에이든도 그들을 향해 경례를 한 후 천천히 사람들의 시야 바깥으로 이동해갔다." +
+                    "<br><br>\"그리고 저는 그런 발렌님을 끝까지 지킬 것이고요.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

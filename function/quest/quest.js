@@ -1075,6 +1075,34 @@ const QUESTS = {
 
         acceptText : "\"...의뢰의 내용이 뭔지는 모르겠어.\"<br><br>마틴이 말했다.<br><br>\"...네가 어떤 선택을 하든, 한번 선택을 하면 뒤돌아보지 마.\"<br><br>하지만 그는 이 의뢰가 소라와 관련이 있다는 걸 눈치채고 있다.",
         completeText : "마틴은 당신에게 아무 말도 하지 않았다. 그저 고개를 끄덕인 후, 따듯한 수프 하나를 당신의 앞에 내밀었을 뿐."
+    },
+
+    act3_quest_10 : {
+        id : "act3_quest_10",
+        title : "살아있다는 것의 정의",
+        type: "investigate",
+        targetName : "특별한 창백한 꽃 회수",
+        repeatable : false,
+        giver : "",
+        
+        desc : "하얀꽃 무덤의 깊은 곳에, 특별한 창백한 꽃이 남아있다고 한다.",        
+        activeDesc : "하얀꽃 무덤에 가야 한다.",
+        readyDesc : "당신이 지나온 자리에는 죽음만이 남았다. 무엇을 위한 죽음이었는지는 사람마다 다르게 느낄 것이다.",
+        targetFlag : "act3_quest_10_boss_end",
+        requiredKill: 1,
+        rewardGold: 55000,
+
+        require : {
+            flag : "act3_quest_10_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_10_done = true;
+            player.flags.act3_quest_10_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 잠시 말이 없었다. 그는 하얀꽃 무덤 너무 깊은 곳까지는 가지 말라고 조언했다. 당신이 고개를 들었을 때 그는 이미 당신에게서 고개를 돌린 후였다.",
+        completeText : "마틴은 당신을 바라보았다. <br><br>\"...사신같은 표정을 하고 있네.\"<br><br>그는 지쳤으면 쉬라고 말하며 당신의 앞에 수프를 내려놓았다. 그리고 당신의 수프라는 설명 하나 없이 다시 자신의 일에 집중했다."
     }
 };
 

@@ -2818,6 +2818,7 @@ window.EVENTS.push({
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") ) &&
         ( currentHouseHasFurniture(player, "kainRarePoster") || currentHouseHasFurniture(player, "kainPoster") ) &&
         ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        !player.flags.darkSion &&
         canNpcVisitHouse(player, "sion") &&
         Math.random() < 0.07,
 
@@ -2900,6 +2901,7 @@ window.EVENTS.push({
         ["upperHouse", "underHouse"].includes(player.location) &&
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") ) &&
         getTimePeriod(player) === "morning" &&
+        !player.flags.darkSion &&
         ["redRoseBed", "greenRoseBed", "blueRoseBed", "blackRoseBed"].some(id => currentHouseHasFurniture(player, id)) &&
         Math.random() < 0.07,
 

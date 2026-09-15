@@ -4006,6 +4006,7 @@ window.EVENTS.push({
     condition : (player) =>
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         NPC_DATA["sion"].emotion.affection >= 5 &&
+        !player.flags.darkSion &&
         player.location === "townStreet" &&
         player.justMoved,
 
@@ -4027,6 +4028,7 @@ window.EVENTS.push({
         player.justMoved &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_spying_01_day !== getCurrentDay(player) &&
+        !player.flags.darkSion &&
         (player.location === "shelter" || player.location === "goldenShelter" )&&
         Math.random() < 0.1,
 
@@ -4053,6 +4055,7 @@ window.EVENTS.push({
         player.flags?.sion_spying_02_day !== getCurrentDay(player) &&
         (player.location === "townEntrance" ||
          player.location === "townEntrance_act3" ) &&
+         !player.flags.darkSion &&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -4078,6 +4081,7 @@ window.EVENTS.push({
         player.flags?.sion_spying_03_day !== getCurrentDay(player) &&
         (player.location === "darkStreet" ||
          player.location === "townStreet" ) &&
+         !player.flags.darkSion &&
         Math.random() < 0.1,
 
     action : (player) => {
@@ -4101,6 +4105,7 @@ window.EVENTS.push({
     condition : (player) =>
         NPC_DATA["sion"].emotion.affection > 20 &&
         player.location === "townEntrance" &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {
@@ -4124,6 +4129,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.flags?.sion_spying_06_day !== getCurrentDay(player) &&
         NPC_DATA["sion"].emotion.affection > 50 &&
+        !player.flags.darkSion &&
         (player.location === "shelter" || player.location === "goldenShelter" ) &&
         Math.random() < 0.07,
 
@@ -4219,6 +4225,7 @@ window.EVENTS.push({
         NPC_DATA["sion"].emotion.lust >= 90 &&
         ( hasNpcRelationship("sion", "lover") ||
          hasNpcRelationship("sion", "spouse") ) &&
+         !player.flags.darkSion &&
         (player.location === "shelter" || player.location === "goldenShelter" ) &&
         Math.random() < 0.15,
 
@@ -4240,6 +4247,7 @@ window.EVENTS.push({
     condition : (player) =>
         NPC_DATA["sion"].emotion.affection >= 50 &&
         (player.location === "townEntrance" || player.location === "townEntrance_act3") &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {
@@ -4267,6 +4275,7 @@ window.EVENTS.push({
     condition : (player) =>
         NPC_DATA["sion"].emotion.affection >= 70 &&
         player.location === "townStreet" &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {
@@ -4314,6 +4323,7 @@ window.EVENTS.push({
         NPC_DATA["sion"].emotion.affection >= 90 &&
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
         player.location === "townStreet" &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {
@@ -4339,6 +4349,7 @@ window.EVENTS.push({
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
         ["upperHouse", "underHouse"].includes(player.location) &&
         canNpcVisitHouse(player, "sion") &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {

@@ -828,6 +828,10 @@ const EVENT_SHOP = {
         {
             item: ITEMS.consumable.sensitivityMDownPotion,
             price: 15
+        },
+        {
+            item: ITEMS.accessary.headGuGu,
+            price: 4444
         }
     ],
 
@@ -893,8 +897,12 @@ const EVENT_SHOP = {
             price : 10000
         },
         {
-            id : "coopClock",
-            price : 1000
+            id : "guGuDoll",
+            price : 444
+        },
+        {
+            id : "guGuClock",
+            price : 4444
         }
     ]
 };

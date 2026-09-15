@@ -6444,7 +6444,7 @@ Object.assign(DUNGEON_EVENTS, {
                         "발렌은 아카시아에게 손을 내밀었다." +
                         "<br><br>\"설득을 시도해보지 않은 건 아니야. 하지만 더 설득을 해보기에는 시간이 없어. 네게.... 우리에게 남은 시간은 생각보다 적잖아.\"<br><br>" +
                         "당신은 발렌을 올려다보았다. 당신의 시야가 흐릿하다. 그리고 뜨거운 것이 당신의 뺨을 타고 흘렀다." +
-                        "<br><br>\"에릭과 데릭의 부모님도 그래서 죽인 거야? 설득하기에는 시간이 없어서?\"<br><br>" +
+                        "<br><br>\"이게 정말 옳은 길이라고 생각해, 발렌?\"<br><br>" +
                         "발렌은 말없이 당신을 응시했다. 당신의 뺨 위로 뜨거운 것이 자꾸만 흐른다. 발렌은 당신의 뺨에 손을 뻗었다. 그는 당신의 눈물을 닦아주며 말했다." +
                         "<br><br>\"...그래서 내가 싫어졌어?\"<br><br>" +
                         "당신은 고개를 들었다. 그리고 말했다." +
@@ -7687,4 +7687,112 @@ function resolveSavingLuke(player) {
     }
 
     return true;
+}
+
+//act10 백늑대흉물 던전
+window.startWhiteWolvesBattle = function(player){
+    let supportStarted = false;
+    startBattle(["whiteAbomination3King", "whiteAbomination3", "whiteAbomination3"] , player, {
+        noEscape: true,
+
+        allyTurnSupport : {
+            name : "시온",
+            hpRate : 0.5,
+            damage : 60,
+            logType : "sion",
+            line : () => {
+                if (!supportStarted){
+                    supportStarted = true;
+                    return "\"영웅님!\"<br><br>대체 시온이 왜 여기에 있는 걸까? 시온은 당신에게로 떨어지는 공격을 막은 후 늑대를 공격했다. <strong>60 데미지!</strong>";
+                }
+
+                const lines = [
+                    "시온은 대검을 들고 높게 뛰어오르더니 그대로 적을 위에서부터 아래로 강타했다. 무거운 대검을 들고도 그는 재빨랐다. <strong>60 데미지!</strong>",
+                    "마치 장미가 흩뿌려진 것처럼, 그가 대검을 휘두를 때마다 환상처럼 장미꽃잎이 보였다. <strong>60 데미지!</strong>",
+                    "\"조심하세요, 영웅님.\"<br><br>시온은 능숙하게 대검으로 당신에게 오는 공격을 쳐냈다. 그리고 바로 반격했다. <strong>60 데미지!</strong>",
+                    "...시온은 예전보다 더 강해진 것 같다. 그는 전보다 더 능숙하게 대검을 휘둘렀다. <strong>60 데미지!</strong>"
+                ];
+
+                return getRandom(lines);
+            }
+        },
+
+        onWin: () => {
+            player.flags.paleWhiteFlowerCliff_whiteWolves_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startWhiteWolvesLose(player);
+        }
+    });
+};
+
+function handleWhiteWolvesWin(player){
+    player.flags.act3_quest_10_boss_end = true;
+    addQuestProgress(player);
+    changeNPCEmotion("sion", "affection", 3);
+    changeNPCEmotion("sion", "dominance", -3);
+    player.flags.paleWhiteFlowerSeedAlive = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "당신은 하얀 장갑을 끼고 창백한 꽃에 손을 뻗었다. 당신의 손에 잡혀도 시들지 않길래 괜찮을 줄 알았는데 당신의 손에 잡힌 지 몇 초 지나지 않아 시들어버렸다. 어떻게든 살리려고 했지만 살릴 수가 없었다." +
+                "<br><br><span class='log-danger'>다만, 씨앗은 하나 남았다.</span>" +
+                "<br><br>신기하게도 하얀 씨앗은 하얀꽃 줄기 끝에 붙어 있었다. 그 씨앗은 죽은 꽃 위에서 맥동하듯이 쿵, 쿵, 쿵, 쿵, 꿈틀거리며 울렁거리고 있었다. 당신의 뒤에서 하얀꽃을 지켜보던 시온은 인상을 찌푸렸다." +
+                "<br><br>\"기분이 나쁘네요....\"<br><br>" +
+                "쿵. 나무가 하나 더 쓰러지는 소리가 났다. 약한 지반이었는지 절벽의 끝에서부터 갈라지면서 무너지려고 들었다. 시온은 당신에게 이곳을 먼저 벗어나야겠다고 말했다. 당신들이 벗어나려고 하자 늑대들의 울음소리가 들렸다. 그것들은 당신을 쉽게 보내줄 생각이 없다." +
+                "<br><br>\"흩어져야겠네요. 영웅님, 제가 소리를 내어서 더 끌고 갈게요. 영웅님은 안전하게 귀환해주세요. 이따가 봬요!\"<br><br>" +
+                "당신이 말리기도 전에 시온은 대검으로 땅을 내리치며 소리를 내었다. 소리를 내며 멀어지는 시온을 당신은 잡을 수 없었다. 당신은 다른 쪽으로 도망갔다. 지반이 무너지기 전에 도망가야만 했다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+                return true;
+            }
+        }
+    ], player);
+}
+
+function startWhiteWolvesLose(player){
+    player.flags.act3_quest_10_boss_end = true;
+    addQuestProgress(player);
+    changeHP(player, 10);
+    changeNPCEmotion("sion", "dominance", 5);
+    player.flags.paleWhiteFlowerSeedDie = true;
+    savePlayer(player);
+
+    startScene([
+        {
+            type : "text",
+            value : [
+                "백흉물늑대의 공격을 버티지 못하고 쓰러진 당신을 시온의 단단한 팔이 받쳤다. 그는 당신을 아무렇지도 않게 공주님 안기로 안더니 그대로 당신이 가지려고 했던 창백한 꽃 쪽으로 몸을 날렸다. 시온의 손에 창백한 꽃이 잡혔다. 창백한 꽃은 시온의 손에 닿자마자 바로 시들어버렸다." +
+                "<br><br>늑대들이 뒤에서 달려오는 소리가 들렸지만 시온은 당신을 안은 채 멈추지 않았다. 지반이 무너지는 소리마저 들렸다. 시온은 낮게 쌍욕을 뱉더니 그대로 당신을 어딘가로 밀어버렸다. 당신은 어딘가로 굴러떨어졌다."
+            ]
+        },
+        {
+            type : "text",
+            value : [
+                "다시 눈을 떴을 때 당신은 울창했던 하얀꽃나무 숲 밖에 있었다. 당신은 주변을 둘러보았다." +
+                "<br><br>지반이 무너져서 흘러내린 흔적을 제외하고는 당신이 발견할 수 있는 건 없었다. 당신은 당신의 손을 내려다보았다. 창백한 꽃은 당신의 손 안에서 시들어 있었다." +
+                "<br><br>...줄기 끝에 매달려 있는 건 하얀 씨앗 같은데, 이미 생기라고는 느껴지지 않았다."
+            ]
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+                return true;
+            }
+        }
+    ], player);
 }

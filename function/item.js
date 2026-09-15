@@ -2772,6 +2772,19 @@ const ITEMS ={
             }
         },
 
+        headGuGu : {
+            name : "머리 위의 비둘기",
+            desc : "당신을 인정하고 당신의 머리 위에 앉은 비둘기. 이, 인정한 거 맞지? 어쩐지 당신을 가끔 깔보는 듯한 느낌이 든다.",
+            type : "accessary",
+            price : 0,
+            stats : {
+                str : 4,
+                dex : 4,
+                int : -4,
+                charm : 4
+            }
+        },
+
         //npc 관련 악세사리
         flowerCrown : {
             name : "꽃왕관",

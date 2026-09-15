@@ -423,6 +423,13 @@ window.FURNITURE_DATA = {
         price : 50000000
     },
 
+    guGuDoll : {
+        id : "guGuDoll",
+        name : "비둘기 봉제인형",
+        type : "doll",
+        price : 44444
+    },
+
     luxuryTeaSet : {
         id : "luxuryTeaSet",
         name : "고급 찻잔 세트",
@@ -486,11 +493,11 @@ window.FURNITURE_DATA = {
         price : 5000
     },
 
-    coopClock : {
-        id : "coopClock",
+    guGuClock : {
+        id : "guGuClock",
         name : "비둘기 시계",
         type : "decoration",
-        price : 50000
+        price : 444444
     },
 
     mushroomWhiteMiniature : {

@@ -1,0 +1,241 @@
+window.EVENTS.push({
+    id : "neutral_route_quest_10_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "goldenShelter" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.rebel_route_quest_09_after_04 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_09_after_04_day + 1),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_10_intro_01 = true;
+        player.flags.rebel_route_quest_10_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터의 아이들이 오랜만에 밤에 조용했다. 당신은 아이들을 잠재우고 돌아오는 시온을 보았다. 그는 당신을 보더니 당신이 쉴 수도 없게 떠들고 있길래 아이들을 잘 달래서 각자의 방으로 다 보냈다고 말했다. 그는 황금 쉘터를 둘러보며 아이들이 비 안 새는 천장 밑에서 잘 수 있게 된 건 당신 때문이라고 말했다." +
+                    "<br><br>\"반란군들은 아이들이나 당신에게 직접적으로 해준 건 없어요. 사람들이 왜 상류도시의 편을 더 드는지는 여기서부터 알 수 있는 법이죠. 자신의 보이는 이익을 마다할 사람은 얼마 없으니까요.\"<br><br>" +
+                    "시온은 당신을 당신의 방으로 데려간 후 침대에 앉혔다. 그는 안색이 안 좋아 보인다고 말하며 좀 쉬라고 말했다." +
+                    "<br><br>\"영웅님이 어떤 선택을 하든, 저는 영웅님을 다치게 두지는 않을 거예요.\"<br><br>" +
+                    "...시온의 몸에 원래 이렇게 근육이 많았었나? 그의 덩치가 전보다 더 커진 느낌이 든다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_10_intro_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.rebel_route_quest_10_intro_03 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_intro_03_day + 2),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_10_intro_04 = true;
+        player.flags.act3_quest_10_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 지나던 당신은 당신을 부르는 목소리에 고개를 돌렸다. 어둠 속에 정체를 숨긴 반란군이 발렌의 목적지가 어딘지 알아냈다고 말했다." +
+                    "<br><br>\"하얀꽃 무덤 근처입니다. 그가 필요로 하는 거라면 우리도 필요로 할 겁니다. 당신은 발렌보다 먼저 가서 그것을 얻어오길 바랍니다.\"<br><br>" +
+                    "반란군은 그 말을 끝으로 모습을 다시 감추었다. 당신이 주점으로 향하는 찰나, 당신의 뒤에서 시온의 목소리가 들려왔다." +
+                    "<br><br>\"정말 가실 건가요? 반란군은 당신을 믿고 있지도 않은데요?\"<br><br>" +
+                    "시온은 속상한 얼굴로 당신을 바라보았다." +
+                    "<br><br>\"...영웅님은, 제가 무슨 일이 있어도 지킬 거예요.\"<br><br>" +
+                    "그의 장밋빛 눈동자에 차가운 결의가 서렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_10_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.act3_quest_10_done,
+
+    action : (player) => {
+        player.flags.neutral_route_quest_10_after_01 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...기다리고 있었어요, 영웅님.\"<br><br>" +
+                    "그는 당신이 다치지 않아서 다행이라고 말하며 당신을 껴안았다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온에게 왜 시온이 거기에 있었냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...저 말고 영웅님을 지켜주는 사람이 없으니까요.\"<br><br>" +
+                                    "그는 상류도시 사람들이고, 반란군들이고 당신을 이용해 먹을 생각밖에 없다고 말했다. 시온은 그 누구도 믿을 수 없다고 말하며 당신을 더 꽈악 끌어안았다." +
+                                    "<br><br>\"...무슨 일이 있어도, 당신을 잃지 않을 거예요.\"<br><br>" +
+                                    "시온은 당신을 바라보며 자신은 앞으로도 계속 당신을 지킬 거라고 맹세했다." +
+                                    "<br><br>\"영웅님이 이 맹세를 받지 않는다고 하더라도요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "dominance", 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 시온에게 도와주러 와서 고맙다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"당연한 일이에요. 지금 이 세상에서 영웅님을 챙기는 사람은 저밖에 없는걸요. 영웅님조차도 영웅님을 챙기시지 않으시니까요.\"<br><br>" +
+                                    "그는 당신의 손바닥 위에 자신의 손바닥을 얹으며, 자신은 당신의 작은 상처도 쉬이 넘어가지 않을 거라고 말했다." +
+                                    "<br><br>\"...영웅님이 다치지 않으셨으면 좋겠어요. 그러기 위해서는 제가 더 강해져야겠죠.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("sion", "dominance", 5);
+                                    changeNPCEmotion("sion", "affection", 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_10_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_10_after_01 &&
+        getCurrentDay(player) >= (player.flags.act3_quest_10_done_day + 4),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_10_after_02 = true;
+        player.flags.neutral_route_quest_10_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구, 당신은 당신도 모르게 상류도시를 감싸 안고 있는 성벽 쪽을 바라보았다." +
+                    "<br><br>...?<br><br>" +
+                    "방금 벽이 뭔가... 갈색으로 변하지 않았나? 마치 아카시아 꽃잎이 변색된 것처럼 상류도시를 감싸 안고 있는 백색 벽이 갈색으로 변했었다. 순식간에 벌어진 일이라서 당신은 정말로 벽이 갈색으로 변했었던 건지 확신할 수 없었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_10_after_03_seedDie",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_10_after_02 &&
+        player.flags?.paleWhiteFlowerSeedDie &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_10_after_02_day + 1),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_10_after_03 = true;
+        player.flags.neutral_route_quest_10_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "반란군은 조금 늦게 당신을 찾아왔다. 그들은 꽃의 행방에 대해 물었고, 그들이 당신에게 얻을 수 있는 건 시든 꽃 하나였다." +
+                    "<br><br>\"...이 씨앗도....\"<br><br>" +
+                    "이미 죽은 씨앗이다. 그들은 대체 발렌이 왜 이거에 집착했는지 이유를 모르겠다고 말하며 고개를 저었다." +
+                    "<br><br>\"발렌의 행방은 계속 주시하겠습니다. 필요한 일이 생기면 부르겠습니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_10_after_03_seedAlive",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_10_after_02 &&
+        player.flags?.paleWhiteFlowerSeedAlive &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_10_after_02_day + 1),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_10_after_03 = true;
+        player.flags.neutral_route_quest_10_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "반란군은 조금 늦게 당신을 찾아왔다. 그들은 꽃의 행방에 대해 물었고 그들이 당신에게 얻어낼 수 있는 건 시든 꽃 한 송이뿐이었다. 당신은 씨앗은 살았다고 말하며 주머니에서 씨앗을 꺼내려고 했지만... 이상하다. 아무리 주머니를 뒤져도 씨앗을 찾을 수가 없었다." +
+                    "<br><br>\"...잃어버린 겁니까?\"<br><br>" +
+                    "씨앗이라는 말에 그들은 인상을 찌푸렸다. 그들은 당신의 황금쉘터를 뒤져서라도 찾아내곘다고 말하며 고개를 끄덕였다." +
+                    "<br><br>...씨앗이 대체 어디로 간 걸까."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

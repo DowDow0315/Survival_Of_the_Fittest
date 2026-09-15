@@ -289,6 +289,7 @@ window.EVENTS.push({
         player.justMoved &&
         (player.location === "forest_act3" || player.location === "deepForest_act3" ) &&
         NPC_DATA["sion"].emotion.affection >= 20 &&
+        !player.flags.darkSion &&
         player.flags?.sion_hisOutTraining_day !== getCurrentDay(player) &&
         Math.random() < 0.1,
 
@@ -315,6 +316,7 @@ window.EVENTS.push({
     condition : (player) =>
         ( hasNpcRelationship("sion", "lover") || hasNpcRelationship("sion", "spouse") )  &&
         ( player.location === "forest_act3" || player.location === "deepForest_act3" ) &&
+        !player.flags.darkSion &&
         player.justMoved,
 
     action : (player) => {

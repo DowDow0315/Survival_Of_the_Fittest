@@ -2545,6 +2545,7 @@ window.EVENTS.push({
         player.justMoved &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_uppercity &&
+        !player.flags.darkSion &&
         player.flags?.sion_spying_04_day !== getCurrentDay(player) &&
         (player.location === "richTownStreet" ||
          player.location === "gloryStreet" ) &&
@@ -2571,6 +2572,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.flags?.sion_uppercity &&
+        !player.flags.darkSion &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sion_spying_05_day !== getCurrentDay(player) &&
         player.location === "theater" &&

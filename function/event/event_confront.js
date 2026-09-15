@@ -567,6 +567,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shop" &&
+        !player.flags.darkSion &&
         NPC_DATA["sion"].emotion.affection >= 20 &&
         NPC_DATA["sora"].emotion.affection >= 60 &&
         !player.flags?.soraDie,
@@ -657,6 +658,7 @@ window.EVENTS.push({
     condition : (player) =>
         player.justMoved &&
         player.location === "shop" &&
+        !player.flags.darkSion &&
         NPC_DATA["sion"].emotion.affection >= 30 &&
         NPC_DATA["sora"].emotion.affection >= 50 &&
         !player.flags?.soraDie &&
@@ -1118,6 +1120,7 @@ window.EVENTS.push({
         player.location === "tavern" &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sionAndMatin_day !== getCurrentDay(player) &&
+        !player.flags.darkSion &&
         NPC_DATA["matin"].emotion.affection >= 70 &&
         Math.random() < 0.09,
 
@@ -1211,6 +1214,7 @@ window.EVENTS.push({
         player.location === "darkStreet" &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
+        !player.flags.darkSion &&
         player.flags?.sionAndMatin_day !== getCurrentDay(player) &&
         NPC_DATA["matin"].emotion.affection >= 70 &&
         Math.random() < 0.1,
@@ -1301,6 +1305,7 @@ window.EVENTS.push({
         (player.location === "richTownStreet" || player.location === "gloryStreet") &&
         getCurrentDay(player) >= (player.flags.yuri_rebel_story_01_after_seen_day + 1) &&
         player.flags?.sionAndKain_day !== getCurrentDay(player) &&
+        !player.flags.darkSion &&
         player.flags?.sion_uppercity &&
         NPC_DATA["kain"].emotion.affection >= 50 &&
         Math.random() < 0.07,
@@ -1403,6 +1408,7 @@ window.EVENTS.push({
         player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
         NPC_DATA["yuri"].emotion.affection >= 50 &&
         NPC_DATA["sion"].emotion.affection >= 40 &&
+        !player.flags.darkSion &&
         ["night", "dawn"].includes(getTimePeriod(player)) &&
         !player.flags?.yuriDie &&
         Math.random() < 0.08,
@@ -1490,6 +1496,7 @@ window.EVENTS.push({
         player.justMoved &&
         player.location === "townStreet" &&
         player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
+        !player.flags.darkSion &&
         (hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
         NPC_DATA["sion"].emotion.affection >= 40 &&
         ["afternoon", "night"].includes(getTimePeriod(player)) &&
@@ -1612,6 +1619,7 @@ window.EVENTS.push({
         player.justMoved &&
         ["townEntrance_act3", "forest_act3", "deepForest_act3"].includes(player.location) &&
         player.flags?.yuriAndSion_day !== getCurrentDay(player) &&
+        !player.flags.darkSion &&
         (hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
         NPC_DATA["sion"].emotion.affection >= 40 &&
         !player.flags?.yuriDie &&

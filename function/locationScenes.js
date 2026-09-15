@@ -145,6 +145,17 @@ function buildTownStreetScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        isSnowManDay(player) &&
+        isSnowing(player) &&
+        !hasPlayedSnowManToday(player)
+    ){
+        choices.unshift({
+            text : "눈사람을 만든다",
+            action : "startSnowManGame"
+        });
+    }
+
     choices.push(
         {
             text: "마을 입구로 간다",
@@ -308,6 +319,16 @@ function buildDarkStreetScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        isGuGuDay(player) &&
+        !hasPlayedGuGuRhythmToday(player)
+    ){
+        choices.unshift({
+            text : "평범한 비둘기와 춤 대결을 한다",
+            action : "startDarkStreetGuGuRhythm"
+        });
+    }
+
     choices.push({ text: "길거리로 돌아간다", action: "move_townStreet" });
 
     return [
@@ -322,8 +343,14 @@ function buildDarkStreetScene(player, loc, randomDesc){
     ];
 }
 
+window.startDarkStreetGuGuRhythm = function(player){
+    startGuGuRhythmGame(
+        player,
+        "darkStreet"
+    );
+};
+
 window.darkStreet_hpTraining = function(player){
-    
     const trainingCount = player.flags.darkStreet_hp_training_count || 0;    
     const price = getHpTrainingPrice(3000, trainingCount);
 
@@ -1384,6 +1411,16 @@ function buildWhiteFlowerTombScene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_10" &&
+        !player.flags?.act3_quest_10_boss_end
+    ){
+        choices.push({
+            text : "당신의 앞에 있는 하얀 꽃잎 길을 따라간다.",
+            action : "move_paleWhiteFlowerCliff"
+        });
+    }
+
     choices.push(
         { text:"주변을 수색한다", action:"search" },
         { text:"잠깐 쉬기", action:"rest" },
@@ -2026,6 +2063,17 @@ function buildRichTownStreetScene(player, loc, randomDesc){
             action : "check_upperHouse"
         });
     }
+
+    if (
+        isGuGuDay(player) &&
+        !hasPlayedGuGuRhythmToday(player)
+    ){
+        choices.unshift({
+            text : "상류도시 비둘기와 춤 대결을 한다",
+            action : "startRichTownStreetGuGuRhythm"
+        });
+    }
+
     return [
         {
             type : "text",
@@ -2037,6 +2085,13 @@ function buildRichTownStreetScene(player, loc, randomDesc){
         }
     ];
 }
+
+window.startRichTownStreetGuGuRhythm = function(player){
+    startGuGuRhythmGame(
+        player,
+        "richTownStreet"
+    );
+};
 
 function buildGloryStreetScene(player, loc, randomDesc){
     const choices =

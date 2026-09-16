@@ -327,8 +327,10 @@ Object.assign(DUNGEON_EVENTS, {
                     }
                 ]
             }
-        ],
-        mushroomKingdom : {
+        ]
+    },
+
+    mushroomKingdom : {
             mushroomKingdom_selfy : [
                 {
                     type : "text",
@@ -505,7 +507,6 @@ Object.assign(DUNGEON_EVENTS, {
                     }
                 }
             ]
-        }
     }
 })
 

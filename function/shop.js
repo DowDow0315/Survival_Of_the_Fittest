@@ -978,6 +978,12 @@ function renderEventShop(player){
             price.innerText = `${shopItem.price}꽃`;
             info.appendChild(price);
 
+            const desc = document.createElement("p");
+            desc.innerText = item.des || "";
+            info.appendChild(desc);
+
+            div.appendChild(info);
+
             const buyBtn = document.createElement("button");
             buyBtn.innerText = "구매";
             buyBtn.onclick = () => {

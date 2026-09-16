@@ -471,8 +471,8 @@ Object.assign(DUNGEON_EVENTS, {
 
                         startArrowMinigame(player, {
                             mode : "sequence",
-                            target : 9,
-                            sequenceLength : 3,
+                            target : 5,
+                            sequenceLength : 9,
                             timeLimit : 7000,
                             
                             title : "버섯은 반응 빨라!",

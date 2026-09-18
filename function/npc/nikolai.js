@@ -215,6 +215,13 @@ registerActions("nikolai", {
                 scene: NPC_DATA.nikolai.scenes.nikolai_savingTatiana_answer
             });
         }
+        
+        if (!player.flags?.nikolai_about_yuri_and_his_mother_02 && player.flags.yuri_and_his_mother_02 ){
+            choices.push({
+                text: "당신은 로웰이라는 사람을 아냐고 물어보았다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_about_yuri_and_his_mother
+            });
+        }
 
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 

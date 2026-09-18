@@ -217,6 +217,12 @@ registerActions("kain", {
             });
         }
 
+        if (player.flags?.deric_public_show_after_quest10 && !player.flags?.kain_about_public_show_after_quest10){
+            choices.push({
+                text: "카인의 상태가 좋아 보이지 않는다. 당신은 카인에게 괜찮냐고 물었다.",
+                scene: NPC_DATA.kain.scenes.kain_about_public_show_after_quest10
+            });
+        }
 
         choices.push({ text: "돌아간다", action: "kain_talk" });
 

@@ -167,6 +167,20 @@ registerActions("yuri",{
             });
         }
 
+        if (player.flags?.kain_hisCollapseFromStar && !player.flags?.yuri_about_kain_hisCollapseFromStar ){
+            choices.push({
+                text : "당신은 유리에게 유리도 데릭에게 폭력을 당한 적이 있냐고 물었다.",
+                scene : NPC_DATA.yuri.scenes.yuri_about_kain_hisCollapseFromStar
+            });
+        }
+
+        if (player.flags?.yuri_about_kain_hisCollapseFromStar && !player.flags?.yuri_about_dericViolence ){
+            choices.push({
+                text : "당신은 유리에게 데릭의 폭력 수위를 말해주었다.",
+                scene : NPC_DATA.yuri.scenes.yuri_about_dericViolence
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "yuri_talk" });
 
         startScene([

@@ -1243,6 +1243,74 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_public_show_after_quest10",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        (
+            (
+                player.flags?.upper_route_quest_10_after_02 &&
+                getCurrentDay(player) >=
+                    (player.flags.upper_route_quest_10_after_02_day + 2)
+            ) ||
+            (
+                player.flags?.rebel_route_quest_10_after_02 &&
+                getCurrentDay(player) >=
+                    (player.flags.rebel_route_quest_10_after_02_day + 2)
+            ) ||
+            (
+                player.flags?.neutral_route_quest_10_after_03 &&
+                getCurrentDay(player) >=
+                    (player.flags.neutral_route_quest_10_after_03_day + 2)
+            )
+        ) &&
+        player.weather === "sunny" &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)),
+
+    action : (player) => {
+        player.flags.deric_public_show_after_quest10 = true;
+        player.flags.deric_public_show_after_quest10_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_public_show_after_quest10,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "deric_owns_kainMind_01",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "theater"  &&
+        getCurrentDay(player) >= (player.flags.deric_public_show_after_quest10_day + 30) &&
+        !player.flags?.kain_hisVoiceTrainingTilDeathAfter &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)),
+
+    action : (player) => {
+        player.flags.deric_owns_kainMind = true;
+        player.flags.KainWillNotSingHisSong = true;
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["deric"].scenes.deric_owns_kainMind_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -1624,6 +1692,176 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "akasia_hospital_event_upper",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.paleWhiteFlowerSeedAlive &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_upper,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_rebel",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "gloryStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_rebel,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_01",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.akasiaHospitalWithValen &&
+        player.flags?.act3_uppercity_route &&
+        ["dawn", "night"].includes(getTimePeriod(player)) &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_02",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.akasiaHospitalWithValen &&
+        player.flags?.act3_uppercity_route &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.akasiaHospitalWithValen &&
+        player.flags?.act3_uppercity_route &&
+        player.weather === "rain" &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie,
+
+    action : (player) => {
+        player.flags.akasia_hospital_rain = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.akasiaHospitalWithValen &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.akasia_hospital_rain &&
+        player.weather === "rain" &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "akasia_hospital_event_05",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        player.flags?.akasiaHospitalWithValen &&
+        player.flags?.act3_uppercity_route &&
+        ( hasNpcRelationship("akasia", "lover") || hasNpcRelationship("akasia", "spouse") ) &&
+        player.flags?.upper_route_quest_10_after_02 &&
+        !player.flags?.akasiaDie &&
+        Math.random() < 0.07,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["akasia"].scenes.akasia_hospital_event_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
 
 //카인
 window.EVENTS.push({
@@ -2269,6 +2507,111 @@ window.EVENTS.push({
 
         startScene(
             NPC_DATA["kain"].scenes.kain_hisSignFrame,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_hisCollapseFromStar",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags.deric_owns_kainMind &&
+        player.flags?.kain_about_public_show_after_quest10 &&
+        player.flags?.deric_about_public_show_after_quest10,
+
+    action : (player) => {
+        player.flags.kain_hisCollapseFromStar = true;
+        player.flags.kain_hisCollapseFromStar_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_hisCollapseFromStar,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_hisCollapseFromStarAfter",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags.deric_owns_kainMind &&
+        player.flags?.kain_hisCollapseFromStar,
+
+    action : (player) => {
+        player.flags.kain_hisCollapseFromStarAfter = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_hisCollapseFromStarAfter,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_hisVoiceTrainingTilDeath",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags.deric_owns_kainMind &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.kain_hisCollapseFromStar &&
+        player.flags?.kain_hisCollapseFromStarAfter &&
+        getCurrentDay(player) >= (player.flags.kain_hisCollapseFromStar_day + 5),
+
+    action : (player) => {
+        player.flags.kain_hisVoiceTrainingTilDeath = true;
+        player.flags.kain_hisVoiceTrainingTilDeath_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_hisVoiceTrainingTilDeath,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "kain_hisVoiceTrainingTilDeathAfter",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "theater" &&
+        !player.flags.deric_owns_kainMind &&
+        ["afternoon", "night"].includes(getTimePeriod(player)) &&
+        player.flags?.kain_hisVoiceTrainingTilDeath &&
+        !player.flags?.KainWillNotSingHisSong &&
+        getCurrentDay(player) >= (player.flags.kain_hisVoiceTrainingTilDeath_day + 7),
+
+    action : (player) => {
+        player.flags.kain_hisVoiceTrainingTilDeathAfter = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["kain"].scenes.kain_hisVoiceTrainingTilDeathAfter,
             player,
             {
                 onEnd : () => startScene(getLocationScene(player), player)

@@ -3023,6 +3023,181 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "yuri_and_his_mother_01",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "darkStreet" &&
+        !player.flags?.yuriDie &&
+        player.flags?.yuri_about_dericViolence,
+
+    action : (player) => {
+        player.flags.yuri_and_his_mother_01 = true;
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_02",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "richTownStreet" &&
+        !player.flags?.yuriDie &&
+        player.flags?.yuri_and_his_mother_01,
+
+    action : (player) => {
+        player.flags.yuri_and_his_mother_02 = true;
+        player.flags.yuri_and_his_mother_02_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_03",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        !player.flags?.yuriDie &&
+        player.flags?.yuri_and_his_mother_02 &&
+        getCurrentDay(player) >= (player.flags.yuri_and_his_mother_02_day + 10),
+
+    action : (player) => {
+        player.flags.yuri_and_his_mother_03 = true;
+        player.flags.yuri_and_his_mother_03_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_04",
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        !player.flags?.yuriDie &&
+        !player.flags?.yuri_foundLowellDoor &&
+        player.flags?.yuri_and_his_mother_03 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.yuri_and_his_mother_03_day + 7),
+
+    action : (player) => {
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_05",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        !player.flags?.yuriDie &&
+        player.flags?.yuri_foundLowellDoor &&
+        ["night", "dawn"].includes(getTimePeriod(player)),
+
+    action : (player) => {
+        player.flags.yuri_and_his_mother_05 = true;
+        player.flags.yuri_and_his_mother_05_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_05,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_06",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "royalHospital" &&
+        !player.flags?.yuriDie &&
+        player.flags?.yuri_and_his_mother_05 &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.yuri_and_his_mother_05_day + 1),
+
+    action : (player) => {
+        player.flags.yuri_and_his_mother_06 = true;
+        player.flags.yuri_and_his_mother_06_day = getCurrentDay(player);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_06,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "yuri_and_his_mother_07",
+    once : true,
+
+    condition : (player) =>
+        player.justMoved &&
+        player.location === "shelter" &&
+        !player.flags?.yuriDie &&
+        ( hasNpcRelationship("yuri", "lover") || hasNpcRelationship("yuri", "spouse") ) &&
+        player.flags?.yuri_and_his_mother_06,
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["yuri"].scenes.yuri_and_his_mother_07,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //니콜라이
 window.EVENTS.push({
     id : "nikolai_feels_good_event",

@@ -350,6 +350,27 @@ registerActions("deric", {
             });
         }
 
+        if (player.flags?.deric_public_show_after_quest10 && !player.flags?.deric_about_public_show_after_quest10){
+            choices.push({
+                text: "당신은 데릭에게 그날의 연설에 대해 물었다.",
+                scene: NPC_DATA.deric.scenes.deric_about_public_show_after_quest10
+            });
+        }
+
+        if (player.flags?.kain_hisCollapseFromStar && !player.flags?.deric_about_kain_hisCollapseFromStar){
+            choices.push({
+                text: "당신은 데릭에게 카인에게 대체 무슨 짓을 한 거냐고 따졌다.",
+                scene: NPC_DATA.deric.scenes.deric_about_kain_hisCollapseFromStar
+            });
+        }
+
+        if (player.flags?.yuri_and_his_mother_02 && !player.flags?.deric_about_yuri_and_his_mother_02){
+            choices.push({
+                text: "당신은 데릭에게 로웰이라는 사람을 아냐고 물어보았다.",
+                scene: NPC_DATA.deric.scenes.deric_about_yuri_and_his_mother_02
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "deric_giveFood"

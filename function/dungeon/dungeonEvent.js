@@ -909,7 +909,7 @@ function makeRainbowMushroom(player){
                 ]
             }
         ], player, {
-            onEnd : () => startScene(buildDungeonScene(player), player)
+            onEnd : () => startRainbowMushroomShop(player)
         });
         return;
     }
@@ -932,7 +932,7 @@ function makeRainbowMushroom(player){
             ]
         }
     ], player, {
-        onEnd : () => startScene(buildDungeonScene(player), player)
+        onEnd : () => startRainbowMushroomShop(player)
     });
 }
 
@@ -965,7 +965,7 @@ function exchangeMushroomFurniture(player, exchange){
             ]
         }
     ], player, {
-        onEnd : () => startScene(buildDungeonScene(player), player)
+        onEnd : () => startRainbowMushroomShop(player)
     });
 }
 

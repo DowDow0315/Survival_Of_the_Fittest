@@ -6708,7 +6708,7 @@ window.EVENTS.push({
         ["morning", "afternoon"].includes(getTimePeriod(player)) &&
         ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
         player.flags?.eric_squirrel_02 &&
-        Math.random() < 0.07,
+        Math.random() < 0.08,
 
     action : (player) => {
         changeTrauma(player, -3);
@@ -6736,7 +6736,7 @@ window.EVENTS.push({
         ["morning", "afternoon"].includes(getTimePeriod(player)) &&
         ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
         player.flags?.eric_squirrel_02 &&
-        Math.random() < 0.07,
+        Math.random() < 0.08,
 
     action : (player) => {
         changeTrauma(player, -3);

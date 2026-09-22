@@ -576,7 +576,7 @@ const WEAPON_SKILLS = {
             },
             duration : 5,
             unlock : 200,
-            desc : "4턴간 공격력 1.2배, 방어력 1.3배, 회피력 1.3배"
+            desc : "5턴간 공격력 1.2배, 방어력 1.3배, 회피력 1.3배"
         }
     ],
     "우산" : [
@@ -1402,6 +1402,47 @@ const WEAPON_SKILLS = {
         }
     ],
 
+    "신뢰의 언월도" : [
+        {
+            name : "참격",
+            cost : 2,
+            type : "damage",
+            power : 3.1,
+            unlock : 20,
+            desc : "데미지 3.1배 공격" 
+        },
+        {
+            name : "4번의 신뢰",
+            cost : 3,
+            type : "multiHit",
+            power : 1.4,
+            hits : 4,
+            unlock : 100,
+            desc : "데미지 1.4배로 4번 공격"
+        },
+        {
+            name : "필요한 절차",
+            cost : 2,
+            type : "buff",
+            effect : {
+                id : "cultistSword_buff",
+                atkMult : 4
+            },
+            duration : 5,
+            unlock : 150,
+            desc : "5턴 동안 공격력 4배"
+        },
+        {
+            name : "대참격",
+            cost : 4,
+            type : "damage",
+            power : 6.4,
+            unlock : 200,
+            desc : "데미지 6.4배 공격" 
+        }
+    ],
+
+
     "호박쌍검" : [
         {
             name : "보이지 않는 공격",
@@ -1430,7 +1471,7 @@ const WEAPON_SKILLS = {
             dot: 30,
             duration: 5,
             unlock: 150,
-            desc : "5턴간 상대방에게 출혈데미지(30)"
+            desc : "5턴간 상대방에게 독데미지(30)"
         },
         {
             name : "다정하지만 굳은 심지",
@@ -1710,6 +1751,10 @@ const MASTER_SKILLS = {
     "때늦은 깨달음" : {
         requiredMastery : 300,
         skillName : "때늦은 자각"
+    },
+    "신뢰의 언월도" : {
+        requiredMastery : 300,
+        skillName : "필요한 절차"
     },
 
 
@@ -2127,6 +2172,19 @@ const ITEMS ={
             }
         },
 
+        cultistSword : {
+            name : "신뢰의 언월도",
+            type : "weapon",
+            desc : "눈 먼 신뢰는 자신을 괴롭히는 것이 아니다, 타인을 괴롭히는 것이라면 모를까.",
+            price : 8000,
+            stats : {
+                str : 10,
+                dex : 8,
+                int : 3,
+                charm : 3
+            }
+        },
+
         yuriTwinDagger : {
             name : "호박쌍검",
             type : "weapon",
@@ -2348,6 +2406,32 @@ const ITEMS ={
                 int : 7,
                 charm : 7
             }
+        },
+
+        cultistTop : {
+            name : "신도의 백색 로브",
+            type : "top",
+            price : 4300,
+            desc : "순결을 상징하는 백색의 로브. 교리에서는 신도들은 한 사람 밑에서만 순결해질 수 있다고 말하고 있다.",
+            stats : {
+                str : 6,
+                dex : 6,
+                int : 5,
+                charm : 5
+            }
+        },
+
+        cultistTop2 : {
+            name : "교주의 흑색 로브",
+            type : "top",
+            price : 4700,
+            desc : "하얀 순결을 품고 어둠속으로 나아가리라. 우리에게는 그것만이 답이었다.",
+            stats : {
+                str : 5,
+                dex : 5,
+                int : 5,
+                charm : 8
+            }
         }
     },
 
@@ -2406,7 +2490,7 @@ const ITEMS ={
         goldenThreadBra : {
             name : "금실브라",
             type : "bra",
-            desc : "상류도시에서 유행하는 화려한 브라. 몸보다 장식이 더 무거운 것 같은 기분이 든다.",
+            desc : "상류도시에서 유행하는 화려한 브라. 장식이 은근 무겁다.",
             price : 150000,
             stats : {
                 str : 3,
@@ -2431,6 +2515,17 @@ const ITEMS ={
             stats : {
                 dex : 5,
                 int : 3
+            }
+        },
+
+        cultistBra : {
+            name : "신도의 실끈",
+            type : "bra",
+            desc : "가슴을 가리고 있지만 실끈이라서 금방 풀어낼 수 있다. 정말 가슴을 보호하는 용도로 쓰이는 게 맞을까?",
+            price : 10000,
+            stats : {
+                dex : 5,
+                charm : 4
             }
         }
     },
@@ -2625,6 +2720,32 @@ const ITEMS ={
                 int : 3,
                 charm : 3
             }
+        },
+
+        cultistBottom : {
+            name : "신도의 흑색 반바지",
+            type : "bottom",
+            price : 4500,
+            desc : "벨트도 없고 버클도 없어서 벗기기 쉬운 흑색 반바지다. 교리에서는 반바지 아래에 속옷을 입으면 자신의 순결에 당당하지 않은 것이라 말하고 있다.",
+            stats : {
+                str : 6,
+                dex : 10,
+                int : 1,
+                charm : 5
+            }
+        },
+
+        cultistBottom2 : {
+            name : "교주의 가터벨트",
+            type : "bottom",
+            price : 4700,
+            desc : "그에게 바지는 필요없었다, 모두의 순결을 책임져야만 했으니까.",
+            stats : {
+                str : 8,
+                dex : 5,
+                int : 5,
+                charm : 5
+            }
         }
     },
 
@@ -2782,6 +2903,18 @@ const ITEMS ={
                 dex : 4,
                 int : -4,
                 charm : 4
+            }
+        },
+
+        cultistPiercing : {
+            name : "사이비 문양 피어싱",
+            desc : "교주는 이 피어싱을 크고 거대한 그것에 하고 다녔다고 한다. 어쩌면 그게 신도들에게 추앙받는 이유였을지도.",
+            type : "accessary",
+            price : 5000,
+            tags : ["locked"],
+            stats : {
+                str : 5,
+                charm : 5
             }
         },
 

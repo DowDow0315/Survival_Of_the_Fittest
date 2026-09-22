@@ -1545,7 +1545,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "townStreet" &&
-        player.flags?.act3_upper_route &&
+        player.flags?.act3_uppercity_route &&
         player.flags?.act3_quest_10_done,
 
     action : (player) => {
@@ -1626,7 +1626,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "heavenPalace" &&
-        player.flags?.act3_upper_route &&
+        player.flags?.act3_uppercity_route &&
         player.flags?.paleWhiteFlowerSeedAlive &&
         player.flags?.upper_route_quest_10_after_01,
 
@@ -1668,7 +1668,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "heavenPalace" &&
-        player.flags?.act3_upper_route &&
+        player.flags?.act3_uppercity_route &&
         player.flags?.paleWhiteFlowerSeedDie &&
         player.flags?.upper_route_quest_10_after_01,
 
@@ -1701,7 +1701,7 @@ window.EVENTS.push({
 
     condition : (player) =>
         player.location === "richTownEntrance" &&
-        player.flags?.act3_upper_route &&
+        player.flags?.act3_uppercity_route &&
         getCurrentDay(player) >= (player.flags.upper_route_quest_10_after_02_day + 7) &&
         player.flags?.upper_route_quest_10_after_02,
 
@@ -1720,6 +1720,42 @@ window.EVENTS.push({
                     "<br><br>\"발렌 님은 상류도시를 지키기 위해 무슨 일이든 할 것입니다.\"<br><br>" +
                     "상류도시의 귀족들이 에이든을 인지하고 고개를 까닥인다. 에이든도 그들을 향해 경례를 한 후 천천히 사람들의 시야 바깥으로 이동해갔다." +
                     "<br><br>\"그리고 저는 그런 발렌님을 끝까지 지킬 것이고요.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_10_after_03_day + 3) &&
+        player.flags?.upper_route_quest_10_after_03,
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_01 = true;
+        player.flags.common_route_quest_11_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 걸어가는 당신의 앞으로 백색복을 입은 전령이 한 명 다가왔다. 그는 발렌님이 상류도시의 영웅인 당신은 알 권리가 있다고 말했다고 하며 쪽지 한 장을 내밀었다. 당신은 발렌의 쪽지를 읽었다." +
+                    "<br><br>[상류도시의 영웅에게]<br><br>" +
+                    "[당신에게 알려야 할까 말아야 할까 고민을 많이 했습니다. 하지만 지금까지 당신이 제게 해주신 것에 감사한 바, 적어도 당신에게는 알려야겠다고 생각했습니다.]<br><br>" +
+                    "[아카시아가 쓰러진 이후, 저는 아카시아가 한 번 더 쓰러질 수도 있다는 생각을 했습니다. 아카시아의 죽음을 막는 것도 중요하지만, 아카시아가 죽었을 때 이 도시를 유지할 수 있는 방법을 찾는 것이 제게는 더 우선입니다. 창백한 꽃이 생명력을 기반하여 힘을 유지하는 것을 아시고 계시겠지요.]<br><br>" +
+                    "[숙주는 죽었지만, 흉물이 미약하게나마 살아있는 시체는 거의 움직이지 못합니다. 저는 이것을 이용해서 흉물이나 백흉물의 생명력으로도 창백한 꽃의 생명력을 유지할 수 있는지 알아볼 생각입니다.]<br><br>" +
+                    "[위험한 일이라는 건 압니다. 하지만 필요한 일입니다.]<br><br>" +
+                    "[당신에게는 미리 말씀드리고 싶었습니다. 오늘도 좋은 하루 보내시길.]<br><br>" +
+                    "[당신을 애정하는, 발렌.]"
                 ]
             }
         ], player, {

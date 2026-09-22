@@ -170,6 +170,96 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_blackRedBlood_01",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        player.flags?.common_route_quest_11_intro_02 &&
+        player.flags?.deric_aboutHisParents_04 &&
+        getTimePeriod(player) === "dawn" &&
+        !hasNpcRelationship("eric", "lover") &&
+        !hasNpcRelationship("eric", "spouse") &&
+        !player.flags?.eric_blackRedBlood_01 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_02_day + 2) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_01 = true;
+        player.flags.eric_blackRedBlood_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_01,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_blackRedBlood_01_lover",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "gloryStreet"  &&
+        player.flags?.common_route_quest_11_intro_02 &&
+        player.flags?.deric_aboutHisParents_04 &&
+        getTimePeriod(player) === "dawn" &&
+        !player.flags?.eric_blackRedBlood_01 &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") ) &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_02_day + 2) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_01 = true;
+        player.flags.eric_blackRedBlood_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_01_lover,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_blackRedBlood_02",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3"  &&
+        player.flags?.eric_blackRedBlood_01 &&
+        getCurrentDay(player) >= (player.flags.eric_blackRedBlood_01_day + 5) &&
+        NPC_DATA["eric"].emotion.affection >= 60 &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_02 = true;
+        player.flags.eric_blackRedBlood_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",
@@ -289,6 +379,7 @@ window.EVENTS.push({
         NPC_DATA["valen"].emotion.affection >= 30 &&
          player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
          !player.flags?.valenDie &&
+         ["night", "afternoon", "morning"].includes(getTimePeriod(player)) &&
          player.location === "gloryStreet" &&
          Math.random() < 0.07,
 
@@ -297,6 +388,83 @@ window.EVENTS.push({
         savePlayer(player);
 
         startScene(NPC_DATA["valen"].scenes.valen_teaTime_02, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_teaTime_03",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
+        !player.flags?.valenDie &&
+        ["morning", "afternoon"].includes(getTimePeriod(player)) &&
+        player.location === "gloryStreet" &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_teaTime_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_teaTime_03, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_teaTime_04",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.valen_teaTime_day !== getCurrentDay(player) &&
+        !player.flags?.valenDie &&
+        getTimePeriod(player) === "morning" &&
+        player.location === "gloryStreet" &&
+        player.flags?.upper_route_quest_10_intro_02 &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_teaTime_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_teaTime_04, player, {
+            onEnd : () => {
+                startScene(getLocationScene(player), player);
+            }
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "valen_next_to_valen_01",
+    once : false,
+
+    condition : (player) =>
+        isPlayerProperlyDressed(player) &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.valen_next_to_valen_day !== getCurrentDay(player) &&
+        !player.flags?.valenDie &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.location === "heavenPalace" &&
+        player.flags?.upper_route_quest_10_intro_02 &&
+         Math.random() < 0.08,
+
+    action : (player) => {
+        player.flags.valen_next_to_valen_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(NPC_DATA["valen"].scenes.valen_next_to_valen_01, player, {
             onEnd : () => {
                 startScene(getLocationScene(player), player);
             }
@@ -2990,6 +3158,28 @@ window.EVENTS.push({
     action: (player) => {
         startScene(
             NPC_DATA["aiden"].scenes.aiden_hisSight_03,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "aiden_hisSight_04",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.uppercityHero &&
+        player.flags?.upper_route_quest_10_after_03 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_10_after_03_day + 2) &&
+        player.location === "townStreet",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["aiden"].scenes.aiden_hisSight_04,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)

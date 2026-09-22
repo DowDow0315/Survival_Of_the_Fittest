@@ -2565,3 +2565,36 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.act3_rebel_route &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_10_after_03_day + 3) &&
+        player.flags?.rebel_route_quest_10_after_03,
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_01 = true;
+        player.flags.common_route_quest_11_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어두운 빈민가 거리를 걷고 있던 당신은 뭔가를 질질 끄는 소리에 본능적으로 몸을 숨겼다. 백색 군인이었다. 그들은 밧줄로 몇 명의 사람들을 묶어서 질질 끌고 가고 있었다. 끌려가는 사람들이 살아있는지 죽어있는지는 알 수 없었다. 발목이 괴기하게 꺾이는 것을 보아 살아있는 것 같지는 않은데, 그렇다고 아예 안 움직이는 건 아니라서 죽은 것 같지도 않다." +
+                    "<br><br>\"흉물에 먹힌 시체들입니다.\"<br><br>" +
+                    "언제부터 보고 있었던 건지, 반란군이 당신의 옆에서 속삭였다. 그는 상류도시가 또 무슨 짓을 꾸미고 있는지 모르겠다고 말하며 인상을 찌푸렸다." +
+                    "<br><br>\"...불길한 예감이 듭니다. 더 알아보는 대로 연락드리겠습니다, 하류도시의 영웅님.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

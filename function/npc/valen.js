@@ -168,6 +168,27 @@ registerActions("valen",{
             });
         }
 
+        if (player.flags?.aiden_deepThought && !player.flags?.valen_about_aiden_deepThought){
+            choices.push({
+                text: "당신은 발렌에게 에이든은 언제 만났냐고 물었다.",
+                scene: NPC_DATA.valen.scenes.valen_about_aiden_deepThought
+            });
+        }
+
+        if (player.flags?.common_route_quest_11_intro_04 && !player.flags?.valen_about_common_route_quest_11_intro_04){
+            choices.push({
+                text: "당신은 발렌에게 하류도시에서 유행하는 종교에 대해 어떻게 생각하냐고 물었다.",
+                scene: NPC_DATA.valen.scenes.valen_about_common_route_quest_11_intro_04
+            });
+        }
+
+        if (player.flags?.common_route_quest_11_intro_04 && !player.flags?.valen_about_common_route_quest_11_intro_04_raphael){
+            choices.push({
+                text: "당신은 발렌에게 라파엘에 대해 어떻게 생각하냐고 물었다.",
+                scene: NPC_DATA.valen.scenes.valen_about_common_route_quest_11_intro_04_raphael
+            });
+        }
+
         choices.push({
             text: "음식을 건넨다",
             action: "valen_giveFood"

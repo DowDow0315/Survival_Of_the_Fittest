@@ -239,3 +239,191 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_10_after_03 &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_10_after_03_day + 3),
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_01 = true;
+        player.flags.common_route_quest_11_intro_01_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 경비병들이 마을 입구에서 수레를 끌고 나가는 것을 보았다. 힐끗 본 수레에는 시체들이 한가득이었다." +
+                    "<br><br>\"대체 시체를 왜 가져오라는 거야?\"<br><br>" +
+                    "\"뭔가 조사할 게 있나 보지.... 으, 마치 살아있는 것 같아.\"<br><br>" +
+                    "그들의 말대로 수레에 있는 시체들은 다른 시체들과 다르게 살아있는 것처럼 꿈틀거리고 있었다. 마치 숙주는 죽었지만 안에 있는 흉물은 살아있는 것처럼.... 그들도 그렇게 생각했는지 흉물이 하나 튀어나오기 전에 어서 옮기자고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_11_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        ( player.flags?.act3_neutral_route || player.flags?.act3_rebel_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.common_route_quest_11_intro_01 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_01_day + 7 ),
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_02 = true;
+        player.flags.common_route_quest_11_intro_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "<div style='text-align:center; font-size:2rem; color: #ff0000;'>콰앙</div><br><br>" +
+                    "...? 잘못 들었나? 다행히 도시 안에서 들려오는 소리는 아니었다. 당신은 고개를 들었다. 새들이 하류도시 입구 쪽으로 날아드는 것이 보인다. 경비병들과 경계병들도 인상을 찌푸리며 하류도시 관문 바깥을 살펴보았다." +
+                    "<br><br>\"씨발, 이놈의 동네는 잔잔한 적이 없...\"" +
+                    "<br><br><div style='text-align:center; font-size:2rem; color: #ff0000;'>콰앙</div><br><br>" +
+                    "....<br><br>" +
+                    "잘못 들은 게 아닌 것 같다. 하류도시 입구에 있던 사람들이 경계심 어린 눈으로 소리가 들린 쪽을 응시했다." +
+                    "<br><br>아무 일도 일어나지 않았다. <span class='log-danger'>아직은</span>"
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_11_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        ( player.flags?.act3_neutral_route || player.flags?.act3_rebel_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.common_route_quest_11_intro_02 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_02_day + 2 ),
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_03 = true;
+        player.flags.common_route_quest_11_intro_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"우리는 다 죽을 거야.\"<br><br>" +
+                    "중얼거리는 소리가 들려서 당신은 고개를 돌렸다. 몇몇 사람들이 초췌한 얼굴로 모여 있었다. 그들은 종말의 날이 얼마 남지 않았다고 말하며, 어차피 죽는 날이 얼마 남지 않았으면 원하는 대로 살다가 죽는 게 낫지 않겠냐고 말했다." +
+                    "<br><br>\"아니면 <strong>제물</strong>을 바치든가.\"<br><br>" +
+                    "당신은 고개를 돌렸다. 누가 말한 거지? 하지만 이미 사람들은 말소리를 줄이며 흩어진 지 오래였다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_11_intro_04",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        ( player.flags?.act3_neutral_route || player.flags?.act3_rebel_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.common_route_quest_11_intro_03 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_03_day + 5 ),
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_04 = true;
+        player.flags.common_route_quest_11_intro_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 걷던 당신은 순간 당신의 눈을 믿지 못했다. 라파엘? 동공도 제대로 보이지 않는 그의 백색 눈동자는 빈민가 거리를 한 바퀴 둘러보더니 이내 당신을 발견했다. 그는 자애로운 미소를 지으며 당신이 이런 더러운 거리에 어쩐 일이냐고 물었다." +
+                    "<br><br>\"아무리 영웅님이라도 이런 곳에 있으면 사상이 더럽혀집니다.\"<br><br>" +
+                    "그는 당신의 의아해하는 표정에, 감히 신의 이름을 걸고 활동하는 단체가 있다고 해서 한번 와봤다고 말해주었다." +
+                    "<br><br>\"배울 점은 많았습니다. 물론 발렌님은 이들이 상류도시에게도 마수를 뻗는 순간 검을 들겠지만요.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 배울 점이 많다는 게 무슨 뜻이냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"말 그대로입니다. 누구에게나 배울 점은 있는 법이니까요.\"<br><br>" +
+                                    "라파엘은 앞으로 나아가려면 다른 사람들보다 더 넓게 봐야 한다고 말했다. 그는 어쩌면 반란군들은 그 점이 부족할지도 모르겠다고 말했다." +
+                                    "<br><br>\"그래서 그들은 제게 재미가 없는 거고요.\""
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 라파엘에게 요새 유행하는 사이비 종교에 대해 잘 아냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"사이비 종교라...\"<br><br>" +
+                                    "라파엘은 당신에게 정말로 그들의 종교가 사이비 종교라고 생각하냐고 물었다." +
+                                    "<br><br>\"왜 그렇게 판단하셨습니까?\"<br><br>" +
+                                    "그의 미소는 언제나처럼 자애로웠다." +
+                                    "<br><br>\"...정말로, 당신에게 판단할 기준이 있다고 보십니까? 종교는 어떤 종교나 사람들의 소망을 먹고 자라는 법인데도 말입니다.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("raphael", "affection", -3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 그들의 교리에 찬성하는 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 라파엘은 눈을 느리게 깜박였다." +
+                                    "<br><br>\"찬성이요?\"<br><br>" +
+                                    "\"하, 하, 하. 찬성이요?\"<br><br>" +
+                                    "그는 재밌는 농담이라도 들은 것처럼 폭소했다. 당신은 순간 그의 등뒤에서 날개같은 것을 보았다. 환상이었던 걸까? 금방 사라지긴 했지만 색깔이 흰색이었다, 천사 날개라고 보기에는 기괴하게 뒤틀려 있긴 했지만." +
+                                    "<br><br>\"재밌긴 합니다.\"<br><br>" +
+                                    "그는 좋은 구경을 해서 좋았다고 말하며 고개를 돌렸다." +
+                                    "<br><br>\"더 볼 거리가 생긴다면 좋겠군요.\""
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

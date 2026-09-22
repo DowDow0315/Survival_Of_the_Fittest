@@ -223,6 +223,13 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_about_common_route_quest_11_intro_04 && player.flags.common_route_quest_11_intro_04 ){
+            choices.push({
+                text: "당신은 라파엘에 대해 어떻게 생각하냐고 물었다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_about_common_route_quest_11_intro_04
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 
         startScene([

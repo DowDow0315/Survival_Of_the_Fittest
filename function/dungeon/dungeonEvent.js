@@ -473,7 +473,7 @@ Object.assign(DUNGEON_EVENTS, {
                             mode : "sequence",
                             target : 5,
                             sequenceLength : 9,
-                            timeLimit : 7000,
+                            timeLimit : 6000,
                             
                             title : "버섯은 반응 빨라!",
                             successText : "버섯!",

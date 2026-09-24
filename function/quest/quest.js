@@ -384,6 +384,32 @@ const QUESTS = {
         completeText: "마틴은 당신에게서 의뢰서를 받았다. <br><br>\"...다친 곳은 잘 치료해둬.\""
     },
 
+    cultistCaveRepeated_cleanup: {
+        id: "cultistCaveRepeated_cleanup",
+        title: "사이비 종교 와해",
+        type: "investigate",
+        targetName : "교주 토벌",
+        repeatable : true,
+        giver : "",
+        
+        desc : "마을 입구에서 가까운 숲에는 여전히 사이비 종교단이 남아있다. 그들은 절대로 완전히 없어지지 않는다.",        
+        activeDesc : "완전히 없애지는 못하더라도 그들의 기세를 주춤하게 만들 수는 있다. 사이비 종교 세력을 약화시키러 뒤틀린 숲으로 가야 한다.",
+        readyDesc : "그들에게는 구원이 아닐 수도 있지만, 당신은 이미 선택을 했다. 주점으로 돌아가서 보고하자.",
+        
+        targetFlag : "cultistCaveRepeated_boss_end",
+        requiredKill: 1,
+        rewardGold: 70000,
+        
+        require: {
+            completedQuest: "act3_quest_11",
+            count: 1
+        },
+        
+        acceptText: "마틴은 당신에게 고개를 끄덕여보였다.",
+        cancelText: "마틴은 당신에게서 의뢰서를 다시 받아갔다.",
+        completeText: "마틴은 당신에게서 의뢰서를 받았다. <br><br>\"...상처받지 마.\"<br><br>바람결에 스쳐 지나갔다고 해도 믿을 정도로 작은 목소리였다."
+    },
+
     //스토리퀘스트
     undercity_story_01: {
         id : "undercity_story_01",
@@ -1101,8 +1127,36 @@ const QUESTS = {
             player.flags.act3_quest_10_done_day = getCurrentDay(player);
         },
 
-        acceptText : "마틴은 잠시 말이 없었다. 그는 하얀꽃 무덤 너무 깊은 곳까지는 가지 말라고 조언했다. 당신이 고개를 들었을 때 그는 이미 당신에게서 고개를 돌린 후였다.",
+        acceptText : "마틴은 잠시 말이 없었다. 그는 하얀꽃 무덤 너무 깊은 곳까지는 가지 말라고 조언하며 당신에게 하얀 장갑을 내밀었다. <br><br>\"전해달라고 했어, 그쪽에서.\"",
         completeText : "마틴은 당신을 바라보았다. <br><br>\"...사신같은 표정을 하고 있네.\"<br><br>그는 지쳤으면 쉬라고 말하며 당신의 앞에 수프를 내려놓았다. 그리고 당신의 수프라는 설명 하나 없이 다시 자신의 일에 집중했다."
+    },
+
+    act3_quest_11 : {
+        id : "act3_quest_11",
+        title : "원하지 않는 구원",
+        type: "investigate",
+        targetName : "하류도시의 사람들을 현혹하는 교주를 무너뜨리자",
+        repeatable : false,
+        giver : "",
+        
+        desc : "사이비 종교단의 광기는 당신이 막기 전까지 멈추지 않을 것이다.",        
+        activeDesc : "사이비 종교단은 뒤틀린 숲에 자리를 잡고 있다고 한다.",
+        readyDesc : "신도들이 당신의 구원을 원했을지는 모르겠다. 아니, 애초에 당신의 행동을 구원이라 생각하지 않았을 수도 있다.",
+        targetFlag : "act3_quest_11_boss_end",
+        requiredKill: 1,
+        rewardGold: 75000,
+
+        require : {
+            flag : "act3_quest_11_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_11_done = true;
+            player.flags.act3_quest_11_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "마틴은 당신의 의뢰서를 확인하더니 고개를 끄덕였다. 당신이 나가기 전에 그는 딱 한 마디만 했다. <br><br>\"약해서 그래. 나쁜 게 아니라.\"",
+        completeText : "\"...어쩌면 그들이 널 원망할지도 모르지.\"<br><br>마틴은 완료 확인서를 쓰면서 말했다. <br><br>\"하지만 네게 고마워하는 사람들도 많을 거다.\""
     }
 };
 
@@ -1436,6 +1490,11 @@ function acceptQuest(player, questId){
     if (quest.id === "whiteAbominationArmyRepeated_cleanup"){
         player.flags.whiteAbominationArmyRepeated_boss_end = false;
         delete player.flags.defeated_whiteAbominationArmyRepeated_mimicTeacher2;
+    }
+
+    if (quest.id === "cultistCaveRepeated_cleanup"){
+        player.flags.cultistCaveRepeated_boss_end = false;
+        delete player.flags.defeated_cultistCaveRepeated_cultistsRepeated;
     }
 
     player.quest.active = {

@@ -427,3 +427,103 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "common_route_quest_11_intro_05",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        ( player.flags?.act3_neutral_route || player.flags?.act3_rebel_route || player.flags?.act3_uppercity_route ) &&
+        player.flags?.common_route_quest_11_intro_04 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_04_day + 1 ),
+
+    action : (player) => {
+        player.flags.common_route_quest_11_intro_05 = true;
+        player.flags.common_route_quest_11_intro_05_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 길거리에서 사이비 종교단의 광기에 대해 이야기를 나누고 있는 사람들의 말소리를 들었다." +
+                    "<br><br>\"...그래도 적어도 거기서는 내일 굶어죽을 걱정은 안 해도 된다는데.\"<br><br>" +
+                    "익숙한 목소리다. 당신은 고개를 들었다. 길거리에서 쉘터의 아이들에게 수프를 나눠주고는 했던 그 아주머니다. 그는 한숨을 쉬며 요새 죽는 사람들이 너무 많다고 말했다." +
+                    "<br><br>\"시체를 뒤지는 사람들뿐만 아니라 살아있는 사람을 죽이려는 사람들도 더 많아졌고...\"<br><br>" +
+                    "\"말세야, 말세. 이러다가 정말 그들의 말처럼 종말이 오겠어.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.common_route_quest_11_intro_05 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_05_day + 2),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_11_intro_02 = true;
+        player.flags.neutral_route_quest_11_intro_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "길거리를 돌아다니던 당신은 하얀색 로브를 입은 사람이 어둠 속에서 다른 사람에게 먹을 것을 나눠주는 걸 보았다. 거지는 의심의 눈초리를 거두지는 않았지만 허겁지겁 음식을 먹었다." +
+                    "<br><br>\"...교주님은 믿음이 있는 자는 차별하지 않습니다.\"<br><br>" +
+                    "신도는 부드럽게 거지의 손을 잡으면서 말했다. 거지의 몸에서 쓰레기 냄새가 나는데도 불구하고 신도는 눈썹 한번 찡그리지 않았다. 그는 오히려 거지의 손등을 부드럽게 쓰다듬으며, 당신도 우리에게 합류할 수 있다고 말했다." +
+                    "<br><br>단호하던 거지의 눈이 흔들리기 시작했다." +
+                    "<br><br>\"정말로... 음식은 매번 나눠주는 겁니까?\"<br><br>" +
+                    "\"그렇습니다. 우리는 절대로 서로를 버리지 않습니다. 저희는 언젠가 꼭지점에서 다같이 만날 사람들이니까요.\"<br><br>" +
+                    "거지는 망설이면서도 결국은 신도의 뒤를 따라갔다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_11_intro_02 &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_11_intro_02_day + 2),
+
+    action : (player) => {
+        player.flags.act3_quest_11_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"영웅.\"<br><br>" +
+                    "상류도시의 귀족으로 보이는 사람이 당신을 불렀다. 그는 애써 턱을 들어올리고 있었지만 눈동자가 미세하게 떨리고 있었다. 그는 자신의 여동생이 돌아오지 않는다고 말하며 당신에게 의뢰를 맡기고 싶다고 말했다." +
+                    "<br><br>\"하얀색 로브를 입은 사람이 계속 접근하기는 했는데....\"<br><br>" +
+                    "그는 헛기침을 하더니 자신이 여동생을 찾고 있다는 건 누구에게도 말하지 말라고 말했다. 그는 당신에게 사진을 보여주었다. 아무리 봐도 두 사람이 닮은 것 같지는 않다... 그는 주점에 의뢰를 올려놓을 테니 최대한 빨리 자신의 여동생을 찾아달라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

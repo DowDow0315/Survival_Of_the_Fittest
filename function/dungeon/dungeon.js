@@ -1383,7 +1383,29 @@ function handleDungeonBossWin(player, dungeon, room){
                 }
             }
         ], player);
+        return;
+    }
 
+    if (
+        dungeon.id === "cultistCaveRepeated" &&
+        room.bossId === "cultistsRepeated"
+    ){
+        player.flags.cultistCaveRepeated_boss_end = true;
+        addQuestProgress(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type: "text",
+                value: "당신은 오늘도 착취당하던 신도들의 교주를 쓰러뜨렸다.<br><br>...신도들이 그걸 원했는지는 모르겠지만."
+            },
+            {
+                type: "effect",
+                run: (player) => {
+                    leaveDungeon(player);
+                }
+            }
+        ], player);
         return;
     }
 
@@ -1488,6 +1510,11 @@ function handleDungeonBossWin(player, dungeon, room){
 
     if (dungeon.id === "paleWhiteFlowerCliff" && room.bossId === "whiteWolves"){
         handleWhiteWolvesWin(player);
+        return;
+    }
+
+    if (dungeon.id === "cultistCave" && room.bossId === "cultists"){
+        handleCultistsWin(player);
         return;
     }
 
@@ -1787,6 +1814,10 @@ function leaveDungeon(player){
         player.location = "barracks";
     } else if (dungeonId === "paleWhiteFlowerCliff"){
         player.location = "whiteFlowerTomb";
+    } else if (dungeonId === "cultistCave"){
+        player.location = "forest_act3";
+    } else if (dungeonId === "cultistCaveRepeated"){
+        player.location = "forest_act3";
     } else {
         player.location = "townStreet";
     }
@@ -5202,6 +5233,72 @@ function runDungeonBossIntro(player, introId){
                 type : "effect",
                 run : (player) => {
                     startWhiteWolvesBattle(player);
+                    return true;
+                }
+            }
+        ], player);
+    }
+
+    if (introId === "cultists_intro"){
+            startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...오셨습니까.\"<br><br>" +
+                    "당신이 올 걸 알고 있었다는 듯이 흑색의 로브를 입은 교주가 당신을 돌아보았다." +
+                    "<br><br>\"그분께서 당신이 온다고 하신 후로, 저는 당신을 기다리고 있었습니다. 아마 당신은, 그분께서 보낸 시험이겠죠.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그분이 누구냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...악마일까요, 천사일까요.\"<br><br>" +
+                                    "교주는 미소를 지었다." +
+                                    "<br><br>\"그분은 언제나 답을 주면서도, 답을 주지 않습니다. 하지만 적어도 거짓말은 하지 않죠. 다 말씀해주시지 않은 이유는 그분께 아직 제대로 선택받지 못해서겠지요. 오늘 저는, 당신을 통해 그분께 선택받고자 합니다. 다른 교주들보다 더 높게.\"<br><br>" +
+                                    "그는 자신의 제물이 되어달라고 말하며 손가락을 까닥였다. 흑마법이 당신을 공격해온다!"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 사람들의 절망을 그만 착취하라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...누구나, 다른 사람들의 감정을 착취하고 있지 않습니까? 당신은 단 한 번도 누군가의 감정을 착취하지 않았다고 단언할 수 있습니까?\"<br><br>" +
+                                    "교주의 손에서 흑마법이 일렁였다." +
+                                    "<br><br>\"어차피 착취되어야 할 운명이라면, 행복하게 착취당하는 게 낫지 않겠습니까?\"<br><br>" +
+                                    "...어디선가 들어본 말이다. 당신이 더 깊게 파고들기 전에, 그의 흑마법이 당신을 덮쳤다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 말없이 무기를 들었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 말없이 무기를 들자, 교주는 손을 벌리며 큰 목소리로 말했다." +
+                                    "<br><br>\"좋습니다. 오십시오, 제 시험이여! 저는 당신이라는 시험을 견디고, 제가 다른 교주들보다 선택받은 자라는 걸 증명하겠습니다.\"<br><br>" +
+                                    "그의 손에 일렁이던 흑마법이 당신에게로 뻗어온다!"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    startCultistsBattle(player);
                     return true;
                 }
             }

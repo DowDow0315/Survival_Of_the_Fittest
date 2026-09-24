@@ -145,6 +145,17 @@
             ]
         },
         {
+            "name": "처형자 호출",
+            "type": "summon",
+            "enemyId": "cultist3",
+            "amount": 1,
+            "maxUses": 20,
+            "chance": 0.3,
+            "lines": [
+                "\"누가 우리의 믿음을 증명하겠습니까?\"<br><br>교주가 외치자 신도 한 명이 망설임없이 나오며 대답했다. <br><br>\"제가 하겠습니다.\""
+            ]
+        },
+        {
             "name": "잡기",
             "type": "grapple",
             "chance": 0.3

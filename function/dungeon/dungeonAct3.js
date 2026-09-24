@@ -1064,6 +1064,116 @@ Object.assign(DUNGEONS, {
             { type : "battle", enemies : ["whiteAbomination1", "whiteAbomination2", "whiteAbomination3"], weight : 20 },
             { type : "event", id : "paleWhiteFlowerCliff_paleWhiteFlower", weight : 15 }
         ]
+    },
+
+    cultistCave : {
+        id : "cultistCave",
+        name : "갈 곳 없는 자들의 모임",
+        startRoom : "r6c0",
+
+        layout : [
+            [    "", "r0c1", "r0c2", "r0c3", "r0c4", "r0c5"],
+            [    "", "r1c1",     "", "r1c3",     "", "r1c5"],
+            ["r2c0", "r2c1",     "", "r2c3",     "", "r2c5"],
+            [    "", "r3c1",     "", "r3c3",     "",     ""],
+            [    "", "r4c1",     "", "r4c3", "r4c4", "r4c5"],
+            [    "", "r5c1",     "", "r5c3",     "", "r5c5"],
+            ["r6c0", "r6c1", "r6c2",     "", "r6c4", "r6c5"],
+        ],
+        rooms : {
+            "r0c1" : {name : "매끈한 바닥5", exits : {right : "r0c2", down : "r1c1"}},
+            "r0c2" : {name : "천사가 그려져 있는 바닥", exits : {left : "r0c1", right : "r0c3"}, event : "cultistCave_angelFeather_01", seenFlag : "cultistCave_angelFeather_01"},
+            "r0c3" : {name : "기괴하게 뒤틀린 날개 모양이 그려져 있는 벽", exits : {left : "r0c2", right : "r0c4", down : "r1c3"}, event : "cultistCave_angelFeather_02", seenFlag : "cultistCave_angelFeather_02"},
+            "r0c4" : {name : "정화의 길", exits : {left : "r0c3", right : "r0c5"}, event : "cultistCave_purity", seenFlag : "cultistCave_purity"},
+            "r0c5" : {name : "백색 옷장", exits : {left : "r0c4", down : "r1c5"}, chest : "cultist_chest"},
+            
+            "r1c1" : {name : "매끈한 바닥4", exits : {up : "r0c1", down : "r2c1"}},
+            "r1c3" : {name : "하얀색으로 덧칠된 방", exits : {up : "r0c3", down : "r2c3"}},
+            "r1c5" : {name : "쌓여있는 속옷들", exits : {up : "r0c5", down : "r2c5"}},
+
+            "r2c0" : {name : "사진 액자들로 가득한 벽", exits : {right : "r2c1"}, event : "cultistCave_photoRoom", seenFlag : "cultistCave_photoRoom"},
+            "r2c1" : {name : "거대한 십자가", exits : {left : "r2c0", up : "r1c1", down : "r3c1"}},
+            "r2c3" : {name : "천사의 그림자?", exits : {up : "r1c3", down : "r3c3"}, event : "cultistCave_lucifer", seenFlag : "cultistCave_lucifer"},
+            "r2c5" : {name : "맹세의 방", exits : {up : "r1c5"}, event : "cultistCave_purityPromise", seenFlag : "cultistCave_purityPromise"},
+
+            "r3c1" : {name : "덧칠한 바닥", exits : {up : "r2c1", down : "r4c1"}, chest : "cultist_chest"},
+            "r3c3" : {name : "매끈한 바닥6", exits : {up : "r2c3", down : "r4c3"}},
+
+            "r4c1" : {name : "매끈한 바닥3", exits : {up : "r3c1", down : "r5c1"}},
+            "r4c3" : {name : "매끈한 갈림길", exits : {up : "r3c3", right : "r4c4", down : "r5c3"}},
+            "r4c4" : {name : "유리병에 보관되어 있는 하얀 꽃들", exits : {left : "r4c3", right : "r4c5"}, event : "cultistCave_whiteFlower", seenFlag : "cultistCave_whiteFlower"},
+            "r4c5" : {name : "교리를 따라", exits : {left : "r4c4", down : "r5c5"}},
+
+            "r5c1" : {name : "매끈한 바닥2", exits : {up : "r4c1", down : "r6c1"}},
+            "r5c3" : {name : "기원의 종이들", exits : {up : "r4c3"}, event : "cultistCave_papers", seenFlag : "cultistCave_papers"},
+            "r5c5" : {name : "어른들만이 존재하는 그림", exits : {up : "r4c5", down : "r6c5"}, event : "cultistCave_adultPicture", seenFlag : "cultistCave_adultPicture"},
+
+            "r6c0" : {name : "광신도 소굴 입구", exits : {right : "r6c1"}},
+            "r6c1" : {name : "매끈한 바닥", exits : {left : "r6c0", up : "r5c1", right : "r6c2"}},
+            "r6c2" : {name : "단체실", exits : {left : "r6c1"}, event : "cultistCave_herdRoom", seenFlag : "cultistCave_herdRoom"},
+
+            "r6c4" : {name : "흑백의 신앙", exits : {right : "r6c5"}, bossId: "cultists", boss : ["cultistBoss", "cultist2"], bossIntro:"cultists_intro"},
+            "r6c5" : {name : "인기척 대신 느껴지는 지독한 혈냄새", exits : {left : "r6c4", up : "r5c5"}, safeZone: true, allowRest: true}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "cultist1", minCount : 2, maxCount : 4, weight : 25 },
+            { type : "battle", enemies : ["cultist1", "cultist1", "cultist2"], weight : 20 },
+            { type : "battle", enemies : ["cultist1", "cultist2", "cultist3"], weight : 20 },
+            { type : "event", id : "cultistCave_storage", weight : 15 },
+            { type : "event", id : "cultistCave_hopingToBeSelected", weight : 15 },
+            { type : "event", id : "cultistCave_runner", weight : 5 },
+            { type : "event", id : "cultistCave_feather", weight : 1 }
+        ]
+    },
+
+    cultistCaveRepeated : {
+        id : "cultistCaveRepeated",
+        name : "착취의 동굴",
+        startRoom : "r4c2",
+
+        layout : [
+            [    "",     "", "r0c2",     "",     ""],
+            [    "",     "", "r1c2",     "",     ""],
+            [    "",     "", "r2c2",     "",     ""],
+            [    "", "r3c1", "r3c2", "r3c3",     ""],
+            ["r4c0", "r4c1", "r4c2", "r4c3", "r4c4"],
+            ["r5c0", "r5c1", "r5c2", "r5c3", "r5c4"],
+        ],
+
+        rooms : {
+            "r0c2" : {name : "타락한 신뢰", exits : {down : "r1c2"}, bossId: "cultistsRepeated", boss : ["cultistBoss", "cultist2", "cultist3"]},
+            
+            "r1c2" : {name : "커튼 뒤의 틈", exits : {up : "r0c2", down : "r2c2"}, safeZone: true, allowRest: true},
+
+            "r2c2" : {name : "잘못된 방향의 속죄", exits : {up : "r1c2", down : "r3c2"}},
+
+            "r3c1" : {name : "회복방", exits : {right : "r3c2", down : "r4c1"}},
+            "r3c2" : {name : "", exits : {left : "r3c1", up : "r2c2", right : "r3c3", down : "r4c2"}},
+            "r3c3" : {name : "체벌방", exits : {left : "r3c2", down : "r4c3"}},
+
+            "r4c0" : {name : "교리1", exits : {right : "r4c1", down : "r5c0"}, chest : "cultist_chest"},
+            "r4c1" : {name : "눈 먼 자들의", exits : {left : "r4c0", up : "r3c1", right : "r4c2", down : "r5c1"}},
+            "r4c2" : {name : "각자의 선택", exits : {left : "r4c1", up : "r3c2", right : "r4c3", down : "r5c2"}},
+            "r4c3" : {name : "눈 뜬 자들의", exits : {left : "r4c2", up : "r3c3", right : "r4c4", down : "r5c3"}},
+            "r4c4" : {name : "교리3", exits : {left : "r4c3", down : "r5c4"}, chest : "cultist_chest"},
+
+            "r5c0" : {name : "교리2", exits : {up : "r4c0", right : "r5c1"}, chest : "cultist_chest"},
+            "r5c1" : {name : "맹신", exits : {left : "r5c0", up : "r4c1", right : "r5c2"}},
+            "r5c2" : {name : "마지막 교리", exits : {left : "r5c1", up : "r4c2", right : "r5c3"}},
+            "r5c3" : {name : "착취", exits : {left : "r5c2", up : "r4c3", right : "r5c4"}},
+            "r5c4" : {name : "교리4", exits : {left : "r5c3", up : "r4c4"}, chest : "cultist_chest"}
+        },
+
+        encounters : [
+            { type : "battle", enemy : "cultist1", minCount : 2, maxCount : 4, weight : 25 },
+            { type : "battle", enemies : ["cultist1", "cultist1", "cultist2"], weight : 20 },
+            { type : "battle", enemies : ["cultist1", "cultist2", "cultist3"], weight : 20 },
+            { type : "battle", enemies : ["cultist3", "cultist2", "cultist3"], weight : 10 },
+            { type : "event", id : "cultistCaveRepeated_storage", weight : 15 },
+            { type : "event", id : "cultistCaveRepeated_shelterChild", weight : 5 },
+            { type : "event", id : "cultistCaveRepeated_sight", weight : 10 }
+        ]
     }
 })
 
@@ -1124,6 +1234,14 @@ const gem_CHEST_POOL = [
     { id: "gold_10000", weight: 60 }
 ];
 
+const cultist_CHEST_POOL = [
+    { id: "mushroom", weight : 20},
+    { id: "cabbage", weight: 20 },
+    { id: "potato", weight: 20},
+    { id: "nothing", weight: 15 },
+    { id: "gold_5000", weight: 25 },
+    { id: "gold_10000", weight: 10 }
+];
 
 Object.assign(DUNGEON_CHESTS, {
     survivalBandit_chest : {
@@ -1160,6 +1278,12 @@ Object.assign(DUNGEON_CHESTS, {
         name : "희귀한 상자",
         type : "random",
         pool : gem_CHEST_POOL
+    },
+
+    cultist_chest : {
+        name : "신도들의 상자",
+        type : "random",
+        pool : cultist_CHEST_POOL
     }
 })
 
@@ -6499,7 +6623,417 @@ Object.assign(DUNGEON_EVENTS, {
                     ]
                 }
             ]
-        }
+        },
+    cultistCave : {
+        cultistCave_storage : [
+            {
+                type : "text",
+                value : [
+                    "당신은 광신도들의 식량 창고를 발견했다. 한쪽에는 썩은 음식들로 가득했고, 한쪽에는 신선한 음식들로 가득했다. 썩은 음식이 쌓여있는 곳 위에는 여러 종이가 묶여 붙어 있었다." +
+                    "<br><br>[오늘의 죄인 명단]<br><br>" +
+                    "...죄명과 함께 여러 사람들의 이름이 써 있었다. 종이 한 장으로는 그들의 이름을 담을 수가 없었던 모양이다." +
+                    "<br><br>당신은 신선한 음식들이 쌓여있는 곳에서 음식들을 몇 개 챙겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.cabbage);
+                    addItem(player, ITEMS.misc.pepper);
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.misc.rice);
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_hopingToBeSelected : [
+            {
+                type : "text",
+                value : [
+                    "앞에서 말소리가 들려서 당신은 기척을 숨겼다. 백색 로브를 입은 신도들이 기도를 마친 후 조용한 목소리로 떠들고 있었다. 그들은 어제 교주님에게 선택받은 사람에 대해 말하며 부러워했다." +
+                    "<br><br>\"다음번에는 조금 더 그분의 앞에서 흘려봐야겠어요. 어떻게든 자극을 해서...\"<br><br>" +
+                    "그들의 손은 자연스럽게 자신들의 하복부를 향했다. 찌걱거리는 소리가 난다... 당신은 그들이 행위에 집중하는 동안 자리를 피했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 2);
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_runner : [
+            {
+                type : "text",
+                value : [
+                    "당신은 어딘가로 질질 끌려가는 것처럼 보이는 핏자국을 보았다. 신도들이 오더니 하얀색으로 덮어버려야겠다고 말하며 하얀색으로 물들어 있는 걸레를 가지고 왔다." +
+                    "<br><br>\"매끈하게, 매끈하게, 매끈하게.\"<br><br>" +
+                    "<span class='log-danger'>\"누구도 쉽게 도망칠 수 없도록.\"</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 5);
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_feather : [
+            {
+                type : "text",
+                value : [
+                    "당신은 깃털 하나가 바닥에 떨어져 있는 것을 보았다. 새의 깃털이라기에는 너무 두꺼웠다. 당신이 그 깃털을 주우려고 하자, 깃털은 마치 살아있는 것처럼 바닥에서 수직으로 서더니 빛을 발했다." +
+                    "<br><br>...눈부신 빛에 적응한 당신이 다시 눈을 깜박였을 때, 당신의 앞엔 아무 것도 없었다."
+                ]
+            }
+        ],
+        cultistCave_herdRoom : [
+            {
+                type : "text",
+                value : [
+                    "신도들이 쓰는 방이다. 방에 비해 인원수가 너무 많았다. 당신은 이들이 전부 누워서 잘 수 있는지부터가 의문이었다. 당신을 본 신도가 당신에게 이번에 새로 온 사람이냐고 물었다." +
+                    "<br><br>\"새로 오신 분이라면 옷을 갈아입기 전에 순결 검사를 해야 합니다. 순결하지 않아도 됩니다. 저희 교주님께서 순결하게 해주실 테니까요.\"<br><br>"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 배를 잡고 화장실에 가야될 것 같다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 신도는 친절하게 화장실의 위치를 알려주었다. 그는 순결 검사 전에는 깔끔해야 한다고 말하며 화장실에 있는 알약을 생식기 안에 넣으라고 말해주었다." +
+                                    "<br><br>\"처음에는 불쾌할 수도 있겠지만, 결국에는 안이 깨끗해져 마음이 편안해질 겁니다.\"<br><br>" +
+                                    "...당신은 어떻게든 빠져나왔다. 뒤에서 \"근데 오늘 신입이 온다고 했었나?\" 소리가 들리긴 했지만, 당신은 그들이 의구심을 품기 전에 도망칠 수 있었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.cultistCave_herdRoom = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 자신은 신도가 아니라고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"네?\"<br><br>" +
+                                    "짧은 정적이 흘렀다. 그리고 당신이 몸을 피할 새도 없이 방에 있던 신도들이 전부 달려들었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    player.flags.cultistCave_herdRoom = true;
+                                    savePlayer(player);
+
+                                    const enemyId = ["cultist1", "cultist1", "cultist1", "cultist1","cultist1","cultist2","cultist3","cultist3",];
+                                    const defeatEnemy = ENEMIES["cultist1"]();
+                                    startBattle(enemyId, player, {
+                                        onWin: () => startScene(buildDungeonScene(player), player),    
+                                        onEscape: () => startScene(buildDungeonScene(player), player),
+                                        onLose: () => {runDefeatEvent(player, defeatEnemy);}
+                                    });
+                                    return true;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        cultistCave_photoRoom : [
+            {
+                type : "text",
+                value : [
+                    "당신이 들어선 방은 액자들로 빼곡했다. 벽에는 빈틈 하나 없이 사진들이 다닥다닥 붙어 있었고, 벽 5면을 꽉 채우는 걸로도 부족했는지 바닥에도 액자들이 쌓여 있었다. 당신은 액자들을 보았다. 전부 각기 다른 사람들이었다." +
+                    "<br><br>그리고 그중에는 얼굴이 익숙한 사람들도 있었다. <br>...쉘터의 아이들."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_photoRoom = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_angelFeather_01 : [
+            {
+                type : "text",
+                value : [
+                    "당신은 바닥에 그려진 천사 그림을 내려다보았다. 민트색 머리의 천사는 두 손을 모으고 고개를 숙이고 있었다. 등뒤로 펼쳐진 날개는 예술적으로 아름다웠지만 자세히 보니 날개에 눈알이 그려져 있었다. <strong>그리고 그 눈알들을 전부 당신을 쳐다보고 있었다.</strong>" +
+                    "<br><br>당신은 몸을 피했다.<br><br>" +
+                    "<span class='log-danger'>...다행히도, 그림 속의 시선은 움직이지 않았다.</span>"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 4);
+                    player.flags.cultistCave_angelFeather_01 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_angelFeather_02 : [
+            {
+                type : "text",
+                value : [
+                    "바닥에 있던 날개 그림과는 달랐다. 기괴하게 뒤틀려있는 날개는 이게 천사 날개가 맞는지 아닌지조차 구분하기 어려웠다." +
+                    "<br><br>\"상류도시에는 전파를 안 하는 겁니까?\"<br><br>" +
+                    "복도 너머에서 목소리가 들린다. 당신은 재빨리 몸을 숨겼다. 신도들은 당신 쪽으로 걸어오며 계속 얘기를 나눴다." +
+                    "<br><br>\"교주님께서 아직은 상류도시를 건드리면 안 된다고 말씀하시더군요. 하류도시도 전부 장악하지 못했는데 너무 급하다고 하십니다. 하지만...\"<br><br>" +
+                    "그는 주변의 눈치를 살피더니 목소리를 더 낮추었다." +
+                    "<br><br>\"저는 어제 상류도시 사람들을 이곳에서 본 적이 있습니다. 어쩌면... 어쩌면 교주님께서는 저희를 위험에 빠뜨리지 않고자 상류도시 사람들을 건드리지 못하게 하는 걸지도 모르겠습니다.\"<br><br>" +
+                    "\"...! 아아, 교주님!\"<br><br>" +
+                    "그들은 한마음 한뜻으로 기도를 올리며 당신이 숨어있는 곳을 지나쳐갔다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_angelFeather_02 = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_purity : [
+            {
+                type : "text",
+                value : [
+                    "당신은 벽에 써 있는 글을 읽었다." +
+                    "<br><br>[발렌은 모두를 구원해주지 않는다.]<br><br>" +
+                    "[하지만 교주님은 믿음만 있다면 모두를 구원해준다.]<br><br>" +
+                    "[발렌은 우리의 신이 아니다. 하지만 교주님은 우리들에게 신이다.]<br><br>" +
+                    "[교주님은 우리를 죽음을 초월한 세상으로 이끈다. 우리는 죽음도 두렵지 않다. 우리는 죽더라도 언젠가 꼭지점에서 만날 테니까.]<br><br>" +
+                    "[형제자매여, 교주님의 그림자에서 벗어나지 말자. 교주님께 정화를 받고 교주님과의 맹세를 지키면 우리에게만큼은 종말의 날이 찾아오지 않을 것이다.]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_purity = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_purityPromise : [
+            {
+                type : "text",
+                value : [
+                    "정화의 방에는 딱 침대 하나와 촛불 하나만 있었다. 촛불이 일렁였다. 낯설지 않은 달콤한 향이 당신을 덮쳐온다. 당신의 정신이 몽롱해졌다. 당신은 눈을 깜박였다. 어느새 당신은 바닥에 주저앉아 있었다. 당신을 부드럽게 짓누르는 달콤한 향에 당신은 하복부부터 달아오르기 시작했다." +
+                    "<br><br>날카로운 통증이 당신의 손바닥을 긁었다. 당신은 눈을 떴다. 하얀 꽃잎들로 이루어진 촉수가 당신을 바라보고 있었다. 그는 당신이 다시 정신을 차리는 걸 확인한 후에야 달콤한 향으로 흩어져 갔다." +
+                    "<br><br>한 번 더 정신을 잃기 전에 촛불을 꺼야 할 것 같다. 당신은 촛불을 껐다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeArousal(player, 50);
+                    passTime(player, 15);
+                    player.flags.cultistCave_purityPromise = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_lucifer : [
+            {
+                type : "text",
+                value : [
+                    "복도를 지나가는 당신의 위로 거대한 그림자 하나가 드리웠다. 당신은 고개를 들었다. 그림자의 주인은 어디에도 보이지 않았다. 그저 당신의 위로 거대한 그림자만이 드리울 뿐이다. 어디선가 웃음 소리가 났다. 당신은 그림자의 등뒤에서 기괴하게 생긴 날개가 펼쳐지는 것을 보았다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_lucifer = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_papers : [
+            {
+                type : "text",
+                value : [
+                    "신도들의 소원이 적힌 종이인 것 같다." +
+                    "<br><br>[종말이 오지 않게 해주세요]<br><br>" +
+                    "[상류도시와 하류도시가 합쳐지게 해주세요]<br><br>" +
+                    "[어차피 올 종말이라면, 적어도 모두가 평등한 결말을 맞게 해주세요]<br><br>" +
+                    "[반란군이고, 백색 군인이고, 전부 싫어. 교주님 아래에만 있게 해주세요]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_papers = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_whiteFlower : [
+            {
+                type : "text",
+                value : [
+                    "당신은 하얀 꽃이 하나씩 들어있는 작은 병들로 가득한 복도에 도착했다. [창백한 꽃은 그분의 손이 아니면 시들어버린다], 라는 메모 한 장이 선반 가장 앞에 붙어있다. 당신은 하얀 꽃병들을 가로지르며 주변을 둘러보다가 쪽지 한 장을 하나 더 발견했다." +
+                    "<br><br>[그분의 말씀대로 발렌은 상점 주인의 정체를 마법으로 숨겨주고 있었다. 도대체 왜? 만약 정말 창백한 꽃 때문이라면 창백한 꽃을 유지할 수 있는 방안만 찾으면 발렌과 협상을 할 수도 있을지도 모른다.]<br><br>" +
+                    "[영웅이 끼고 있었던 하얀 장갑은 아카시아가 어렸을 때 끼고 다녔던 장갑과 똑같이 생겼다. 그 장갑을 훔쳐올 수만 있다면-]<br><br>" +
+                    "[<span class='log-akasia'>그 장갑은 아카시아의 피로 만들어졌다.</span>]"
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_whiteFlower = true;
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCave_adultPicture : [
+            {
+                type : "text",
+                value : [
+                    "복도에는 큰 그림이 걸려 있었다. 종말의 날이라도 표현한 건지 그림의 색채는 어두웠고 잔해들 사이에는 어떤 생명체도 남아있지 않았다. 당신은 그 그림 옆에 걸려 있는 다른 그림으로 시선을 옮겼다. 백색 로브를 입은 어른들이 흑색 로브를 입은 사람을 둘러싸고 빙빙 돌고 있는 그림이었다. 당신은 눈을 깜박였다." +
+                    "<br><br>...그 그림에 10살 아래 어린 아이라고는 한 명도 없었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.flags.cultistCave_adultPicture = true;
+                    savePlayer(player);
+                }
+            }
+        ]
+    },
+    cultistCaveRepeated : {
+        cultistCaveRepeated_storage : [
+            {
+                type : "text",
+                value : [
+                    "당신은 광신도들의 식량 창고를 발견했다. 한쪽에는 썩은 음식들로 가득했고, 한쪽에는 신선한 음식들로 가득했다. 썩은 음식이 쌓여있는 곳 위에는 여러 종이가 묶여 붙어 있었다." +
+                    "<br><br>[오늘의 죄인 명단]<br><br>" +
+                    "...죄명과 함께 여러 사람들의 이름이 써 있었다. 종이 한 장으로는 그들의 이름을 담을 수가 없었던 모양이다." +
+                    "<br><br>당신은 신선한 음식들이 쌓여있는 곳에서 음식들을 몇 개 챙겼다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    addItem(player, ITEMS.misc.cabbage);
+                    addItem(player, ITEMS.misc.pepper);
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.potato);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.mushroom);
+                    addItem(player, ITEMS.misc.wheat);
+                    addItem(player, ITEMS.misc.rice);
+                    savePlayer(player);
+                }
+            }
+        ],
+        cultistCaveRepeated_shelterChild : [
+            {
+                type : "text",
+                value : [
+                    "당신과 흰색 로브를 입은 사람의 시선이 마주쳤다. 당신은 무기를 쥐었고 신도도 당신을 공격하려고 했다. 하지만 그 순간, 당신과 신도는 서로를 알아보았다. 쉘터에 있던 아이다. 그는 머뭇거리더니 당신에게 지금 나가면 못 본 척 넘어가주겠다고 말했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그가 방심하고 있을 때 그를 죽였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "아이는 당신의 공격에 반응하지 못했다. 그는 짧은 숨소리와 함께 당신을 마지막으로 올려다본 후 그대로 바닥으로 쓰러졌다." +
+                                    "<br>깔끔한 죽음이었다. 당신은 그의 품에 있던 요구르트를 하나 얻었다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    addItem(player, ITEMS.consumable.smallPotion);
+                                    changeTrauma(player, 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 교주의 말에 현혹당하면 안 된다고 설득했다.",
+                        stat : "int",
+                        difficulty : 30,
+                        success : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...응.\"<br><br>" +
+                                    "그는 울먹이며 앞으로 어떻게 살아야 할지 몰라서 그랬었다고 솔직하게 고백했다. 여전히 앞으로 어떻게 살아야 할지 모르겠지만, 이렇게 살면 안 된다는 건 알게 됐다고 말하며 그는 당신을 올려다보았다." +
+                                    "<br><br>\"...고마워.\"<br><br>" +
+                                    "...어쩌면 몇몇 신도들에게는 말 몇 마디가 필요한 걸지도 모르겠다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeTrauma(player, -5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ],
+                        fail : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"뭘 안다고!\"<br><br>" +
+                                    "그는 영웅인 당신이 자신을 이해할 거라고는 생각도 하지 않았다고 말하며 당신에게서 몇 걸음 물러났다. 그는 당신을 공격하지는 않았지만 일부러 큰 소리를 내어 다른 신도들이 몰려오게 만들었다. 당신은 어쩔 수 없이 자리를 피했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeStamina(player, -25);
+                                    passTime(player, 5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        cultistCaveRepeated_sight : [
+            {
+                type : "text",
+                value : [
+                    "...자꾸만 뒤에서 시선이 느껴진다. 당신은 뒤를 돌아보았지만 당신의 주변에는 아무도 없었다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    changeTrauma(player, 3);
+                    savePlayer(player);
+                }
+            }
+        ]
+    }
 })
 
 //act3 던전 보스들 처리
@@ -7795,4 +8329,62 @@ function startWhiteWolvesLose(player){
             }
         }
     ], player);
+}
+
+//act11 사이비종교단 던전
+window.startCultistsBattle = function(player){
+    startBattle(["cultistBoss", "cultist2"] , player, {
+        noEscape: true,
+
+        onWin: () => {
+            player.flags.cultistCave_cultists_defeated = true;
+            savePlayer(player);
+
+            handleDungeonBossWin(
+                player,
+                getCurrentDungeon(player),
+                getCurrentDungeonRoom(player)
+            );
+        },
+        onSkipDefeat : () => {
+            startCultistsLose(player);
+        }
+    });
+};
+
+function handleCultistsWin(player){
+    player.flags.act3_quest_11_boss_end = true;
+    addQuestProgress(player);
+    savePlayer(player);
+
+    startScene([
+        {
+            type: "text",
+            value:
+                "\"안돼, 나의 세상이...! 나는 그분께 선택을 받았는데...!\"<br><br>" +
+                "교주는 죽지 않기 위해 바닥을 긁으며 어떻게든 생명을 유지하려고 애썼다. 그는 당신에게 손을 뻗으며 당신도 이런 걸 원하지 않냐고 물었다. 그는 자신과 손을 잡는다면 당신도 이 세상에서 무엇이든 취할 수 있다고 말했다." +
+                "<br><br>\"나와 함께 그분의 아래에서...!\"<br><br>" +
+                "당신이 가만히 있자 교주는 마지막까지 자신이 잘못한 건 없다고 발악했다. 신도들은 자신에게 쾌락을 바쳤고 자신은 신도들에게 희망을 준 것뿐이라고 그는 우겼다. 그는 마지막까지 자신이 저지른 짓을 후회하지 않았다." +
+                "<br><br>...당신은 쓰러진 교주를 뒤로 하고 밖으로 나왔다."
+        },
+        {
+            type : "effect",
+            run : (player) => {
+                leaveDungeon(player);
+                return true;
+            }
+        }
+    ], player);
+}
+
+function startCultistsLose(player){
+    gameOver(
+        player,
+        "\"아아, 제가 시련을 이겨냈습니다. 당신의 시험을... 이겨냈습니다...!\"<br><br>" +
+        "감동받은 듯 교주는 자신의 손을 모아쥐더니 하늘을 올려다보았다. 제가 이긴 걸 보셨습니까! 그는 분명 외쳤지만 돌아오는 대답은 없었다. 정적이 흐르자 교주는 그래도 보고 있는 걸 안다고 말하며 신도들을 불렀다. 쓰러진 당신의 주변으로 신도들이 모여 들었다." +
+        "<br><br>\"그분께서 내려주신 제물입니다. 우리들의 세상을 엽시다.\"<br><br>" +
+        "...누군가가 당신의 위로 기름을 뿌리는 소리가 들렸다. 그들은 기름이 부어진 당신을 둘러싸며 각자 기도를 올리고 있다." +
+        "<br><br>뜨겁다. 아니, 뜨겁다는 감정보다는 고통스럽다." +
+        "<br><br>영웅은, 광기의 제물로 바쳐졌다."
+    );
 }

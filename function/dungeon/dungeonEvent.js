@@ -1176,7 +1176,7 @@ function startMushroomRomanceRoom(player){
                 "<br><br>[둘이서 이 버섯 다 먹기 전까지는 못 나간다버섯]...이라는 안내문이 붙어 있다." +
                 "<br><br>그 순간, 방 한가운데에서 알 수 없는 빛이 번쩍였다." +
                 "<br><br>누군가 소환되었다...!" +
-                `<br><br>당신의 앞에 나타난 것은 <strong>${npc.name}</strong>였다.`
+                `<br><br>당신의 앞에 나타난 것은 <strong>${npc.name}</strong>!`
             ]
         }
     ], player, {

@@ -1763,3 +1763,282 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.common_route_quest_11_intro_05 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_05_day + 2),
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_intro_02 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 빈민가 거리에서 거지 몇 명이 흰색 로브를 입은 사람을 따라가는 것을 보았다. 그들은 정말로 거기서는 밥을 공짜로 주냐며 중얼거리며 신도들을 따라갔다. 그들이 따라가기 전, 백색 군인이 그들의 앞을 막았다. 백색 군인과 마주치자 신도들은 서로의 눈치를 보더니 그대로 달아났다. 거지들은 신도들을 따라가려고 했지만 백색 군인이 그들을 막았다." +
+                    "<br><br><span class='log-danger'>하지만 그들은 풀려난 게 아니었다.</span><br><br>" +
+                    "백색군인들은 순식간에 하류도시 사람들의 얼굴을 복면으로 가린 뒤 제압된 그들을 끌고 갔다. 당신을 인지한 백색 군인이 당신에게 고개를 까닥였다.<br><br>" +
+                    "\"발렌님께서 천국의 성에서 기다리고 계십니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_11_intro_02,
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_intro_03 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "상류도시의 백색 거리를 지나던 당신은 옆에서 들려오는 말소리에 발걸음을 멈췄다. 멀쩡하게 생긴 사람들이 구석에서 쑥덕거리고 있었다." +
+                    "<br><br>\"어쩌면 이 재앙은 모두 상류도시 때문에 생긴 일일지도 모릅니다. 재앙을 피하기 위해서는 아직 늦지 않았습니다. 어서 저희 교단으로 와서....\"<br><br>" +
+                    "당신과 시선이 마주친 여자가 입을 다물었다. 그는 자리를 옮기자고 말하며 귀족 남성을 이끌고 갔다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_04_notLover",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        !hasNpcRelationship("valen", "lover") &&
+        !hasNpcRelationship("valen", "spouse") &&
+        player.flags?.upper_route_quest_11_intro_03,
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_intro_04 = true;
+        player.flags.upper_route_quest_11_intro_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"오셨습니까.\"<br><br>" +
+                    "창가를 바라보던 발렌은 당신에게 사이비 종교 집단이 상류도시 사람들에게까지 손을 뻗었다고 말했다. 그는 하류도시 사람들을 현혹하는 것도 마음에 안 들지만, 상류도시 사람들까지 건드리는 것을 본 이상 그들을 내버려둘 수는 없다고 말했다." +
+                    "<br><br>\"백색 군단의 힘을 빌려서 토벌하는 것도 나쁘지 않지만.... 지금 시대의 영웅은 백색 군인들이 아니라 당신이니까요. 영웅으로써 사람들을 구원해주실 수 있겠습니까?\"<br><br>" +
+                    "그는 위치가 특정되면 주점에 올려놓겠다고 말했다." +
+                    "<br><br>\"상류도시의 영웅.\"<br><br>" +
+                    "당신이 천국의 성을 나가기 전, 발렌은 당신을 불렀다. 그는 당신을 똑바로 바라보며 미소를 지었다." +
+                    "<br><br>\"앞으로도 잘 부탁드립니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_04_Lover",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        ( hasNpcRelationship("valen", "lover") || hasNpcRelationship("valen", "spouse") ) &&
+        player.flags?.upper_route_quest_11_intro_03,
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_intro_04 = true;
+        player.flags.upper_route_quest_11_intro_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"오셨습니까.\"<br><br>" +
+                    "창가를 바라보던 발렌은 당신을 보더니 전망이 좋은 곳에서 얘기를 나누고 싶다고 말하며 당신을 꼭대기 층으로 이끌었다. 가장 꼭대기 층에서, 발렌은 또다시 창밖을 내려다보았다. 창밖에는 그가 사랑하는 백색 도시가 펼쳐져 있었다." + 
+                    "<br><br>\"당신에게 맡길 일이 있습니다, {valenTitle}.\"<br><br>" +
+                    "그는 이건 아카시아에게도 하지 못한 말이라고 말하며, 손깍지를 껴서 당신의 손을 잡았다." +
+                    "<br><br>\"사이비가 상류도시 사람들을 몇 명 정도는.... 데려가게 손을 써놨습니다. 그러면 없어진 사람들을 그들의 탓으로 돌릴 수 있으니까요.\"<br><br>" +
+                    "그는 신도들을 말로 조금 꼬신 것뿐이라고 말했다. 당신이 쳐다보자 발렌은 아카시아가 쓰러진 이후로 정치판이 흔들리고 있다고 말했다." +
+                    "<br><br>\"쓰러진 세실리아에게 자식이 없으니 이때다 싶어서 유서 깊은 아카시아 가문을 삼키거나 무너뜨리고 싶어하는 사람들이 많습니다. 그리고 저는.... 그들의 소리가 더 커지기 전에 처리하고 싶었습니다.\"<br><br>" +
+                    "그는 숙청은 이번이 처음이 아니라고 말했다. 그의 고개가 당신의 어깨 쪽으로 기울어지려다가 말았다. 그는 다시 화제를 전환했다." +
+                    "<br><br>\"이용은 했지만, 어쨌든 상류도시 사람들을 건드린 사이비 종교 집단을 전 가만히 내버려둘 생각은 없습니다. 한 번 더 저를 도와주시겠습니까, 나의 기사.\"<br><br>" +
+                    "그는 사이비 종교 근거지 위치가 특정되면 주점으로 사람을 보내겠다고 말했다. 말을 마치고서도 그는 한동안 손깍지를 풀지 않았다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_intro_05",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_11_intro_04 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_11_intro_04_day + 3),
+
+    action : (player) => {
+        player.flags.act3_quest_11_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"상류도시의 영웅.\"<br><br>" +
+                    "에이든이다. 그는 당신에게 경례를 한 후 걸어왔다." +
+                    "<br><br>\"당신이 곁에 없었다면 발렌님은 더 힘드셨을 겁니다.\"<br><br>" +
+                    "에이든은 당신에게 고개를 숙이며 지금까지도 발렌의 곁에 있어줘서 감사하다고 말했다. 그는 주점에 위치를 특정해놨으니 조심해서 가라고 말했다." +
+                    "<br><br>\"...병원은 자주 가십니까?\"<br><br>" +
+                    "...? 당신이 고개를 들자 에이든은 고개를 돌렸다." +
+                    "<br><br>\"...아무 것도 아닙니다. 언제나 건강하시길.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        ["richTownStreet", "gloryStreet"].includes(player.location) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.act3_quest_11_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_11_done_day + 1),
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_after_01 = true;
+        player.flags.upper_route_quest_11_after_01_day = getCurrentDay(player);
+        changeNPCEmotion("aiden", "affection", 5);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어두운 밤인데도 밝은 도시, 하지만 그런 도시에도 그림자는 있는 법이다. 당신은 그림자가 저민 골목에서 에이든을 발견했다. 그가 들고 있는 랜스의 끝에서는 오래되지 않은 피가 뚝뚝 떨어지고 있었다." +
+                    "<br><br>\"하류도시와 상류도시를 가릴 것 없이, 많은 사람들이 당신을 보고 희망을 얻고 있습니다.\"<br><br>" +
+                    "그의 하늘색 눈동자가 당신을 흔들림없이 바라본다." +
+                    "<br><br>\"발렌 님도, 그리고... 저도요.\"<br><br>" +
+                    "그는 사람들이 당신에게 영광하는 동안, 자신은 처리해야 할 것을 처리할 수 있었다고 말했다. 원래 이런 일도 했냐고 묻자 에이든은 중요한 사람들은 자신이 직접 제거해왔다고 말했다." +
+                    "<br><br>\"니콜라이를 이용하는 것도 한계는 있으니까요.\"<br><br>" +
+                    "그는 조심스럽게 당신과 시선을 맞췄다. 그의 시선은 언제나처럼 무겁고 진지했다." +
+                    "<br><br>\"당신에게도 분명 한계가 있을 겁니다. 그리고 전 같이 발렌님의 곁에 선 자로서 당신을 쓰러지게 할 생각이 없습니다.\"<br><br>" +
+                    "그는 요 근래에 발렌이 바빠서 당신을 직접 부르지는 못하지만, 당신이 지금까지 해온 일에 대해서는 전부 감사하고 있다고 말했다. 실험 결과가 나오는 대로 당신에게 말해줄 거라고 말하며 에이든은 당신에게 그때까지 쉬고 있으라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_11_after_01 &&
+        getCurrentDay(player) >= (player.flags.upper_route_quest_11_after_01_day + 5),
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_after_02 = true;
+        player.flags.quest11_after_blackRedBlood = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구에서 당신은 비명소리를 들었다. 하류도시의 사람들은 마을 입구로 걸어오는 무언가에 겁을 먹고 있었다. 경계병들과 경비병들은 긴장감이 역력한 표정으로 마을 입구로 다가오는 무언가에게 외쳤다." +
+                    "<br><br>\"넌 누구냐! 신원을 밝혀라!\"<br><br>" +
+                    "당신의 존재를 눈치챈 경비병들과 경계병들은 무기를 잡고 있는 손에 힘을 더 주며, 대답없이 더 다가온다면 처단당할 것이라고 말했다. 시체처럼 삐걱삐걱 움직이던 무언가는 입을 열었다." +
+                    "<br><br>\"지옥, 지옥이다...\"<br><br>" +
+                    "그는 당신을 바라보더니 이를 갈았다. 적개심과 분노를 담아, 그는 당신에게 달려들며 외쳤다." +
+                    "<br><br>\"너희들만 살아남게 두진 않을 거다!\"<br><br>" +
+                    "그가 당신에게 완전히 달려들기 전에, 에이든의 랜스가 그의 심장을 뚫었다. 그는 랜스에 꽂히고서도 당신에게 다가가기 위해 몸부림을 쳤지만 결국 흉물에게서나 나올 법한 검붉은 피를 토하며 축 늘어졌다." +
+                    "<br><br>\"가까이 가지 마십시오. 운이 좋으면 독에 걸리고, 운이 나쁘면 전염될 수 있습니다.\"<br><br>" +
+                    "에이든은 당신에게서 등을 돌리고 그것의 시체를 털어냈다." +
+                    "<br><br>\"...발렌님이 당신을 찾고 있습니다.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "upper_route_quest_11_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenPalace" &&
+        player.flags?.act3_uppercity_route &&
+        player.flags?.upper_route_quest_11_after_02,
+
+    action : (player) => {
+        player.flags.upper_route_quest_11_after_03 = true;
+        player.flags.upper_route_quest_11_after_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "발렌은 언제나처럼 천국의 성에서 당신을 기다리고 있었다. 매끄러운 미소와 함께 귀족들과 대화를 나누던 그는 당신 쪽으로 시선을 돌렸다. 당신은 그가 당신을 다른 쪽으로 이끌 줄 알았지만, 오히려 그는 당신을 귀족들 앞에 내보이며 인사를 시켰다. 당신은 얼떨결에 귀족들과의 대화에 끼어서 얘기를 나누었다." +
+                    "<br><br>발렌의 배려 때문인 걸까. 귀족들과의 대화는 그렇게 어렵지는 않았다. 귀족들과의 담소를 마친 당신은 발렌과 함께 집무실로 걸어갔다. 그는 당신에게 마을 입구에서의 소동은 자신의 실수였다고 말했다." +
+                    "<br><br>\"끈질기게 쫓아오는 반란군들이 있길래 실험을 좀 했습니다. 안타깝게도 한 명이 완전히 시체가 되기 전에 도망친 모양입니다.\"<br><br>" +
+                    "그는 손가락으로 탁자를 톡톡 두드리며, 반란군들이 또 방해를 하는 것 같다고 말했다." +
+                    "<br><br>\"...반란군들이 움직일 때 당신도 움직여줬으면 합니다.\"<br><br>" +
+                    "그는 반란군이라면 가장 마지막까지 가려고 할 거라고 말했다. 그리고 가장 마지막에 있는 건 절대 죽이면 안 된다고 그는 말했다." +
+                    "<br><br>\"그 시체는 백색 성벽에 생명력을 부여해줄 겁니다. 절대로 망가지면 안 됩니다. 언제나처럼 믿고 있겠습니다, 상류도시의 영웅.\""
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

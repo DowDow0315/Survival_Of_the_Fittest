@@ -138,6 +138,35 @@ const whiteAbominationDefeat = [
     }
 ]
 
+const cultistsDefeat = [
+    {
+        id : "cultists_defeat",
+        weight : 100,
+        scene : [
+            {
+                type : "text",
+                value : [
+                    "\"교주님께 데려가자.\"<br><br>" +
+                    "그들은 당신을 교주에게 데려가야 한다고 말하며 양쪽에서 잡아 끌었다. 희미해지는 시야 속에서 신도들이 서로의 의견을 내놓는 소리가 들린다. 한쪽에서는 교주에게 데려가기 전에 순결 검사를 하고 싶다고 말했고, 다른 한쪽에서는 순결 검사는 교주님이 해야 한다고 말했다. 그들의 말싸움이 점점 커진다. 교주에게 잡히면 끝이다, 당신은 지금이 기회라는 걸 알았다." +
+                    "<br><br>그들의 손아귀가 느슨해진 틈에 당신은 도망쳤다. 도망치지 못했다면 당신도 신도가 되었을 거라는 생각이 드니 등골이 오싹해졌다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    player.status.trauma = Math.min(                        
+                    player.status.maxTrauma,
+                    player.status.trauma + 15
+                );
+                passTime(player, 10);
+                savePlayer(player);
+                }
+                
+            }
+        ]
+    }
+]
+
 const DEFEAT_EVENTS = {
     abomination2 : abominationDefeat,
     abomination3 : abominationDefeat,
@@ -148,6 +177,12 @@ const DEFEAT_EVENTS = {
     experimentAboFlower2 : aboFlowerDefeat,
     experimentAboFlower3 : aboFlowerDefeat,
     whiteAbomination1 : whiteAbominationDefeat,
+    whiteAbomination2 : whiteAbominationDefeat,
+    whiteAbomination5 : whiteAbominationDefeat,
+    whiteAbomination6 : whiteAbominationDefeat,
+    cultist1 : cultistsDefeat,
+    cultist2 : cultistsDefeat,
+    cultist3 : cultistsDefeat,
 
     rapistM : [
         {

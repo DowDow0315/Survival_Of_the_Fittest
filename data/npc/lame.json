@@ -1,0 +1,55 @@
+{
+    "name" : "레임",
+    "hp" : 380,
+    "attack" : 55,
+    "defense" : 40,
+    "eva" : 40,
+    "type" : "minor",
+
+    "emotion": {
+        "affection" : 0,
+        "dominance" : 0,
+        "rage" : 0,
+        "lust" : 0,
+        "fear" : 0
+    },
+
+    "defaultStatusLine" : "레임은 당신을 인지하고는 있지만, 아직 특별한 감정이 없다.",
+
+    "statusLines" : [
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 90}
+            ],
+            "text" : "레임은 당신을 향한 마음이 충성심인지, 아니면 연심인지 분간하지 못하고 있다. 앞으로도, 분간할 생각은 없다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 80}
+            ],
+            "text" : "레임은 요새 모든 일이 끝났을 때의 당신을 생각한다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 50}
+            ],
+            "text" : "레임은 당신을 위해서라면 자신의 목숨도 선뜻 내놓을 수 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 20}
+            ],
+            "text" : "레임은 당신을 진심으로 따르고 있다."
+        },
+        {
+            "conditions" : [
+                {"emotion": "affection", "min": 10}
+            ],
+            "text" : "레임은 당신이 대단한 사람이라고 생각한다."
+        }
+    ],
+
+    "scenes" : {
+        
+    }
+}

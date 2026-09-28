@@ -2598,3 +2598,280 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.common_route_quest_11_intro_05 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_11_intro_05_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_11_intro_02 = true;
+        player.flags.rebel_route_quest_11_intro_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"저기...\"<br><br>" +
+                    "쉘터로 들어온 당신에게 아이 한 명이 작은 목소리로 당신을 불렀다. 그는 유리가 꿰매준 곰인형을 품에 꽈악 끌어안고 있었다. 그는 요새 쉘터에 돌아오지 않는 아이들이 많아졌다고 말했다. 이름 하나하나를 대던 그는 그들 중 몇 명은 사라지기 전에 하얀색 로브를 입은 사람들과 대화하는 모습을 보였다고 말했다. 그는 당신을 올려다보며 이대로 혼자가 되는 건 싫다고 말했다." +
+                    "<br><br>\"걔네들이 선택한 길이야.\"<br><br>" +
+                    "뒤에서 들리는 차가운 목소리, 시온은 팔짱을 끼고 아이를 냉기 서린 눈동자로 내려다보았다." +
+                    "<br><br>\"멍청한 선택을 했으면 그들이 알아서 책임을 져야지. 이렇게 말하면 영웅님은 저한테 너무 심하다고 말씀하실까요?\"<br><br>" +
+                    "시온의 차가운 말에 아이는 울음을 터뜨리며 다른 방으로 달려갔다. 시온은 아이에게는 시선 한 번 주지 않고 당신만을 응시했다." +
+                    "<br><br>\"전 여전히 제 생각이 틀렸다고 생각하지 않아요. 반란군들이 영웅님을 부르고 있더라고요.\"<br><br>" +
+                    "그는 당신에게 자리를 비켜주듯 벽에서 물러났다. 시온의 말대로 반란군들은 당신의 방에서 당신을 기다리고 있었다. 그들은 여전히 쓰러진 아카시아와 발렌이 찾던 꽃에 대해 이야기를 나누고 있었다. 그 누구도 점점 사라져가는 하류도시 사람들에 대한 이야기를 꺼내지 않았다." +
+                    "<br><br>\"...나는 그 일보다 사이비 교주를 잡는 게 더 시급하다고 보는데.\"<br><br>" +
+                    "결국 그들에 대한 이야기를 먼저 꺼낸 사람은 유리였다. 쉘터의 아이를 다독이다가 온 유리는 반란군에게 이대로 가만히 있을 거냐고 물었다." +
+                    "<br><br>\"...당신은 이제 우리에게 이래라 저래라 할 권리가 없습니다.\"<br><br>" +
+                    "반란군들 중 한 명이 쏘아붙이듯이 말했다. 한 사람이 쏘아붙이자 다른 사람들도 수군거리며 그의 말에 동의했다. 그들은 작은 일에 집중하다가는 큰 일을 영원히 이루지 못할 거라고 말했다. 그리고 유리는 이제 자신들에게 뭐라 할 권리가 없다고 말했다. 돌아와달라고 할 때는 그렇게 돌아오지 않았으면서... 몇 명은 오히려 그를 원망하고 질책했다."
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그럼 자신이 말하겠다고 말했다. 당신은 그들에게 사라져가는 하류도시의 사람들을 내버려둘 거냐고 물었다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"...그건 아니지만...\"<br><br>" +
+                                    "그들은 하류도시 영웅인 당신의 말에는 의견을 굽혔다. 유리는 당신의 옆에서 반란군이 처음에 어떻게 시작했는지를 잊지 말아달라고 부탁했다. 그룹의 리더로 보이는 반란군이 한숨을 쉬었다." +
+                                    "<br><br>\"저희라고 그들을 안 구하고 싶은 건 아닙니다. 다만... 모두를 구하면서 가기에는 뜻을 이루기가 힘든 것뿐이죠.\"<br><br>" +
+                                    "그는 당신의 의견은 받아들이겠다고 말하며, 사이비 종교 집단의 거처는 며칠 내로 알아내겠다고 약속했다. 유리는 고맙다는 듯 당신에게 미소를 지어보였다." +
+                                    "<br><br>\"....\"<br><br>" +
+                                    "시온은 말없이 당신을 바라보다가 미소를 지었다." +
+                                    "<br><br>\"영웅님은 역시... 영웅님이세요.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 작은 일보다는 큰 일에 집중하는 게 좋을 것 같다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "유리는 당신의 말에 당신을 바라보기는 했지만 아무 말도 하지 않았다. 그는 당신의 말에 반박하지 않고 그저 반란군에게서 몸을 돌려 쉘터의 아이들에게로 가버렸다. 시온은 유리의 뒤에 대고 작게 중얼거렸다, \"말했잖아요. 유리 형은 틀렸다니까. 세상을 아름답게만 보는 사람이 뭘 지킬 수 있겠어요.\". 분위기를 살피고 있던 반란군 한 명이 머뭇거리다가 입을 열었다." +
+                                    "<br><br>\"그 일은 저희가 조사하면 되고... 그동안 하류도시의 영웅이 하류도시 사람들을 구하면 되는 거 아닙니까?\"<br><br>" +
+                                    "다시 날카로워진 분위기에 그는 재빨리 말을 덧붙였다." +
+                                    "<br><br>\"하류도시 사람들을 구해내면, 사람들은 상류도시보다 하류도시의 영웅을 더 믿게 될 수도 있습니다! 그러면 우리가 해내기도 더 쉬워질 테니까요.\"<br><br>" +
+                                    "\"우리도 안 구하고 싶은 건 아냐. 다만...\"<br><br>" +
+                                    "그룹의 리더로 보이는 반란군이 한숨을 쉬었다. 그는 당신에게 미안하다고 말하며, 그럼 당신이 하류도시의 사람들을 구해줄 수 있겠냐고 물었다. 그는 며칠 내로 사이비 종교 집단의 거처를 알아내겠다고 말했다."
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -5);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_11_intro_02 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_11_intro_02_day + 2),
+
+    action : (player) => {
+        player.flags.act3_quest_11_unlock = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "어두운 거리, 당신은 하얀색 로브를 입은 남자를 보았다. 그는 혼자가 되기 싫다고 말하는 아이에게 손을 내밀고 있었다. 아이는 망설이다가 손을 잡았다. 그때, 아이의 뒤에서 유리가 나타났다. 그는 하얀색 로브를 입은 남자에게서부터 아이를 떨어뜨려 놓으며 인상을 굳혔다. 하얀색 로브의 남자는 인상을 찌푸린 유리의 앞에서도 당당했다." +
+                    "<br><br>\"당신이 뭔데 그 아이의 선택을 막습니까? 그게 정말로 그 아이가 원했던 구원입니까?\"<br><br>" +
+                    "그는 아이도 쉘터에서 홀로 굶주리는 것보다는 자신들의 아래에서 다른 아이들과 함께 배불리 먹는 걸 원할 거라고 말했다. 유리는 아이의 손을 꽉 쥐며 고개를 저었다." +
+                    "<br><br>\"아니. 쉘터에서는 절대 혼자가 아니야. 그곳에는 내가 있으니까.\"<br><br>" +
+                    "유리는 고개를 돌려 아이를 보더니 안심시켜주듯이 미소를 지었다." +
+                    "<br><br>\"난 언제나 쉘터에 있을 거니까.\"<br><br>" +
+                    "하얀색 로브의 남자는 자기도 모르게 허리춤에 든 무기로 손을 끌었다가 유리의 뒤에 있는 당신을 보고 움직임을 멈췄다. 아이는 유리와 당신을 번갈아보다가 유리의 팔에 이마를 묻었다." +
+                    "<br><br>\"진짜 그곳에서는 밥을 배불리 먹을 수 있을까요? 그 누구도 저희를 무시하지 않고 모두 평등하게....\"<br><br>" +
+                    "\"...그런 곳은 없어.\"<br><br>" +
+                    "유리는 단호하게 말했다." +
+                    "<br><br>\"우리는 그저 노력하는 것뿐이야, 더 나은 사회를 만들기 위해.\"<br><br>" +
+                    "유리는 아이의 손을 잡고 당신에게 돌아가자고 말했다. 아이는 유리의 말을 이해하지 못한 얼굴이었지만, 그래도 유리의 손은 놓지 않았다." +
+                    "<br><br>\"반란군들이 사이비 종교 단체의 근거지 위치를 특정했다고 했어. 주점에 가면 있을 거야.\"<br><br>" +
+                    "쉘터에 들어가기 전, 유리는 당신에게 속삭이듯이 말해주었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.act3_quest_11_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_11_done_day + 1),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_11_after_01 = true;
+        player.flags.rebel_route_quest_11_after_01_day = getCurrentDay(player);
+        changeNPCEmotion("lame", "affection", 10);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에서 아이들과 놀아주고 있던 반란군들 중 한 명이 고개를 들었다. 그는 당신에게 우리가 못한 일을 당신이 해줘서 감사하다고 말했다." +
+                    "<br><br>\"하류도시 사람들을.... 구하고 싶어하는 반란군들도 많았습니다. 당신에게 고마워하는 사람들은 많습니다. 저희들도 그들 중 한 명이고요.\"<br><br>" +
+                    "그들은 당신을 존경하고 있다고 말했다, 하류도시의 영웅이 아니더라도 사람들을 구하기를 택한 한 사람으로서도. 청색 머리의 남자가 당신에게 고개를 숙여 보였다." +
+                    "<br><br>\"언젠가는 당신이 이끄는 반란군을 따르고 싶습니다.\"<br><br>" +
+                    "그는 고개를 들었다. 청색 머리카락 밑으로 드러난 그의 검은색 눈동자는 당신을 순수하게 우러러보고 있었다." +
+                    "<br><br>...그의 이름은 레임이었다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shelter" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_11_after_01 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_11_after_01_day + 2),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_11_after_02 = true;
+        player.flags.rebel_route_quest_11_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 들어선 당신은 오늘도 당신의 방을 차지하고 있는 반란군들을 맞닥뜨렸다. 그들은 당신이 오자마자 저번의 흉물에 먹힌 시체를 기억하냐고 물었다. 그들은 그 시체를 쫓기 위해 반란군들을 보냈지만 한 명도 돌아오지 않고 있다고 말했다." +
+                    "<br><br>\"게다가 전부 연락이 끊겼습니다... 젠장, 돌아오는 녀석들이 없다니.\"<br><br>" +
+                    "그들은 위치라도 특정되면 무슨 일이 생겼는지 바로 알아보러 갈 텐데, 시체를 쫓는 도중에 잡힌 건지 그 누구도 위치에 대한 정보를 주지 못했다고 말했다. 그들은 발렌이 자신들의 움직임을 눈치챈 것 같다고 말하며 인상을 썼다." +
+                    "<br><br>\"하류도시의 영웅님은 이미 감시를 당하고 있을 겁니다. 저희끼리 더 해보겠습니다.\""
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 그래도 당신이 해보겠다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "\"아뇨. 당신은 이미... 많은 걸 해주셨습니다. 그리고 이 일은 은밀하게 진행되어야 하는 일이라서 당신이 끼면 더 엉망이 될 수도 있습니다.\"<br><br>" +
+                                    "그들은 마음만은 잘 받겠다고 말하며 당신에게 고개를 숙여 보였다."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 다른 건 모르겠고 앞으로 제 방의 프라이버시는 존중해줬으면 좋겠다고 말했다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신의 말에 반란군들은 당황한 것처럼 보였다. 그들은 쉘터의 아이들 앞에서는 이런 이야기를 할 수 없기 때문에 당신의 방에서 회의를 하는 거라고 변명했다. 변명하는 걸 보니, 앞으로도 당신의 쉘터 프라이버시는 존중받을 수 없을 것 같다..."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text : "당신은 고개를 끄덕였다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 고개를 끄덕이자 반란군들은 한층 결의를 다지는 얼굴로 고개를 끄덕였다. 그들은 당신이 그들을 돕기 전에도 그들은 어떻게든 살아남았었다고 말했다." +
+                                    "<br><br>\"그러니 걱정하지 말고 쉬고 계십시오, 하류도시의 영웅님.\""
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "rebel_route_quest_11_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_rebel_route &&
+        player.flags?.rebel_route_quest_11_after_02 &&
+        getCurrentDay(player) >= (player.flags.rebel_route_quest_11_after_02_day + 5),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_11_after_03 = true;
+        player.flags.rebel_route_quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest11_after_blackRedBlood = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "마을 입구에서 당신은 비명 소리를 들었다. 당신은 고개를 돌렸다. 경계병들과 경비병들도 모두 긴장이 역력한 얼굴로 마을 쪽으로 걸어오고 있는 무언가를 보고 있었다. 그 무언가는 마치 시체가 움직이듯이 삐걱삐걱 움직이고 있었다. 그것이 뭐를 입고 있는지 눈치챈 반란군들 중 한 명이 그것에게 달려나갔다. 그는 그것의 이름을 불렀다. 당신도 반란 세력과 함께하며 몇 번 들어본 적이 있는 이름이었다." +
+                    "<br><br>\"오, 오지 마...!\"<br><br>" +
+                    "그는 삐걱거리면서도 자신에게 달려오는 반란군을 밀어냈다. 그는 당신을 발견하더니 중얼거리듯이 말했다." +
+                    "<br><br>\"그런 실험이 있어서는 안돼.... 그곳은 지옥입니다. 도시 하나만을 지키려는 실험이 다른 도시를 집어삼....\"<br><br>" +
+                    "그의 말이 끝나기도 전에 언제 나타난 건지 에이든의 랜스가 반란군의 가슴을 뚫었다. 그는 입에서 흉물이 뿜어낼 법한 검붉은 피를 토해냈다." +
+                    "<br><br>\"...내 사랑, 우리의 자식들에게는 꼭....\"<br><br>" +
+                    "그는 말을 잇지 못하고 그대로 고개가 꺾였다. 그의 이름을 부르며 뛰쳐나갔던 반란군은 멍하니 있다가 이를 갈며 에이든에게 달려들었다." +
+                    "<br><br>...결말은 물 보듯 뻔했다. 몇몇 사람들은 고개를 저으며, 그나마 반란군이 저 꼴을 당해서 다행이라는 말을 했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

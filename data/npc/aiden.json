@@ -1,9 +1,9 @@
 {
     "name" : "에이든",
-    "hp" : 380,
-    "attack" : 48,
-    "defense" : 47,
-    "eva" : 30,
+    "hp" : 400,
+    "attack" : 50,
+    "defense" : 60,
+    "eva" : 45,
     "type" : "minor",
 
     "emotion": {

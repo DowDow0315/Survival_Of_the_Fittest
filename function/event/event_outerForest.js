@@ -281,6 +281,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_ericPoliceTop",
+    once : true,
+
+    condition : (player) =>
+        ["forest_act3", "deepForest_act3"].includes(player.location) &&
+        ( hasNpcRelationship("eric", "lover") || hasNpcRelationship("eric", "spouse") )  &&
+        NPC_DATA["eric"].emotion.affection >= 95 &&
+        ["snow", "rain"].includes(player.weather) &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        addItem(player, ITEMS.top.ericPoliceTop);
+        savePlayer(player);
+        
+        startScene(
+            NPC_DATA["eric"].scenes.eric_ericPoliceTop,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //시온
 window.EVENTS.push({
     id : "sion_hisOutTraining_01",

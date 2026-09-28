@@ -2385,7 +2385,7 @@ const ITEMS ={
         featherTop : {
             name : "니콜라이의 화려한 깃털 상의",
             type : "top",
-            price : 3500,
+            price : 5000,
             desc : "화려한 깃털이다, 그의 진심까지도 숨겨버릴 정도로 화려한.",
             stats : {
                 str : 5,
@@ -2432,7 +2432,20 @@ const ITEMS ={
                 int : 5,
                 charm : 8
             }
-        }
+        },
+
+        ericPoliceTop : {
+            name : "에릭의 제복 상의",
+            type : "top",
+            price : 5000,
+            desc : "적어도 이 온기만큼은, 언제까지나 당신의 곁을 지켜주길.",
+            stats : {
+                str : 10,
+                dex : 10,
+                int : 7,
+                charm : 3
+            }
+        },
     },
 
     bra : {

@@ -519,7 +519,110 @@ window.EVENTS.push({
                     "\"영웅.\"<br><br>" +
                     "상류도시의 귀족으로 보이는 사람이 당신을 불렀다. 그는 애써 턱을 들어올리고 있었지만 눈동자가 미세하게 떨리고 있었다. 그는 자신의 여동생이 돌아오지 않는다고 말하며 당신에게 의뢰를 맡기고 싶다고 말했다." +
                     "<br><br>\"하얀색 로브를 입은 사람이 계속 접근하기는 했는데....\"<br><br>" +
-                    "그는 헛기침을 하더니 자신이 여동생을 찾고 있다는 건 누구에게도 말하지 말라고 말했다. 그는 당신에게 사진을 보여주었다. 아무리 봐도 두 사람이 닮은 것 같지는 않다... 그는 주점에 의뢰를 올려놓을 테니 최대한 빨리 자신의 여동생을 찾아달라고 말했다."
+                    "그는 헛기침을 하더니 자신이 여동생을 찾고 있다는 건 누구에게도 말하지 말라고 말했다. 그는 당신에게 사진을 보여주었다. 아무리 봐도 두 사람이 닮은 것 같지는 않다... 남자는 은발인데 여자는 어두운 회색 머리였다. 그는 주점에 의뢰를 올려놓을 테니 최대한 빨리 자신의 여동생을 찾아달라고 말했다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_after_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.act3_quest_11_done &&
+        getCurrentDay(player) >= (player.flags.act3_quest_11_done_day + 2),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_11_after_01 = true;
+        player.flags.neutral_route_quest_11_after_01_day = getCurrentDay(player);
+        changeGold(player, 10000);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...이쪽.\"<br><br>" +
+                    "길거리를 걷고 있던 당신의 팔을 낚아챈 남자는 골목 근처로 당신을 끌고 갔다. 그는 주변의 눈치를 살핀 후 작은 목소리로 당신에게 속삭였다." +
+                    "<br><br>\"그래서 제가 찾고 있던 여자... 아니, 여동생은 어떻게 됐습니까?\"<br><br>" +
+                    "당신은 교단에서 사진은 봤지만 여자를 찾지는 못했다고 말했다. 그러자 남자는 시체도 찾지 못한 거냐고 물었다." +
+                    "<br><br>\"젠장, 차라리 시체라도 찾았으면...\"<br><br>" +
+                    "그는 자신의 머리를 신경질적으로 쓸어넘기더니 어쨌든 자신을 위해 여자를 찾아봐주려고 노력한 건 고맙다고 말했다. 그는 당신에게 돈을 건넨 후 다른 사람들의 시선을 더 끌기 전에 인파 속으로 사라졌다. 하류도시에서 혼자만 저런 귀티나는 옷을 입고 다니면 숨만 쉬어도 이목을 끌기는 하겠지만."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_after_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "darkStreet" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_11_after_01 &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_11_after_01_day + 1),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_11_after_02 = true;
+        player.flags.neutral_route_quest_11_after_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "\"...가 사라졌대. 얌전해서 사라질 애가 아닌데 대체 어쩌다가....\"<br><br>" +
+                    "노숙자한테 끌려간 거 아니냐며 노숙자가 술병을 비웠다. 다른 노숙자는 그 아이의 엄마가 지금 대성통곡하며 거리를 찾아다니고 있다고 말해주었다." +
+                    "<br><br>\"그런데 저번에 빨간 담벼락 밑에서 자던 놈도 사라지지 않았나?\"<br><br>" +
+                    "\"...아님 그거 아냐? 그 종교 단체. 요 근래에 거기 들어가는 사람들 많았잖아.\"<br><br>" +
+                    "...이야기들은 근거가 없어도 멈추지 않는다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "neutral_route_quest_11_after_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3" &&
+        player.flags?.act3_neutral_route &&
+        player.flags?.neutral_route_quest_11_after_02 &&
+        getCurrentDay(player) >= (player.flags.neutral_route_quest_11_after_02_day + 3),
+
+    action : (player) => {
+        player.flags.neutral_route_quest_11_after_03 = true;
+        player.flags.neutral_route_quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest11_after_blackRedBlood = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 마을 입구로 비틀거리면서 돌아오는 반란군을 보았다. 그는 당신을 보자마자 입을 열었다." +
+                    "<br><br>\"모두에게....아...알려... 그곳은 지옥이야....\"<br><br>" +
+                    "그순간 그는 검붉은색 피를 토해냈다. 그는 꺽꺽거리면서 피를 다 토해내다가 지면에 쓰러졌다. 경계병들과 경비병들은 쓰러진 그에게 가까이 가지도 못하고 창과 방패만 들었다." +
+                    "<br><br>\"씨발, 이게 뭐...\"<br><br>" +
+                    "\"젠장...\"<br><br>" +
+                    "경계병들과 경비병들 욕 사이로, 반란군의 욕도 들렸다. 대체 거기서 무슨 일이 벌어지고 있는 거야... 당신과 시선이 마주친 반란군이 입술을 악물었다. 그는 곧 어둠 속으로 사라졌다."
                 ]
             }
         ], player, {

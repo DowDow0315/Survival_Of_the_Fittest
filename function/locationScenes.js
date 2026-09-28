@@ -1177,6 +1177,25 @@ function buildForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_11" &&
+        !player.flags?.act3_quest_11_done
+    ){
+        choices.push({
+            text : "사이비 교단을 토벌하러 간다",
+            action : "move_cultistCave"
+        });
+    }
+
+    if (
+        player.quest?.active?.id === "cultistCaveRepeated_cleanup"
+    ){
+        choices.push({
+            text : "사람들을 사이비 교단에서부터 구원하러 간다",
+            action : "move_cultistCaveRepeated"
+        });
+    }
+
     if (isMushroomKingdomPeriod(player)){
         choices.push({
             text : "버...버섯....!(들켰다!)",

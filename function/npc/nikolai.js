@@ -230,6 +230,20 @@ registerActions("nikolai", {
             });
         }
 
+        if (!player.flags?.nikolai_about_eric_blackRedBlood_04_ash && player.flags.eric_blackRedBlood_04 ){
+            choices.push({
+                text: "당신은 에릭과 데릭 부모님의 죽음에 대해 물어보았다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_about_eric_blackRedBlood_04_ash
+            });
+        }
+
+        if (!player.flags?.nikolai_about_eric_blackRedBlood_04_cider && player.flags.eric_blackRedBlood_04 ){
+            choices.push({
+                text: "당신은 발렌 부모님의 죽음에 대해 물어보았다.",
+                scene: NPC_DATA.nikolai.scenes.nikolai_about_eric_blackRedBlood_04_cider
+            });
+        }
+
         choices.push({ text: "돌아간다", action: "nikolai_talk" });
 
         startScene([

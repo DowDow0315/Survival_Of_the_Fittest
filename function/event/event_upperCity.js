@@ -233,33 +233,6 @@ window.EVENTS.push({
     }
 });
 
-window.EVENTS.push({
-    id : "eric_blackRedBlood_02",
-    once : true,
-    priority : true,
-
-    condition : (player) =>
-        player.location === "townEntrance_act3"  &&
-        player.flags?.eric_blackRedBlood_01 &&
-        getCurrentDay(player) >= (player.flags.eric_blackRedBlood_01_day + 5) &&
-        NPC_DATA["eric"].emotion.affection >= 60 &&
-        !player.flags?.ericDie,
-
-    action : (player) => {
-        player.flags.eric_blackRedBlood_02 = true;
-        player.flags.eric_blackRedBlood_02_day = getCurrentDay(player);
-        savePlayer(player);
-
-        startScene(
-            NPC_DATA["eric"].scenes.eric_blackRedBlood_02,
-            player,
-            {
-                onEnd : () => startScene(getLocationScene(player), player)
-            }
-        );
-    }
-});
-
 //발렌
 window.EVENTS.push({
     id : "uppercity_first_entry_event",

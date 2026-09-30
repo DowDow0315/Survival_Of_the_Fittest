@@ -400,6 +400,58 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_blackRedBlood_02",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3"  &&
+        player.flags?.eric_blackRedBlood_01 &&
+        getCurrentDay(player) >= (player.flags.eric_blackRedBlood_01_day + 5) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_02 = true;
+        player.flags.eric_blackRedBlood_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id : "eric_blackRedBlood_03",
+    once : true,
+
+    condition : (player) =>
+        player.location === "townEntrance_act3"  &&
+        player.flags?.quest11_after_blackRedBlood &&
+        player.flags?.eric_blackRedBlood_02 &&
+        getCurrentDay(player) >= (player.flags.eric_blackRedBlood_02_day + 7) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_03 = true;
+        player.flags.eric_blackRedBlood_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_03,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //루크
 window.EVENTS.push({
     id : "luke_guard_punishment_event",

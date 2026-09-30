@@ -2491,6 +2491,38 @@
                     { "target": "flag", "key": "nikolai_about_common_route_quest_11_intro_04", "value": true }
                 ]
             }
+        ],
+        "nikolai_about_eric_blackRedBlood_04_ash" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"으응? 워낙 원한을 살 일이 많은 사람들이었잖아. 언제 죽어도 이상하지 않지.\"<br>",
+                    "그는 워낙 알려진 것이 없어서 잘은 모르겠지만, 실험을 주도한 사람이라면 피실험자에게 당했을 것 같지 않냐고 되물었다. 그는 어깨를 으쓱이며 에릭, 데릭 부모님의 죽음에 대해서는 잘 모른다고 말했다.",
+                    "<br>\"소문만 무성해. 노예들에게 당했을 거라는 소문도 있고, 정적에 의해 제거당했을 거라는 소문도 있고.... 데릭은 이런 소문들에는 전혀 대응하지 않았어. 어떤 헛소문이 돌든 대응하지 않으니까 뭐, 관심도 떨어져 갔지.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "nikolai_about_eric_blackRedBlood_04_ash", "value": true }
+                ]
+            }
+        ],
+        "nikolai_about_eric_blackRedBlood_04_cider" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"발렌의 아버지는 독살을 당하셨지. 그때 상류도시의 온 사람들이 슬퍼했다는데? 그리고 그 슬픔을 이겨내지 못했던 아내는 결국 돌아가셨고. 그때부터 발렌을 자신의 자식처럼 사랑한 사람이 많지. 자신의 자식이 아닌데도 말이야.\"<br>",
+                    "니콜라이는 발렌의 아버지가 죽은 후 얼마 지나지 않아 에릭, 데릭의 부모님이 죽은 거였다고 말했다.",
+                    "<br>\"뭐, 발렌 쪽에서는 결국 자신의 아버지를 독살한 가문을 찾아서 몰살시켜버렸지만 말이야. 그래서 소문이 더 빠르게 잠잠해진 거 아닐까 싶네.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "nikolai_about_eric_blackRedBlood_04_cider", "value": true }
+                ]
+            }
         ]
     }
 }

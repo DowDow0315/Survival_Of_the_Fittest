@@ -307,6 +307,32 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "eric_blackRedBlood_04",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "forest_act3"  &&
+        player.flags?.eric_blackRedBlood_03 &&
+        getCurrentDay(player) <= (player.flags.eric_blackRedBlood_03_day + 1) &&
+        !player.flags?.ericDie,
+
+    action : (player) => {
+        player.flags.eric_blackRedBlood_04 = true;
+        player.flags.eric_blackRedBlood_04_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene(
+            NPC_DATA["eric"].scenes.eric_blackRedBlood_04,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //시온
 window.EVENTS.push({
     id : "sion_hisOutTraining_01",

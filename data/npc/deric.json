@@ -3457,6 +3457,78 @@
                     { "target": "npc", "npc": "deric", "key": "rage", "amount": 3 }
                 ]
             }
+        ],
+        "deric_about_eric_blackRedBlood_04_ash" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...뭐?\"<br>",
+                    "와인잔을 흔들고 있던 데릭의 표정이 여과없이 구겨졌다. 하지만 그것도 잠시 그는 다시 우아한 미소를 지어보이며 물었다.",
+                    "<br>\"내가 잘 못 들어서. 다시 한번 말해보겠니?\"<br>",
+                    "...그의 입꼬리가 떨리고 있다."
+                ]
+            },
+            {
+                "type" : "choice",
+                "choices" : [
+                    {
+                        "text" : "당신은 다시 한번 데릭에게 그의 부모님에 대해 물었다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "\"...그런 게 우리 아가가 왜 궁금할까?\"<br>",
+                                    "데릭은 당신에게서 고개를 돌린 채 와인을 활짝였다. 말해줄 생각이 없는 것 같다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "deric_about_eric_blackRedBlood_04_ash", "value": true },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": 10 },
+                                    { "target": "npc", "npc": "deric", "key": "affection", "amount": -10 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "text" : "당신은 화제를 전환하여 예술에 대한 이야기를 했다.",
+                        "scene" : [
+                            {
+                                "type" : "text",
+                                "value" : [
+                                    "데릭은 미소를 지으며 당신의 말을 받아주었다. 그는 언제나처럼 당신에게 많은 이야기들을 해주었지만 이상하게도 오늘은 그 말들이 붕 떠있는 느낌이었다."
+                                ]
+                            },
+                            {
+                                "type" : "effect",
+                                "effects" : [
+                                    { "target": "flag", "key": "deric_about_eric_blackRedBlood_04_ash", "value": true },
+                                    { "target": "npc", "npc": "deric", "key": "rage", "amount": 5 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "deric_about_eric_blackRedBlood_04_cider" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"그들은... 안타깝게 죽음을 맞았지.\"<br>",
+                    "데릭은 그날 발렌은 가까스로 목숨을 건졌다고 말했다. 그는 그날 이후로도 발렌은 몇 번 독살의 위협에 시달렸다고 말했다.",
+                    "<br>\"그가 지금 달콤한 것을 좋아하는 것도 그 이유란다. 독에 어느 정도 면역은 생겼지만 가만히 있을 때도 쓴 맛이 자주 느껴진다고 하니까. 쓴맛이라기보다는 피맛이라고 해야 하나?\"<br>",
+                    "그는 와인을 홀짝였다.",
+                    "<br>\"...그래서인가, 술맛을 잘 모른단다. 술친구로서는 꽝이지.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "deric_about_eric_blackRedBlood_04_cider", "value": true }
+                ]
+            }
         ]
     }
 }

@@ -2814,6 +2814,40 @@
                     }
                 ]
             }
+        ],
+        "eric_about_eric_blackRedBlood_04_ash" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"...3번 죽임당하셨다.\"<br>",
+                    "에릭은 고개를 돌렸다.",
+                    "<br>\"그중에 단 한 번이라도 편안한 죽음이 있었으면 좋겠군.\""
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "eric_about_eric_blackRedBlood_04_ash", "value": true }
+                ]
+            }
+        ],
+        "eric_about_eric_blackRedBlood_04_cider" : [
+            {
+                "type" : "text",
+                "value" : [
+                    "\"발렌의 부모님은 내 부모님이 돌아가시기 전에 돌아가셨다.\"<br>",
+                    "그는 잠시 말을 멈췄다.",
+                    "<br>\"화해와 협상의 날이 죽음으로 이어질 거라고는.... 독약을 탄 사람을 제외하면 상상하지 못했을 테지.\"<br>",
+                    "그는 발렌은 그날의 구름 개수까지 기억하고 있을 거라고 덧붙였다.<br>",
+                    "...더는 말해줄 생각이 없는 모양이다."
+                ]
+            },
+            {
+                "type" : "effect",
+                "effects" : [
+                    { "target": "flag", "key": "eric_about_eric_blackRedBlood_04_cider", "value": true }
+                ]
+            }
         ]
     }
 }

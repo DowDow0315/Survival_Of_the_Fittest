@@ -1157,6 +1157,34 @@ const QUESTS = {
 
         acceptText : "마틴은 당신의 의뢰서를 확인하더니 고개를 끄덕였다. 당신이 나가기 전에 그는 딱 한 마디만 했다. <br><br>\"약해서 그래. 나쁜 게 아니라.\"",
         completeText : "\"...어쩌면 그들이 널 원망할지도 모르지.\"<br><br>마틴은 완료 확인서를 쓰면서 말했다. <br><br>\"하지만 네게 고마워하는 사람들도 많을 거다.\""
+    },
+    
+    act3_quest_12 : {
+        id : "act3_quest_12",
+        title : "발렌이 원하는 것",
+        type: "investigate",
+        targetName : "...그가 그리는 세상은 어떤 세상일까.",
+        repeatable : false,
+        giver : "",
+        
+        desc : "발렌은 언제나처럼 한 발자국 앞서고 있다.",        
+        activeDesc : "두 발자국 멀어질 수는 없으니, 당신은 발렌의 시선이 향하는 곳으로 가야만 한다.",
+        readyDesc : "한 발자국 앞서던 발렌이, 그나마 이제는 당신보다 반 발자국 앞서긴 했다.",
+        targetFlag : "act3_quest_12_boss_end",
+        requiredKill: 1,
+        rewardGold: 85000,
+
+        require : {
+            flag : "act3_quest_12_unlock"
+        },
+        
+        onComplete: (player) => {
+            player.flags.act3_quest_12_done = true;
+            player.flags.act3_quest_12_done_day = getCurrentDay(player);
+        },
+
+        acceptText : "\"...어디로 가려는 거야.\"<br><br>마틴은 입술을 깨물었다가 당신에게서 고개를 돌렸다. 그는 더는 아무 말도 하지 않았다.",
+        completeText : "마틴은 돌아온 당신을 물끄러미 바라보았다. 그는 아무 말도 하지 않았지만, 당신이 주점에 돌아와서 다행이라고 생각하는 것 같다."
     }
 };
 

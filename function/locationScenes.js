@@ -1322,6 +1322,16 @@ function buildDeepForest_act3Scene(player, loc, randomDesc){
         });
     }
 
+    if (
+        player.quest?.active?.id === "act3_quest_12" &&
+        !player.corpseDummyRaid?.active
+    ){
+        choices.push({
+            text: "숨겨진 연구소로 향한다",
+            action: "start_corpseDummyRaid"
+        });
+    }
+
     if (isMushroomKingdomPeriod(player)){
         choices.push({
             text : "버...버섯....!(들켰다!)",
@@ -1356,6 +1366,10 @@ window.start_whiteArmyRaid = function(player){
 
 window.start_abominatedGoblinRaid = function(player){
     startAbominatedGoblinRaid(player);
+};
+
+window.start_corpseDummyRaid = function(player){
+    startCorpseDummyRaid(player);
 };
 
 

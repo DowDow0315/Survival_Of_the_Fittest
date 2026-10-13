@@ -4360,12 +4360,18 @@ const ITEMS ={
             type : "junk",
             price : 0
         },
+        jasperLetter : {
+            name : "피묻은 쪽지",
+            desc : "사소한 싸움은 때로 누군가에는 마지막 장면이 된다.",
+            type : "junk",
+            price : 0
+        },
 
 
         //중요물품
         matinLocket : {
             name : "낡은 하트모양 목걸이",
-            desc : "누군가의 중요한 목걸이같다. 팔면 안 될 거 같은 느낌이 든다",
+            desc : "누군가의 중요한 목걸이같다. 팔면 안 될 거 같은 느낌이 든다.",
             type : "key",
             price : 2000
         },

@@ -2851,8 +2851,8 @@ window.EVENTS.push({
         getCurrentDay(player) >= (player.flags.rebel_route_quest_11_after_02_day + 5),
 
     action : (player) => {
-        player.flags.rebel_route_quest_11_after_03 = true;
-        player.flags.rebel_route_quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest_11_after_03 = true;
+        player.flags.quest_11_after_03_day = getCurrentDay(player);
         player.flags.quest11_after_blackRedBlood = true;
         savePlayer(player);
 

@@ -2020,8 +2020,9 @@ window.EVENTS.push({
         player.flags?.upper_route_quest_11_after_02,
 
     action : (player) => {
-        player.flags.upper_route_quest_11_after_03 = true;
-        player.flags.upper_route_quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest_11_after_03 = true;
+        player.flags.quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest11_after_blackRedBlood = true;
         savePlayer(player);
 
         startScene([
@@ -2032,9 +2033,10 @@ window.EVENTS.push({
                     "<br><br>발렌의 배려 때문인 걸까. 귀족들과의 대화는 그렇게 어렵지는 않았다. 귀족들과의 담소를 마친 당신은 발렌과 함께 집무실로 걸어갔다. 그는 당신에게 마을 입구에서의 소동은 자신의 실수였다고 말했다." +
                     "<br><br>\"끈질기게 쫓아오는 반란군들이 있길래 실험을 좀 했습니다. 안타깝게도 한 명이 완전히 시체가 되기 전에 도망친 모양입니다.\"<br><br>" +
                     "그는 손가락으로 탁자를 톡톡 두드리며, 반란군들이 또 방해를 하는 것 같다고 말했다." +
-                    "<br><br>\"...반란군들이 움직일 때 당신도 움직여줬으면 합니다.\"<br><br>" +
-                    "그는 반란군이라면 가장 마지막까지 가려고 할 거라고 말했다. 그리고 가장 마지막에 있는 건 절대 죽이면 안 된다고 그는 말했다." +
-                    "<br><br>\"그 시체는 백색 성벽에 생명력을 부여해줄 겁니다. 절대로 망가지면 안 됩니다. 언제나처럼 믿고 있겠습니다, 상류도시의 영웅.\""
+                    "<br><br>\"물론, 다 끝난 일입니다. 이미 그곳에서 해야 했던 실험들은 전부 끝났습니다. 다만...\"<br><br>" +
+                    "발렌은 미소를 지었다." +
+                    "<br><br>\"당신도 그 결과를 봐주셨으면 합니다. 다른 누구도 아닌 당신이니까요.\"<br><br>" +
+                    "그는 반란군 세력이 움직일 때 같이 움직여달라고 말했다." 
                 ]
             }
         ], player, {

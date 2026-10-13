@@ -1452,6 +1452,27 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "deric_after_quest_12_intro_02",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "twinsMansion"  &&
+        player.flags?.common_route_quest_12_intro_02 &&
+        getCurrentDay(player) <= (player.flags.common_route_quest_12_intro_02_day + 2),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["deric"].scenes.deric_after_quest_12_intro_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //아카시아
 window.EVENTS.push({
     id : "akasia_uppercity_story_02_after_affection_event",
@@ -3153,6 +3174,29 @@ window.EVENTS.push({
     action: (player) => {
         startScene(
             NPC_DATA["aiden"].scenes.aiden_hisSight_04,
+            player,
+            {
+                onEnd: () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
+window.EVENTS.push({
+    id: "aiden_hisSight_05",
+    once: true,
+
+    condition: (player) =>
+        player.justMoved &&
+        player.flags?.uppercityHero &&
+        player.flags?.common_route_quest_12_intro_02 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_12_intro_02_day + 3) &&
+        NPC_DATA["aiden"].emotion.affection >= 20 &&
+        player.location === "townStreet",
+
+    action: (player) => {
+        startScene(
+            NPC_DATA["aiden"].scenes.aiden_hisSight_05,
             player,
             {
                 onEnd: () => startScene(getLocationScene(player), player)

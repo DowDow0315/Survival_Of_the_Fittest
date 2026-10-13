@@ -608,8 +608,8 @@ window.EVENTS.push({
         getCurrentDay(player) >= (player.flags.neutral_route_quest_11_after_02_day + 3),
 
     action : (player) => {
-        player.flags.neutral_route_quest_11_after_03 = true;
-        player.flags.neutral_route_quest_11_after_03_day = getCurrentDay(player);
+        player.flags.quest_11_after_03 = true;
+        player.flags.quest_11_after_03_day = getCurrentDay(player);
         player.flags.quest11_after_blackRedBlood = true;
         savePlayer(player);
 
@@ -624,6 +624,72 @@ window.EVENTS.push({
                     "\"젠장...\"<br><br>" +
                     "경계병들과 경비병들 욕 사이로, 반란군의 욕도 들렸다. 대체 거기서 무슨 일이 벌어지고 있는 거야... 당신과 시선이 마주친 반란군이 입술을 악물었다. 그는 곧 어둠 속으로 사라졌다."
                 ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_12_intro_01",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "richTownStreet" &&
+        player.flags?.quest_11_after_03 &&
+        getCurrentDay(player) >= (player.flags.quest_11_after_03_day + 3),
+
+    action : (player) => {
+        player.flags.common_route_quest_12_intro_01 = true;
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "부유한 거리에서 당신은 데릭을 보았다. 그의 발걸음은 빨랐고 천국의 성을 향하고 있었다. 당신이 데릭을 잡기도 전에 데릭은 천국의 성으로 들어가버렸다."
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});
+
+window.EVENTS.push({
+    id : "common_route_quest_12_intro_02",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "heavenRoad" &&
+        player.flags?.common_route_quest_12_intro_01,
+
+    action : (player) => {
+        player.flags.common_route_quest_12_intro_02 = true;
+        player.flags.common_route_quest_12_intro_02_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "당신은 천국의 성으로 들어가려고 했지만 에이든이 당신의 앞을 막았다. 그는 말없이 당신을 바라보다가 고개를 숙이며 지금은 천국의 성에 들어갈 수 없다고 말했다." +
+                    "<br><br>\"발렌 님의 명령입니다.\"<br><br>" +
+                    "에이든은 발렌의 명령보다 우선되는 건 없다고 말하며 당신을 단호하게 막아섰다. 에이든이 당신을 막아서자 주변에 있던 백색 군인들도 당신을 막아섰다. 그 순간, 안에서 무언가가 우수수 깨지는 소리가 들렸다." +
+                    "<br><br>\"돌아가십시오.\"<br><br>" +
+                    "...에이든은 끝까지 당신을 들여보내주지 않았다. 어느 정도 상황이 정리가 된 후에야 에이든은 자리를 비켜주었다." +
+                    "<br><br>당신의 예상대로, 천국의 성은 마치 아무 일도 없었던 것처럼 고요했다."
+                ]
+            },
+            {
+                type : "effect",
+                run : (player) => {
+                    passTime(player, 10);
+                    savePlayer(player);
+                }
             }
         ], player, {
             onEnd : () => startScene(getLocationScene(player), player)

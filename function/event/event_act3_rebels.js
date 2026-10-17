@@ -2875,3 +2875,98 @@ window.EVENTS.push({
         });
     }
 });
+
+window.EVENTS.push({
+    id : "rebel_route_quest_12_intro_03",
+    priority : true,
+    once : true,
+
+    condition : (player) =>
+        player.location === "shleter" &&
+        player.flags?.act3_rebel_route &&
+        ["night", "dawn"].includes(getTimePeriod(player)) &&
+        player.flags?.common_route_quest_12_intro_02 &&
+        getCurrentDay(player) >= (player.flags.common_route_quest_12_intro_02_day + 3),
+
+    action : (player) => {
+        player.flags.rebel_route_quest_12_intro_03 = true;
+        player.flags.rebel_route_quest_12_intro_03_day = getCurrentDay(player);
+        savePlayer(player);
+
+        startScene([
+            {
+                type : "text",
+                value : [
+                    "쉘터에 들어온 당신은 큰 소리를 들었다. 쉘터의 아이들은 큰 소리가 나자 무서워졌는지 당신에게로 달려들어 안겼다. 익숙한 목소리다. 방안에서 아이들이 무서워할 정도로 다투고 있는 사람은 시온과.... 유리. 당신은 유리의 방으로 올라갔다." +
+                    "<br><br>\"이번에도 영웅 님을 보내려고 하는 거라면, 전 더 이상 반란군을 가만두지 않을 거예요.\"<br><br>" +
+                    "\"시온. 누군가의 선택을 사랑한다는 이유로 막아설 수는 없어. 그건 사랑이 아니야.\"<br><br>" +
+                    "\"그럼 그냥 이용당하는 걸 가만히 둬요? 형이 하는 건 방치야.\"<br><br>" +
+                    "아이들에게는 그렇게 간섭하면서, 시온은 유리에게 한 걸음 다가갔다. 당신은 시온의 어깨가 전보다 더 넓어진 것 같다는 생각을 했다." +
+                    "<br><br>\"유리 형도 그저, 영웅 님을 갉아먹는 기생충들 중 하나야. 당신은 이미 퇴물이야. 영웅님의 강함에만 기대고 있으면서 소꿉친구라고 하다니, 나는 당신을 용서할 수가 없어.\"<br><br>" +
+                    "<span class='log-sion'>당신만큼은 절대로....</span><br><br>" +
+                    "당신은 시온의 손이 대검 손잡이에 닿는 것을 보았다!"
+                ]
+            },
+            {
+                type : "choice",
+                choices : [
+                    {
+                        text : "당신은 시온을 막아섰다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신이 시온을 막아서자 시온의 얼굴은 지금까지 본 적 없을 정도로 험하게 일그러졌다. 그는 대검 손잡이에서 손을 떼더니 당신의 어깨를 잡았다. 처음에는 순간 강하게, 하지만 바로 손에서 힘을 풀며 당신을 아프게 하지 않았다." +
+                                    "<br><br>\"유리 형이 소꿉친구라서 그러는 거예요?\"<br><br>" +
+                                    "시온의 장밋빛 눈동자에서 눈물이 뚝뚝 흘렀다." +
+                                    "<br><br>\"왜 영웅님은 제 마음을 몰라주는 거예요? 모두가... 당신의 안전이 아니라 당신이 가져올 이익에 집중하고 있잖아요. 영웅님이 다치면, 그들은 책임을 지지 않을 거라고요.\"<br><br>" +
+                                    "그는 울음을 터뜨렸다." +
+                                    "<br><br>\"영웅님은 잔인하세요.\"<br><br>" +
+                                    "일그러진 목소리가 그의 도톰한 입술에서 새어나온다. 시온은 당신의 어깨를 놓더니 그대로 터덜터덜 걸어갔다. 유리는 당신에게 미안하다고 말했다." +
+                                    "<br><br>\"...내가 더 강해질게, {yuriTitle}.\""
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", 3);
+                                    changeNPCEmotion("sion", "affection", -10);
+                                    changeNPCEmotion("sion", "dominance", -5);
+                                    changeNpcSuspicion("sion", 10);
+                                    player.flags.darkSionReady = true;
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        text : "딩신은 시온을 막지 않았다.",
+                        scene : [
+                            {
+                                type : "text",
+                                value : [
+                                    "당신은 시온을 막지 않았지만, 고아원의 아이들이 먼저 움직였다. 당신을 뒤따라온 아이들은 우는 얼굴로 시온에게 달려들었다. 그들 중 몇 명은 유리의 앞을 용감하게 가로막으며 시온에게 유리 형/오빠를 다치게 하지 말라고 울부짖었다. 시온은 그들을 차갑게 식은 눈으로 바라보다가 당신을 보았다." +
+                                    "<br><br>\"저는 영웅님이 다치지 않았으면 좋겠어요. 반란군은... 당신을 너무 다치게 해요.\"<br><br>" +
+                                    "약하면 어느 정도 융통성이라도 가져야 하는데 그런 건 하나도 없고, 오로지 당신이라는 변수에 기대서 그들의 힘으로는 이룰 수도 없는 대의를 주장하는 모습이.... 징그러워. 시온은 낮게 중얼거리더니 유리에게서 등을 돌렸다. 유리는 자신의 앞을 가로막은 아이들을 끌어안고 달래기에 바빴다. 그는 아이들에게 다시는 자신을 지키려고 하지 말라고 말했다." +
+                                    "<br><br>\"나는 강하잖아, 알지?\"<br><br>" +
+                                    "\"하지만 요새 유리 오빠는... 점점 마르고 있는 걸.\"<br><br>" +
+                                    "아이들의 눈에도 보일 정도로 유리는 살이 빠지고 있었다. 유리는 아니라고 말하며 아이들을 달래주었다. 당신과 시선이 마주친 유리는 자신은 괜찮다는 듯 고개를 끄덕여보였다." 
+                                ]
+                            },
+                            {
+                                type : "effect",
+                                run : (player) => {
+                                    changeNPCEmotion("yuri", "affection", -3);
+                                    changeNPCEmotion("sion", "dominance", 3);
+                                    savePlayer(player);
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], player, {
+            onEnd : () => startScene(getLocationScene(player), player)
+        });
+    }
+});

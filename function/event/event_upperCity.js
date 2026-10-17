@@ -673,6 +673,27 @@ window.EVENTS.push({
     }
 });
 
+window.EVENTS.push({
+    id : "valen_after_quest_12_intro_02",
+    once : true,
+    priority : true,
+
+    condition : (player) =>
+        player.location === "heavenValenRoom"  &&
+        player.flags?.common_route_quest_12_intro_02 &&
+        getCurrentDay(player) <= (player.flags.common_route_quest_12_intro_02_day + 2),
+
+    action : (player) => {
+        startScene(
+            NPC_DATA["valen"].scenes.valen_after_quest_12_intro_02,
+            player,
+            {
+                onEnd : () => startScene(getLocationScene(player), player)
+            }
+        );
+    }
+});
+
 //데릭
 function deric_repeat_date_bad_clothes(player){
     player.flags = player.flags || {};
@@ -3191,6 +3212,7 @@ window.EVENTS.push({
         player.flags?.uppercityHero &&
         player.flags?.common_route_quest_12_intro_02 &&
         getCurrentDay(player) >= (player.flags.common_route_quest_12_intro_02_day + 3) &&
+        getCurrentDay(player) <= (player.flags.common_route_quest_12_intro_02_day + 7) &&
         NPC_DATA["aiden"].emotion.affection >= 20 &&
         player.location === "townStreet",
 
